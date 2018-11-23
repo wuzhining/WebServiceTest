@@ -30,16 +30,15 @@ public class DflDipService {
 	}
 
 	public  String startInsert(Object data) throws Exception {
-//		List<String> dataList = new ArrayList<>();
-//		new ArrayList<>().add((String) data);
+		//将数据转化为jsonArray格式
 		List<String> dataList = new ArrayList<>();
 		dataList.add((String) data);
 
-		JSONArray jsonArray = new JSONArray(dataList);
+//		JSONArray jsonArray = new JSONArray(dataList);
 
 		DBHelper dbhelper = new DBHelper();
 		try {
-			JSONObject jsonObject = new JSONObject(jsonArray.getString(0));
+			JSONObject jsonObject = new JSONObject(new JSONArray(dataList).getString(0));
 
 			ScadaDfldip scadaDf = new ScadaDfldip();
 			scadaDf.setStationName(jsonObject.get("stationname").toString());
@@ -66,7 +65,7 @@ public class DflDipService {
 				scadaDf.setUploadTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSSSS").format(new Date()));
 
 				List<Object> list = new ArrayList<Object>();
-//			list.add(scada);
+				
 				list.add(scadaDf.getUploadTime());
 				list.add(scadaDf.getMachineName());
 				list.add(scadaDf.getStationName());
