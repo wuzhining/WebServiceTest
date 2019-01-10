@@ -8,33 +8,42 @@ import java.util.List;
 import javax.jws.WebMethod;
 import javax.jws.WebService;
 
+import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.mes.jax.service.DBHelper;
-
 import org.mes.jax.model.ScadaDfldip;
+import org.mes.jax.utils.DBHelper;
 
 @WebService
 public class DflDipService {
 	private static String message = null;
 
+	//如果直接 className.class 日志输出到全局的 即rootLogger 指定的文件中
+	Logger logger = Logger.getLogger(DflDipService.class.getName());
+	//如果指定logger名字，则是把日志，输出到pay-log 指定的日志文件中去
+//	   Logger logger = Logger.getLogger(“pay-log”);
+	/**
+	 * 该方法为外部程序调用的方法
+	 */
 	@WebMethod
-	public  String doService(Object data) {
+	public String doService(Object data) {
 		try {
 			message = startInsert(data);
 		} catch (Exception e) {
+			logger.error("提交数据时发生错误！",e);
 			e.printStackTrace();
 		}
 		return message;
 	}
 
-	public  String startInsert(Object data) throws Exception {
-		//将数据转化为jsonArray格式
+	/**
+	 * 插入数据
+	 */
+	public String startInsert(Object data) throws Exception {
+		// 将数据转化为jsonArray格式
 		List<String> dataList = new ArrayList<>();
 		dataList.add((String) data);
-
-//		JSONArray jsonArray = new JSONArray(dataList);
 
 		DBHelper dbhelper = new DBHelper();
 		try {
@@ -65,7 +74,7 @@ public class DflDipService {
 				scadaDf.setUploadTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSSSS").format(new Date()));
 
 				List<Object> list = new ArrayList<Object>();
-				
+
 				list.add(scadaDf.getUploadTime());
 				list.add(scadaDf.getMachineName());
 				list.add(scadaDf.getStationName());
@@ -91,16 +100,18 @@ public class DflDipService {
 						+ "PARAMTYPE,UNITS,VALUETYPE,ADJVALUE,LOWLIMIT,UPPLIMIT,PARAMGUID,PARAMRESULT,PARAMMSG) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 				try {
 					dbhelper.excuteUpdate(sql, list);
-					message = "sucess";
+					message = "数据保存成功！";
 				} catch (Exception e) {
 					e.printStackTrace();
-					message = "false";
+					logger.error("保存数据时发生错误！",e);
+					message ="保存数据时发生错误！";
 				}
 			}
 
 		} catch (JSONException e) {
 			e.printStackTrace();
-			message = "false";
+			logger.error("解析数据时发生错误！",e);
+			message = "解析数据时发生错误！";
 		}
 		return message;
 	}

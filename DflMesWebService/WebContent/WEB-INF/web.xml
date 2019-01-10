@@ -25,4 +25,23 @@
 		<servlet-name>DflDipWebService</servlet-name>
 		<url-pattern>/DflDipWebService</url-pattern>
 	</servlet-mapping>
+	
+	<!-- <servlet>
+		<servlet-name>ScadaPrdstsService</servlet-name>
+		<servlet-class>com.sun.xml.ws.transport.http.servlet.WSServlet</servlet-class>
+		<load-on-startup>2</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ScadaPrdstsService</servlet-name>
+		<url-pattern>/ScadaPrdstsService</url-pattern>
+	</servlet-mapping> -->
+	
+	<servlet>
+  <servlet-name>Log4jInit</servlet-name>
+  <servlet-class>com.tchzt.logTest.Log4jInit</servlet-class>
+  <init-param>
+   <param-name>log4j</param-name><!-- 这个是名字是下边路径配置的标识（好像KEY一样） -->
+   <param-value>/WEB-INF/classes/log4j.properties</param-value><!-- 这是容器初始化时候加载log4j配置文件的路径（这好像一个value）; -->
+  </init-param>
+ </servlet>
 </web-app>

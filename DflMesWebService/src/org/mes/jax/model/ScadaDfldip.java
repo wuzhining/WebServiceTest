@@ -5,45 +5,45 @@ import java.io.Serializable;
 public class ScadaDfldip implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private String adjValue;
+	private String adjValue="";
 
-	private String ipAddress;
+	private String ipAddress="";
 
-	private String lowlimit;
+	private String lowlimit="";
 
-	private String machineModel;
+	private String machineModel="";
 
-	private String machineName;
+	private String machineName="";
 
-	private String paramDesc;
+	private String paramDesc="";
 
-	private String paramGuid;
+	private String paramGuid="";
 
-	private String paramMsg;
+	private String paramMsg="";
 
-	private String paramName;
+	private String paramName="";
 
-	private String paramNo;
+	private String paramNo="";
 
-	private String paramResult;
+	private String paramResult="";
 
-	private String paramType;
+	private String paramType="";
 
-	private String paramValue;
+	private String paramValue="";
 
-	private String skuNo;
+	private String skuNo="";
 
-	private String stationName;
+	private String stationName="";
 
-	private String supplier;
+	private String supplier="";
 
-	private String units;
+	private String units="";
 
-	private String uploadTime;
+	private String uploadTime="";
 
-	private String upplimit;
+	private String upplimit="";
 
-	private String valueType;
+	private String valueType="";
 
 	public ScadaDfldip() {
 	}
