@@ -1,0 +1,1340 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="">
+	    <!-- A7 报警管理 -->
+	    <!-- A7.1 班组信息-->	   
+	    <!-- 查询班组信息 1-->
+	    <select id="queryTeamInfo" parameterType="hashmap" resultType="java.util.HashMap"> 
+	    	<include refid="oraclePagingFileTop"></include>
+	    			T1.AT_CD,                            
+					T1.AT_NM,                         
+					T1.AC_CD,
+					T2.AC_NM,                        
+					T1.USE_YN,                        
+					T1.AT_RM,                        
+					T1.CRT_ID,                        
+					TO_CHAR(T1.CRT_DT,'YYYY-MM-DD HH24:MI:SS') AS CRT_DT,                        
+					T1.CRT_IP,                        
+					T1.UPT_ID,                        
+					TO_CHAR(T1.UPT_DT,'YYYY-MM-DD HH24:MI:SS') AS UPT_DT,   
+					T1.UTP_IP    			
+		    	   FROM <include refid="iplant"></include>C_IPLANT_A1_T T1
+		    	   LEFT JOIN <include refid="iplant"></include>C_IPLANT_A8_T T2
+		    	   ON T1.AC_CD=T2.AC_CD    	   
+	    	   <where> 1=1
+	            	<if test="AT_CD!=null and AT_CD!='' ">
+	            		AND T1.AT_CD='${AT_CD}'
+	            	</if>
+	            	<if test="AT_NM!=null and AT_NM!='' ">
+	            	    AND T1.AT_NM LIKE '%${AT_NM}%'
+	            	</if>
+	            	<if test="AC_NM!=null and AC_NM!='' ">
+	            	    AND T2.AC_NM LIKE '%${AC_NM}%'
+	            	</if>
+	            	<if test="USE_YN!=null and USE_YN!='' ">
+	            		AND T1.USE_YN='${USE_YN}'
+	            	</if>
+	            	
+	           </where>
+	        <include refid="oraclePagingFileBottom"></include>	    			
+	    </select>
+	    <!-- 查询班组分页总数 -->
+	    <select id="queryTeamInfo_COUNT" parameterType="hashmap" resultType="java.util.HashMap"> 
+	    		SELECT
+	    			COUNT(1) AS ROWS_COUNT
+	    		FROM <include refid="iplant"></include>C_IPLANT_A1_T T1	
+	    		LEFT JOIN <include refid="iplant"></include>C_IPLANT_A8_T T2
+		    	   ON T1.AC_CD=T2.AC_CD    	   	    	 
+	    	    <where> 1=1
+	            	<if test="AT_NM!=null and AT_NM!='' ">
+	            	    AND T1.AT_NM LIKE '%${AT_NM}%'
+	            	</if>
+	            	<if test="USE_YN!=null and USE_YN!='' ">
+	            		AND T1.USE_YN='${USE_YN}'
+	            	</if>
+	            	<if test="AC_NM!=null and AC_NM!='' ">
+	            	    AND T2.AC_NM LIKE '%${AC_NM}%'
+	            	</if>
+	            	<if test="AC_CD!=null and AC_CD!='' ">
+	            		AND T1.AC_CD='${AC_CD}'
+	            	</if>	
+	            </where>
+	    </select>    
+		<!-- 新增班组信息 -->
+		    <insert id="insertTeamInfo" parameterType="hashmap"> 
+		    		INSERT INTO 
+		            	<include refid="iplant"></include>C_IPLANT_A1_T
+		            	  		(
+		            	  		AT_CD,                            
+								AT_NM,                         
+								AC_CD,                        
+								USE_YN,                        
+								AT_RM,                        
+								CRT_ID,                        
+								CRT_DT,                        
+								CRT_IP                      								
+		            	  		 )
+		            	  	  VALUES
+		            	  		(
+		            	  		 '${AT_CD}',
+		            	  		 '${AT_NM}',
+		            	  		 '${AC_CD}',	            	  		 
+		            	  		 '${USE_YN}',
+		            	  		 '${AT_RM}',
+		            	  		 '${F_USE_CD}',	            	  
+		            	  		 SYSDATE,
+		            	  		 '${CRT_IP}'	            	  		 
+		                 	     )	         
+		    </insert>     
+		<!-- 修改班组信息--> 
+		    <update id="updateTeamInfo" parameterType="hashmap"> 
+		    		UPDATE <include refid="iplant"></include>C_IPLANT_A1_T
+		            	<set>	            	 		                   
+		                   <if test="AT_NM!=null">
+		                       AT_NM='${AT_NM}',
+		                   </if>
+		                   <if test="AC_CD!=null">
+	 						   AC_CD='${AC_CD}',	                   
+		                   </if>
+		                   <if test="USE_YN!=null">
+		                   	   USE_YN='${USE_YN}',
+		                   </if>
+		                   <if test="AT_RM!=null">
+		                   	   AT_RM='${AT_RM}',
+		                   </if>		                  
+		                   	    UPT_ID='${F_USE_CD}',
+				    			UPT_DT=SYSDATE,
+				    			UTP_IP='${UTP_IP}'                  	                      
+		            	</set>
+			            <where>
+		                   AT_CD='${AT_CD}'
+		            	</where>	    
+		    </update>
+		<!-- 删除班组信息 -->
+		    <delete id="deleteTeamInfo" parameterType="hashmap"> 
+		             DELETE <include refid="iplant"></include>C_IPLANT_A1_T
+		             	<where>  
+		             	    AT_CD='${AT_CD}'
+		             	</where>
+		    </delete>
+		    
+		<!-- 查询未分班组人员表 -->
+		    <select id="queryNoneTeamInfo" parameterType="hashmap" resultType="java.util.HashMap" > 
+		            SELECT 
+		                T1.EMP_CD,
+		                T1.EMP_NM 
+		            FROM <include refid="iplant"></include>C_IPLANT_E1_T T1 
+		            WHERE 1=1		             
+                    AND NOT EXISTS(                                    
+                                   SELECT * FROM iplant1.C_IPLANT_A2_T T2
+                                   <where> 
+                                        T2.EMP_CD = T1.EMP_CD
+                                      <if test="AT_CD !=null and AT_CD !='' ">
+                                         AND T2.AT_CD='${AT_CD}'
+                                      </if>	                                                                                                                           
+                                   </where>
+                                   )
+                                     <if test="EMP_NM !=null and EMP_NM !='' ">
+										AND T1.EMP_NM like '%${EMP_NM}%'
+								     </if>                                 
+                                    
+        	</select>
+		        
+	    <!-- 查询班组明细 -->
+		    <select id="queryTeamInfoDetail" parameterType="hashmap" resultType="java.util.HashMap"> 
+		    	<include refid="oraclePagingFileTop"></include>
+		    			AT_CD,                        
+						EMP_CD,                        
+						EMP_NM,                        
+						CRT_ID,                        
+						TO_CHAR(CRT_DT,'YYYY-MM-DD HH24:MI:SS') AS CRT_DT,                       
+						CRT_IP,                      
+						UPT_ID,                        
+						TO_CHAR(UPT_DT,'YYYY-MM-DD HH24:MI:SS') AS UPT_DT,                         
+						UPT_IP	    			
+			    	   FROM <include refid="iplant"></include>C_IPLANT_A2_T		    	   
+		    	   <where> 1=1
+		            	<if test="AT_CD!=null and AT_CD!='' ">
+		            		AND AT_CD='${AT_CD}'
+		            	</if>		            	
+		           </where>
+		        <include refid="oraclePagingFileBottom"></include>	    			
+		    </select>   
+	    <!-- 查询班组明细分页总数 -->
+		    <select id="queryTeamInfoDetail_COUNT" parameterType="hashmap" resultType="java.util.HashMap"> 
+		    		SELECT COUNT(1) AS ROWS_COUNT FROM <include refid="iplant"></include>C_IPLANT_A2_T		    	 
+		    	    <where> 1=1
+		            	<if test="AT_CD!=null and AT_CD!='' ">
+		            		AND AT_CD='${AT_CD}'
+		            	</if>		            	
+		            </where>
+		    </select>    
+		<!-- 新增班组明细 -->
+		    <insert id="insertTeamInfoDetail" parameterType="hashmap"> 
+				INSERT INTO 
+		            	<include refid="iplant"></include>C_IPLANT_A2_T
+		            	  		(
+		            	  		AT_CD,                        
+								EMP_CD,                        
+								EMP_NM,                        
+								CRT_ID,                        
+								CRT_DT                        								                     
+	            	  		 )
+			            	  (
+					         <foreach collection="list" item="item" index="index" separator="union all">
+					             SELECT 			        
+						        '${item.AT_CD}'  ,
+						        '${item.EMP_CD}' ,
+						        '${item.EMP_NM}'  ,
+						        '${item.F_USE_CD}' ,
+						         SYSDATE						       
+						        FROM DUAL								       				
+					         </foreach>
+					          )             
+		    </insert>   
+	    <!-- 修改班组明细--> 
+	    <delete id="updateTeamInfoDetail" parameterType="hashmap"> 
+	    		DELETE <include refid="iplant"></include>C_IPLANT_A2_T
+		             	<where>
+		             		AT_CD='${AT_CD}'		             		
+		             	</where>  
+	    </delete> 
+		<!-- 删除班组明细 -->
+		    <delete id="deleteTeamInfoDetail" parameterType="hashmap"> 
+		             DELETE C_IPLANT_A2_T
+		             	<where>
+		             		AT_CD='${AT_CD}'
+		             	</where>
+		    </delete>
+		    
+		<!-- A7.2  报警配置-->
+		<!-- 查询报警配置信息 -->
+		    <select id="queryAlertConfiguration" parameterType="hashmap" resultType="java.util.HashMap" > 		    	
+		    </select>	     
+		<!-- 新增报警配置信息 -->
+		    <insert id="insertAlertConfiguration" parameterType="hashmap">		    		    		         
+		    </insert> 		    		  
+		<!-- 修改报警配置信息--> 
+		    <update id="updateAlertConfiguration" parameterType="hashmap">		    		
+		    </update>
+		<!-- 删除报警配置信息--> 
+		    <update id="deleteAlertConfiguration" parameterType="hashmap">		    		
+		    </update>
+	    
+		<!-- A7.3  报警信息-->
+		<!-- 报警消息查询 -->
+		    <select id="queryAlarmNews" parameterType="hashmap" resultType="java.util.HashMap" > 
+		    	
+		    </select> 
+		<!-- 修改报警消息--> 
+		    <update id="updateAlarmNews" parameterType="hashmap"> 
+		    </update>
+		<!-- 新增报警消息--> 
+		    <insert id="insertAlarmNews" parameterType="hashmap"> 
+		    </insert>
+		<!-- 删除报警消息--> 
+		    <delete id="deleteAlarmNews" parameterType="hashmap"> 
+		    </delete>
+		    
+		<!-- A7.4  报警项目-->
+		<!-- 报警项目查询 -->
+		    <select id="queryAlarmTypeList" parameterType="hashmap" resultType="java.util.HashMap"> 
+		    	<include refid="oraclePagingFileTop"></include>
+		    			AP_CD,                           
+						AP_NM,                       
+						USE_YN,                         
+						AP_EP,                        
+						AP_TP,                        
+						AP_PD,                         
+						AP_RM    			
+			    	   FROM <include refid="iplant"></include>C_IPLANT_A3_T		    	   
+		    	   <where> 1=1
+		            	<if test="AP_CD!=null and AP_CD!='' ">
+		            		AND AP_CD='${AP_CD}'
+		            	</if>
+		            	<if test="AP_NM!=null and AP_NM!='' ">
+		            		AND AP_NM LIKE '%${AP_NM}%'
+		            	</if>		            	
+		           </where>
+		        <include refid="oraclePagingFileBottom"></include>	    			
+		    </select>   
+	    <!-- 查询班组明细分页总数 -->
+		    <select id="queryAlarmTypeList_COUNT" parameterType="hashmap" resultType="java.util.HashMap"> 
+		    	SELECT COUNT(1) AS ROWS_COUNT FROM <include refid="iplant"></include>C_IPLANT_A3_T		    	 
+		    	    <where> 1=1
+		            	<if test="AP_CD!=null and AP_CD!='' ">
+		            		AND AP_CD='${AP_CD}'
+		            	</if>
+		            	<if test="AP_NM!=null and AP_NM!='' ">
+		            		AND AP_NM LIKE '%${AP_NM}%'
+		            	</if>		            	
+		            </where>
+		    </select> 
+		<!-- 修改报警项目--> 
+	        <update id="updateAlarmTypeList" parameterType="hashmap"> 
+	        		UPDATE <include refid="iplant"></include>C_IPLANT_A3_T
+	            	<set>	            	 		                   
+	                   <if test="AP_NM!=null">
+	                       AP_NM='${AP_NM}',
+	                   </if>
+	                   <if test="USE_YN!=null">
+ 						   USE_YN='${USE_YN}',	                   
+	                   </if>
+	                   <if test="AP_EP!=null">
+ 						   AP_EP='${AP_EP}',	                   
+	                   </if>
+	                   <if test="AP_RM!=null">
+ 						   AP_RM='${AP_RM}',	                   
+	                   </if>
+	                   <if test="AP_TP!=null">
+ 						   AP_TP='${AP_TP}',	                   
+	                   </if>
+	                   <if test="AP_PD!=null">
+ 						   AP_PD='${AP_PD}'	                   
+	                   </if>			    						    					                   	                   	                      
+	            	</set>
+		            <where>
+	                   AP_CD='${AP_CD}'
+	            	</where>
+	        </update> 
+	    <!-- 新增报警项目--> 
+		    <insert id="insertAlarmTypeList" parameterType="hashmap">
+		    		INSERT INTO 
+		            	<include refid="iplant"></include>C_IPLANT_A3_T
+		            	  		(
+		            	  		AP_CD,                           
+								AP_NM,                        
+								USE_YN,                         
+								AP_EP,                       
+								AP_TP,                         
+								AP_PD,                         
+								AP_RM
+		            	  		 )
+		            	  	  VALUES
+		            	  		(
+		            	  		 '${AP_CD}',
+		            	  		 '${AP_NM}',
+		            	  		 '${USE_YN}',	            	  		 
+		            	  		 '${AP_EP}',
+		            	  		 '${AP_TP}',	            	  		 
+		            	  		 '${AP_PD}',
+		            	  		 '${AP_RM}'
+		                 	     ) 
+		    </insert>
+		<!-- 删除报警项目--> 
+		    <delete id="deleteAlarmTypeList" parameterType="hashmap">
+		    		DELETE <include refid="iplant"></include>C_IPLANT_A3_T
+		             	<where>
+		             		AP_CD='${AP_CD}'
+		             	</where> 
+		    </delete>
+		    
+		<!-- 报警配置班次配对表-->
+		<!-- 查询报警配置班次配对表 -->
+		    <select id="queryFrequencyPair" parameterType="hashmap" resultType="java.util.HashMap" > 
+		            SELECT 
+			              T1.AD_CD,
+			              T1.AT_CD,
+			              T2.AT_NM,			             
+			              T1.AD_HC
+		             FROM  <include refid="iplant"></include>C_IPLANT_A6_T T1
+		             LEFT JOIN <include refid="iplant"></include>C_IPLANT_A1_T T2
+		             ON T1.AT_CD=T2.AT_CD
+		             <where> 1=1
+		            	<if test="AD_CD !=null and AD_CD !='' ">
+		            		AND AD_CD='${AD_CD}'
+		            	</if>
+		            	<if test="AT_CD !=null and AT_CD !='' ">
+		            		AND AT_CD='${AT_CD}'
+		            	</if> 
+		            	<if test="AD_HC !=null and AD_HC !='' ">
+		            		AND AD_HC='${AD_HC}'
+		            	</if>  
+	            	 </where>
+		    </select> 
+		<!-- 查询报警配置班次未选择配对表 -->
+		    <select id="queryNoneFrequencyPair" parameterType="hashmap" resultType="java.util.HashMap" > 
+		            SELECT 
+		                T1.AT_CD,
+		                T1.AT_NM 
+		            FROM <include refid="iplant"></include>C_IPLANT_A1_T T1 
+		            WHERE 1=1 
+                    AND NOT EXISTS(                                    
+                                   SELECT * FROM <include refid="iplant"></include>C_IPLANT_A6_T T2
+                                   <where> 
+                                        T2.AT_CD = T1.AT_CD
+                                      <if test="AD_HC !=null and AD_HC !='' ">
+                                         AND AD_HC='${AD_HC}'
+                                      </if>
+                                      <if test="AD_CD !=null and AD_CD !='' ">
+                                         AND AD_CD='${AD_CD}' 
+                                      </if>               
+                                      )
+                                   </where>
+        </select>
+		<!-- 修改报警配置班次配对表--> 
+	        <delete id="updateFrequencyPair" parameterType="hashmap">
+	                 DELETE  <include refid="iplant"></include>C_IPLANT_A6_T
+	            	<where>
+	                   AD_CD='${AD_CD}'	                  
+	            	</where>      
+	        </delete> 
+	    <!-- 新增报警配置班次配对表--> 
+		    <insert id="insertFrequencyPair" parameterType="hashmap">
+		            INSERT INTO 
+                        <include refid="iplant"></include>C_IPLANT_A6_T 
+			                (
+			                   AD_CD,
+			                   AT_CD,
+			                   AT_NM,                                                       
+			                   AD_HC 
+			                 )
+			                 (
+			                 <foreach collection="list" item="item" index="index" separator="union all">
+			                     SELECT               
+			                  '${item.AD_CD}' ,
+			                  '${item.AT_CD}' ,
+			                  '${item.AT_NM}' ,
+			                  '${item.AD_HC}'  
+			                  FROM DUAL                             
+			                 </foreach>
+			                  )
+		    </insert>
+		<!-- 删除报警配置班次配对表--> 
+		    <delete id="deleteFrequencyPair" parameterType="hashmap">
+		            DELETE  <include refid="iplant"></include>C_IPLANT_A6_T
+		               <where>
+		             		AD_CD='${AD_CD}'
+		               </where>
+		    </delete> 
+		    
+		<!-- 报警配置机器配对表-->
+		<!-- 查询报警配置机器配对表 -->
+		    <select id="queryMachinePair" parameterType="hashmap" resultType="java.util.HashMap" >
+		            SELECT 
+			              T1.AD_CD,
+			              T1.ET_CD, 
+			              T2.ET_NM     
+		             FROM  <include refid="iplant"></include>C_IPLANT_A7_T T1
+		             LEFT JOIN <include refid="iplant"></include>C_IPLANT_E2_T T2 ON T1.ET_CD=T2.ET_CD  
+		             <where>
+		               <if test="AD_CD !=null and AD_CD !=''">
+		                   AD_CD='${AD_CD}'
+		               </if>
+		             </where>  
+		    </select>
+		<!-- 查询报警配置机器未选择配对表 -->
+		    <select id="queryNoneMachinePair" parameterType="hashmap" resultType="java.util.HashMap" >
+		            SELECT ET_CD,ET_NM 
+		            FROM <include refid="iplant"></include>C_IPLANT_E2_T T1 
+		            WHERE 1=1 
+                    AND NOT EXISTS(                                    
+                       SELECT * FROM <include refid="iplant"></include>C_IPLANT_A7_T T2
+                       <where> 
+                          T2.ET_CD = T1.ET_CD 
+                          <if test="AD_HC !=null and AD_HC !='' ">
+                             AND AD_HC='${AD_HC}'
+                          </if>
+                          <if test="AD_CD !=null and AD_CD !='' ">
+                             AND AD_CD='${AD_CD}' 
+                          </if> 
+                        </where>             
+                          )  
+		    </select>  
+		<!-- 修改报警配置机器配对表--> 
+	        <delete id="updateMachinePair" parameterType="hashmap">
+	                DELETE  <include refid="iplant"></include>C_IPLANT_A7_T
+	            	<where>
+	                   AD_CD='${AD_CD}'	                                      	
+	            	</where>  
+	        </delete> 
+	    <!-- 新增报警配置机器配对表--> 
+		    <insert id="insertMachinePair" parameterType="java.util.List">
+		            INSERT INTO 
+		                <include refid="iplant"></include>C_IPLANT_A7_T
+		                     (
+		                       AD_CD,
+		                       ET_CD
+		                     )		               
+		                     (
+		                      <foreach collection="list" item="item" index="index" separator="union all">
+		                      	SELECT
+			                      '${item.AD_CD}',
+			                      '${item.ET_CD}'
+			                    FROM DUAL
+		                      </foreach>
+		                     )
+		    </insert>
+		<!-- 删除报警配置机器配对表--> 
+		    <delete id="deleteMachinePair" parameterType="hashmap">
+		            DELETE  <include refid="iplant"></include>C_IPLANT_A7_T 
+		             <where>
+		                 AD_CD='${AD_CD}'
+		             </where>
+		    </delete>
+		    
+		<!-- 报警配置单条件表-->
+		<!-- 查询报警配置单条件表 -->
+		    <select id="queryAlarmSingleCondition" parameterType="hashmap" resultType="java.util.HashMap" >
+		            SELECT 
+			                AD_CD,
+							AP_CD,
+							AP_TP,
+							AD_HC,
+							AD_CN1,
+							AP_EP,
+							CRT_ID,
+							TO_CHAR(CRT_DT,'YYYY-MM-DD HH24:Mi:SS') AS CRT_DT,
+							CRT_IP,
+							UPT_ID,
+							TO_CHAR(UPT_DT,'YYYY-MM-DD HH24:Mi:SS') AS UPT_DT,
+							UPT_IP
+		             FROM  <include refid="iplant"></include>C_IPLANT_A4_T
+		             <where>
+		               <if test="AD_CD !=null and AD_CD !=''">
+		                   AD_CD='${AD_CD}'
+		               </if>
+		               <if test="AP_CD !=null and AP_CD !=''">
+		                   AP_CD='${AP_CD}'
+		               </if>
+		               <if test="AD_HC !=null and AD_HC !=''">
+		                   AD_HC='${AD_HC}'
+		               </if>
+		               <if test="AP_TP !=null and AP_TP !=''">
+		                   AP_TP='${AP_TP}'
+		               </if>
+		             </where>  
+		             ORDER BY 
+		    </select> 
+		<!-- 修改报警配置单条件表--> 
+	        <update id="updateAlarmSingleCondition" parameterType="hashmap">
+	                UPDATE  <include refid="iplant"></include>C_IPLANT_A4_T
+	                 <set>
+                        <if test="AP_CD !=null">
+	                        AP_CD='${AP_CD}',
+	                    </if>	                    	                   
+	                    <if test="AD_CN1 !=null">
+	                        AD_CN1='${AD_CN1}',
+	                    </if>
+	                    <if test="AP_EP !=null">
+	                        AP_EP='${AP_EP}',
+	                    </if>
+	                        UPT_ID='${F_USE_CD}',
+	                        UPT_DT=SYSDATE,
+	                        UPT_IP='${UPT_IP}'                    
+	                  </set>
+	                  <where>
+	                        AD_CD='${AD_CD}'
+	                        AND AP_TP='${AP_TP}' 
+	                        AND AD_HC='${AD_HC}'
+	                  </where>
+	        </update> 
+	    <!-- 新增报警配置单条件表--> 
+		    <insert id="insertAlarmSingleCondition" parameterType="hashmap">
+	            INSERT INTO <include refid="iplant"></include>C_IPLANT_A4_T
+	                    (AD_CD,
+						AP_CD,
+						AP_TP,
+						AD_HC,
+						AD_CN1,
+						AP_EP,
+						CRT_ID,
+						CRT_DT,
+						CRT_IP)
+	              VALUES
+	                    ('${AD_CD}',
+	                     '${AP_CD}',
+	                     '${AP_TP}',
+	                     '${AD_HC}',
+	                     '${AD_CN1}',
+	                     '${AP_EP}',
+	                     '${F_USE_CD}',
+	                     SYSDATE,
+	                     '${CRT_IP}')
+		    </insert>
+		<!-- 删除报警配置单条件表--> 
+		    <delete id="deleteAlarmSingleCondition" parameterType="hashmap">
+		            DELETE  <include refid="iplant"></include>C_IPLANT_A4_T 
+		             <where>
+		                 AD_CD='${AD_CD}'
+		             </where>
+		    </delete>
+		    
+		<!-- 报警配置双条件表-->
+		<!-- 查询报警配置双条件表 -->
+		    <select id="queryAlarmDoubleCondition" parameterType="hashmap" resultType="java.util.HashMap" >
+		            SELECT 
+			                AD_CD,
+							AP_CD,
+							AP_TP,
+							AD_HC,
+							AD_CN1,
+							AD_CN2,
+							AP_EP,
+							CRT_ID,
+							TO_CHAR(CRT_DT,'YYYY-MM-DD HH24:Mi:SS') AS CRT_DT,
+							CRT_IP,
+							UPT_ID,
+							TO_CHAR(UPT_DT,'YYYY-MM-DD HH24:Mi:SS') AS UPT_DT,
+							UPT_IP
+		             FROM  <include refid="iplant"></include>C_IPLANT_A5_T
+		             <where>
+		               <if test="AD_CD !=null and AD_CD !=''">
+		                   AD_CD='${AD_CD}'
+		               </if>
+		               <if test="AP_CD !=null and AP_CD !=''">
+		                   AP_CD='${AP_CD}'
+		               </if>
+		               <if test="AD_HC !=null and AD_HC !=''">
+		                   AD_HC='${AD_HC}'
+		               </if>
+		               <if test="AP_TP !=null and AP_TP !=''">
+		                   AP_TP='${AP_TP}'
+		               </if>
+		             </where>  
+		    </select> 
+		<!-- 修改报警配置双条件表--> 
+	        <update id="updateAlarmDoubleCondition" parameterType="hashmap">
+	                UPDATE  <include refid="iplant"></include>C_IPLANT_A5_T
+	                  <set>
+	                    <if test="AP_CD !=null">
+	                        AP_CD='${AP_CD}',
+	                    </if>	                    	                    
+	                    <if test="AD_CN1 !=null">
+	                        AD_CN1='${AD_CN1}',
+	                    </if>
+	                    <if test="AD_CN2 !=null">
+	                        AD_CN2='${AD_CN2}',
+	                    </if>
+	                    <if test="AP_EP !=null">
+	                        AP_EP='${AP_EP}',
+	                    </if>
+	                        UPT_ID='${F_USE_CD}',
+	                        UPT_DT=SYSDATE,
+	                        UPT_IP='${UPT_IP}'                    
+	                  </set>
+	                  <where>
+	                        AD_CD='${AD_CD}'
+	                        AND AP_TP='${AP_TP}'
+	                        AND AD_HC='${AD_HC}' 
+	                  </where>
+	        </update> 
+	    	<!-- 新增报警配置双条件表--> 
+		    <insert id="insertAlarmDoubleCondition" parameterType="hashmap">
+		            INSERT INTO 
+		                <include refid="iplant"></include>C_IPLANT_A5_T
+		                     (
+		                        AD_CD,
+								AP_CD,
+								AP_TP,
+								AD_HC,
+								AD_CN1,
+								AD_CN2,
+								AP_EP,
+								CRT_ID,
+								CRT_DT,
+								CRT_IP
+		                     )
+		               VALUES
+		                     (
+		                      '${AD_CD}',
+		                      '${AP_CD}',
+		                      '${AP_TP}',
+		                      '${AD_HC}',
+		                      '${AD_CN1}',
+		                      '${AD_CN2}',
+		                      '${AP_EP}',
+		                      '${F_USE_CD}',
+		                      SYSDATE,
+		                      '${CRT_IP}'
+		                     )
+		  </insert>
+		  <!-- 删除报警配置双条件表--> 
+		  <delete id="deleteAlarmDoubleCondition" parameterType="hashmap">
+		            DELETE  <include refid="iplant"></include>C_IPLANT_A5_T 
+		             <where>
+		                 AD_CD='${AD_CD}'
+		             </where>
+		    </delete>
+		  
+		  <!-- 查询设备树状结构 -->
+ 		  <select id="queryPLCDTree"  parameterType="hashmap" resultType="java.util.HashMap">
+ 		           SELECT 
+                          T1.ST_C_CD,  
+                          T1.ST_C_CD              AS ST_C_NM,
+                          T1.ST_P_CD,
+                          T1.ST_TP
+                          FROM <include refid="iplant"></include>C_IPLANT_S2_T T1
+					    <where>
+					    T1.ST_TP=2
+					    <if test="ST_P_CD!=null and ST_P_CD!='' ">
+	                    AND T1.ST_P_CD='${ST_P_CD}',
+	                   </if>
+	                   <if test="ST_C_CD!=null and ST_C_CD!='' ">
+	                    AND T1.ST_C_CD='${ST_C_CD}',
+	                   </if>
+					    </where>
+ 		  </select> 
+			<!-- 报警班次信息-->
+	 		<!-- 查询报警班次信息 -->
+		    <select id="queryTeamScheduleInfo" parameterType="hashmap" resultType="java.util.HashMap"> 
+		    	<include refid="oraclePagingFileTop"></include>
+		    			AC_CD,                           
+						AC_NM,                           
+						AC_BGN,                           
+						AC_END,                           
+						AC_ST,                         
+						USE_YN,                         
+						CRT_ID,                       
+						TO_CHAR(CRT_DT,'YYYY-MM-DD HH24:MI:SS') AS CRT_DT,                      
+						CRT_IP,                        
+						UPT_ID,                        
+						TO_CHAR(UPT_DT,'YYYY-MM-DD HH24:MI:SS') AS UPT_DT,                       
+						UPT_IP	    			
+			    	   FROM <include refid="iplant"></include>C_IPLANT_A8_T		    	   
+		    	   <where> 1=1
+		            	<if test="AC_CD!=null and AC_CD!='' ">
+		            		AND AC_CD='${AC_CD}'
+		            	</if>
+		            	<if test="AC_NM!=null and AC_NM!='' ">
+		            	    AND AC_NM LIKE '%${AC_NM}%'
+		            	</if>		            	
+		           </where>
+		           ORDER BY AC_CD DESC
+		        <include refid="oraclePagingFileBottom"></include>	    			
+		    </select>   
+	  	    <!-- 查询报警班次信息分页总数 -->
+		    <select id="queryTeamScheduleInfo_COUNT" parameterType="hashmap" resultType="java.util.HashMap"> 
+		    	SELECT COUNT(1) AS ROWS_COUNT FROM <include refid="iplant"></include>C_IPLANT_A8_T		    	 
+		    	    <where> 1=1
+		            	<if test="AC_CD!=null and AC_CD!='' ">
+		            		AND AC_CD='${AC_CD}'
+		            	</if>
+		            	<if test="AC_NM!=null and AC_NM!='' ">
+		            	    AND AC_NM LIKE '%${AC_NM}%'
+		            	</if>		            	
+		            </where>
+		    </select>  
+			<!-- 新增报警班次信息 -->
+		    <insert id="insertTeamScheduleInfo" parameterType="hashmap"> 
+		    		INSERT INTO 
+		            	<include refid="iplant"></include>C_IPLANT_A8_T
+		            	  		(
+		            	  		    AC_CD,                           
+									AC_NM,                           
+									AC_BGN, 
+									AC_END,                                                   
+									AC_ST,                         
+									USE_YN,                         
+									CRT_ID,                       
+									CRT_DT,                        
+									CRT_IP                        
+		            	  		 )
+		            	  	  VALUES
+		            	  		(
+		            	  		 '${AC_CD}',
+		            	  		 '${AC_NM}',
+		            	  		 '${AC_BGN}',
+		            	  		 '${AC_END}',	            	  		 
+		            	  		 '${AC_ST}',
+		            	  		 '${USE_YN}',
+		            	  		 '${F_USE_CD}',	            	  		 
+		            	  		  SYSDATE,
+		            	  		 '${CRT_IP}'
+		                 	     )	         
+		    </insert>   
+	    	<!-- 修改报警班次信息--> 
+		    <update id="updateTeamScheduleInfo" parameterType="hashmap"> 
+		    		UPDATE <include refid="iplant"></include>C_IPLANT_A8_T
+		            	<set>	            	 		                   
+		                   <if test="AC_NM!=null and AC_NM!='' ">
+		                        AC_NM='${AC_NM}',
+		                   </if>
+		                   <if test="AC_BGN!=null and AC_BGN!='' ">							
+							    AC_BGN ='${AC_BGN}',
+						   </if>
+						   <if test="AC_END!=null and AC_END!='' ">							
+							    AC_END ='${AC_END}',
+						   </if>
+		                   <if test="AC_ST!=null">
+		                        AC_ST='${AC_ST}',
+		                   </if>
+		                   <if test="USE_YN!=null">
+		                        USE_YN='${USE_YN}',
+		                   </if>	
+		                  <!--  <if test="UPT_ID!=null"> -->
+		                        UPT_ID='${F_USE_CD}',
+		                   <!-- </if>     -->			
+				    			UPT_DT=SYSDATE,
+				    			UPT_IP='${UPT_IP}'		                   	                   	                      
+		            	</set>
+			            <where>
+		                   AC_CD='${AC_CD}'
+		            	</where>	    
+		    </update> 
+			<!-- 删除报警班次信息 -->
+		    <delete id="deleteTeamScheduleInfo" parameterType="hashmap"> 
+		             DELETE <include refid="iplant"></include>C_IPLANT_A8_T
+		             	<where>
+		             		AC_CD='${AC_CD}'
+		             	</where>
+		    </delete>  	
+		    
+		    <!-- 查询报警信息(关联) -->
+		  	<select id="queryAlarmInfoGl" parameterType="hashmap" resultType="java.util.HashMap"> 
+			  	<include refid="oraclePagingFileTop"></include>	      
+			  	T6.* FROM (SELECT        
+					  T1.AI_ID,
+					  T1.AD_CD,
+					  T1.ET_CD,
+					  T2.ET_NM,
+					  T1.AP_CD,
+					  T3.AP_NM,
+					  T1.AD_HC,
+					  T1.EMP_CD,
+					  T1.EMP_NM,
+					  T1.CP_NO,
+					  T1.E_MAIL,
+					  T1.USE_CD,
+					  T1.AI_CT,					 
+					  CASE 
+					  	 WHEN T1.AI_ST='0' THEN '已生成'
+					  	 WHEN T1.AI_ST='1' THEN '发送中'
+					  	 WHEN T1.AI_ST='2' THEN '已发送'
+					  END AS AI_ST,
+					  TO_CHAR(T1.AI_SDT,'YYYY-MM-DD HH24:Mi:SS') AS AI_SDT,
+					  CASE 
+					  	 WHEN T1.AI_RV='0' THEN '未响应'
+					  	 WHEN T1.AI_RV='1' THEN '已响应'
+					  END AS AI_RV,
+					  TO_CHAR(T1.AI_RDT,'YYYY-MM-DD HH24:Mi:SS') AS AI_RDT,
+					  CASE 
+					  	WHEN T1.AI_RT='0' THEN '未处理'
+					  	WHEN T1.AI_RT='1' THEN '待处理'
+					  	WHEN T1.AI_RT='2' THEN '已处理'
+					  	WHEN T1.AI_RT='3' THEN '无法处理'
+					  	WHEN T1.AI_RT='4' THEN '更换备件'
+					  END AS AI_HD,
+					  TO_CHAR(T1.AI_CDT,'YYYY-MM-DD HH24:Mi:SS') AS AI_CDT,
+					  T1.AI_RT,
+					  T1.AI_RM,
+					  TO_CHAR(AI_HDT,'YYYY-MM-DD HH24:Mi:SS') AS AI_HDT,
+             	 	 (SUBSTR((SELECT iplant1.CHECK_CS_FUN(AI_CDT)    FROM  DUAL),0,1)) AS CS_CD,
+					  TO_CHAR(T1.CRT_DT,'YYYY-MM-DD HH24:Mi:SS') AS CRT_DT,
+					  NVL(T1.AI_EML,0) AS AI_EML,
+                      T1.AI_EDT,
+                      T4.EMP_NM AI_RS,
+                      T5.EMP_NM AI_HR
+					FROM <include refid="iplant_3"></include>H_IPLANT_A3_T    T1
+					LEFT JOIN <include refid="iplant"></include>C_IPLANT_E2_T T2
+					ON T1.ET_CD=T2.ET_CD
+					LEFT JOIN <include refid="iplant"></include>C_IPLANT_A3_T T3
+					ON T1.AP_CD=T3.AP_CD
+				    LEFT JOIN IPLANT1.C_IPLANT_E1_T T4 ON T4.EMP_CD = T1.AT_RS
+       		        LEFT JOIN IPLANT1.C_IPLANT_E1_T T5 ON T5.EMP_CD = T1.AT_HR
+					<where> 1=1
+					   <if test="StartDate!=null and StartDate!='' "> 
+						   AND T1.AI_SDT>=TO_DATE('${StartDate}','YYYY-MM-DD HH24:MI:SS') 
+					   </if> 
+					   <if test="EndDate!=null and EndDate!='' ">
+						   AND T1.AI_SDT&lt;=TO_DATE('${EndDate}','YYYY-MM-DD HH24:MI:SS') 
+					   </if>
+					   <if test="BegDate!=null and BegDate!='' "> 
+						   AND T1.AI_RDT>=TO_DATE('${BegDate}','YYYY-MM-DD HH24:MI:SS') 
+					    </if> 
+					    <if test="OverDate!=null and OverDate!='' ">
+						   AND T1.AI_RDT&lt;=TO_DATE('${OverDate}','YYYY-MM-DD HH24:MI:SS') 
+						</if>
+						<if test="AP_CD!=null and AP_CD!='' "> 
+							AND T1.AP_CD='${AP_CD}'
+						</if>
+						<if test="AP_NM!=null and AP_NM!='' ">	
+							AND T3.AP_NM LIKE '%${AP_NM}%'
+						</if>
+						<if test="AD_HC!=null and AD_HC!='' ">	
+							AND T1.AD_HC='${AD_HC}'
+						</if>	
+						<if test="ET_CD!=null and ET_CD!='' ">
+							AND T1.ET_CD='${ET_CD}'						
+						</if>
+						<if test="AI_RV!=null and AI_RV!='' ">
+							AND T1.AI_RV='${AI_RV}'
+						</if>						
+						<if test="AI_HD!=null and AI_HD!='' and AI_HD!= 0">
+							AND T1.AI_RT='${AI_HD}'
+						</if>
+						<if test="EMP_CD!=null and EMP_CD!='' ">
+							AND T1.EMP_CD='${EMP_CD}'
+						</if>
+						<if test="AI_EML!=null and AI_EML!='' ">
+							AND T1.AI_EML='${AI_EML}'
+						</if>
+			  		</where>
+			  		ORDER BY TO_CHAR(T1.AI_CDT,'YYYY-MM-DD HH24:Mi:SS') DESC, AP_CD,AD_HC) T6 	    	
+			  		<include refid="oraclePagingFileBottom"></include>
+			  					  	
+		  	</select> 
+			<!-- 查询报警信息关联分页总数 -->
+			<select id="queryAlarmInfoGl_COUNT" parameterType="hashmap" resultType="java.util.HashMap"> 
+				SELECT count(1) AS ROWS_COUNT FROM <include refid="iplant_3"></include>H_IPLANT_A3_T T1
+					LEFT JOIN <include refid="iplant"></include>C_IPLANT_E2_T T2 ON T1.ET_CD=T2.ET_CD
+					LEFT JOIN <include refid="iplant"></include>C_IPLANT_A3_T T3 ON T1.AP_CD=T3.AP_CD
+					<where> 1=1
+					   <if test="StartDate!=null and StartDate!='' "> 
+						   AND T1.AI_SDT>=TO_DATE('${StartDate}','YYYY-MM-DD HH24:MI:SS') 
+					   </if> 
+					   <if test="EndDate!=null and EndDate!='' ">
+						   AND T1.AI_SDT&lt;=TO_DATE('${EndDate}','YYYY-MM-DD HH24:MI:SS') 
+					   </if>
+					   <if test="BegDate!=null and BegDate!='' "> 
+						   AND T1.AI_RDT>=TO_DATE('${BegDate}','YYYY-MM-DD HH24:MI:SS') 
+					    </if> 
+					    <if test="OverDate!=null and OverDate!='' ">
+						   AND T1.AI_RDT&lt;=TO_DATE('${OverDate}','YYYY-MM-DD HH24:MI:SS') 
+						</if>
+						<if test="AP_CD!=null and AP_CD!='' "> 
+							AND T1.AP_CD='${AP_CD}'
+						</if>
+						<if test="AP_NM!=null and AP_NM!='' ">	
+							AND T3.AP_NM LIKE '%${AP_NM}%'
+						</if>
+						<if test="AD_HC!=null and AD_HC!='' ">	
+							AND T1.AD_HC='${AD_HC}'
+						</if>	
+						<if test="ET_CD!=null and ET_CD!='' ">
+							AND T1.ET_CD='${ET_CD}'						
+						</if>
+						<if test="AI_RV!=null and AI_RV!='' ">
+							AND T1.AI_RV='${AI_RV}'
+						</if>						
+						<if test="AI_HD!=null and AI_HD!='' ">
+							AND T1.AI_HD='${AI_HD}'
+						</if>
+						<if test="EMP_CD!=null and EMP_CD!='' ">
+							AND T1.EMP_CD='${EMP_CD}'
+						</if>
+						<if test="AI_EML!=null and AI_EML!='' ">
+							AND T1.AI_EML='${AI_EML}'
+						</if>
+			  		</where>
+			</select> 
+			<!-- 报警信息查询 -->
+			<select id="queryAlarmInfo" parameterType="hashmap" resultType="java.util.HashMap"> 
+				<include refid="oraclePagingFileTop"></include>
+						AI_ID,
+						AD_CD,
+						ET_CD,
+						AP_CD,
+						AD_HC,
+						EMP_CD,
+						EMP_NM,
+						CP_NO,
+						E_MAIL,
+						USE_CD,
+						AI_CT,
+						AI_CDT,
+						AI_ST,
+						AI_SDT,
+						AI_RV,
+						AI_RDT,
+						AI_HD,
+						AI_HDT,
+						AI_RT,
+						AI_RM,
+						CRT_DT
+					FROM <include refid="iplant_3"></include>H_IPALNT_A3_T
+					<where> 1=1
+						<if test="AI_ID!=null and AI_ID!='' ">
+							AND AI_ID='${AI_ID}'
+						</if>
+						<if test="AD_CD!=null and AD_CD!='' ">
+							AND AD_CD='${AD_CD}'
+						</if>
+						<if test="AP_CD!=null and AP_CD!='' ">
+							AND AP_CD='${AP_CD}'
+						</if>
+						<if test="AD_HC!=null and AD_HC!='' ">
+							AND AD_HC='${AD_HC}'	
+						</if>
+					</where>	
+				<include refid="oraclePagingFileBottom"></include>	    		
+			</select>
+			<!-- 报警信息新增 -->
+			<insert id="insertAlarmInfo" parameterType="hashmap" >
+					INSERT INTO 
+						<include refid="iplant_3"></include>H_IPLANT_A3_T
+							(
+							AI_ID,
+							AD_CD,
+							ET_CD,
+							AP_CD,
+							AD_HC,
+							EMP_CD,
+							EMP_NM,
+							CP_NO,
+							E_MAIL,
+							USE_CD,
+							AI_CT,
+							AI_CDT,
+							AI_ST,
+							AI_SDT,
+							AI_RV,
+							AI_RDT,
+							AI_HD,
+							AI_HDT,
+							AI_RT,
+							AI_RM,
+							CRT_DT
+							)
+						VALUES
+							(
+							'${AI_ID}',
+							'${AD_CD}',
+							'${ET_CD}',
+							'${AP_CD}',
+							'${AD_HC}',
+							'${EMP_CD}',
+							'${EMP_NM}',
+							'${CP_NO}',
+							'${E_MAIL}',
+							'${USE_CD}',
+							'${AI_CT}',
+							TO_DATE('${AI_CDT}','YYYY-MM-DD HH24:MI:SS'),
+							'${AI_ST}',
+							TO_DATE('${AI_SDT}','YYYY-MM-DD HH24:MI:SS'),
+							'${AI_RV}',
+							TO_DATE('${AI_RDT}','YYYY-MM-DD HH24:MI:SS'),
+							'${AI_HD}',
+							'${AI_HDT}',
+							'${AI_RT}',
+							'${AI_RM}',
+							SYSDATE
+							)
+							
+			</insert>
+			<!-- 删除报警信息 -->
+			<delete id="deleteAlarmInfo" parameterType="hashmap" >
+					DELETE <include refid="iplant_3"></include>H_IPLANT_A3_T
+						<where>
+							AI_ID='${AI_ID}'
+						</where>
+			</delete>
+			<!-- 修改报警信息 -->
+		    <update id="updateAlarmInfo" parameterType="hashmap" >
+		    		UPDATE <include refid="iplant_3"></include>H_IPLANT_A3_T
+	    			<set>
+	    			   <if test="AI_RV!=null">
+	    			   	    AI_RV='${AI_RV}',
+	    			   	    AI_RDT=SYSDATE,
+	    			   </if>
+	    			   <if test="AI_HD!=null">
+	    			   	   AI_HD='${AI_HD}',
+	    			   	   AI_HDT=SYSDATE,
+	    			   	   AI_RT='${AI_RT}',	
+	    			   </if>
+	    			   <if test="AI_RM!=null">
+	    			   	   AI_RM='${AI_RM}',
+	    			   </if>
+	    			   <if test="AI_EML!=null">
+	    			   	   AI_EML='${AI_EML}',
+	    			   	   AI_EDT=SYSDATE
+	    			   </if>
+	    			</set>
+	    			<where>
+	    				AI_ID='${AI_ID}'
+	    			</where>	    			
+		    </update>	     	  	     
+		    
+		 <!-- 查询报警信息树结构 -->   
+		 <select id="querySysAlarmTree"  parameterType="hashmap" resultType="java.util.HashMap">
+		                 SELECT 
+					               T1. * FROM 
+					             ( SELECT 
+					                     AP_CD      AS ST_C_CD,
+					                     AP_NM      AS ST_C_NM,
+					                     DICT_IT    AS ST_P_CD,
+					                     AP_TP||''  AS ATTR1,
+					                     AP_EP      AS ATTR2
+					                     FROM   <include refid="iplant"></include>C_IPLANT_A3_T
+					                     
+					                     UNION
+					              SELECT 
+					                     DICT_IT       AS ST_C_CD,
+					                     DICT_IT_NM    AS ST_C_NM,
+					                     'N/A'         AS ST_P_CD,
+					                      '0'          AS ATTR1,
+					                      ''           AS ATTR2
+					                     FROM <include refid="iplant"></include>C_IPLANT_DD_T
+					                     WHERE USE_YN = 'Y'
+					                       AND DICT_CD = 'RAL01'
+<!-- 					                     UNION   -->
+					         
+<!-- 					               SELECT   -->
+<!-- 					                     CL_CD      AS ST_C_CD, -->
+<!-- 					                     CL_NM      AS ST_C_NM, -->
+<!-- 					                     'AP-WM'    AS ST_P_CD, -->
+<!-- 					                     '0'        AS ATTR1, -->
+<!-- 					                     ''         AS ATTR2 -->
+<!-- 					                     FROM C_IPLANT_C2_T -->
+<!-- 					                     WHERE DICT_IT = 1 -->
+			                 ) T1
+           		<where>1=1
+				    <if test="ST_P_CD!=null and ST_P_CD!='' ">
+	                   AND T1.ST_P_CD='${ST_P_CD}'
+	                  </if>
+	                  <if test="ST_C_CD!=null and ST_C_CD!='' ">
+	                   AND T1.ST_C_CD='${ST_C_CD}'
+	                  </if>
+			   </where>
+		    
+		    </select>
+
+	 <!-- 查询报警配置 -->
+		    <select id="queryAlarmConditionDetail" parameterType="hashmap" resultType="java.util.HashMap" >
+		            <include refid="oraclePagingFileTop"></include>		               
+		               A2.*
+		               FROM
+		                (SELECT
+		                  DISTINCT A1.AD_CD,
+		                  A1.AP_CD,
+		                  A1.AP_TP,
+		                  A1.AP_NM,
+		                  A1.AP_EP,
+		                  A1.CRT_ID,
+		                  TO_CHAR(A1.CRT_DT,'YYYY-MM-DD HH24:Mi:SS') AS CRT_DT,
+		                  A1.UPT_ID,
+						  TO_CHAR(A1.UPT_DT,'YYYY-MM-DD HH24:Mi:SS') AS UPT_DT
+		               FROM
+		                 (
+		                 SELECT     
+			                T1.AD_CD,
+							T1.AP_CD,
+							T2.AP_NM,
+							T1.AP_TP,
+							T1.AD_HC,
+							T1.AD_CN1,
+							T1.AD_CN2,
+							T2.AP_EP,
+							T1.CRT_ID,
+							T1.CRT_DT,
+							T1.CRT_IP,
+							T1.UPT_ID,
+							T1.UPT_DT,
+							T1.UPT_IP
+		                FROM  <include refid="iplant"></include>C_IPLANT_A5_T T1
+		                LEFT JOIN  <include refid="iplant"></include>C_IPLANT_A3_T T2 ON T1.AP_CD=T2.AP_CD
+		                <where>  1=1
+		               <if test="AD_CD !=null and AD_CD !=''">
+		                   AND T1.AD_CD='${AD_CD}'
+		               </if>
+		               <if test="AP_CD !=null and AP_CD !=''">
+		                   AND T1.AP_CD='${AP_CD}'
+		               </if>
+		               <if test="AP_TP !=null and AP_TP !=''">
+		                   AND T1.AP_TP='${AP_TP}'
+		               </if>
+		               <if test="AD_HC !=null and AD_HC !=''">
+		                   AND T1.AD_HC='${AD_HC}'
+		               </if>
+		             </where>  
+		          UNION ALL
+		                  SELECT 
+				              T1.AD_CD,
+							  T1.AP_CD,
+							  T2.AP_NM,
+							  T1.AP_TP,
+							  T1.AD_HC,
+							  T1.AD_CN1,
+				              NULL AS AD_CN2,
+				              T2.AP_EP,
+							  T1.CRT_ID,
+							  T1.CRT_DT,
+							  T1.CRT_IP,
+							  T1.UPT_ID,
+							  T1.UPT_DT,
+							  T1.UPT_IP
+				           FROM  <include refid="iplant"></include>C_IPLANT_A4_T T1
+				           LEFT JOIN  <include refid="iplant"></include>C_IPLANT_A3_T T2 ON T1.AP_CD=T2.AP_CD
+		             <where>  1=1
+		               <if test="AD_CD !=null and AD_CD !=''">
+		                   AND T1.AD_CD='${AD_CD}'
+		               </if>
+		               <if test="AP_CD !=null and AP_CD !=''">
+		                   AND T1.AP_CD='${AP_CD}'
+		               </if>
+		               <if test="AP_TP !=null and AP_TP !=''">
+		                   AND T1.AP_TP='${AP_TP}'
+		               </if>
+		               <if test="AD_HC !=null and AD_HC !=''">
+		                   AND T1.AD_HC='${AD_HC}'
+		               </if>
+		             </where>
+		              ) A1	
+		              ORDER BY CRT_DT DESC	               
+		            )A2		            
+		         <include refid="oraclePagingFileBottom"></include>		         
+		    </select> 
+		    
+	 <!-- 查询报警配置分页总数 -->
+			<select id="queryAlarmConditionDetail_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+			        SELECT
+		    			COUNT(1) AS ROWS_COUNT 
+					 FROM
+		                (SELECT
+		                  DISTINCT A1.AD_CD,
+		                  A1.AP_CD,
+		                  A1.AP_TP,
+		                  A1.AP_NM,
+		                  A1.AP_EP,
+		                  A1.CRT_ID,
+		                  TO_CHAR(A1.CRT_DT,'YYYY-MM-DD HH24:Mi:SS') AS CRT_DT,
+		                  A1.UPT_ID,
+						  TO_CHAR(A1.UPT_DT,'YYYY-MM-DD HH24:Mi:SS') AS UPT_DT
+		               FROM
+		                 (
+		                 SELECT     
+			                T1.AD_CD,
+							T1.AP_CD,
+							T2.AP_NM,
+							T1.AP_TP,
+							T1.AD_HC,
+							T1.AD_CN1,
+							T1.AD_CN2,
+							T2.AP_EP,
+							T1.CRT_ID,
+							T1.CRT_DT,
+							T1.CRT_IP,
+							T1.UPT_ID,
+							T1.UPT_DT,
+							T1.UPT_IP
+		                FROM  <include refid="iplant"></include>C_IPLANT_A5_T T1
+		                LEFT JOIN  <include refid="iplant"></include>C_IPLANT_A3_T T2 ON T1.AP_CD=T2.AP_CD
+		                <where>  1=1
+		               <if test="AD_CD !=null and AD_CD !=''">
+		                   AND T1.AD_CD='${AD_CD}'
+		               </if>
+		               <if test="AP_CD !=null and AP_CD !=''">
+		                   AND T1.AP_CD='${AP_CD}'
+		               </if>
+		               <if test="AP_TP !=null and AP_TP !=''">
+		                   AND T1.AP_TP='${AP_TP}'
+		               </if>
+		               <if test="AD_HC !=null and AD_HC !=''">
+		                   AND T1.AD_HC='${AD_HC}'
+		               </if>
+		             </where>  
+		          UNION ALL
+		                  SELECT 
+				              T1.AD_CD,
+							  T1.AP_CD,
+							  T2.AP_NM,
+							  T1.AP_TP,
+							  T1.AD_HC,
+							  T1.AD_CN1,
+				              NULL AS AD_CN2,
+				              T2.AP_EP,
+							  T1.CRT_ID,
+							  T1.CRT_DT,
+							  T1.CRT_IP,
+							  T1.UPT_ID,
+							  T1.UPT_DT,
+							  T1.UPT_IP
+				           FROM  <include refid="iplant"></include>C_IPLANT_A4_T T1
+				           LEFT JOIN  <include refid="iplant"></include>C_IPLANT_A3_T T2 ON T1.AP_CD=T2.AP_CD
+		             <where>  1=1
+		               <if test="AD_CD !=null and AD_CD !=''">
+		                   AND T1.AD_CD='${AD_CD}'
+		               </if>
+		               <if test="AP_CD !=null and AP_CD !=''">
+		                   AND T1.AP_CD='${AP_CD}'
+		               </if>
+		               <if test="AP_TP !=null and AP_TP !=''">
+		                   AND T1.AP_TP='${AP_TP}'
+		               </if>
+		               <if test="AD_HC !=null and AD_HC !=''">
+		                   AND T1.AD_HC='${AD_HC}'
+		               </if>
+		             </where>
+		              ) A1
+		            )A2		         
+			</select> 			  
+			
+	   <!-- 报警配置编码生成规则 -->
+		<select id="alarmOrderRules" parameterType="hashmap" resultType="java.util.HashMap" >
+			     SELECT ( SELECT AP_CD FROM IPLANT1.C_IPLANT_A3_T WHERE AP_CD='${AP_CD}' )||(IPLANT1.TRANS_10TO36_FUN(IPLANT1.D_SEQ.NEXTVAL, 3)) AS AD_CD FROM DUAL 
+		</select>
+		
+	  <!-- 查询报警配置详细 -->
+		    <select id="queryAlarmConditionDetailXx" parameterType="hashmap" resultType="java.util.HashMap" >
+		            <include refid="oraclePagingFileTop"></include>		               
+		                A1.*
+		               FROM
+		                 (
+		                 SELECT     
+			                T1.AD_CD,
+							T1.AP_CD,
+							T2.AP_NM,
+							T1.AP_TP,
+							T1.AD_HC,
+							T1.AD_CN1,
+							T1.AD_CN2,
+							T2.AP_EP,
+							T1.CRT_ID,
+							T1.CRT_DT,
+							T1.CRT_IP,
+							T1.UPT_ID,
+							T1.UPT_DT,
+							T1.UPT_IP
+		                FROM  <include refid="iplant"></include>C_IPLANT_A5_T T1
+		                LEFT JOIN  <include refid="iplant"></include>C_IPLANT_A3_T T2 ON T1.AP_CD=T2.AP_CD
+		                <where>  1=1
+		               <if test="AD_CD !=null and AD_CD !=''">
+		                   AND T1.AD_CD='${AD_CD}'
+		               </if>
+		               <if test="AP_CD !=null and AP_CD !=''">
+		                   AND T1.AP_CD='${AP_CD}'
+		               </if>
+		               <if test="AP_TP !=null and AP_TP !=''">
+		                   AND T1.AP_TP='${AP_TP}'
+		               </if>
+		               <if test="AD_HC !=null and AD_HC !=''">
+		                   AND T1.AD_HC='${AD_HC}'
+		               </if>
+		             </where>  
+		          UNION ALL
+		                  SELECT 
+				              T1.AD_CD,
+							  T1.AP_CD,
+							  T2.AP_NM,
+							  T1.AP_TP,
+							  T1.AD_HC,
+							  T1.AD_CN1,
+				              NULL AS AD_CN2,
+				              T2.AP_EP,
+							  T1.CRT_ID,
+							  T1.CRT_DT,
+							  T1.CRT_IP,
+							  T1.UPT_ID,
+							  T1.UPT_DT,
+							  T1.UPT_IP
+				           FROM  <include refid="iplant"></include>C_IPLANT_A4_T T1
+				           LEFT JOIN  <include refid="iplant"></include>C_IPLANT_A3_T T2 ON T1.AP_CD=T2.AP_CD
+		             <where>  1=1
+		               <if test="AD_CD !=null and AD_CD !=''">
+		                   AND T1.AD_CD='${AD_CD}'
+		               </if>
+		               <if test="AP_CD !=null and AP_CD !=''">
+		                   AND T1.AP_CD='${AP_CD}'
+		               </if>
+		               <if test="AP_TP !=null and AP_TP !=''">
+		                   AND T1.AP_TP='${AP_TP}'
+		               </if>
+		               <if test="AD_HC !=null and AD_HC !=''">
+		                   AND T1.AD_HC='${AD_HC}'
+		               </if>
+		             </where>
+		              ) A1		            
+		         <include refid="oraclePagingFileBottom"></include>
+		         ORDER BY CRT_DT DESC
+		    </select> 
+</mapper>

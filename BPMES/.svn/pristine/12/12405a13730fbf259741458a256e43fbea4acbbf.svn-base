@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<engines>
+	<!-- A.2 盘点管理 -->
+	<!-- ====== 盘点管理  ====== -->
+	<!-- 查询盘点信息 -->
+	<engine engine_code="InventInfoQuery" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="InventInfoQuery" >
+	</engine>
+	<!-- 删除盘点信息 -->
+	<engine engine_code="InventInfoDelete" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="InventInfoDelete" >
+	</engine>
+	
+	
+	<!-- 查询采购退货单 -->
+	<engine engine_code="PurchaseReturnInfoQuery" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="PurchaseReturnInfoQuery" >
+	</engine>
+	<!-- 删除采购退货单数据 -->
+	<engine engine_code="PurchaseReturnInfoDelete" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="PurchaseReturnInfoDelete" >
+	</engine>
+	<!-- 查询生产退料单 -->
+	<engine engine_code="ProductionReturnInfoQuery" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="ProductionReturnInfoQuery" >
+	</engine>
+	<!-- 删除生产退料单数据 -->
+	<engine engine_code="ProductionReturnInfoDelete" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="ProductionReturnInfoDelete" >
+	</engine>
+	<!-- 修改采购退货信息 -->
+	<engine engine_code="PurchaseReturnInfoUpdate" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="PurchaseReturnInfoUpdate" >
+	</engine>
+	<!-- 修改生产退货信息 -->
+	<engine engine_code="ProductionReturnInfoUpdate" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="ProductionReturnInfoUpdate" >
+	</engine>
+	<!-- 新增采购退货单 -->
+	<engine engine_code="PurchaseReturnInfoInsert" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="PurchaseReturnInfoInsert" >
+	</engine>
+	<!-- 新增生产退货单  -->
+	<engine engine_code="ProductionReturnInfoInsert" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="ProductionReturnInfoInsert" >
+	</engine>
+<!-- 点击采购订单查看退货订单 -->
+	<engine engine_code="OrderInfoQuery" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="OrderInfoQuery" >
+	</engine>
+</engines>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../../../common/IplantCompent/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../../../common/IplantCompent/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="../../../common/IplantCompent/Demo/demo.css">
+    <script src="../../../common/IplantCompent/jquery.min.js" type="text/javascript"></script>
+    <script src="../../../common/IplantCompent/jquery.easyui.min.js" type="text/javascript"></script>
+    <script src="../../../common/IplantCommon/DataRequest.js" type="text/javascript"></script>
+    <script src="../js/ModeData.js" type="text/javascript"></script>
+    <meta charset="utf-8" />
+</head>
+</head>
+<body style="padding: 0;margin: 0;position:relative;">
+	<div class="easyui-panel" region="south"  style="height:50px;width:100%;border:1px solide blue; position:absolute;top:0;left:0; background:#EFEFEF" ><h1 style="padding:0;margin:0;margin-top: 5px;font-family: '隶书';">模具信息管理</h1></div>
+	<div style="height:710px;width:100%;position:absolute;top:50px;left:0">
+	 <div id="nav" region="west" split="true" title="" style="width: 100px; background-color:#EFEFEF; height: 100%;" icon="icon-redo">
+        <ul id="ulnav" class="easyui-tree"></ul>
+    </div>
+	<div  region="east" style="position:absolute;top:0;left:100px; width:100%" >
+    <div id="tb" style="width: auto; height: 80px;">
+        <table style="width: auto; height: 75px;" cellspacing="0" border="0">
+            <tr>
+                <td>
+                    <a href="#" class="easyui-linkbutton" iconCls="icon-add" onclick="addModeMes();">添加</a>
+                    <a href="#" class="easyui-linkbutton" iconCls="icon-remove" onclick="removeModeMes();">删除</a>
+                    <a href="#" class="easyui-linkbutton" iconCls="icon-edit" onclick="updataModeMes();">修改</a>
+                    <td><a id="query" href="#" class="easyui-linkbutton" iconCls="icon-search" onclick="javascript:$('#queryTab').dialog('open').dialog('setTitle', '查询模具信息')">查询</a></td>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <table id="ModeMes_tab" class='easyui-datagrid' ></table>
+    </div>
+    </div>
+
+    <div id="enditTab" class="easyui-dialog" style="width: 500px;height: 400px;" closed="true" data-options="modal: true">
+        <form id="ModeMes" method="post" style="padding:10px 20px 10px 40px;">
+            <table border="0">
+                 <tr style="height: 35px;">
+                    <td>模具编号：</td>
+                    <td>
+                        <input id="ModeCode" name="postingdate" style="width: 250px;" class="easyui-textbox" required="required" />
+                    </td>
+                </tr>
+                <tr style="height: 35px;">
+                    <td>模具名称：</td>
+                    <td>
+                        <input id="ModeName" name="postingdate" style="width: 250px;" class="easyui-textbox" />
+                    </td>
+                </tr>
+                <tr style="height: 35px;">
+                    <td>模穴数：</td>
+                    <td>
+                        <input id="ModeNum" name="postingdate" style="width: 250px;" class="easyui-textbox" />
+                    </td>
+                </tr>
+                <tr style="height: 35px;">
+                    <td>可用模穴数：</td>
+                    <td>
+                        <input id="usableModeNum" name="postingdate" style="width: 250px;" class="easyui-textbox" />
+                    </td>
+                </tr>
+                 <tr style="height: 35px;">
+                    <td>产品数：</td>
+                    <td>
+                        <input id="prodNum" name="postingdate" style="width: 250px;" class="easyui-textbox" />
+                    </td>
+                </tr>
+                 <tr style="height: 35px;">
+                    <td>保养周期：</td>
+                    <td>
+                        <input id="MaintainPeriod" name="postingdate" style="width: 250px;" class="easyui-textbox" />
+                    </td>
+                </tr>
+                 <tr style="height: 35px;">
+                    <td>制造日期：</td>
+                    <td>
+                        <input id="prodData" name="postingdate" style="width: 250px;" class="easyui-textbox" />
+                    </td>
+                </tr>
+                 <tr style="height: 35px;">
+                    <td>入厂日期：</td>
+                    <td>
+                        <input id="toWorkshop" name="postingdate" style="width: 250px;" class="easyui-textbox" />
+                    </td>
+                </tr>
+                <tr style="height: 35px;">
+                    <td>生产厂商：</td>
+                    <td>
+                        <input id="prodManufac" name="postingdate" style="width: 250px;" class="easyui-textbox" />
+                    </td>
+                </tr>
+                 <tr style="height: 35px;">
+                    <td>标准周期：</td>
+                    <td>
+                        <input id="" name="standardCycle" style="width: 250px;" class="easyui-textbox" />
+                    </td>
+                </tr>
+                 <tr style="height: 35px;">
+                    <td>周期偏差负：</td>
+                    <td>
+                        <input id="negaDeviation" name="postingdate" style="width: 250px;" class="easyui-textbox" />
+                    </td>
+                </tr>
+                 <tr style="height: 35px;">
+                    <td>周期偏差正：</td>
+                    <td>
+                        <input id="posiDeviation" name="postingdate" style="width: 250px;" class="easyui-textbox" />
+                    </td>
+                </tr>
+                 <tr style="height: 35px;">
+                    <td>模具描述：</td>
+                    <td>
+                        <input id="ModeDescribe" name="postingdate" style="width: 250px;" class="easyui-textbox" />
+                    </td>
+                </tr>
+                <tr style="height: 50px;">
+
+                    <td colspan="3" align="center">
+                        <a href="#" class="easyui-linkbutton" iconCls="icon-save" onclick="savaModeMes();">保存</a>
+                        <a href="#" class="easyui-linkbutton" iconCls="icon-close" onclick="javascript:$('#enditTab').dialog('close')">关闭</a>
+
+                    </td>
+
+                </tr>
+
+            </table>
+
+        </form>
+    </div>
+
+    <div id="queryTab" class="easyui-dialog" style="width: 360px;height: 240px;" closed="true" data-options="modal: true">
+        <form id="queryModeMes" method="post" style="padding:30px 20px 10px 40px;">
+            <table border="0">
+                <tr style="height: 35px;">
+                    <td>模具编号：</td>
+                    <td>
+                        <input id="queryModeCode" name="postingdate" style="width: 180px;" class="easyui-textbox" required="required" />
+                    </td>
+                </tr>
+                <tr style="height: 35px;">
+                    <td>模具名称：</td>
+                    <td>
+                        <input id="queryModeName" name="postingdate" style="width: 180px;" class="easyui-textbox" />
+                    </td>
+                </tr>
+                <tr style="height: 50px;">
+
+                    <td colspan="3" align="center">
+                        <a href="#" class="easyui-linkbutton" iconCls="icon-save" onclick="getDataByCondition()">确定</a>
+                        <a href="#" class="easyui-linkbutton" iconCls="icon-close" onclick="javascript:$('#queryTab').dialog('close')">取消</a>
+
+                    </td>
+
+                </tr>
+
+            </table>
+
+        </form>
+    </div>
+</body>
+
+</html>

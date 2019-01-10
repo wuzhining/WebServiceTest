@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ifss>
+	<!-- 查询采购退货单-->
+	<ifs ifs_code="WMS_D000001" ifs_name="查询采购退货单" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="PurchaseReturnInfoQuery" biz_method="" serial_no="1" biz_name="PurchaseReturnInfoQuery" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 删除采购退货单数据 -->
+	<ifs ifs_code="WMS_D000002" ifs_name="删除采购退货单数据" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="PurchaseReturnInfoDelete" biz_method="" serial_no="1" biz_name="PurchaseReturnInfoDelete" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 查询生产退料单-->
+	<ifs ifs_code="WMS_D000003" ifs_name="查询生产退料单" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="ProductionReturnInfoQuery" biz_method="" serial_no="1" biz_name="ProductionReturnInfoQuery" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+    <!-- 删除生产退料单数据 -->
+	<ifs ifs_code="WMS_D000004" ifs_name="删除生产退料单数据" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="ProductionReturnInfoDelete" biz_method="" serial_no="1" biz_name="ProductionReturnInfoDelete" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 查询盘点信息-->
+	<ifs ifs_code="WMS_D000011" ifs_name="查询盘点信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="InventInfoQuery" biz_method="" serial_no="1" biz_name="InventInfoQuery" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+    <!-- 修改盘点信息 -->
+	<ifs ifs_code="WMS_D000014" ifs_name="修改盘点信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="InventInfoUpdate" biz_method="" serial_no="1" biz_name="InventInfoUpdate" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+
+	<!-- 修改采购退货信息-->
+	<ifs ifs_code="WMS_D000005" ifs_name="修改采购退货信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="PurchaseReturnInfoUpdate" biz_method="" serial_no="1" biz_name="PurchaseReturnInfoUpdate" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+    <!-- 修改生产退货信息 -->
+	<ifs ifs_code="WMS_D000006" ifs_name="修改生产退货信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="ProductionReturnInfoUpdate" biz_method="" serial_no="1" biz_name="ProductionReturnInfoUpdate" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 新增采购退货单-->
+	<ifs ifs_code="WMS_D000007" ifs_name="新增采购退货单" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="PurchaseReturnInfoInsert" biz_method="" serial_no="1" biz_name="PurchaseReturnInfoInsert" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+    <!-- 新增生产退货单 -->
+	<ifs ifs_code="WMS_D000008" ifs_name="新增生产退货单" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="ProductionReturnInfoInsert" biz_method="" serial_no="1" biz_name="ProductionReturnInfoInsert" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+    <!-- 点击采购订单查看退货订单 -->
+	<ifs ifs_code="WMS_D000009" ifs_name="点击采购订单查看退货订单" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="OrderInfoQuery" biz_method="" serial_no="1" biz_name="OrderInfoQuery" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+</ifss>

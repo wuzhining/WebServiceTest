@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ifss>
+    <!-- MES 工单管理  -->
+    
+    <!-- 工单维护 -->
+    
+    
+    
+    <!-- 查询工单维护 -->
+    <ifs ifs_code="W000001" ifs_name="查询工单维护信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryWorkorderMaintain" biz_method="" serial_no="1" biz_name="queryWorkorderMaintain" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	 <!-- 新增工单维护 -->
+    <ifs ifs_code="W000002" ifs_name="新增工单维护信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertWorkorderMaintain" biz_method="" serial_no="1" biz_name="insertWorkorderMaintain" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 单个新增工单维护 -->
+    <ifs ifs_code="W000050" ifs_name="单个新增工单维护" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertWorkorderMaintainSingle" biz_method="" serial_no="1" biz_name="insertWorkorderMaintainSingle" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 修改工单维护 -->
+    <ifs ifs_code="W000003" ifs_name="修改工单维护信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateWorkorderMaintain" biz_method="" serial_no="1" biz_name="updateWorkorderMaintain" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 删除工单维护 -->
+    <ifs ifs_code="W000004" ifs_name="刪除工单维护信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteWorkorderMaintain" biz_method="" serial_no="1" biz_name="deleteWorkorderMaintain" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 生成工单BOM -->
+	<ifs ifs_code="W001BOM" ifs_name="生成工单BOM" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="savaWorkorderBOM" biz_method="" serial_no="1" biz_name="savaWorkorderBOM" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs> 
+	
+	<!-- 工单属性 -->
+	<!-- 查询工单属性 -->
+    <ifs ifs_code="W000005" ifs_name="查询工单属性信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="querySingleattribute" biz_method="" serial_no="1" biz_name="querySingleattribute" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	 <!-- 新增工单属性 -->
+    <ifs ifs_code="W000006" ifs_name="新增工单属性信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertSingleattribute" biz_method="" serial_no="1" biz_name="insertSingleattribute" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 修改工单属性 -->
+    <ifs ifs_code="W000007" ifs_name="修改工单属性信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateSingleattribute" biz_method="" serial_no="1" biz_name="updateSingleattribute" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 删除工单属性 -->
+    <ifs ifs_code="W000008" ifs_name="刪除工单属性信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteSingleattribute" biz_method="" serial_no="1" biz_name="deleteSingleattribute" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+
+
+	<!-- 工单属性值 -->
+	<!-- 查询工单属性值 -->
+    <ifs ifs_code="W000009" ifs_name="查询工单属性值信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="querySingleattributevalue" biz_method="" serial_no="1" biz_name="querySingleattributevalue" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	 <!-- 新增工单属性 值-->
+    <ifs ifs_code="W0000010" ifs_name="新增工单属性值信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertSingleattributevalue" biz_method="" serial_no="1" biz_name="insertSingleattributevalue" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 修改工单属性值 -->
+    <ifs ifs_code="W0000011" ifs_name="修改工单属性值信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateSingleattributevalue" biz_method="" serial_no="1" biz_name="updateSingleattributevalue" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 删除工单属性值 -->
+    <ifs ifs_code="W0000012" ifs_name="删除工单属性值信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteSingleattributevalue" biz_method="" serial_no="1" biz_name="deleteSingleattributevalue" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 作业指示表 -->
+	<!-- 查询作业指示 -->
+	<ifs ifs_code="W0000013" ifs_name="查询作业指示" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryOperationindication" biz_method="" serial_no="1" biz_name="queryOperationindication" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 新增作业指示 -->
+	<ifs ifs_code="W0000014" ifs_name="新增作业指示" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertOperationindication" biz_method="" serial_no="1" biz_name="insertOperationindication" biz_type="3" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 批量新增作业指示 -->
+	<ifs ifs_code="W0000014S" ifs_name="批量新增作业指示" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="batchinsertOperationindication" biz_method="" serial_no="1" biz_name="batchinsertOperationindication" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 修改作业指示 -->
+	<ifs ifs_code="W0000015" ifs_name="修改作业指示" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateOperationindication" biz_method="" serial_no="1" biz_name="updateOperationindication" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 批量修改作业指示 -->
+	<ifs ifs_code="W0000015S" ifs_name="批量修改作业指示" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="batchupdateOperationindication" biz_method="" serial_no="1" biz_name="batchupdateOperationindication" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 删除作业指示 -->
+	<ifs ifs_code="W0000016" ifs_name="删除作业指示" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteOperationindication" biz_method="" serial_no="1" biz_name="deleteOperationindication" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 作业指示物料信息 -->
+	<!-- 查询作业指示物料信息 -->
+	<ifs ifs_code="W0000017" ifs_name="查询作业指示物料信息 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryOperationindicationmateriel" biz_method="" serial_no="1" biz_name="queryOperationindicationmateriel" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 新增作业指示物料信息 -->
+	<ifs ifs_code="W0000018" ifs_name="新增作业指示物料信息 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertOperationindicationmateriel" biz_method="" serial_no="1" biz_name="insertOperationindicationmateriel" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 批量新增作业指示物料信息 -->
+	<ifs ifs_code="W0000018S" ifs_name="批量新增作业指示物料信息 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="batchinsertOperationindicationmateriel" biz_method="" serial_no="1" biz_name="batchinsertOperationindicationmateriel" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 修改作业指示物料信息 -->
+	<ifs ifs_code="W0000019" ifs_name="修改作业指示物料信息 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateOperationindicationmateriel" biz_method="" serial_no="1" biz_name="updateOperationindicationmateriel" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 批量修改作业指示物料信息 -->
+	<ifs ifs_code="W0000019S" ifs_name="批量修改作业指示物料信息 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="batchupdateOperationindicationmateriel" biz_method="" serial_no="1" biz_name="batchupdateOperationindicationmateriel" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 删除作业指示物料信息 -->
+	<ifs ifs_code="W0000020" ifs_name="删除作业指示物料信息 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteOperationindicationmateriel" biz_method="" serial_no="1" biz_name="deleteOperationindicationmateriel" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+
+	
+	
+	<!-- 工单物料信息 -->
+	<!-- 查询工单物料信息APP -->
+	<ifs ifs_code="W0000021" ifs_name="查询工单物料信息APP" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="querySinglematerialAPP" biz_method="" serial_no="1" biz_name="querySinglematerialAPP" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 新增工单物料信息 -->
+	<ifs ifs_code="W0000022" ifs_name="新增工单物料信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertSinglematerial" biz_method="" serial_no="1" biz_name="insertSinglematerial" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 批量新增工单物料信息 -->
+	<ifs ifs_code="W0000022S" ifs_name="批量新增工单物料信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="batchinsertSinglematerial" biz_method="" serial_no="1" biz_name="batchinsertSinglematerial" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 修改工单物料信息 -->
+	<ifs ifs_code="W0000023" ifs_name="修改工单物料信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateSinglematerial" biz_method="" serial_no="1" biz_name="updateSinglematerial" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 批量修改工单物料信息 -->
+	<ifs ifs_code="W0000023S" ifs_name="批量修改工单物料信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="batchupdateSinglematerial" biz_method="" serial_no="1" biz_name="batchupdateSinglematerial" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 删除工单物料信息 -->
+	<ifs ifs_code="W0000024" ifs_name="删除工单物料信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteSinglematerial" biz_method="" serial_no="1" biz_name="deleteSinglematerial" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 查询工单状态 -->
+	<ifs ifs_code="W0000025" ifs_name="查询工单状态" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="querySinglestate" biz_method="" serial_no="1" biz_name="querySinglestate" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 查询工单物料信息 -->
+	<ifs ifs_code="W0000026" ifs_name="查询工单物料信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="querySinglematerial" biz_method="" serial_no="1" biz_name="querySinglematerial" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 查询工单条码信息 -->
+	<ifs ifs_code="W0000027" ifs_name="查询工单条码信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="querySingleBAR_CODE" biz_method="" serial_no="1" biz_name="querySingleBAR_CODE" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 生成排产BOM -->
+	<ifs ifs_code="W0000028" ifs_name="生成排产BOM" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="savaSchedulingBOM" biz_method="" serial_no="1" biz_name="savaSchedulingBOM" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 单个删除作业指示 -->
+	<ifs ifs_code="W0000029" ifs_name="单个删除作业指示" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteOperationindicationsingle" biz_method="" serial_no="1" biz_name="deleteOperationindicationsingle" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 判断排产数量 -->
+	<ifs ifs_code="W0000030" ifs_name="判断排产数量" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="judgeSchedulingNumber" biz_method="" serial_no="1" biz_name="judgeSchedulingNumber" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 新工单排产 -->
+	<ifs ifs_code="W0000031" ifs_name="新工单排产" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="productionSchedule" biz_method="" serial_no="1" biz_name="productionSchedule" biz_type="3" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 新工单排产 -->
+	<ifs ifs_code="W0000032" ifs_name="查询可排产的工单作业指示信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryProductionScheduleInfo" biz_method="" serial_no="1" biz_name="queryProductionScheduleInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 根据工单信息生成BOM以及工单工序 -->
+	<ifs ifs_code="W0000033" ifs_name="根据工单信息生成BOM以及工单工序" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="savaWorkingBOM" biz_method="" serial_no="1" biz_name="savaWorkingBOM" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 一条产线只能存在一个工单生产 -->
+	<ifs ifs_code="W0000034" ifs_name="一条产线只能存在一个工单生产" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryIsCheckLinecdExists" biz_method="" serial_no="1" biz_name="queryIsCheckLinecdExists" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 获取数据字典中工单类型 -->
+	<ifs ifs_code="W0000035" ifs_name="获取数据字典中工单类型" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryDataDictionaryMoType" biz_method="" serial_no="1" biz_name="queryDataDictionaryMoType" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	
+	<!-- 查询没被关联的作业指示 -->
+	<ifs ifs_code="W0000036" ifs_name="查询没被关联的作业指示" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryNotUnion" biz_method="" serial_no="1" biz_name="queryNotUnion" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	
+	
+	<!-- R_MES_PLAN_PAMRM_T 查询 -->
+	<ifs ifs_code="W0000037" ifs_name="R_MES_PLAN_PAMRM_T 查询 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryPlanPamrm" biz_method="" serial_no="1" biz_name="queryPlanPamrm" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- R_MES_PLAN_PAMRM_T 修改 -->
+	<ifs ifs_code="W0000038" ifs_name="R_MES_PLAN_PAMRM_T 修改 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updatePlanPamrm" biz_method="" serial_no="1" biz_name="updatePlanPamrm" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- R_MES_PLAN_PAMRM_T 新增 -->
+	<ifs ifs_code="W0000039" ifs_name="R_MES_PLAN_PAMRM_T 新增 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertPlanPamrm" biz_method="" serial_no="1" biz_name="insertPlanPamrm" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- R_MES_PLAN_PAMRM_T 删除 -->
+	<ifs ifs_code="W0000040" ifs_name="R_MES_PLAN_PAMRM_T 删除 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deletePlanPamrm" biz_method="" serial_no="1" biz_name="deletePlanPamrm" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 查询甘特图信息-->
+	<ifs ifs_code="W0000041" ifs_name="查询甘特图信息 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryGanttChart" biz_method="" serial_no="1" biz_name="queryGanttChart" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	
+	<!-- 根据产线查找工单-->
+	<ifs ifs_code="W0000042" ifs_name="查询甘特图信息 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryProductionlineSearchWorksheet" biz_method="" serial_no="1" biz_name="queryProductionlineSearchWorksheet" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!--作业指示主次单状态修改-->
+	<ifs ifs_code="W0000043" ifs_name="作业指示主次单状态修改 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateByMoNoState" biz_method="" serial_no="1" biz_name="updateByMoNoState" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 给仓库传输数据-->
+	 <ifs ifs_code="W0000044" ifs_name="给仓库传输数据" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryMoDataList" biz_method="" serial_no="1" biz_name="queryMoDataList" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	 </ifs>
+	 
+	 <!-- 同步仓库物料信息数据 -->
+	 <ifs ifs_code="W0000045" ifs_name="同步仓库物料信息数据" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="SYNCHRONIZATION_W_DATA" biz_method="" serial_no="1" biz_name="SYNCHRONIZATION_W_DATA" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	 </ifs>
+</ifss>

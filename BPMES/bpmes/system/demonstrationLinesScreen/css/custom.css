@@ -1,0 +1,134 @@
+/* 通配设置   1em = 10px */
+html,body{
+	background-color:#383A4C;
+	width:100%;
+	height:100%;
+	font-family: 宋体;
+}
+/* 看板导航条样式重写 */
+.navbar-default{
+	background-color: #4C4E5C;
+	border-color: #4C4E5C;
+	min-height: 40px;
+	/* margin-bottom: 10px; */
+}
+.navbar{
+	border-radius: 0px;
+}
+.container-fluid{
+	position: relative;
+}
+.navbar-header{
+	width:10%;
+	height:40px;
+	float: left;
+}
+.navbar-default .navbar-text{
+	color: #C1C1C5;
+}
+.navbar-text{
+	margin: 10px 0px 5px 10px;
+	font-size: 2.5em;
+	font-weight: bold;
+}
+.title{
+	position: absolute;
+	left: 0;
+    right: 0;
+	float:left;
+	width:20%;
+	height:40px;
+}
+.title-p{
+	margin: 10px 0px 10px 0px; 
+	font-size:3em;
+	width: 100%;
+    text-align: center;
+}
+/* 主体部分 */
+table{
+	font-size :14px;
+	color: #2077BB;
+	font-weight: bold;
+}
+.main-body{
+	margin:0px auto;
+	padding:0px;
+	width:98%;
+	height:90%;
+}
+#line-info tr{
+	height:16.5%;
+}
+.line-info{
+	width:100%;
+	height:31%;
+	padding:0px;
+	margin:0px
+}
+.charts{
+	width:100%;
+	height:40%;
+}
+.employees-info{
+	width:100%;
+	height:30%;
+}
+.employees-info table tr td{
+	width:25%;
+}
+.line-info-table{
+	height:100%;
+	width:100%;
+	margin:0px;
+}
+.line-info-table tr td{
+	border:1px solid #727487;
+	position: relative; 
+}
+.line-info-table tr td span{
+	width:100%;
+	/* left:50%; */
+	text-align:center;
+	position: absolute;
+    top: 40%;
+    transform: translate(-50%, -50%); 
+}
+#personnel-info{
+	width:100%;
+	height:55.4%;
+}
+#personnel-info td div{
+	float:left;
+	height:90%;
+}
+#personnel-info td div p{
+	width:100%;
+	height:33.33%;
+	margin:5px 0 0 12px;
+}
+#stauts-normal,#stauts-Abnormal,#stauts-stop{
+	color:#FFFF00;
+}
+.charts{
+	border-left:1px solid #727487;
+	border-right:1px solid #727487;
+	padding:0px 0px 5px 0px;
+	margin:0px;
+}
+#produc-img-container{
+	height:100%;
+	width:100%;
+	background-image:url(../img/mobile.jpg); 
+	background-repeat:no-repeat; 
+	background-size:100% 100%;
+}
+.employees-info-div{
+	width:65%;
+}
+.employees-img{
+	width:20%;
+	height:90%;
+	background-repeat:no-repeat; 
+	background-size:90% 100%;
+}

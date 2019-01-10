@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>     
+<web-app version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee"    
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance  http://www.springmodules.org/schema/cache/springmodules-cache.xsd http://www.springmodules.org/schema/cache/springmodules-ehcache.xsd"    xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee      
+    http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd          
+     "> 
+	<display-name>iPlant Web Application</display-name>
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>
+			/WEB-INF/conf/frame-spring.xml
+		</param-value>
+	</context-param>
+	<listener>
+		<listener-class>
+			org.springframework.web.context.ContextLoaderListener
+		</listener-class>
+	</listener>
+	<context-param>
+		<param-name>configLoader</param-name>
+		<param-value>
+			/WEB-INF/conf/frame-spring.xml
+		</param-value>
+	</context-param>
+	<listener>
+		<listener-class>
+			org.springframework.web.context.request.RequestContextListener
+		</listener-class>
+	</listener>
+
+	<filter>
+		<filter-name>encodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter
+		</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<filter>
+		<filter-name>sessionFilter</filter-name>
+		<filter-class>com.iPlant.frame.web.filter.SessionFilter</filter-class>
+		<init-param>
+			<param-name>direct-control</param-name>
+			<param-value>(/materiaExcelImport|/iPlant_session|/iPlant_login|/iPlant_printer|/iPlant_IP|/iPlant_MQTT|/iPlant_app|/iPlant_ImportDataByExcel|/iPlant_ImgUpload|/model|/editor|/iPlant_logout|/*.tif|/*.css|/*.png|/*.gif|/*.jpg|/*.js|/*.ico|/*.html|/*.zip|test.html|/Soapifs)</param-value>
+		</init-param>
+		<init-param>
+			<param-name>login-control</param-name>
+			<param-value>(login)</param-value>
+		</init-param>
+		<init-param>
+			<param-name>limit-user</param-name>
+			<param-value>0</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>sessionFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+<!--      <filter>     -->
+<!--         <filter-name>sessionFilter</filter-name>     -->
+<!--         <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>     -->
+<!--     </filter>     -->
+<!--     <filter-mapping>     -->
+<!--         <filter-name>sessionFilter</filter-name>     -->
+<!--         <url-pattern>/*</url-pattern>     -->
+<!--     </filter-mapping> 	 -->
+<!-- 	<servlet> -->
+<!-- 		<servlet-name>CXFServlet</servlet-name> -->
+<!-- 		<servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class> -->
+<!-- 		<load-on-startup>1</load-on-startup> -->
+<!-- 	</servlet> -->
+
+    
+
+<!-- 	<servlet-mapping> -->
+<!-- 		<servlet-name>CXFServlet</servlet-name> -->
+<!-- 		<url-pattern>/ifss/*</url-pattern> -->
+<!-- 	</servlet-mapping> -->
+<!-- 开启socket服务 -->
+	<context-param>
+		<param-name>socketPort</param-name>
+		<param-value>8899</param-value>
+	</context-param>
+	<listener>
+		<description>socket</description>
+	  	<listener-class>com.iPlant.frame.printsocket.service.SocketServiceLoader</listener-class>  
+	</listener>  
+	
+	<!-- <servlet>
+		<servlet-name>materiaExcelImport</servlet-name>
+		<servlet-class>com.iplant.service.MateriaExcelParserServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>materiaExcelImport</servlet-name>
+		<url-pattern>/materiaExcelImport</url-pattern>
+	</servlet-mapping> -->
+	<servlet>
+		<servlet-name>materiaExcelImport</servlet-name>
+		<servlet-class>service.ImportDataServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>materiaExcelImport</servlet-name>
+		<url-pattern>/materiaExcelImport</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>servletDownload</servlet-name>
+		<servlet-class>service.ServletDownload</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>servletDownload</servlet-name>
+		<url-pattern>/ServletDownload</url-pattern>
+	</servlet-mapping>
+    <servlet>
+		<servlet-name>rest</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath:META-INF/config/spring/frame-web.xml</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>rest</servlet-name>
+		<url-pattern>/model</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>rest</servlet-name>
+		<url-pattern>/editor</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>frame</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath:META-INF/config/spring/frame-web.xml</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>frame</servlet-name>
+		<url-pattern>/iPlant_ajax</url-pattern>
+	</servlet-mapping>   
+	<servlet-mapping>
+		<servlet-name>frame</servlet-name>
+		<url-pattern>/iPlant_session</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>frame</servlet-name>
+		<url-pattern>/iPlant_login</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>frame</servlet-name>
+		<url-pattern>/iPlant_printer</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>frame</servlet-name>
+		<url-pattern>/iPlant_ImgUpload</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>frame</servlet-name>
+		<url-pattern>/iPlant_app</url-pattern>
+	</servlet-mapping>  
+	
+	<servlet-mapping>
+		<servlet-name>frame</servlet-name>
+		<url-pattern>/iPlant_ImportDataByExcel</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>frame</servlet-name>
+		<url-pattern>/iPlant_userInfo</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>frame</servlet-name>
+		<url-pattern>/iPlant_logout</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>frame</servlet-name>
+		<url-pattern>/iPlant_MQTT</url-pattern>
+	</servlet-mapping>
+		<servlet-mapping>
+		<servlet-name>frame</servlet-name>
+		<url-pattern>/iPlant_IP</url-pattern>
+	</servlet-mapping>
+<!-- 	 <servlet-mapping> -->
+<!--         <servlet-name>frame</servlet-name> -->
+<!--         <url-pattern>/*</url-pattern> -->
+<!--     </servlet-mapping> -->
+	<welcome-file-list>
+		<welcome-file>Login.html</welcome-file>
+	</welcome-file-list>
+	<!-- session超时定义,单位为分钟 -->
+    <session-config>
+        <session-timeout>780</session-timeout>
+    </session-config>	
+	<error-page>
+		<error-code>404</error-code>
+		<location>/frame/page/404.html</location>
+	</error-page>
+
+	<error-page>
+		<error-code>503</error-code>
+		<location>/frame/page/503.html</location>
+	</error-page>
+
+</web-app>

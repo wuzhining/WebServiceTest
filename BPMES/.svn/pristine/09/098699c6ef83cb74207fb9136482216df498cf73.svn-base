@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="">       
+		<!-- 1.1 数据字典管理 -->		
+		<!-- 查询设备保养项目信息 -->
+	<select id="queryEquipmentList" parameterType="hashmap" resultType="java.util.HashMap">
+	    <include refid="oraclePagingFileTop"></include>  	 
+		  MT_CD,KB_IU,DICT_IT_NM_01,KB_NM,KB_PD,KB_SC,KB_CD,to_char(CRT_DT,'yyyy-mm-dd') CRT_DT
+		 ,to_char(UPT_DT,'yyyy-mm-dd') UPT_DT,DICT_IT_NM_02,MT_ST,USE_YN  from TPM2.H_TPM_M1_T  
+		 <where>1=1
+		 <if test="TMEP!=null and TMEP!='' and flag!='true'">
+		 and KB_IU like '%${TMEP}%'
+		 </if>
+		 <!-- 全字匹配 -->
+		  <if test="TMEP!=null and TMEP!='' and flag=='true'">and DICT_IT_NM_01 ='${TMEP}'</if>  
+		 </where>
+		     <include refid="oraclePagingFileBottom"></include>   	
+	</select>
+	
+	<!-- 设备保养分页总数 -->
+	<select id="queryEquipmentList_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+	  	 
+		SELECT COUNT(1) ROWS_COUNT  from TPM2.H_TPM_M1_T  
+		 <where>1=1
+		 <if test="TMEP!=null and TMEP!='' and flag!='true'">
+		 and KB_IU like '%${TMEP}%'
+		 </if>
+		 <!-- 全字匹配 -->
+		  <if test="TMEP!=null and TMEP!='' and flag=='true'">and DICT_IT_NM_01 ='${TMEP}'</if>  
+		 </where>
+		      	
+	</select>
+
+	
+	<!-- 新增设备保养 -->
+	<insert id="insertEquipmentIT" parameterType="hashmap">
+		insert into TPM2.H_TPM_M1_T(MT_CD,KB_IU,KB_NM,KB_SC,DICT_IT_NM_01,KB_PD,DICT_IT_NM_02,KB_CD)
+		values('${MT_CD}','${KB_IU}','${KB_NM}','${KB_SC}','${DICT_IT_NM_01}','${KB_PD}','${DICT_IT_NM_02}','${KB_CD}')
+	</insert>
+	
+	   <!-- 删除设备保养--> 
+	    <delete id="deleteEquipmentIT" parameterType="hashmap">
+	            DELETE TPM2.H_TPM_M1_T
+	             	where
+	             		MT_CD IN
+	             	<foreach collection="list"  index="index" item="item" open="(" separator="," close=")"  >
+       					#{item.MT_CD}
+      				</foreach>
+	    </delete>  
+	    <!-- 修改设备保养 -->
+	    <update id="updateEquipmentq" parameterType="hashmap">
+	    	update TPM2.H_TPM_M1_T
+	    	<set>
+	    		<if test="DICT_IT_NM_01!=null and DICT_IT_NM_01!= ''">DICT_IT_NM_01='${DICT_IT_NM_01}',</if>
+	    		<if test="KB_NM!=null and KB_NM!= ''">KB_NM='${KB_NM}',</if>
+	    		<if test="KB_IU!=null and KB_IU!= ''">KB_IU='${KB_IU}',</if>
+	    		<if test="KB_SC!=null and KB_SC!= ''">KB_SC='${KB_SC}',</if>
+	    		<if test="KB_PD!=null and KB_PD!= ''">KB_PD='${KB_PD}',</if>
+	    		<if test="USE_YN!=null and USE_YN!= ''">USE_YN='${USE_YN}',</if>
+	    		<if test="DICT_IT_NM_02!=null and DICT_IT_NM_02!= ''">DICT_IT_NM_02='${DICT_IT_NM_02}',</if>
+	    		<if test="KB_CD!=null and KB_CD!= ''">KB_CD='${KB_CD}'</if>
+	    	</set>
+	    	where MT_CD='${MT_CD}'
+	    </update>
+	    
+	    
+	    
+	    <select id="queryY1110" parameterType="hashmap" resultType="java.util.HashMap">
+	    	select DISTINCT DICT_IT_NM_02 from tpm2.h_tpm_m1_t
+	    </select>
+ </mapper>

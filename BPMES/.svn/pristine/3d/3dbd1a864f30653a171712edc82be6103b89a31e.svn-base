@@ -1,0 +1,602 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="">
+
+	<!-- 检验定义模块 -->
+	<!-- 查询检验类型列表 -->
+	<select id="QueryInspectionType" parameterType="hashmap"
+		resultType="java.util.HashMap">
+		<include refid="oraclePagingFileTop"></include>
+		T1.INSPECTIONTYPEID,
+		T1.INSPECTIONTYPENAME,
+		T1.DESCRIPTION,
+		T1.STATUS,
+		T1.INSPECTIONRULEIDLIST,
+		T1.GENERATENUMBERTYPEID,
+		T1.SYSTEMTYPE,
+		T1.CREATER_NAME,
+		TO_CHAR(T1.CREATE_DATE,'YYYY-MM-DD HH24:MI:SS')
+		CREATE_DATE,
+		T1.UPDATER_NAME,
+		TO_CHAR(T1.UPDATE_DATE,'YYYY-MM-DD
+		HH24:MI:SS') UPDATE_DATE
+		FROM WMS1.WMS_QUALITY_INSPECTIONTYPE T1
+		<where>
+			1=1
+			<if test=" INSPECTIONTYPENAME !=null and INSPECTIONTYPENAME !=''">
+				and INSPECTIONTYPENAME LIKE '%${INSPECTIONTYPENAME}%'
+			</if>
+			<if test=" SYSTEMTYPE !=null and SYSTEMTYPE !=''">
+				and SYSTEMTYPE = '${SYSTEMTYPE}'
+			</if>
+		</where>
+		ORDER BY CREATE_DATE DESC
+		<include refid="oraclePagingFileBottom"></include>
+	</select>
+
+	<select id="QueryInspectionType_COUNT" parameterType="hashmap"
+		resultType="java.util.HashMap">
+		SELECT COUNT(1) AS ROWS_COUNT
+		FROM WMS1.WMS_QUALITY_INSPECTIONTYPE T1
+		<where>
+			1=1
+			<if test=" INSPECTIONTYPENAME !=null and INSPECTIONTYPENAME !=''">
+				and INSPECTIONTYPENAME LIKE '%${INSPECTIONTYPENAME}%'
+			</if>
+			<if test=" SYSTEMTYPE !=null and SYSTEMTYPE !=''">
+				and SYSTEMTYPE = '${SYSTEMTYPE}'
+			</if>
+		</where>
+	</select>
+
+
+	<!-- 修改检验类型列表 -->
+	<update id="InspectionTypeInfoUpdate" parameterType="java.util.HashMap">
+		update WMS1.WMS_QUALITY_INSPECTIONTYPE
+		<set>
+			<if test=" INSPECTIONTYPENAME !=null and INSPECTIONTYPENAME !=''">
+				INSPECTIONTYPENAME = '${INSPECTIONTYPENAME}',
+			</if>
+			<if test=" STATUS !=null and STATUS !=''">
+				STATUS = '${STATUS}',
+			</if>
+			<if test=" SYSTEMTYPE !=null and SYSTEMTYPE !=''">
+				SYSTEMTYPE = '${SYSTEMTYPE}',
+			</if>
+			<if test=" DESCRIPTION !=null and DESCRIPTION !=''">
+				DESCRIPTION = '${DESCRIPTION}',
+			</if>
+			<if test="F_USE_CD !=null">
+				UPDATER_ID='${F_USE_CD}',
+			</if>
+			<if test="F_USE_CD !=null">
+				UPDATER_NAME='${F_USE_CD}',
+			</if>
+			UPDATE_DATE= SYSDATE
+		</set>
+		<where>
+			INSPECTIONTYPEID='${INSPECTIONTYPEID}'
+		</where>
+	</update>
+
+	<!-- 新增检验类型列表 -->
+	<insert id="InspectionTypeInfoInsert" parameterType="hashmap">
+		INSERT INTO
+		WMS1.WMS_QUALITY_INSPECTIONTYPE
+		(INSPECTIONTYPEID,
+		INSPECTIONTYPENAME,
+		DESCRIPTION,
+		STATUS,
+		INSPECTIONRULEIDLIST,
+		GENERATENUMBERTYPEID,
+		SYSTEMTYPE,
+		CREATER_ID,
+		CREATER_NAME,
+		CREATE_DATE)
+		VALUES
+		(
+		WMS1.INSPECTIONTYPEID.NEXTVAL,
+		'${INSPECTIONTYPENAME}',
+		'${DESCRIPTION}',
+		'${STATUS}',
+		'${INSPECTIONRULEIDLIST}',
+		'${GENERATENUMBERTYPEID}',
+		'${SYSTEMTYPE}',
+		'${F_USE_CD}',
+		'${F_USE_CD}',
+		SYSDATE
+		)
+	</insert>
+
+	<!-- 删除检验类型列表 -->
+	<delete id="InspectionTypeInfoDelete" parameterType="hashmap">
+		delete WMS1.WMS_QUALITY_INSPECTIONTYPE
+		WHERE INSPECTIONTYPEID IN
+      <foreach item="item" collection="list" open="(" separator="," close=")"> 
+        #{item.INSPECTIONTYPEID}
+      </foreach>   
+		
+	</delete>
+
+    <!-- 检查项清单-->
+    <select id="queryInspectionItem" parameterType="hashmap" resultType="java.util.HashMap">
+		<include refid="oraclePagingFileTop"></include>
+			 INSPECTION_SEQ,
+		     INSPECTION_NM,
+		     MO,
+		     USR_DFN_1,
+		     USR_DFN_2,
+		     USR_DFN_3,
+		     CRT_ID,
+		     TO_CHAR(CRT_DT,'YYYY-MM-DD HH24:MI:SS') AS CRT_DT,
+		     UPT_ID,
+		     TO_CHAR(UPT_DT,'YYYY-MM-DD HH24:MI:SS') AS UPT_DT
+		FROM MES1.R_MES_INSPECTION_ITEM_T
+		<where>
+			1=1
+			<if test="list != null and list != ''">
+				and INSPECTION_SEQ in
+				<foreach item="item" collection="list" open="(" separator="," close=")"> 
+			        #{item.INSPLEID}
+			    </foreach>
+			</if>
+		</where>
+		ORDER BY CRT_DT DESC
+		<include refid="oraclePagingFileBottom"></include>
+	</select>
+	<select id="queryInspectionItem_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT 
+			COUNT(1) AS ROWS_COUNT
+		FROM MES1.R_MES_INSPECTION_ITEM_T
+	</select>
+	
+	<!-- 修改检查项清单-->
+	<update id="updateInspectionItem" parameterType="java.util.HashMap">
+	  <foreach collection="list" item="item" index="index" open="begin" close=";end;" separator=";">
+	     UPDATE MES1.R_MES_INSPECTION_ITEM_T
+	     <set>
+	     	<if test="item.INSPECTION_NM!=null and item.INSPECTION_NM!=''">
+	     		INSPECTION_NM='${item.INSPECTION_NM}',
+	     	</if>
+	     	UPT_ID='${F_USE_CD}',
+	     	UPT_DT=SYSDATE
+	     </set>
+	     WHERE INSPECTION_SEQ='${item.INSPECTION_SEQ}'
+	  </foreach>
+	</update>
+	
+	<!-- 新增检查项清单-->
+	<insert id="insertInspectionItem" parameterType="java.util.HashMap">
+		INSERT INTO MES1.R_MES_INSPECTION_ITEM_T
+	  (
+	   INSPECTION_SEQ,
+	   INSPECTION_NM,
+	   CRT_ID,
+	   CRT_DT
+	   )
+	  (
+	  <foreach collection="list" item="item" index="index" separator="union all">
+		  SELECT
+		   INSPECTION_SEQ.NEXTVAL,
+		   '${item.INSPECTION_NM}',
+		   '${F_USE_CD}',
+		   SYSDATE
+	     FROM DUAL
+	  </foreach>
+	   )
+	</insert>
+	
+	<!-- 删除检查项清单-->
+	<delete id="deleteInspectionItem" parameterType="java.util.HashMap">
+	</delete>
+	
+	<!-- 检查项清单明细-->
+    <select id="queryInspectionItemDetail" parameterType="hashmap" resultType="java.util.HashMap">
+    	   SELECT
+		       TT.IN_DETAIL_SEQ,
+	           TT.INSPECTION_CD,
+	           TT.INSPECTION_NM,
+	           TT.MO,
+	           TT.USR_DFN_1,
+	           TT.USR_DFN_2,
+	           TT.USR_DFN_3,
+	           TO_CHAR(TT.CRT_DT,'YYYY-MM-DD HH24:MI:SS') AS CRT_DT,
+	           TT.UPT_ID,
+	           TO_CHAR(TT.UPT_DT,'YYYY-MM-DD HH24:MI:SS') AS UPT_DT,
+	           TT.UPT_DT
+	    FROM MES1.R_MES_INSPECTION_DETAIL_T TT
+		<where>
+		   TT.INSPECTION_CD = '${INSPECTION_CD}'
+		</where>
+		ORDER BY TT.CRT_DT DESC
+	</select>
+	
+	<select id="queryInspectionItemDetail_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+	    SELECT 
+			COUNT(1) AS ROWS_COUNT
+		FROM MES1.R_MES_INSPECTION_DETAIL_T TT
+		WHERE TT.INSPECTION_CD = '${INSPECTION_CD}'
+		ORDER BY TT.CRT_DT DESC
+	</select>
+	
+	<!-- 修改检查项清单明细-->
+	<update id="updateInspectionItemDetail" parameterType="java.util.HashMap">
+	</update>
+	
+	<!-- 新增检查项清单明细-->
+	<insert id="insertInspectionItemDetail" parameterType="java.util.HashMap">
+	 INSERT INTO MES1.R_MES_INSPECTION_DETAIL_T
+	  (
+	   IN_DETAIL_SEQ,
+	   INSPECTION_CD,
+	   INSPECTION_NM,
+	   MO,
+	   CRT_ID,
+	   CRT_DT
+	   )
+	  (
+	  <foreach collection="list" item="item" index="index" separator="union all">
+		  SELECT
+		    INSPECTION_DETAIL_SEQ.NEXTVAL,
+		   '${item.INSPECTION_CD}',
+		   '${item.INSPECTION_NM}',
+		   '${item.MO}',
+		   '${F_USE_CD}',
+		   SYSDATE
+	     FROM DUAL
+	  </foreach>
+	   )
+	</insert>
+	
+	<!-- 删除检查项清单明细-->
+	<delete id="deleteInspectionItemDetail" parameterType="java.util.HashMap">
+		DELETE MES1.R_MES_INSPECTION_DETAIL_T
+		WHERE IN_DETAIL_SEQ IN
+		<foreach item="item" collection="list" open="(" separator="," close=")"> 
+        #{item.IN_DETAIL_SEQ}
+      </foreach>
+	</delete>
+	
+	
+	<!-- 检验定义 -->
+	<!-- 查询检验模板清单 -->
+	<select id="QueryQualityTemplate" parameterType="hashmap" resultType="java.util.HashMap">
+		<include refid="oraclePagingFileTop"></include>
+		t.inspectiontemplateid,t.inspectiontypeid,t.inspectiontemplatename,t.description,t.status
+		,t.crt_id,t.upt_id,t1.inspectiontypename,
+		TO_CHAR(t.crt_dt,'YYYY-MM-DD HH24:MI:SS') crt_dt,
+		TO_CHAR(t.upt_dt,'YYYY-MM-DD HH24:MI:SS') upt_dt
+		from mes1.QMS_QUALITY_INSPECTIONTEMPLATE t 
+		left join wms1.wms_quality_inspectiontype t1 on t.inspectiontypeid = t1.inspectiontypeid
+		<where>
+			1=1
+			<if test="INSPECTIONTEMPLATENAME !=null and INSPECTIONTEMPLATENAME !=''">
+				and t.inspectiontemplatename like '%${INSPECTIONTEMPLATENAME}%' 
+			</if>
+			<if test="INSPECTIONTYPEID !=null and INSPECTIONTYPEID !=''">
+				and t.inspectiontypeid = '${INSPECTIONTYPEID}' 
+			</if>
+		</where>
+		<include refid="oraclePagingFileBottom"></include>
+	</select>
+
+	<!-- 查询检验模板清单 序列 -->
+	<select id="QueryQualityTemplateSeq" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT MES1.MO_BC_SEQ.NEXTVAL AS NUMBE FROM DUAL
+	</select>
+
+	<!-- 查询检验模板清单 多表-->
+	<select id="QueryQualityTemplateD" parameterType="hashmap" resultType="java.util.HashMap">
+		select t1.inspectiontemplateid, t3.inspection_seq,t3.inspection_nm from mes1.qms_quality_inspectiontemplate t1
+		left join mes1.qms_quality_temp_ction t2 on t1.inspectiontemplateid = t2.inspectiontemplateid
+		left join mes1.R_MES_INSPECTION_ITEM_T t3 on t2.inspection_seq = t3.inspection_seq
+		<where>
+			1=1
+			<if test="INSPECTIONTEMPLATEID != null and INSPECTIONTEMPLATEID != ''">
+				and t1.INSPECTIONTEMPLATEID = '${INSPECTIONTEMPLATEID}' 
+			</if>
+		</where>
+	</select>
+
+	<!-- 修改检验模板清单 -->
+	<update id="QualityTemplateUpdate" parameterType="java.util.HashMap">		
+		update mes1.QMS_QUALITY_INSPECTIONTEMPLATE t 
+		<set>
+			t.inspectiontemplatename ='${INSPECTIONTEMPLATENAME}', 
+			t.inspectiontypeid = '${INSPECTIONTYPEID}',
+			t.status = '${STATUS}',
+			t.description = '${DESCRIPTION}',
+			UPT_ID = '${F_USE_CD}',
+			UPT_DT = SYSDATE
+		</set>
+		<where>
+			t.inspectiontemplateid = '${INSPECTIONTEMPLATEID}'
+		</where>	
+	</update>
+
+	<!-- 新增检验模板清单 -->
+	<insert id="QualityTemplateInsert" parameterType="hashmap">
+		insert into mes1.QMS_QUALITY_INSPECTIONTEMPLATE
+		(inspectiontemplateid,inspectiontypeid,inspectiontemplatename,status,description,crt_id,crt_dt) 
+		values
+		(MES1.MO_BC_SEQ.NEXTVAL,'${INSPECTIONTYPEID}','${INSPECTIONTEMPLATENAME}','${STATUS}','${DESCRIPTION}','${F_USE_CD}',SYSDATE) 
+	</insert>
+
+	<!-- 新增中间表 -->
+	<insert id="QualityTemplateInsertZ" parameterType="hashmap">
+		INSERT ALL  
+        <foreach collection="list" item="item" index="index">
+           INTO mes1.QMS_QUALITY_TEMP_CTION (inspection_seq,inspectiontemplateid) VALUES (#{item.INSPECTION_SEQ},#{item.INSPECTIONTEMPLATEID})
+        </foreach>
+        SELECT 1 from dual
+	</insert>	
+	
+	<!-- 删除中间表 -->
+	<delete id="QualityTemplateDeleteZ" parameterType="hashmap">
+		delete from mes1.qms_quality_temp_ction 
+		where inspectiontemplateid IN 
+		<foreach item="item" collection="list" open="(" separator="," close=")"> 
+			 #{item.INSPECTIONTEMPLATEID}
+      	</foreach>
+	</delete>
+
+	<!-- 删除检验模板清单 -->
+	<delete id="QualityTemplateDelete" parameterType="hashmap">
+		delete from mes1.QMS_QUALITY_INSPECTIONTEMPLATE 
+		where inspectiontemplateid IN 
+		<foreach item="item" collection="list" open="(" separator="," close=")"> 
+			 #{item.INSPECTIONTEMPLATEID}
+      	</foreach>
+	</delete>
+	
+	<!-- =====================================模块关联列表模块========================================================== -->
+	<!-- 新增模块关联列表信息 -->
+	<insert id="INSERT_WMS_INSPECTIONTEMPLATEITEM" parameterType="hashmap">
+		insert into wms1.WMS_INSPECTIONTEMPLATEITEM
+	     (    INSPECTIONTEMPLATEITEMID ,
+			  INSPECTIONTEMPLATEID     ,
+			  ITEMID                   ,
+			  AQLRULEID                ,
+			  LOTAUDIT                 ,
+			  CREATER_ID               ,
+			  CREATE_DATE              ,
+			  VENDORCODE               ,
+			  AQLSAMPLEID              ,
+			  CATEGORYONE              ,
+			  CATEGORYTWO              ,
+			  CATEGORYTHREE            
+		)
+		select
+		     INSPECTIONTEMPLATEITEMID_SEQ.NEXTVAL,
+			'${INSPECTIONTEMPLATEID}',
+			'${ITEMID}',
+			'${AQLRULEID}',
+			'${LOTAUDIT}',
+			'${F_USE_CD}',
+			 SYSDATE,
+			'${VENDORCODE}',
+			'${AQLSAMPLEID}' ,
+			'${CATEGORYONE}',
+			'${CATEGORYTWO}',
+			'${CATEGORYTHREE}'
+			from dual 
+	</insert>
+    <!--查询模块关联列表信息 -->
+	<select id="select_WMS_INSPECTIONTEMPLATEITEM" parameterType="hashmap" resultType="java.util.HashMap">
+		select 		
+	 		  INSPECTIONTEMPLATEITEMID, 
+			  INSPECTIONTEMPLATEID     ,
+			  ITEMID                   ,
+			  AQLRULEID                ,
+			  LOTAUDIT                 ,
+			  CREATER_ID               ,
+			  TO_CHAR(CREATE_DATE,'YYYY-MM-DD HH24:MI:SS') CREATE_DATE,
+			  UPDATER_ID               ,			  		
+		      TO_CHAR(UPDATE_DATE,'YYYY-MM-DD HH24:MI:SS') UPDATE_DATE,
+			  VENDORCODE               ,
+			  AQLSAMPLEID              
+			  FROM WMS1.WMS_INSPECTIONTEMPLATEITEM    
+		<where>
+			1=1
+			<if test="inspectiontemplateid !=null and inspectiontemplateid !=''">
+				and INSPECTIONTEMPLATEID like '%${INSPECTIONTEMPLATEID}%' 
+			</if>
+			<!-- <if test="inspectiontemplateid !=null and inspectiontemplateid !=''">
+				and inspectiontemplateid = '%${inspectiontemplateid}%' 
+			</if> -->
+			<if test="ITEMID !=null and ITEMID !=''">
+				and ITEMID like '%${ITEMID}%' 
+			</if>
+		</where>
+
+	</select>
+	
+     <!-- 修改模块关联列表信息  -->
+	<update id="update_WMS_INSPECTIONTEMPLATEITEM" parameterType="java.util.HashMap">		
+		update WMS1.WMS_INSPECTIONTEMPLATEITEM
+		<set>
+	     	<if test="INSPECTIONTEMPLATEID!=null and INSPECTIONTEMPLATEID!=''">
+	     	                                         
+	     		INSPECTIONTEMPLATEID='${INSPECTIONTEMPLATEID}',
+	     	</if>
+	     	
+	     	<if test="ITEMID!=null and ITEMID!=''">
+	     		ITEMID='${ITEMID}',
+	     	</if>
+	     	
+	     	<if test="AQLRULEID!=null and AQLRULEID!=''">
+	     		AQLRULEID='${AQLRULEID}',
+	     	</if>
+	     	
+	     	<if test="LOTAUDIT!=null and LOTAUDIT!=''">
+	     		LOTAUDIT='${LOTAUDIT}',
+	     	</if>
+	     	    	
+			UPT_ID = '${F_USE_CD}',
+			UPT_DT = SYSDATE
+			
+			<if test="VENDORCODE!=null and VENDORCODE!=''">
+	     		VENDORCODE='${VENDORCODE}',
+	     	</if>
+	     	
+	     	<if test="AQLSAMPLEID!=null and AQLSAMPLEID!=''">
+	     		AQLSAMPLEID='${AQLSAMPLEID}',
+	     	</if>
+			
+		</set>
+		<where>
+			INSPECTIONTEMPLATEITEMID = INSPECTIONTEMPLATEITEMID_SEQ.NEXTVAL
+		</where>	
+	</update>
+	
+	
+	 <!--删除模块关联列表信息  -->
+	<delete id="delete_WMS_INSPECTIONTEMPLATEITEM" parameterType="java.util.HashMap">
+		DELETE WMS1.WMS_INSPECTIONTEMPLATEITEM
+		WHERE INSPECTIONTEMPLATEITEMID IN
+		<foreach item="item" collection="list" open="(" separator="," close=")"> 
+        #{item.INSPECTIONTEMPLATEITEMID}
+      </foreach>
+	</delete>
+	
+	
+	
+	
+	  <!--查询物料详情信息 -->
+	<select id="Qualityqms_HoldMaterial" parameterType="hashmap" resultType="java.util.HashMap">
+	<include refid="oraclePagingFileTop"></include>
+			 MATERIALCODE,
+		      VENDORCODE,
+		      DATECODE,
+		      LOTCODE,
+		      REMARK,
+		      CRT_ID,
+		      CRT_IP,
+		      TO_CHAR(CRT_DT,'YYYY-MM-DD HH24:MI:SS') CRT_DT,
+		      UPT_ID,
+		      UPT_IP,
+		      TO_CHAR(UPT_DT,'YYYY-MM-DD HH24:MI:SS') UPT_DT
+		  FROM MES1.QMS_HOLDMATERIAL
+		<where>
+			1=1
+			<if test="MATERIALCODE !=null and MATERIALCODE !=''">
+				and MATERIALCODE like '%${MATERIALCODE}%' 
+			</if>
+			<if test="VENDORCODE !=null and VENDORCODE !=''">
+				and VENDORCODE like '%${VENDORCODE}%' 
+			</if>
+		</where>
+		<include refid="oraclePagingFileBottom"></include>
+		</select>
+<!--查询物料详情信息 -->
+	<select id="Qualityqms_HoldHistory" parameterType="hashmap" resultType="java.util.HashMap">
+	<include refid="oraclePagingFileTop"></include>
+			HISTORYID,
+		       OBJECTTYPE,
+		       OBJECTCODE,
+		       OPERATETYPE,
+		       OBJECTSTATUS,
+		       HOLDORUNHOLDCAUSE,
+		       REMARK,
+		       CRT_ID,
+		       CRT_IP,
+		       TO_CHAR(CRT_DT,'YYYY-MM-DD HH24:MI:SS') CRT_DT,
+		       UPT_ID,
+		       UPT_IP,
+		       TO_CHAR(UPT_DT,'YYYY-MM-DD HH24:MI:SS') UPT_DT
+		  FROM MES1.QMS_HOLDHISTORY
+		<where>
+			1=1
+			<if test="OBJECTTYPE !=null and OBJECTTYPE !=''">
+				and OBJECTTYPE = '${OBJECTTYPE}' 
+			</if>
+			<if test="OPERATETYPE !=null and OPERATETYPE !=''">
+				and OPERATETYPE = '${OPERATETYPE}' 
+			</if>
+			<if test="OBJECTCODE !=null and OBJECTCODE !=''">
+				and OBJECTCODE = '${OBJECTCODE}' 
+			</if>
+		</where>
+		<include refid="oraclePagingFileBottom"></include>
+	</select>
+	<!--新增物料详情信息  -->
+	<insert id="Insertqms_HoldMaterial" parameterType="java.util.HashMap">
+	INSERT INTO MES1.QMS_HOLDMATERIAL(MATERIALCODE,
+							VENDORCODE,
+							DATECODE,
+							LOTCODE,
+							REMARK,
+							CRT_ID,
+							CRT_DT
+							)
+							values
+							(
+							'${MATERIALCODE}',
+							'${VENDORCODE}',
+							'${DATECODE}',
+							'${LOTCODE}',
+							'${REMARK}',
+							'${F_USE_CD}',
+							SYSDATE
+							)
+	</insert>
+	
+	<!--新增QHold详情信息  -->
+	<insert id="Insertqms_HoldHistory" parameterType="java.util.HashMap">
+		INSERT INTO MES1.QMS_HOLDHISTORY(HISTORYID,
+				OBJECTTYPE,
+				OBJECTCODE,
+				OPERATETYPE,
+				OBJECTSTATUS,
+				HOLDORUNHOLDCAUSE,
+				REMARK,
+				CRT_ID,
+				CRT_DT
+				)
+				values
+				(
+				HISTORYID.Nextval,
+				'${OBJECTTYPE}',
+				'${OBJECTCODE}',
+				'${OPERATETYPE}',
+				'${OBJECTSTATUS}',
+				'${HOLDORUNHOLDCAUSE}',
+				'${REMARK}',
+				'${F_USE_CD}',
+				SYSDATE
+				)
+	</insert>
+	
+	
+	<!--修改QHold详情信息  -->
+	<update id="Updateqms_HoldHistory" parameterType="java.util.HashMap">
+		update MES1.QMS_HOLDHISTORY
+		<set>
+			<if test=" OBJECTTYPE !=null and OBJECTTYPE !=''">
+				OBJECTTYPE = '${OBJECTTYPE}',
+			</if>
+			<if test=" OBJECTCODE !=null and OBJECTCODE !=''">
+				OBJECTCODE = '${OBJECTCODE}',
+			</if>
+			<if test=" OPERATETYPE !=null and OPERATETYPE !=''">
+				OPERATETYPE = '${OPERATETYPE}',
+			</if>
+			<if test=" OBJECTSTATUS !=null and OBJECTSTATUS !=''">
+				OBJECTSTATUS = '${OBJECTSTATUS}',
+			</if>
+			<if test=" HOLDORUNHOLDCAUSE !=null and HOLDORUNHOLDCAUSE !=''">
+				HOLDORUNHOLDCAUSE = '${HOLDORUNHOLDCAUSE}',
+			</if>
+			<if test=" REMARK !=null and REMARK !=''">
+				REMARK = '${REMARK}',
+			</if>
+			<if test="F_USE_CD !=null">
+				UPT_ID='${F_USE_CD}',
+			</if>
+			UPT_DT= SYSDATE
+		</set>
+		<where>
+			HISTORYID='${HISTORYID}'
+		</where>
+	</update>
+</mapper>

@@ -1,0 +1,2733 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="">
+        <!-- A9   设备管理-->
+        <!-- A9.1 设备操作明细信息-->
+        <!-- 查询设备操作未结束信息-->
+	    <select id="queryEquipmentNoStop" parameterType="hashmap" resultType="java.util.HashMap"> 
+			    SELECT 
+			       T1.ET_CD,
+			       T1.CL_NM,
+			       TO_CHAR(T1.CL_BGN_DATE,'YYYY-MM-DD HH24:Mi:SS') AS CL_BGN_DATE,
+			       T2.ET_NM,
+			       T2.LC_CD,
+                   T4.LC_NM,
+                   T2.PL_CD,
+                   T3.PL_NM
+			     FROM TPM2.H_TPM_C1_T T1
+			     LEFT JOIN iplant1.C_IPLANT_E2_T T2 ON T1.ET_CD=T2.ET_CD
+			     LEFT JOIN iplant1.C_IPLANT_P1_T T3 ON T2.PL_CD=T3.PL_CD 
+                 LEFT JOIN iplant1.C_IPLANT_L1_T T4 ON T2.LC_CD=T4.LC_CD  
+			    <where>
+				    CL_BGN_DATE IS NOT NULL 
+				    AND CL_END_DATE IS NULL 
+				    <if test=' STP_YN !="0"'>				    
+				    AND STP_YN IN ('1','2')
+				    </if>
+				    <if test=' STP_YN =="0"'>				    
+				    AND STP_YN = '0'
+				    </if>
+				   <if test=" BGN_EMP !=null and BGN_EMP !='' ">
+				    AND BGN_EMP='${BGN_EMP}'
+				   </if>
+				    AND CL_CD !='RCL01.04'
+			    </where> 
+			    <include refid="ziDingYiPaiXu"></include>
+	    </select>
+        <!-- 查询设备操作上下机信息-->
+	    <select id="queryEquipmentOpMachine" parameterType="hashmap" resultType="java.util.HashMap"> 
+			    SELECT
+			         T1.ET_CD,
+			         T2.ET_NM,
+			         T2.PL_CD,
+			         T2.LC_CD,
+			         T1.DO_CD,	
+			         T1.CL_CD,
+			         T1.CL_NM,		         
+			         T1.CL_WT,
+			         TO_CHAR(T1.CL_BGN_DATE,'YYYY-MM-DD HH24:MI:SS') AS CL_BGN_DATE,
+			         T1.BGN_EMP,
+			         TO_CHAR(T1.CL_END_DATE,'YYYY-MM-DD HH24:MI:SS') AS CL_END_DATE,
+			         T1.END_EMP,
+			         T1.CRT_ID,
+			         T1.CRT_IP,
+			         TO_CHAR(T1.CRT_DT,'YYYY-MM-DD HH24:MI:SS') AS CRT_DT,
+			         T1.UPT_ID,
+			         T1.UPT_IP,
+			         TO_CHAR(T1.UPT_DT,'YYYY-MM-DD HH24:MI:SS') AS UPT_DT,
+			         CASE 
+			             WHEN (SELECT COUNT(1) FROM TPM2.H_TPM_C1_T T1
+								  LEFT JOIN iplant1.C_IPLANT_E2_T T2
+								    ON T1.ET_CD = T2.ET_CD
+								 WHERE 1 = 1
+								   AND T1.CL_CD IN ('RCL01.08')
+								   AND T2.ET_CD = '${ET_CD}'
+								   AND T1.BGN_EMP = '${BGN_EMP}'
+								   AND T1.CL_END_DATE IS NULL) >0  THEN 'Y'
+			                                                      ELSE 'N'   
+			              END    AS  CARD_FALG
+			     FROM  TPM2.H_TPM_C1_T T1 
+			     LEFT JOIN iplant1.C_IPLANT_E2_T T2 ON T1.ET_CD=T2.ET_CD
+			     <where>
+			            1=1
+			          AND T1.CL_CD IN ('RCL01.08')
+			          AND T1.ET_CD ='${ET_CD}'
+			          AND T1.BGN_EMP ='${BGN_EMP}'
+			          AND T1.CL_END_DATE IS NULL
+			     </where>	
+	    </select>
+        <!-- 查询设备操作明细信息-->
+	    <select id="queryEquipmentOp" parameterType="hashmap" resultType="java.util.HashMap"> 
+			  <include refid="oraclePagingFileTop"></include>
+			         T1.ET_CD,
+			         T2.ET_NM,
+			         T2.PL_CD,
+			         T2.LC_CD,
+			         T1.DO_CD,	
+			         T1.CL_CD,
+			         T1.CL_NM,		         
+			         T1.CL_WT,
+			         TO_CHAR(T1.CL_BGN_DATE,'YYYY-MM-DD HH24:MI:SS') AS CL_BGN_DATE,
+			         T1.BGN_EMP,			         
+			         TO_CHAR(T1.CL_END_DATE,'YYYY-MM-DD HH24:MI:SS') AS CL_END_DATE,
+			         T1.END_EMP,
+			         T1.CRT_ID,
+			         T1.CRT_IP,
+			         TO_CHAR(T1.CRT_DT,'YYYY-MM-DD HH24:MI:SS') AS CRT_DT,
+			         T1.UPT_ID,
+			         T1.UPT_IP,
+			         TO_CHAR(T1.UPT_DT,'YYYY-MM-DD HH24:MI:SS') AS UPT_DT
+			       FROM  TPM2.H_TPM_C1_T T1 
+			       LEFT JOIN iplant1.C_IPLANT_E2_T T2 ON T1.ET_CD=T2.ET_CD			       
+				   <where> 1=1
+		            	<if test=" ET_CD !=null and ET_CD !='' ">
+		            	    AND	T1.ET_CD='${ET_CD}'
+		            	</if>
+		            	<if test=" ET_NM !=null and ET_NM !='' ">
+		            	    AND	T2.ET_NM LIKE '%${ET_NM}%'
+		            	</if>
+		            	<if test=" DO_CD !=null and DO_CD !='' ">
+		            	    AND T1.DO_CD='${DO_CD}'
+		            	</if>
+		            	<if test=" LC_CD !=null and LC_CD !='' ">
+		            	    AND T2.LC_CD='${LC_CD}'
+		            	</if>
+		            	<if test=" PL_CD !=null and PL_CD !='' ">
+		            	    AND T2.PL_CD='${PL_CD}'
+		            	</if>
+ 		            	    AND T1.CL_BGN_DATE IS NOT NULL
+ 		            	    AND T1.CL_END_DATE IS NULL
+ 		            	    AND T1.STP_YN IN ('1','2')
+		            </where>
+		      <include refid="oraclePagingFileBottom"></include>
+	    </select>
+	    <!-- 查询设备操作明细分页总数-->
+		<select id="queryEquipmentOp_COUNT" parameterType="hashmap" resultType="java.util.HashMap"> 
+		        SELECT 
+ 					COUNT(1)   ROWS_COUNT
+	             FROM  TPM2.H_TPM_C1_T T1 
+			     LEFT JOIN iplant1.C_IPLANT_E2_T T2 ON T1.ET_CD=T2.ET_CD			       
+				   <where> 1=1
+		            	<if test=" ET_CD !=null and ET_CD !='' ">
+		            	    AND	T1.ET_CD='${ET_CD}'
+		            	</if>
+		            	<if test=" ET_NM !=null and ET_NM !='' ">
+		            	    AND	T2.ET_NM LIKE '%${ET_NM}%'
+		            	</if>
+		            	<if test=" DO_CD !=null and DO_CD !='' ">
+		            	    AND T1.DO_CD='${DO_CD}'
+		            	</if>
+		            	<if test=" LC_CD !=null and LC_CD !='' ">
+		            	    AND T2.LC_CD='${LC_CD}'
+		            	</if>
+		            	<if test=" PL_CD !=null and PL_CD !='' ">
+		            	    AND T2.PL_CD='${PL_CD}'
+		            	</if>
+ 		            	    AND T1.CL_BGN_DATE IS NOT NULL
+ 		            	    AND T1.CL_END_DATE IS NULL
+ 		            	    AND T1.STP_YN IN ('1','2')
+		            </where>
+	    </select>    
+	    <!-- 新增设备操作明细信息 -->
+	    <insert id="insertEquipmentOp" parameterType="hashmap"> 
+	            INSERT INTO
+	                  TPM2.H_TPM_C1_T
+	                       (
+	                     	ET_CD,
+						    DO_CD,
+						    CL_CD,
+						    CL_NM,
+						    CL_WT,
+							CL_BGN_DATE,
+							BGN_EMP,
+							CRT_ID,
+							CRT_IP,
+							CRT_DT,
+							STP_YN
+							)
+					    VALUES
+					       (
+					        '${ET_CD}',
+						    '${DO_CD}',
+						    '${CL_CD}',
+						    '${CL_NM}',
+						    '${CL_WT}',
+							SYSDATE,
+							'${BGN_EMP}',													    
+							'${F_USE_CD}',
+							'${CRT_IP}',
+							SYSDATE,
+							'${STP_YN}'
+					        )              
+	    </insert>   
+	    <!-- 修改设备操作明细信息--> 
+	    <update id="updateEquipmentOp" parameterType="hashmap">
+	            UPDATE  TPM2.H_TPM_C1_T
+		            <set>	
+<!-- 		               <if test=" DO_CD !=null and DO_CD !='' "> -->
+<!-- 	 					   DO_CD='${DO_CD}',	                    -->
+<!-- 		               </if>        	 		               	 					   	                    -->
+		               <if test=" CL_CD !=null and CL_CD !='' ">
+	 					   CL_CD='${CL_CD}',	                   
+		               </if>
+		               <if test=" CL_NM !=null and CL_NM !='' ">
+	 					   CL_NM='${CL_NM}',	                   
+		               </if>		               		               		               		                   	               
+		               <if test=" END_EMP !=null and END_EMP !='' ">
+						   END_EMP='${END_EMP}',	                   
+		               </if>
+		                   CL_END_DATE=SYSDATE,
+		                   CL_WT=ceil(((To_date(to_char(sysdate , 'yyyy-mm-dd hh24-mi-ss') , 'yyyy-mm-dd hh24-mi-ss') -
+                                       CL_BGN_DATE)) *24*60*60),	
+		                   UPT_ID='${F_USE_CD}',	                         
+	                       UPT_IP='${UPT_IP}',
+	                       UPT_DT=SYSDATE
+	                 </set>
+	                 <where>
+	                     STP_YN IN ('1','2')                     
+	            		 AND ET_CD='${ET_CD}'	            			            		
+	            		 AND CL_END_DATE IS NULL
+	            	 </where>
+	    </update>
+	    <!-- 更新下机--> 
+	    <update id="updateEquipmentEndOp" parameterType="hashmap">
+	            UPDATE  TPM2.H_TPM_C1_T
+		            <set>
+<!-- 		               <if test=" DO_CD !=null and DO_CD !='' "> -->
+<!-- 						   DO_CD='${DO_CD}',                    -->
+<!-- 		                </if> -->
+		               <if test=" CL_CD !=null and CL_CD !='' ">
+	 					   CL_CD='${CL_CD}',	                   
+		               </if>
+		               <if test=" CL_NM !=null and CL_NM !='' ">
+	 					   CL_NM='${CL_NM}',	                   
+		               </if>	           	 		               	 					   	                   		               		               		               		               		                   	               
+						   END_EMP='${END_EMP}',	                   
+		                   CL_END_DATE=SYSDATE,
+		                   CL_WT=ceil(((To_date(to_char(sysdate , 'yyyy-mm-dd hh24-mi-ss') , 'yyyy-mm-dd hh24-mi-ss') -
+                                       CL_BGN_DATE)) *24*60*60),	
+		                   UPT_ID='${F_USE_CD}',	                         
+	                       UPT_IP='${UPT_IP}',
+	                       UPT_DT=SYSDATE
+	                 </set>
+	                 <where>
+	                     STP_YN ='0'
+	                     AND CL_CD !='RCL01.04'
+	            		 AND ET_CD='${ET_CD}'	            		
+	            		 AND BGN_EMP='${BGN_EMP}'	            			            		
+	            		 AND CL_END_DATE IS NULL
+	            	 </where>
+	    </update>
+	    <!-- 删除设备操作明细信息--> 
+	    <delete id="deleteEquipmentOp" parameterType="hashmap">
+	            DELETE TPM2.H_TPM_C1_T
+	             	<where>
+	             		ET_CD='${ET_CD}'
+	             	</where> 
+	    </delete>  
+	    
+	    <!-- A9.2  设备状态-->
+	    <!-- 查询设备状态信息 -->
+	    <select id="queryEquipmentStatus" parameterType="hashmap" resultType="java.util.HashMap" >
+	            <include refid="oraclePagingFileTop"></include>
+                         T1.ET_CD,
+                         T2.ET_NM,
+                         T2.PL_CD,
+                         T1.DO_CD,
+                         T1.DICT_IT,
+                         T1.DICT_IT_NM,               
+                         TO_CHAR(T1.BGN_DATE,'YYYY-MM-DD HH24:MI:SS') AS BGN_DATE,
+                         T1.EMP_CD 
+		             FROM  TPM1.R_TPM_S1_T T1
+		             LEFT JOIN iplant1.C_IPLANT_E2_T T2 ON T1.ET_CD=T2.ET_CD
+				   <where> 1=1
+		              <if test=" ET_CD !=null and ET_CD !='' ">
+		            	  AND T1.ET_CD='${ET_CD}'
+		              </if>
+		              <if test=" ET_NM !=null and ET_NM !='' ">
+		            	  AND T2.ET_NM LIKE '%${ET_NM}%'
+		              </if>
+		              <if test=" PL_CD !=null and PL_CD !='' ">
+		            	  AND T2.PL_CD='${PL_CD}'
+		              </if>
+		           </where>
+		       <include refid="oraclePagingFileBottom"></include> 
+	    </select> 
+	    <!-- 查询设备状态分页总数-->
+		<select id="queryEquipmentStatus_COUNT" parameterType="hashmap" resultType="java.util.HashMap"> 
+		        SELECT 
+ 					COUNT(1)   ROWS_COUNT
+	            FROM  TPM1.R_TPM_S1_T T1
+		        LEFT JOIN iplant1.C_IPLANT_E2_T T2 ON T1.ET_CD=T2.ET_CD
+				   <where> 1=1
+		              <if test=" ET_CD !=null and ET_CD !='' ">
+		            	  AND T1.ET_CD='${ET_CD}'
+		              </if>
+		              <if test=" ET_NM !=null and ET_NM !='' ">
+		            	  AND T2.ET_NM LIKE '%${ET_NM}%'
+		              </if>
+		              <if test=" PL_CD !=null and PL_CD !='' ">
+		            	  AND T2.PL_CD='${PL_CD}'
+		              </if>
+		           </where>
+	    </select>     
+	    <!-- 新增设备状态信息 -->
+	    <insert id="insertEquipmentStatus" parameterType="hashmap"> 
+	            INSERT INTO
+	                  TPM1.R_TPM_S1_T
+	                       (
+	                     	ET_CD,
+			                DO_CD,
+			                DICT_IT,
+			                DICT_IT_NM,			                
+			                BGN_DATE,
+			                EMP_CD
+			                )
+			             VALUES
+			                (
+			                 '${ET_CD}',
+			                 '${DO_CD}',
+			                 '${DICT_IT}',
+			                 '${DICT_IT_NM}',
+			                 SYSDATE,
+			                 '${EMP_CD}'
+			                 )	
+	    </insert>   
+	    <!-- 修改设备状态信息--> 
+	    <update id="updateEquipmentStatus" parameterType="hashmap">
+	            UPDATE  TPM1.R_TPM_S1_T
+		            <set>	            	 
+		               <if test=" DO_CD !=null and DO_CD !='' ">
+					       DO_CD='${DO_CD}',	                   
+		               </if>
+		               <if test=" DICT_IT !=null and DICT_IT !='' ">
+		                   DICT_IT='${DICT_IT}',
+		               </if>
+		               <if test=" DICT_IT_NM !=null and DICT_IT_NM !='' ">
+		                   DICT_IT_NM='${DICT_IT_NM}',
+		               </if>		               
+		               <if test=" EMP_CD !=null and EMP_CD !='' ">
+		                   EMP_CD='${EMP_CD}'
+		               </if>	
+		               BGN_DATE	= SYSDATE                   
+	                 </set>
+	                 <where>
+	                    ET_CD='${ET_CD}'
+	            	 </where>
+	    </update>
+        <!-- 删除设备状态信息--> 
+	    <delete id="deleteEquipmentStatus" parameterType="hashmap">
+	             DELETE TPM1.R_TPM_S1_T
+	             	<where>
+	             		ET_CD='${ET_CD}'
+	             	</where>  
+	    </delete> 
+	    
+	    <!-- A9.3  设备状态明细信息-->
+	    <!-- 查询设备状态明细信息 -->
+	    <select id="queryEquipmentStatusDetail" parameterType="hashmap" resultType="java.util.HashMap" > 
+	            <include refid="oraclePagingFileTop"></include>
+			         ET_CD,
+                     DO_CD,
+                     DICT_IT_01,
+                     DICT_IT_NM_01,
+                     DICT_IT_02,
+                     DICT_IT_NM_02,
+			         TO_CHAR(BGN_DATE,'YYYY-MM-DD HH24:MI:SS') AS BGN_DATE,
+			         BGN_EMP,
+			         TO_CHAR(END_DATE,'YYYY-MM-DD HH24:MI:SS') AS END_DATE,
+			         END_EMP,
+			         ST_WT,
+			         TO_CHAR(CRT_DT,'YYYY-MM-DD HH24:MI:SS') AS CRT_DT
+			     FROM  TPM2.H_TPM_S1_T
+				 <where> 1=1
+		            <if test=" ET_CD !=null and ET_CD !='' ">
+		                AND ET_CD='${ET_CD}'
+		            </if>
+		            <if test=" DO_CD !=null and DO_CD !='' ">
+		            	AND DO_CD='${DO_CD}'
+		            </if>
+		            </where>
+		      <include refid="oraclePagingFileBottom"></include>  
+	    </select>
+	    <!-- 查询设备状态分页总数-->
+		<select id="queryEquipmentStatusDetail_COUNT" parameterType="hashmap" resultType="java.util.HashMap"> 
+		        SELECT 
+ 					COUNT(1)   ROWS_COUNT
+	            FROM TPM2.H_TPM_S1_T
+	            <where> 1=1
+		            <if test=" ET_CD !=null and ET_CD !='' ">
+		                AND ET_CD='${ET_CD}'
+		            </if>
+		            <if test=" DO_CD !=null and DO_CD !='' ">
+		            	AND DO_CD='${DO_CD}'
+		            </if>
+		        </where>
+	    </select>      
+	    <!-- 新增设备状态明细信息 -->
+	    <insert id="insertEquipmentStatusDetail" parameterType="hashmap">
+	            INSERT INTO
+	                 TPM2.H_TPM_S1_T
+	                     (
+	                      ET_CD,
+                          DO_CD,
+                          DICT_IT_01,
+                          DICT_IT_NM_01,
+                          DICT_IT_02,
+                          DICT_IT_NM_02,
+			              BGN_DATE,
+			              BGN_EMP,			              
+			              ST_WT,
+			              CRT_DT
+			              )
+			           VALUES
+			              (
+			               '${ET_CD}',
+			               '${DO_CD}',
+			               '${DICT_IT_01}',
+			               '${DICT_IT_NM_01}',
+			               '${CL_CD}',
+			               '${CL_NM}',			               
+			                SYSDATE	,		               
+			               '${BGN_EMP}',
+			               '${ST_WT}',
+			               SYSDATE
+			               )
+	    </insert>
+	    <!-- 修改设备状态明细信息--> 
+	    <update id="updateEquipmentStatusDetail" parameterType="hashmap"> 
+	            UPDATE  TPM2.H_TPM_S1_T
+		            <set>	            	 
+		                <if test=" DO_CD !=null and DO_CD !='' ">
+							   DO_CD='${DO_CD}',	                   
+		                </if>
+		                <if test=" DICT_IT_01 !=null and DICT_IT_01 !='' ">
+		                       DICT_IT_01='${DICT_IT_01}',
+		                </if>
+		                 <if test=" DICT_IT_NM_01 !=null and DICT_IT_NM_01 !='' ">
+		                       DICT_IT_NM_01='${DICT_IT_NM_01}',
+		                </if>
+		                 <if test=" DICT_IT_02 !=null and DICT_IT_02 !='' ">
+		                       DICT_IT_02='${CL_CD}',
+		                </if>		                
+		                <if test=" DICT_IT_NM_02 !=null and DICT_IT_NM_02 !='' ">
+		                   	   DICT_IT_NM_02='${CL_NM}',
+		                </if>		                
+	 						   END_DATE=SYSDATE,	                   		              	                
+		                   	   END_EMP='${END_EMP}',		                
+		                <if test=" ST_WT !=null and ST_WT !='' ">
+	 						   ST_WT='${ST_WT}'	                   
+		                </if>		                  
+	                </set>
+	                    <where>
+	            		   ET_CD='${ET_CD}'
+	            		   AND END_DATE IS NULL
+	            	    </where>
+	    </update>
+	    <!-- 删除设备状态明细信息--> 
+	    <delete id="deleteEquipmentStatusDetail" parameterType="hashmap"> 
+	            DELETE TPM2.H_TPM_S1_T
+	             	<where>
+	             		ET_CD='${ET_CD}'
+	             	</where>  
+	    </delete> 
+	    
+	    <!-- 操作信息表-->
+	    <!-- 查询操作信息表 -->
+	    <select id="queryOperationInfo" parameterType="hashmap" resultType="java.util.HashMap" > 
+	            SELECT 
+	                CL_CD,
+					CL_NM,
+					DICT_IT,
+					CS_SORT,
+					USE_YN,
+					STP_ST,
+					CRT_ID,
+					TO_CHAR(CRT_DT,'YYYY-MM-DD HH24:MI:SS') AS CRT_DT,
+					CRT_IP,
+					UPT_ID,
+					TO_CHAR(UPT_DT,'YYYY-MM-DD HH24:MI:SS') AS UPT_DT,
+					UPT_IP
+			     FROM  iplant1.C_IPLANT_C2_T
+			     <where>
+			       USE_YN='Y' 
+			       <if test="CL_CD !=null and CL_CD !=''">
+			           AND CL_CD ='${CL_CD}'
+			       </if>
+			       <if test="DICT_IT !=null and DICT_IT !=''">
+			           AND DICT_IT ='${DICT_IT}'
+			       </if>
+			       <if test="STP_ST !=null and STP_ST !=''">
+			           AND STP_ST !='${STP_ST}'
+			       </if>
+			     </where>     
+	    </select>	    
+	    <!-- 新增操作信息表-->
+	    <insert id="insertOperationInfo" parameterType="hashmap">
+	            INSERT INTO
+	                 C_IPLANT_C2_T
+	                     (
+	                        CL_CD,
+							CL_NM,
+							DICT_IT,
+							CS_SORT,
+							USE_YN,
+							STP_ST,
+							CRT_ID,
+							CRT_DT,
+							CRT_IP,
+							STP_YN
+			              )
+			           VALUES
+			              (
+			               '${CL_CD}',
+			               '${CL_NM}',
+			               '${DICT_IT}',
+			               '${CS_SORT}',
+			               '${USE_YN}',
+			               '${STP_ST}',
+			               '${F_USE_CD}',
+			               SYSDATE,
+			               '${CRT_IP}',
+			               '${STP_YN}'
+			               )
+	    </insert>
+	    <!-- 修改操作信息表--> 
+	    <update id="updateOperationInfo" parameterType="hashmap"> 
+	            UPDATE  iplant1.C_IPLANT_C2_T
+		            <set>	            	 
+		                <if test=" CL_NM !=null and CL_NM !='' ">
+							   CL_NM='${CL_NM}',	                   
+		                </if>
+		                <if test=" DICT_IT !=null and DICT_IT !='' ">
+		                       DICT_IT='${DICT_IT}',
+		                </if>
+		                <if test=" CS_SORT !=null and CS_SORT !='' ">
+	 						   CS_SORT='${CS_SORT}',	                   
+		                </if>
+		                <if test=" USE_YN !=null and USE_YN !='' ">
+		                   	   USE_YN='${USE_YN}',
+		                </if>
+		                <if test=" STP_ST !=null and STP_ST !='' ">
+	 						   STP_ST='${STP_ST}',	                   
+		                </if>
+		                       UPT_ID='${F_USE_CD}',
+	 						   UPT_DT=SYSDATE,	                    
+		                   	   UPT_IP='${UPT_IP}', 	                  
+	                </set>
+	                    <where>
+	            		   CL_CD='${CL_CD}'
+	            	    </where>
+	    </update>
+	    <!-- 删除操作信息表--> 
+	    <delete id="deleteOperationInfo" parameterType="hashmap"> 
+	            DELETE C_IPLANT_C2_T
+	             	<where>
+	             		CL_CD='${CL_CD}'
+	             	</where>  
+	    </delete> 
+	    
+	    <!-- 设备停机操作明细表-->
+	    <!-- 查询设备停机操作明细表 -->
+	    <select id="queryEquipmentStopStatus" parameterType="hashmap" resultType="java.util.HashMap" >
+	            <include refid="oraclePagingFileTop"></include>                           
+                            T1.ET_CD,
+                            T2.ET_NM,
+                            T2.PL_CD,
+							T1.DO_CD,
+							T1.CL_CD,
+							T1.CL_NM,
+							T1.STP_YN,
+							T1.CL_WT,
+							T1.CL_BGN_DATE,
+							T1.BGN_EMP,
+							T1.CL_END_DATE,
+							T1.END_EMP,
+							T1.CRT_ID,
+							T1.CRT_DT,
+							T1.CRT_IP,
+							T1.UPT_ID,
+							T1.UPT_DT,
+							T1.UPT_IP
+		             FROM  TPM2.H_TPM_S2_T T1
+		             LEFT JOIN iplant1.C_IPLANT_E2_T T2 ON T1.ET_CD=T2.ET_CD
+				   <where> 1=1
+		              <if test=" ET_CD !=null and ET_CD !='' ">
+		            	  AND T1.ET_CD='${ET_CD}'
+		              </if>
+		              <if test=" ET_NM !=null and ET_NM !='' ">
+		            	  AND T2.ET_NM LIKE '%${ET_NM}%'
+		              </if>
+		              <if test=" PL_CD !=null and PL_CD !='' ">
+		            	  AND T2.PL_CD='${PL_CD}'
+		              </if>
+		           </where>
+		       <include refid="oraclePagingFileBottom"></include> 
+	    </select> 
+	    <!-- 查询设备停机操作明细表分页总数-->
+		<select id="queryEquipmentStopStatus_COUNT" parameterType="hashmap" resultType="java.util.HashMap"> 
+		        SELECT 
+ 					COUNT(1)   ROWS_COUNT
+	            FROM  TPM2.H_TPM_S2_T T1
+		        LEFT JOIN iplant1.C_IPLANT_E2_T T2 ON T1.ET_CD=T2.ET_CD
+				   <where> 1=1
+		              <if test=" ET_CD !=null and ET_CD !='' ">
+		            	  AND T1.ET_CD='${ET_CD}'
+		              </if>
+		              <if test=" ET_NM !=null and ET_NM !='' ">
+		            	  AND T2.ET_NM LIKE '%${ET_NM}%'
+		              </if>
+		              <if test=" PL_CD !=null and PL_CD !='' ">
+		            	  AND T2.PL_CD='${PL_CD}'
+		              </if>
+		           </where>
+	    </select>     
+	    <!-- 新增设备停机操作明细表-->
+	    <insert id="insertEquipmentStopStatus" parameterType="hashmap"> 
+	            INSERT INTO
+	                  TPM2.H_TPM_S2_T
+	                       (	                     	
+                            ET_CD,
+							DO_CD,
+							CL_CD,
+							CL_NM,
+							STP_YN,
+							CL_WT,
+							CL_BGN_DATE,
+							BGN_EMP,							
+							CRT_ID,
+							CRT_DT,
+							CRT_IP
+			                )
+			             VALUES
+			                (
+			                '${ET_CD}',
+						    '${DO_CD}',
+						    '${CL_CD}',
+						    '${CL_NM}',
+						    '${STP_YN}',
+						    '${CL_WT}',
+							SYSDATE,
+							'${BGN_EMP}',													    
+							'${F_USE_CD}',
+							SYSDATE,
+							'${CRT_IP}'							
+			                 )	
+	    </insert>   
+	    <!-- 修改设备停机操作明细表--> 
+	    <update id="updateEquipmentStopStatus" parameterType="hashmap">
+	             UPDATE  TPM2.H_TPM_S2_T
+		            <set>	            	 		               	 					   	                   
+		               <if test=" CL_CD !=null and CL_CD !='' ">
+	 					   CL_CD='${CL_CD}',	                   
+		               </if>
+		               <if test=" CL_NM !=null and CL_NM !='' ">
+	 					   CL_NM='${CL_NM}',	                   
+		               </if>		               		               		               		                   	               
+						   END_EMP='${END_EMP}',	                   		    
+		                   CL_END_DATE=SYSDATE,
+		                   CL_WT=ceil(((To_date(to_char(sysdate , 'yyyy-mm-dd hh24-mi-ss') , 'yyyy-mm-dd hh24-mi-ss') -
+                                        CL_BGN_DATE)) *24*60*60),	
+		                   UPT_ID='${F_USE_CD}',	                         
+	                       UPT_IP='${UPT_IP}',
+	                       UPT_DT=SYSDATE
+	                 </set>
+	                 <where>
+	            		 ET_CD='${ET_CD}'	            		 
+	            		 AND CL_END_DATE IS NULL
+	            	 </where>
+	    </update>
+        <!-- 删除设备停机操作明细表--> 
+	    <delete id="deleteEquipmentStopStatus" parameterType="hashmap">
+	             DELETE TPM2.H_TPM_C1_T
+	             	<where>
+	             		ET_CD='${ET_CD}'
+	             		AND DO_CD='${DO_CD}'
+	             	</where>  
+	    </delete> 	
+	    
+	     <!-- 设备维修运行主表-->
+	    <!-- 查询设备维修运行主表 -->
+	    <select id="queryEquipmentWx" parameterType="hashmap" resultType="java.util.HashMap" >
+	            <include refid="oraclePagingFileTop"></include>                           
+						  RP_CD,
+						  DICT_IT_NM_01,
+						  ET_TY,
+						  ET_CD,
+						  TO_CHAR(RSP_DT,'YYYY-MM-DD HH24:Mi:SS') AS RSP_DT,
+						  RSP_EMP,
+						  DICT_IT_NM_02,
+						  RP_EMP,
+						  TO_CHAR(BGN_DT,'YYYY-MM-DD HH24:Mi:SS') AS BGN_DT,						 
+						  TO_CHAR(END_DT,'YYYY-MM-DD HH24:Mi:SS') AS END_DT,
+						  KB_CD,
+						  KB_NM,
+						  KB_IU,
+						  KB_PD,
+						  KB_SC, 
+						  RP_ST,
+						  IS_UR,
+						  RS_CM,
+						  RE_CN,
+						  CM_EMP,
+						  CRT_ID,
+						  TO_CHAR(CRT_DT,'YYYY-MM-DD HH24:Mi:SS') AS CRT_DT,
+						  CRT_IP,
+						  UPT_ID,
+						  TO_CHAR(UPT_DT,'YYYY-MM-DD HH24:Mi:SS') AS UPT_DT,
+						  UPT_IP
+					 FROM TPM1.R_TPM_R1_T
+				   <where> 1=1
+		              <if test=" RP_CD !=null and RP_CD !='' ">
+		            	  AND RP_CD='${RP_CD}'
+		              </if>
+		              <if test=" ET_CD !=null and ET_CD !='' ">
+		            	  AND ET_CD='${ET_CD}'
+		              </if>
+		              <if test=" RSP_EMP !=null and RSP_EMP !='' ">		            	 
+		            	  AND RSP_EMP LIKE '%${RSP_EMP}%'
+		              </if>
+		              <if test=" DICT_IT_NM_02 !=null and DICT_IT_NM_02 !='' ">		            	 
+		            	  AND DICT_IT_NM_02 ='${DICT_IT_NM_02}'
+		              </if>
+		              <if test=" BGN_DT_B !=null and BGN_DT_B !='' ">		            	 
+		            	  AND BGN_DT >=TO_DATE('${BGN_DT_B}', 'YYYY-MM-DD HH24:Mi:SS')
+		              </if>
+		               <if test=" BGN_DT_E !=null and BGN_DT_E !='' ">		            	 
+		            	  AND BGN_DT &lt;=TO_DATE('${BGN_DT_E}', 'YYYY-MM-DD HH24:Mi:SS')
+		              </if>
+		              <if test=" END_DT_B !=null and END_DT_B !='' ">		            	 
+		            	  AND END_DT >=TO_DATE('${END_DT_B}', 'YYYY-MM-DD HH24:Mi:SS')
+		              </if>
+		               <if test=" END_DT_E !=null and END_DT_E !='' ">		            	 
+		            	  AND END_DT &lt;=TO_DATE('${END_DT_E}', 'YYYY-MM-DD HH24:Mi:SS')
+		              </if>
+		              <if test=" CRT_DT_B !=null and CRT_DT_B !='' ">		            	 
+		            	  AND CRT_DT >=TO_DATE('${CRT_DT_B}', 'YYYY-MM-DD HH24:Mi:SS')
+		              </if>
+		               <if test=" CRT_DT_E !=null and CRT_DT_E !='' ">		            	 
+		            	  AND CRT_DT &lt;=TO_DATE('${CRT_DT_E}', 'YYYY-MM-DD HH24:Mi:SS')
+		              </if>
+		           </where>
+		       <include refid="oraclePagingFileBottom"></include> 
+	    </select> 
+	    <!-- 查询设备维修运行主表分页总数-->
+		<select id="queryEquipmentWx_COUNT" parameterType="hashmap" resultType="java.util.HashMap"> 
+		        SELECT 
+ 					COUNT(1)   ROWS_COUNT
+	            FROM TPM1.R_TPM_R1_T
+				   <where> 1=1
+		              <if test=" RP_CD !=null and RP_CD !='' ">
+		            	  AND RP_CD='${RP_CD}'
+		              </if>
+		              <if test=" ET_CD !=null and ET_CD !='' ">
+		            	  AND ET_CD='${ET_CD}'
+		              </if>
+		              <if test=" RSP_EMP !=null and RSP_EMP !='' ">		            	 
+		            	  AND RSP_EMP LIKE '%${RSP_EMP}%'
+		              </if>
+		              <if test=" DICT_IT_NM_02 !=null and DICT_IT_NM_02 !='' ">		            	 
+		            	  AND DICT_IT_NM_02 ='${DICT_IT_NM_02}'
+		              </if>
+		              <if test=" BGN_DT !=null and BGN_DT !='' ">		            	 
+		            	  AND BGN_DT ='${BGN_DT}'
+		              </if>
+		              <if test=" CRT_DT !=null and CRT_DT !='' ">		            	 
+		            	  AND CRT_DT ='${CRT_DT}'
+		              </if>
+		           </where>
+	    </select>     
+<!-- 新增设备维修运行主表-->
+	    <insert id="insertEquipmentWx" parameterType="hashmap"> 
+			   INSERT INTO 
+					   TPM1.R_TPM_R1_T
+					      (
+					        RP_CD,
+					        DICT_IT_NM_01,
+					        ET_TY,
+					        ET_CD,
+					        RSP_DT,
+					        RSP_EMP,
+					        DICT_IT_NM_02,
+					        RP_EMP,
+					        BGN_DT,
+					        END_DT,
+					        KB_CD,
+					        KB_NM,
+					        KB_IU,
+					        KB_PD,
+					        KB_SC,
+					        RE_CN, 
+					        RP_ST,
+					        IS_UR,
+					        RS_CM,
+					        CM_EMP,
+					        CRT_ID,
+					        CRT_DT,
+					        CRT_IP
+					       )
+				<!-- (<foreach collection="list" item="item" index="index" separator="union all"> -->
+					VALUES(
+		             		 '${RP_CD}',
+					         '${DICT_IT_NM_01}',
+					         '${ET_TY}',
+					         '${ET_CD}',
+					         to_date('${RSP_DT}','yyyy-mm-dd'),
+					         '${RSP_EMP}',
+					         '${DICT_IT_NM_02}',       
+					         '${RP_EMP}',
+					          to_date('${BGN_DT}','yyyy-mm-dd'), 
+					          to_date('${END_DT}','yyyy-mm-dd'), 
+					         '${KB_CD}',
+					         '${KB_NM}',
+					         '${KB_IU}',
+					         '${KB_PD}',
+					         '${KB_SC}',
+					         '${RE_CN}',
+					         '${RP_ST}',
+					         '${IS_UR}',
+					         '${RS_CM}',
+					         '${CM_EMP}',
+					         '${F_USE_CD}',
+					          SYSDATE,
+					         '${CRT_IP}' 	
+					         )
+		         <!-- </foreach>) -->
+	    </insert>   
+	    <!-- 修改设备维修运行主表--> 
+	    <update id="updateEquipmentWx" parameterType="java.util.HashMap" >
+	    	<!-- <foreach collection="list" item="item" index="index" open="begin" close=";end;" separator=";"> -->
+	             UPDATE  TPM1.R_TPM_R1_T
+		            <set>	            	 		               	 					   	                   
+		               <if test=" DICT_IT_NM_01 !=null and DICT_IT_NM_01 !=''">
+	 					   DICT_IT_NM_01 = '${DICT_IT_NM_01}',	                   
+		               </if>
+		               <if test=" ET_TY !=null and ET_TY !='' ">
+	 					   ET_TY='${ET_TY}',	                   
+		               </if>		               		               		               		                   	               
+					   <if test=" ET_CD !=null and ET_CD !='' ">
+	 					   ET_CD='${ET_CD}',	                   
+		               </if>
+		               <if test=" RSP_DT !=null and RSP_DT !='' ">
+	 					   RSP_DT=to_date('${RSP_DT}','yyyy-mm-dd'),	                   
+		               </if>
+		               <if test=" RSP_EMP !=null and RSP_EMP !='' ">
+	 					   RSP_EMP='${RSP_EMP}',	                   
+		               </if>
+		               <if test=" DICT_IT_NM_02 !=null and DICT_IT_NM_02 !='' ">
+	 					   DICT_IT_NM_02='${DICT_IT_NM_02}',	                   
+		               </if>
+		               <if test=" RP_EMP !=null and RP_EMP !='' ">
+	 					   RP_EMP='${RP_EMP}',	                   
+		               </if>
+		               <if test=" END_DT !=null and END_DT !='' ">
+	 					   END_DT=to_date('${END_DT}','yyyy-mm-dd'),	                   
+		               </if>
+		               <if test=" KB_CD !=null and KB_CD !='' ">
+	 					   KB_CD='${KB_CD}',	                   
+		               </if>
+		               <if test=" KB_NM !=null and KB_NM !='' ">
+	 					   KB_NM='${KB_NM}',	                   
+		               </if>
+		               <if test=" KB_IU !=null and KB_IU !='' ">
+	 					   KB_IU='${KB_IU}',	                   
+		               </if>
+		               <if test=" RE_CN !=null and RE_CN !='' ">
+	 					   RE_CN='${RE_CN}',	                   
+		               </if>
+		                <if test=" KB_PD !=null and KB_PD !='' ">
+	 					   KB_PD='${KB_PD}',	                   
+		               </if>
+		               <if test=" KB_SC !=null and  KB_SC !='' ">
+	 					   KB_SC='${KB_SC}',	                   
+		               </if>
+		               <if test=" RP_ST !=null and RP_ST !='' ">
+	 					   RP_ST='${RP_ST}',	                   
+		               </if>
+		               <if test=" IS_UR !=null and IS_UR !='' ">
+	 					   IS_UR='${IS_UR}',	                   
+		               </if>
+		               <if test=" RS_CM !=null and RS_CM !='' ">
+	 					   RS_CM='${RS_CM}',	                   
+		               </if> 
+		               <if test=" CM_EMP !=null and CM_EMP !='' ">
+	 					   CM_EMP='${CM_EMP}',	                   
+		               </if>	              
+	 					   UPT_ID='${F_USE_CD}',
+	 					   UPT_DT=SYSDATE,	                   		            
+	 					   UPT_IP='${UPT_IP}'	                   
+	                 </set>
+	                 <where>
+	            		 RP_CD='${RP_CD}'
+	            	 </where>
+	         <!-- </foreach> -->
+	    </update>
+        <!-- 删除设备维修运行主表--> 
+	    <delete id="deleteEquipmentWx" parameterType="hashmap">
+	             DELETE TPM1.R_TPM_R1_T
+	             	<where>
+	             		RP_CD='${RP_CD}'
+	             	</where>  
+	    </delete>
+	    
+	   <!-- 设备维修单号生成 -->
+	    <select id="createRepairNum" parameterType="hashmap" resultType="java.util.HashMap">
+						 SELECT 'RP'||'-'||( TO_CHAR(SYSDATE,'YYMMDD')||'-'||(iplant1.TRANS_10TO36_FUN(iplant1.RP_SEQ.NEXTVAL, 4))) AS RP_CD 
+						 FROM DUAL 
+	    </select> 	
+	    
+	     <!-- 设备需求单号生成 -->
+	    <select id="createDemandNum" parameterType="hashmap" resultType="java.util.HashMap">
+						 SELECT 'RQ'||'-'||( TO_CHAR(SYSDATE,'YYMMDD')||'-'||(IPLANT1.TRANS_10TO36_FUN(TPM1.RQ_SEQ.NEXTVAL, 4))) AS RQ_SN 
+						 FROM DUAL 
+	    </select> 
+	    
+	    <!-- 维修项目等级档-->
+	    <!-- 查询维修项目等级档 -->
+	    <select id="queryEquipmentLev" parameterType="hashmap" resultType="java.util.HashMap" >
+	            <include refid="oraclePagingFileTop"></include>                           
+						RT_CD,
+						RT_NM,
+						RT_SE,
+						RE_CN,
+						CRT_ID,						
+						TO_CHAR(CRT_DT,'YYYY-MM-DD HH24:Mi:SS') AS CRT_DT,
+						CRT_IP,
+						UPT_ID,
+						TO_CHAR(UPT_DT,'YYYY-MM-DD HH24:Mi:SS') AS UPT_DT,
+						UPT_IP  
+					 FROM TPM1.C_TPM_L_T
+				   <where> 1=1
+		              <if test=" RT_CD !=null and RT_CD !='' ">
+		            	  AND RT_CD='${RT_CD}'
+		              </if>
+		              <if test=" RT_SE !=null and RT_SE !='' ">
+		            	  AND RT_SE='${RT_SE}'
+		              </if>
+		              <if test=" RT_NM !=null and RT_NM !='' ">		            	 
+		            	  AND RT_NM LIKE '%${RT_NM}%'
+		              </if>		             
+		           </where>
+		       <include refid="oraclePagingFileBottom"></include> 
+	    </select> 
+	    <!-- 查询维修项目等级档分页总数-->
+		<select id="queryEquipmentLev_COUNT" parameterType="hashmap" resultType="java.util.HashMap"> 
+		        SELECT 
+ 					COUNT(1)   ROWS_COUNT
+	           FROM TPM1.C_TPM_L_T
+				   <where> 1=1
+		              <if test=" RT_CD !=null and RT_CD !='' ">
+		            	  AND RT_CD='${RT_CD}'
+		              </if>
+		              <if test=" RT_SE !=null and RT_SE !='' ">
+		            	  AND RT_SE='${RT_SE}'
+		              </if>
+		              <if test=" RT_NM !=null and RT_NM !='' ">		            	 
+		            	  AND RT_NM LIKE '%${RT_NM}%'
+		              </if>		             
+		           </where>
+	    </select>   
+	    <!-- 新增维修项目等级档id-->
+	    <select id="quipmentLevid" parameterType="hashmap" resultType="java.util.HashMap" >
+			     SELECT 'ET'||(iplant1.TRANS_10TO36_FUN(iplant1.RP_SEQ.NEXTVAL, 3)) AS RT_CD FROM DUAL
+		</select>  
+	    <!-- 新增维修项目等级档-->
+	    <insert id="insertEquipmentLev" parameterType="hashmap"> 
+			   INSERT INTO 
+					   TPM1.C_TPM_L_T
+					      (
+					        RT_CD,
+						    RT_NM,
+						    RT_SE,
+						    RE_CN,
+					        CRT_ID,
+					        CRT_DT,
+					        CRT_IP
+					       )
+					       (
+		                      <foreach collection="list" item="item" index="index" separator="union all">
+		                      	SELECT
+			                      '${item.RT_CD}',
+					         	'${item.RT_NM}',
+					         	'${item.RT_SE}',
+					         	'${item.RE_CN}',					        
+					         	'${F_USE_CD}',
+					         	 SYSDATE,
+					         	'${item.CRT_IP}'
+			                    FROM DUAL
+		                      </foreach>
+		                     )
+	    </insert>   
+	   
+	    <!-- 修改维修项目等级档--> 
+	   <update id="updateEquipmentLev" parameterType="java.util.HashMap" >
+			<foreach collection="list" item="item" index="index" open="begin" close=";end;" separator=";">
+				UPDATE TPM1.C_TPM_L_T
+					<set>
+					   <if test="item.RT_NM!=null"> RT_NM='${item.RT_NM}',</if>
+					   <if test="item.RT_SE!=null"> RT_SE='${item.RT_SE}',</if>
+					   <if test="item.RE_CN!=null"> RE_CN='${item.RE_CN}',</if>
+					   UPT_ID='${F_USE_CD}',
+	 				   UPT_DT=SYSDATE,	                   		            
+	 				   UPT_IP='${item.UPT_IP}'
+					</set>
+					<where> RT_CD = '${item.RT_CD}' </where>
+			</foreach>
+		</update>
+		
+        <!-- 删除维修项目等级档--> 
+	    <delete id="deleteEquipmentLev" parameterType="hashmap">
+	             DELETE TPM1.C_TPM_L_T
+	             	<where>
+	             		RT_CD='${RT_CD}'
+	             	</where>  
+	    </delete> 	 
+	    
+	    <!-- 样机试用-->
+	    <!-- 查询样机试用信息 -->
+	    <select id="queryEquipTest" parameterType="hashmap" resultType="java.util.HashMap" >
+	            <include refid="oraclePagingFileTop"></include>                           
+						   T1.LM_SN,
+						   T1.LM_NM,
+						   T1.RQ_SN,
+						   T1.IT_NM,
+						   T1.RQ_CN,
+						   T1.LM_SM,
+						   T1.ET_SP,
+						   NVL(T3.OL_QTY,0) OL_QTY,						   
+						   TO_CHAR(T1.TT_DT,'YYYY-MM-DD HH24:Mi:SS') AS TT_DT,
+						   TT_PE,						   
+						   TO_CHAR(T1.CK_DT,'YYYY-MM-DD HH24:Mi:SS') AS CK_DT,
+						   T1.CK_RU,						   
+<!-- 						   CASE -->
+<!-- 		                     WHEN LM_ST='0' THEN '通过' -->
+<!-- 		                     WHEN LM_ST='1' THEN '不通过' -->
+<!-- 		                   END AS LM_ST, -->
+		                   T1.LM_ST,
+						   T1.IS_BP,
+						   CASE
+		                     WHEN T1.IS_BP='Y' THEN '是'
+		                     WHEN T1.IS_BP='N' THEN '否'
+		                   END AS IS_BP_NM,
+						   TO_CHAR(T1.PL_DT,'YYYY-MM-DD') AS PL_DT,
+						   T1.LM_AT,
+						   T2.OLD_FILE_NM,
+						   T2.FILE_SAVE_PATH,
+						   T1.CRT_ID,
+						   TO_CHAR(T1.CRT_DT,'YYYY-MM-DD HH24:Mi:SS') AS CRT_DT,
+						   T1.UPT_ID,
+						   TO_CHAR(T1.UPT_DT,'YYYY-MM-DD HH24:Mi:SS') AS UPT_DT
+						FROM TPM1.C_TPM_LM_T T1
+						LEFT JOIN MES1.R_MES_SAVE_FILE_T T2 ON T2.FILE_BELONG=T1.LM_SN
+						LEFT JOIN TPM1.C_TPM_RQ_T T3 ON T1.RQ_SN=T3.RQ_SN
+				   <where> 1=1
+		              <if test=" LM_SN !=null and LM_SN !='' ">
+		            	  AND T1.LM_SN='${LM_SN}'
+		              </if>
+		              <if test=" LM_NM !=null and LM_NM !='' ">
+		            	  AND T1.LM_NM='${LM_NM}'
+		              </if>
+		              <if test=" RQ_SN !=null and RQ_SN !='' ">		            	 
+		            	  AND T1.RQ_SN LIKE '%${RQ_SN}%'
+		              </if>	
+		              <if test=" LM_ST !=null and LM_ST !='' ">		            	 
+		            	  AND T1.LM_ST = '${LM_ST}'
+		              </if>
+		              <if test=" YN !=null and YN !='' ">		            	 
+		            	  <!--AND NOT EXISTS(SELECT * FROM TPM1.R_TPM_LM_T1 T3 WHERE T1.RQ_SN=T3.RQ_SN )-->
+		            	  AND NVL(T3.OL_QTY,0)!=T1.RQ_CN
+		              </if>		             
+		           </where>
+		           ORDER BY T1.CRT_DT DESC
+		       <include refid="oraclePagingFileBottom"></include> 
+	    </select> 
+	    <!-- 查询样机试用信息分页总数-->
+		<select id="queryEquipTest_COUNT" parameterType="hashmap" resultType="java.util.HashMap"> 
+		        SELECT 
+ 					COUNT(1)   ROWS_COUNT
+	             FROM TPM1.C_TPM_LM_T T1
+				 LEFT JOIN MES1.R_MES_SAVE_FILE_T T2 ON T2.FILE_BELONG=T1.LM_SN
+				   <where> 1=1
+		              <if test=" LM_SN !=null and LM_SN !='' ">
+		            	  AND LM_SN='${LM_SN}'
+		              </if>
+		              <if test=" LM_NM !=null and LM_NM !='' ">
+		            	  AND LM_NM='${LM_NM}'
+		              </if>
+		              <if test=" RQ_SN !=null and RQ_SN !='' ">		            	 
+		            	  AND RQ_SN LIKE '%${RQ_SN}%'
+		              </if>	
+		              <if test=" LM_ST !=null and LM_ST !='' ">		            	 
+		            	  AND LM_ST = '${LM_ST}'
+		              </if>
+		              <if test=" YN !=null and YN !='' ">		            	 
+		            	  AND NOT EXISTS(SELECT * FROM TPM1.R_TPM_LM_T1 T3 WHERE T1.RQ_SN=T3.RQ_SN )
+		              </if>		             
+		           </where>
+		           ORDER BY T1.CRT_DT DESC
+	    </select>   
+	     
+	    <!-- 新增样机试用信息-->
+	    <insert id="insertEquipTest" parameterType="hashmap"> 
+			   INSERT INTO 
+					   TPM1.C_TPM_LM_T
+					        (
+						       LM_SN,
+							   LM_NM,
+							   RQ_SN,
+							   IT_NM,
+							   RQ_CN,
+							   LM_SM,
+							   ET_SP,
+							   TT_DT,
+							   TT_PE,
+							   CK_DT,
+							   CK_RU,
+							   LM_ST,
+							   IS_BP,
+							   PL_DT,
+							   LM_AT,
+							   CRT_ID,
+							   CRT_DT
+					         )
+					     VALUES
+					         (		                      		                      	
+			                    '${LM_SN}',
+					         	'${LM_NM}',
+					         	'${RQ_SN}',
+					         	'${IT_NM}',
+					         	'${RQ_CN}',
+					         	'${LM_SM}',
+					         	'${ET_SP}',
+					         	 SYSDATE,
+					         	'${TT_PE}',
+					         	'${CK_DT}',
+					         	'${CK_RU}',
+					         	'${LM_ST}',
+					         	'${IS_BP}',	
+<!-- 					         	'${PL_DT}',				         	 -->
+					         	TO_DATE('${PL_DT}','YYYY-MM-DD'),
+					         	'${LM_AT}',					         						        
+					         	'${F_USE_CD}',
+					         	 SYSDATE					         				                 	                      
+		                      )
+	    </insert>   
+	   
+	    <!-- 修改样机试用信息--> 
+	   <update id="updateEquipTest" parameterType="java.util.HashMap" >			
+				UPDATE TPM1.C_TPM_LM_T
+					<set>
+					   <if test="LM_NM !=null"> 
+					      LM_NM='${LM_NM}',
+					   </if>
+					   <if test="RQ_SN !=null"> 
+					      RQ_SN='${RQ_SN}',
+					   </if>
+					   <if test="IT_NM !=null"> 
+					      IT_NM='${IT_NM}',
+					   </if>
+					   <if test="RQ_CN !=null"> 
+					      RQ_CN='${RQ_CN}',
+					   </if>
+					   <if test="LM_SM !=null"> 
+					      LM_SM='${LM_SM}',
+					   </if>
+					   <if test="ET_SP !=null"> 
+					      ET_SP='${ET_SP}',
+					   </if>					   
+					   <if test="TT_PE !=null"> 
+					      TT_PE='${TT_PE}',
+					   </if>
+					   <if test="CK_DT !=null"> 
+					      CK_DT='${CK_DT}',
+					   </if>
+					    <if test="CK_RU !=null"> 
+					      CK_RU='${CK_RU}',
+					   </if>
+					   <if test="LM_ST !=null"> 
+					      LM_ST='${LM_ST}',
+					   </if>
+					   <if test="IS_BP !=null"> 
+					      IS_BP='${IS_BP}',
+					   </if>
+					   <if test="PL_DT !=null"> 
+					      PL_DT=TO_DATE('${PL_DT}','YYYY-MM-DD'),
+					   </if>
+					   <if test="LM_AT !=null"> 
+					      LM_AT='${LM_AT}',
+					   </if>
+					   UPT_ID='${F_USE_CD}',
+	 				   UPT_DT=SYSDATE                   		            	 				  
+					</set>
+					<where> LM_SN = '${LM_SN}' </where>
+			
+		</update>
+		
+        <!-- 删除样机试用信息--> 
+	    <delete id="deleteEquipTest" parameterType="hashmap">
+	             DELETE TPM1.C_TPM_LM_T
+	             	<where>
+	             		LM_SN='${LM_SN}'
+	             	</where>  
+	    </delete> 	
+	    
+	    
+	     <!-- 设备上线-->
+	    <!-- 查询设备上线信息 -->
+	    <select id="queryEquipOnline" parameterType="hashmap" resultType="java.util.HashMap" >
+	            <include refid="oraclePagingFileTop"></include>     
+	            			a.CD,                      
+						   	a.RQ_SN,
+							a.IT_NM,
+							a.RQ_CN,
+							a.LN_CN,
+							b.DICT_IT_NM LN_NM,
+							TO_CHAR(a.LN_DT,'YYYY-MM-DD HH24:Mi:SS') AS LN_DT,
+							a.LN_ST,
+							a.CRT_ID,
+							TO_CHAR(a.CRT_DT,'YYYY-MM-DD HH24:Mi:SS') AS CRT_DT,
+							a.UPT_ID,
+							TO_CHAR(a.UPT_DT,'YYYY-MM-DD HH24:Mi:SS') AS UPT_DT
+						FROM tpm1.R_TPM_LM_T1 a
+						LEFT JOIN IPLANT1.C_IPLANT_DD_T b on a.LN_ST=b.DICT_IT and b.DICT_CD='DJI01'
+				   <where> 1=1
+		              <if test=" IT_NM !=null and IT_NM !='' ">		            	 
+		            	  AND a.IT_NM LIKE '%${IT_NM}%'
+		              </if>		             
+		           </where>
+		       <include refid="oraclePagingFileBottom"></include> 
+	    </select> 
+	    <!-- 查询设备上线信息分页总数-->
+		<select id="queryEquipOnline_COUNT" parameterType="hashmap" resultType="java.util.HashMap"> 
+		        SELECT 
+ 					COUNT(1)   ROWS_COUNT
+	              FROM tpm1.R_TPM_LM_T1
+				   <where> 1=1
+		              <if test=" IT_NM !=null and IT_NM !='' ">		            	 
+		            	  AND IT_NM LIKE '%${IT_NM}%'
+		              </if>		             
+		           </where>
+	    </select>   
+	     
+	    <!-- 新增设备上线信息-->
+	    <insert id="insertEquipOnline" parameterType="hashmap"> 
+			   INSERT INTO tpm1.R_TPM_LM_T1
+					        (
+					            CD,
+						        RQ_SN,
+								IT_NM,
+								RQ_CN,
+								LN_CN,
+								LN_DT,
+								LN_ST,
+								CRT_ID,
+								CRT_DT,
+								UPT_ID,
+								UPT_DT
+					         )
+					         (
+		                      <foreach collection="list" item="item" index="index" separator="union all">
+		                      	SELECT
+		                      	'${item.CD }',
+			                    '${item.RQ_SN}',
+					         	'${item.IT_NM}',
+					         	 ${item.RQ_CN},
+					         	 ${item.LN_CN},
+					         	to_date('${item.LN_DT}','YYYY-MM-DD HH24:Mi:SS'),
+					         	'${item.LN_ST}',					         						        
+					            '${F_USE_CD}',
+					         	 SYSDATE,
+					         	 '${F_USE_CD}',
+					         	 SYSDATE				         	
+			                    FROM DUAL
+		                      </foreach>
+		                      )
+	    </insert>   
+	   
+	    <!-- 修改设备上线信息--> 
+	   <update id="updateEquipOnline" parameterType="java.util.HashMap" >
+			<foreach collection="list" item="item" index="index" open="begin" close=";end;" separator=";">
+				UPDATE tpm1.R_TPM_LM_T1
+					<set>
+					   <if test="item.RQ_CN !=null"> 
+					      RQ_CN='${item.RQ_CN}',
+					   </if>
+					   <if test="item.LN_CN !=null"> 
+					      LN_CN=${item.LN_CN},
+					   </if>
+					   <if test="item.LN_DT !=null"> 
+					      LN_DT=to_date('${item.LN_DT}','YYYY-MM-DD HH24:Mi:SS'),
+					   </if>
+					   <if test="item.LN_ST !=null"> 
+					      LN_ST='${item.LN_ST}',
+					   </if>
+					   UPT_ID='${F_USE_CD}',
+	 				   UPT_DT=SYSDATE                   		            	 				  
+					</set>
+					<where> CD = '${item.CD}' </where>
+			</foreach>
+		</update>
+		
+        <!-- 删除设备上线信息--> 
+	    <delete id="deleteEquipOnline" parameterType="hashmap">
+	             DELETE tpm1.R_TPM_LM_T1
+	             	<where>
+	             		CD='${CD}'
+	             	</where>  
+	    </delete>  	  
+	    
+	    <!-- 设备上线明细-->
+	    <!-- 查询设备上线明细信息 -->
+	    <select id="queryEquipOnlineMx" parameterType="hashmap" resultType="java.util.HashMap" >
+	            <include refid="oraclePagingFileTop"></include>                           
+						   	a.RQ_SN,
+							a.ET_CD,
+							a.EQ_ST,
+							c.PL_NM,
+							a.EQ_LN,
+							a.IL_ST,
+							b.DICT_IT_NM IL_NM,
+							a.CRT_ID,
+							TO_CHAR(a.CRT_DT,'YYYY-MM-DD HH24:Mi:SS') AS CRT_DT,
+							a.UPT_ID,
+							TO_CHAR(a.UPT_DT,'YYYY-MM-DD HH24:Mi:SS') AS UPT_DT
+						FROM tpm2.H_TPM_LM_T1 a
+						LEFT JOIN IPLANT1.C_IPLANT_DD_T b on a.IL_ST=b.DICT_IT and b.DICT_CD='ONL01'
+						LEFT JOIN IPLANT1.C_IPLANT_P1_T c on a.EQ_ST=c.PL_CD
+				   <where> 1=1
+		              <if test=" RQ_SN !=null and RQ_SN !='' ">		            	 
+		            	  AND a.CD LIKE '%${RQ_SN}%'
+		              </if>		             
+		           </where>
+		       <include refid="oraclePagingFileBottom"></include> 
+	    </select> 
+	    <!-- 查询设备上线明细信息分页总数-->
+		<select id="queryEquipOnlineMx_COUNT" parameterType="hashmap" resultType="java.util.HashMap"> 
+		        SELECT 
+ 					COUNT(1)   ROWS_COUNT
+	              FROM tpm2.H_TPM_LM_T1
+				   <where> 1=1
+		              <if test=" RQ_SN !=null and RQ_SN !='' ">		            	 
+		            	  AND CD LIKE '%${RQ_SN}%'
+		              </if>	             
+		           </where>
+	    </select>   
+	     
+	    <!-- 新增设备上线明细信息-->
+	    <insert id="insertEquipOnlineMx" parameterType="hashmap"> 
+
+			   INSERT INTO 
+					    tpm2.H_TPM_LM_T1
+					        (
+					            CD,
+						        RQ_SN,
+								ET_CD,
+								EQ_ST,
+								EQ_LN,
+								IL_ST,
+								CRT_ID,
+								CRT_DT,
+								UPT_ID,
+								UPT_DT
+					         )
+					         (
+		                      <foreach collection="list" item="item" index="index" separator="union all">
+		                      	SELECT
+		                      	'${CD}',
+			                    '${item.RQ_SN}',
+					         	'${item.ET_CD}',
+					         	'${item.EQ_ST}',
+					         	'${item.EQ_LN}',
+					         	'${item.IL_ST}',				         						        
+					         	'${F_USE_CD}',
+					         	 SYSDATE,
+					         	 '${F_USE_CD}',
+					         	 SYSDATE			         	
+			                    FROM DUAL
+		                      </foreach>
+		                      )
+	    </insert>   
+	   
+	    <!-- 修改设备上线明细信息--> 
+	   <update id="updateEquipOnlineMx" parameterType="java.util.HashMap" >
+			<foreach collection="list" item="item" index="index" open="begin" close=";end;" separator=";">
+				UPDATE tpm2.H_TPM_LM_T1
+					<set>
+					   <if test="item.EQ_NO !=null"> 
+					      ET_CD='${item.ET_CD}',
+					   </if>
+					   <if test="item.EQ_ST !=null"> 
+					      EQ_ST='${item.EQ_ST}',
+					   </if>
+					   <if test="item.EQ_LN !=null"> 
+					      EQ_LN='${item.EQ_LN}',
+					   </if>
+					   IL_ST='${item.IL_ST}',
+					   UPT_ID='${F_USE_CD}',
+	 				   UPT_DT=SYSDATE                   		            	 				  
+					</set>
+					<where> RQ_SN = '${item.RQ_SN}' and  EQ_NO = '${item.EQ_NO}' </where>
+			</foreach>
+		</update>
+		
+        <!-- 删除设备上线明细信息--> 
+	    <delete id="deleteEquipOnlineMx" parameterType="hashmap">
+	             DELETE FROM tpm2.H_TPM_LM_T1
+	             
+	             <where>           	 
+		            	CD='${CD}' AND RQ_SN = '${RQ_SN}'
+		              <if test=" EQ_NO !=null and EQ_NO !='' ">		            	 
+		            	AND  EQ_NO='${EQ_NO}'
+		              </if>	             
+		           </where>  
+	    </delete> 
+	    
+	    <!-- 设备需求-->
+	    <!-- 查询设备需求信息 -->
+	    <select id="queryEquipRequire" parameterType="hashmap" resultType="java.util.HashMap" >
+	            <include refid="oraclePagingFileTop"></include>                           
+			 		       T1.RQ_SN,
+						   T1.IT_NM,
+						   T1.EF_DC,
+						   T1.ET_RM,
+						   T1.ET_SP,
+						   T1.RQ_CN,
+						   T1.CK_TU,
+						   T1.CK_ID,
+						   TO_CHAR(T1.CK_DT,'YYYY-MM-DD HH24:Mi:SS') AS CK_DT,
+						   CASE
+						    WHEN T2.LM_ST='0' THEN '试用通过'
+						    WHEN T2.LM_ST='1' THEN '试用不通过'
+						    ELSE  '未开始试用'
+						   END AS IS_TU,						
+						   T1.CRT_ID,
+						   TO_CHAR(T1.CRT_DT,'YYYY-MM-DD HH24:Mi:SS') AS CRT_DT,
+						   T1.UPT_ID,
+						   TO_CHAR(T1.UPT_DT,'YYYY-MM-DD HH24:Mi:SS') AS UPT_DT
+						FROM TPM1.C_TPM_RQ_T T1
+						LEFT JOIN TPM1.C_TPM_LM_T T2 ON T1.RQ_SN=T2.RQ_SN						
+				   <where> 1=1
+				  
+		              <if test=" RQ_SN !=null and RQ_SN !='' ">
+		            	  AND T1.RQ_SN='${T1.RQ_SN}'
+		              </if>
+		              <if test=" IT_NM !=null and IT_NM !='' ">
+		            	  AND T1.IT_NM like '%${IT_NM}%'
+		              </if>
+		              <if test=" ST_DATE !=null and ST_DATE !='' ">
+		            	  AND CRT_DT >=TO_DATE('${ST_DATE}', 'YYYY-MM-DD HH24:Mi:SS')
+		              </if>
+		              <if test=" END_DATE !=null and END_DATE !='' ">		            	 
+		            	  AND CRT_DT &lt;=TO_DATE('${END_DATE }', 'YYYY-MM-DD HH24:Mi:SS')
+		              </if>	
+		              <if test=" YN != null and YN != '' ">
+		                  AND NOT EXISTS(  
+                               SELECT * 
+                                   FROM TPM1.C_TPM_LM_T T2
+                                   WHERE T1.RQ_SN=T2.RQ_SN
+                             )                        
+                       </if>           
+		           </where>
+		           ORDER BY T1.CRT_DT DESC
+		       <include refid="oraclePagingFileBottom"></include> 
+	    </select> 
+	    <!-- 查询设备需求分页总数-->
+		<select id="queryEquipRequire_COUNT" parameterType="hashmap" resultType="java.util.HashMap"> 
+		        SELECT 
+ 					COUNT(1)   ROWS_COUNT
+	              FROM TPM1.C_TPM_RQ_T
+				   <where> 1=1
+		              <if test=" LM_SN !=null and LM_SN !='' ">
+		            	  AND LM_SN='${LM_SN}'
+		              </if>
+		              <if test=" LM_NM !=null and LM_NM !='' ">
+		            	  AND LM_NM='${LM_NM}'
+		              </if>
+		              <if test=" RQ_SN !=null and RQ_SN !='' ">		            	 
+		            	  AND RQ_SN LIKE '%${RQ_SN}%'
+		              </if>		             
+		           </where>
+	    </select>   
+	     
+	    <!-- 新增设备需求信息-->
+	    <insert id="insertEquipRequire" parameterType="hashmap"> 
+			   INSERT INTO 
+					    TPM1.C_TPM_RQ_T
+					        (
+						     	RQ_SN,
+						   		IT_NM,
+						   		EF_DC,
+						  		ET_RM,
+						  		ET_SP,
+						  		RQ_CN,
+						  		CK_TU,
+						   		CK_ID,
+						   		CK_DT,
+						  		IS_TU,						
+						   		CRT_ID,
+						   		CRT_DT
+					         )
+					         (
+		                      <foreach collection="list" item="item" index="index" separator="union all">
+		                      	SELECT
+			                    '${item.RQ_SN}',
+					         	'${item.IT_NM}',
+					         	'${item.EF_DC}',
+					         	'${item.ET_RM}',
+					         	'${item.ET_SP}',
+					         	'${item.RQ_CN}',
+					         	'${item.CK_TU}',
+					         	'${item.CK_ID}',
+					         	'${item.CK_DT}',
+					         	'${item.IS_TU}',					         						        
+					         	'${F_USE_CD}',
+					         	 SYSDATE					         	
+			                    FROM DUAL
+		                      </foreach>
+		                      )
+	    </insert>   
+	   
+	    <!-- 修改设备需求信息--> 
+	   <update id="updateEquipRequire" parameterType="java.util.HashMap" >
+			<foreach collection="list" item="item" index="index" open="begin" close=";end;" separator=";">
+				UPDATE TPM1.C_TPM_RQ_T
+					<set>					   
+					   <if test="item.IT_NM !=null"> 
+					      IT_NM='${item.IT_NM}',
+					   </if>
+					   <if test="item.EF_DC !=null"> 
+					      EF_DC='${item.EF_DC}',
+					   </if>
+					   <if test="item.ET_RM !=null"> 
+					      ET_RM='${item.ET_RM}',
+					   </if>
+					   <if test="item.ET_SP !=null"> 
+					      ET_SP='${item.ET_SP}',
+					   </if>
+					   <if test="item.RQ_CN !=null"> 
+					      RQ_CN='${item.RQ_CN}',
+					   </if>
+					   <if test="item.CK_TU !=null"> 
+					      CK_TU='${item.CK_TU}',
+					   </if>
+					   <if test="item.CK_ID !=null"> 
+					      CK_ID='${item.CK_ID}',
+					   </if>
+					   <if test="item.CK_DT !=null"> 
+					      CK_DT=TO_DATE('${item.CK_DT}','YYYY-MM-DD HH24:MI:SS'),
+					   </if>					   
+					   UPT_ID='${F_USE_CD}',
+	 				   UPT_DT=SYSDATE                   		            	 				  
+					</set>
+					<where> RQ_SN = '${item.RQ_SN}' </where>
+			</foreach>
+		</update>
+		
+        <!-- 删除设备需求信息--> 
+	    <delete id="deleteEquipRequire" parameterType="hashmap">
+	             DELETE TPM1.C_TPM_RQ_T
+	             	<where>
+	             		RQ_SN='${RQ_SN}'
+	             	</where>  
+	    </delete>
+	    
+	    
+	     <!-- 审核设备需求信息--> 
+	    <update id="setEquipRequire" parameterType="hashmap">
+	            UPDATE TPM1.C_TPM_RQ_T
+					<set>
+					      CK_TU='1',
+					      CK_ID='${F_USE_CD}',
+					      CK_DT=SYSDATE      		            	 				  
+					</set>
+	                 <where> RQ_SN = '${RQ_SN}' </where>
+	    </update>
+	    
+	    
+	    <!-- 档案类别 -->
+	    <!-- 查询档案类别信息 -->
+	    <select id="queryFileType" parameterType="hashmap" resultType="java.util.HashMap" >
+	            <include refid="oraclePagingFileTop"></include>                           
+						   	DM_SN,
+							DM_NM,
+							DM_RM,
+							CRT_ID,
+							TO_CHAR(CRT_DT,'YYYY-MM-DD HH24:Mi:SS') AS CRT_DT,
+							UPT_ID,
+							TO_CHAR(UPT_DT,'YYYY-MM-DD HH24:Mi:SS') AS UPT_DT
+						FROM tpm1.C_TPM_DM_T
+				   <where> 1=1
+		              <if test=" DM_SN !=null and DM_SN !='' ">		            	 
+		            	  AND DM_SN LIKE '%${DM_SN}%'
+		              </if>
+		              <if test=" DM_NM !=null and DM_NM !='' ">		            	 
+		            	  AND DM_NM LIKE '%${DM_NM}%'
+		              </if>		             
+		           </where>
+		       <include refid="oraclePagingFileBottom"></include> 
+	    </select> 
+	    
+	    <!-- 查询档案类别信息分页总数-->
+		<select id="queryFileType_COUNT" parameterType="hashmap" resultType="java.util.HashMap"> 
+		        SELECT 
+ 					COUNT(1)   ROWS_COUNT
+	              FROM tpm1.C_TPM_DM_T
+				   <where> 1=1
+		              <if test=" DM_SN !=null and DM_SN !='' ">		            	 
+		            	  AND DM_SN LIKE '%${DM_SN}%'
+		              </if>
+		              <if test=" DM_NM !=null and DM_NM !='' ">		            	 
+		            	  AND DM_NM LIKE '%${DM_NM}%'
+		              </if>		             
+		           </where>
+	    </select>
+	       
+	    <!-- 新增档案类型信息 -->
+	    <insert id="insertFileType" parameterType="hashmap"> 
+			   INSERT INTO 
+					   tpm1.C_TPM_DM_T
+					        (
+						        DM_SN,
+								DM_NM,
+								DM_RM,
+								CRT_ID,
+								CRT_DT
+					         )
+					         
+		                     <!--  <foreach collection="list" item="item" index="index" separator="union all"> -->
+		                      	VALUES
+		                     (
+			                    '${DM_SN}',
+					         	'${DM_NM}',
+					         	'${DM_RM}',
+					         	'${F_USE_CD}',
+					         	 SYSDATE			         	
+			                   <!--  FROM DUAL -->
+		                     <!--  </foreach> -->
+		                      )
+	    </insert>   
+	    
+	    <!-- 删除档案类别信息 -->
+	     <delete id="deleteFileType" parameterType="hashmap">
+	             DELETE tpm1.C_TPM_DM_T
+	             	<where>
+	             		DM_SN = '${DM_SN}'
+	             	</where>  
+	    </delete>
+		
+	    <!-- 修改档案类别信息 -->    
+	    <update id="updateFileType" parameterType="java.util.HashMap" >
+			<!-- <foreach collection="list" item="item" index="index" open="begin" close=";end;" separator=";"> -->
+				UPDATE tpm1.C_TPM_DM_T
+					<set>
+					   <if test="DM_NM !=null and DM_NM !='' "> 
+					      DM_NM='${DM_NM}',
+					   </if>
+					   <if test="DM_RM !=null and DM_RM !='' "> 
+					      DM_RM='${DM_RM}',
+					   </if>
+					   UPT_ID='${F_USE_CD}',
+	 				   UPT_DT=SYSDATE                   		            	 				  
+					</set>
+					<where> DM_SN = '${DM_SN}'</where>
+			<!-- </foreach> -->
+		</update>
+		
+		<!-- 新增档案类别id-->
+	    <select id="fileTypeid" parameterType="hashmap" resultType="java.util.HashMap" >
+			 SELECT 'FT'||(iplant1.TRANS_10TO36_FUN(tpm1.FT_SEQ.NEXTVAL, 3)) AS DM_SN FROM DUAL   
+		</select>
+		
+	  <!--模具信息-->
+	  <!--查询模具信息 -->
+      <select id="queryMouldInfo" parameterType="hashmap" resultType="java.util.HashMap"> 
+		 <include refid="oraclePagingFileTop"></include>  
+		           T1.MD_SN,
+			       T1.MC_CN,
+			       T1.MU_CN,
+			       T1.MG_PC,
+			       T1.MD_SU,
+			       T1.IM_CN,
+			       T1.SD_PC,
+			       T1.IN_PC,
+			       T1.AX_PC,
+			       T1.IM_PU,
+			       T1.IM_TP,
+			       T1.MH_PC,
+			       T1.CRT_ID,
+			       TO_CHAR(T1.CRT_DT,'YYYY-MM-DD HH24:Mi:SS') AS CRT_DT,
+			       T1.UPT_ID, 
+			       TO_CHAR(T1.UPT_DT,'YYYY-MM-DD HH24:Mi:SS') AS UPT_DT
+			      FROM TPM1.C_TPM_MD_T T1
+			     <where>
+			        1=1
+				    <if test=" MD_SN!=null and MD_SN !=''">				    
+				    AND T1.MD_SN='${MD_SN}'
+				    </if>
+				    <if test=" MD_SU !=null and MD_SU !=''">				    
+				    AND T1.MD_SU = '${MD_SU}'
+				    </if>
+				</where>
+			    <include refid="oraclePagingFileBottom"></include> 
+	    </select>
+	    <!--查询模具信息 -->
+      <select id="queryUseMould" parameterType="hashmap" resultType="java.util.HashMap"> 
+		 SELECT MD_SN FROM TPM1.C_TPM_MP_T
+             <where>
+			        1=1
+				   <if test=" PT_CD !=null and PT_CD !=''">				    
+				    AND PT_CD = '${PT_CD}'
+				    </if>
+			    </where>
+	    </select>
+	  
+	    <!-- 查询模具资料分页总数-->
+		<select id="queryMouldInfo_COUNT" parameterType="hashmap" resultType="java.util.HashMap"> 
+		        SELECT 
+ 					COUNT(1)   ROWS_COUNT
+	            FROM TPM1.C_TPM_MD_T T1
+				<where> 1=1
+		            <if test=" MD_SNq=null and MD_SN !=''">				    
+				    AND MD_SN='${MD_SN}'
+				    </if>
+				    <if test=" MD_SU !=null and MD_SU !=''">				    
+				    AND MD_SU = '${MD_SU}'
+				    </if>
+		         </where>
+	    </select>     
+	    
+	    <!-- 新增模具资料 -->
+	    <insert id="insertMouldInfo" parameterType="hashmap"> 
+	            INSERT INTO
+	                  TPM1.C_TPM_MD_T
+	                   (
+	                     	MD_SN,
+						    MC_CN,
+						    MU_CN,
+						    MG_PC,
+						    MD_SU,
+							IM_CN,
+							SD_PC,
+							IN_PC,
+							AX_PC,
+							IM_PU,
+							IM_TP,
+							MH_PC,
+						    CRT_ID,
+							CRT_DT
+						) VALUES
+						(
+					        
+					        '${MD_SN}',
+						    '${MC_CN}',
+						    '${MU_CN}',
+						    '${MG_PC}',
+						    '${MD_SU}',
+						    '${IM_CN}',
+						    '${SD_PC}',
+						    '${IN_PC}',
+						    '${AX_PC}',
+						    '${IM_PU}',
+						    '${IM_TP}',
+						    '${MH_PC}',
+						    '${F_USE_CD}',
+						     SYSDATE
+						)              
+	    </insert>   
+	    <!-- 修改模具资料信息--> 
+	    <update id="updateMouldInfo" parameterType="hashmap">
+	            UPDATE TPM1.C_TPM_MD_T
+	                   <set>
+		               <if test=" MC_CN !=null and MC_CN !='' ">
+	 					   MC_CN='${MC_CN}',	                   
+		               </if>
+		               <if test=" MU_CN !=null and MU_CN !='' ">
+	 					   MU_CN='${MU_CN}',	                   
+		               </if>		               		               		               		                   	               
+		               <if test=" MG_PC !=null and MG_PC !='' ">
+						   MG_PC='${MG_PC}',	                   
+		               </if>
+		               <if test=" IM_CN !=null and IM_CN !='' ">
+						   IM_CN='${IM_CN}',	                   
+		               </if>
+		               <if test=" SD_PC !=null and SD_PC !='' ">
+						   SD_PC='${SD_PC}',	                   
+		               </if>
+		               <if test=" IN_PC !=null and IN_PC !='' ">
+						   IN_PC='${IN_PC}',	                   
+		               </if>
+		               <if test=" AX_PC !=null and AX_PC !='' ">
+						   AX_PC='${AX_PC}',	                   
+		               </if>
+		               <if test=" IM_PU !=null and IM_PU !='' ">
+						   IM_PU='${IM_PU}',	                   
+		               </if>
+		               <if test=" IM_TP !=null and IM_TP !='' ">
+						   IM_TP='${IM_TP}',	                   
+		               </if>
+		               <if test=" MH_PC !=null and MH_PC !='' ">
+						   MH_PC='${MH_PC}',	                   
+		               </if>
+		               UPT_ID='${F_USE_CD}',
+		               UPT_DT=SYSDATE
+	                 </set>
+	                 <where>                     
+	            		MD_SN='${MD_SN}'	    
+	            	 </where>
+	    </update>
+	    <!-- 删除模具资料信息--> 
+	    <delete id="deleteMouldInfo" parameterType="hashmap">
+	             DELETE  TPM1.C_TPM_MD_T
+	             <where>
+	                MD_SN='${MD_SN}'
+	             </where>  
+	    </delete>
+	    <!--查询待选物料信息--> 	
+	    <select id="queryMaterialInfo" parameterType="hashmap" resultType="java.util.HashMap"> 
+		   SELECT ITEM_CD PT_CD,
+		   ITEM_CD ||'('|| ITEM_NM || ')' PT_NM 
+		   FROM MES1.R_MES_ITEM_T
+		   <where>USE_YN='Y' AND ITEM_TYPE IN('FGD','HGD')</where>
+	    </select>
+	    <!--查询模具与产品映射关系-->
+	    <select id="queryMouldDetail" parameterType="hashmap" resultType="java.util.HashMap"> 
+	       SELECT T1.MD_SN,T2.ITEM_NM AS PT_NM,T1.EM_PCN,T1.PT_CD
+	       FROM TPM1.C_TPM_MP_T T1
+	       LEFT JOIN MES1.R_MES_ITEM_T T2 ON T2.ITEM_CD=T1.PT_CD  
+           <where> 1=1
+            <if test=" MD_SN !=null and MD_SN !='' ">
+				AND MD_SN='${MD_SN}'
+		    </if>
+          </where>
+	    </select>
+	    <delete id="deleteMouldDetailInfo" parameterType="hashmap">
+	       DELETE TPM1.C_TPM_MP_T 
+	        <where>                     
+	            		MD_SN='${MD_SN}'	    
+	        </where>
+	    </delete>
+	    <insert id="insertMouldDetailInfo" parameterType="hashmap"> 
+	            INSERT INTO
+	                  TPM1.C_TPM_MP_T
+	                   (
+						    MD_SN,
+						    PT_CD,
+						    EM_PCN,
+						    CRT_ID,
+							CRT_DT
+						)
+						(
+					        <foreach collection="list" item="item" index="index" separator="union all">
+					        SELECT
+					        '${item.MD_SN}',
+						    '${item.PT_CD}',
+						    '${item.EM_PCN}',
+						    '${F_USE_CD}',
+						     SYSDATE
+						     FROM DUAL
+						     </foreach>
+						)
+		 </insert>   
+	    
+	    	
+		<!-- 设备档案 -->
+		<!-- 查询设备档案信息 -->
+		<select id="queryEquipmentFile" parameterType="hashmap" resultType="java.util.HashMap" >
+	            <include refid="oraclePagingFileTop"></include>
+	            			T1.CD AS CD,
+						   	T1.DM_NM AS DM_NM,
+						   	T3.DM_NM AS DM_MM,
+							T1.DM_VN AS DM_VN,
+							T1.DM_SN AS DM_SN,
+							T1.OD_FM AS OD_FM,
+							T2.FILE_TYPE AS FI_TP,
+							T2.FILE_SIZE AS FI_SZ,
+							T2.OLD_FILE_NM AS SF_NM,
+							T2.FILE_SAVE_PATH AS FI_PH,
+							T1.FI_RM AS FI_RM,
+							T1.CRT_ID AS CRT_ID,
+							TO_CHAR(T1.CRT_DT,'YYYY-MM-DD HH24:Mi:SS') AS CRT_DT,
+							T1.UPT_ID AS UPT_ID,
+							TO_CHAR(T1.UPT_DT,'YYYY-MM-DD HH24:Mi:SS') AS UPT_DT
+						    FROM TPM1.C_TPM_ED_M T1 
+						    LEFT JOIN 
+						        (SELECT A2.* FROM MES1.R_MES_SAVE_FILE_T A2  ,(SELECT MAX(FILE_SEQ) AS FILE_SEQ,FILE_BELONG 
+						         FROM MES1.R_MES_SAVE_FILE_T  
+						         GROUP BY FILE_BELONG ORDER BY FILE_BELONG) A1 
+						         WHERE A1.FILE_SEQ=A2.FILE_SEQ) T2 ON T1.CD=T2.FILE_BELONG 
+						    LEFT JOIN TPM1.C_TPM_DM_T T3 ON T1.DM_SN=T3.DM_SN 
+				   <where> 1=1
+		              <if test=" DM_SN !=null and DM_SN !='' ">		            	 
+		            	  AND T1.DM_SN LIKE '%${DM_SN}%'
+		              </if>
+		              <if test=" DM_NM !=null and DM_NM !='' ">		            	 
+		            	  AND T1.DM_NM LIKE '%${DM_NM}%'
+		              </if>	
+		              <if test=" DM_VN !=null and DM_VN !='' ">		            	 
+		            	  AND T1.DM_VN LIKE '%${DM_VN}%'
+		              </if>		             
+		           </where>
+		       <include refid="oraclePagingFileBottom"></include> 
+	    </select> 
+	    
+	    <!-- 查询档案类别信息分页总数-->
+		<select id="queryEquipmentFile_COUNT" parameterType="hashmap" resultType="java.util.HashMap"> 
+		        SELECT 
+ 					COUNT(1)   ROWS_COUNT
+	              FROM tpm1.C_TPM_ED_M
+				   <where> 1=1
+		              <if test=" DM_SN !=null and DM_SN !='' ">		            	 
+		            	  AND DM_SN LIKE '%${DM_SN}%'
+		              </if>
+		              <if test=" DM_NM !=null and DM_NM !='' ">		            	 
+		            	  AND DM_NM LIKE '%${DM_NM}%'
+		              </if>	
+		              <if test=" DM_VN !=null and DM_VN !='' ">		            	 
+		            	  AND DM_VN LIKE '%${DM_VN}%'
+		              </if>		             
+		           </where>
+	    </select>
+	    
+		<!-- 新增设备档案信息 -->
+		<insert id="insertEquipmentFile" parameterType="hashmap"> 
+			   INSERT INTO 
+					   tpm1.C_TPM_ED_M
+					        (
+					            CD,
+					            DM_NM, 
+						        DM_VN,
+								DM_SN,
+								FI_TP,
+								FI_SZ,
+								SF_NM,
+								FI_PH,
+								FI_RM,
+								CRT_ID,
+								CRT_DT
+					         )
+					         VALUES
+					         (
+		                      <!-- <foreach collection="list" item="item" index="index" separator="union all"> -->
+		                      	<!-- SELECT -->
+		                      	'${CD}',
+			                    '${DM_NM}',
+			                    '${DM_VN}',
+			                    '${DM_SN}',
+			                    '${FI_TP}',
+					         	'${FI_SZ}',
+					         	'${SF_NM}',
+					         	'${FI_PH}',
+					         	'${FI_RM}',
+					         	'${F_USE_CD}',
+					         	 SYSDATE			         	
+		                      <!-- </foreach> -->
+		                      )
+	    </insert>   
+	    
+		<!-- 修改设备档案信息 -->
+		<update id="updateEquipmentFile" parameterType="java.util.HashMap" >
+			<!-- <foreach collection="list" item="item" index="index" open="begin" close=";end;" separator=";"> -->
+				UPDATE tpm1.C_TPM_ED_M
+					<set>
+					   <if test="DM_NM !=null"> 
+					      DM_NM='${DM_NM}',
+					   </if>
+					   <if test="DM_VN !=null"> 
+					      DM_VN='${DM_VN}',
+					   </if>
+					   <if test="DM_SN !=null"> 
+					      DM_SN='${DM_SN}',
+					   </if>
+					   <if test="OD_FM !=null"> 
+					      OD_FM='${OD_FM}',
+					   </if>
+					   <if test="SF_NM !=null"> 
+					      SF_NM='${SF_NM}',
+					   </if>
+					   <if test="FI_RM !=null"> 
+					      FI_RM='${FI_RM}',
+					   </if>
+					   UPT_ID='${F_USE_CD}',
+	 				   UPT_DT=SYSDATE                   		            	 				  
+					</set>
+					<where> CD = '${CD}'</where>
+			<!-- </foreach> -->
+		</update>
+		
+		<!-- 删除设备档案信息 -->
+		<delete id="deleteEquipmentFile" parameterType="hashmap">
+	             DELETE tpm1.C_TPM_ED_M
+	             	<where>
+	             		CD='${CD}'
+	             	</where>  
+	    </delete>
+	    
+	    <!-- 物料档案 -->
+	    <!-- 查询物料编码 -->
+	    <select id="queryMatterCode" parameterType="hashmap" resultType="java.util.HashMap" >
+	            <include refid="oraclePagingFileTop"></include>
+	            			ITEM_CD,
+	            			ITEM_NM
+						FROM MES1.R_MES_ITEM_T
+		       <include refid="oraclePagingFileBottom"></include> 
+	    </select> 
+	    
+		<!-- 查询物料档案信息 -->
+		<select id="queryMatterFile" parameterType="hashmap" resultType="java.util.HashMap" >
+	            <include refid="oraclePagingFileTop"></include>
+	            			T1.CD AS CD,
+							T1.MT_SN AS MT_SN,
+							T3.ITEM_NM AS MT_NM,
+							T1.MT_VN AS MT_VN,
+							T1.OD_FM AS OD_FM,
+							T2.FILE_TYPE AS FI_TP,
+							T2.FILE_SIZE AS FI_SZ,
+							T1.SF_NM AS SF_NM,
+							T2.FILE_SAVE_PATH AS FI_PH,
+							T1.FI_RM AS FI_RM,
+							T1.CRT_ID AS CRT_ID,
+							TO_CHAR(T1.CRT_DT,'YYYY-MM-DD HH24:Mi:SS') AS CRT_DT,
+							T1.UPT_ID AS UPT_ID,
+							TO_CHAR(T1.UPT_DT,'YYYY-MM-DD HH24:Mi:SS') AS UPT_DT
+						FROM tpm1.C_TPM_MT_T T1 
+						left join (select B1.* from mes1.R_MES_SAVE_FILE_T B1, (select MAX(FILE_SEQ) as FILE_SEQ ,file_belong  from mes1.R_MES_SAVE_FILE_T  group  by file_belong order by file_belong) B2 WHERE B1.FILE_SEQ=B2.FILE_SEQ)T2 ON T1.CD=T2.FILE_BELONG
+						left join MES1.R_MES_ITEM_T T3 ON T1.MT_SN=T3.ITEM_CD
+				   <where> 1=1
+		              <if test=" MT_SN !=null and MT_SN !='' ">		            	 
+		            	  AND T1.MT_SN LIKE '%${MT_SN}%'
+		              </if>
+		              <if test=" MT_VN !=null and MT_VN !='' ">		            	 
+		            	  AND T1.MT_VN LIKE '%${MT_VN}%'
+		              </if>	
+		           </where>
+		       <include refid="oraclePagingFileBottom"></include> 
+	    </select> 
+	    
+	    <!-- 查询物料档案信息分页总数-->
+		<select id="queryMatterFile_COUNT" parameterType="hashmap" resultType="java.util.HashMap"> 
+		        SELECT 
+ 					COUNT(1)   ROWS_COUNT
+	              FROM tpm1.C_TPM_MT_T
+				   <where> 1=1
+		              <if test=" MT_SN !=null and MT_SN !='' ">		            	 
+		            	  AND MT_SN LIKE '%${MT_SN}%'
+		              </if>
+		              <if test=" MT_VN !=null and MT_VN !='' ">		            	 
+		            	  AND MT_VN LIKE '%${MT_VN}%'
+		              </if>	
+		           </where>
+	    </select>
+	    
+	    <!-- 新增物料设备信息 -->
+		<insert id="insertMatterFile" parameterType="hashmap"> 
+			   INSERT INTO 
+					   tpm1.C_TPM_MT_T
+					        (
+					            CD,
+						        MT_SN,
+								MT_VN,
+								FI_TP,
+								FI_SZ,
+								SF_NM,
+								FI_PH,
+								FI_RM,
+								CRT_ID,
+								CRT_DT
+					         )
+					         VALUES
+					         (
+		                      	'${CD}',
+			                    '${MT_SN}',
+			                    '${MT_VN}',
+			                    '${FI_TP}',
+					         	'${FI_SZ}',
+					         	'${SF_NM}',
+					         	'${FI_PH}',
+					         	'${FI_RM}',
+					         	'${F_USE_CD}',
+					         	 SYSDATE			       
+		                      )
+	    </insert>   
+	    
+	    <!-- 修改物料设备信息 -->
+		<update id="updateMatterFile" parameterType="java.util.HashMap" >
+				UPDATE tpm1.C_TPM_MT_T
+					<set>
+					   <if test="MT_SN !=null"> 
+					      MT_SN='${MT_SN}',
+					   </if>
+					   <if test="MT_VN !=null"> 
+					      MT_VN='${MT_VN}',
+					   </if>
+					   <if test="OD_FM !=null"> 
+					      OD_FM='${OD_FM}',
+					   </if>
+					   <if test="SF_NM !=null"> 
+					      SF_NM='${SF_NM}',
+					   </if>
+					   <if test="FI_RM !=null"> 
+					      FI_RM='${FI_RM}',
+					   </if>
+					   UPT_ID='${F_USE_CD}',
+	 				   UPT_DT=SYSDATE                   		            	 				  
+					</set>
+					<where> CD = '${CD}'</where>
+		</update>
+		
+		<!-- 删除设备档案信息 -->
+		<delete id="deleteMatterFile" parameterType="hashmap">
+	             DELETE tpm1.C_TPM_MT_T
+	             	<where>
+	             		CD='${CD}'
+	             	</where>  
+	    </delete>
+	    
+	    <!-- 查询设备状态信息 -->
+		<select id="queryState" parameterType="hashmap" resultType="java.util.HashMap" >
+	            <include refid="oraclePagingFileTop"></include>
+							CD,
+							CO_SN,
+							DICT_IT,
+							ET_CD,
+							EQ_ST,
+							CO_ST,
+							PT_HR,
+							ACT_HR,
+							TC_ID,
+							CO_ID,
+							CO_SU,
+							CK_ID,
+							TO_CHAR(CK_DT,'YYYY-MM-DD HH24:Mi:SS') AS CK_DT,
+							CRT_ID,
+							TO_CHAR(CRT_DT,'YYYY-MM-DD HH24:Mi:SS') AS CRT_DT,
+							UPT_ID,
+							TO_CHAR(UPT_DT,'YYYY-MM-DD HH24:Mi:SS') AS UPT_DT
+						FROM tpm1.R_TPM_CF_T 
+				   <where> 1=1
+		              <if test=" CO_SN !=null and CO_SN !='' ">		            	 
+		            	  AND CO_SN LIKE '%${CO_SN}%'
+		              </if>
+		              <if test=" EQ_ST !=null and EQ_ST !='' ">		            	 
+		            	  AND EQ_ST='${EQ_ST}'
+		              </if>	
+		           </where>
+		       <include refid="oraclePagingFileBottom"></include> 
+	    </select> 
+	    
+	    <!-- 查询设备状态信息分页总数-->
+		<select id="queryState_COUNT" parameterType="hashmap" resultType="java.util.HashMap"> 
+		        SELECT 
+ 					COUNT(1)   ROWS_COUNT
+	              FROM tpm1.R_TPM_CF_T
+				   <where> 1=1
+		              <if test=" CO_SN !=null and CO_SN !='' ">		            	 
+		            	  AND CO_SN LIKE '%${CO_SN}%'
+		              </if>
+		              <if test=" EQ_ST !=null and EQ_ST !='' ">		            	 
+		            	  AND EQ_ST='${EQ_ST}'
+		              </if>
+		           </where>
+	    </select>
+	    
+	    <!-- 新增设备状态信息 -->
+		<insert id="insertState" parameterType="hashmap"> 
+			   INSERT INTO 
+					   tpm1.R_TPM_CF_T
+					        (
+					            CD,
+								CO_SN,
+								DICT_IT,
+								ET_CD,
+								EQ_ST,
+								CO_ST,
+								PT_HR,
+								ACT_HR,
+								TC_ID,
+								CO_ID,
+								CO_SU,
+								CK_ID,
+								CK_DT,
+								CRT_ID,
+								CRT_DT
+					         )
+					         VALUES
+					         (
+		                      	'${CD}',
+								'${CO_SN}',
+								'${DICT_IT}',
+								'${ET_CD}',
+								'${EQ_ST}',
+								'${CO_ST}',
+								'${PT_HR}',
+								'${ACT_HR}',
+								'${TC_ID}',
+								'${CO_ID}',
+								'${CO_SU}',
+								'${CK_ID}',
+								'${CK_DT}',
+								'${F_USE_CD}',
+					         	 SYSDATE			  
+		                      )
+	    </insert>   
+	    
+	    <!-- 修改设备状态信息 -->
+		<update id="updateState" parameterType="java.util.HashMap" >
+				UPDATE tpm1.R_TPM_CF_T
+					<set>
+					   <if test="DICT_IT !=null"> 
+					      DICT_IT='${DICT_IT}',
+					   </if>
+					   <if test="ET_CD !=null"> 
+					      ET_CD='${ET_CD}',
+					   </if>
+					   <if test="EQ_ST !=null"> 
+					      EQ_ST='${EQ_ST}',
+					   </if>
+					   <if test="CO_ST !=null"> 
+					      CO_ST='${CO_ST}',
+					   </if>
+					   <if test="PT_HR !=null"> 
+					      PT_HR='${PT_HR}',
+					   </if>
+					   <if test="ACT_HR !=null"> 
+					      ACT_HR='${ACT_HR}',
+					   </if>
+					   <if test="TC_ID !=null"> 
+					      TC_ID='${TC_ID}',
+					   </if>
+					   <if test="CO_ID !=null"> 
+					      CO_ID='${CO_ID}',
+					   </if>
+					   <if test="CO_SU !=null"> 
+					      CO_SU='${CO_SU}',
+					   </if>
+					   <if test="CK_ID !=null"> 
+					      CK_ID='${F_USE_CD}',
+					   </if>
+					   <if test="CK_DT !=null"> 
+					      CK_DT=SYSDATE,
+					   </if>
+					   UPT_ID='${F_USE_CD}',
+	 				   UPT_DT=SYSDATE                   		            	 				  
+					</set>
+					<where> CO_SN = '${CO_SN}'</where>
+		</update>
+		
+		<!-- 删除设备状态信息 -->
+		<delete id="deleteState" parameterType="hashmap">
+	             DELETE tpm1.R_TPM_CF_T
+	             	<where>
+	             		CO_SN='${CO_SN}'
+	             	</where>  
+	    </delete>
+	    
+	      <!-- 查询设备状态记录信息 -->
+		<select id="queryStateRecord" parameterType="hashmap" resultType="java.util.HashMap" >
+	            <include refid="oraclePagingFileTop"></include>
+							CO_SN,
+							DICT_IT,
+							ET_CD,
+							CO_SU,
+							CRT_ID,
+							TO_CHAR(CRT_DT,'YYYY-MM-DD HH24:Mi:SS') AS CRT_DT,
+							UPT_ID,
+							TO_CHAR(UPT_DT,'YYYY-MM-DD HH24:Mi:SS') AS UPT_DT
+						FROM tpm2.H_TPM_CF_T 
+				   <where> 1=1
+		              <if test=" CO_SN !=null and CO_SN !='' ">		            	 
+		            	  AND CO_SN LIKE '%${CO_SN}%' order by CRT_DT
+		              </if>
+		           </where>
+		       <include refid="oraclePagingFileBottom"></include> 
+	    </select> 
+	     <!-- 查询设备状态记录信息分页总数-->
+		<select id="queryStateRecord_COUNT" parameterType="hashmap" resultType="java.util.HashMap"> 
+		        SELECT 
+ 					COUNT(1)   ROWS_COUNT
+	              FROM tpm2.H_TPM_CF_T
+				   <where> 1=1
+		              <if test=" CO_SN !=null and CO_SN !='' ">		            	 
+		            	  AND CO_SN LIKE '%${CO_SN}%'
+		              </if>
+		           </where>
+	    </select>
+	    
+	    <!-- 新增设备状态记录信息 -->
+		<insert id="insertStateRecord" parameterType="hashmap"> 
+			   INSERT INTO 
+					   tpm2.H_TPM_CF_T
+					        (
+								CO_SN,
+								DICT_IT,
+								ET_CD,
+								CO_SU,
+								CRT_ID,
+								CRT_DT
+					         )
+					         VALUES
+					         (
+								'${CO_SN}',
+								'${DICT_IT}',
+								'${ET_CD}',
+								'${CO_SU}',
+								'${F_USE_CD}',
+					         	 SYSDATE			  
+		                      )
+	    </insert>   
+	    
+	    
+		
+		<!-- 删除设备状态记录信息 -->
+		<delete id="deleteStateRecord" parameterType="hashmap">
+	             DELETE tpm2.H_TPM_CF_T
+	             	<where>
+	             		CO_SN='${CO_SN}'
+	             	</where>  
+	    </delete>
+	    
+	    
+	     <!-- 查询设备采集信息 -->
+		<select id="queryDeviceCollect" parameterType="hashmap" resultType="java.util.HashMap" >
+	            <include refid="oraclePagingFileTop"></include>
+							IP_ADR,
+							LN_CD,
+							ROUT_CD,
+							ROUT_NAME,
+							ET_CD,
+							DICT_IT,
+							USE_YN,
+							ST_SORT,
+							KB_RM,
+							CRT_ID,
+							TO_CHAR(CRT_DT,'YYYY-MM-DD HH24:Mi:SS') AS CRT_DT,
+							CRT_IP,
+							UPT_ID,
+							TO_CHAR(UPT_DT,'YYYY-MM-DD HH24:Mi:SS') AS UPT_DT,
+							UPT_IP
+						FROM IPLANT1.C_IPLANT_C5_T 
+				   <where> 1=1
+		              <if test=" IP_ADR !=null and IP_ADR !='' ">		            	 
+		            	  AND IP_ADR LIKE '%${IP_ADR}%'
+		              </if>
+		              <if test=" LN_CD !=null and LN_CD !='' ">		            	 
+		            	  AND LN_CD='${LN_CD}'
+		              </if>	
+		              <if test=" ROUT_NAME !=null and ROUT_NAME !='' ">		            	 
+		            	  AND ROUT_NAME LIKE '%${ROUT_NAME}%'
+		              </if>
+		           </where>
+		       <include refid="oraclePagingFileBottom"></include> 
+	    </select> 
+	    
+	    <!-- 查询设备状态信息分页总数-->
+		<select id="queryDeviceCollect_COUNT" parameterType="hashmap" resultType="java.util.HashMap"> 
+		        SELECT 
+ 					COUNT(1)   ROWS_COUNT
+	              FROM IPLANT1.C_IPLANT_C5_T
+				   <where> 1=1
+		              <if test=" IP_ADR !=null and IP_ADR !='' ">		            	 
+		            	  AND IP_ADR LIKE '%${IP_ADR}%'
+		              </if>
+		              <if test=" LN_CD !=null and LN_CD !='' ">		            	 
+		            	  AND LN_CD='${LN_CD}'
+		              </if>	
+		              <if test=" ROUT_NAME !=null and ROUT_NAME !='' ">		            	 
+		            	  AND ROUT_NAME LIKE '%${ROUT_NAME}%'
+		              </if>
+		           </where>
+	    </select>
+	    
+	    <!-- 新增设备采集信息 -->
+		<insert id="insertDeviceCollect" parameterType="hashmap"> 
+			   INSERT INTO 
+					   IPLANT1.C_IPLANT_C5_T
+					        (
+					            IP_ADR,
+								LN_CD,
+								ROUT_CD,
+								ROUT_NAME,
+								ET_CD,
+								DICT_IT,
+								USE_YN,
+								ST_SORT,
+								KB_RM,
+								CRT_ID,
+								CRT_DT,
+								CRT_IP
+					         )
+					         VALUES
+					         (
+					         	'${IP_ADR}',
+								'${LN_CD}',
+								'${ROUT_CD}',
+								'${ROUT_NAME}',
+								'${ET_CD}',
+								'${DICT_IT}',
+								'${USE_YN}',
+								'${ST_SORT}',
+								'${KB_RM}',
+								'${F_USE_CD}',
+								 SYSDATE,
+								'${CRT_IP}'		  
+		                      )
+	    </insert>   
+	    
+	    <!-- 修改设备采集信息 -->
+		<update id="updateDeviceCollect" parameterType="java.util.HashMap" >
+				UPDATE IPLANT1.C_IPLANT_C5_T
+					<set>
+					   <if test="LN_CD !=null"> 
+					      LN_CD='${LN_CD}',
+					   </if>
+					   <if test="ROUT_CD !=null"> 
+					      ROUT_CD='${ROUT_CD}',
+					   </if>
+					   <if test="EQ_ST !=null"> 
+					      EQ_ST='${EQ_ST}',
+					   </if>
+					   <if test="ROUT_NAME !=null"> 
+					      ROUT_NAME='${ROUT_NAME}',
+					   </if>
+					   <if test="ET_CD !=null"> 
+					      ET_CD='${ET_CD}',
+					   </if>
+					   <if test="DICT_IT !=null"> 
+					      DICT_IT='${DICT_IT}',
+					   </if>
+					   <if test="USE_YN !=null"> 
+					      USE_YN='${USE_YN}',
+					   </if>
+					   <if test="ST_SORT !=null"> 
+					      ST_SORT='${ST_SORT}',
+					   </if>
+					   <if test="KB_RM !=null"> 
+					      KB_RM='${KB_RM}',
+					   </if>
+					   UPT_ID='${F_USE_CD}',
+	 				   UPT_DT=SYSDATE                   		            	 				  
+					</set>
+					<where> IP_ADR = '${IP_ADR}'</where>
+		</update>
+		
+		<!-- 删除设备采集信息 -->
+		<delete id="deleteDeviceCollect" parameterType="hashmap">
+	             DELETE IPLANT1.C_IPLANT_C5_T
+	             	<where>
+	             		IP_ADR='${IP_ADR}'
+	             	</where>  
+	    </delete>
+	    
+	    
+	     <!-- 查询模具状态信息 -->
+		<select id="queryDieState" parameterType="hashmap" resultType="java.util.HashMap" >
+	            <include refid="oraclePagingFileTop"></include>
+							MD_SN,
+							MD_ST,
+							CRT_ID,
+							TO_CHAR(CRT_DT,'YYYY-MM-DD HH24:Mi:SS') AS CRT_DT,
+							UPT_ID,
+							TO_CHAR(UPT_DT,'YYYY-MM-DD HH24:Mi:SS') AS UPT_DT
+						FROM TPM1.R_TPM_MS_T
+				   <where> 1=1
+		              <if test=" MD_SN !=null and MD_SN !='' ">		            	 
+		            	  AND MD_SN LIKE '%${MD_SN}%'
+		              </if>
+		              <if test=" MD_ST !=null and MD_ST !='' ">		            	 
+		            	  AND MD_ST='${MD_ST}'
+		              </if>	
+		           </where>
+		       <include refid="oraclePagingFileBottom"></include> 
+	    </select> 
+	    
+	    <!-- 查询模具状态信息分页总数-->
+		<select id="queryDieState_COUNT" parameterType="hashmap" resultType="java.util.HashMap"> 
+		        SELECT 
+ 					COUNT(1)   ROWS_COUNT
+	              FROM TPM1.R_TPM_MS_T
+				   <where> 1=1
+		              <if test=" MD_SN !=null and MD_SN !='' ">		            	 
+		            	  AND MD_SN LIKE '%${MD_SN}%'
+		              </if>
+		              <if test=" MD_ST !=null and MD_ST !='' ">		            	 
+		            	  AND MD_ST='${MD_ST}'
+		              </if>	
+		           </where>
+	    </select>
+	    
+	    
+	    
+	     <!-- 查询设备采集信息 -->
+		<select id="queryDieStatehs" parameterType="hashmap" resultType="java.util.HashMap" >
+	            <include refid="oraclePagingFileTop"></include>
+							DO_CD,
+							MD_SN,
+							MD_ST,
+							CRT_ID,
+							TO_CHAR(CRT_DT,'YYYY-MM-DD HH24:Mi:SS') AS CRT_DT,
+							UPT_ID,
+							TO_CHAR(UPT_DT,'YYYY-MM-DD HH24:Mi:SS') AS UPT_DT
+						FROM TPM2.H_TPM_MS_T
+				   <where> 1=1
+				   	  <if test=" WO_NO !=null and WO_NO !='' ">		            	 
+		            	  AND WO_NO='${WO_NO}'
+		              </if>	
+		              <if test=" MD_SN !=null and MD_SN !='' ">		            	 
+		            	  AND MD_SN LIKE '%${MD_SN}%'
+		              </if>
+		              <if test=" MD_ST !=null and MD_ST !='' ">		            	 
+		            	  AND MD_ST='${MD_ST}'
+		              </if>	
+		           </where>
+		       <include refid="oraclePagingFileBottom"></include> 
+	    </select> 
+	    
+	    <!-- 查询设备状态信息分页总数-->
+		<select id="queryDieStatehs_COUNT" parameterType="hashmap" resultType="java.util.HashMap"> 
+		        SELECT 
+ 					COUNT(1)   ROWS_COUNT
+	              FROM TPM2.H_TPM_MS_T
+				   <where> 1=1
+				   	  <if test=" DO_CD !=null and DO_CD !='' ">		            	 
+		            	  AND DO_CD='${DO_CD}'
+		              </if>	
+		              <if test=" MD_SN !=null and MD_SN !='' ">		            	 
+		            	  AND MD_SN LIKE '%${MD_SN}%'
+		              </if>
+		              <if test=" MD_ST !=null and MD_ST !='' ">		            	 
+		            	  AND MD_ST='${MD_ST}'
+		              </if>
+		           </where>
+	    </select>
+        <resultMap id="deviceOnLine" type="java.util.HashMap">
+			<result property="CU_DT" column="CU_DT"/>
+		</resultMap>
+        <select id="updateDeviceOnline" parameterType="hashmap" statementType="CALLABLE"  resultType="java.util.HashMap">   
+                      {call TPM1.C_DEVICE_PACK.RP_DEVICE_ONLINE('${LINECD}','${F_USE_CD}',
+                 #{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=deviceOnLine},
+                 #{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, 
+                 #{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},
+                 #{ROWS_COUNT,jdbcType=INTEGER,mode=OUT,javaType=Integer})}
+        </select>
+        
+         <!-- 设备下线-->
+	    <!-- 查询设备下线信息 -->
+	    <select id="queryEquipOffline" parameterType="hashmap" resultType="java.util.HashMap" >
+	            <include refid="oraclePagingFileTop"></include>     
+	            			CD,                      
+						   	OL_CD,
+							TO_CHAR(PL_DT,'YYYY-MM-DD HH24:Mi:SS') AS PL_DT,
+							CHK_BY,
+							TO_CHAR(CHK_DT,'YYYY-MM-DD HH24:Mi:SS') AS CHK_DT,
+							LN_ST,
+							CRT_ID,
+							TO_CHAR(CRT_DT,'YYYY-MM-DD HH24:Mi:SS') AS CRT_DT,
+							UPT_ID,
+							TO_CHAR(UPT_DT,'YYYY-MM-DD HH24:Mi:SS') AS UPT_DT
+						FROM tpm1.R_TPM_OL_T1 
+				   <where> 1=1
+		              <if test=" IT_NM !=null and IT_NM !='' ">		            	 
+		            	  AND OL_CD LIKE '%${OL_CD}%'
+		              </if>		             
+		           </where>
+		       <include refid="oraclePagingFileBottom"></include> 
+	    </select> 
+	    <!-- 查询设备下线信息分页总数-->
+		<select id="queryEquipOffline_COUNT" parameterType="hashmap" resultType="java.util.HashMap"> 
+		        SELECT 
+ 					COUNT(1)   ROWS_COUNT
+	              FROM tpm1.R_TPM_OL_T1
+				   <where> 1=1
+		              <if test=" OL_CD !=null and OL_CD !='' ">		            	 
+		            	  AND OL_CD LIKE '%${OL_CD}%'
+		              </if>			             
+		           </where>
+	    </select>   
+	     
+	    <!-- 新增设备下线信息-->
+	    <insert id="insertEquipOffline" parameterType="hashmap"> 
+			   INSERT INTO tpm1.R_TPM_OL_T1
+					        (
+					            CD,                      
+							   	OL_CD,
+								PL_DT,
+								<!-- CHK_BY,
+								CHK_DT, -->
+								LN_ST,
+								CRT_ID,
+								CRT_DT
+					         )
+					         (
+		                      <foreach collection="list" item="item" index="index" separator="union all">
+		                      	SELECT
+		                      	'${item.CD }',
+			                    '${item.OL_CD}',
+			                    to_date('${item.PL_DT}','YYYY-MM-DD HH24:Mi:SS'),
+					         	<!--  ${item.CHK_BY},
+					         	to_date('${item.CHK_DT}','YYYY-MM-DD HH24:Mi:SS'), -->
+					         	'${item.LN_ST}',					         						        
+					            '${F_USE_CD}',
+					         	 SYSDATE				         	
+			                    FROM DUAL
+		                      </foreach>
+		                      )
+	    </insert>   
+	   
+	    <!-- 修改设备下线信息--> 
+	   <update id="updateEquipOffline" parameterType="java.util.HashMap" >
+			<foreach collection="list" item="item" index="index" open="begin" close=";end;" separator=";">
+				UPDATE tpm1.R_TPM_OL_T1
+					<set>
+					   <if test="item.OL_CD !=null"> 
+					      OL_CD='${item.OL_CD}',
+					   </if>
+					   <if test="item.CHK_BY !=null"> 
+					      CHK_BY='${F_USE_CD}',
+					      CHK_DT=SYSDATE  ,
+					   </if>
+					   <if test="item.PL_DT !=null"> 
+					      PL_DT=to_date('${item.PL_DT}','YYYY-MM-DD HH24:Mi:SS'),
+					   </if>
+					   <if test="item.LN_ST !=null"> 
+					      LN_ST='${item.LN_ST}',
+					   </if>
+					   UPT_ID='${F_USE_CD}',
+	 				   UPT_DT=SYSDATE                   		            	 				  
+					</set>
+					<where> CD = '${item.CD}' </where>
+			</foreach>
+		</update>
+		
+        <!-- 删除设备下线信息--> 
+	    <delete id="deleteEquipOffline" parameterType="hashmap">
+	             DELETE tpm1.R_TPM_OL_T1
+	             	<where>
+	             		CD='${CD}'
+	             	</where>  
+	    </delete>  	  
+	    
+	    <!-- 设备下线明细-->
+	    <!-- 查询设备下线明细信息 -->
+	    <select id="queryEquipOfflineMx" parameterType="hashmap" resultType="java.util.HashMap" >
+	            <include refid="oraclePagingFileTop"></include>                           
+						   	OL_CD,
+							ET_CD,
+							EQ_ST,
+							EQ_LN,
+							ET_SU,
+							CRT_ID,
+							TO_CHAR(CRT_DT,'YYYY-MM-DD HH24:Mi:SS') AS CRT_DT,
+							UPT_ID,
+							TO_CHAR(UPT_DT,'YYYY-MM-DD HH24:Mi:SS') AS UPT_DT
+						FROM tpm2.H_TPM_OL_T1 
+				   <where> 1=1
+		              <if test=" OL_CD !=null and OL_CD !='' ">		            	 
+		            	  AND OL_CD LIKE '%${OL_CD}%'
+		              </if>		             
+		           </where>
+		       <include refid="oraclePagingFileBottom"></include> 
+	    </select> 
+	    <!-- 查询设备下线明细信息分页总数-->
+		<select id="queryEquipOfflineMx_COUNT" parameterType="hashmap" resultType="java.util.HashMap"> 
+		        SELECT 
+ 					COUNT(1)   ROWS_COUNT
+	              FROM tpm2.H_TPM_OL_T1
+				   <where> 1=1
+		              <if test=" OL_CD !=null and OL_CD !='' ">		            	 
+		            	  AND OL_CD LIKE '%${OL_CD}%'
+		              </if>		             
+		           </where>
+	    </select>   
+	     
+	    <!-- 新增设备下线明细信息-->
+	    <insert id="insertEquipOfflineMx" parameterType="hashmap"> 
+
+			   INSERT INTO 
+					    tpm2.H_TPM_OL_T1
+					        (
+					        	CD,
+					            OL_CD,
+								ET_CD,
+								EQ_ST,
+								EQ_LN,
+								ET_SU,
+								CRT_ID,
+								CRT_DT
+					         )
+					         (
+		                      <foreach collection="list" item="item" index="index" separator="union all">
+		                      	SELECT
+		                      	'${CD}',
+			                    '${item.OL_CD}',
+					         	'${item.ET_CD}',
+					         	'${item.EQ_ST}',
+					         	'${item.EQ_LN}',
+					         	'${item.ET_SU}',				         						        
+					         	'${F_USE_CD}',
+					         	 SYSDATE			         	
+			                    FROM DUAL
+		                      </foreach>
+		                      )
+	    </insert>   
+	   
+	    <!-- 修改设备下线明细信息--> 
+	   <update id="updateEquipOfflineMx" parameterType="java.util.HashMap" >
+			<foreach collection="list" item="item" index="index" open="begin" close=";end;" separator=";">
+				UPDATE tpm2.H_TPM_OL_T1
+					<set>
+					   <if test="item.EQ_NO !=null"> 
+					      ET_CD='${item.ET_CD}',
+					   </if>
+					   <if test="item.EQ_ST !=null"> 
+					      EQ_ST='${item.EQ_ST}',
+					   </if>
+					   <if test="item.EQ_LN !=null"> 
+					      EQ_LN='${item.EQ_LN}',
+					   </if>
+					   ET_SU='${item.ET_SU}',
+					   UPT_ID='${F_USE_CD}',
+	 				   UPT_DT=SYSDATE                   		            	 				  
+					</set>
+					<where> OL_CD = '${item.OL_CD}'  </where>
+			</foreach>
+		</update>
+		
+        <!-- 删除设备下线明细信息--> 
+	    <delete id="deleteEquipOfflineMx" parameterType="hashmap">
+	             DELETE FROM tpm2.H_TPM_OL_T1
+	             
+	             <where>           	 
+		            	CD='${CD}' AND OL_CD = '${OL_CD}'             
+		           </where>  
+	    </delete> 
+	    
+	    
+	    <!-- 更新设备采集数据 -->
+        <select id="updateMachineDropData" parameterType="java.util.HashMap" statementType="CALLABLE" resultType="java.util.HashMap">   
+                      {call TPM1.C_MACHINE_DROP_DATA.EDIT_MACHINE_DROP_DATA('${V_ET_TP}',
+                 #{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=deviceOnLine},
+                 #{ERRORCODE,jdbcType=VARCHAR,mode=OUT,javaType=String}, 
+                 #{ERRORMESSAGE,jdbcType=VARCHAR,mode=OUT,javaType=String},
+                 #{MESSAGE,jdbcType=VARCHAR,mode=OUT,javaType=String})}
+        </select>
+        
+</mapper>

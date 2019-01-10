@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<engines>
+	<engine engine_code="queryScadaDip" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="queryScadaDip" >
+	</engine>
+	<engine engine_code="queryScadaDipCellsTotal" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="queryScadaDipCellsTotal" >
+	</engine>
+	<engine engine_code="queryScadaDipMaterialTotal" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="queryScadaDipMaterialTotal" >
+	</engine>
+</engines>

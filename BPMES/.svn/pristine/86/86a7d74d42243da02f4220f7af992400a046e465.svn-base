@@ -1,0 +1,966 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="">
+
+	<!-- 新增成品仓库配置信息 -->
+	<insert id="productWarehouseInfoInsert" parameterType="hashmap">
+		insert into wms1.wms_product_warehouse_config
+		(
+		CONFIG_ID,
+		CONFIGURATION_NAME,
+		CONFIGURATION_DESC,
+		REMARKS,
+		CRT_DT,
+		CRT_ID
+		)VALUES
+	    (
+		<!-- <foreach collection="list" item="item" index="index" separator="union all"> -->
+		<!-- 	SELECT -->
+			 ${ID},
+			'${CONFIGURATION_NAME}',
+			'${CONFIGURATION_DESC}',
+			'${REMARKS}',
+			 SYSDATE,
+			'${F_USE_CD}'
+			<!-- FROM DUAL -->
+		<!-- </foreach> -->
+		)
+	</insert>
+	
+	
+	  <!-- 查询成品仓库配置信息-->
+	<select id="queryProductWarehouseInfo" parameterType="hashmap" resultType="java.util.HashMap"> 	   
+          <include refid="oraclePagingFileTop"></include>
+            CONFIG_ID,	
+			CONFIGURATION_NAME,
+			CONFIGURATION_DESC,
+			REMARKS,         
+	        TO_CHAR(CRT_DT,'YYYY-MM-DD HH24:MI:SS') AS CREATE_DATE,
+            CRT_ID,
+            TO_CHAR(UPT_DT,'YYYY-MM-DD HH24:MI:SS') AS UPDATE_DATE,
+            UPT_ID
+       FROM WMS1.wms_product_warehouse_config
+       <where>
+			1=1
+			<if test="CONFIGURATION_NAME !=null and CONFIGURATION_NAME !='' "> 
+ 		    <choose>
+		    	<when test='CK=="true"'>
+		           AND CONFIGURATION_NAME = '${CONFIGURATION_NAME}'
+	    		</when>
+	    		<otherwise>
+	    		   AND CONFIGURATION_NAME like '%' || #{CONFIGURATION_NAME} || '%'        	 
+	    		</otherwise>
+			</choose>
+			</if>
+			
+		</where>
+		ORDER BY CRT_DT DESC 
+		<include refid="oraclePagingFileBottom"></include>  	      					
+	</select>
+	
+	
+	<!-- 查询成品仓库配置信息分页总数 -->
+	<select id="queryProductWarehouseInfo_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT
+		COUNT(1) AS ROWS_COUNT
+		FROM WMS1.wms_product_warehouse_config
+       <where>
+			1=1
+			<if test="CONFIGURATION_NAME !=null and CONFIGURATION_NAME !='' "> 
+ 		    <choose>
+		    	<when test='CK=="true"'>
+		           AND CONFIGURATION_NAME = '${CONFIGURATION_NAME}'
+	    		</when>
+	    		<otherwise>
+	    		   AND CONFIGURATION_NAME like '%' || #{CONFIGURATION_NAME} || '%'        	 
+	    		</otherwise>
+			</choose>
+			</if>
+			
+		</where>
+	</select>
+	
+	<!-- 修改成品仓库配置信息 -->
+	<update id="UpdateWareHouseInfo" parameterType="HashMap" >
+			UPDATE WMS1.wms_product_warehouse_config
+				<set>
+					  <if test="CONFIGURATION_NAME !=null"> 
+					      CONFIGURATION_NAME='${CONFIGURATION_NAME}',
+					  </if>
+					  <if test="CONFIGURATION_DESC !=null"> 
+					      CONFIGURATION_DESC='${CONFIGURATION_DESC}',
+					  </if>
+					  <if test="REMARKS !=null"> 
+					      REMARKS='${REMARKS}',
+					  </if>
+					UPT_ID='${F_USE_CD}',
+					UPT_DT=SYSDATE
+				</set>
+				<where> CONFIG_ID = '${ID}'</where>
+	</update>
+	
+	
+	<!-- 删除成品仓库配置信息 -->
+	<delete id="DeleteWareHouseInfo" parameterType="hashmap">   
+	 DELETE  WMS1.wms_product_warehouse_config
+	 WHERE CONFIG_ID IN
+	  <foreach item="item" collection="list" open="(" separator="," close=")"> 
+		#{item.CONFIG_ID}
+      </foreach>                  
+	</delete>
+	
+	
+	<!-- ============================================================================================================================================================== -->		
+	<!-- 出货方式模块 -->	
+	
+	<!-- 新增出货方式信息 -->
+	<insert id="deliveryModeInfoInsert" parameterType="hashmap">
+		insert into wms1.WMS_DELIVERY_MODE_T
+		(
+		DELIVERY_MODE_ID,
+		DELIVERY_MODE_NAME,
+		DELIVERY_MODE_REMARKS,
+		CRT_DT,
+		CRT_ID
+		)VALUES
+	    (
+			 ${ID},
+			'${DELIVERY_MODE_NAME}',
+			'${DELIVERY_MODE_REMARKS}',
+			 SYSDATE,
+			'${F_USE_CD}'
+		)
+	</insert>
+	
+	
+	<!-- 查询出货方式信息 -->
+	<select id="queryDeliveryModeInfo" parameterType="hashmap" resultType="java.util.HashMap"> 	   
+          <include refid="oraclePagingFileTop"></include>
+			DELIVERY_MODE_ID,
+			DELIVERY_MODE_NAME,
+			DELIVERY_MODE_REMARKS,        
+	        TO_CHAR(CRT_DT,'YYYY-MM-DD HH24:MI:SS') AS CREATE_DATE,
+            CRT_ID,
+            TO_CHAR(UPT_DT,'YYYY-MM-DD HH24:MI:SS') AS UPDATE_DATE,
+            UPT_ID
+       FROM WMS1.WMS_DELIVERY_MODE_T
+       <where>
+			1=1
+			<if test="DELIVERY_MODE_NAME !=null and DELIVERY_MODE_NAME !='' "> 
+ 		    <choose>
+		    	<when test='CK=="true"'>
+		           AND DELIVERY_MODE_NAME = '${DELIVERY_MODE_NAME}'
+	    		</when>
+	    		<otherwise>
+	    		   AND DELIVERY_MODE_NAME like '%' || #{DELIVERY_MODE_NAME} || '%'        	 
+	    		</otherwise>
+			</choose>
+			</if>
+			
+		</where>
+		ORDER BY CRT_DT DESC 
+	<include refid="oraclePagingFileBottom"></include>   	      					
+	</select>
+	
+	
+	<!-- 查询出货方式信息分页总数 -->
+	<select id="queryDeliveryModeInfo_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT
+		COUNT(1) AS ROWS_COUNT
+		FROM wms1.WMS_DELIVERY_MODE_T
+       <where>
+			1=1
+			<if test="DELIVERY_MODE_NAME !=null and DELIVERY_MODE_NAME !='' "> 
+ 		    <choose>
+		    	<when test='CK=="true"'>
+		           AND DELIVERY_MODE_NAME = '${DELIVERY_MODE_NAME}'
+	    		</when>
+	    		<otherwise>
+	    		   AND DELIVERY_MODE_NAME like '%' || #{DELIVERY_MODE_NAME} || '%'        	 
+	    		</otherwise>
+			</choose>
+			</if>
+			
+		</where>
+	</select>
+	
+	
+	
+	
+	
+	<!-- 修改出货方式信息 -->
+	<update id="UpdateDeliveryModeInfo" parameterType="HashMap" >
+			UPDATE WMS1.WMS_DELIVERY_MODE_T
+				<set>
+					  <if test="DELIVERY_MODE_NAME !=null"> 
+					      DELIVERY_MODE_NAME='${DELIVERY_MODE_NAME}',
+					  </if>
+					  <if test="DELIVERY_MODE_REMARKS !=null"> 
+					      DELIVERY_MODE_REMARKS='${DELIVERY_MODE_REMARKS}',
+					  </if>
+					UPT_ID='${F_USE_CD}',
+					UPT_DT=SYSDATE
+				</set>
+				<where> DELIVERY_MODE_ID = '${ID}'</where>
+	</update>
+	
+	
+	<!-- 删除出货方式信息 -->
+	<delete id="DeleteDeliveryModeInfo" parameterType="hashmap">   
+	 DELETE  WMS1.WMS_DELIVERY_MODE_T
+	 WHERE DELIVERY_MODE_ID IN
+	  <foreach item="item" collection="list" open="(" separator="," close=")"> 
+		#{item.DELIVERY_MODE_ID}
+      </foreach>                  
+	</delete>
+	
+	
+<!-- ============================================================================================================================================================== -->		
+<!-- 紧急物料配置清单 -->	
+	
+	<!-- 新增紧急物料配置清单信息  MATERIALEMERGENCYID_SEQ.NextVal,  ${item.MATERIALEMERGENCYID},--> 
+	<insert id="InsertEmergencyMaterial" parameterType="hashmap">
+		insert into wms1.WMS_MATERIALEMERGENCY
+		(
+		MATERIALEMERGENCYID,
+		ITEMCODE,
+		PURORDER,
+		EMERGENCYSTATUS,
+		REMARK,
+		DEFAULT1,
+		DEFAULT2,
+		DEFAULT3,
+		CRT_DT,
+		CRT_ID
+		)
+	select  MATERIALEMERGENCYID_SEQ.NextVal,cd.* from(	
+	(<foreach collection="list" item="item" index="index" separator="union all">
+			  select
+			    #{item.ITEMCODE,jdbcType=VARCHAR},
+			    #{item.PURORDER,jdbcType=VARCHAR},
+			    #{item.EMERGENCYSTATUS,jdbcType=VARCHAR},
+			    #{item.REMARK,jdbcType=VARCHAR},
+			    #{item.DEFAULT1,jdbcType=VARCHAR},
+			    #{item.DEFAULT2,jdbcType=VARCHAR},
+			    #{item.DEFAULT3,jdbcType=VARCHAR},
+			     SYSDATE,
+			    #{F_USE_CD}
+		      FROM DUAL		
+	 </foreach>)
+	  ) cd
+	 
+	</insert>
+	
+	
+	
+		
+	<!-- 查询紧急物料配置清单信息 -->
+	<select id="queryEmergencyMaterial_checkRepeat" parameterType="hashmap" resultType="java.util.HashMap"> 	   
+         <include refid="oraclePagingFileTop"></include>
+			MATERIALEMERGENCYID,
+			ITEMCODE,
+			PURORDER,
+			EMERGENCYSTATUS,
+			REMARK,
+			DEFAULT1,
+			DEFAULT2,
+			DEFAULT3,       
+	        TO_CHAR(CRT_DT,'YYYY-MM-DD HH24:MI:SS') AS CREATE_DATE,
+            CRT_ID,
+            TO_CHAR(UPT_DT,'YYYY-MM-DD HH24:MI:SS') AS UPDATE_DATE,
+            UPT_ID
+       FROM WMS1.WMS_MATERIALEMERGENCY where  ITEMCODE in
+        <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+            #{item.ITEMCODE}
+        </foreach> 
+
+	<include refid="oraclePagingFileBottom"></include>    	 	      					
+	</select>
+	
+	
+
+	
+	<!-- 查询紧急物料配置清单信息 -->
+	<select id="QueryEmergencyMaterial" parameterType="hashmap" resultType="java.util.HashMap"> 	   
+         <include refid="oraclePagingFileTop"></include>
+			MATERIALEMERGENCYID,
+			ITEMCODE,
+			PURORDER,
+			EMERGENCYSTATUS,
+			REMARK,
+			DEFAULT1,
+			DEFAULT2,
+			DEFAULT3,       
+	        TO_CHAR(CRT_DT,'YYYY-MM-DD HH24:MI:SS') AS CREATE_DATE,
+            CRT_ID,
+            TO_CHAR(UPT_DT,'YYYY-MM-DD HH24:MI:SS') AS UPDATE_DATE,
+            UPT_ID
+       FROM WMS1.WMS_MATERIALEMERGENCY
+       <where>
+			1=1
+			<if test="ITEMCODE !=null and ITEMCODE !='' "> 
+ 		    <choose>
+		    	<when test='CK=="true"'>
+		           AND ITEMCODE = '${ITEMCODE}'
+	    		</when>
+	    		<otherwise>
+	    		   AND ITEMCODE like '%' || #{ITEMCODE} || '%'        	 
+	    		</otherwise>
+			</choose>
+			</if>
+			
+		</where>
+		ORDER BY CRT_DT DESC
+	<include refid="oraclePagingFileBottom"></include>    	 	      					
+	</select>
+	
+	
+	
+	
+		<!-- 查询紧急物料配置清单信息分页总数 -->
+	<select id="QueryEmergencyMaterial_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT
+		COUNT(1) AS ROWS_COUNT
+		FROM WMS1.WMS_MATERIALEMERGENCY
+       <where>
+			1=1
+			<if test="ITEMCODE !=null and ITEMCODE !='' "> 
+ 		    <choose>
+		    	<when test='CK=="true"'>
+		           AND ITEMCODE = '${ITEMCODE}'
+	    		</when>
+	    		<otherwise>
+	    		   AND ITEMCODE like '%' || #{ITEMCODE} || '%'        	 
+	    		</otherwise>
+			</choose>
+			</if>
+			ORDER BY CRT_DT DESC
+		</where>
+	</select>
+	
+	
+	<!-- 修改紧急物料配置清单信息 -->
+	<update id="UpdateEmergencyMaterial" parameterType="HashMap" >
+			UPDATE WMS1.WMS_MATERIALEMERGENCY
+			
+				<set>
+					  <if test="ITEMCODE !=null"> 
+					      ITEMCODE='${ITEMCODE}',
+					  </if>
+					  <if test="REMARK !=null"> 
+					      REMARK='${REMARK}',
+					  </if>
+					UPT_ID='${F_USE_CD}',
+					UPT_DT=SYSDATE
+				</set>
+				<where> MATERIALEMERGENCYID = ${ID}</where>
+			
+	</update>
+	
+	
+	<!-- 删除紧急物料配置清单信息 -->
+	<delete id="DeleteEmergencyMaterial" parameterType="hashmap">   
+	 DELETE  WMS1.WMS_MATERIALEMERGENCY
+	 WHERE MATERIALEMERGENCYID IN
+	  <foreach item="item" collection="list" open="(" separator="," close=")"> 
+		#{item.MATERIALEMERGENCYID}
+      </foreach>                  
+	</delete>
+	
+<!-- ============================================================================================================================================================== -->		
+<!-- 交易类型清单信息模块 -->	
+	
+	<!-- 新增交易类型清单信息  --> 
+	<insert id="InsertTransactionTypeList" parameterType="hashmap">
+		insert into wms1.WMS_PROD_ADDITIONTYPE
+		(
+		  PRODADDITIONTYPEID,
+		  TYPECODE,
+		  TRANTYPEID,
+		  TYPENAME,
+		  APPTYPE,
+		  REMARK,
+		  CRT_DT,
+		  CRT_ID,
+		  FACTORYCODE,
+		  ENABLEFLAG           
+		)VALUES(
+			'${PRODADDITIONTYPEID}',
+			'${TYPECODE}',
+			'${TRANTYPEID}',
+			'${TYPENAME}',
+			'${APPTYPE}',
+			'${REMARK}',
+			 SYSDATE,
+			'${F_USE_CD}',
+			'${FACTORYCODE}',
+			'${ENABLEFLAG}'			
+		)
+	 
+	</insert>
+	
+	
+	
+		
+	<!-- 查询交易类型清单信息校验重复数据 -->
+	<select id="queryTransactionTypeList_checkRepeat" parameterType="hashmap" resultType="java.util.HashMap"> 	   
+         <include refid="oraclePagingFileTop"></include>
+			  PRODADDITIONTYPEID,
+			  TYPECODE,
+			  TRANTYPEID,
+			  TYPENAME,
+			  APPTYPE,
+			  REMARK,       
+	          TO_CHAR(CRT_DT,'YYYY-MM-DD HH24:MI:SS') AS CREATE_DATE,
+              CRT_ID,
+              TO_CHAR(UPT_DT,'YYYY-MM-DD HH24:MI:SS') AS UPDATE_DATE,
+              UPT_ID，
+	          FACTORYCODE,
+			  ENABLEFLAG  
+       FROM WMS1.WMS_PROD_ADDITIONTYPE  
+       <where>
+		     TYPECODE = '${TYPECODE}'			
+		</where>
+
+	<include refid="oraclePagingFileBottom"></include>    	 	      					
+	</select>
+	
+	
+
+	
+	<!-- 查询交易类型清单信息 -->
+	<select id="QueryTransactionTypeList" parameterType="hashmap" resultType="java.util.HashMap"> 	   
+         <include refid="oraclePagingFileTop"></include>
+			  PRODADDITIONTYPEID,
+			  TYPECODE,
+			  TRANTYPEID,
+			  TYPENAME,
+			  APPTYPE,
+			  REMARK,       
+	          TO_CHAR(CRT_DT,'YYYY-MM-DD HH24:MI:SS') AS CREATE_DATE,
+              CRT_ID,
+              TO_CHAR(UPT_DT,'YYYY-MM-DD HH24:MI:SS') AS UPDATE_DATE,
+              UPT_ID，
+	          FACTORYCODE,
+			  ENABLEFLAG
+       FROM WMS1.WMS_PROD_ADDITIONTYPE
+       <where>
+			1=1
+			<if test="TYPECODE !=null and TYPECODE !='' "> 
+	    		  AND TYPECODE like '%${TYPECODE}%'
+			</if>
+			<if test="TYPENAME !=null and TYPENAME !='' "> 
+	    		   AND TYPENAME like '%${TYPENAME}%'      	 
+			</if>
+		    <if test="ENABLEFLAG !=null and ENABLEFLAG !='' "> 
+	    		  AND ENABLEFLAG = ${ENABLEFLAG}        	 
+			</if>
+		</where>
+		ORDER BY CRT_DT DESC
+	<include refid="oraclePagingFileBottom"></include>    	 	      					
+	</select>
+	
+	
+	
+	
+	<!-- 查询交易类型清单信息分页总数 -->
+	<select id="QueryTransactionTypeList_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT
+		COUNT(1) AS ROWS_COUNT
+		FROM WMS1.WMS_PROD_ADDITIONTYPE
+       <where>
+			1=1
+			<if test="TYPECODE !=null and TYPECODE !='' "> 
+	    		  AND TYPECODE like '%${TYPECODE}%'
+			</if>
+			<if test="TYPENAME !=null and TYPENAME !='' "> 
+	    		   AND TYPENAME like '%${TYPENAME}%'      	 
+			</if>
+		    <if test="ENABLEFLAG !=null and ENABLEFLAG !='' "> 
+	    		  AND ENABLEFLAG = ${ENABLEFLAG}        	 
+			</if>
+		</where>
+	</select>
+	
+	
+	<!-- 修改交易类型清单信息 -->
+	<update id="UpdateTransactionTypeList" parameterType="HashMap" >
+			UPDATE WMS1.WMS_PROD_ADDITIONTYPE
+			
+				<set>
+					  <if test="TRANTYPEID !=null"> 
+					      TRANTYPEID=${TRANTYPEID},
+					  </if>
+					  <if test="TYPENAME !=null"> 
+					      TYPENAME='${TYPENAME}',
+					  </if>
+					  <if test="APPTYPE !=null"> 
+					       APPTYPE='${APPTYPE}',
+					  </if>
+					   <if test="TYPENAME !=null"> 
+					      REMARK='${REMARK}',
+					  </if>
+					  <if test="ENABLEFLAG !=null"> 
+					      ENABLEFLAG =${ENABLEFLAG},
+					  </if>
+					UPT_ID='${F_USE_CD}',
+					UPT_DT=SYSDATE
+				</set>
+				<where> PRODADDITIONTYPEID = '${ID}'</where>
+			
+	</update>
+	
+	
+	<!-- 删除交易类型清单信息 -->
+	<delete id="DeleteTransactionTypeList" parameterType="hashmap">   
+	 DELETE  WMS1.WMS_PROD_ADDITIONTYPE
+	 WHERE PRODADDITIONTYPEID IN
+	  <foreach item="item" collection="list" open="(" separator="," close=")"> 
+		#{item.PRODADDITIONTYPEID}
+      </foreach>                  
+	</delete>
+	
+	
+	
+
+<!-- ============================================================================================================================================================== -->		
+<!-- 仓库配置列表信息模块 -->	
+	
+	<!-- 新增仓库配置列表信息  --> 
+	<insert id="InsertWarehouseConfiglist" parameterType="hashmap">
+		insert into wms1.WMS_WAREHOUSECONFIGLIST
+		(
+		  WAREHOUSECONFIG_ID,
+		  CONFIGTYPEID,
+		  CONFIGCODE,
+		  CONFIGRESULT,
+		  CONFIGDESC,
+		  ISGLOBAL,
+		  REMARK,
+		  CRT_DT,
+		  CRT_ID,
+		  CONFIGTYPE,
+		  CONTROL_RANGE           
+		)VALUES(
+			'${WAREHOUSECONFIG_ID}',
+			 ${CONFIGTYPEID},
+			'${CONFIGCODE}',
+			'${CONFIGRESULT}',
+			'${CONFIGDESC}',
+			'${ISGLOBAL}',
+			'${REMARK}',
+			 SYSDATE,
+			'${F_USE_CD}',
+			'${CONFIGTYPE}',
+			'${CONTROL_RANGE}'		
+		)
+	 
+	</insert>
+	
+	
+	
+		
+	<!-- 查询仓库配置列表校验重复数据 -->
+	<select id="queryWarehouseConfiglist_checkRepeat" parameterType="hashmap" resultType="java.util.HashMap"> 	   
+         <include refid="oraclePagingFileTop"></include>
+			  WAREHOUSECONFIG_ID,
+			  CONFIGTYPEID,
+			  CONFIGCODE,
+			  CONFIGRESULT,
+			  CONFIGDESC,
+			  ISGLOBAL,
+			  REMARK,     
+	          TO_CHAR(CRT_DT,'YYYY-MM-DD HH24:MI:SS') AS CREATE_DATE,
+              CRT_ID,
+              TO_CHAR(UPT_DT,'YYYY-MM-DD HH24:MI:SS') AS UPDATE_DATE,
+              UPT_ID，
+	          FACTORYCODE,
+	          CONFIGTYPE,
+	          CONTROL_RANGE
+       FROM WMS1.WMS_WAREHOUSECONFIGLIST  
+       <where>
+			 CONFIGTYPE = '${CONFIGTYPE}'		
+		</where>
+
+	<include refid="oraclePagingFileBottom"></include>    	 	      					
+	</select>
+	
+	
+
+	
+	<!-- 查询仓库配置列表信息 -->
+	<select id="QueryWarehouseConfiglist" parameterType="hashmap" resultType="java.util.HashMap"> 	   
+         <include refid="oraclePagingFileTop"></include>
+			  WAREHOUSECONFIG_ID,
+			  CONFIGTYPEID,
+			  CONFIGCODE,
+			  CONFIGRESULT,
+			  CONFIGDESC,
+			  ISGLOBAL,
+			  REMARK,     
+	          TO_CHAR(CRT_DT,'YYYY-MM-DD HH24:MI:SS') AS CREATE_DATE,
+              CRT_ID,
+              TO_CHAR(UPT_DT,'YYYY-MM-DD HH24:MI:SS') AS UPDATE_DATE,
+              UPT_ID，
+	          FACTORYCODE,
+	          CONFIGTYPE,
+	          CONTROL_RANGE
+       FROM WMS1.WMS_WAREHOUSECONFIGLIST
+       <where>
+			1=1
+		    <if test="CONFIGTYPE !=null and CONFIGTYPE !='' "> 
+	    		  AND CONFIGTYPE = '${CONFIGTYPE}'        	 
+			</if>
+		</where>
+		ORDER BY CRT_DT DESC
+	<include refid="oraclePagingFileBottom"></include>    	 	      					
+	</select>
+	
+	
+	
+	
+	<!-- 查询仓库配置列表信息分页总数 -->
+	<select id="QueryWarehouseConfiglist_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT
+		COUNT(1) AS ROWS_COUNT
+		FROM WMS1.WMS_WAREHOUSECONFIGLIST
+       <where>
+			1=1
+
+		    <if test="CONFIGTYPE !=null and CONFIGTYPE !='' "> 
+	    		  AND CONFIGTYPE= '${CONFIGTYPE}'	        	 
+			</if>
+		</where>
+	</select>
+	
+	
+	<!-- 修改仓库配置列表信息 -->
+	<update id="UpdateWarehouseConfiglist" parameterType="HashMap" >
+			UPDATE WMS1.WMS_WAREHOUSECONFIGLIST
+			
+				<set>
+					  <if test="CONFIGTYPE !=null"> 
+					      CONFIGTYPE='${CONFIGTYPE}',
+					  </if>
+					  <if test="CONFIGDESC !=null"> 
+					      CONFIGDESC='${CONFIGDESC}',
+					  </if>
+					   <if test="REMARK !=null"> 
+					      REMARK='${REMARK}',
+					  </if>
+					  <if test="CONTROL_RANGE !=null"> 
+					      CONTROL_RANGE='${CONTROL_RANGE}',
+					  </if>
+					UPT_ID='${F_USE_CD}',
+					UPT_DT=SYSDATE
+				</set>
+				<where> WAREHOUSECONFIG_ID = '${ID}'</where>
+			
+	</update>
+	
+	
+	<!-- 删除仓库配置列表信息 -->
+	<delete id="DeleteWarehouseConfiglist" parameterType="hashmap">   
+	 DELETE  WMS1.WMS_WAREHOUSECONFIGLIST
+	 WHERE WAREHOUSECONFIG_ID IN
+	  <foreach item="item" collection="list" open="(" separator="," close=")"> 
+		#{item.WAREHOUSECONFIG_ID}
+      </foreach>                  
+	</delete>	
+		
+<!-- ============================================================================================================================================================== -->		
+<!--IQC检验配置列表模块 -->	
+	
+	<!-- 新增IQC检验配置列表信息  --> 
+	<insert id="InsertIQCcheckConfiglist" parameterType="hashmap">
+		insert into wms1.WMS_IQCCHECKCONFIG
+		(
+			  IQCCHECKCONFIG_ID,
+			  CHECKTYPEID,
+			  CHECKTYPE,
+			  MATERIALSTATUSID,
+			  MATERIALSTATUS,
+			  ISGLOBAL,
+			  ISSTORAGE,
+			  REMARK,
+			  CRT_DT,
+			  CRT_ID,
+			  FACTORYCODE                
+		)VALUES(
+			'${IQCCHECKCONFIG_ID}',
+			 '${CHECKTYPEID}',
+			'${CHECKTYPE}',		
+			 ${MATERIALSTATUSID},
+			'${MATERIALSTATUS}',
+			'${ISGLOBAL}',
+			 ${ISSTORAGE},
+			'${REMARK}',
+			 SYSDATE,
+			'${F_USE_CD}',
+			'${FACTORYCODE}'	
+		)
+	 
+	</insert>
+		
+	<!-- 查询IQC检验配置列表校验重复数据 -->
+	<select id="queryIQCcheckConfiglist_checkRepeat" parameterType="hashmap" resultType="java.util.HashMap"> 	   
+         <include refid="oraclePagingFileTop"></include>
+			  IQCCHECKCONFIG_ID,
+			  CHECKTYPEID,
+			  CHECKTYPE,
+			  MATERIALSTATUSID,
+			  MATERIALSTATUS,
+			  ISGLOBAL,
+			  ISSTORAGE,
+			  REMARK,    
+	          TO_CHAR(CRT_DT,'YYYY-MM-DD HH24:MI:SS') AS CREATE_DATE,
+              CRT_ID,
+              TO_CHAR(UPT_DT,'YYYY-MM-DD HH24:MI:SS') AS UPDATE_DATE,
+              UPT_ID，
+              FACTORYCODE 
+       FROM WMS1.WMS_IQCCHECKCONFIG  
+       <where>
+			CHECKTYPE = '${CHECKTYPE}'	         
+		</where>
+
+	<include refid="oraclePagingFileBottom"></include>    	 	      					
+	</select>
+	
+	
+
+	
+	<!-- 查询IQC检验配置列表信息 -->
+	<select id="QueryIQCcheckConfiglist" parameterType="hashmap" resultType="java.util.HashMap"> 	   
+         <include refid="oraclePagingFileTop"></include>
+			  IQCCHECKCONFIG_ID,
+			  CHECKTYPEID,
+			  CHECKTYPE,
+			  MATERIALSTATUSID,
+			  MATERIALSTATUS,
+			  ISGLOBAL,
+			  ISSTORAGE,
+			  REMARK,    
+	          TO_CHAR(CRT_DT,'YYYY-MM-DD HH24:MI:SS') AS CREATE_DATE,
+              CRT_ID,
+              TO_CHAR(UPT_DT,'YYYY-MM-DD HH24:MI:SS') AS UPDATE_DATE,
+              UPT_ID，
+              FACTORYCODE
+       FROM WMS1.WMS_IQCCHECKCONFIG
+       <where>
+			1=1
+			<if test="CHECKTYPE !=null and CHECKTYPE !='' "> 
+		         AND CHECKTYPE like '%${CHECKTYPE}%'      	 
+			</if>	
+		</where>
+		ORDER BY CRT_DT DESC
+	<include refid="oraclePagingFileBottom"></include>    	 	      					
+	</select>
+	
+	
+	
+	
+	<!-- 查询IQC检验配置列表信息分页总数 -->
+	<select id="QueryIQCcheckConfiglist_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT
+		COUNT(1) AS ROWS_COUNT
+		FROM WMS1.WMS_IQCCHECKCONFIG
+       <where>
+			1=1
+			<if test="CHECKTYPE !=null and CHECKTYPE !='' "> 
+		         AND CHECKTYPE like '%${CHECKTYPE}%'      	 
+			</if>	
+		</where>
+	</select>
+	
+	
+	<!-- 修改IQC检验配置列表信息 -->
+	<update id="UpdateIQCcheckConfiglist" parameterType="HashMap" >
+			UPDATE WMS1.WMS_IQCCHECKCONFIG
+			
+				<set>
+					  <if test="CHECKTYPE !=null"> 
+					      CHECKTYPE='${CHECKTYPE}',
+					  </if>
+					  <if test="MATERIALSTATUS !=null"> 
+					      MATERIALSTATUS='${MATERIALSTATUS}',
+					  </if>
+					   <if test="REMARK !=null"> 
+					      REMARK='${REMARK}',
+					  </if>
+					  <if test="ISSTORAGE !=null"> 
+					      ISSTORAGE=${ISSTORAGE},
+					  </if>
+					UPT_ID='${F_USE_CD}',
+					UPT_DT=SYSDATE
+				</set>
+				<where> IQCCHECKCONFIG_ID = '${ID}'</where>
+			
+	</update>
+	
+	
+	<!-- 删除IQC检验配置列表信息 -->
+	<delete id="DeleteIQCcheckConfiglist" parameterType="hashmap">   
+	 DELETE  WMS1.WMS_IQCCHECKCONFIG
+	 WHERE IQCCHECKCONFIG_ID IN
+	  <foreach item="item" collection="list" open="(" separator="," close=")"> 
+		#{item.IQCCHECKCONFIG_ID}
+      </foreach>                  
+	</delete>	
+	
+	
+<!-- ============================================================================================================================================================== -->		
+<!-- 供应商配置列表模块 -->	
+	
+	<!-- 新增供应商配置列表信息  --> 
+	<insert id="InsertMaterialSupplierConfig" parameterType="hashmap">
+		insert into wms1.WMS_MATERIALSUPPLIERCONFIG
+		(
+			  MATERIALSUPPLIERCONFIG_ID,
+			  SUPPLIERID,
+			  VENDORCODE,
+			  ITEMID,
+			  ITEMCODE,
+			  PRINTTYPEID,
+			  PRINTTYPE,
+			  REMARK,
+			  CRT_DT,
+			  CRT_ID,
+			  FACTORYCODE           
+		)VALUES(
+			'${MATERIALSUPPLIERCONFIG_ID}',
+			'${SUPPLIERID}',
+			'${VENDORCODE}',		
+			'${ITEMID}',
+			'${ITEMCODE}',
+			 ${PRINTTYPEID},
+			'${PRINTTYPE}',
+			'${REMARK}',
+			 SYSDATE,
+			'${F_USE_CD}',
+			'${FACTORYCODE}'	
+		)
+	 
+	</insert>
+		
+	<!-- 查询供应商配置列表校验重复数据 -->
+	<select id="QueryMaterialSupplierConfig_checkRepeat" parameterType="hashmap" resultType="java.util.HashMap"> 	   
+         <include refid="oraclePagingFileTop"></include>
+			  MATERIALSUPPLIERCONFIG_ID,
+			  SUPPLIERID,
+			  VENDORCODE,
+			  ITEMID,
+			  ITEMCODE,
+			  PRINTTYPEID,
+			  PRINTTYPE,
+			  REMARK,   
+	          TO_CHAR(CRT_DT,'YYYY-MM-DD HH24:MI:SS') AS CREATE_DATE,
+              CRT_ID,
+              TO_CHAR(UPT_DT,'YYYY-MM-DD HH24:MI:SS') AS UPDATE_DATE,
+              UPT_ID，
+              FACTORYCODE 
+       FROM WMS1.WMS_MATERIALSUPPLIERCONFIG  
+       <where>
+			SUPPLIERID = '${SUPPLIERID}'
+		    and ITEMID = '${ITEMID}'	   	         
+		</where>
+
+	<include refid="oraclePagingFileBottom"></include>    	 	      					
+	</select>
+	
+	
+
+	
+	<!-- 查询供应商配置列表信息 -->
+	<select id="QueryMaterialSupplierConfig" parameterType="hashmap" resultType="java.util.HashMap"> 	   
+         <include refid="oraclePagingFileTop"></include>
+			  MATERIALSUPPLIERCONFIG_ID,
+			  SUPPLIERID,
+			  VENDORCODE,
+			  ITEMID,
+			  ITEMCODE,
+			  PRINTTYPEID,
+			  PRINTTYPE,
+			  REMARK,   
+	          TO_CHAR(CRT_DT,'YYYY-MM-DD HH24:MI:SS') AS CREATE_DATE,
+              CRT_ID,
+              TO_CHAR(UPT_DT,'YYYY-MM-DD HH24:MI:SS') AS UPDATE_DATE,
+              UPT_ID，
+              FACTORYCODE
+       FROM WMS1.WMS_MATERIALSUPPLIERCONFIG
+       <where>
+			1=1
+			<if test="SUPPLIERID !=null and SUPPLIERID !='' "> 
+		         AND SUPPLIERID like '%${SUPPLIERID}%'      	 
+			</if>
+			<if test="ITEMID !=null and ITEMID !='' "> 
+		         AND ITEMID like '%${ITEMID}%'      	 
+			</if>	
+		</where>
+		ORDER BY CRT_DT DESC
+	<include refid="oraclePagingFileBottom"></include>    	 	      					
+	</select>
+	
+	
+	
+	
+	<!-- 查询供应商配置列表分页总数 -->
+	<select id="QueryMaterialSupplierConfig_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT
+		COUNT(1) AS ROWS_COUNT
+		FROM WMS1.WMS_MATERIALSUPPLIERCONFIG
+       <where>
+			1=1
+			<if test="SUPPLIERID !=null and SUPPLIERID !='' "> 
+		         AND SUPPLIERID like '%${SUPPLIERID}%'      	 
+			</if>
+			<if test="ITEMID !=null and ITEMID !='' "> 
+		         AND ITEMID like '%${ITEMID}%'      	 
+			</if>	
+		</where>
+	</select>
+	
+	
+	<!-- 修改供应商配置列表信息 -->
+	<update id="UpdateMaterialSupplierConfig" parameterType="HashMap" >
+			UPDATE WMS1.WMS_MATERIALSUPPLIERCONFIG
+			
+				<set>
+					  <if test="SUPPLIERID !=null"> 
+					      SUPPLIERID='${SUPPLIERID}',
+					  </if>
+					  <if test="VENDORCODE !=null"> 
+					      VENDORCODE='${VENDORCODE}',
+					  </if>
+					  <if test="ITEMID !=null"> 
+					      ITEMID='${ITEMID}',
+					  </if>
+					  <if test="ITEMCODE !=null"> 
+					      ITEMCODE='${ITEMCODE}',
+					  </if>
+					   <if test="REMARK !=null"> 
+					      REMARK='${REMARK}',
+					  </if>
+					  <if test="PRINTTYPEID !=null"> 
+					      PRINTTYPEID=${PRINTTYPEID},
+					  </if>
+					  <if test="PRINTTYPE !=null"> 
+					      PRINTTYPE='${PRINTTYPE}',
+					  </if>
+					UPT_ID='${F_USE_CD}',
+					UPT_DT=SYSDATE
+				</set>
+				<where> MATERIALSUPPLIERCONFIG_ID = '${ID}'</where>
+			
+	</update>
+	
+	
+	<!-- 删除供应商配置列表信息 -->
+	<delete id="DeleteMaterialSupplierConfig" parameterType="hashmap">   
+	 DELETE  WMS1.WMS_MATERIALSUPPLIERCONFIG
+	 WHERE MATERIALSUPPLIERCONFIG_ID IN
+	  <foreach item="item" collection="list" open="(" separator="," close=")"> 
+		#{item.MATERIALSUPPLIERCONFIG_ID}
+      </foreach>                  
+	</delete>
+	
+</mapper>

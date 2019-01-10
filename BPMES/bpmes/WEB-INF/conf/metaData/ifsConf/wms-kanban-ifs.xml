@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ifss>
+	<!-- A.2看板基本信息维护管理 -->
+
+	<!-- A2.1看板类型维护 -->   
+	<!-- 查询看板类型维护基础信息 -->
+	<ifs ifs_code="WMS_K10001" ifs_name="查询看板类型信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="TypeSelect" biz_method="" serial_no="1" biz_name="TypeSelect" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>	
+	<!-- 查询看板类型维护基础信息 -->
+	<ifs ifs_code="WMS_K10002" ifs_name="新增看板类型" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="TypeInsert" biz_method="" serial_no="1" biz_name="TypeInsert" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 删除看板类型 -->
+	<ifs ifs_code="WMS_K10003" ifs_name="删除看板类型" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="TypeDelete" biz_method="" serial_no="1" biz_name="TypeDelete" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 修改看板类型 -->
+	<ifs ifs_code="WMS_K10004" ifs_name="修改看板类型" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="TypeUpdate" biz_method="" serial_no="1" biz_name="TypeUpdate" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<ifs ifs_code="WMS_K10005" ifs_name="查询id" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="TypeSelectId" biz_method="" serial_no="1" biz_name="TypeSelectId" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	
+	<!-- A2.1看板维护 --> 
+	<!-- 查询看板维护基础信息 -->
+	<ifs ifs_code="WMS_K20001" ifs_name="查询看板信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="MaintainSelect" biz_method="" serial_no="1" biz_name="MaintainSelect" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>	
+	<!-- 查询看板维护基础信息 -->
+	<ifs ifs_code="WMS_K20002" ifs_name="新增看板" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="MaintainInsert" biz_method="" serial_no="1" biz_name="MaintainInsert" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 删除看板 -->
+	<ifs ifs_code="WMS_K20003" ifs_name="删除看板" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="MaintainDelete" biz_method="" serial_no="1" biz_name="MaintainDelete" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 修改看板 -->
+	<ifs ifs_code="WMS_K20004" ifs_name="修改看板" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="MaintainUpdate" biz_method="" serial_no="1" biz_name="MaintainUpdate" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 查询id -->
+	<ifs ifs_code="WMS_K20005" ifs_name="修改看板" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="MaintainSelectId" biz_method="" serial_no="1" biz_name="MaintainSelectId" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	
+	<!-- A3.1新增自定义布局 --> 
+	<ifs ifs_code="WMS_K30002" ifs_name="新增布局" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="ContainTypeInsert" biz_method="" serial_no="1" biz_name="ContainTypeInsert" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- A4容器维护 --> 
+	<!-- A4.1查询--> 
+	<ifs ifs_code="WMS_K40001" ifs_name="查询" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="ContainerSelect" biz_method="" serial_no="1" biz_name="ContainerSelect" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- A4.2新增 --> 
+	<ifs ifs_code="WMS_K40002" ifs_name="新增" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="ContainerInsert" biz_method="" serial_no="1" biz_name="ContainerInsert" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- A4.3删除 --> 
+	<ifs ifs_code="WMS_K40003" ifs_name="删除" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="ContainerDelete" biz_method="" serial_no="1" biz_name="ContainerDelete" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- A4.4修改 --> 
+	<ifs ifs_code="WMS_K40004" ifs_name="修改" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="ContainerUpdate" biz_method="" serial_no="1" biz_name="ContainerUpdate" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+</ifss>

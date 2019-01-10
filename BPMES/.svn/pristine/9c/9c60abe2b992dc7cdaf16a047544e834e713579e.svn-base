@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>机器监视</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/StationMonitor.css">
+    <script src="js/jquery-1.11.2.min.js"></script>
+    <script src="js/handlebars-v4.0.5.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="highcharts/code/highcharts.js"></script>
+    <script src="highcharts/code/highcharts-more.js"></script>
+  </head>
+  <body style="margin:0 auto;width:100%;height:100%;border:0px solid #000000;overflow: hidden;" >
+      <div id='divMain' style="height:95%;width: 99%; background-color: #FFF;margin:3px; border:0px solid #000000;" class='container'>
+	      <div id='divHeader' class='col-md-12' style="margin:5px auto;"></div>
+	      <div class='row' id='divTableList'></div>
+	      <div class='col-md-12'>
+	        <table cellspacing='0' cellpadding='0' style='width:100%;margin:20px auto'>
+               <tr>
+                  <td>
+                     <div id="machineRate" style='min-width:310px;max-width:400px;height:230px;margin:0 auto'></div>
+                  </td>
+                  <td>
+                     <div id="machineOEE" style='min-width:310px;max-width:400px;height:230px;margin:0 auto'></div>
+                  </td>
+                  <td>
+                     <div id="groupOEE" style='min-width:310px;max-width:400px;height:230px;margin:0 auto'></div>
+                  </td>
+                  <td>
+                     <div id="capacity" style='min-width:310px;max-width:400px;height:230px;margin:0 auto'></div>
+                  </td>
+               </tr>
+           </table>
+         </div>
+         <div class='col-md-12' id='divEmpList'></div>
+	  </div>
+	  <script type="text/x-handlebars-template" id="tpl-header">
+        <p style="float:left;"><img src="image/white.jpg"/><span>总共<span>{{total_machine_cnt}}</span>台&nbsp;&nbsp;</span></p>
+	  	<p style="float:left;"><img src="image/green.jpg"/><span>正常生产{{green_cnt}}台[占{{green_rate}}%]&nbsp;&nbsp;</span></p>
+	  	<p style="float:left;"><img src="image/yellow.jpg"/><span>异常生产{{abnormal_cnt}}台[占{{abnormal_rate}}%]&nbsp;&nbsp;</span></p>
+	  	<p style="float:left;"><img src="image/red.jpg"/><span>长期停机{{red_cnt}}台[占{{red_rate}}%]&nbsp;&nbsp;</span></p>
+	  	<p style="float:left;"><img src="image/blue.jpg"/><span>未派工生产{{blue_cnt}}台[占{{blue_rate}}%]&nbsp;&nbsp;</span></p>
+	  	<p style="float:left;"><img src="image/purple.jpg"/><span>计划停机{{plan_stop_cnt}}台[占{{plan_stop_rate}}%]</span></p>
+      </script>
+	  <script type="text/x-handlebars-template" id="tpl-list">
+                   {{#each machine}}
+                   <div class='col-sm-6 col-md-2 col-lg-2' style='margin-top:5px;padding:5px;width:20%;'>
+                        <table  class='tab_child' cellspacing='0' cellpadding='0' border='1' style='width:100%;'>
+                         <tbody>
+                            <tr>
+                               <td class="tab_child_td" colspan="4" style="text-align:center;background-color: #CC8F33;"><strong>机器编号:{{machine_no}}</strong></td>
+                            </tr>
+                            <tr>
+	      	                   <td class="tab_child_td" colspan='2'>
+	      	                      <table class='tb_left_child' cellspacing='0' cellpadding='0'>
+	      	                          <tr>
+	      	                             <td align='center' style="text-align:center;"><img src="{{image_name}}" width="120px" height="90px" /></td>
+	      	                          </tr>
+	      	                      </table>
+	      	                   </td>
+	      	                   <td class="tab_child_td" colspan='2'>
+	      	                       <table cellspacing='0' cellpadding='0' border='0' style='width:100%;' >
+	      	                          <tr><td class='tb_right_child_td'><span class='text_hidden'>机器名称:{{machine_name}}</span></td></tr>
+	      	                          <tr><td class='tb_right_child_td'><span class='text_hidden'>停机时长:{{stop_total_hours}}</span></td></tr>
+	      	                          <tr><td class='tb_right_child_td'><span class='text_hidden'>生产时长:{{prod_hours}}</span></td></tr>
+	      	                          <tr><td class='tb_right_child_td'><span class='text_hidden'>保养时长:{{repairtime_hours}}</span></td></tr>
+	      	                          <tr><td><span class='text_hidden'>设备点检:{{equipcheck_hours}}</span></td></tr>
+	      	                       </table>
+	      	                   </td>
+	      	               </tr>
+                           <tr>
+                              <td class="tab_child_td" colspan='4' style='background-color:{{bg_color}}'><span class='text_hidden'>生产工单:{{workorder_no}}</span></td>
+	      	               </tr>
+                           <tr>
+	      	                  <td class="tab_child_td" colspan='2' style='background-color:{{bg_color}}'><span class='text_hidden'>工单数量:{{workorder_num}}</span></td>
+	      	                  <td class="tab_child_td" colspan='2' style='background-color:{{bg_color}}'><span class='text_hidden'>良品数量:{{good_qty}}</span></td>
+	      	               </tr>
+                           <tr>
+                              <td class="tab_child_td" colspan='2' style='background-color:{{bg_color}}'><span class='text_hidden'>机器状态:{{equip_status}}</span></td>
+	      	                  <td class="tab_child_td" colspan='2' style='background-color:{{bg_color}}'><span class='text_hidden'>停机原因:{{stop_reason}}</span></td>
+	      	               </tr>
+                           <tr>
+                              <td class="tab_child_td" colspan='2' style='background-color:{{bg_color}}'><span class='text_hidden'>异常时间:{{exception_time}}</span></td>
+	      	                  <td class="tab_child_td" colspan='2' style='background-color:{{bg_color}}'><span class='text_hidden'>停机时间:{{stop_hours}}</span></td>
+	      	               </tr>      
+                        </tbody>
+                    </table>
+                  </div>
+           {{/each}}
+      </script>
+      <script type="text/x-handlebars-template" id="emp-list">
+           <table class='tab_child' style='width:100%' cellspacing='0' cellpadding='0' border='1' id='tabemp'>
+                  <tr><td class='tab_child_td' style="text-align:center;background-color:#EEE;" colspan="9"><strong>白班设备组</strong></td></tr>
+                  <tr>
+                     {{#each emp}}
+                     <td class='tab_child_td'>  
+                            <table  style="width:100%;height:100%;" cellspacing='0' cellpadding='0' border='0'>
+                                <tr>
+                                   <td style='width:70%;' style='border-bottom:1px'>
+                                      <table style="width:100%;height:100%;" cellspacing='0' cellpadding='0' border='0'>
+                                           <tr>
+                                              <td style='border-right:1px solid #95B8E7;border-bottom:1px solid #95B8E7;text-align: center;'><span>姓名：</span></td>
+                                              <td style='border-right:1px solid #95B8E7;border-bottom:1px solid #95B8E7;text-align: center;'><span>{{emp_name}}</span></td>
+                                           </tr>
+                                           <tr>
+                                              <td style='border-right:1px solid #95B8E7;border-bottom:1px solid #95B8E7;text-align: center;'><span>工号：</span></td>
+                                              <td style='border-right:1px solid #95B8E7;border-bottom:1px solid #95B8E7;text-align: center;'><span>{{emp_no}}</span></td>
+                                           </tr>
+                                           <tr>
+                                              <td style='border-right:1px solid #95B8E7;text-align: center;'><span>电话：</span></td>
+                                              <td style='border-right:1px solid #95B8E7;text-align: center;'><span>{{emp_tel}}</span></td>
+                                           </tr>
+                                      </table>
+                                   </td>
+                                   <td style='width:30%;border:0'>
+                                       <img src="{{emp_image}}" width="200px" height="112px" />
+                                   </td>
+                                </tr>
+                            </table>
+                     </td>
+                     {{/each}}
+                  </tr>
+	      	   </table>
+      </script>
+      <script src="js/MachineMonitor.js"></script>
+  </body>
+</html>

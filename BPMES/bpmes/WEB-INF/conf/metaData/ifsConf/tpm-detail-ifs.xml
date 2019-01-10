@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ifss>
+    <!-- A5 明细查询 -->
+    <!-- A5.1	刷卡数据-->
+    <!-- 刷卡数据查询 -->
+	<ifs ifs_code="M000001" ifs_name="刷卡数据查询" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryCard" biz_method="" serial_no="1" biz_name="queryCard" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- A5.2	生产记录-->
+    <!-- 生产记录查询 -->
+	<ifs ifs_code="M000002" ifs_name="生产记录查询" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryProductionRecords" biz_method="" serial_no="1" biz_name="queryProductionRecords" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- A5.3	次品记录-->
+    <!-- 次品记录查询 -->
+	<ifs ifs_code="M000003" ifs_name="次品记录查询" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryDefective" biz_method="" serial_no="1" biz_name="queryDefective" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>	
+</ifss>

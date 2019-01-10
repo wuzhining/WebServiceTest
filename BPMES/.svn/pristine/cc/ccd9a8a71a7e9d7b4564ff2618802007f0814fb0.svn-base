@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>投入工位01</title>
+		<link rel="stylesheet" type="text/css" href="../../../../common/IplantCompent/themes/default/easyui.css">
+		<link rel="stylesheet" type="text/css" href="../../../../common/IplantCompent/themes/icon.css">
+		<link rel="stylesheet" type="text/css" href="../../../../common/IplantCompent/Demo/demo.css">
+		<script src="../../../../common/IplantCompent/jquery.min.js" type="text/javascript"></script>
+		<script src="../../../../common/IplantCompent/jquery.easyui.min.js" type="text/javascript"></script>
+		<script src="../../../../common/IplantCommon/DataRequest.js" type="text/javascript"></script>
+		<script src="../../../../common/IplantCommon/CommonUtil.js" type="text/javascript"></script>
+		<script src="js/IntoTheProcess.js" type="text/javascript"></script>
+		<script type="text/javascript">
+		</script>
+		<meta charset="utf-8" />
+	</head>
+
+	<body style="padding: 0; margin: 0;">
+		<div style="height:100%;width:100%" class="easyui-layout" fit="true">
+			<div region="center" style="width:100%;" style="border:0">
+				<form id="fmStation" method="post" style="padding:0px 20px 0px 0px;height:150px">
+					<div style="margin-top:5px;width:851px;height:25px;background-color:#ECF2FB;border:1px solid #95B8E7; border-bottom:none;line-height: 25px;border-top-left-radius:8px;border-top-right-radius:8px;">
+	  					<span style="color:#2F8CFE;float:left"><strong>作业指示信息</strong></span>
+	  					<span id='showMessageInfo' class='divspan' style='width:300px;float:left;margin-left:20px'></span>
+	 		 		</div>
+					<div style="width:850px;height:auto;border:2px solid #ECECEC">
+						<table border="0" cellspacing="5" cellpadding="0" style="height: auto;border-collapse:separate;border-spacing:10px;">
+							<tr>
+								<td style="width:10%;text-align:right;background-color:#F3F3EF">作业指示编码:</td>
+								<td style="width:20%;">
+									<input id="WoNoCode" name="postingdate" class="easyui-textbox" disabled="disabled" />
+								</td>
+								<td style="width:12%;text-align:right;background-color:#F3F3EF">作业指示计划量:</td>
+								<td style="width:20%;">
+									<input id="PlanProductCount" name="postingdate" class="easyui-textbox" disabled="disabled" />
+								</td>
+								<td style="width:11%;text-align:right;background-color:#F3F3EF">产线名称:</td>
+								<td style="width:20%;">
+									<input id="Line_Cd" name="postingdate" class="easyui-textbox" disabled="disabled" />
+								</td>
+							</tr>
+							<tr>
+								<td style="text-align:right;background-color:#F3F3EF;">工单编码:</td>
+								<td >
+									<input id="workOrder" name="postingdate" class="easyui-textbox" disabled="disabled" />
+								</td>
+								<td style="text-align:right;background-color:#F3F3EF">工单状态:</td>
+								<td>
+									<input id="workState" name="postingdate" class="easyui-textbox" disabled="disabled" />
+								</td>
+								<td style="text-align:right;background-color:#F3F3EF">计划开始时间:</td>
+								<td>
+									<input id="PlanStartDate" name="postingdate" class="easyui-textbox" disabled="disabled" />
+								</td>
+							</tr>
+							<tr>	
+								<td style="text-align:right;background-color:#F3F3EF">物料编码:</td>
+								<td>
+									<input id="MaterialCode" name="postingdate" class="easyui-textbox" disabled="disabled" />
+								</td>
+								<td style="text-align:right;background-color:#F3F3EF">物料名称:</td>
+								<td>
+									<input id="MaterialName" name="postingdate" class="easyui-textbox" disabled="disabled" />
+								</td>
+								<td style="text-align:right;background-color:#F3F3EF">计划完成时间:</td>
+								<td>
+									<input id="PlanEndDate" name="postingdate" class="easyui-textbox" disabled="disabled" />
+								</td>
+							</tr>
+						</table>
+					</div>	
+			 	</form>			
+				<div style="width:300px;height:80px;margin-top:5px;border:2px solid #ECECEC"> 
+					<table border="0" cellspacing="4" cellpadding="0" style="border-collapse:separate;border-spacing:10px;"> 
+						<tr>
+							<td style="width:31%;background-color:#F3F3EF;text-align:right">ENTER SN:</td>
+							<td style="width:69%;">
+								<input id="searchentersn" type="text" class="easyui-textbox"
+								 />
+							</td>
+						</tr>
+						<tr>
+							<td style="background-color:#F3F3EF;text-align:right">当前 SN:</td>
+							<td>
+								<input id="thismomentSN" name="postingdate" class="easyui-textbox" disabled="disabled" />
+							</td>
+						</tr>
+					</table>
+				</div>
+				
+				<div style="margin-top:10px;width:auto;height:25px;background-color:#ECF2FB;border:1px solid #95B8E7; border-bottom:none;line-height: 25px;border-top-left-radius:8px;border-top-right-radius:8px;">
+					<span><strong style="color:#2F8CFE;">作业指示投入产能看板</strong></span>
+	 			</div>
+				<table style="width:100%;height:auto;max-height:67%" id="IntoTheProcess_tab" class='easyui-datagrid' rownumbers="true">
+            	</table>
+			 </div>
+		</div>
+	</body>
+
+</html>

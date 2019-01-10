@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<commonParam>
+	<sp>
+		<attr key="attrrr1" user-key="attrrr1" defaultVal="" />
+	</sp>
+	<mybatis>
+		<attr key="attrrr1" user-key="attrrr1" defaultVal="" />
+	</mybatis>
+</commonParam>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ifss>
+    
+    <!-- 1.1 数据字典管理 -->
+    <!-- 查询字典项信息 -->
+	<ifs ifs_code="D0000071" ifs_name="查询字典项" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryService" biz_method="" serial_no="1" biz_name="queryService" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+    
+    <ifs ifs_code="D0000072" ifs_name="新增字典项" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertService" biz_method="" serial_no="1" biz_name="insertService" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	 <ifs ifs_code="D0000073" ifs_name="修改字典项" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateService" biz_method="" serial_no="1" biz_name="updateService" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	 <ifs ifs_code="D0000074" ifs_name="删除字典项" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteService" biz_method="" serial_no="1" biz_name="deleteService" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+</ifss>

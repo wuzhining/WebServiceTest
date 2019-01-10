@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="">       
+		<!-- 1.1 数据字典管理 -->		
+		<!-- 查询工装设备类型信息 -->
+	<select id="queryFrockDevice" parameterType="hashmap" resultType="java.util.HashMap">
+	    <include refid="oraclePagingFileTop"></include>  	 
+		  TYPECODE,TYPENAME,AS_NUM,RM,CRT_ID,to_char(CRT_DT,'yyyy-mm-dd HH24:Mi:SS') CRT_DT,USE_YN
+		  from TPM1.R_TPM_FD_T  
+		 <where>1=1
+		 <if test="TYPECODE!=null and TYPECODE!='' and flag!='true'">
+		 and TYPECODE like '%${TYPECODE}%'
+		 </if>
+		 <if test="TYPENAME!=null and TYPENAME!='' and flag!='true'">
+		 and TYPENAME like '%${TYPENAME}%'
+		 </if>
+		 <!-- 全字匹配 -->
+		  <if test="TYPECODE!=null and TYPECODE!='' and flag=='true'">and TYPECODE ='${TYPECODE}'</if>  
+		  <if test="TYPENAME!=null and TYPENAME!='' and flag=='true'">and TYPENAME ='${TYPENAME}'</if>  
+		 </where>
+		     <include refid="oraclePagingFileBottom"></include>   	
+	</select>
+	
+	<!-- 工装设备类型分页总数 -->
+	<select id="queryFrockDevice_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+	  	 
+		SELECT COUNT(1) ROWS_COUNT  from TPM1.R_TPM_FD_T   
+		 <where>1=1
+		 <if test="TYPECODE!=null and TYPECODE!='' and flag!='true'">
+		 and TYPECODE like '%${TYPECODE}%'
+		 </if>
+		  <if test="TYPENAME!=null and TYPENAME!='' and flag!='true'">
+		 and TYPENAME like '%${TYPENAME}%'
+		 </if>
+		 <!-- 全字匹配 -->
+		  <if test="TYPECODE!=null and TYPECODE!='' and flag=='true'">and TYPECODE ='${TYPECODE}'</if>  
+		  <if test="TYPENAME!=null and TYPENAME!='' and flag=='true'">and TYPENAME ='${TYPENAME}'</if>  
+		 </where>
+		      	
+	</select>
+
+	
+	<!-- 新增工装设备类型-->
+	<insert id="insertFrockDevice" parameterType="hashmap">
+		insert into TPM1.R_TPM_FD_T(TYPECODE,TYPENAME,AS_NUM,RM,CRT_ID,CRT_DT,USE_YN)
+		values('${TYPECODE}','${TYPENAME}','${AS_NUM}','${RM}','${F_USE_CD}',sysdate,'${USE_YN}')
+	</insert> 
+	
+	   <!-- 删除工装设备类型--> 
+	     <delete id="deleteFrockDevice" parameterType="hashmap">
+	            DELETE TPM1.R_TPM_FD_T
+	             	where
+	             		TYPECODE IN
+	             	<foreach collection="list"  index="index" item="item" open="(" separator="," close=")"  >
+       					#{item.TYPECODE}
+      				</foreach>
+	    </delete>   
+	    <!-- 修改工装设备类型 -->
+	     <update id="updateFrockDevice" parameterType="hashmap">
+	    	update TPM1.R_TPM_FD_T
+	    	<set>
+	    		<if test="TYPENAME!=null and TYPENAME!= ''">TYPENAME='${TYPENAME}',</if>
+	    		<if test="AS_NUM!=null and AS_NUM!= ''">AS_NUM='${AS_NUM}',</if>
+	    		<if test="RM!=null and RM!= ''">RM='${RM}',</if>
+	    		<if test="USE_YN!=null and USE_YN!= ''">USE_YN='${USE_YN}',</if>
+	    	</set>
+	    	where TYPECODE='${TYPECODE}'
+	    </update> 
+	    
+	    
+	    
+	  <!--   <select id="queryY1110" parameterType="hashmap" resultType="java.util.HashMap">
+	    	select DISTINCT DICT_IT_NM_02 from tpm2.h_tpm_m1_t
+	    </select> -->
+ </mapper>

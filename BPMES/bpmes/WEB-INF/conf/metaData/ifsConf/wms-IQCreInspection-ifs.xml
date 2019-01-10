@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ifss>
+    <!--IQC管理 -->
+	<!--模块关联列表模块 -->
+	<!-- 新增IQC重检超时设置列表信息 -->
+	<ifs ifs_code="MES_IQC0001" ifs_name="新增IQC重检超时设置列表信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="INSERT_MES_IQCreInspection" biz_method="" serial_no="1" biz_name="INSERT_MES_IQCreInspection" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>	
+	
+	
+	<!--查询IQC重检超时设置列表信息 -->
+	<ifs ifs_code="MES_IQC0002" ifs_name="查询IQC重检超时设置列表信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="select_MES_IQCreInspection" biz_method="" serial_no="1" biz_name="select_MES_IQCreInspection" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	
+   <!--修改IQC重检超时设置列表信息 -->
+	<ifs ifs_code="MES_IQC0003" ifs_name="修改IQC重检超时设置列表信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="update_MES_IQCreInspection" biz_method="" serial_no="1" biz_name="update_MES_IQCreInspection" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	
+	 <!--删除IQC重检超时设置列表信息 -->
+	<ifs ifs_code="MES_IQC0004" ifs_name="删除IQC重检超时设置列表信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="delete_MES_IQCreInspection" biz_method="" serial_no="1" biz_name="delete_MES_IQCreInspection" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+</ifss>	

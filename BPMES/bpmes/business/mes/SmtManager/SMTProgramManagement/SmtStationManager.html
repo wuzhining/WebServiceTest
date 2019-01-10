@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>SMT栈位管理</title>
+    <link rel="stylesheet" type="text/css" href="../../../../common/IplantCompent/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../../../../common/IplantCompent/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="../../../../common/IplantCompent/Demo/demo.css">
+    <script src="../../../../common/IplantCompent/jquery.min.js" type="text/javascript"></script>
+    <script src="../../../../common/IplantCompent/jquery.easyui.min.js" type="text/javascript"></script>
+    <script src="../../../../common/IplantCommon/DataRequest.js" type="text/javascript"></script>
+    <script src="../../../../common/IplantCommon/CommonUtil.js" type="text/javascript"></script>
+    <script src="../../../../common/IplantCommon/OutPutExcel.js" type="text/javascript"></script>
+    <script src="js/SmtStationManager.js" type="text/javascript"></script>
+    <script type="text/javascript">
+    function importFile(){
+		var customParams={
+ 			fileID:'txtPHOTO',
+ 			msgID:'showFileName',
+ 			importType:'R_MES_POSIT_DTL_T'
+ 		}
+ 		CheckImportFile(customParams);    
+    }
+	 /*
+	 *  通用导入方法
+	 *  inputParams:{
+	 *      fileID:文件浏览框ID
+	 *      formID:表单ID
+	 *      IFS:接口号
+	 *      msgID:导入结果信息接收控件ID
+	 *      importType:导入数据的类别
+	 *  }
+	*/
+   function CheckImportFile(inputParams){
+      /* 以下即为完整客户端路径*/
+ 	   var pic = document.getElementById(inputParams.fileID),file,fileName,fileType,temp = [],strSrc;
+ 	   if(pic.files.length>0){
+ 		   file = pic.files[0],fileName = file.name,fileType=file.type;
+ 		   if(fileName.indexOf('.')>0){
+ 			   temp=fileName.split('.');
+ 			   strSrc = temp[temp.length-1];
+ 			   if(strSrc.toLowerCase().localeCompare('xlsx') === 0 || strSrc.toLowerCase().localeCompare('xls') === 0 ){
+ 				   $('#showFileName').html(fileName);
+				       $("#filename").val(fileName+";"+inputParams.importType);
+ 				   $('#'+inputParams.msgID).html(fileName);
+ 			   }
+ 			   else
+ 			   {
+ 				   $('#'+inputParams.msgID).html('<font color=red>请输入excel文件！</font>');
+ 				   return false;
+ 			   }
+ 		   }
+ 	   }
+   }
+	
+	function importMaterial(){
+		 document.getElementById("importUplod").submit();
+		 $('#materialImportDialog').dialog('close');
+		 $.messager.alert('提示',"文件导入结果以Excel文件形式返回，请查看文件导入结果"); 
+	}
+    </script>
+</head>
+<body style="padding: 0;margin: 0;">
+	<div style="height:100%;width:100%;" class="easyui-layout" fit="true">
+		<div region='north' style="width: auto; height: 63px; background: linear-gradient(rgb(255, 255, 255) 0px, rgba(149, 184, 231, 0.28) 100%);">
+	      	<div region='north' style="width: auto; height: 30px;background: linear-gradient(rgb(255, 255, 255) 0px, rgba(149, 184, 231, 0.28) 100%);">
+	             <table style="width: auto; height:100%;" cellspacing="0" border="0">
+					<tr>
+						<td>
+							<a id="btnAdd" href="#" class="easyui-linkbutton add" iconCls="icon-add" data-options="plain:true" >增加</a>
+	                    	<a id="btnSave" href="#" class="easyui-linkbutton save" iconCls="icon-save" data-options="plain:true" >保存</a>
+	                        <a id="btnDelete" href="#" class="easyui-linkbutton delete" iconCls="icon-remove" data-options="plain:true">删除</a>
+	                        <a id="btnAudit" href="#" class="easyui-linkbutton audit" iconCls="icon-add" data-options="plain:true" >审核</a>
+							<span id='showMessageInfo' class='divspan' style='width:300px;'></span>
+						</td>
+					</tr>
+	             </table>
+	             <table>
+		            <tr>
+		            	<td>程序名称：</td>
+	                    <td>
+	                        <input id="searchPROGRAM_NM" name="searchPROGRAM_NM" style="width: 200px;" class="easyui-textbox"/>
+	                    </td>
+	                    <td>产线名称：</td>
+	                    <td>
+	                        <input id="searchLINE_NM" name="searchLINE_NM" style="width: 200px;" class="easyui-textbox"/>
+	                    </td>
+		                <td>产品编码：</td>
+	                    <td>
+	                        <input id="searchITEM_CD" name="searchITEM_CD" style="width: 200px;" class="easyui-textbox" />
+	                    </td>
+		                <td>产品名称：</td>
+	                    <td>
+	                        <input id="searchITEM_NM" name="searchITEM_NM" style="width: 200px;" class="easyui-textbox"/>
+	                    </td>
+	                    <td>
+	                    	<a id="btnSearch" href="#" class="easyui-linkbutton search" iconCls="icon-search" data-options="plain:true">查询</a>
+	                    </td>
+	                </tr>
+	              </table>
+	          </div>
+          </div>
+          
+          <div region='center'>
+          	  <table style="height:auto;max-height:40%" id="SMTPalletStation_tab" class='easyui-datagrid' rownumbers="true"></table>
+          	  
+	          <div style="margin-top:5px;width:100%;height:25px;background-color:#ECF2FB;border:1px solid #95B8E7; border-bottom:none;line-height: 25px;border-top-left-radius:8px;border-top-right-radius:8px;">
+	   				<span><strong style="color:#2F8CFE;float:left">SMT栈位明细表</strong></span>
+	   				<span id='showMessageInfoBottom' class='divspan' style='width:300px;float:left;margin-left:10px'></span>
+	   				<span style="float:right;margin-right:20px">
+	   					<a id="btnAddBottom" href="#" class="easyui-linkbutton add" iconCls="icon-add" data-options="plain:true">增加</a>
+	   					<a id="btnSaveBottom" href="#" class="easyui-linkbutton save" iconCls="icon-save" data-options="plain:true">保存</a>
+	   					<a id="btnDeleteBottom" href="#" class="easyui-linkbutton delete" iconCls="icon-remove" data-options="plain:true" >删除</a>
+	   					<a href="#" class="easyui-linkbutton" iconCls="icon-print" id="btnExprt2" data-options="plain:true">导出</a>
+	                   	<a href="#" class="easyui-linkbutton" iconCls="icon-print" id="btnImport" data-options="plain:true">导入</a>
+	                   	<a href="#" class="easyui-linkbutton" iconCls="icon-print" id="btnPrint" data-options="plain:true">打印</a>
+	   				</span>
+                    
+	     	  </div>
+   	  		  <table style="height: auto;;max-height:56%" id="SMTPalletStationInformationQuerybottom_tab" class='easyui-datagrid'  rownumbers="true">
+   	  		  </table>
+	      </div>
+     </div>
+     
+     
+     <!-- <div id="enditTabupload" class="easyui-dialog" style="width: 600px;height: 300px;max-height:100%;" closed="true" data-options="modal: true,
+				buttons: [{
+					text:'提交',
+					iconCls:'icon-ok',
+					handler:function(){
+						ImportStation();
+					}
+				},{
+					text:'取消',
+					iconCls:'icon-no',
+					handler:function(){
+					$('#enditTabupload').dialog('close');
+					}
+				}]">
+				
+	<FORM id ="importUplod" action="/iTaurus/iPlant_ImgUpload" method="post" enctype="multipart/form-data" style="padding:10px 20px 10px 40px;" target="ifm">  
+       <table border="1" width="500" cellpadding="4" cellspacing="2" bordercolor="#9BD7FF">  
+          <tr><td width="100%" colspan="2">  
+                          文件： <input name="txtPHOTO" id="txtPHOTO" type="file"  />
+          </td></tr>  
+          <tr>
+          <td>
+	           <input class='FILE_BELONG1' name="FILE_BELONG" id="FILE_BELONG" size="40" type="hidden"/> 
+	           <input class='FILE_CLS1' name="FILE_CLS" id = "FILE_CLS" size="40" type="hidden"/> 
+	           <input class='FILE_TYPE1' name="FILE_TYPE" id = "FILE_TYPE" size="40" type="hidden"/> 
+	           <input class='importType1' name="importType" id = "importType" size="40" value='1' type="hidden"/>
+	           <input name="IFS" id = "IFS" size="40" type="hidden"/>
+	           <input name="IFS2" id = "IFS2" size="40" type="hidden"/>
+           </td>
+          </tr>
+         </table>  
+      </FORM>		
+     </div> -->
+    <div id="materialImportDialog" class="easyui-dialog" style="width: 450px;height: 150px;max-height:100%;" closed="true" data-options="modal: true" buttons="#materialImport-buttons">
+		<FORM id ="importUplod" action="/iTaurus/materiaExcelImport" method="post" enctype="multipart/form-data" style="padding:10px 20px 10px 40px;" target="ifm">
+		   <div style='width:320px;' >
+   	  		 	<a href="/iTaurus/ServletDownload?filename=IntechSmtStackMat.xlsx" class="easyui-linkbutton"  id="btnDownloadSupplier" style="text-decoration:none;">SMT栈位物料导入模板下载</a>
+       	   </div>  
+	       <table border="1" width="360" cellpadding="4" cellspacing="2" bordercolor="#9BD7FF">
+	          <tr><td width="350px">
+	          <div class='divFile' style='width:320px;' >
+	          	<a href="javascript:;" class="a-upload"><input name="txtPHOTO" id="txtPHOTO" type="file" onchange="importFile()" />请选择导入文件...</a>
+	          	<span id='showFileName' class='divspan' style='width:200px;'></span>
+	          	<input type="hidden" name="filename" id="filename" />
+	          </div>
+	           </td>
+	          </tr>
+	         </table>  
+	      </FORM>		
+    </div>	
+	 <iframe id='ifm' name='ifm' style="display:none"/></iframe>
+     <div id="materialImport-buttons">
+		<a href="#" onclick="javascript:$('#materialImportDialog').dialog('close')"><img src="../../../../common/RootImages/cancel.png" style="width:80px;height:28px;vertical-align:middle;"/></a>
+				&nbsp;&nbsp;
+		<a href="#" onclick="javascript:importMaterial();"><img src="../../../../common/RootImages/save-ok.png" style="width:80px;height:28px;vertical-align:middle;"/></a>
+	</div>
+     
+     <!-- 打印预览页面 -->
+		<!-- <div id="PrintPreview_openDiv" class="easyui-dialog" style="width: 600px;height: 270px;" closed="true"> -->
+		<div id="PrintPreview_openDiv" class="easyui-dialog " style="width: 640px;height: 340px;" closed="true" data-options="modal: true,
+				buttons: [{
+					text:'保存',
+					iconCls:'icon-ok',
+                    handler:function(){
+						saveMesSNcode();
+						}
+				},{
+					text:'取消',
+					iconCls:'icon-no',
+					handler:function(){
+                    	$('#PrintPreview_openDiv').dialog('close');	
+					}
+				}]">
+			<div region='north' id='tbsearch'
+					style="width: auto; height: 90px;">
+					<table style="border-collapse:separate;border-spacing:10px;margin-top:10px">
+						<tr>	
+							<td>程序名称：</td>			
+							<td><input id="PROGRAM_NM" name="postingdate" style="width: 160px;" class="easyui-textbox" readonly="readonly" disabled="disabled"/></td>
+							<td>拉线名称：</td>
+							<td><input id="LINE_NM" name="postingdate" style="width: 160px;" class="easyui-textbox" readonly="readonly" disabled="disabled"/></td>
+						</tr>
+						<tr>
+							<td>版本：</td>
+							<td><input id="VERSION" name="postingdate" style="width: 160px;" class="easyui-textbox" readonly="readonly" disabled="disabled"/></td>
+							<td>飞达类型：</td>
+							<td><input id="FD_TY" name="postingdate" style="width: 160px;" class="easyui-textbox" readonly="readonly" disabled="disabled"/></td>
+						</tr>
+						<tr>
+							<td>机器编码：</td>
+							<td><input id="ET_CD" name="postingdate" style="width: 160px;" class="easyui-textbox" readonly="readonly" disabled="disabled"/></td>
+							<td>贴片区域：</td>
+							<td><input id="PH_ARE" name="postingdate" style="width: 160px;" class="easyui-textbox" readonly="readonly" disabled="disabled"/></td>
+						</tr>
+						<tr>
+							<td>栈位代码：</td>
+							<td><input id="STACK_CD" name="postingdate" style="width: 160px;" class="easyui-textbox" readonly="readonly" disabled="disabled"/></td>
+							<td>材料编码：</td>
+							<td><input id="MAT_CD" name="postingdate" style="width: 160px;" class="easyui-textbox" readonly="readonly" disabled="disabled"/></td>
+						</tr>
+						<tr>
+							<td>打印人：</td>
+							<td><input id="txtCRT_ID" name="postingdate" style="width: 160px;" class="easyui-textbox" readonly="readonly" disabled="disabled"/></td>
+							<td>上次打印时间：</td>
+							<td><input id="txtLAST_PRINT_TIME" name="postingdate" style="width: 160px;" class="easyui-textbox" readonly="readonly" disabled="disabled"/></td>
+						</tr>
+						<tr>
+							<td>本次打印数量：</td>
+							<td><input id="txtCurrentCount" name="postingdate" style="width: 160px;" class="easyui-numberbox" readonly="readonly" disabled="disabled"/></td>
+							<td>最后条码流水：</td>
+							<td><input id="txtLAST_BAR_CODE" name="postingdate" style="width: 160px;" class="easyui-textbox" readonly="readonly" disabled="disabled"/></td>
+						</tr>
+					</table>
+				</div>
+		</div>
+</body>
+</html>

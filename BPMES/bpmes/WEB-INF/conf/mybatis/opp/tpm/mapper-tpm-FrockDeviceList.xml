@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="">       
+		<!-- 1.1 数据字典管理 -->		
+		<select id="queryFrockDeviceListId" parameterType="hashmap" resultType="java.util.HashMap">
+		select FT_CD as nu FROM TPM1.R_TPM_FD_L  
+		 where 1=1
+		<if test="list!=null and list!='' ">
+		and FT_CD in
+		 <foreach item="item" index="index" collection="list" open="(" separator="," close=")">  
+             #{item.FT_CD}  
+           </foreach>  
+           </if>
+		</select>
+		
+		<select id="queryFrockDeviceListType" parameterType="hashmap" resultType="java.util.HashMap">
+		select FT_CD  FROM TPM1.R_TPM_FD_L  
+		 where 1=1
+           <if test="list!=null and list!='' ">
+           and FT_TYPE in
+		 <foreach item="item" index="index" collection="list" open="(" separator="," close=")">  
+             #{item.FT_TYPE,jdbcType=VARCHAR}  
+           </foreach>  
+           </if>
+		</select>
+		
+		
+		<!-- 供应商下拉 -->		
+		<select id="querySupplierbox" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT DISTINCT SUP_NM from iplant1.C_IPLANT_S3_T
+		</select>
+		
+		<!-- 查询工装设备列表信息 -->
+	<select id="queryFrockDeviceList" parameterType="hashmap" resultType="java.util.HashMap">
+	    <include refid="oraclePagingFileTop"></include>  
+	    CL_NM ,FT_RM,FT_TYPE, FT_CD ,FT_MD ,V_SN, NU_B, DS_LS, C_ST ,OR_NU ,ITEM_CD ,SUPPLIER,to_char(CM_DT,'yyyy-mm-dd HH24:Mi:SS') CM_DT, 
+	    NVL(USE_NU,0 ) USE_NU,SD_LF ,to_char(CK_DT,'yyyy-mm-dd HH24:Mi:SS') CK_DT ,CK_P ,to_char(ep_dt,'yyyy-mm-dd HH24:Mi:SS') EP_DT, CK_RS 	 
+		  FROM TPM1.R_TPM_FD_L 
+		 <where>1=1
+		 <if test="CL_NM!=null and CL_NM!='' and flag!='true'">
+		 and CL_NM like '%${CL_NM}%'
+		 </if>
+		  <if test="FT_CD!=null and FT_CD!='' and flag!='true'">
+		 and FT_CD like '%${FT_CD}%'
+		 </if>
+		 <if test="FT_MD!=null and FT_MD!='' and flag!='true'">
+		 and FT_MD like '%${FT_MD}%'
+		 </if>
+		 <if test="DS_LS!=null and DS_LS!='' and flag!='true'">
+		 and DS_LS like '%${DS_LS}%'
+		 </if>
+		 <if test="C_ST!=null and C_ST!='' and flag!='true'">
+		 and C_ST like '%${C_ST}%'
+		 </if>
+		 <if test="FT_TYPE!=null and FT_TYPE!='' and flag!='true'">
+		 and FT_TYPE like '%${FT_TYPE}%'
+		 </if>
+		 <if test="CM_DT1!=null and CM_DT1!='' and CM_DT2!=null and CM_DT2!='' and flag!='true'">
+		 and CM_DT  between to_date('${CM_DT1}','yyyy-mm-dd HH24:Mi:SS') and
+		   to_date('${CM_DT2}','yyyy-mm-dd HH24:Mi:SS')
+		 </if>
+		 <!-- 全字匹配 -->
+		   <if test="CL_NM!=null and CL_NM!='' and flag=='true'">
+		 and CL_NM = '${CL_NM}'
+		 </if>
+		    <if test="FT_CD!=null and FT_CD!='' and flag=='true'">
+		 and FT_CD = '${FT_CD}'
+		 </if>
+		 <if test="FT_MD!=null and FT_MD!='' and flag=='true'">
+		 and FT_MD = '${FT_MD}'
+		 </if>
+		 <if test="DS_LS!=null and DS_LS!='' and flag=='true'">
+		 and DS_LS = '${DS_LS}'
+		 </if>
+		 <if test="C_ST!=null and C_ST!='' and flag=='true'">
+		 and C_ST = '${C_ST}'
+		 </if>
+		 <if test="FT_TYPE!=null and FT_TYPE!='' and flag=='true'">
+		 and FT_TYPE = '${FT_TYPE}'
+		 </if>
+		 <if test="CM_DT1!=null and CM_DT1!='' and CM_DT2!=null and CM_DT2!='' and flag=='true'">
+		 and CM_DT  between to_date('${CM_DT1}','yyyy-mm-dd HH24:Mi:SS') and
+		   to_date('${CM_DT2}','yyyy-mm-dd HH24:Mi:SS')
+		 </if>
+		 </where>
+		     <include refid="oraclePagingFileBottom"></include>   	
+	</select>
+	
+	<!-- 工装设备列表分页总数 -->
+	<select id="queryFrockDeviceList_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+	  	 
+		SELECT COUNT(1) ROWS_COUNT  from TPM1.R_TPM_FD_L   
+		 <where>1=1
+		<if test="CL_NM!=null and CL_NM!='' and flag!='true'">
+		 and CL_NM like '%${CL_NM}%'
+		 </if>
+		 <if test="FT_CD!=null and FT_CD!='' and flag!='true'">
+		 and FT_CD like '%${FT_CD}%'
+		 </if>
+		 <if test="FT_MD!=null and FT_MD!='' and flag!='true'">
+		 and FT_MD like '%${FT_MD}%'
+		 </if>
+		 <if test="DS_LS!=null and DS_LS!='' and flag!='true'">
+		 and DS_LS like '%${DS_LS}%'
+		 </if>
+		 <if test="C_ST!=null and C_ST!='' and flag!='true'">
+		 and C_ST like '%${C_ST}%'
+		 </if>
+		 <if test="FT_TYPE!=null and FT_TYPE!='' and flag!='true'">
+		 and FT_TYPE like '%${FT_TYPE}%'
+		 </if>
+		 <if test="CM_DT1!=null and CM_DT1!='' and CM_DT2!=null and CM_DT2!='' and flag!='true'">
+		 and CM_DT  between to_date('${CM_DT1}','yyyy-mm-dd HH24:Mi:SS') and
+		   to_date('${CM_DT2}','yyyy-mm-dd HH24:Mi:SS')
+		 </if>
+		 <!-- 全字匹配 -->
+		<if test="CL_NM!=null and CL_NM!='' and flag=='true'">
+		 and CL_NM = '${CL_NM}'
+		 </if>
+		 <if test="FT_CD!=null and FT_CD!='' and flag=='true'">
+		 and FT_CD = '${FT_CD}'
+		 </if>
+		 <if test="FT_MD!=null and FT_MD!='' and flag=='true'">
+		 and FT_MD = '${FT_MD}'
+		 </if>
+		 <if test="DS_LS!=null and DS_LS!='' and flag=='true'">
+		 and DS_LS = '${DS_LS}'
+		 </if>
+		 <if test="C_ST!=null and C_ST!='' and flag=='true'">
+		 and C_ST = '${C_ST}'
+		 </if>
+		 <if test="FT_TYPE!=null and FT_TYPE!='' and flag=='true'">
+		 and FT_TYPE = '${FT_TYPE}'
+		 </if>
+		 <if test="CM_DT1!=null and CM_DT1!='' and CM_DT2!=null and CM_DT2!='' and flag=='true'">
+		 and CM_DT  between to_date('${CM_DT1}','yyyy-mm-dd HH24:Mi:SS') and
+		   to_date('${CM_DT2}','yyyy-mm-dd HH24:Mi:SS')
+		 </if>  
+		 </where>
+		      	
+	</select>
+
+	
+	<!-- 新增工装设备列表-->
+	 <insert id="insertFrockDeviceList" parameterType="hashmap">
+		INSERT INTO TPM1.R_TPM_FD_L(CL_NM,
+									FT_TYPE,
+									FT_CD,
+									FT_MD,
+									V_SN,
+									NU_B,
+									DS_LS,
+									C_ST,
+									OR_NU,
+									ITEM_CD,
+									SUPPLIER,
+									CM_DT,
+									USE_NU,
+									SD_LF,
+									CK_DT,
+									CK_P,
+									EP_DT,
+									CK_RS,
+									FT_RM
+									)
+							values(
+									'${CL_NM}',
+									'${FT_TYPE}',
+									'${FT_CD}',
+									'${FT_MD}',
+									'${V_SN}',
+									'${NU_B}',
+									'${DS_LS}',
+									'正常',
+									'${OR_NU}',
+									'${ITEM_CD}',
+									'${SUPPLIER}',
+									sysdate,
+									'${USE_NU}',
+									'${SD_LF}',
+									to_date('${CK_DT}','yyyy-mm-dd HH24:Mi:SS'),
+									'${CK_P}',
+									to_date('${EP_DT}','yyyy-mm-dd HH24:Mi:SS'),
+									'${CK_RS}',
+									'${FT_RM}'
+									)
+	</insert>  
+	
+	   <!-- 删除工装设备列表--> 
+	      <delete id="deleteFrockDeviceList" parameterType="hashmap">
+	            DELETE TPM1.R_TPM_FD_L
+	             	where
+	             		FT_CD IN
+	             	<foreach collection="list"  index="index" item="item" open="(" separator="," close=")"  >
+       					#{item.FT_CD}
+      				</foreach>
+	    </delete>   
+	    <!-- 修改工装设备列表 -->
+	      <update id="updateFrockDeviceList" parameterType="hashmap">
+	    	update TPM1.R_TPM_FD_L
+	    	<set>
+	    		<if test="CL_NM!=null and CL_NM!= ''">CL_NM='${CL_NM}',</if>
+	    		<if test="FT_TYPE!=null and FT_TYPE!= ''">FT_TYPE='${FT_TYPE}',</if>
+	    		<if test="FT_MD !=null and FT_MD != ''">FT_MD='${FT_MD}',</if>
+	    		<if test="V_SN !=null and V_SN != ''">V_SN='${V_SN}',</if>
+	    		<if test="NU_B !=null and NU_B != '' and count==0 ">NU_B='${NU_B}',</if>
+	    		<if test="NU_B !=null and NU_B != '' and count==1">NU_B='${NU_B}'-1,</if>
+	    		<if test="NU_B !=null and NU_B != '' and count==2">NU_B='${NU_B}'+1,</if>
+	    		<if test="NU_B !=null and NU_B != '' and count==3">NU_B=0,</if>
+	    		<if test="DS_LS !=null and DS_LS != ''">DS_LS='${DS_LS}',</if>
+	    		<if test="C_ST !=null and C_ST != ''">C_ST='${C_ST}',</if>
+	    		<if test="OR_NU !=null and OR_NU != ''">OR_NU='${OR_NU}',</if>
+	    		<if test="ITEM_CD !=null and ITEM_CD != ''">ITEM_CD='${ITEM_CD}',</if>
+	    		<if test="SUPPLIER !=null and SUPPLIER != ''">SUPPLIER='${SUPPLIER}',</if>
+	    		<if test="CM_DT !=null and CM_DT != ''">CM_DT=to_date('${V_SN}','yyyy-mm-dd HH24:Mi:SS'),</if>
+	    		<if test="USE_NU !=null and USE_NU != '' and count==1 ">USE_NU='${USE_NU}'+1,</if>
+	    		<if test="USE_NU !=null and USE_NU != ''  and count!=1">USE_NU='${USE_NU}',</if>
+	    		<if test="SD_LF !=null and SD_LF != '' and flag!='true'">SD_LF='${SD_LF}',</if>
+	    		<if test="SD_LF !=null and SD_LF != '' and flag=='true'">SD_LF='${SD_LF}'+1,</if>
+	    		<if test="CK_DT !=null and CK_DT != ''">CK_DT=to_date('${CK_DT}','yyyy-mm-dd HH24:Mi:SS'),</if>
+	    		<if test="EP_DT !=null and EP_DT != ''">EP_DT=to_date('${EP_DT}','yyyy-mm-dd HH24:Mi:SS'),</if>
+	    		<if test="CK_RS !=null and CK_RS != ''">CK_RS='${CK_RS}',</if>
+	    		<if test="FT_RM !=null and FT_RM != ''">FT_RM='${FT_RM}',</if>
+	    	</set>
+	    	where FT_CD='${FT_CD}'
+	    </update>  
+	    
+	    <!-- 新增工装历史记录 -->
+	    <insert id="insertFrockDeviceFactory" parameterType="hashmap">
+	    <selectKey resultType="int" keyProperty="RS_N" order="BEFORE"> 
+            SELECT FT_SQU.NEXTVAL FROM DUAL 
+        </selectKey>
+			INSERT INTO TPM1.R_TPM_FD_F(
+			RS_N, FT_CD, FT_MD, FT_TYPE, PL_NM, FT_ST, FT_EP, FT_OT,
+			FT_AL, CR_DT, CL_NM, DS_LS, USE_NU,SUPPLIER, SD_LF, CR_LS, CM_DT
+			)
+			values(
+			'${RS_N}','${FT_CD}','${FT_MD}','${FT_TYPE}','${PL_NM}','${FT_ST}','${FT_EP}',
+			sysdate,'${FT_AL}',sysdate,'${CL_NM}','${DS_LS}','${USE_NU}','${SUPPLIER}','${SD_LF}','${CR_LS}',
+			to_date('${CM_DT}','yyyy-mm-dd HH24:Mi:SS')
+			)	
+	  	</insert>
+	  	
+	  	
+	  	<!-- 导入 -->
+	<insert id="insertFrockDeviceLists1" parameterType="hashmap">
+		INSERT INTO TPM1.R_TPM_FD_L(CL_NM,
+									FT_TYPE,
+									FT_CD,
+									FT_MD,
+									V_SN,
+									NU_B,
+									DS_LS,
+									C_ST,
+									OR_NU,
+									ITEM_CD,
+									SUPPLIER,
+									CM_DT,
+									USE_NU,
+									SD_LF,
+									CK_DT,
+									CK_P,
+									EP_DT,
+									CK_RS
+									
+									)
+									(
+		<foreach collection="list" item="item" index="index"
+			separator="union all">
+								SELECT '${item.CL_NM}',
+								'${item.FT_TYPE}',
+								'${item.FT_CD}',
+								'${item.FT_MD}',
+								'${item.V_SN}',
+								'${item.NU_B}',
+								'${item.DS_LS}',
+								'${item.C_ST}',
+								'${item.OR_NU}',
+								'${item.ITEM_CD}',
+								'${item.SUPPLIER}',
+								to_date('${item.CM_DT}','yyyy-mm-dd HH24:Mi:SS'),
+								'${item.USE_NU}',
+								'${item.SD_LF}',
+								to_date('${item.CK_DT}','yyyy-mm-dd HH24:Mi:SS'),
+								'${item.CK_P}',
+								to_date('${item.EP_DT}','yyyy-mm-dd HH24:Mi:SS'),
+								'${item.CK_RS}'
+								FROM DUAL
+			</foreach>
+		)
+	</insert>
+ </mapper>

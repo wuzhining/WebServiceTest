@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>条码规则维护</title>
+    <link rel="stylesheet" type="text/css" href="../../common/IplantCompent/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../../common/IplantCompent/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="../../common/IplantCompent/Demo/demo.css">
+    <script src="../../common/IplantCompent/jquery.min.js" type="text/javascript"></script>
+    <script src="../../common/IplantCompent/jquery.easyui.min.js" type="text/javascript"></script>
+    <script src="../../common/IplantCommon/DataRequest.js" type="text/javascript"></script>
+    <script src="../../common/IplantCommon/CommonUtil.js" type="text/javascript"></script>
+    <script src="js/barRule.js" type="text/javascript"></script>
+    <script type="text/javascript"></script>
+    <style type="css/text">
+    	.window-header > .panel-title{color:#fff}
+    </style>
+</head>
+<body style="padding: 0;margin: 0;">
+	<div style="height:100%;width:100%;" class="easyui-layout" fit='true'>
+
+         <div region='north' id="tb" style="width: auto; height: 30px; background: linear-gradient(rgb(255, 255, 255) 0px, rgba(149, 184, 231, 0.28) 100%);">
+                <table style="width: auto; height:100%;" cellspacing="0" border="0">
+                    <tr>
+                      <td>
+                         <a href="#" class="easyui-linkbutton add" iconCls="icon-add" id="btnAdd" data-options="plain:true">添加</a>
+                         <a href="#" class="easyui-linkbutton save" iconCls="icon-save" id="btnSave" data-options="plain:true">保存</a>
+                         <a href="#" class="easyui-linkbutton delete" iconCls="icon-remove" id="btnDelete" data-options="plain:true">删除</a>
+                         <span id='showMessageInfo' class='divspan' style='width:300px;'></span>
+                      </td>
+                    </tr>
+               </table>
+            </div>
+            <div region="center" style="width:100%" style="border:0">
+            <div region='north' id='tbsearch' style="width: auto; height: 30px;background: linear-gradient(rgb(255, 255, 255) 0px, rgba(149, 184, 231, 0.28) 100%);">
+                <table>
+	                <tr >
+	                	<td>规则类名：</td>
+	                    <td>
+	                        <input id="queryRuleTypeName" name="postingdate" style="width: 150px;" class="easyui-textbox"/>
+	                    </td>
+	                 	<td>规则名：</td>
+	                    <td>
+	                        <input id="queryRuleName" name="postingdate" style="width: 150px;" class="easyui-textbox" />
+	                    </td>
+	                    <td>
+	                       <a href="#" class="easyui-linkbutton" iconCls="icon-search" id="btnSearch" data-options="plain:true">查询</a>	
+	                    </td>
+	                </tr>
+                </table>
+            </div>
+            <table region='center' style="height: auto;max-height: 100%" id="barRule_tab" class='easyui-datagrid' toolbar="#tbsearch" rownumbers="true" "></table>
+    		</div>
+	</div>
+	    <div id="burRuleDialog" class="easyui-dialog" style="width: 680px;height: 480px;padding-top:30px" closed="true" align="center" data-options="modal: true,
+				buttons: [{
+					text:'保存',
+					iconCls:'icon-ok',
+					handler:function(){
+						saveBurRuleSet();
+					}
+				},{
+					text:'取消',
+					iconCls:'icon-no',
+					handler:function(){
+						$('#burRuleDialog').dialog('close');
+					}
+				}]">
+        <form id="fmBurDialog" method="post">
+         	<div style="width:630px;height:210px;border:1px solid rgb(221,221,221);padding-top:15px">
+         		<div style="height:20px;width:55px;margin-top:-24px;margin-left:-530px;background:#fff">条码规则</div>
+	            <table border="0" style="margin">
+	                 <tr style="height: 35px;">
+	                    <td>编码方式：</td>
+	                    <td>
+	                        <input id="codingMode" name="postingdate" style="width: 200px;" class="easyui-combobox"  required="required" data-options="missingMessage:'该选项为必填信息'" editable="false"/>
+	                    </td>
+	                    <td colspan="2">
+	                        <input id="autoFillEmpty" name="postingdate" type="checkbox" style="margin:0;vertical-align:middle; text-align:center;margin-left:5px"/>&nbsp;<span>新增单据自动补空号</span>
+	                    </td>
+	                </tr>
+	                <tr style="height: 35px;">
+	                    <td>前缀一：</td>
+	                    <td>
+	                        <input id="prefixFirst" name="postingdate" style="width: 200px;" class="easyui-combobox" required="required" data-options="missingMessage:'该选项为必填信息'"/>
+	                    </td>
+	                    <td>长度：</td>
+	                    <td>
+	                        <input id="prefixFirst_length" name="postingdate" style="width: 70px;" class="easyui-textbox" required="required" data-options="missingMessage:'该选项为必填信息'"/>
+	                        <input id=prefixFirst_display name="postingdate" style="width: 100px;" class="easyui-textbox" required="required" data-options="missingMessage:'该选项为必填信息'"/>
+	                    </td>
+	                    
+	                    <td>
+	                        <input id="prefixFirst_basis" name="postingdate" type="checkbox" />
+	                    </td>
+	                    <td>流水依据</td>
+	                    <td style="color: red ">*</td>
+	                </tr>
+	                <tr style="height: 35px;">
+	                     <td>前缀二：</td>
+	                    <td>
+	                        <input id="prefixSecond" name="postingdate" style="width: 200px;" class="easyui-combobox" required="required" data-options="missingMessage:'该选项为必填信息'" editable="false"/>
+	                    </td>
+	                    <td>长度：</td>
+	                    <td>
+	                        <input id="prefixSecond_length" name="postingdate" style="width: 70px;" class="easyui-textbox" required="required" data-options="missingMessage:'该选项为必填信息'"/>
+	                        <input id="prefixSecond_display" name="postingdate" style="width: 100px;" class="easyui-combobox" required="required" data-options="missingMessage:'该选项为必填信息'"/>
+	                    </td>
+	                    <td>
+	                        <input id="prefixSecond_basis" name="postingdate" type="checkbox" />
+	                    </td>
+	                    <td>流水依据</td>
+	                    <td style="color: red ">*</td>
+	                </tr>
+	                <tr style="height: 35px; ">
+	                     <td>前缀三：</td>
+	                    <td>
+	                        <input id="prefixthird" name="postingdate" style="width: 200px;" class="easyui-combobox" required="required" data-options="missingMessage:'该选项为必填信息'" editable="false"/>
+	                    </td>
+	                    <td>长度：</td>
+	                    <td>
+	                        <input id="prefixthird_length" name="postingdate" style="width: 70px;" class="easyui-textbox" required="required" data-options="missingMessage:'该选项为必填信息'"/>
+	                        <input id="prefixthird_display" name="postingdate" style="width: 100px;" class="easyui-textbox" required="required" data-options="missingMessage:'该选项为必填信息'"/>
+	                    </td>
+	                    <td>
+	                        <input id="prefixthird_basis" name="postingdate" type="checkbox" />
+	                    </td>
+	                    <td>流水依据</td>
+	                    <td style="color: red ">*</td>
+	                </tr>
+	                <tr style="height: 35px;">
+	                    <td>长度：</td>
+	                    <td>
+	                        <input id="codingLength" name="postingdate" style="width: 200px;" class="easyui-textbox" />
+	                    </td>
+	                    <td>起始值：</td>
+	                    <td>
+	                        <input id="initialValue" name="postingdate" style="width: 100px;" class="easyui-numberbox" />
+	                    </td>
+	                </tr>
+	            </table>
+            </div>
+            <div style="width:630px;height:80px;border:1px solid rgb(221,221,221);padding-top:15px;margin-top:30px;">
+            <div style="height:20px;width:55px;margin-top:-24px;margin-left:-530px;background:#fff">条码预览</div>
+				<table border="0" style="margin-left:-95px">
+				     <tr style="height: 35px; ">
+	                    <td>编号：</td>
+	                    <td>
+	                        <input id="coding_1" name="postingdate" style="width: 100px;" class="easyui-textbox"  editable="false"/>
+	                    </td>
+	                    <td>+</td>
+	                    <td>
+	                        <input id="coding_2" name="postingdate" style="width: 100px;" class="easyui-textbox"  editable="false"/>
+	                    </td>
+	                    <td>+</td>
+	                    <td>
+	                        <input id="coding_3" name="postingdate" style="width: 100px;" class="easyui-textbox"  editable="false"/>
+	                    </td>
+	                    <td>+</td>
+	                    <td>
+	                        <input id="coding_4" name="postingdate" style="width: 100px;" class="easyui-textbox"  editable="false"/>
+	                    </td>
+	                </tr>
+	                <tr style="height: 35px;">
+	                    <td>示例：</td>
+	                    <td colspan="5">
+	                        <input id="codingExample" name="postingdate" style="width: 250px;" class="easyui-textbox" editable="false"/>
+	                    </td>
+	                </tr>
+				
+				</table>
+			</div>
+        </form>
+
+    </div>
+</body>
+
+</html>

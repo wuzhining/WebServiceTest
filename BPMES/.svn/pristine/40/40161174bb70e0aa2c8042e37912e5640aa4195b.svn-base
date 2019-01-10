@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ifss>
+    <!-- A1 系统管理 -->
+    <!-- A1.2 基础数据导入 -->
+	<ifs ifs_code="S000001" ifs_name="基础数据导入" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="BasicDataImport" biz_method="" serial_no="1" biz_name="BasicDataImport" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- A1.3 基础数据导出 -->
+	<ifs ifs_code="S000002" ifs_name="基础数据导出" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="BasicDataExport" biz_method="" serial_no="1" biz_name="BasicDataImport" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- A1.4 采集器端口配置 -->
+	<!-- 查询采集器 -->
+	<ifs ifs_code="S000003" ifs_name="查询采集器" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryCollector" biz_method="" serial_no="1" biz_name="queryCollector" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 新增采集器 -->
+	<ifs ifs_code="S000004" ifs_name="新增采集器" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertCollector" biz_method="" serial_no="1" biz_name="insertCollector" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 删除采集器 -->
+	<ifs ifs_code="S000005" ifs_name="删除采集器" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteCollector" biz_method="" serial_no="1" biz_name="deleteCollector" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 修改采集器 -->
+	<ifs ifs_code="S000006" ifs_name="修改采集器" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateCollector" biz_method="" serial_no="1" biz_name="updateExport" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+</ifss>

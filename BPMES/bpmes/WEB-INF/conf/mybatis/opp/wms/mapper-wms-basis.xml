@@ -1,0 +1,2637 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="">
+
+	<!-- A.1 基础资料管理 -->	
+	<!-- 生成托盘编码 -->
+	<select id="CreatTRAY_ID" parameterType="hashmap" resultType="java.util.HashMap"> 
+	   SELECT 'TP'||(iplant1.TRANS_10TO36_FUN(mes1.TP_SEQ.NEXTVAL, 4)) AS TRAY_ID FROM DUAL
+	</select> 
+
+	<!-- 查询托盘信息 -->
+	<select id="TrayInfoQuery" parameterType="hashmap" resultType="java.util.HashMap">
+		<include refid="oraclePagingFileTop"></include>
+		CC.*
+		FROM
+		(
+		SELECT
+		TRAY_ID,
+		TRAY_NAME,
+		ENABLE,
+		NOTE,
+		T1.CREATER_ID,
+		T4.EMP_NM AS CREATER_NAME,
+		TO_CHAR(T1.CREATE_DATE,'YYYY-MM-DD HH24:MI:SS') AS CREATE_DATE,
+		T1.UPDATER_ID,
+		T7.EMP_NM AS UPDATER_NAME,
+		TO_CHAR(T1.UPDATE_DATE,'YYYY-MM-DD HH24:MI:SS') AS UPDATE_DATE
+		FROM WMS1.WMS_TRAY T1
+		LEFT JOIN (
+       		SELECT
+			T2.USE_CD,
+			T3.EMP_NM 
+			FROM iplant1.C_IPLANT_U1_T T2
+			LEFT JOIN iplant1.C_IPLANT_E1_T T3 ON T2.EMP_NO = T3.EMP_CD
+       	) T4 ON T1.CREATER_ID=T4.USE_CD
+       	LEFT JOIN (
+       		SELECT
+			T5.USE_CD,
+			T6.EMP_NM 
+			FROM iplant1.C_IPLANT_U1_T T5
+			LEFT JOIN iplant1.C_IPLANT_E1_T T6 ON T5.EMP_NO = T6.EMP_CD
+       	) T7 ON T1.UPDATER_ID=T7.USE_CD
+		<where>
+			1=1
+			<if test="TRAY_ID !=null and TRAY_ID !='' ">
+				AND TRAY_ID='${TRAY_ID}'
+			</if>
+			<if test="TRAY_NAME !=null and TRAY_NAME !='' ">
+				AND TRAY_NAME LIKE '%${TRAY_NAME}%'
+			</if>
+			<if test="ENABLE !=null and ENABLE !='' ">
+				AND ENABLE='${ENABLE}'
+			</if>
+		</where>
+		ORDER BY CREATE_DATE DESC
+		)
+		CC
+		<include refid="oraclePagingFileBottom"></include>
+	</select>
+
+	<!-- 查询托盘信息分页总数 -->
+	<select id="TrayInfoQuery_COUNT" parameterType="hashmap"
+		resultType="java.util.HashMap">
+		SELECT
+		COUNT(1) AS ROWS_COUNT
+		FROM WMS1.WMS_TRAY T1
+		LEFT JOIN (
+       		SELECT
+			T2.USE_CD,
+			T3.EMP_NM 
+			FROM iplant1.C_IPLANT_U1_T T2
+			LEFT JOIN iplant1.C_IPLANT_E1_T T3 ON T2.EMP_NO = T3.EMP_CD
+       	) T4 ON T1.CREATER_ID=T4.USE_CD
+       	LEFT JOIN (
+       		SELECT
+			T5.USE_CD,
+			T6.EMP_NM 
+			FROM iplant1.C_IPLANT_U1_T T5
+			LEFT JOIN iplant1.C_IPLANT_E1_T T6 ON T5.EMP_NO = T6.EMP_CD
+       	) T7 ON T1.UPDATER_ID=T7.USE_CD
+		<where>
+			1=1
+			<if test="TRAY_ID !=null and TRAY_ID !='' ">
+				AND TRAY_ID='${TRAY_ID}'
+			</if>
+			<if test="TRAY_NAME !=null and TRAY_NAME !='' ">
+				AND TRAY_NAME LIKE '%${TRAY_NAME}%'
+			</if>
+			<if test="ENABLE !=null and ENABLE !='' ">
+				AND ENABLE='${ENABLE}'
+			</if>
+		</where>
+	</select>
+
+	<!-- 新增托盘信息 -->
+	<insert id="TrayInfoInsert" parameterType="java.util.List">
+		INSERT INTO
+		WMS1.WMS_TRAY
+		(
+		TRAY_ID,
+		TRAY_NAME,
+		ENABLE,
+		NOTE,
+		CREATER_ID,
+		CREATE_DATE
+		)
+		VALUES
+		(		
+			'${TRAY_ID}',
+			'${TRAY_NAME}',
+			'${ENABLE}',
+			'${NOTE}',
+			'${F_USE_CD}',
+			SYSDATE
+		)
+	</insert>
+
+	<!-- 修改托盘信息 -->
+	<update id="TrayInfoUpdate" parameterType="java.util.HashMap">		
+			UPDATE WMS1.WMS_TRAY
+			<set>
+				<if test="TRAY_NAME !=null ">
+					TRAY_NAME='${TRAY_NAME}',
+				</if>
+				<if test="ENABLE !=null  ">
+					ENABLE='${ENABLE}',
+				</if>
+				<if test="NOTE !=null  ">
+					NOTE='${NOTE}',
+				</if>
+				UPDATER_ID='${F_USE_CD}',
+				UPDATE_DATE=SYSDATE
+			</set>
+			<where>
+				TRAY_ID='${TRAY_ID}'
+			</where>		
+	</update>
+
+	<!-- 删除托盘信息 -->
+	<delete id="TrayInfoDelete" parameterType="hashmap">
+		DELETE WMS1.WMS_TRAY
+		<where>
+			TRAY_ID='${TRAY_ID}'
+		</where>
+	</delete>
+
+
+
+	<!-- 查询仓库的信息 -->
+	<select id="WarehouseInfoQuery" parameterType="hashmap"
+		resultType="java.util.HashMap">
+		<include refid="oraclePagingFileTop"></include>
+		WAREHOUSE_ID,
+		WAREHOUSE_NAME,
+		T1.WAREHOUSE_TYPE_ID,
+		T8.WAREHOUSE_TYPE_NAME,
+		T1.ENABLE,
+		T1.NOTE,
+		T1.CREATER_ID,
+		T4.EMP_NM AS CREATER_NAME,
+		TO_CHAR(T1.CREATE_DATE,'YYYY-MM-DD HH24:MI:SS') AS CREATE_DATE,
+		T1.UPDATER_ID,
+		T7.EMP_NM AS UPDATER_NAME,
+		TO_CHAR(T1.UPDATE_DATE,'YYYY-MM-DD HH24:MI:SS') AS UPDATE_DATE
+		FROM wms1.WMS_WAREHOUSE T1
+		LEFT JOIN WMS1.WMS_WAREHOUSE_TYPE T8 ON T1.WAREHOUSE_TYPE_ID=T8.WAREHOUSE_TYPE_ID
+		LEFT JOIN (
+       		SELECT
+			T2.USE_CD,
+			T3.EMP_NM 
+			FROM iplant1.C_IPLANT_U1_T T2
+			LEFT JOIN iplant1.C_IPLANT_E1_T T3 ON T2.EMP_NO = T3.EMP_CD
+       	) T4 ON T1.CREATER_ID=T4.USE_CD
+       	LEFT JOIN (
+       		SELECT
+			T5.USE_CD,
+			T6.EMP_NM 
+			FROM iplant1.C_IPLANT_U1_T T5
+			LEFT JOIN iplant1.C_IPLANT_E1_T T6 ON T5.EMP_NO = T6.EMP_CD
+       	) T7 ON T1.UPDATER_ID=T7.USE_CD
+		<where>
+			1=1
+			<if test="WAREHOUSE_ID!=null and WAREHOUSE_ID!=''">
+				and WAREHOUSE_ID LIKE '%${WAREHOUSE_ID}%'
+			</if>
+			<if test="WAREHOUSE_NAME!=null and WAREHOUSE_NAME!=''">
+				and WAREHOUSE_NAME LIKE '%${WAREHOUSE_NAME}%'
+			</if>
+			<if test="WAREHOUSE_TYPE_ID!=null and WAREHOUSE_TYPE_ID!=''">
+				and T1.WAREHOUSE_TYPE_ID ='${WAREHOUSE_TYPE_ID}'
+			</if>
+		</where>
+		ORDER BY CREATE_DATE DESC
+		<include refid="oraclePagingFileBottom"></include>
+	</select>
+	<!-- 查询仓库信息分页页数 -->
+	<select id="WarehouseInfoQuery_COUNT" parameterType="hashmap"
+		resultType="java.util.HashMap">
+		SELECT 
+		    COUNT(1) AS ROWS_COUNT 
+		FROM wms1.WMS_WAREHOUSE T1
+		LEFT JOIN WMS1.WMS_WAREHOUSE_TYPE T8 ON T1.WAREHOUSE_TYPE_ID=T8.WAREHOUSE_TYPE_ID
+		LEFT JOIN (
+       		SELECT
+			T2.USE_CD,
+			T3.EMP_NM 
+			FROM iplant1.C_IPLANT_U1_T T2
+			LEFT JOIN iplant1.C_IPLANT_E1_T T3 ON T2.EMP_NO = T3.EMP_CD
+       	) T4 ON T1.CREATER_ID=T4.USE_CD
+       	LEFT JOIN (
+       		SELECT
+			T5.USE_CD,
+			T6.EMP_NM 
+			FROM iplant1.C_IPLANT_U1_T T5
+			LEFT JOIN iplant1.C_IPLANT_E1_T T6 ON T5.EMP_NO = T6.EMP_CD
+       	) T7 ON T1.UPDATER_ID=T7.USE_CD
+		<where>
+			1=1
+			<if test="WAREHOUSE_ID!=null and WAREHOUSE_ID!=''">
+				and WAREHOUSE_ID LIKE '%${WAREHOUSE_ID}%'
+			</if>
+			<if test="WAREHOUSE_NAME!=null and WAREHOUSE_NAME!=''">
+				and WAREHOUSE_NAME LIKE '%${WAREHOUSE_NAME}%'
+			</if>
+			<if test="WAREHOUSE_TYPE_ID!=null and WAREHOUSE_TYPE_ID!=''">
+				and T1.WAREHOUSE_TYPE_ID ='${WAREHOUSE_TYPE_ID}'
+			</if>
+		</where>
+	</select>
+
+	<!-- 新增仓库信息 -->
+	<insert id="WarehouseInfoInsert" parameterType="hashmap">
+		insert into wms1.WMS_WAREHOUSE
+		(
+		WAREHOUSE_ID,
+		WAREHOUSE_NAME,
+		WAREHOUSE_TYPE_ID,
+		ENABLE,
+		NOTE,
+		CREATER_ID,
+		CREATE_DATE
+		)
+     VALUES
+		(				
+			'${WAREHOUSE_ID}',
+			'${WAREHOUSE_NAME}',
+			'${WAREHOUSE_TYPE_ID}',
+			'${ENABLE}',
+			'${NOTE}',
+			'${F_USE_CD}',
+			SYSDATE
+		)
+	</insert>
+
+	<!-- 修改仓库信息 -->
+	<update id="WarehouseInfoUpdate" parameterType="java.util.HashMap">		
+			update wms1.WMS_WAREHOUSE
+			<set>
+				<if test="WAREHOUSE_NAME!=null ">
+					WAREHOUSE_NAME='${WAREHOUSE_NAME}',
+				</if>
+				<if test="WAREHOUSE_TYPE_ID!=null ">
+					WAREHOUSE_TYPE_ID='${WAREHOUSE_TYPE_ID}',
+				</if>
+				<if test="ENABLE!=null ">
+					ENABLE='${ENABLE}',
+				</if>
+				<if test="NOTE!=null">
+					NOTE='${NOTE}',
+				</if>				
+				UPDATER_ID='${F_USE_CD}',				
+				UPDATE_DATE= SYSDATE
+			</set>
+			<where>
+				WAREHOUSE_ID='${WAREHOUSE_ID}'
+			</where>
+	</update>
+
+	<!-- 删除仓库信息 -->
+	<delete id="WarehouseInfoDelete" parameterType="hashmap">
+
+		delete wms1.WMS_WAREHOUSE
+		<where>
+			WAREHOUSE_ID='${WAREHOUSE_ID}'
+		</where>
+
+	</delete>
+
+	<!-- 查询计量单位信息 -->
+	<select id="queryWMSUnitInfo" parameterType="hashmap"
+		resultType="java.util.HashMap">
+		<include refid="oraclePagingFileTop"></include>
+		UU.*
+		FROM
+		(
+		SELECT
+		unit_id,
+		unit_name,
+		group_name,
+		main_unit,
+		unit_type,
+		CHANGE_RATE,
+		CASE
+		WHEN enable='Y' THEN '启用'
+		ELSE '未启用'
+		END AS enable,
+		note,
+		T1.creater_id,
+		T4.EMP_NM AS CREATER_NAME,
+		TO_CHAR(T1.create_date,'YYYY-MM-DD HH24:MI:SS') AS  create_date,
+		T1.updater_id,
+		T7.EMP_NM AS UPDATER_NAME,
+		TO_CHAR(update_date,'YYYY-MM-DD HH24:MI:SS') AS update_date
+		FROM WMS1.WMS_UNIT T1
+		LEFT JOIN (
+       		SELECT
+			T2.USE_CD,
+			T3.EMP_NM 
+			FROM iplant1.C_IPLANT_U1_T T2
+			LEFT JOIN iplant1.C_IPLANT_E1_T T3 ON T2.EMP_NO = T3.EMP_CD
+       	) T4 ON T1.CREATER_ID=T4.USE_CD
+       	LEFT JOIN (
+       		SELECT
+			T5.USE_CD,
+			T6.EMP_NM 
+			FROM iplant1.C_IPLANT_U1_T T5
+			LEFT JOIN iplant1.C_IPLANT_E1_T T6 ON T5.EMP_NO = T6.EMP_CD
+       	) T7 ON T1.UPDATER_ID=T7.USE_CD
+		<!-- unit_id, unit_name, group_name, main_unit, enable, change_rate, note, 
+			unit_type, creater_id, create_date, updater_id, update_date from wms1.wms_unit -->
+		where 1 = 1
+		<if test="UNIT_TYPE !=null and UNIT_TYPE !='' ">
+			and unit_type='${UNIT_TYPE}'
+		</if>
+		<if test="GROUP_NAME !=null and GROUP_NAME !='' ">
+			and group_name='${GROUP_NAME}'
+		</if>
+		<if test="UNIT_ID !=null and UNIT_ID !='' ">
+			and unit_id='${UNIT_ID}'
+		</if>
+		<if test="UNIT_NAME !=null and UNIT_NAME !='' ">
+			and unit_name='${UNIT_NAME}'
+		</if>
+		)
+		UU
+		<include refid="oraclePagingFileBottom"></include>
+	</select>
+	<!-- 查询计量单位信息 分页汇总查询 -->
+	<select id="queryWMSUnitInfo_COUNT" parameterType="hashmap"
+		resultType="java.util.HashMap">
+		<!-- <include refid="oraclePagingFileTop"></include> -->
+		select
+		count(1) as rows_count
+		FROM WMS1.WMS_UNIT T1
+		LEFT JOIN (
+       		SELECT
+			T2.USE_CD,
+			T3.EMP_NM 
+			FROM iplant1.C_IPLANT_U1_T T2
+			LEFT JOIN iplant1.C_IPLANT_E1_T T3 ON T2.EMP_NO = T3.EMP_CD
+       	) T4 ON T1.CREATER_ID=T4.USE_CD
+       	LEFT JOIN (
+       		SELECT
+			T5.USE_CD,
+			T6.EMP_NM 
+			FROM iplant1.C_IPLANT_U1_T T5
+			LEFT JOIN iplant1.C_IPLANT_E1_T T6 ON T5.EMP_NO = T6.EMP_CD
+       	) T7 ON T1.UPDATER_ID=T7.USE_CD
+		where 1 = 1
+		<if test="UNIT_TYPE !=null and UNIT_TYPE !='' ">
+			and unit_type='${UNIT_TYPE}'
+		</if>
+		<if test="GROUP_NAME !=null and GROUP_NAME !='' ">
+			and group_name='${GROUP_NAME}'
+		</if>
+		<if test="UNIT_NAME !=null and UNIT_NAME !='' ">
+			and unit_name='${UNIT_NAME}'
+		</if>
+		<!-- <include refid="oraclePagingFileBottom"></include> -->
+	</select>
+
+	<!-- 删除计量单位信息 -->
+	<delete id="unitInfoDelete" parameterType="hashmap">
+		delete wms1.wms_unit
+		<where>
+			GROUP_NAME = '${GROUP_NAME}'
+		</where>
+	</delete>
+
+	<!-- 修改计量单位信息 -->
+	<update id="unitInfoUpdate" parameterType="hashmap">
+		update wms1.wms_unit
+		<set>
+			<if test="UNIT_NAME!=null ">
+				unit_name='${UNIT_NAME}',
+			</if>
+			<if test="GROUP_NAME!=null">
+				GROUP_NAME='${GROUP_NAME}',
+			</if>
+			<if test="MAIN_UNIT!=null  ">
+				MAIN_UNIT='${MAIN_UNIT}',
+			</if>
+			<if test="ENABLE!=null ">
+				ENABLE='${ENABLE}',
+			</if>
+			<if test="CHANGE_RATE!=null ">
+				CHANGE_RATE='${CHANGE_RATE}',
+			</if>
+			<if test="NOTE!=null">
+				NOTE='${NOTE}',
+			</if>
+			UPDATE_DATE= SYSDATE
+		</set>
+		<where>
+			UNIT_ID='${UNIT_ID}'
+		</where>
+	</update>
+
+	<!-- 新增计量单位信息 -->
+	<insert id="unitInfoInsert" parameterType="java.util.List">
+		INSERT INTO
+		WMS1.WMS_UNIT
+		(
+		UNIT_ID,
+		UNIT_NAME,
+		GROUP_NAME,
+		MAIN_UNIT,
+		ENABLE,
+		CHANGE_RATE,
+		NOTE,
+		UNIT_TYPE,
+		CREATER_ID,
+		CREATE_DATE
+		)
+		(
+		<foreach collection="list" item="item" index="index"
+			separator="union all">
+			SELECT
+			iplant1.C_GET_UNIQUE_ID() ,
+			'${item.UNIT_NAME}',
+			'${item.GROUP_NAME}',
+			'${item.MAIN_UNIT}' ,
+			'${item.ENABLE}' ,
+			'${item.CHANGE_RATE}' ,
+			'${item.NOTE}' ,
+			'${item.UNIT_TYPE}' ,
+			'${F_USE_CD}' ,
+			SYSDATE
+			FROM DUAL
+		</foreach>
+		)
+	</insert>
+
+	<!-- 查询仓库类别 -->
+	<select id="WarehouseTypeInfo" parameterType="hashmap"
+		resultType="java.util.HashMap">
+		<include refid="oraclePagingFileTop"></include>
+		WAREHOUSE_TYPE_ID,
+		WAREHOUSE_TYPE_NAME,
+		ENABLE,
+		NOTE,
+		CREATER_ID,
+		T4.EMP_NM AS CREATER_NAME,
+		TO_CHAR(CREATE_DATE,'YYYY-MM-DD HH24:MI:SS') AS CREATE_DATE,
+		UPDATER_ID,
+		T7.EMP_NM AS UPDATER_NAME,
+		TO_CHAR(UPDATE_DATE,'YYYY-MM-DD HH24:MI:SS') AS UPDATE_DATE
+		FROM WMS1.WMS_WAREHOUSE_TYPE T1
+		LEFT JOIN (
+       		SELECT
+			T2.USE_CD,
+			T3.EMP_NM 
+			FROM iplant1.C_IPLANT_U1_T T2
+			LEFT JOIN iplant1.C_IPLANT_E1_T T3 ON T2.EMP_NO = T3.EMP_CD
+       	) T4 ON T1.CREATER_ID=T4.USE_CD
+       	LEFT JOIN (
+       		SELECT
+			T5.USE_CD,
+			T6.EMP_NM 
+			FROM iplant1.C_IPLANT_U1_T T5
+			LEFT JOIN iplant1.C_IPLANT_E1_T T6 ON T5.EMP_NO = T6.EMP_CD
+       	) T7 ON T1.UPDATER_ID=T7.USE_CD
+		<where>
+			1=1
+			<if test="WAREHOUSE_TYPE_ID!=null and WAREHOUSE_TYPE_ID!=''">
+				and WAREHOUSE_TYPE_ID LIKE '%${WAREHOUSE_TYPE_ID}%'
+			</if>
+			<if test="WAREHOUSE_TYPE_NAME!=null and WAREHOUSE_TYPE_NAME!=''">
+				and WAREHOUSE_TYPE_NAME LIKE '%${WAREHOUSE_TYPE_NAME}%'
+			</if>
+			<if test="ENABLE!=null and ENABLE!=''">
+				and ENABLE ='${ENABLE}'
+			</if>
+		</where>
+		ORDER BY CREATE_DATE DESC
+		<include refid="oraclePagingFileBottom"></include>
+	</select>
+
+	<!-- 查询出仓库类别的总数据量 -->
+	<select id="WarehouseTypeInfo_COUNT" parameterType="hashmap"
+		resultType="java.util.HashMap">
+		SELECT 
+		   count(1) AS ROWS_COUNT 
+		FROM WMS1.WMS_WAREHOUSE_TYPE T1
+		LEFT JOIN (
+       		SELECT
+			T2.USE_CD,
+			T3.EMP_NM 
+			FROM iplant1.C_IPLANT_U1_T T2
+			LEFT JOIN iplant1.C_IPLANT_E1_T T3 ON T2.EMP_NO = T3.EMP_CD
+       	) T4 ON T1.CREATER_ID=T4.USE_CD
+       	LEFT JOIN (
+       		SELECT
+			T5.USE_CD,
+			T6.EMP_NM 
+			FROM iplant1.C_IPLANT_U1_T T5
+			LEFT JOIN iplant1.C_IPLANT_E1_T T6 ON T5.EMP_NO = T6.EMP_CD
+       	) T7 ON T1.UPDATER_ID=T7.USE_CD
+		<where>
+			1=1
+			<if test="WAREHOUSE_TYPE_ID!=null and WAREHOUSE_TYPE_ID!=''">
+				and WAREHOUSE_TYPE_ID LIKE '%${WAREHOUSE_TYPE_ID}%'
+			</if>
+			<if test="WAREHOUSE_TYPE_NAME!=null and WAREHOUSE_TYPE_NAME!=''">
+				and WAREHOUSE_TYPE_NAME LIKE '%${WAREHOUSE_TYPE_NAME}%'
+			</if>
+			<if test="ENABLE!=null and ENABLE!=''">
+				and ENABLE ='${ENABLE}'
+			</if>
+		</where>
+	</select>
+
+	<!-- 修改仓库类别 -->
+	<update id="WarehouseTypeInfoUpdate" parameterType="java.util.HashMap">		
+			update wms1.WMS_WAREHOUSE_TYPE
+			<set>
+				<if
+					test="WAREHOUSE_TYPE_NAME!=null  ">
+					WAREHOUSE_TYPE_NAME='${WAREHOUSE_TYPE_NAME}',
+				</if>
+				<if test="ENABLE!=null ">
+					ENABLE='${ENABLE}',
+				</if>
+				<if test="NOTE!=null">
+					NOTE='${NOTE}',
+				</if>
+				<if test="F_USE_CD!=null">
+					UPDATER_ID='${F_USE_CD}',
+				</if>
+				UPDATE_DATE= SYSDATE
+			</set>
+			<where>
+				WAREHOUSE_TYPE_ID='${WAREHOUSE_TYPE_ID}'
+			</where>		
+	</update>
+
+	<!-- 新增仓库类别 -->
+	<insert id="WarehouseTypeInfoInsert" parameterType="hashmap">
+		insert into wms1.WMS_WAREHOUSE_TYPE
+		(
+		WAREHOUSE_TYPE_ID,
+		WAREHOUSE_TYPE_NAME,
+		ENABLE,
+		NOTE,
+		CREATER_ID,
+		CREATE_DATE
+		)
+     VALUES
+		(		
+			'${WAREHOUSE_TYPE_ID}',
+			'${WAREHOUSE_TYPE_NAME}',
+			'${ENABLE}',
+			'${NOTE}',
+			'${F_USE_CD}',
+			SYSDATE
+		)
+	</insert>
+
+	<!-- 删除仓库信息 -->
+	<delete id="WarehouseTypeInfoDelete" parameterType="hashmap">
+
+		delete wms1.WMS_WAREHOUSE_TYPE
+		<where>
+			WAREHOUSE_TYPE_ID='${WAREHOUSE_TYPE_ID}'
+		</where>
+
+	</delete>
+	<!-- 查询出货架信息 -->
+	<select id="GoodsShelfInfoQuery" parameterType="hashmap"
+		resultType="java.util.HashMap">
+		<include refid="oraclePagingFileTop"></include>
+		s1.SHELF_ID,
+		s1.SHELF_NAME,
+		s1.STORE_ID,
+		s1.STORE_NAME,
+		s1.LAYER_NUMBER,
+		S1.COL_NUMBER,
+		s1.POSITION_NUMBER,
+		s1.BARCODE,
+		s1.ENABLE,
+		s1.NOTE,
+		s1.CREATER_ID,
+		T4.EMP_NM AS CREATER_NAME,
+		TO_CHAR(s1.CREATE_DATE,'YYYY-MM-DD HH24:MI:SS') AS CREATE_DATE,
+		s1.UPDATER_ID,
+		T7.EMP_NM AS UPDATER_NAME,
+		TO_CHAR(s1.UPDATE_DATE,'YYYY-MM-DD HH24:MI:SS') AS UPDATE_DATE,
+		s1.SHELF_TYPE,
+		t1.dict_it,
+		t1.dict_it_nm
+		FROM WMS1.WMS_SHELF s1
+		LEFT JOIN iplant1.c_iplant_dd_t t1 on s1.shelf_type = t1.dict_it
+		LEFT JOIN (
+       		SELECT
+			T2.USE_CD,
+			T3.EMP_NM 
+			FROM iplant1.C_IPLANT_U1_T T2
+			LEFT JOIN iplant1.C_IPLANT_E1_T T3 ON T2.EMP_NO = T3.EMP_CD
+       	) T4 ON s1.CREATER_ID=T4.USE_CD
+       	LEFT JOIN (
+       		SELECT
+			T5.USE_CD,
+			T6.EMP_NM 
+			FROM iplant1.C_IPLANT_U1_T T5
+			LEFT JOIN iplant1.C_IPLANT_E1_T T6 ON T5.EMP_NO = T6.EMP_CD
+       	) T7 ON s1.UPDATER_ID=T7.USE_CD
+		<where>
+			1=1
+			<if test="STORE_NAME !=null and STORE_NAME !=''">
+				and STORE_NAME='${STORE_NAME}' OR
+				SHELF_NAME='${STORE_NAME}'
+			</if>
+			<if test="STORE_ID !=null and STORE_ID !=''">
+				AND STORE_ID='${STORE_ID}' 
+
+			</if>
+			<if test="SHELF_ID !=null and SHELF_ID !=''">
+				AND SHELF_ID='${SHELF_ID}'
+			</if>
+			<if test="ENABLE !=null and ENABLE !=''">
+				AND S1.ENABLE='${ENABLE}'
+			</if>
+			<if test="SHELF_NAME !=null and SHELF_NAME !=''">
+				AND SHELF_NAME like '%'||'${SHELF_NAME}'||'%'
+			</if>
+		</where>
+		  ORDER BY s1.CREATE_DATE DESC
+		<include refid="oraclePagingFileBottom"></include>
+	</select>
+	<!-- 查询出货架信息总数 -->
+	<select id="GoodsShelfInfoQuery_COUNT" parameterType="hashmap"
+		resultType="java.util.HashMap">
+		SELECT count(1) AS ROWS_COUNT
+		FROM WMS1.WMS_SHELF WSF
+		<where>
+			1=1
+
+			<if test="STORE_NAME !=null and STORE_NAME !=''">
+				and STORE_NAME='${STORE_NAME}' OR
+				SHELF_NAME='${STORE_NAME}'
+</if>
+			<if test="STORE_ID !=null and STORE_ID !=''">
+				AND STORE_ID='${STORE_ID}' 
+
+			</if>
+			<if test="SHELF_ID !=null and SHELF_ID !=''">
+				AND SHELF_ID='${SHELF_ID}'
+			</if>
+			<if test="SHELF_NAME !=null and SHELF_NAME !=''">
+				AND SHELF_NAME like '%'||'${SHELF_NAME}'||'%'
+			</if>
+		</where>
+	</select>
+	<!-- 修改货架 -->
+	<update id="GoodsShelfInfoUpdate" parameterType="java.util.HashMap">
+		<foreach collection="list" item="item" index="index" open="begin" close=";end;" separator=";">		
+			update wms1.WMS_SHELF
+			<set>
+				<if test="item.SHELF_NAME!=null ">
+					SHELF_NAME='${item.SHELF_NAME}',
+				</if>
+				<if test="item.STORE_ID!=null">
+					STORE_ID='${item.STORE_ID}',
+				</if>
+				<if test="item.STORE_NAME!=null">
+					STORE_NAME='${item.STORE_NAME}',
+				</if>
+				<if test="item.LAYER_NUMBER!=null">
+					LAYER_NUMBER='${item.LAYER_NUMBER}',
+				</if>
+				<if test="item.COL_NUMBER!=null">
+					COL_NUMBER='${item.COL_NUMBER}',
+				</if>
+				<if test="item.POSITION_NUMBER!=null">
+					POSITION_NUMBER='${item.POSITION_NUMBER}',
+				</if>
+				<if test="item.BARCODE!=null ">
+					BARCODE='${item.BARCODE}',
+				</if>
+				<if test="item.ENABLE!=null">
+					ENABLE='${item.ENABLE}',
+				</if>
+				<if test="item.NOTE!=null">
+					NOTE='${item.NOTE}',
+				</if>
+				<if test="item.SHELF_TYPE!=null">
+					SHELF_TYPE='${item.SHELF_TYPE}',
+				</if>
+				UPDATER_ID='${F_GR_CD}',
+				UPDATE_DATE= SYSDATE
+			</set>
+			<where>
+				SHELF_ID='${item.SHELF_ID}'
+			</where>
+		</foreach>
+	</update>
+	<!-- 新增货架信息 -->
+	<insert id="GoodsShelfInfoInsert" parameterType="hashmap">
+		INSERT INTO
+		 WMS1.WMS_SHELF
+		 (
+			SHELF_ID,
+			SHELF_NAME,
+			STORE_ID,
+			STORE_NAME,
+			LAYER_NUMBER,
+			COL_NUMBER,
+			POSITION_NUMBER,
+			BARCODE,
+			ENABLE,
+			NOTE,
+			CREATER_ID,
+			CREATE_DATE,
+			SHELF_TYPE
+		)
+		VALUES
+		(
+			'${SHELF_ID}',
+			'${SHELF_NAME}',
+			'${STORE_ID}',
+			'${STORE_NAME}',
+			'${LAYER_NUMBER}',
+			'${COL_NUMBER}',
+			'${POSITION_NUMBER}',
+			'${BARCODE}',
+			'${ENABLE}',
+			'${NOTE}',
+			'${F_USE_CD}',
+			 SYSDATE,
+			'${SHELF_TYPE}'
+		)
+	</insert>
+	<!-- 新增储区信息 -->
+	<insert id="StorageInfoInsert" parameterType="hashmap">
+		INSERT INTO WMS1.WMS_STORE(STORE_ID, 
+                      STORE_NAME, 
+                      WAREHOUSE_ID, 
+                      WAREHOUSE_NAME, 
+                      BARCODE, 
+                      ENABLE, 
+                      NOTE, 
+                      CREATER_ID, 
+                      CREATE_DATE)
+		(
+		<foreach collection="list" item="item" index="index"
+			separator="union all">
+			SELECT
+			STORE_ID_SEQ.NextVal,
+			'${item.STORE_NAME}',
+			'${item.WAREHOUSE_ID}',
+			'${item.WAREHOUSE_NAME}',
+			'${item.BARCODE}',
+			'${item.ENABLE}',
+			'${item.NOTE}',
+			'${F_USE_CD}',
+			SYSDATE
+			FROM DUAL
+		</foreach>
+		)
+	</insert>
+	<!-- 删除货架数据 -->
+	<select id="GoodsShelfInfoDelete" parameterType="hashmap"
+		resultType="java.util.HashMap">
+		DELETE FROM wms1.WMS_SHELF WS
+		WHERE
+		WS.SHELF_ID='${SHELF_ID}'
+	</select>
+	<!-- 查询出储区信息 -->
+	<select id="StorageInfoQuery" parameterType="hashmap"
+		resultType="java.util.HashMap">
+		<include refid="oraclePagingFileTop"></include>
+		STORE_ID,
+		STORE_NAME,
+		WAREHOUSE_ID,
+		WAREHOUSE_NAME,
+		BARCODE,
+		ENABLE,
+		NOTE,
+		CREATER_ID,
+		T4.EMP_NM AS CREATER_NAME,
+		TO_CHAR(CREATE_DATE,'YYYY-MM-DD HH24:MI:SS') AS CREATE_DATE,
+		UPDATER_ID,
+		T7.EMP_NM AS UPDATER_NAME,
+		TO_CHAR(UPDATE_DATE,'YYYY-MM-DD HH24:MI:SS') AS UPDATE_DATE
+		FROM WMS1.WMS_STORE T1	
+		LEFT JOIN (
+       		SELECT
+			T2.USE_CD,
+			T3.EMP_NM 
+			FROM iplant1.C_IPLANT_U1_T T2
+			LEFT JOIN iplant1.C_IPLANT_E1_T T3 ON T2.EMP_NO = T3.EMP_CD
+       	) T4 ON T1.CREATER_ID=T4.USE_CD
+       	LEFT JOIN (
+       		SELECT
+			T5.USE_CD,
+			T6.EMP_NM 
+			FROM iplant1.C_IPLANT_U1_T T5
+			LEFT JOIN iplant1.C_IPLANT_E1_T T6 ON T5.EMP_NO = T6.EMP_CD
+       	) T7 ON T1.UPDATER_ID=T7.USE_CD
+		<where>
+			1=1
+			<if test="STORE_NAME !=null and STORE_NAME !=''">
+				AND STORE_NAME like '%'||'${STORE_NAME}'||'%'  OR
+				WAREHOUSE_NAME='${STORE_NAME}'
+			</if>
+			<if test="STORE_ID !=null and STORE_ID !=''">
+				AND STORE_ID='${STORE_ID}'
+			</if>
+			<if test="WAREHOUSE_ID !=null and WAREHOUSE_ID !=''">
+				AND WAREHOUSE_ID='${WAREHOUSE_ID}'
+			</if>
+		</where>
+		<include refid="oraclePagingFileBottom"></include>
+	</select>
+	<!-- 查询出储区信息总数 -->
+	<select id="StorageInfoQuery_COUNT" parameterType="hashmap"
+		resultType="java.util.HashMap">
+		SELECT COUNT(1) AS ROWS_COUNT
+		FROM WMS1.WMS_STORE T1
+		LEFT JOIN (
+       		SELECT
+			T2.USE_CD,
+			T3.EMP_NM 
+			FROM iplant1.C_IPLANT_U1_T T2
+			LEFT JOIN iplant1.C_IPLANT_E1_T T3 ON T2.EMP_NO = T3.EMP_CD
+       	) T4 ON T1.CREATER_ID=T4.USE_CD
+       	LEFT JOIN (
+       		SELECT
+			T5.USE_CD,
+			T6.EMP_NM 
+			FROM iplant1.C_IPLANT_U1_T T5
+			LEFT JOIN iplant1.C_IPLANT_E1_T T6 ON T5.EMP_NO = T6.EMP_CD
+       	) T7 ON T1.UPDATER_ID=T7.USE_CD
+		<where>
+			1=1
+			<if test="STORE_NAME !=null and STORE_NAME !=''">
+				AND STORE_NAME like '%'||'${STORE_NAME}'||'%'  OR
+				WAREHOUSE_NAME='${STORE_NAME}'
+			</if>
+			<if test="STORE_ID !=null and STORE_ID !=''">
+				AND STORE_ID='${STORE_ID}'
+			</if>
+			<if test="WAREHOUSE_ID !=null and WAREHOUSE_ID !=''">
+				AND WAREHOUSE_ID='${WAREHOUSE_ID}'
+			</if>
+		</where>
+	</select>
+	
+	<!-- 修改储区 -->
+	<update id="StorageInfoInfoUpdate" parameterType="java.util.HashMap">
+		<foreach collection="list" item="item" index="index" open="begin" close=";end;" separator=";">
+			update wms1.WMS_STORE
+			<set>
+				<if test="item.STORE_NAME!=null">
+					STORE_NAME='${item.STORE_NAME}',
+				</if>
+				<if test="item.WAREHOUSE_ID!=null">
+					WAREHOUSE_ID='${item.WAREHOUSE_ID}',
+				</if>
+				<if test="item.WAREHOUSE_NAME!=null">
+					WAREHOUSE_NAME='${item.WAREHOUSE_NAME}',
+				</if>
+				<if test="item.BARCODE!=null">
+					BARCODE='${item.BARCODE}',
+				</if>
+				<if test="item.ENABLE!=null">
+					ENABLE='${item.ENABLE}',
+				</if>
+				<if test="item.NOTE!=null">
+					NOTE='${item.NOTE}',
+				</if>
+				UPDATER_ID='${F_GR_CD}',
+				UPDATE_DATE= SYSDATE
+			</set>
+			<where>
+				STORE_ID='${item.STORE_ID}'
+			</where>
+		</foreach>
+	</update>
+	<!-- 删除储区数据 -->
+	<select id="StorageInfoInfoDelete" parameterType="hashmap"
+		resultType="java.util.HashMap">
+		DELETE FROM WMS1.WMS_STORE WHERE STORE_ID='${STORE_ID}'
+	</select>
+	<!-- 查询货位的树形结构 -->
+	<select id="PositionMenuInfoQuery" parameterType="hashmap"
+		resultType="java.util.HashMap">
+		select '1' as state, wh.warehouse_id as ST_C_CD ,wh.warehouse_name as
+		ST_C_NM, 'N/A' as ST_P_CD
+		from wms1.wms_warehouse wh where wh.enable = 'Y'
+		union all
+		select '2' as state,
+		ws.store_id as ST_C_CD, ws.store_name as ST_C_NM, ws.warehouse_id as
+		ST_P_CD
+		from wms1.wms_store ws where ws.enable = 'Y'
+		union all
+		select '3' as state, sh.shelf_id as ST_C_CD,
+		sh.shelf_name as ST_C_NM, sh.store_id as ST_P_CD
+		from wms1.wms_shelf sh where sh.enable = 'Y'
+	</select>
+
+	<!-- 查询储区的树形结构 -->
+	<select id="StoreMenuInfoQuery" parameterType="hashmap"
+		resultType="java.util.HashMap">
+		select wh.warehouse_id as ST_C_CD ,wh.warehouse_name as
+		ST_C_NM, 'N/A' as ST_P_CD
+		from wms1.wms_warehouse wh where wh.enable = 'Y'
+		union all
+		select
+		ws.store_id as ST_C_CD, ws.store_name as ST_C_NM, ws.warehouse_id as
+		ST_P_CD
+		from wms1.wms_store ws where ws.enable = 'Y'
+	</select>
+
+	<!-- 查询货架的树形结构 -->
+	<select id="ShelfMenuInfoQuery" parameterType="hashmap"
+		resultType="java.util.HashMap">
+		select
+		ws.store_id as ST_C_CD, ws.store_name as ST_C_NM, 'N/A' as
+		ST_P_CD
+		from wms1.wms_store ws where ws.enable = 'Y'
+		union all
+		select sh.shelf_id as ST_C_CD,
+		sh.shelf_name as ST_C_NM, sh.store_id as ST_P_CD
+		from wms1.wms_shelf sh where sh.enable = 'Y'
+	</select>
+
+	<!-- 查询货架的货位信息 -->
+	<select id="queryShelfPositionInfo" parameterType="hashmap"
+		resultType="java.util.HashMap">
+		SELECT
+		WS.SHELF_ID AS SHELFID,
+		WS.SHELF_NAME AS SHELFNAME,
+		WS.LAYER_NUMBER AS RNUM,
+		WS.COL_NUMBER AS CNUM,
+		WS.POSITION_NUMBER LOTNUM,
+		<!-- WS.POSITION_NUMBER / WS.LAYER_NUMBER AS CAPACITY, -->
+		WP.POSITION_ID AS LOTID,
+		WP.POSITION_NAME AS LOTNAME,
+		WP.ROW_ID AS ROID,
+		WP.COLUMN_ID AS COID,
+		WP.BARCODE,
+		WP.STATUS AS STATUS
+		FROM WMS1.WMS_SHELF WS
+		LEFT JOIN WMS1.WMS_POSITION WP
+		ON WS.SHELF_ID=WP.SHELF_ID
+		<where>1=1
+		<if test="SHELF_ID !=null and SHELF_ID !='' ">
+		     AND WS.SHELF_ID = '${SHELF_ID}'
+		</if>
+		 <if test="POSITION_ID !=null and POSITION_ID !='' ">
+	         AND WP.POSITION_ID = '${POSITION_ID}'
+	     </if>
+		 </where>
+		 ORDER BY POSITION_ID
+	</select>
+
+	<!-- 添加货架的货位信息 -->
+	<insert id="AddShelfPositionInfo" parameterType="java.util.List">
+		INSERT INTO WMS1.WMS_POSITION
+		(
+		POSITION_ID,
+		POSITION_NAME,
+		ROW_ID,
+		COLUMN_ID,
+		STATUS,
+		WAREHOUSE_ID,
+		WAREHOUSE_NAME,
+		STORE_ID,
+		STORE_NAME,
+		SHELF_ID,
+		SHELF_NAME,
+		MATERIA_ID,
+		MATERIA_NAME,
+		ENABLE,
+		NOTE,
+		CREATER_ID,
+		CREATE_DATE,
+		)
+		(
+		<foreach collection="list" item="item" index="index"
+			separator="union all">
+			SELECT
+			iplant1.C_GET_UNIQUE_ID(),
+			'${item.ROW_ID}',
+			'${item.COLUMN_ID}',
+			'${item.STATUS}',
+			'${WAREHOUSE_ID}',
+			'${WAREHOUSE_NAME}',
+			'${STORE_ID}',
+			'${STORE_NAME}',
+			'${SHELF_ID}',
+			'${SHELF_NAME}',
+			'${MATERIA_ID}',
+			'${MATERIA_NAME}',
+			'${ENABLE}',
+			'${NOTE}',
+			'${F_USE_CD}',
+			SYSDATE
+			FROM DUAL
+		</foreach>
+		)
+	</insert>
+	<!-- 下拉框查询仓库信息 -->
+	<select id="ComboBoxWarehouseInfoQuery" parameterType="hashmap"
+		resultType="java.util.HashMap">
+    select WAREHOUSE_ID,
+    WAREHOUSE_NAME,
+    ENABLE,
+    NOTE
+    FROM wms1.WMS_WAREHOUSE where ENABLE='Y'
+	</select>
+	<!-- 下拉框查询出储区信息 -->
+	<select id="ComboBoxStorageInfoQuery" parameterType="hashmap"
+		resultType="java.util.HashMap">
+	select STORE_ID,
+    STORE_NAME,
+    ENABLE   
+    FROM WMS1.WMS_STORE where ENABLE='Y'
+	</select>
+	<!-- 查询表单模板数据 -->
+	 <select id="FormTemplateInfoQuery" parameterType="hashmap" resultType="java.util.HashMap">
+	 <include refid="oraclePagingFileTop"></include>
+	 FORM_NAME,FORM_ELEMENTS,CREATE_DATE FROM IPLANT1.FORM_TEMPLATE
+	<include refid="oraclePagingFileBottom"></include>
+	</select> 
+	<!-- 查询出储区信息总数 -->
+	<select id="FormTemplateInfoQuery_COUNT" parameterType="hashmap"
+		resultType="java.util.HashMap">
+		SELECT COUNT(1) AS ROWS_COUNT
+		FROM IPLANT1.FORM_TEMPLATE
+	</select>
+
+	
+	<!-- 标签管理 -->
+	<!-- 查询标签管理信息 -->
+	<select id="queryBarcodeRule" parameterType="hashmap" resultType="java.util.HashMap">
+	    <include refid="oraclePagingFileTop"></include> 
+	 			TEMPLATE_ID,
+                TEMPLATE_TYPE,
+				TEMPLATE_NAME,
+				PREFIX_ONE,
+				PREFIX_ONE_LENGTH,
+				PREFIX_ONE_INIT_VALUE,
+				PREFIX_TWO,
+				PREFIX_TWO_LENGTH,
+				PREFIX_TWO_INIT_VALUE,
+				PREFIX_THREE,
+				PREFIX_THREE_LENGTH,
+				PREFIX_THREE_INIT_VALUE,
+				SERIAL_NUMBER_LENGTH,
+				SERIAL_NUMBER_INIT_VALUE,
+				SAMPLE_VALUE
+	         FROM WMS1.WMS_BARCODE_TEMPLETE 
+	            <where> 1=1
+	            	<if test="TEMPLATE_ID !=null and TEMPLATE_ID !='' ">
+	            		AND TEMPLATE_ID = '${TEMPLATE_ID}'
+	            	</if>
+	            	<if test="TEMPLATE_TYPE !=null and TEMPLATE_TYPE !='' ">
+	            		AND TEMPLATE_TYPE = '${TEMPLATE_TYPE}'
+	            	</if>
+	            </where>	            	
+	      <include refid="oraclePagingFileBottom"></include>
+	</select>
+	<!-- 查询标签管理信息分页总数 -->
+	<select id="queryBarcodeRule_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+	   SELECT  COUNT(1) AS ROWS_COUNT   
+	       FROM WMS1.WMS_BARCODE_TEMPLETE 
+	            <where> 1=1
+	            	<if test="TEMPLATE_ID !=null and TEMPLATE_ID !='' ">
+	            		AND TEMPLATE_ID = '${TEMPLATE_ID}'
+	            	</if>
+	            </where>
+	</select>
+	<!-- 新增标签管理信息 -->
+	<insert id="insertBarcodeRule" parameterType="hashmap" >
+	           INSERT INTO 
+	    			WMS1.WMS_BARCODE_TEMPLETE 
+	    				(
+	    				    TEMPLATE_ID,
+			                TEMPLATE_TYPE,
+							TEMPLATE_NAME,
+							PREFIX_ONE,
+							PREFIX_ONE_LENGTH,
+							PREFIX_ONE_INIT_VALUE,
+							PREFIX_TWO,
+							PREFIX_TWO_LENGTH,
+							PREFIX_TWO_INIT_VALUE,
+							PREFIX_THREE,
+							PREFIX_THREE_LENGTH,
+							PREFIX_THREE_INIT_VALUE,
+							SERIAL_NUMBER_LENGTH,
+							SERIAL_NUMBER_INIT_VALUE,
+							SAMPLE_VALUE
+	    				 )
+	    			  VALUES
+	    			    (	    			    
+	    			     '${TEMPLATE_ID}',
+	    			     '${TEMPLATE_TYPE}',
+	    			     '${TEMPLATE_NAME}',
+	    			     '${PREFIX_ONE}',
+	    			     '${PREFIX_ONE_LENGTH}',
+	    			     '${PREFIX_ONE_INIT_VALUE}',
+	    			     '${PREFIX_TWO}',
+	    			     '${PREFIX_TWO_LENGTH}',
+	    			     '${PREFIX_TWO_INIT_VALUE}',
+	    			     '${PREFIX_THREE}',
+	    			     '${PREFIX_THREE_LENGTH}',
+	    			     '${PREFIX_THREE_INIT_VALUE}',
+	    			     '${SERIAL_NUMBER_LENGTH}',
+	    			     '${SERIAL_NUMBER_INIT_VALUE}',
+	    			     '${SAMPLE_VALUE}'	    			    
+	    			      )	 
+	
+	</insert>
+	<!-- 修改标签管理信息 -->
+	<update id="updateBarcodeRule" parameterType="hashmap" >
+	     UPDATE WMS1.WMS_BARCODE_TEMPLETE
+	    			<set>	    					    					    				    				
+	    				<if test="TEMPLATE_NAME !=null  ">
+	    					TEMPLATE_NAME='${TEMPLATE_NAME}',
+	    				</if>
+	    				<if test="PREFIX_ONE !=null  ">
+	    					PREFIX_ONE='${PREFIX_ONE}',
+	    				</if>
+	    				<if test="PREFIX_ONE_LENGTH !=null  ">
+	    					PREFIX_ONE_LENGTH='${PREFIX_ONE_LENGTH}',
+	    				</if>
+	    				<if test="PREFIX_ONE_INIT_VALUE !=null  ">
+	    					PREFIX_ONE_INIT_VALUE='${PREFIX_ONE_INIT_VALUE}',
+	    				</if>
+	    				<if test="PREFIX_TWO !=null  ">
+	    					PREFIX_TWO='${PREFIX_TWO}',
+	    				</if>
+	    				<if test="PREFIX_TWO_LENGTH !=null  ">
+	    					PREFIX_TWO_LENGTH='${PREFIX_TWO_LENGTH}',
+	    				</if>
+	    				<if test="PREFIX_TWO_INIT_VALUE !=null  ">
+	    					PREFIX_TWO_INIT_VALUE='${PREFIX_TWO_INIT_VALUE}',
+	    				</if>
+	    				<if test="PREFIX_THREE !=null  ">
+	    					PREFIX_THREE='${PREFIX_THREE}',
+	    				</if>
+	    				<if test="PREFIX_THREE_LENGTH !=null  ">
+	    					PREFIX_THREE_LENGTH='${PREFIX_THREE_LENGTH}',
+	    				</if>
+	    				<if test="PREFIX_THREE_INIT_VALUE !=null  ">
+	    					PREFIX_THREE_INIT_VALUE='${PREFIX_THREE_INIT_VALUE}',
+	    				</if>
+	    				<if test="SERIAL_NUMBER_LENGTH !=null  ">
+	    					SERIAL_NUMBER_LENGTH='${SERIAL_NUMBER_LENGTH}',
+	    				</if>
+	    				<if test="SERIAL_NUMBER_INIT_VALUE !=null  ">
+	    					SERIAL_NUMBER_INIT_VALUE='${SERIAL_NUMBER_INIT_VALUE}',
+	    				</if>
+	    				<if test="SAMPLE_VALUE !=null  ">
+	    					SAMPLE_VALUE='${SAMPLE_VALUE}',
+	    				</if>
+	    		   </set>
+	    		   <where>
+	    			   TEMPLATE_TYPE='${TEMPLATE_TYPE}'
+	    		   </where>
+	</update>
+	<!-- 删除标签管理信息 -->
+	<delete id="deleteBarcodeRule" parameterType="hashmap" >
+	       DELETE WMS1.WMS_BARCODE_TEMPLETE
+	             	<where>
+	             		TEMPLATE_ID='${TEMPLATE_ID}'
+	             	</where>
+	</delete>
+	<!-- 标签管理树形结构 -->
+	<select id="queryBarcodeRuleTree" parameterType="hashmap" resultType="java.util.HashMap">
+	     SELECT 
+		       T1.DICT_CD AS ST_C_CD ,
+		       T1.DICT_NM AS ST_C_NM, 
+		       'N/A' AS ST_P_CD
+		 FROM IPLANT1.C_IPLANT_DM_T T1 WHERE T1.USE_YN = 'Y' AND DICT_CD='BCR01'
+		    UNION ALL
+		 SELECT
+		    T2.DICT_IT AS ST_C_CD, 
+		    T2.DICT_IT_NM AS ST_C_NM, 
+		    T2.DICT_CD AS ST_P_CD
+		 FROM IPLANT1.C_IPLANT_DD_T T2 WHERE T2.USE_YN = 'Y' AND DICT_CD='BCR01'
+   </select>
+	
+	<!-- 抽样方案 -->
+	<!-- 查询抽样标准信息 -->
+	<select id="querySampleStandInfo" parameterType="hashmap"
+		resultType="java.util.HashMap">
+		SELECT * FROM(
+		SELECT
+		T1.SAMPLE_MIN_NUMBER||'~'||T1.SAMPLE_MAX_NUMBER AS NUM,
+		(SELECT SAMPLE_CODE FROM WMS1.WMS_SAMPLE_STAND T2 WHERE
+		T2.SAMPLE_LEVEL='S-1'AND
+		T1.SAMPLE_MIN_NUMBER||'~'||T1.SAMPLE_MAX_NUMBER=T2.SAMPLE_MIN_NUMBER||'~'||T2.SAMPLE_MAX_NUMBER)
+		AS S1,
+		(SELECT SAMPLE_CODE FROM WMS1.WMS_SAMPLE_STAND T2 WHERE
+		T2.SAMPLE_LEVEL='S-2'AND
+		T1.SAMPLE_MIN_NUMBER||'~'||T1.SAMPLE_MAX_NUMBER=T2.SAMPLE_MIN_NUMBER||'~'||T2.SAMPLE_MAX_NUMBER)
+		AS S2,
+		(SELECT SAMPLE_CODE FROM WMS1.WMS_SAMPLE_STAND T2 WHERE
+		T2.SAMPLE_LEVEL='S-3'AND
+		T1.SAMPLE_MIN_NUMBER||'~'||T1.SAMPLE_MAX_NUMBER=T2.SAMPLE_MIN_NUMBER||'~'||T2.SAMPLE_MAX_NUMBER)
+		AS S3,
+		(SELECT SAMPLE_CODE FROM WMS1.WMS_SAMPLE_STAND T2 WHERE
+		T2.SAMPLE_LEVEL='S-4'AND
+		T1.SAMPLE_MIN_NUMBER||'~'||T1.SAMPLE_MAX_NUMBER=T2.SAMPLE_MIN_NUMBER||'~'||T2.SAMPLE_MAX_NUMBER)
+		AS S4,
+		(SELECT SAMPLE_CODE FROM WMS1.WMS_SAMPLE_STAND T2 WHERE
+		T2.SAMPLE_LEVEL='Ⅰ'AND
+		T1.SAMPLE_MIN_NUMBER||'~'||T1.SAMPLE_MAX_NUMBER=T2.SAMPLE_MIN_NUMBER||'~'||T2.SAMPLE_MAX_NUMBER)
+		AS S5,
+		(SELECT SAMPLE_CODE FROM WMS1.WMS_SAMPLE_STAND T2 WHERE
+		T2.SAMPLE_LEVEL='Ⅱ'AND
+		T1.SAMPLE_MIN_NUMBER||'~'||T1.SAMPLE_MAX_NUMBER=T2.SAMPLE_MIN_NUMBER||'~'||T2.SAMPLE_MAX_NUMBER)
+		AS S6,
+		(SELECT SAMPLE_CODE FROM WMS1.WMS_SAMPLE_STAND T2 WHERE
+		T2.SAMPLE_LEVEL='Ⅲ'AND
+		T1.SAMPLE_MIN_NUMBER||'~'||T1.SAMPLE_MAX_NUMBER=T2.SAMPLE_MIN_NUMBER||'~'||T2.SAMPLE_MAX_NUMBER)
+		AS S7
+		FROM WMS1.WMS_SAMPLE_STAND T1
+		GROUP BY T1.SAMPLE_MIN_NUMBER||'~'||T1.SAMPLE_MAX_NUMBER ) T
+		ORDER BY to_number(SUBSTR( T.NUM, 1, INSTR(T.NUM,'~')-1))
+	</select>
+	<!-- 查询抽样方案信息 -->
+	<select id="querySamplePlanInfo" parameterType="hashmap" 
+		resultType="java.util.HashMap">
+		<include refid="oraclePagingFileTop"></include>
+		          DD.*
+		            FROM
+					 (
+						SELECT
+						    T1.SAMPLE_ID AS SAMPLE_ID,
+							T1.MATERIA_ID AS MATERIA_ID,
+							T2.ITEM_NM AS MATERIA_NM,
+							T1.SAMPLE_LEVEL AS SAMPLE_LEVEL,
+							T1.SAMPLE_STAND_VALUE AS SAMPLE_STAND_VALUE,
+							T1.SAMPLE_ASK AS SAMPLE_ASK
+						FROM WMS1.WMS_SAMPLE_RULE T1
+						left join MES1.R_MES_ITEM_T T2 ON T1.MATERIA_ID=T2.ITEM_CD
+						ORDER BY T1.SAMPLE_ID DESC
+						)DD
+				   <where> 1=1
+		              <if test=" MATERIA_ID !=null and MATERIA_ID !='' ">		            	 
+		            	  AND DD.MATERIA_ID LIKE '%${MATERIA_ID}%'
+		              </if>
+		           </where>
+		       <include refid="oraclePagingFileBottom"></include> 
+	</select>
+    <!-- 查询抽样方案信息分页总数-->
+	<select id="querySamplePlanInfo_COUNT" parameterType="hashmap" resultType="java.util.HashMap"> 
+		        SELECT 
+ 					COUNT(1)   ROWS_COUNT
+	              FROM WMS1.WMS_SAMPLE_RULE
+				   <where> 1=1
+		              <if test=" MATERIA_ID !=null and MATERIA_ID !='' ">		            	 
+		            	  AND MATERIA_ID LIKE '%${MATERIA_ID}%'
+		              </if>
+		          </where>
+	</select>
+	<!-- 新增抽样方案信息 -->
+		<insert id="InsertSamplePlanInfo" parameterType="hashmap"> 
+			   INSERT INTO 
+					   WMS1.WMS_SAMPLE_RULE
+					        (
+					            SAMPLE_ID,
+						        MATERIA_ID,
+								SAMPLE_LEVEL,
+								SAMPLE_STAND_VALUE,
+								SAMPLE_ASK
+					         )
+					         VALUES
+					         (
+		                      	'${SAMPLE_ID}',
+			                    '${MATERIA_ID}',
+			                    '${SAMPLE_LEVEL}',
+			                    '${SAMPLE_STAND_VALUE}',
+					         	'${SAMPLE_ASK}'			       
+		                      )
+	    </insert>
+	<!-- 修改抽样方案信息 -->
+		<update id="UpdateSamplePlanInfo" parameterType="HashMap" >
+				UPDATE WMS1.WMS_SAMPLE_RULE
+					<set>
+					   <if test="MATERIA_ID !=null"> 
+					      MATERIA_ID='${MATERIA_ID}',
+					   </if>
+					   <if test="SAMPLE_LEVEL !=null"> 
+					      SAMPLE_LEVEL='${SAMPLE_LEVEL}',
+					   </if>
+					   <if test="SAMPLE_STAND_VALUE !=null"> 
+					      SAMPLE_STAND_VALUE='${SAMPLE_STAND_VALUE}',
+					   </if>
+					   <if test="SAMPLE_ASK !=null"> 
+					      SAMPLE_ASK='${SAMPLE_ASK}',
+					   </if>
+					</set>
+					<where> SAMPLE_ID = '${SAMPLE_ID}'</where>
+		</update>
+		<!-- 删除抽样方案信息 -->
+		<delete id="DeleteSamplePlanInfo" parameterType="hashmap">
+	             DELETE WMS1.WMS_SAMPLE_RULE
+	             	<where>
+	             		SAMPLE_ID='${SAMPLE_ID}'
+	             	</where>  
+	    </delete>
+	    
+	    <!-- 查询抽样方案信息分页总数-->
+	<select id="querySelftMarites" parameterType="hashmap" resultType="java.util.HashMap"> 
+		        SELECT COUNT(*) AS STATUS  FROM 
+				(
+				 SELECT SHELF_ID FROM WMS1.WMS_POSITION   WHERE SHELF_ID='${SHELF_ID}'    	       
+				)	   
+	</select>
+	
+	<!-- 物料分类管理 -->
+	<!-- 查询物料分类管理标准 -->	
+	<select id="querymateriaDivideStand" parameterType="hashmap" resultType="java.util.HashMap"> 
+		        SELECT 
+ 					DIVIDE_ID,
+ 					DIVIDE_TYPE,
+ 					DIVIDE_STANDAR,
+ 					MANAGE_STANDAR,
+ 					WMS_DEFAULT
+	              FROM WMS1.WMS_MATERIA_DIVIDE
+	</select>
+	<!-- 查询物料分类管理 -->	
+	<select id="querymateriaDivideManage" parameterType="hashmap" resultType="java.util.HashMap"> 
+		       <include refid="oraclePagingFileTop"></include> 					     
+                     DD.*
+			       FROM
+			         (SELECT
+			          T1.MANAGE_ID AS MANAGE_ID,
+			          T1.MATERIA_ID AS MATERIA_ID,
+			          T2.ITEM_NM AS MATERIA_NM,
+			          T3.DIVIDE_ID AS DIVIDE_ID,
+			          T1.DIVIDE_TYPE AS DIVIDE_TYPE,
+			          T1.OVER_SEND AS OVER_SEND 
+			        FROM WMS1.WMS_MATERIA_DIVIDE_MANAGE T1
+			        LEFT JOIN MES1.R_MES_ITEM_T T2 ON T1.MATERIA_ID=T2.ITEM_CD
+			        LEFT JOIN WMS1.WMS_MATERIA_DIVIDE T3 ON T1.DIVIDE_TYPE=T3.DIVIDE_TYPE
+			         ORDER BY T1.MANAGE_ID DESC
+			           )DD
+		          <where>
+		              <if test=" MATERIA_ID !=null and MATERIA_ID !='' ">		            	 
+			            	  AND DD.MATERIA_ID LIKE '%${MATERIA_ID}%'
+			          </if>
+		          </where>	          
+	        <include refid="oraclePagingFileBottom"></include> 
+	</select>
+	 <!-- 查询物料分类管理分页总数-->
+	<select id="querymateriaDivideManage_COUNT" parameterType="hashmap" resultType="java.util.HashMap"> 
+		        SELECT 
+ 					COUNT(1)   ROWS_COUNT
+	              FROM WMS1.WMS_MATERIA_DIVIDE_MANAGE
+				   <where> 1=1
+		              <if test=" MATERIA_ID !=null and MATERIA_ID !='' ">		            	 
+		            	  AND MATERIA_ID LIKE '%${MATERIA_ID}%'
+		              </if>
+		          </where>
+	</select>
+	<!-- 新增物料分类管理 -->
+	<insert id="InsertmateriaDivideManage" parameterType="hashmap"> 
+			   INSERT INTO 
+					   WMS1.WMS_MATERIA_DIVIDE_MANAGE
+					        (
+					            MANAGE_ID,
+						        MATERIA_ID,
+								DIVIDE_TYPE,
+								OVER_SEND
+					         )
+					         VALUES
+					         (
+		                      	'${MANAGE_ID}',
+			                    '${MATERIA_ID}',
+			                    '${DIVIDE_TYPE}',
+					         	'${OVER_SEND}'			       
+		                      )
+	</insert>
+	<!-- 修改物料分类管理 -->
+	<update id="UpdatemateriaDivideManage" parameterType="HashMap" >
+			UPDATE WMS1.WMS_MATERIA_DIVIDE_MANAGE
+				<set>
+					  <if test="DIVIDE_TYPE !=null"> 
+					      DIVIDE_TYPE='${DIVIDE_TYPE}',
+					  </if>
+					  <if test="OVER_SEND !=null"> 
+					      OVER_SEND='${OVER_SEND}',
+					  </if>
+				</set>
+				<where> MANAGE_ID = '${MANAGE_ID}'</where>
+	</update>
+	<!-- 删除物料分类管理 -->
+	<delete id="DeletemateriaDivideManage" parameterType="hashmap">
+	            DELETE WMS1.WMS_MATERIA_DIVIDE_MANAGE
+	             <where>
+	             		MANAGE_ID='${MANAGE_ID}'
+	             </where>  
+	</delete>
+	
+	   <!-- 查询货位信息表 -->			
+	    <!-- 初始化货位数据 -->
+  <select id="initShelfPosition" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap">	
+		{call WMS_BASIC_INFO.wms_create_position('${SHELFID}','${SHELFNAME}','${ROWNUM}','${COLNUM}','${SHELFTYPE}',
+					#{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=checkInResult},
+    				#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, 
+    				#{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},
+    				#{ROWS_COUNT,jdbcType=INTEGER,mode=OUT,javaType=Integer})}
+	
+  </select>
+
+
+  <!-- 查询仓库货架ID-->
+	<select id="queryShelfID" parameterType="hashmap" resultType="java.util.HashMap"> 
+		       SELECT 'SH'||(iplant1.TRANS_10TO36_FUN(iplant1.SH_SEQ.NEXTVAL, 4)) AS SHELF_ID FROM DUAL					
+	</select>
+	
+  <!-- 查询仓库类型ID-->
+	<select id="querywarehouseTypeID" parameterType="hashmap" resultType="java.util.HashMap"> 
+		       SELECT 'WH'||(iplant1.TRANS_10TO36_FUN(mes1.WH_SEQ.NEXTVAL, 4)) AS WAREHOUSE_TYPE_ID FROM DUAL					
+	</select>
+	
+  <!-- 查询仓库信息ID-->
+	<select id="querywarehouseID" parameterType="hashmap" resultType="java.util.HashMap"> 
+		       SELECT 'C'||(iplant1.TRANS_10TO36_FUN(mes1.C_SEQ.NEXTVAL, 4)) AS WAREHOUSE_ID FROM DUAL					
+	</select>
+	
+  <!-- 查询生成物料分类编号-->
+	<select id="queryCreatmateriaID" parameterType="hashmap" resultType="java.util.HashMap"> 
+		       SELECT MES1.WLFL_SEQ.NEXTVAL AS MANAGE_ID FROM DUAL					
+	</select>
+  <!-- 查询生成抽样编号-->
+	<select id="queryCreateSampleID" parameterType="hashmap" resultType="java.util.HashMap"> 
+		       SELECT MES1.CY_SEQ.NEXTVAL AS SAMPLE_ID FROM DUAL					
+	</select>
+	
+  <!-- 查询仓库唯一码和RFID关联表信息-->
+	<select id="queryWareHouseRfid" parameterType="hashmap" resultType="java.util.HashMap"> 	   
+	   <include refid="oraclePagingFileTop"></include> 		
+        DD.*
+        FROM
+        (SELECT
+          ID,
+          BARCODE,
+          RFID,
+          ENABLE,         
+          TO_CHAR(CREATE_DATE,'YYYY-MM-DD HH24:MI:SS') AS CREATE_DATE,
+          TO_CHAR(UPDATE_DATE,'YYYY-MM-DD HH24:MI:SS') AS UPDATE_DATE
+       FROM WMS1.WMS_RFID_BARCODE
+       <where>
+			1=1			
+			<if test="BARCODE !=null and BARCODE !='' ">
+				AND BARCODE = '${BARCODE}'
+			</if>
+			<if test="RFID !=null and RFID !='' ">
+				AND RFID='${RFID}'
+			</if>
+		</where>
+		ORDER BY RFID 	
+		)DD
+       <include refid="oraclePagingFileBottom"></include> 	       					
+	</select>
+	<!-- 查询托盘信息分页总数 -->
+	<select id="queryWareHouseRfid_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT
+		COUNT(1) AS ROWS_COUNT
+		FROM WMS1.WMS_RFID_BARCODE
+		<where>
+			1=1			
+			<if test="BARCODE !=null and BARCODE !='' ">
+				AND BARCODE = '${BARCODE}'
+			</if>
+			<if test="RFID !=null and RFID !='' ">
+				AND RFID='${RFID}'
+			</if>
+		</where>
+	</select>
+	<!-- 新增仓库唯一码和RFID关联表信息 -->
+	<insert id="InsertWareHouseRfid" parameterType="hashmap"> 
+			   INSERT INTO 
+					   WMS1.WMS_RFID_BARCODE
+					        (
+					         ID,
+                             BARCODE,
+                             RFID,
+                             ENABLE,
+                             CREATE_DATE
+					         )
+					         VALUES
+					         (
+		                      	'${ID}',
+			                    '${BARCODE}',
+			                    '${RFID}',
+			                    '${ENABLE}',
+			                    SYSDATE				         			       
+		                      )
+	</insert>
+	<!-- 修改仓库唯一码和RFID关联表信息 -->
+	<update id="UpdateWareHouseRfid" parameterType="HashMap" >
+			UPDATE WMS1.WMS_RFID_BARCODE
+				<set>
+					  <if test="BARCODE !=null"> 
+					      BARCODE='${BARCODE}',
+					  </if>
+					  <if test="RFID !=null"> 
+					      RFID='${RFID}',
+					  </if>
+					  <if test="ENABLE !=null"> 
+					      ENABLE='${ENABLE}',
+					  </if>
+					  UPDATE_DATE=SYSDATE
+				</set>
+				<where> ID = '${ID}'</where>
+	</update>
+	<!-- 删除仓库唯一码和RFID关联表信息 -->
+	<delete id="DeleteWareHouseRfid" parameterType="hashmap">
+	            DELETE WMS1.WMS_RFID_BARCODE
+	             <where>
+	             		ID='${ID}'
+	             </where>  
+	</delete>
+	<!-- 查询生成RFID表ID-->
+	<select id="CreatRFID_ID" parameterType="hashmap" resultType="java.util.HashMap"> 
+		       SELECT MES1.RFID_SEQ.NEXTVAL AS ID FROM DUAL					
+	</select>
+	
+	<!-- 查询仓储出入库中间表信息-->
+	<select id="queryWMSWCSlink" parameterType="hashmap" resultType="java.util.HashMap"> 	   
+	   <include refid="oraclePagingFileTop"></include> 		
+        DD.*
+        FROM
+        (SELECT
+          TEMP_ID,
+          SHELF_ID,
+          SHELF_NAME,          
+          ROW_ID,
+          COLUMN_ID,
+          BARCODE,
+          DIRECT,
+          OPERATE_STATUS,
+          DATA_STATUS,        
+          TO_CHAR(CREATE_TIME,'YYYY-MM-DD HH24:MI:SS') AS CREATE_TIME,
+          TO_CHAR(UPDATE_TIME,'YYYY-MM-DD HH24:MI:SS') AS UPDATE_TIME,
+          DETAIL
+       FROM WMS1.WMS_COM_TEMP
+       <where>
+			1=1	
+			AND SHELF_NAME IN ('A1货架','A2货架')		
+			<if test="TEMP_ID !=null and TEMP_ID !='' ">
+				AND TEMP_ID = '${TEMP_ID}'
+			</if>
+			<if test="SHELF_ID !=null and SHELF_ID !='' ">
+				AND SHELF_ID = '${SHELF_ID}'
+			</if>
+			<if test="BARCODE !=null and BARCODE !='' ">
+				AND BARCODE='${BARCODE}'
+			</if>
+			<if test="ROW_ID !=null and ROW_ID !='' ">
+				AND ROW_ID='${ROW_ID}'
+			</if>
+			<if test="DIRECT !=null and DIRECT !='' ">
+				AND DIRECT='${DIRECT}'
+			</if>
+			<if test="OPERATE_STATUS !=null and OPERATE_STATUS !='' ">
+				AND OPERATE_STATUS='${OPERATE_STATUS}'
+			</if>
+			<if test="DATA_STATUS !=null and DATA_STATUS !='' ">
+				AND DATA_STATUS='${DATA_STATUS}'
+			</if>
+		</where>
+		ORDER BY DIRECT DESC, BARCODE 	
+		)DD
+       <include refid="oraclePagingFileBottom"></include> 	       					
+	</select>
+	<!-- 查询仓储出入库中间表信息分页总数 -->
+	<select id="queryWMSWCSlink_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT
+		COUNT(1) AS ROWS_COUNT
+		 FROM WMS1.WMS_COM_TEMP
+		  <where>
+			1=1	
+			AND SHELF_NAME IN ('A1货架','A2货架')		
+			<if test="TEMP_ID !=null and TEMP_ID !='' ">
+				AND TEMP_ID = '${TEMP_ID}'
+			</if>
+			<if test="SHELF_NAME !=null and SHELF_NAME !='' ">
+				AND SHELF_NAME LIKE '%${SHELF_NAME}%'
+			</if>
+			<if test="BARCODE !=null and BARCODE !='' ">
+				AND BARCODE='${BARCODE}'
+			</if>
+			<if test="ROW_ID !=null and ROW_ID !='' ">
+				AND ROW_ID='${ROW_ID}'
+			</if>
+			<if test="DIRECT !=null and DIRECT !='' ">
+				AND DIRECT='${DIRECT}'
+			</if>
+			<if test="OPERATE_STATUS !=null and OPERATE_STATUS !='' ">
+				AND OPERATE_STATUS='${OPERATE_STATUS}'
+			</if>
+			<if test="DATA_STATUS !=null and DATA_STATUS !='' ">
+				AND DATA_STATUS='${DATA_STATUS}'
+			</if>
+		</where>
+	</select>
+	<!-- 新增仓储出入库中间表信息 -->
+	<insert id="InsertWMSWCSlink" parameterType="hashmap"> 
+			   INSERT INTO 
+					   WMS1.WMS_COM_TEMP
+					        (
+					          TEMP_ID,
+					          SHELF_ID,
+					          SHELF_NAME,
+					          ROW_ID,
+					          COLUMN_ID,
+					          BARCODE,
+					          DIRECT,
+					          OPERATE_STATUS,
+					          DATA_STATUS,  
+					          DETAIL,
+                              CREATE_TIME
+					         )
+					         VALUES
+					         (
+		                      	'${TEMP_ID}',
+			                    '${SHELF_ID}',
+			                    '${SHELF_NAME}',			                    
+			                    '${ROW_ID}',
+			                    '${COLUMN_ID}',
+			                    '${BARCODE}',
+			                    '${DIRECT}',
+			                    '${OPERATE_STATUS}',
+			                    '${DATA_STATUS}',
+			                    '${DETAIL}',
+			                    SYSDATE				         			       
+		                      )
+	</insert>
+	<!-- 修改仓储出入库中间表信息息 -->
+	<update id="UpdateWMSWCSlink" parameterType="HashMap" >
+			UPDATE WMS1.WMS_COM_TEMP
+				<set>
+					  <if test="SHELF_ID !=null"> 
+					      SHELF_ID='${SHELF_ID}',
+					  </if>
+					   <if test="SHELF_NAME !=null"> 
+					      SHELF_NAME='${SHELF_NAME}',
+					  </if>
+					  <if test="ROW_ID !=null"> 
+					      ROW_ID='${ROW_ID}',
+					  </if>	
+					  <if test="COLUMN_ID !=null"> 
+					      COLUMN_ID='${COLUMN_ID}',
+					  </if>
+					  <if test="BARCODE !=null"> 
+					      BARCODE='${BARCODE}',
+					  </if>
+					  <if test="DIRECT !=null"> 
+					      DIRECT='${DIRECT}',
+					  </if>	
+					  <if test="OPERATE_STATUS !=null"> 
+					      OPERATE_STATUS='${OPERATE_STATUS}',
+					  </if>	
+					  <if test="DATA_STATUS !=null"> 
+					      DATA_STATUS='${DATA_STATUS}',
+					  </if>	
+					  <if test="DETAIL !=null"> 
+					      DETAIL='${DETAIL}',
+					  </if>	
+					  UPDATE_TIME=SYSDATE				  
+				</set>
+				<where> TEMP_ID = '${TEMP_ID}'</where>
+	</update>
+	<!-- 删除仓储出入库中间表信息 -->
+	<delete id="DeleteWMSWCSlink" parameterType="hashmap">
+	            DELETE WMS1.WMS_COM_TEMP
+	             <where>
+	             		TEMP_ID='${TEMP_ID}'
+	             </where>  
+	</delete>
+	<!-- 查询生成仓储出入库中间表信息ID-->
+	<select id="CreatWMSWCSlink_ID" parameterType="hashmap" resultType="java.util.HashMap"> 
+		       SELECT MES1.WMSWCS_SEQ.NEXTVAL AS TEMP_ID FROM DUAL					
+	</select>
+	
+	<!-- 查询货位信息-->
+	<select id="CXHW" parameterType="hashmap" resultType="java.util.HashMap"> 
+		    SELECT 
+				  POSITION_ID,
+				  POSITION_NAME,
+				  ROW_ID,
+				  COLUMN_ID,
+				  SHELF_ID
+           FROM WMS1.WMS_POSITION
+           <where>1=1
+             <if test="SHELF_ID !=null and SHELF_ID !='' ">
+				AND SHELF_ID = '${SHELF_ID}'
+			</if>
+			<if test="POSITION_ID !=null and POSITION_ID !='' ">
+				AND POSITION_ID = '${POSITION_ID}'
+			</if>
+           </where>					
+	</select>	
+	
+	<!-- 查询仓库库存-->
+	<select id="queryWarehouseStock" parameterType="hashmap" resultType="java.util.HashMap"> 
+	    <include refid="oraclePagingFileTop"></include> 				       
+					 A.MATERIA_ID,
+					 A.MATERIA_NAME,
+					 A.SN_NUMBER,
+					 A.BARCODE,
+					 B.SHELF_ID,
+					 J.WAREHOUSE_NAME,
+					 I.WAREHOUSE_ID,
+					 A.PACKAGE_CAPACITY AS PACKNUMBER,					 
+					 TO_CHAR(A.CREATE_DATE,'YYYY-MM-DD HH24:MI:SS') AS CREATE_DATE
+					FROM WMS1.WMS_CHECKIN_PACKAGE A
+					LEFT JOIN WMS1.WMS_POSITION B ON A.POSITION_ID=B.POSITION_ID
+					LEFT JOIN WMS1.WMS_SHELF H ON B.SHELF_ID=H.SHELF_ID
+					LEFT JOIN WMS1.WMS_STORE I ON I.STORE_ID=H.STORE_ID
+					LEFT JOIN WMS1.WMS_WAREHOUSE J ON I.WAREHOUSE_ID=J.WAREHOUSE_ID					
+		       <where>
+					CHECKIN_STATUS='ENT01.04' 
+					AND I.WAREHOUSE_ID IS NOT NULL		
+					<if test="WAREHOUSE_ID !=null and WAREHOUSE_ID !='' ">
+						AND I.WAREHOUSE_ID = '${WAREHOUSE_ID}'
+					</if>					
+					<if test="MATERIA_ID !=null and MATERIA_ID !='' ">
+						AND A.MATERIA_ID='${MATERIA_ID}'
+					</if>
+					<if test="MATERIA_NAME !=null and MATERIA_NAME !='' ">
+						AND A.MATERIA_NAME LIKE '%${MATERIA_NAME}%'
+					</if>
+					<if test="BARCODE !=null and BARCODE !='' ">
+						AND A.BARCODE='${BARCODE}'
+					</if>
+				</where>				
+       <include refid="oraclePagingFileBottom"></include> 	
+	</select>	
+	
+	<!-- 查询仓库库存分页总数 -->
+	<select id="queryWarehouseStock_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT
+		    COUNT(1) AS ROWS_COUNT
+		 FROM WMS1.WMS_CHECKIN_PACKAGE A
+					LEFT JOIN WMS1.WMS_POSITION B ON A.POSITION_ID=B.POSITION_ID
+					LEFT JOIN WMS1.WMS_SHELF H ON B.SHELF_ID=H.SHELF_ID
+					LEFT JOIN WMS1.WMS_STORE I ON I.STORE_ID=H.STORE_ID
+					LEFT JOIN WMS1.WMS_WAREHOUSE J ON I.WAREHOUSE_ID=J.WAREHOUSE_ID					
+		       <where>
+					CHECKIN_STATUS='ENT01.04' 
+					AND I.WAREHOUSE_ID IS NOT NULL		
+					<if test="WAREHOUSE_ID !=null and WAREHOUSE_ID !='' ">
+						AND I.WAREHOUSE_ID = '${WAREHOUSE_ID}'
+					</if>					
+					<if test="MATERIA_ID !=null and MATERIA_ID !='' ">
+						AND A.MATERIA_ID='${MATERIA_ID}'
+					</if>
+					<if test="MATERIA_NAME !=null and MATERIA_NAME !='' ">
+						AND A.MATERIA_NAME LIKE '%${MATERIA_NAME}%'
+					</if>
+					<if test="BARCODE !=null and BARCODE !='' ">
+						AND A.BARCODE='${BARCODE}'
+					</if>
+				</where>
+	</select>
+	
+	<!-- 查询仓库库存汇总-->
+	<select id="querySumWarehouseStock" parameterType="hashmap" resultType="java.util.HashMap"> 
+	    <include refid="oraclePagingFileTop"></include>  
+		     TT.*
+		    FROM(
+		     SELECT
+		       CC.*,
+               T.ITEM_SIZE
+              FROM
+		      (
+		        SELECT 
+					DD.MATERIA_ID,
+					DD.MATERIA_NAME,
+					SUM(NVL(DD.PACKNUMBER,0))      AS STOCK 
+				FROM 
+					(
+					SELECT 
+						 A.MATERIA_ID,
+						 A.MATERIA_NAME,
+						 B.SHELF_ID,
+						 I.WAREHOUSE_ID,
+						 A.PACKAGE_CAPACITY AS PACKNUMBER
+                    FROM WMS1.WMS_CHECKIN_PACKAGE A
+                    LEFT JOIN WMS1.WMS_POSITION B ON A.POSITION_ID=B.POSITION_ID
+					LEFT JOIN WMS1.WMS_SHELF H ON B.SHELF_ID=H.SHELF_ID
+					LEFT JOIN WMS1.WMS_STORE I ON I.STORE_ID=H.STORE_ID
+					<where>
+					CHECKIN_STATUS='ENT01.04'	
+					AND I.WAREHOUSE_ID IS NOT NULL	
+					<if test="WAREHOUSE_ID !=null and WAREHOUSE_ID !='' ">
+						AND I.WAREHOUSE_ID = '${WAREHOUSE_ID}'
+					</if>					
+					<if test="MATERIA_ID !=null and MATERIA_ID !='' ">
+						AND A.MATERIA_ID='${MATERIA_ID}'
+					</if>
+					<if test="MATERIA_NAME !=null and MATERIA_NAME !='' ">
+						AND A.MATERIA_NAME LIKE '%${MATERIA_NAME}%'
+					</if>
+					<if test="BARCODE !=null and BARCODE !='' ">
+						AND A.BARCODE='${BARCODE}'
+					</if>
+				</where>
+					  )DD
+				GROUP BY MATERIA_ID,MATERIA_NAME)CC
+                LEFT JOIN MES1.R_MES_ITEM_T T ON CC.MATERIA_ID=T.ITEM_CD
+				)TT		       				
+       <include refid="oraclePagingFileBottom"></include> 	
+	</select>
+	
+	<!-- 查询仓库库存汇总分页总数 -->
+	<select id="querySumWarehouseStock_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT
+		    COUNT(1) AS ROWS_COUNT
+		 FROM 
+			 (
+		       SELECT
+			       CC.*,
+	               T.ITEM_SIZE
+               FROM
+		      (
+		        SELECT 
+					DD.MATERIA_ID,
+					DD.MATERIA_NAME,
+					SUM(NVL(DD.PACKNUMBER,0))      AS STOCK 
+				FROM 
+					(
+					SELECT 
+						 A.MATERIA_ID,
+						 A.MATERIA_NAME,
+						 B.SHELF_ID,
+						 I.WAREHOUSE_ID,
+						 A.PACKAGE_CAPACITY AS PACKNUMBER
+                    FROM WMS1.WMS_CHECKIN_PACKAGE A
+                    LEFT JOIN WMS1.WMS_POSITION B ON A.POSITION_ID=B.POSITION_ID
+					LEFT JOIN WMS1.WMS_SHELF H ON B.SHELF_ID=H.SHELF_ID
+					LEFT JOIN WMS1.WMS_STORE I ON I.STORE_ID=H.STORE_ID
+					<where>
+					CHECKIN_STATUS='ENT01.04'	
+					AND I.WAREHOUSE_ID IS NOT NULL	
+					<if test="WAREHOUSE_ID !=null and WAREHOUSE_ID !='' ">
+						AND I.WAREHOUSE_ID = '${WAREHOUSE_ID}'
+					</if>					
+					<if test="MATERIA_ID !=null and MATERIA_ID !='' ">
+						AND A.MATERIA_ID='${MATERIA_ID}'
+					</if>
+					<if test="MATERIA_NAME !=null and MATERIA_NAME !='' ">
+						AND A.MATERIA_NAME LIKE '%${MATERIA_NAME}%'
+					</if>
+					<if test="BARCODE !=null and BARCODE !='' ">
+						AND A.BARCODE='${BARCODE}'
+					</if>
+				</where>
+					  )DD
+				GROUP BY MATERIA_ID,MATERIA_NAME)CC
+                LEFT JOIN MES1.R_MES_ITEM_T T ON CC.MATERIA_ID=T.ITEM_CD
+                )TT	
+	</select>
+	
+	<!-- 查询条码追溯记录-->
+	<select id="queryBARCODEZS" parameterType="hashmap" resultType="java.util.HashMap"> 
+	    <include refid="oraclePagingFileTop"></include>  
+		     CC.*
+		    FROM(		     
+				SELECT 
+			      FF.*,
+			      TT.LINGLIAOMO,  
+			      TT.LINGLIAOSUM,
+			      HH.MO,
+			      HH.FDNO,
+			      HH.ZWNO,
+			      HH.SHANGLIAOSUM,
+			      HH.SHANGLIAOMEM,
+			      HH.SHANGLIAOTIME,
+			      EE.TUILIAOMO,
+			      EE.TUILIAOSUM,
+			      EE.TUILIAOMEM,
+			      EE.TUILIAOTIME
+			     FROM
+			      (SELECT DISTINCT DD.BARCODE,
+			                        DD.MATERIA_ID,
+			                        DD.MATERIA_NAME,
+			                        DD.LAILIAOSUM AS LAILIAOSUM,
+			                        DD.WAREHOUSE_NAME,
+			                        null AS RUKUNUM,
+			                        NULL AS INTIME,
+			                        NULL AS FALIAOWO,
+			                        NULL AS FALIAOMO,
+			                        null AS CHUKUNUM,
+			                        NULL AS OUTTIME,
+			                        A3.SUP_NM AS SUPPLIER_NAME
+			          FROM (SELECT A1.BARCODE,
+			                       A1.MATERIA_ID,
+			                       A1.MATERIA_NAME,
+			                       A1.ORDER_ID,
+			                       A1.PACKAGE_CAPACITY AS LAILIAOSUM,
+			                       A4.WAREHOUSE_NAME,
+			                       '' AS RUKUNUM,
+			                       '' AS INTIME,
+			                       '' AS CHUKUNUM,
+			                       '' AS OUTTIME
+			                  FROM WMS1.WMS_CHECKIN_PACKAGE A1
+			                  LEFT JOIN WMS1.WMS_POSITION B
+			                    ON A1.POSITION_ID = B.POSITION_ID
+			                  LEFT JOIN WMS1.WMS_SHELF H
+			                    ON B.SHELF_ID = H.SHELF_ID
+			                  LEFT JOIN WMS1.WMS_STORE I
+			                    ON I.STORE_ID = H.STORE_ID
+			                  LEFT JOIN WMS1.WMS_WAREHOUSE A4
+			                    ON I.WAREHOUSE_ID = A4.WAREHOUSE_ID
+			                  WHERE A1.CHECKIN_STATUS IN ('ENT01.01', 'ENT01.02','ENT01.03') 
+			                 ) DD
+			          LEFT JOIN WMS1.WMS_ORDER_DETAIL A2
+			            ON DD.ORDER_ID = A2.ORDER_ID
+			          LEFT JOIN IPLANT1.C_IPLANT_S3_T A3
+			            ON A2.SUPPLIER_ID = A3.SUP_CD
+			        UNION ALL
+			        SELECT DISTINCT DD.BARCODE,
+			                        DD.MATERIA_ID,
+			                        DD.MATERIA_NAME,
+			                        null AS LAILIAOSUM,
+			                        DD.WAREHOUSE_NAME,
+			                        DD.RUKUNUM AS RUKUNUM,
+			                        TO_CHAR(DD.INTIME,'YYYY-MM-DD HH24:MI:SS') AS INTIME,
+			                        NULL AS FALIAOWO,
+			                        NULL AS FALIAOMO,
+			                        null AS CHUKUNUM,
+			                        NULL AS OUTTIME,
+			                        NULL AS SUPPLIER_NAME
+			          FROM (SELECT A1.BARCODE,
+			                       A1.MATERIA_ID,
+			                       A1.MATERIA_NAME,
+			                       A1.ORDER_ID,
+			                       null AS LAILIAOSUM,
+			                       A4.WAREHOUSE_NAME,
+			                       A1.PACKAGE_CAPACITY AS RUKUNUM,
+			                       A1.UPDATE_DATE AS INTIME,
+			                       null AS CHUKUNUM,
+			                       NULL AS OUTTIME
+			                  FROM WMS1.WMS_CHECKIN_PACKAGE A1
+			                  LEFT JOIN WMS1.WMS_POSITION B
+			                    ON A1.POSITION_ID = B.POSITION_ID
+			                  LEFT JOIN WMS1.WMS_SHELF H
+			                    ON B.SHELF_ID = H.SHELF_ID
+			                  LEFT JOIN WMS1.WMS_STORE I
+			                    ON I.STORE_ID = H.STORE_ID
+			                  LEFT JOIN WMS1.WMS_WAREHOUSE A4
+			                    ON I.WAREHOUSE_ID = A4.WAREHOUSE_ID
+			                  WHERE A1.CHECKIN_STATUS IN  ('ENT01.04', 'ENT01.08') 
+			                         ) DD
+			          LEFT JOIN WMS1.WMS_ORDER_DETAIL A2
+			            ON DD.ORDER_ID = A2.ORDER_ID
+			          LEFT JOIN IPLANT1.C_IPLANT_S3_T A3
+			            ON A2.SUPPLIER_ID = A3.SUP_CD
+			        UNION ALL
+			        SELECT DISTINCT DD.BARCODE,
+			                        DD.MATERIA_ID,
+			                        DD.MATERIA_NAME,
+			                        null AS LAILIAOSUM,
+			                        DD.WAREHOUSE_NAME,
+			                        null AS RUKUNUM,
+			                        NULL AS INTIME,
+			                        A5.WO_NO AS FALIAOWO,
+			                        A5.MO_NO AS FALIAOMO,
+			                       DD.CHUKUNUM AS CHUKUNUM,
+			                       TO_CHAR(DD.OUTTIME,'YYYY-MM-DD HH24:MI:SS') AS OUTTIME,
+			                      NULL AS SUPPLIER_NAME
+			          FROM (SELECT A1.BARCODE,
+			                       A1.MATERIA_ID,
+			                       A1.MATERIA_NAME,
+			                       A1.ORDER_ID,
+			                       '' AS LAILIAOSUM,
+			                       A4.WAREHOUSE_NAME,
+			                       '' AS RUKUNUM,
+			                       NULL AS INTIME,
+			                       A1.PACKAGE_CAPACITY AS CHUKUNUM,
+			                       A1.UPDATE_DATE AS OUTTIME
+			                  FROM WMS1.WMS_CHECKIN_PACKAGE A1
+			                  LEFT JOIN WMS1.WMS_POSITION B
+			                    ON A1.POSITION_ID = B.POSITION_ID
+			                  LEFT JOIN WMS1.WMS_SHELF H
+			                    ON B.SHELF_ID = H.SHELF_ID
+			                  LEFT JOIN WMS1.WMS_STORE I
+			                    ON I.STORE_ID = H.STORE_ID
+			                  LEFT JOIN WMS1.WMS_WAREHOUSE A4
+			                    ON I.WAREHOUSE_ID = A4.WAREHOUSE_ID
+			                  WHERE A1.CHECKIN_STATUS = 'ENT01.06' 
+			                 ) DD
+			          LEFT JOIN WMS1.WMS_ORDER_DETAIL A2
+			            ON DD.ORDER_ID = A2.ORDER_ID
+			          LEFT JOIN IPLANT1.C_IPLANT_S3_T A3
+			            ON A2.SUPPLIER_ID = A3.SUP_CD
+			          LEFT JOIN WMS1.WMS_MATERIA_DETAIL A5 
+			            ON DD.BARCODE=A5.BARCODE) FF
+			         LEFT JOIN 
+			         ( 
+			           SELECT 
+			             DD.WO_NO,
+			             DD.MO_NO AS LINGLIAOMO,
+			             DD.MAT_CD,
+			             SUM(NVL(DD.PSN_QTY,0)) AS LINGLIAOSUM
+			             FROM
+			            (
+			              SELECT
+			               WO_NO, 
+			               MO_NO,
+			               MAT_CD,
+			               PSN_QTY
+			              FROM MES1.R_MES_MAT_STOCK_T         
+			            )DD
+			            GROUP BY DD.MO_NO,DD.MAT_CD,DD.WO_NO
+			            )TT ON FF.FALIAOMO=TT.LINGLIAOMO AND FF.MATERIA_ID=TT.MAT_CD AND FF.FALIAOWO=TT.WO_NO
+			      LEFT JOIN 
+			         (SELECT 
+			          T1.WO_NO,
+			          T1.MO_NO AS MO,
+			          T1.FD_CD AS FDNO,
+			          T1.MAT_CD,
+			          T1.STACK_CD AS ZWNO,
+			          T1.TOT_QTY AS SHANGLIAOSUM,
+			          T1.CRT_ID AS SHANGLIAOMEM,
+			          TO_CHAR(T1.CRT_DT ,'YYYY-MM-DD HH24:MI:SS') AS SHANGLIAOTIME
+			        FROM MES1.R_MES_FEED_STOCK_T T1
+			        LEFT JOIN MES1.R_MES_WO_T T2 ON T1.WO_NO=T2.WO_NO AND T1.MO_NO=T2.MO_NO
+			        )HH ON HH.MO=FF.FALIAOMO AND HH.MAT_CD=FF.MATERIA_ID AND HH.WO_NO=FF.FALIAOWO
+			        LEFT JOIN 
+			        (
+			         SELECT 
+			          MO_NO AS TUILIAOMO ,
+			          WO_NO,
+			          MAT_CD,
+			          RTN_QTY AS TUILIAOSUM,
+			          CRT_ID AS TUILIAOMEM,
+			          TO_CHAR(CRT_DT ,'YYYY-MM-DD HH24:MI:SS') AS TUILIAOTIME
+			         FROM MES1.R_MES_RTN_MAT_T
+			        )EE ON EE.TUILIAOMO=FF.FALIAOMO AND EE.WO_NO=FF.FALIAOWO AND EE.MAT_CD=FF.MATERIA_ID
+			     <where>
+			       <if test="BARCODE !=null and BARCODE !='' ">
+					    AND FF.BARCODE = '${BARCODE}'
+				   </if>
+			     </where>
+				)CC	       				
+       <include refid="oraclePagingFileBottom"></include> 	
+	</select>
+	
+	<!-- 查询条码追溯记录分页总数 -->
+	<select id="queryBARCODEZS_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT
+		    COUNT(1) AS ROWS_COUNT
+		 FROM 
+			 (
+		      SELECT 
+			      FF.*,
+			      TT.LINGLIAOMO,  
+			      TT.LINGLIAOSUM,
+			      HH.MO,
+			      HH.FDNO,
+			      HH.ZWNO,
+			      HH.SHANGLIAOSUM,
+			      HH.SHANGLIAOMEM,
+			      HH.SHANGLIAOTIME,
+			      EE.TUILIAOMO,
+			      EE.TUILIAOSUM,
+			      EE.TUILIAOMEM,
+			      EE.TUILIAOTIME
+			     FROM
+			      (SELECT DISTINCT DD.BARCODE,
+			                        DD.MATERIA_ID,
+			                        DD.MATERIA_NAME,
+			                        DD.LAILIAOSUM AS LAILIAOSUM,
+			                        DD.WAREHOUSE_NAME,
+			                        null AS RUKUNUM,
+			                        NULL AS INTIME,
+			                        NULL AS FALIAOWO,
+			                        NULL AS FALIAOMO,
+			                        null AS CHUKUNUM,
+			                        NULL AS OUTTIME,
+			                        A3.SUP_NM AS SUPPLIER_NAME
+			          FROM (SELECT A1.BARCODE,
+			                       A1.MATERIA_ID,
+			                       A1.MATERIA_NAME,
+			                       A1.ORDER_ID,
+			                       A1.PACKAGE_CAPACITY AS LAILIAOSUM,
+			                       A4.WAREHOUSE_NAME,
+			                       '' AS RUKUNUM,
+			                       '' AS INTIME,
+			                       '' AS CHUKUNUM,
+			                       '' AS OUTTIME
+			                  FROM WMS1.WMS_CHECKIN_PACKAGE A1
+			                  LEFT JOIN WMS1.WMS_POSITION B
+			                    ON A1.POSITION_ID = B.POSITION_ID
+			                  LEFT JOIN WMS1.WMS_SHELF H
+			                    ON B.SHELF_ID = H.SHELF_ID
+			                  LEFT JOIN WMS1.WMS_STORE I
+			                    ON I.STORE_ID = H.STORE_ID
+			                  LEFT JOIN WMS1.WMS_WAREHOUSE A4
+			                    ON I.WAREHOUSE_ID = A4.WAREHOUSE_ID
+			                  WHERE A1.CHECKIN_STATUS IN ('ENT01.01', 'ENT01.02','ENT01.03') 
+			                 ) DD
+			          LEFT JOIN WMS1.WMS_ORDER_DETAIL A2
+			            ON DD.ORDER_ID = A2.ORDER_ID
+			          LEFT JOIN IPLANT1.C_IPLANT_S3_T A3
+			            ON A2.SUPPLIER_ID = A3.SUP_CD
+			        UNION ALL
+			        SELECT DISTINCT DD.BARCODE,
+			                        DD.MATERIA_ID,
+			                        DD.MATERIA_NAME,
+			                        null AS LAILIAOSUM,
+			                        DD.WAREHOUSE_NAME,
+			                        DD.RUKUNUM AS RUKUNUM,
+			                        TO_CHAR(DD.INTIME,'YYYY-MM-DD HH24:MI:SS') AS INTIME,
+			                        NULL AS FALIAOWO,
+			                        NULL AS FALIAOMO,
+			                        null AS CHUKUNUM,
+			                        NULL AS OUTTIME,
+			                        NULL AS SUPPLIER_NAME
+			          FROM (SELECT A1.BARCODE,
+			                       A1.MATERIA_ID,
+			                       A1.MATERIA_NAME,
+			                       A1.ORDER_ID,
+			                       null AS LAILIAOSUM,
+			                       A4.WAREHOUSE_NAME,
+			                       A1.PACKAGE_CAPACITY AS RUKUNUM,
+			                       A1.UPDATE_DATE AS INTIME,
+			                       null AS CHUKUNUM,
+			                       NULL AS OUTTIME
+			                  FROM WMS1.WMS_CHECKIN_PACKAGE A1
+			                  LEFT JOIN WMS1.WMS_POSITION B
+			                    ON A1.POSITION_ID = B.POSITION_ID
+			                  LEFT JOIN WMS1.WMS_SHELF H
+			                    ON B.SHELF_ID = H.SHELF_ID
+			                  LEFT JOIN WMS1.WMS_STORE I
+			                    ON I.STORE_ID = H.STORE_ID
+			                  LEFT JOIN WMS1.WMS_WAREHOUSE A4
+			                    ON I.WAREHOUSE_ID = A4.WAREHOUSE_ID
+			                  WHERE A1.CHECKIN_STATUS IN  ('ENT01.04', 'ENT01.08') 
+			                         ) DD
+			          LEFT JOIN WMS1.WMS_ORDER_DETAIL A2
+			            ON DD.ORDER_ID = A2.ORDER_ID
+			          LEFT JOIN IPLANT1.C_IPLANT_S3_T A3
+			            ON A2.SUPPLIER_ID = A3.SUP_CD
+			        UNION ALL
+			        SELECT DISTINCT DD.BARCODE,
+			                        DD.MATERIA_ID,
+			                        DD.MATERIA_NAME,
+			                        null AS LAILIAOSUM,
+			                        DD.WAREHOUSE_NAME,
+			                        null AS RUKUNUM,
+			                        NULL AS INTIME,
+			                        A5.WO_NO AS FALIAOWO,
+			                        A5.MO_NO AS FALIAOMO,
+			                       DD.CHUKUNUM AS CHUKUNUM,
+			                       TO_CHAR(DD.OUTTIME,'YYYY-MM-DD HH24:MI:SS') AS OUTTIME,
+			                      NULL AS SUPPLIER_NAME
+			          FROM (SELECT A1.BARCODE,
+			                       A1.MATERIA_ID,
+			                       A1.MATERIA_NAME,
+			                       A1.ORDER_ID,
+			                       '' AS LAILIAOSUM,
+			                       A4.WAREHOUSE_NAME,
+			                       '' AS RUKUNUM,
+			                       NULL AS INTIME,
+			                       A1.PACKAGE_CAPACITY AS CHUKUNUM,
+			                       A1.UPDATE_DATE AS OUTTIME
+			                  FROM WMS1.WMS_CHECKIN_PACKAGE A1
+			                  LEFT JOIN WMS1.WMS_POSITION B
+			                    ON A1.POSITION_ID = B.POSITION_ID
+			                  LEFT JOIN WMS1.WMS_SHELF H
+			                    ON B.SHELF_ID = H.SHELF_ID
+			                  LEFT JOIN WMS1.WMS_STORE I
+			                    ON I.STORE_ID = H.STORE_ID
+			                  LEFT JOIN WMS1.WMS_WAREHOUSE A4
+			                    ON I.WAREHOUSE_ID = A4.WAREHOUSE_ID
+			                  WHERE A1.CHECKIN_STATUS = 'ENT01.06' 
+			                 ) DD
+			          LEFT JOIN WMS1.WMS_ORDER_DETAIL A2
+			            ON DD.ORDER_ID = A2.ORDER_ID
+			          LEFT JOIN IPLANT1.C_IPLANT_S3_T A3
+			            ON A2.SUPPLIER_ID = A3.SUP_CD
+			          LEFT JOIN WMS1.WMS_MATERIA_DETAIL A5 
+			            ON DD.BARCODE=A5.BARCODE) FF
+			         LEFT JOIN 
+			         ( 
+			           SELECT 
+			             DD.WO_NO,
+			             DD.MO_NO AS LINGLIAOMO,
+			             DD.MAT_CD,
+			             SUM(NVL(DD.PSN_QTY,0)) AS LINGLIAOSUM
+			             FROM
+			            (
+			              SELECT
+			               WO_NO, 
+			               MO_NO,
+			               MAT_CD,
+			               PSN_QTY
+			              FROM MES1.R_MES_MAT_STOCK_T         
+			            )DD
+			            GROUP BY DD.MO_NO,DD.MAT_CD,DD.WO_NO
+			            )TT ON FF.FALIAOMO=TT.LINGLIAOMO AND FF.MATERIA_ID=TT.MAT_CD AND FF.FALIAOWO=TT.WO_NO
+			      LEFT JOIN 
+			         (SELECT 
+			          T1.WO_NO,
+			          T1.MO_NO AS MO,
+			          T1.FD_CD AS FDNO,
+			          T1.MAT_CD,
+			          T1.STACK_CD AS ZWNO,
+			          T1.TOT_QTY AS SHANGLIAOSUM,
+			          T1.CRT_ID AS SHANGLIAOMEM,
+			          TO_CHAR(T1.CRT_DT ,'YYYY-MM-DD HH24:MI:SS') AS SHANGLIAOTIME
+			        FROM MES1.R_MES_FEED_STOCK_T T1
+			        LEFT JOIN MES1.R_MES_WO_T T2 ON T1.WO_NO=T2.WO_NO AND T1.MO_NO=T2.MO_NO
+			        )HH ON HH.MO=FF.FALIAOMO AND HH.MAT_CD=FF.MATERIA_ID AND HH.WO_NO=FF.FALIAOWO
+			        LEFT JOIN 
+			        (
+			         SELECT 
+			          MO_NO AS TUILIAOMO ,
+			          WO_NO,
+			          MAT_CD,
+			          RTN_QTY AS TUILIAOSUM,
+			          CRT_ID AS TUILIAOMEM,
+			          TO_CHAR(CRT_DT ,'YYYY-MM-DD HH24:MI:SS') AS TUILIAOTIME
+			         FROM MES1.R_MES_RTN_MAT_T
+			        )EE ON EE.TUILIAOMO=FF.FALIAOMO AND EE.WO_NO=FF.FALIAOWO AND EE.MAT_CD=FF.MATERIA_ID
+			     <where>
+			       <if test="BARCODE !=null and BARCODE !='' ">
+					    AND CC.BARCODE = '${BARCODE}'
+				   </if>
+			     </where>
+                )CC	
+	</select>
+	
+	<!-- 查询MES工单领料-->
+	<select id="queryMESMOll" parameterType="hashmap" resultType="java.util.HashMap"> 
+	    <include refid="oraclePagingFileTop"></include>  
+		     TT.*
+		    FROM(
+		     SELECT 
+				 DD.MO_NO AS LINGLIAOMO,
+				 DD.MAT_CD,
+				 SUM(NVL(DD.PSN_QTY,0)) AS LINGLIAOSUM
+				 FROM
+				(
+				  SELECT  
+				   MO_NO,
+				   MAT_CD,
+				   PSN_QTY
+				  FROM MES1.R_MES_MAT_STOCK_T
+				<where>
+				 <if test="MO_NO !=null and MO_NO !='' ">
+						AND MO_NO = '${MO_NO}'
+				 </if>
+				 <if test="MAT_CD !=null and MAT_CD !='' ">
+						AND MAT_CD = '${MAT_CD}'
+				 </if>
+				</where>
+				)DD
+				GROUP BY DD.MO_NO,DD.MAT_CD
+				)TT		       				
+       <include refid="oraclePagingFileBottom"></include> 	
+	</select>
+	
+	<!-- 查询MES工单领料分页总数 -->
+	<select id="queryMESMOll_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT
+		    COUNT(1) AS ROWS_COUNT
+		 FROM 
+			 (
+		       SELECT 
+				 DD.MO_NO AS LINGLIAOMO,
+				 DD.MAT_CD,
+				 SUM(NVL(DD.PSN_QTY,0)) AS LINGLIAOSUM
+				 FROM
+				(
+				  SELECT  
+				   MO_NO,
+				   MAT_CD,
+				   PSN_QTY
+				  FROM MES1.R_MES_MAT_STOCK_T
+				 <where>
+				 <if test="MO_NO !=null and MO_NO !='' ">
+						AND MO_NO = '${MO_NO}'
+				 </if>
+				 <if test="MAT_CD !=null and MAT_CD !='' ">
+						AND MAT_CD = '${MAT_CD}'
+				 </if>
+				</where>
+				)DD
+				GROUP BY DD.MO_NO,DD.MAT_CD
+                )TT	
+         </select>
+         
+    <!-- 查询MES工单生产-->
+	<select id="queryMESMOProduct" parameterType="hashmap" resultType="java.util.HashMap"> 
+	    <include refid="oraclePagingFileTop"></include>  
+		     TT.*
+		    FROM(
+		     SELECT 
+				  T1.MO_NO AS MO,
+				  T1.FD_CD AS FDNO,
+				  T1.STACK_CD AS ZWNO,
+				  T1.TOT_QTY AS SHANGLIAOSUM,
+				  T1.CRT_ID AS SHANGLIAOMEM,
+				  TO_CHAR(T1.CRT_DT ,'YYYY-MM-DD HH24:MI:SS') AS SHANGLIAOTIME
+				FROM MES1.R_MES_FEED_STOCK_T T1
+				LEFT JOIN MES1.R_MES_WO_T T2 ON T1.WO_NO=T2.WO_NO AND T1.MO_NO=T2.MO_NO
+				<where>
+				     T2.WO_STATE=5
+				 <if test="MO_NO !=null and MO_NO !='' ">
+						AND T1.MO_NO = '${MO_NO}'
+				 </if>
+				 <if test="MAT_CD !=null and MAT_CD !='' ">
+						AND T1.MAT_CD = '${MAT_CD}'
+				 </if>
+				</where>				
+				)TT		       				
+       <include refid="oraclePagingFileBottom"></include> 	
+	</select>
+	
+	<!-- 查询MES工单生产分页总数 -->
+	<select id="queryMESMOProduct_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT
+		    COUNT(1) AS ROWS_COUNT
+		 FROM 
+			 (
+		      SELECT 
+				  T1.MO_NO AS MO,
+				  T1.FD_CD AS FDNO,
+				  T1.STACK_CD AS ZWNO,
+				  T1.TOT_QTY AS SHANGLIAOSUM,
+				  T1.CRT_ID AS SHANGLIAOMEM,
+				  TO_CHAR(T1.CRT_DT ,'YYYY-MM-DD HH24:MI:SS') AS SHANGLIAOTIME
+				FROM MES1.R_MES_FEED_STOCK_T T1
+				LEFT JOIN MES1.R_MES_WO_T T2 ON T1.WO_NO=T2.WO_NO AND T1.MO_NO=T2.MO_NO
+				<where>
+				     T2.WO_STATE=5
+				 <if test="MO_NO !=null and MO_NO !='' ">
+						AND T1.MO_NO = '${MO_NO}'
+				 </if>
+				 <if test="MAT_CD !=null and MAT_CD !='' ">
+						AND T1.MAT_CD = '${MAT_CD}'
+				 </if>
+				</where>	
+                )TT	
+         </select>
+    <!-- 查询MES工单完工-->
+	<select id="queryMESMOfinish" parameterType="hashmap" resultType="java.util.HashMap"> 
+	    <include refid="oraclePagingFileTop"></include>  
+		     TT.*
+		    FROM(
+		      SELECT 
+				  MO_NO AS TUILIAOMO,
+				  WO_NO,
+				  RTN_QTY AS TUILIAOSUM,
+				  CRT_ID AS TUILIAOMEM,
+				  TO_CHAR(CRT_DT ,'YYYY-MM-DD HH24:MI:SS') AS TUILIAOTIME
+               FROM MES1.R_MES_RTN_MAT_T
+				<where>
+				 <if test="MO_NO !=null and MO_NO !='' ">
+						AND MO_NO = '${MO_NO}'
+				 </if>
+				 <if test="MAT_CD !=null and MAT_CD !='' ">
+						AND MAT_CD = '${MAT_CD}'
+				 </if>
+				</where>
+				)TT		       				
+       <include refid="oraclePagingFileBottom"></include> 	
+	</select>
+	
+	<!-- 查询MES工单完工分页总数 -->
+	<select id="queryMESMOfinish_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT
+		    COUNT(1) AS ROWS_COUNT
+		 FROM 
+			 (
+		        SELECT 
+				  MO_NO AS TUILIAOMO,
+				  WO_NO,
+				  RTN_QTY AS TUILIAOSUM,
+				  CRT_ID AS TUILIAOMEM,
+				  TO_CHAR(CRT_DT ,'YYYY-MM-DD HH24:MI:SS') AS TUILIAOTIME
+               FROM MES1.R_MES_RTN_MAT_T
+				<where>
+				 <if test="MO_NO !=null and MO_NO !='' ">
+						AND MO_NO = '${MO_NO}'
+				 </if>
+				 <if test="MAT_CD !=null and MAT_CD !='' ">
+						AND MAT_CD = '${MAT_CD}'
+				 </if>
+				</where>
+                )TT	
+   </select>
+   
+   <!-- 查询成品仓信息 -->
+	<select id="queryProductWarehouse" parameterType="hashmap" resultType="java.util.HashMap">
+		   SELECT 
+            T2.WAREHOUSE_ID,
+            T1.SHELF_ID,
+            T1.SHELF_NAME,
+            T1.LAYER_NUMBER AS ROW_ID,
+            T1.COL_NUMBER AS COL_ID
+           FROM WMS1.WMS_SHELF T1 
+           LEFT JOIN WMS1.WMS_STORE T2 ON T1.STORE_ID=T2.STORE_ID
+				<where>
+				  1=1
+				 <if test="WAREHOUSE_ID !=null and WAREHOUSE_ID !='' ">
+						AND WAREHOUSE_ID = '${WAREHOUSE_ID}'
+				 </if>
+				 <if test="SHELF_ID !=null and SHELF_ID !='' ">
+						AND SHELF_ID = '${SHELF_ID}'
+				 </if>
+				</where>
+   </select>
+   
+   <!-- 查询成品仓出入库中间表信息-->
+	<select id="queryCPProduct" parameterType="hashmap" resultType="java.util.HashMap"> 	   
+	   <include refid="oraclePagingFileTop"></include> 		
+        DD.*
+        FROM
+        (SELECT
+          CP_ID,
+          WAREHOUSE_ID,
+          WAREHOUSE_NAME,          
+          SHELF_ID,
+          SHELF_NAME,
+          POSITION_ID,
+          POSITION_NAME,
+          ROW_ID,
+          COLUMN_ID,
+          M_BARCODE,
+          DIRECT,
+          OPERATE_STATUS,   
+          T1.CRT_ID,
+          T4.EMP_NM AS CRT_NM,
+          AGV_ID,  
+          TO_CHAR(CRT_TIME,'YYYY-MM-DD HH24:MI:SS') AS CRT_TIME,
+          TO_CHAR(UP_TIME,'YYYY-MM-DD HH24:MI:SS') AS UP_TIME
+       FROM WMS1.WMS_COM_PRODUCT T1
+       LEFT JOIN (
+       		SELECT
+			T2.USE_CD,
+			T3.EMP_NM 
+			FROM iplant1.C_IPLANT_U1_T T2
+			LEFT JOIN iplant1.C_IPLANT_E1_T T3 ON T2.EMP_NO = T3.EMP_CD
+       	) T4 ON T1.CRT_ID=T4.USE_CD
+       <where>
+			1=1			
+			<if test="CP_ID !=null and CP_ID !='' ">
+				AND CP_ID = '${CP_ID}'
+			</if>
+			<if test="SHELF_NAME !=null and SHELF_NAME !='' ">
+				AND SHELF_ID ='${SHELF_ID}'
+			</if>
+			<if test="ROW_ID !=null and ROW_ID !='' ">
+				AND ROW_ID='${ROW_ID}'
+			</if>
+			<if test="DIRECT !=null and DIRECT !='' ">
+				AND DIRECT='${DIRECT}'
+			</if>
+			<if test="OPERATE_STATUS !=null and OPERATE_STATUS !='' ">
+				AND OPERATE_STATUS='${OPERATE_STATUS}'
+			</if>
+		</where>
+		ORDER BY DIRECT DESC	
+		)DD
+       <include refid="oraclePagingFileBottom"></include> 	       					
+	</select>
+	<!-- 查询仓储出入库中间表信息分页总数 -->
+	<select id="queryCPProduct_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT
+		COUNT(1) AS ROWS_COUNT
+		 FROM WMS1.WMS_COM_PRODUCT
+		 <where>
+			1=1			
+			<if test="CP_ID !=null and CP_ID !='' ">
+				AND CP_ID = '${CP_ID}'
+			</if>
+			<if test="SHELF_NAME !=null and SHELF_NAME !='' ">
+				AND SHELF_ID ='${SHELF_ID}'
+			</if>
+		</where>
+	</select>
+	<!-- 新增仓储出入库中间表信息 -->
+	<insert id="InsertCPProduct" parameterType="hashmap"> 
+			   INSERT INTO 
+					   WMS1.WMS_COM_PRODUCT
+					        (
+					          CP_ID,
+					          WAREHOUSE_ID,
+                              WAREHOUSE_NAME,
+					          SHELF_ID,
+					          SHELF_NAME,
+					          POSITION_ID,
+                              POSITION_NAME,
+					          ROW_ID,
+					          COLUMN_ID,
+					          M_BARCODE,
+					          AGV_ID,
+					          DIRECT,
+					          OPERATE_STATUS,
+					          CRT_ID,
+                              CRT_TIME
+					         )
+					         VALUES
+					         (
+		                      	'${CP_ID}',
+		                      	'C0002',
+		                      	'成品仓库',
+			                    '${SHELF_ID}',
+			                    '${SHELF_NAME}',	
+			                    '${POSITION_ID}',
+			                    '${POSITION_NAME}',		                    
+			                    '${ROW_ID}',
+			                    '${COLUMN_ID}',
+			                    'N',
+			                    '02',
+			                    '${DIRECT}',
+			                    '${OPERATE_STATUS}',
+			                    '${F_USE_CD}',
+			                    SYSDATE				         			       
+		                      )
+	</insert>
+	<!-- 修改仓储出入库中间表信息息 -->
+	<update id="UpdateCPProduct" parameterType="HashMap" >
+			UPDATE WMS1.WMS_COM_PRODUCT
+				<set>
+					  <if test="SHELF_ID !=null"> 
+					      SHELF_ID='${SHELF_ID}',
+					  </if>
+					   <if test="SHELF_NAME !=null"> 
+					      SHELF_NAME='${SHELF_NAME}',
+					  </if>
+					  <if test="ROW_ID !=null"> 
+					      ROW_ID='${ROW_ID}',
+					  </if>	
+					  <if test="COLUMN_ID !=null"> 
+					      COLUMN_ID='${COLUMN_ID}',
+					  </if>
+					  <if test="DIRECT !=null"> 
+					      DIRECT='${DIRECT}',
+					  </if>	
+					  <if test="OPERATE_STATUS !=null"> 
+					      OPERATE_STATUS='${OPERATE_STATUS}',
+					  </if>
+					  UP_TIME=SYSDATE				  
+				</set>
+				<where> CP_ID = '${CP_ID}'</where>
+	</update>
+	<!-- 删除仓储出入库中间表信息 -->
+	<delete id="DeleteCPProduct" parameterType="hashmap">
+	            DELETE WMS1.WMS_COM_PRODUCT
+	             <where>
+	             		CP_ID='${CP_ID}'
+	             </where>  
+	</delete>
+	
+	<!-- 更新库位信息表 -->
+	<update id="UpdatePOSINFO" parameterType="HashMap" >
+			UPDATE WMS1.WMS_POSITION
+				<set>
+					   <if test="BARCODE !=null"> 
+					      BARCODE='${BARCODE}',
+					  </if>
+					  <if test="STATUS !=null"> 
+					      STATUS='${STATUS}',
+					  </if>				  
+				</set>
+				<where> 
+				       SHELF_ID = '${SHELF_ID}'
+				       AND ROW_ID= '${ROW_ID}'
+				       AND COLUMN_ID= '${COLUMN_ID}'
+				</where>
+	</update>
+	
+	<!-- 查询成品仓操作信息 -->
+	<select id="queryProductlinkInfo" parameterType="hashmap" resultType="java.util.HashMap">
+		   SELECT 
+				 AGV_ID,
+				 SHELF_ID,
+				 SHELF_NAME,
+				 ROW_ID,
+				 COLUMN_ID,
+				 CASE 
+				   WHEN DIRECT='IN'  THEN '上架'
+				   WHEN DIRECT='OUT' THEN '下架'  
+				   ELSE ''
+				 END AS DIRECT,
+				 CASE 
+				   WHEN OPERATE_STATUS=0 THEN '待处理'
+				   WHEN OPERATE_STATUS=1 THEN '已处理'
+				   WHEN OPERATE_STATUS=2 THEN '进行中'
+				   ELSE ''
+				 END AS OPERATE_STATUS
+			FROM WMS1.WMS_COM_PRODUCT
+			WHERE  OPERATE_STATUS IN (0,2)
+			ORDER BY OPERATE_STATUS DESC
+   </select>
+   
+   <!-- 查询成品仓已完成操作信息 -->
+	<select id="queryProductlinkInfoFinish" parameterType="hashmap" resultType="java.util.HashMap">
+		   SELECT 
+			 'No'||ROWNUM AS AGV_CD,
+			 AGV_ID||'号车已入库' AS AGV_STATUS,
+			 SHELF_NAME||COLUMN_ID||'位'||ROW_ID||'层' AS WEIZHI
+			FROM
+			(
+			SELECT * FROM WMS1.WMS_COM_PRODUCT 
+			    WHERE OPERATE_STATUS='1'
+			    AND ROWNUM &lt;7
+			    ORDER BY UP_TIME DESC
+			 )T
+   </select>
+</mapper>

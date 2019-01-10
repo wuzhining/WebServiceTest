@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<podiums>
+	<podium  podium_code="userLogin" podium_name="获取用户的数据权限" podium_class="com.iPlant.mes.biz.UserInfopodium" podium_method="acceptance" attr1="" attr2=""/>
+
+	<podium  podium_code="insertDeviceRepair" podium_name="获取设备维修单号" podium_class="com.iPlant.mes.biz.equipmentManage.EquipmentManage" podium_method="execute" attr1="" attr2=""/>
+
+	<podium  podium_code="insertDeviceMaintain" podium_name="获取设备保养单号" podium_class="com.iPlant.mes.biz.equipmentManage.EquipmentManage" podium_method="equipmentMaintain" attr1="" attr2=""/>
+
+	<podium  podium_code="insertSpRefund" podium_name="获取备件退还单号" podium_class="com.iPlant.mes.biz.sparePartManage.SparePartManage" podium_method="execute" attr1="" attr2=""/>
+
+	<podium  podium_code="insertSpReport" podium_name="获取备件报损单号" podium_class="com.iPlant.mes.biz.sparePartManage.SparePartManage" podium_method="sparePartsReport" attr1="" attr2=""/>
+
+	<podium  podium_code="insertSpUsing" podium_name="备件领用录入" podium_class="com.iPlant.mes.biz.sparePartManage.SparePartManage" podium_method="sparePartsConsume" attr1="" attr2=""/>
+
+	<podium  podium_code="insertDeviceRepair" podium_name="获取用户的数据权限" podium_class="com.iPlant.mes.biz.equipmentManage.EquipmentManage" podium_method="execute" attr1="" attr2=""/>
+	
+	<podium  podium_code="insertDeviceMaintain" podium_name="设备信息插入" podium_class="com.iPlant.mes.biz.equipmentManage.EquipmentManage" podium_method="equipmentMaintain" attr1="" attr2=""/>
+
+	<podium  podium_code="insertBadRecordDetail" podium_name="不良信息录入" podium_class="com.iPlant.mes.biz.mobile.QualityInputManage" podium_method="execute" attr1="" attr2=""/>
+	
+	<podium  podium_code="insertSpRefund" podium_name="备件退还录入" podium_class="com.iPlant.mes.biz.sparePartManage.SparePartManage" podium_method="consumesInsert" attr1="" attr2=""/>
+	
+	<podium  podium_code="insertSpRegistration" podium_name="获取备件登记单号" podium_class="com.iPlant.mes.biz.sparePartManage.SparePartManage" podium_method="spareSpRegistration" attr1="" attr2=""/>
+	
+	<podium  podium_code="alarmPushList" podium_name="查询所有推送状态的报警信息" podium_class="com.iPlant.mes.biz.mobile.AlarmPush" podium_method="execute" attr1="" attr2=""/>
+	
+	<podium  podium_code="insertDeviceCheck" podium_name="设备点检单号插入" podium_class="com.iPlant.mes.biz.equipmentManage.EquipmentManage" podium_method="equipmentCheck" attr1="" attr2=""/>
+	<podium  podium_code="queryCountMetricsProduct" podium_name="OEE产品" podium_class="com.iPlant.mes.biz.oeeManage.OeeManage" podium_method="execute" attr1="" attr2=""/>
+	<podium  podium_code="queryCountMetricsMechine" podium_name="OEE设备" podium_class="com.iPlant.mes.biz.oeeManage.OeeManage" podium_method="execute" attr1="" attr2=""/>
+	<podium  podium_code="queryCountMetricsMechineToday" podium_name="OEE设备" podium_class="com.iPlant.mes.biz.oeeManage.OeeManage" podium_method="execute" attr1="" attr2=""/>
+	<podium  podium_code="queryCountMetricsProductToday" podium_name="OEE设备" podium_class="com.iPlant.mes.biz.oeeManage.OeeManage" podium_method="execute" attr1="" attr2=""/>
+</podiums>
+ 

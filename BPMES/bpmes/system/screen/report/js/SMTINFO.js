@@ -1,0 +1,905 @@
+
+(function(){
+	function csbkbInfo(){
+		ccfunc = function (){
+			/* 异常信息*/
+	       iplantAjaxRequest({
+	           url: '/iPlant_ajax',
+	           data: {
+	               IFS: 'MES_R0096',
+	               ET_CD:sbbm
+	           },
+	           successCallBack: function (data) {
+	        	   if(data.RESPONSE[0].RESPONSE_DATA.length >0){
+	        		   $("#abnormalInfo_title").css('display','block');
+	        		   var abnormalInfo = data.RESPONSE[0].RESPONSE_DATA[0].EXPCE_NM;
+	        	   	   $('#abnormalInfo').html(abnormalInfo);
+	        	   }else{
+	        		   $("#abnormalInfo_title").css('display','none');
+	        		   $('#abnormalInfo').html('');
+	        	   };
+	           	}
+	        });
+	       /* 异常信息		END*/
+	       
+	   	/*TOP5不良明细*/
+		    iplantAjaxRequest({
+		        url: '/iPlant_ajax',
+		        data: {
+		            IFS: 'MES_XK004',
+		            LINE_CD:lx,
+		            REQ_TIME:dtime,
+		            ET_CD:sbbm
+		        },
+		        successCallBack: function (data) {
+		        	//不良明细数组全用中文命名的
+		        	var qiaoliancount=[];
+		        	var aoxiancount=[];
+		        	var xuhancount=[];
+		        	var qiaojiaocount=[];
+		        	var poshuncount=[];
+		        	var markcount=[];
+		        	var quejiancount=[];
+		        	var pianyicount=[];
+		        	var celicount=[];
+		        	var libeicount=[];
+		        	var fantiecount=[];
+		        	var cuojiancount=[];
+		        	var jifancount=[];
+		        	var quexicount=[];
+		        	var duoxicount=[];
+		        	var qiaojiaocount=[];
+		        	var guahengcount=[];
+		        	var duojiancount=[];
+		        	var xizhucount=[];
+		        	var loudongcount=[];
+		        	var yiwucount=[];
+		        	var yijiaocount=[];
+		        	var tongyongcount=[];
+		     	   if(data.RESPONSE[0].length != 0){
+		     		   var rowCollection = createSourceObj(data);
+		     		  //console.log(rowCollection);
+		     		   if(rowCollection.length>0){
+		     			   var leng=rowCollection.length;
+		     			for (var i = 0; i < leng; i++) {
+							if(rowCollection[i].RESULT_NG=="破损"){
+								poshuncount.push(parseInt(rowCollection[i].TEMP));
+							}else if (rowCollection[i].RESULT_NG=="凹陷") {
+								aoxiancount.push(parseInt(rowCollection[i].TEMP));
+							}else if (rowCollection[i].RESULT_NG=="虚焊") {
+								xuhancount.push(parseInt(rowCollection[i].TEMP));
+							}else if (rowCollection[i].RESULT_NG=="翘脚") {
+								qiaojiaocount.push(parseInt(rowCollection[i].TEMP));
+							}else if (rowCollection[i].RESULT_NG=="多锡") {
+								duoxicount.push(parseInt(rowCollection[i].TEMP));
+							}else if (rowCollection[i].RESULT_NG=="异物") {
+								yiwucount.push(parseInt(rowCollection[i].TEMP));
+							}else if (rowCollection[i].RESULT_NG=="缺锡") {
+								quexicount.push(parseInt(rowCollection[i].TEMP));
+							}else if (rowCollection[i].RESULT_NG=="侧立") {
+								celicount.push(parseInt(rowCollection[i].TEMP));
+							}else if (rowCollection[i].RESULT_NG=="偏移") {
+								pianyicount.push(parseInt(rowCollection[i].TEMP));
+							}else if (rowCollection[i].RESULT_NG=="缺件") {
+								quejiancount.push(parseInt(rowCollection[i].TEMP));
+							}else if (rowCollection[i].RESULT_NG=="立碑") {
+								libeicount.push(parseInt(rowCollection[i].TEMP));
+							}else if (rowCollection[i].RESULT_NG=="桥连") {
+								qiaoliancount.push(parseInt(rowCollection[i].TEMP));
+							}else if (rowCollection[i].RESULT_NG=="刮痕") {
+								guahengcount.push(parseInt(rowCollection[i].TEMP));
+							}else if (rowCollection[i].RESULT_NG=="锡珠") {
+								xizhucount.push(parseInt(rowCollection[i].TEMP));
+							}else if (rowCollection[i].RESULT_NG=="漏洞") {
+								loudongcount.push(parseInt(rowCollection[i].TEMP));
+							}else if (rowCollection[i].RESULT_NG=="溢胶") {
+								yijiaocount.push(parseInt(rowCollection[i].TEMP));
+							}
+						} 
+		     		   }
+		     			if (poshuncount.length==0) {
+							poshuncount.push(0);
+						}
+		     			if (aoxiancount.length==0) {
+		     				aoxiancount.push(0);
+		     			}
+		     			if (xuhancount.length==0) {
+		     				xuhancount.push(0);
+		     			}
+		     			if (qiaojiaocount.length==0) {
+		     				qiaojiaocount.push(0);
+		     			}
+		     			if (duoxicount.length==0) {
+		     				duoxicount.push(0);
+		     			}
+		     			if (yiwucount.length==0) {
+		     				yiwucount.push(0);
+		     			}
+		     			if (quexicount.length==0) {
+		     				quexicount.push(0);
+		     			}
+		     			if (celicount.length==0) {
+		     				celicount.push(0);
+		     			}
+		     			if (pianyicount.length==0) {
+		     				pianyicount.push(0);
+		     			}
+		     			if (quejiancount.length==0) {
+		     				quejiancount.push(0);
+		     			}
+		     			if (libeicount.length==0) {
+		     				libeicount.push(0);
+		     			}
+		     			if (qiaoliancount.length==0) {
+		     				qiaoliancount.push(0);
+		     			}
+		     			if (guahengcount.length==0) {
+		     				guahengcount.push(0);
+		     			}
+		     			if (xizhucount.length==0) {
+		     				xizhucount.push(0);
+		     			}
+		     			if (loudongcount.length==0) {
+		     				loudongcount.push(0);
+		     			}
+		     			if (yijiaocount.length==0) {
+		     				yijiaocount.push(0);
+		     			}
+		     		   
+		     			  /*Top5 不良 柱状图显示*/
+			       			Highcharts.chart('container2', {
+			       			    chart: {
+			       			        type: 'column',
+			       			        backgroundColor:'#393A4C'
+			       			    },
+			       			    legend:{  //图例显示
+			       			    	enabled:false
+			       			    },
+			       			    title: {
+			       			        text: '<span style="color:#FFFFFF;font-size:14px;">Top5  不良</span>',
+			       			        align:'left',
+			       			        	
+			       			    },
+			       			    
+			       			    xAxis: {
+			       			        crosshair: true,
+			       			        categories: [
+			       			        "破损","虚焊","翘脚","凹陷","多锡","异物","缺锡","侧立","偏移","缺件","立碑","桥连","刮痕","锡珠","漏洞","溢胶"
+			       			                     ],
+			       			        tickColor:'#00E5EE',            
+			       			        min : 0,
+							    	max: 15,
+							    	labels:{   //设置坐标字体
+							    		style:{
+			       			        		color:'#00EEEE',
+			       			        		fontSize:'12px'
+			       			        	}
+							    	},
+			       			    },
+			       			    yAxis: {
+			       			        min: 0,
+			       			        max: 20,
+			       			        tickColor:'#00E5EE',
+			       			        title: {
+			       			            text: ''
+			       			        },
+				       			     labels:{
+				       		                formatter:function() {//在labels里可以配置formatter属性可以对y轴设置单位之类的个性化东西
+				       		                    return this.value;//可以对照上面图表 +"L"
+				       		                },
+					       			     style:{
+				       			        		color:'#00EEEE',
+				       			        		fontSize:'13px'
+				       			        	}
+				       		            },
+				       		         tickInterval:2,  //纵坐标数值间距
+				       		         lineWidth:0.2,     //纵线线宽设置
+			       			         lineColor:'#00E5EE',
+				       		         gridLineWidth: 0.2,  //横线线宽设置
+			       			        gridLineColor: '#00E5EE'
+			       			    },
+			       			    tooltip: {
+			       			        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+			       			        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+			       			            '<td style="padding:0"><b>{point.y:.1f} %</b></td></tr>',
+			       			        footerFormat: '</table>',
+			       			        shared: true,
+			       			        useHTML: true
+			       			    },
+			       			 plotOptions: {
+			       				 column: {		//柱体设置
+			       			            pointPadding: 0.1, 
+			       			            borderWidth: 0 ,   
+			       			            color:'#CD2626',    //当只有一个数据时可直接在这里设置柱体颜色，否则必须在series里分别设置柱体颜色
+			       			            dataLabels:{
+			       			            	enabled:true,
+			       			            	style:{
+			    	       			            fontSize:'13px'
+			       			            	}
+			       			            }
+			       			        },
+			       			     series: {
+				       		            animation: { //动画
+				       		                duration: 5000,//刷新时间
+				       		                easing: 'easeOutBounce'
+				       		            }
+				       			     }
+			       			    },
+			       			    series: [{
+			       			        name: '<span style="color:#1771B3>不良明细</span>',
+			       			        color:'red',//当有多个变量值时只能在这里设置柱体颜色
+			       			        data:[
+			       			         //  "破损","虚焊","翘脚","凹陷","多锡","异物","缺锡","侧立","偏移","缺件","立碑","桥连","刮痕","锡珠","漏洞","溢胶",
+			       			             poshuncount[0],xuhancount[0],qiaojiaocount[0],aoxiancount[0],duoxicount[0],
+	       			                     yiwucount[0],quexicount[0],celicount[0], pianyicount[0],quejiancount[0],
+	       			                     libeicount[0],qiaoliancount[0],guahengcount[0],xizhucount[0],loudongcount[0],yijiaocount[0]
+			       			              ],
+
+			       			    }
+			       			    ],
+			       			    credits: {	//版权信息设置
+			       			          enabled:false
+			       			},exporting: { //判断是否支持将图表导出为图片或打印功能
+			       	            enabled:false
+			       			}
+			       			});
+		     			
+		     		 
+		     		   
+		     	   }
+		        }
+		    });
+		       
+			/*工单*/
+	       iplantAjaxRequest({
+	           url: '/iPlant_ajax',
+	           data: {
+	               IFS: 'MES_XK001',
+	               LINE_CD:lx,
+	               REQ_TIME:dtime,
+	               ET_CD:sbbm
+	           },
+	           successCallBack: function (data) {
+	        	   var count=0;
+	        	   if(data.RESPONSE[0].length != 0){
+	        		   var rowCollection = createSourceObj(data);
+	        		   var html="";
+	        		   if(rowCollection.length>0){
+	        			   for (var i = 0; i < rowCollection.length; i++) {
+								html +="<tr><td>"+rowCollection[i].LINE_CD+"</td>"+//拉线编码 
+								"<td>"+rowCollection[i].MO_NO+"</td>"+//工单号
+								"<td>"+rowCollection[i].ITEM_CD+"</td>"+//物料编码
+								"<td>"+rowCollection[i].ITEM_NM+"</td>"+//物料名称
+								"<td>"+rowCollection[i].FACE+"</td>"+//面别
+								"<td>"+rowCollection[i].PLAN_PO_QTY+"</td>"+ //计划生产数
+								"<td>"+rowCollection[i].PLAN_WO_QTY+"</td>"+  //投入
+								"<td>"+rowCollection[i].AMOUNT+"</td>"+   //产出
+								"<td>"+rowCollection[i].NG+"</td>"+   //不良数
+								"<td>"+rowCollection[i].WORKINGSTATE+"</td></tr>";
+						}
+	        			  
+	        			   	   $("#wonoTable tr:not(:first)").remove(); //删除table（除了第一行以外）
+	        				   $("#wonoTable").append(html);
+	        		 
+	        		   }
+	        	   }
+	           }
+	       });
+	       
+	   	/*工单汇总*/
+	       iplantAjaxRequest({
+	    	   
+	           url: '/iPlant_ajax',
+	           data: {
+	               IFS: 'MES_XK002',
+	               LINE_CD:lx,
+	               REQ_TIME:dtime,
+	               ET_CD:sbbm
+	           },
+	           successCallBack: function (data) {
+	        	   var workings=[];//生产进度
+	        	   var workpieces=[];//IE效率：
+	        	   var firstpassyields=[];//直通率：
+	        	   if(data.RESPONSE[0].length != 0){
+	        		   var rowCollection = createSourceObj(data);
+	        			   for (var i = 0; i < rowCollection.length; i++) {
+	        				   $("#sumpo").text(rowCollection[i].SUMPO);//总计划数
+		        			   $("#sumwo").text(rowCollection[i].SUMWO);//实际投入数
+		        			   $("#sumprod").text(rowCollection[i].SUMPROD);//产出
+		        			   $("#sumdfct").text(rowCollection[i].SUMDFCT);//不良
+		        			 //直通率：
+		        			   if(rowCollection[i].SUMPROD==0){
+		        				 //  $("#firstpassyield").text("100%");
+		        				   firstpassyields.push(parseFloat(0+"%"));
+		        			   }else{
+		        				   if(rowCollection[i].SUMWO==0){
+		        					   firstpassyields.push(parseFloat(0+"%"));
+		        				   }else{
+		        					   firstpassyields.push(parseFloat((((rowCollection[i].SUMPROD-rowCollection[i].SUMDFCT)/rowCollection[i].SUMWO).toFixed(2))*100+"%"));
+		        				   }
+		        			   }
+		        			   if(rowCollection[i].SUMWO==0){
+		        				   workpieces.push(parseFloat(((rowCollection[i].SUMPROD/rowCollection[i].SUMPO).toFixed(2))*100+"%"));
+		        			   }else{
+		        				   workpieces.push(parseFloat(((rowCollection[i].SUMPROD/rowCollection[i].SUMWO).toFixed(2))*100+"%"));
+		        				   
+		        			   }
+		        			   workings.push(parseFloat(((rowCollection[i].SUMPROD/rowCollection[i].SUMPO).toFixed(4))*100+"%"));
+						}
+	        	   }
+	        	   //三个仪表图
+	        	   
+	        	   /*生产进度*/
+	        	   Highcharts.chart('chart1', {
+	       			    chart: {
+	       			        type: 'gauge',//图形选择器
+	       			        backgroundColor:'#393A4C'
+	       			    },
+	       			    title: {
+	       			        text: ''
+	       			    },
+	       			    pane:[{
+	       			    	startAngle:-90,
+	       			    	endAngle:90,
+	       			    	background:{
+	       			    		backgroundColor:'#393A4C',
+	       			    		outRadius:'100%',
+	       			    		innerRadius:'100%',
+	       			    		shape: 'arc'//图形形状
+	       			    	},
+	       			    	center: ['50%', '90%'],
+		   		            size: '170%'
+	       			    	}],
+	       			     yAxis: [{
+			   		            min: 0,
+			   		            max: 100,
+			   		            minorTickPosition: 'inside',
+			   		            minorTickLength:5,
+			   		            minorTickColor:'white',
+			   		            tickPosition: 'inside',//tickLength、tickWidth、tickColor  分别代表刻度线的长度、宽度、颜色。
+			   		            tickLength:20,//表刻度线的长度 可以有负数
+			   		            tickInterval : 25,//刻度间隔
+			   		            tickColor:'white',
+			   		            labels: {
+			   		            	rotation: 'auto',
+			   		                distance: -30,
+			   		                formatter:function() {//在labels里可以配置formatter属性可以对y轴设置单位之类的个性化东西
+		       		                    return this.value+"%";//可以对照上面图表 +"L"
+		       		                },
+		       		                style:{		//刻度盘数值
+		       						    color:'#00EEEE',
+		       						    fontSize:'14px'  
+		       					    }
+			   		            },
+			   		            plotBands: [{
+			   		            	from:0,
+			       			        to: 25,
+			   		                color: '#4876FF'
+			       			    },{
+			       			     from: 20,
+			       			     to:80,
+			       			     color: '#00EEEE'
+			       			    },{
+				       			     from: 80,
+				       			     to:100,
+				       			     color: '#4876FF'
+			   		        }],
+			   		       pane: 0,
+		   		            title: {
+		   		            	style : {
+		   		            		color:'#00EEEE',
+		   		            		fontSize:'15px',
+		   		            		},
+		   		            	text: '生产进度：'+workings[0].toFixed(4)+'%',
+		   		                y:30	//仪表盘中的标题y轴上下距离调整
+		   		            }
+		   		        }],
+		   		        plotOptions: {
+		   		            gauge: {
+		   		                dataLabels: {
+		   		                    enabled: false
+		   		                },
+		   		                dial: {
+		   		                	backgroundColor : '#00EEEE',
+		   		                    radius: '70%'
+		   		                }
+		   		            }
+		   		        },
+	       			    series: [{
+	       			        name: '<span style="color:#00EEEE>生产进度</span>',
+	       			        data: workings,
+	       			        color:'#08c'
+	       			    }],
+	       			    tooltip: {
+	       			          enabled:false
+	       			 },
+	       			 exporting: {
+	       	            enabled:false
+	       			},
+	       			credits:{   //隐藏版权信息
+	       				enabled:false
+	       			}
+	       			});
+	        	   
+	        	   /*IE效率*/
+	        	   Highcharts.chart('chart2', {
+	       			    chart: {
+	       			    	type: 'gauge',
+	       			        backgroundColor:'#393A4C'
+	       			    },
+	       			    title: {
+	       			        text: ''
+	       			    },
+	       			    pane:[{
+	       			    	startAngle:-90,
+	       			    	endAngle:90,
+	       			    	background:{
+	       			    		backgroundColor:'#393A4C',
+	       			    		outRadius:'100%',
+	       			    		innerRadius:'100%',
+	       			    		shape: 'arc'
+	       			    	},
+	       			    	center: ['50%', '90%'],
+		   		            size: '170%'
+	       			    	}],
+	       			     yAxis: [{
+		       			    	min: 0,
+			   		            max: 100,
+			   		            minorTickPosition: 'inside',
+			   		            minorTickLength:5,
+			   		            minorTickColor:'white',
+			   		            tickPosition: 'inside',
+			   		            tickLength:20,
+			   		            tickInterval : 25,
+			   		            tickColor:'white',
+			   		            labels: {
+				   		                rotation: 'auto',
+				   		                distance: -30,
+				   		                formatter:function() {//在labels里可以配置formatter属性可以对y轴设置单位之类的个性化东西
+				   		                	return this.value+"%";//可以对照上面图表 +"L"
+		       		                },
+		       		                style:{
+		       						    color:'#00EEEE',
+		       						    fontSize:'14px'
+		       					    }
+			   		            },
+			   		            plotBands: [{
+			   		            	from:0,
+			       			        to: 25,
+			   		                color: 'red'
+			       			    },{
+			       			     from: 20,
+			       			     to:80,
+			       			     color: 'yellow'
+			       			    },{
+				       			     from: 80,
+				       			     to:100,
+				       			     color: 'green'
+			   		        }],
+			   		       pane: 0,
+		   		            title: {
+		   		            	style : {
+		   		            		color:'#00EEEE',
+		   		            		fontSize:'15px'
+		   		            		},
+		   		                text: 'IE效率：'+workpieces[0].toFixed(2)+'%',
+		   		                y: 30
+		   		            }
+		   		        }],
+		   		        plotOptions: {
+		   		            gauge: {
+		   		                dataLabels: {
+		   		                    enabled: false
+		   		                },
+		   		                dial: {
+		   		                	backgroundColor : 'yellow',
+		   		                    radius: '70%'
+		   		                }
+		   		            }
+		   		        },
+	       			    series: [{
+	       			        name: '<span style="color:#00EEEE>IE效率</span>',
+	       			        data: workpieces,
+	       			        color:'#08c'
+	       			    }],
+	       			    tooltip: {
+	       			          enabled:false
+	       			 },
+	       			 exporting: {
+	       	            enabled:false
+	       			},
+	       			 credits:{   //隐藏版权信息
+	       				enabled:false
+	       			}
+	       			});
+	        	   
+	        	   
+	        	   /*直通率*/
+	        	   Highcharts.chart('chart3', {
+	       			    chart: {
+	       			        type: 'gauge',
+	       			        backgroundColor:'#393A4C'
+	       			    },
+	       			    title: {
+	       			        text: ''
+	       			    },
+	       			    pane:[{
+	       			    	startAngle:-90,
+	       			    	endAngle:90,
+	       			    	background:{
+	       			    		backgroundColor:'#393A4C',
+	       			    		outRadius:'100%',
+	       			    		innerRadius:'100%',
+	       			    		shape: 'arc'
+	       			    	},
+	       			    	center: ['50%', '90%'],
+		   		            size: '170%'
+	       			    	}],
+	       			     yAxis: [{
+	       			    	 	min: 0,
+			   		            max: 100,
+			   		            minorTickPosition: 'inside',
+			   		            minorTickLength:5,
+			   		            minorTickColor:'white',
+			   		            tickPosition: 'inside',
+			   		            tickLength:20,
+			   		            tickInterval : 25,
+			   		            tickColor:'white',
+			   		            labels: {
+			   		                rotation: 'auto',
+			   		                distance:-30,
+			   		                formatter:function() {//在labels里可以配置formatter属性可以对y轴设置单位之类的个性化东西
+		       		                    return this.value+"%";//可以对照上面图表 +"L"
+		       		                },
+		       		                style:{
+		       						    color:'#00EEEE',
+		       						    fontSize:'14px'
+		       					    }
+			   		            },
+			   		            plotBands: [{
+			   		            	from:0,
+			       			        to: 25,
+			   		                color: '#4876FF'
+			       			    },{
+			       			     from: 20,
+			       			     to:80,
+			       			     color: '#00EEEE'
+			       			    },{
+				       			     from: 80,
+				       			     to:100,
+				       			     color: '#4876FF'
+			   		        }],
+			   		       pane: 0,
+		   		            title: {
+		   		            	style : {
+		   		            		color:'#22DEE6',
+		   		            		fontSize:'15px'
+		   		            		},
+		   		                text: '直通率：'+firstpassyields[0].toFixed(2)+'%',
+		   		                y: 30
+		   		            }
+		   		        }],
+		   		        plotOptions: {
+		   		            gauge: {
+		   		                dataLabels: {
+		   		                    enabled: false
+		   		                },
+		   		                dial: {
+		   		                	backgroundColor : '#4876FF',
+		   		                    radius: '70%'
+		   		                }
+		   		            }
+		   		        },
+	       			    series: [{
+	       			        name: '<span style="color:#1771B3>直通率</span>',
+	       			        data:firstpassyields ,
+	       			        color:'#08c'
+	       			    }],
+	       			    tooltip: {
+	       			          enabled:false
+	       			 },
+	       			 exporting: {
+	       	            enabled:false
+	       			},
+	       			credits:{   //隐藏版权信息
+	       				enabled:false
+	       			}
+	       			});
+	        	   
+	           }
+	       });
+	       
+	       
+	       /*计划产出*/
+	       iplantAjaxRequest({
+	           url: '/iPlant_ajax',
+	           data: {
+	               IFS: 'MES_XK003',
+	               REQ_TIME:dtime,
+	               LINE_CD:lx,
+	               ET_CD:sbbm
+	           },
+	           successCallBack: function (data) {
+	        	   var NG =[];//SMT不良数
+	        	   var Aarr = [];//计划投入
+	        	   var Barr = [];//实际产出
+	        	   var Carr = [];//计划生成率
+	        	   var smt=-1;
+	        	   var jidinghe=-1;
+	        	   
+	        	   if(data.RESPONSE[0].length != 0){
+	        		   var rowCollection = createSourceObj(data);
+	        		   
+	        			   for(var i=0; i<rowCollection.length; i++){
+	        				   	if(rowCollection[i].LINE_CD=='LINE01'){
+	        				   		smt=i;
+	        				   	}else if(rowCollection[i].LINE_CD=='LINE03'||rowCollection[i].LINE_CD=='LINE05'){
+	        				   		jidinghe=i;
+	        				   	}
+	        			   }
+	        			   if(smt>-1){
+	        				   //smt数据统计
+	        				   Aarr.push(parseInt(rowCollection[smt].JIHUA));
+	        				   Barr.push(parseInt(rowCollection[smt].CHANCHU));
+	        				   NG.push(parseInt(rowCollection[smt].DFCT_QTY));
+	        				   Carr.push(parseFloat((((rowCollection[smt].CHANCHU-rowCollection[smt].BULIANG)/rowCollection[smt].JIHUA).toFixed(4))*100+"%"));
+	        			   }else{
+	        				   Aarr.push(0);
+	        				   Barr.push(0);
+	        				   NG.push(0);
+	        				   Carr.push(parseFloat((0).toFixed(2)*100+"%"));
+	        			   }
+	        			   if(jidinghe>-1){
+	        				   //组装线数据统计
+	        				   Aarr.push(parseInt(rowCollection[jidinghe].JIHUA));
+	        				   Barr.push(parseInt(rowCollection[jidinghe].CHANCHU));
+	        				   Carr.push(parseFloat((((rowCollection[jidinghe].CHANCHU-rowCollection[jidinghe].BULIANG)/rowCollection[jidinghe].JIHUA).toFixed(4))*100+"%"));
+	        				   NG.push(parseInt(rowCollection[jidinghe].DFCT_QTY));
+	        				   
+	        			   }
+	        			
+	        			
+	        	   }
+	        	   
+	        	
+	        	   
+	        	   	//计划产出柱状图
+	       			Highcharts.chart('container1', {
+	       			    chart: {
+	       			        zoomtype: 'xy',	//zoomType ： 缩放类型，值可以是 “x”、“y”、“xy”，分别表示水平缩放、竖直缩放、平面缩放
+	       			         backgroundColor:'#393A4C'	
+	       			    },
+	       			    title: { //标题
+	       			    	text: '<span style="color:#FFFFFF;font-size:14px;">计划产出</span>',//标题文本
+	       			    	align:'left',//水平位置 ：left,center,right
+	       			    },
+		       			legend:{//图例
+	       			    	align:'center',
+	       			    	verticalAlign:'top'
+	       			    },
+	       			    xAxis: {//x轴，横坐标分区：
+	       			        categories: ['SMT生产线', '自动组装线'],//
+	       			        crosshair: true,
+	       			        labels:{
+	       			        	style:{
+	       			        		color:'#00EEEE',
+	       			        		fontSize:'18px'
+	       			        	}
+	       			        },
+	       			        min : 0,
+					    	max: 1
+	       			    },
+	       			    yAxis: [{//y轴，竖分区
+	       			        min: 000,
+	       			       // max:5000,//如果不设置就根据最大数据来显示
+	       			        tickColor:'#00E5EE',
+	       			        title: {
+	       			        	text: '<p style="color:#00EEEE;">产能</p>',
+	       			            y:-140,
+	       			            x:45,
+	       			            rotation:0
+	       			        },
+
+	       			     labels:{ 
+	       		                formatter:function() {//在labels里可以配置formatter属性可以对y轴设置单位之类的个性化东西
+	       		                    return this.value;//可以对照上面图表 +"L"
+	       		                },
+	       		         style:{
+	       			        		color:'#00EEEE',
+	       			        		fontSize:'13px'  //坐标字体
+	       			        	}
+	       		            },
+		       		            tickInterval:1000,//刻度间隔
+		       		            lineWidth:0.2,
+		       			        lineColor:'#00E5EE',
+			       		        gridLineWidth: 0,
+	       			    },{
+		       			     title:{
+	       			    		 text:'<p style="color:#00EEEE;">计划达成率</p>',
+	       			    		 y:-140,
+	       			    		 x:-45,
+	       			    		 rotation:0
+	       			    	 },
+       			    	 	tickColor:'#00E5EE',
+       			    		max:100,
+       			    		labels:{
+	       		                formatter:function() {//在labels里可以配置formatter属性可以对y轴设置单位之类的个性化东西
+	       		                    return this.value+"%";//可以对照上面图表 +"L"
+	       		                },
+	       		             style:{
+	       			        		color:'#00EEEE',
+	       			        		fontSize:'13px'
+	       			        	}
+	       		            },
+		       		           lineWidth:0.2,
+		       		           tickInterval:20,
+		       		           lineColor:'#00E5EE',
+		       		           gridLineWidth: 0.2,
+		       		           gridLineColor: '#00E5EE', 
+		       		            opposite: true,
+	       			    }],
+		       			 tooltip: {
+		       		        // head + 每个 point + footer 拼接成完整的 table
+		       		        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+		       		        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+		       		        '<td style="padding:0"><b>{point.y:.1f} </b></td></tr>',
+		       		        footerFormat: '</table>',
+		       		        shared: true,
+		       		        useHTML: true
+		       		    },
+	       			 plotOptions: {
+	       			        column: {
+	       			         dataLabels:{
+	                             enabled:true, // dataLabels设为true 直接在柱状图上面显示数据
+	                             style:{
+	                                // color:'#D7DEE9',
+	                            	 fontSize:'13px'
+	                             }
+	                         },
+	       			            pointPadding: 0.2,
+	       			            borderWidth: 0
+	       			        },
+	       			    series: {
+		       		            animation: {
+		       		                duration: 5000,//5秒
+		       		                easing: 'easeOutBounce'
+		       		            }
+		       			     }
+	       			    },
+	       			    series: [{
+	       			        name: '<span style="color:#00EEEE">计划</span>',
+	       			        data: Aarr,
+	       			        color:'#00EEEE',
+	       			        type:'column'
+	       			    }, {
+	       			        name: '<span style="color:#00EEEE">产出</span>',
+	       			        data:Barr,
+	       			        color:'#3CB371',
+	       			        type:'column'
+	       			    }, {
+	       			        name: '<span style="color:white">计划生成率</span>',
+	       			        data:Carr,
+	       			        color:'#CD2626',
+	       			        type:'spline',
+	       			        yAxis:1,
+	       			    }],
+	       			    credits: {
+	       			          enabled:false
+	       			},exporting: {
+	       	            enabled:false
+	       			}
+	       			});
+	       			
+	       		 
+	       			
+	        	   }
+	       });
+
+
+			
+	}
+	}
+	
+		
+			
+
+		csbkbInfo.prototype={
+				init: function () {
+					$(function () {
+							iplantAjaxRequest({
+						           url: '/iPlant_ajax',
+						           data: {
+						               IFS: 'S0000021',
+						           },
+						           async: false,
+						           successCallBack: function (data) {
+						        	   if(data.RESPONSE[0].RESPONSE_DATA.length>0){
+						        		   oldTime = data.RESPONSE[0].RESPONSE_DATA[0].SYS_TIME;
+						        		   var year = parseInt(oldTime.slice(0,4));
+							        		 //判断小于10，前面补0
+							       			if (year < 10) {
+							       				year = "0" + year;
+							       			}
+							       			
+						        		   var month = parseInt(oldTime.slice(5,7));
+							        		 //判断小于10，前面补0
+							       			if (month < 10) {
+							       				month = "0" + month;
+							       			}
+							       			
+						        		   var day = parseInt(oldTime.slice(8,10));
+							        		 //判断小于10，前面补0
+							       			if (day < 10) {
+							       				day = "0" + day;
+							       			}
+						        		   
+						        		   var hours = parseInt(oldTime.slice(11,13));
+							        		if (hours < 10) {
+							       				hours = "0" + hours;
+							       			}
+							        		
+						        		  var minutes = parseInt(oldTime.slice(14,16));
+							        		//判断小于10，前面补0
+							      			if (minutes < 10) {
+							      				minutes = "0" + minutes;
+							      			}
+							      			
+						        		   var seconds = parseInt(oldTime.slice(17));
+							        		 //判断小于10，前面补0
+							       			if (seconds < 10) {
+							       				seconds = "0" + seconds;
+							       			}
+							       			
+							       			var date_str ="";
+							    			if(parseInt(hours)>=8 && parseInt(hours)<20){
+							    				dtime = year + "-" + month + "-" + day + " " + "08" + ":" + "00" ;
+							    			}else{
+							    				if(parseInt(hours)<8){
+							    					var year1 = parseInt(oldTime.slice(0,4));
+							    					//判断小于10，前面补0
+							    					if (year1 < 10) {
+							    						year1 = "0" + year;
+							    					}
+							    			
+							    					//月
+							    					var month1 = parseInt(oldTime.slice(5,7));
+							    					//判断小于10，前面补0
+							    					if (month1 < 10) {
+							    						month1 = "0" + month1;
+							    					}
+							    			
+							    					//日
+							    					var day1 = parseInt(oldTime.slice(8,10))-1;
+							    					//判断小于10，前面补0
+							    					if (day1 < 10) {
+							    						day1 = "0" + day1;
+							    					}
+							    					//拼接年月日时分秒
+							    					dtime = year1 + "-" + month1 + "-" + day1 + " " + "20" + ":" + "00" ;
+							    				}else{
+							    					//拼接年月日时分秒
+							    					dtime = year + "-" + month + "-" + day + " " + "20" + ":" + "00" ;
+							    				}
+							    			}
+						        	   }
+						           }
+						       });
+					lx = getQueryString("line");
+					sbbm = getQueryString("shebei");
+					ccfunc();
+					var t=setInterval(function  () {
+						ccfunc();
+					},30000);	
+					});
+					}
+				}
+				
+		var csbkb = new csbkbInfo();
+	//	var ccINdext = 0;
+		var sbbm = "";
+		var lx ="";
+		//var cctm  = {A:'08-10', B:'10-12', C:'12-14', D:'14-16', E:'16-18',F:'18-20'};
+		var dtime  = "";
+		csbkb.init();
+})();
+

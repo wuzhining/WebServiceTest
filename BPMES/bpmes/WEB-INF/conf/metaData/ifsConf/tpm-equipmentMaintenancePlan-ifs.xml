@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ifss>
+<!-- 查询设备保养计划-->
+	<ifs ifs_code="TPM_EMP00001" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryEquipmentMaintenancePlan" biz_method="" serial_no="1" biz_name="queryEquipmentMaintenancePlan" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+<!-- 新增设备保养计划 -->
+	<ifs ifs_code="TPM_EMP00002" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="addEquipmentMaintenancePlan" biz_method="" serial_no="1" biz_name="addScadaDipCellsTotal" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+<!-- 修改设备保养计划 -->
+	<ifs ifs_code="TPM_EMP00003" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateEquipmentMaintenancePlan" biz_method="" serial_no="1" biz_name="updateEquipmentMaintenancePlan" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+<!-- 删除设备保养计划 -->
+	<ifs ifs_code="TPM_EMP00004" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteEquipmentMaintenancePlan" biz_method="" serial_no="1" biz_name="deleteEquipmentMaintenancePlan" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+</ifss>

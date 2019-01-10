@@ -1,0 +1,315 @@
+(function(){
+	var addOrUpdate;//addOrUpdate=0新增，addOrUpdate=1修改
+	function application() {
+		//查看
+		onBtnCheckClick=function(){
+			showRowSelectInfo('see');
+		}
+		//新增
+		onBtnAddClick=function(){
+			addOrUpdate=0;
+			$("#enditTab").dialog("open").dialog('setTitle', '<font color=\"white\">新增设备保养计划</font>');
+		}
+		
+		//修改
+		onBtnUpdateClick=function(){
+			addOrUpdate=1;
+			showRowSelectInfo('update');
+		}
+		
+		showRowSelectInfo=function(method){
+			
+			var msg=method=='update'?'修改':'查看'
+			var row = $('#dgEqmMtcPlan').datagrid('getSelected');
+	        if (row == null || row == 'undefine') {
+	            $.messager.alert('提示', '请选择一条数据进行'+msg+'！');
+	            return;
+	        }
+	        $("#enditTab").dialog("open").dialog('setTitle', '<font color=\"white\">'+msg+'设备保养计划</font>');
+	        
+	        $('#tbEqmMtcPlanName').textbox('setValue',row.PLAN_NAME);
+	        $('#cbEqmMtcWay').combobox('setValue',row.PM_WAY);
+	        $('#cbCycleType').combobox('setValue',row.CYCLE_TYPE);
+	        $('#tbCycleInterval').textbox('setValue',row.CYCLE_INTERVAL);
+	        $('#tbSupervisor').textbox('setValue',row.SUPERVISOR);
+	        $('#cbWarningWay').combobox('setValue',row.WARNING_WAY);
+	        $('#tbWarningInterval').textbox('setValue',row.WARNING_INTERVAL);
+	        $('#tbAlarmAdvance').textbox('setValue',row.ALARM_ADVANCE);
+	        $('#tbEqmMtcDetail').textbox('setValue',row.PM_DETAIL);
+	        $('#cbIsUse').prop('checked',row.ISUSE=='Y'?true:false);
+		}
+		
+		//删除
+		onBtnDeleteClick=function(){
+			$("#enditTab").dialog("open").dialog('setTitle', '<font color=\"white\">删除设备保养计划</font>');
+		}
+		//帮助
+		onBtnHelpClick=function(){
+			$("#enditTab").dialog("open").dialog('setTitle', '<font color=\"white\">帮助界面</font>');
+		}
+		//查询
+		onBtnSearchClick=function(){  
+			var params={
+					IFS: 'TPM_EMP00001',
+			        planName:$('#tbPlanName').textbox('getValue')
+			}
+			iplantAjaxRequest({
+				 url: '/iPlant_ajax',
+		           data: params,
+		           successCallBack: function (data) {
+		        	    if(data.RESPONSE[0].length != 0){
+		        		   $('#dgEqmMtcPlan').datagrid({  
+		        			   data:data.RESPONSE[0].RESPONSE_DATA
+		        		   })
+		        	   }
+		           }
+			})
+		}
+		//清空按钮
+		onBtnClearClick = function() {
+			$('#cbFullChar').prop('checked',false);
+			$('#cbMultiSelect').prop('checked',false);
+			$('#tbPlanName').textbox('reset');
+			$('#dgEqmMtcPlan').datagrid({ 
+				singleSelect:true
+			})
+		}
+		//修改或新增的保存方法
+		savePlanInfo=function(){
+			
+			var params={
+			        planName:$('#tbEqmMtcPlanName').textbox('getValue'),
+			        pmWay:$('#cbEqmMtcWay').combobox('getValue'),
+			        cycleType:$('#cbCycleType').combobox('getValue'),
+			        cycleInterval:$('#tbCycleInterval').textbox('getValue'),
+			        supervisor:$('#tbSupervisor').textbox('getValue'),
+			        warningWay:$('#cbWarningWay').combobox('getValue'),
+			        warningInterval:$('#tbWarningInterval').textbox('getValue'),
+			        alarmAdvance:$('#tbAlarmAdvance').textbox('getValue'),
+			        isUse:$('#cbIsUse').is(':checked')?'Y':'N',
+			        pmDetail:$('#tbEqmMtcDetail').textbox('getValue'),
+			        warningSendee:$('#tbSupervisor').textbox('getValue'),
+			        createUser:'张三'
+			}
+			//新增
+			if(addOrUpdate==0){
+				params.IFS= 'TPM_EMP00002',
+				$.messager.confirm('确认对话框', '您确定新增设备保养计划吗？', function(r){
+					if (r){
+						$.messager.progress({
+							title:'提示信息' ,
+							msg:'正在提交，请稍候...'
+						});
+						iplantAjaxRequest({
+							 url: '/iPlant_ajax',
+					           data: params,
+					           successCallBack: function (data) {
+					        	   $.messager.progress('close');
+					        	   var msg=data.RESPONSE[0].RESPONSE_HDR.MSG_CODE=='0'?'保存成功!':data.RESPONSE[0].RESPONSE_HDR.MSG_TEXT;
+					        	   $.messager.alert('提示信息',msg,'info');
+					           }
+						})
+					}
+				});
+
+				//修改
+			}else if(addOrUpdate==1){
+				params.IFS= 'TPM_EMP00003',
+				params.planNo=$('#dgEqmMtcPlan').datagrid('getSelected').PLAN_NO,
+				$.messager.confirm('确认对话框', '您确定修改设备保养计划吗？', function(r){
+					if (r){
+						$.messager.progress({
+							title:'提示信息' ,
+							msg:'正在提交，请稍候...'
+						});
+						iplantAjaxRequest({
+							 url: '/iPlant_ajax',
+					           data: params,
+					           successCallBack: function (data) {
+					        	   $.messager.progress('close');
+					        	   var msg=data.RESPONSE[0].RESPONSE_HDR.MSG_CODE=='0'?'保存成功!':data.RESPONSE[0].RESPONSE_HDR.MSG_TEXT.split('###')[0];
+					        	   $.messager.alert('提示信息',msg,'info');
+					           }
+						})
+					}
+				});
+				
+			}
+		}
+		//设置组件
+		setupComponents=function(){
+			//设备保养计划数据表格
+			$('#dgEqmMtcPlan').datagrid({   
+				singleSelect:true,
+				ctrlSelect:true,
+				checkOnSelect:true,	
+			    columns:[[    
+			        {field:'check',checkbox:true},    
+			        {field:'PLAN_NAME',title:'保养计划名称',width:100},    
+			        {field:'PLAN_NO',title:'保养计划编码',width:100},    
+			        {field:'PM_WAY',title:'保养方式',width:100},    
+			        {field:'CYCLE_TYPE',title:'周期类型',width:100,align:'right'},
+			        {field:'CYCLE_INTERVAL',title:'周期间隔',width:100},    
+			        {field:'SUPERVISOR',title:'保养人',width:100},    
+			        {field:'WARNING_WAY',title:'预警方式',width:100},    
+			        {field:'WARNING_INTERVAL',title:'预警间隔',width:100},    
+			        {field:'ALARM_ADVANCE',title:'警报提前',width:100},    
+			        {field:'ISUSE',title:'是否启用',width:100},    
+			        {field:'PM_DETAIL',title:'保养明细',width:100},    
+			        {field:'PERCENT_OF_USE',title:'使用次数预警百分比',width:100},    
+			        {field:'WARNING_SENDEE',title:'预警接收人',width:100},    
+			        {field:'CREATE_USER',title:'创建人',width:100},    
+			        {field:'CREATE_DATE',title:'创建日期',width:100}
+			    ]]
+//			,
+//			    data: [
+//					{PLAN_NAME:'XX1', PM_WAY:'ByCycle', CYCLE_TYPE:'ByMonth', CYCLE_INTERVAL:'4', SUPERVISOR:'王华', WARNING_WAY:'email', WARNING_INTERVAL:'1', ALARM_ADVANCE:'2', ISUSE:'Y',PM_DETAIL:'test'},
+//					{PLAN_NAME:'XX2', PM_WAY:'ByCycle', CYCLE_TYPE:'ByMonth', CYCLE_INTERVAL:'4', SUPERVISOR:'张三', WARNING_WAY:'email', WARNING_INTERVAL:'1', ALARM_ADVANCE:'2', ISUSE:'Y',PM_DETAIL:'test'},
+//					{PLAN_NAME:'XX3', PM_WAY:'ByCycle', CYCLE_TYPE:'ByMonth', CYCLE_INTERVAL:'4', SUPERVISOR:'李四', WARNING_WAY:'email', WARNING_INTERVAL:'1', ALARM_ADVANCE:'2', ISUSE:'Y',PM_DETAIL:'test'}
+//				]
+			}); 
+			//预警方式
+			$('#cbWarningWay').combobox({    
+				valueField: 'value',
+				textField: 'label',
+				panelHeight:'auto',
+				data: [{
+					label: 'java',
+					value: 'Java'
+				},{
+					label: 'perl',
+					value: 'Perl'
+				},{
+					label: 'ruby',
+					value: 'Ruby'
+				}]
+			});
+			//保养方式
+			$('#cbEqmMtcWay').combobox({    
+				valueField: 'value',
+				textField: 'label',
+				panelHeight:'auto',
+				data: [{
+					label: '--ByCycle--',
+					value: 'ByCycle'
+				},{
+					label: 'perl',
+					value: 'Perl'
+				},{
+					label: 'ruby',
+					value: 'Ruby'
+				}] 
+			});
+			//周期类型
+			$('#cbCycleType').combobox({    
+				valueField: 'value',
+				textField: 'label',
+				panelHeight:'auto',
+				data: [{
+					label: '--ByYear--',
+					value: 'ByYear'
+				},{
+					label: '--ByMonth--',
+					value: 'ByMonth'
+				},{
+					label: '--ByWeek--',
+					value: 'ByWeek'
+				},{
+					label: '--ByDay--',
+					value: 'ByDay'
+				},{
+					label: '--ByHours--',
+					value: 'ByHours'
+				}] 
+			});
+			//多选框
+			$('#cbMultiSelect').change(function(){
+				if(this.checked){
+					$('#dgEqmMtcPlan').datagrid({ 
+						singleSelect:false
+					})
+				}else{
+					$('#dgEqmMtcPlan').datagrid({ 
+						singleSelect:true
+					})
+				}
+			})
+			//查看、新增、修改功能打开的对话窗口
+			$("#enditTab").dialog({
+				modal:true,
+				toolbar:[{
+					text:'保存',
+					iconCls:'icon-save',
+					handler:function(){
+						savePlanInfo()
+					}
+				},{
+					text:'帮助',
+					iconCls:'icon-help',
+					handler:function(){alert('help')}
+				}],
+				onClose: function () {
+					$('#tbEqmMtcPlanName').textbox('clear');
+			        $('#cbEqmMtcWay').combobox('setValue','');
+			        $('#cbCycleType').combobox('setValue','');
+			        $('#tbCycleInterval').textbox('clear');
+			        $('#tbSupervisor').textbox('clear');
+			        $('#cbWarningWay').combobox('setValue','');
+			        $('#tbWarningInterval').textbox('clear');
+			        $('#tbAlarmAdvance').textbox('clear');
+			        $('#tbEqmMtcDetail').textbox('clear');
+				},
+				buttons: [{
+					text:'取消',
+					iconCls:'icon-no',
+					handler:function(){
+						$('#enditTab').dialog('close');	
+					}
+				}]
+			});
+
+			
+			
+		}
+	}
+	
+	application.prototype = {
+		init : function() {
+			$(function() {
+				//设置组件
+				setupComponents();
+				onBtnSearchClick();	
+				//查看
+				$('#btncheck').click(function(){
+					onBtnCheckClick();
+				});
+				//新增
+				$('#btnAdd').click(function(){
+					onBtnAddClick();
+				});
+				//编辑
+				$('#btnUpdate').click(function(){
+					onBtnUpdateClick();
+				});
+				//删除
+				$('#btnDelete').click(function(){
+					onBtnDeleteClick();
+				});
+				//帮助
+				$('#btnHelp').click(function(){
+					onBtnHelpClick();
+				});
+				//查询
+				$('#btnSearch').click(function(){
+					onBtnSearchClick();
+				});
+				//清空
+				$('#btnClear').click(function() {
+					onBtnClearClick();
+				});
+				
+			});
+		}
+	}
+	new application().init();
+})()

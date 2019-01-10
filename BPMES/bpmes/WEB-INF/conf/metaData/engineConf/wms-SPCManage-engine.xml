@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<engines>
+   <!--SPC管理 -->
+   <!-- SPC项目列表 -->
+	<!-- 新增SPC项目列表信息 -->
+	<engine engine_code="INSERT_MES_SPCPROJECTLIST" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="INSERT_MES_SPCPROJECTLIST" >
+	</engine>
+	
+	<!--查询SPC项目列表信息 -->
+	<engine engine_code="select_MES_SPCPROJECTLIST" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="select_MES_SPCPROJECTLIST" >
+	</engine>
+	
+   <!--修改SPC项目列表信息 -->
+	<engine engine_code="update_MES_SPCPROJECTLIST" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="update_MES_SPCPROJECTLIST" >
+	</engine>
+	
+	
+	 <!--删除SPC项目列表信息 -->
+	<engine engine_code="delete_MES_SPCPROJECTLIST" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="delete_MES_SPCPROJECTLIST" >
+	</engine>
+	
+	<!-- SPC任务列表-->
+	<!-- 新增SPC任务列表信息 -->
+	<engine engine_code="INSERT_MES_SPCTASKLIST" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="INSERT_MES_SPCTASKLIST" >
+	</engine>
+	
+	<!--查询SPC任务列表信息 -->
+	<engine engine_code="select_MES_SPCTASKLIST" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="select_MES_SPCTASKLIST" >
+	</engine>
+	
+   <!--修改SPC任务列表信息 -->
+	<engine engine_code="update_MES_SPCTASKLIST" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="update_MES_SPCTASKLIST" >
+	</engine>
+	
+	 <!--删除SPC任务列表信息 -->
+	<engine engine_code="delete_MES_SPCTASKLIST" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="delete_MES_SPCTASKLIST" >
+	</engine>
+	
+</engines>

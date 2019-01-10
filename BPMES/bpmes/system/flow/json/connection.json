@@ -1,0 +1,101 @@
+[{
+    "lineColor": "#61b7cf",
+    "connectionLabel": "安装在...上",
+    "PageSourceId": "uiprint_0",
+    "PageTargetId": "uiprint_1"
+},
+{
+    "lineColor": "#b02929",
+    "connectionLabel": "热备",
+    "PageSourceId": "uiprint_2",
+    "PageTargetId": "uicamera_0"
+},
+{
+    "lineColor": "#2f8e00",
+    "connectionLabel": "连接",
+    "PageSourceId": "uiprint_0",
+    "PageTargetId": "uicamera_0"
+},
+{
+    "lineColor": "#0074b0",
+    "connectionLabel": "冷备",
+    "PageSourceId": "uiprint_0",
+    "PageTargetId": "uiscreen_0"
+},
+{
+    "lineColor": "#b267ce",
+    "connectionLabel": "文档",
+    "PageSourceId": "uiprint_0",
+    "PageTargetId": "uicamera_1"
+},
+{
+    "lineColor": "#7c4f2e",
+    "connectionLabel": "使用",
+    "PageSourceId": "uiprint_1",
+    "PageTargetId": "uicamera_1"
+},
+{
+    "lineColor": "#e28b1a",
+    "connectionLabel": "依赖",
+    "PageSourceId": "uiprint_2",
+    "PageTargetId": "uiscreen_0"
+},
+{
+    "lineColor": "#e28b1a",
+    "connectionLabel": "依赖",
+    "PageSourceId": "uiprint_1",
+    "PageTargetId": "uicamera_0"
+},
+{
+    "lineColor": "#0074b0",
+    "connectionLabel": "冷备",
+    "PageSourceId": "uicamera_0",
+    "PageTargetId": "uicamera_1"
+}] & [{
+    "BlockId": "uiscreen_0",
+    "BlockClass": "uiscreen",
+    "BlockImg": "images/big-icon/screen.gif",
+    "BlockText": "显示器",
+    "BlockX": 74,
+    "BlockY": 125
+},
+{
+    "BlockId": "uicamera_0",
+    "BlockClass": "uicamera",
+    "BlockImg": "images/big-icon/camera.gif",
+    "BlockText": "摄像头",
+    "BlockX": 517,
+    "BlockY": 115
+},
+{
+    "BlockId": "uicamera_1",
+    "BlockClass": "uicamera",
+    "BlockImg": "images/big-icon/camera.gif",
+    "BlockText": "摄像头",
+    "BlockX": 84,
+    "BlockY": 448
+},
+{
+    "BlockId": "uiprint_0",
+    "BlockClass": "uiprint",
+    "BlockImg": "images/big-icon/print.gif",
+    "BlockText": "打印机",
+    "BlockX": 400,
+    "BlockY": 256
+},
+{
+    "BlockId": "uiprint_1",
+    "BlockClass": "uiprint",
+    "BlockImg": "images/big-icon/print.gif",
+    "BlockText": "打印机",
+    "BlockX": 703,
+    "BlockY": 476
+},
+{
+    "BlockId": "uiprint_2",
+    "BlockClass": "uiprint",
+    "BlockImg": "images/big-icon/print.gif",
+    "BlockText": "打印机",
+    "BlockX": 709,
+    "BlockY": 194
+}]

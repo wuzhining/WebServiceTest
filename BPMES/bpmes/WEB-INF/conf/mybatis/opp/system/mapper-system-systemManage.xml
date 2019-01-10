@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="">
+    <!-- A1 系统管理 -->
+    <!-- A1.2 基础数据导入 -->
+    <select id="BasicDataImport" parameterType="hashmap" resultType="java.util.HashMap"> 
+	</select>
+	
+	<!-- A1.3  基础数据导入出-->
+	<select id="BasicDataExport" parameterType="hashmap" resultType="java.util.HashMap"> 
+	</select>
+	
+	<!-- A1.4 采集器端口配置 -->
+	<!-- 查询采集器 -->
+	<select id="queryCollector" parameterType="hashmap" resultType="java.util.HashMap"> 
+			<include refid="oraclePagingFileTop"></include>	
+	    			ST_CD,
+					ST_NM,
+					DICT_IT,
+					IP_ADR,
+					USE_YN,
+					ST_SORT,
+					KB_RM,
+					CRT_ID,
+					CRT_DT,
+					CRT_IP,
+					UPT_ID,
+					UPT_DT,
+					UPT_IP
+	    		FROM iplant1.C_IPLANT_C5_T
+	    		<where> 1=1
+	    			<if test="ST_CD!=null and ST_CD!='' ">
+	    				AND ST_CD='${ST_CD}'	
+	    			</if>
+	    			<if test="ST_NM!=null and ST_NM!='' ">
+	    				AND ST_NM='${ST_NM}'	
+	    			</if>
+	    			<if test="DICT_IT!=null and DICT_IT!='' ">
+	    				AND DICT_IT='${DICT_IT}'	
+	    			</if>
+	    		</where>
+	    		<include refid="oraclePagingFileBottom"></include> 	
+	</select>
+	<!-- 查询采集器分页总数 -->
+	<select id="queryCollect_COUNT" parameterType="hashmap" resultType="java.util.HashMap" >
+	   		SELECT COUNT(1) ROWS_COUNT FROM iplant1.C_IPLANT_C5_T
+	    	<where> 1=1
+	    		<if test="ST_CD!=null and ST_CD!='' ">
+	    			AND ST_CD='${ST_CD}'	
+	    		</if>
+	    		<if test="ST_NM!=null and ST_NM!='' ">
+	    			AND ST_NM='${ST_NM}'	
+	    		</if>
+	    		<if test="DICT_IT!=null and DICT_IT!='' ">
+	    			AND DICT_IT='${DICT_IT}'	
+	    		</if>
+	    	</where>
+	     </select>	
+	<!-- 新增采集器 -->
+	<insert id="insertCollector" parameterType="hashmap" > 
+			INSERT INTO 
+	     		 	iplant1.C_IPLANT_C5_T
+	     		 		(
+	     		 		 ST_CD,
+						 ST_NM,
+						 DICT_IT,
+						 IP_ADR,
+						 USE_YN,
+						 ST_SORT,
+						 KB_RM,
+						 CRT_ID,
+						 CRT_DT,
+						 CRT_IP
+	     		 		)
+	     		 	 VALUES
+	     		 	 	(
+	     		 	 	 '${ST_CD}',
+						 '${ST_NM}',
+						 '${DICT_IT}',
+						 '${IP_ADR}',
+						 '${USE_YN}',
+						 '${ST_SORT}',
+						 '${KB_RM}',
+						 '${F_USE_CD}',
+						 SYSDATE, 
+						 '${CRT_IP}'	
+	     		 	 	 )	
+	</insert>
+	<!-- 删除采集器 -->
+	<delete id="deleteCollector" parameterType="hashmap" > 
+			DELETE iplant1.C_IPLANT_C5_T
+	     		 	 <where>
+	     		 	 	ST_CD='${ST_CD}'
+	     		 	 </where>	
+	</delete>
+	<!-- 修改采集器 -->
+	<update id="updateCollector" parameterType="hashmap" > 
+			UPDATE iplant1.C_IPLANT_C5_T
+	     		 	<set>
+	     		 	   <if test="ST_NM!=null and ST_NM!='' ">
+	     		 	   	    ST_NM='${ST_NM}',
+	     		 	   </if>
+	     		 	   <if test="DICT_IT!=null and DICT_IT!='' ">
+	     		 	   	    DICT_IT='${DICT_IT}',
+	     		 	   </if>
+	     		 	   <if test="IP_ADR!=null and IP_ADR!='' ">
+	     		 	   	    IP_ADR='${IP_ADR}',
+	     		 	   </if>
+	     		 	   <if test="USE_YN!=null and USE_YN!='' ">
+	     		 	   	    USE_YN='${USE_YN}',
+	     		 	   </if>
+	     		 	   <if test="ST_SORT!=null and ST_SORT!='' ">
+	     		 	   	    ST_SORT='${ST_SORT}',
+	     		 	   </if>
+	     		 	   <if test="KB_RM!=null and KB_RM!='' ">
+	     		 	   	    KB_RM='${KB_RM}',
+	     		 	   </if>
+	     		 	   	   UPT_ID='${F_USE_CD}', 			        	        			        
+                           UPT_DT=SYSDATE, 
+                           UPT_IP='${UPT_IP}'  
+	     		 	</set>
+	     		 	<where>
+	     		 		ST_CD='${ST_CD}'
+	     		 	</where>
+	</update>
+	
+	
+	
+	
+	<!-- A1.5 岗位技能管理 -->
+	<!-- 技能项查询 -->
+	<select id="QuerySkillItems" parameterType="hashmap" resultType="java.util.HashMap"> 
+			<include refid="oraclePagingFileTop"></include>	
+	    			SKILL_ID,
+					SKILL_CD,
+					SKILL_NAME,
+					SKILL_TYPE,
+					DESCRIBE,
+					DATE_DUE,
+					ADVANCE_WARNING_DATE
+				FROM iplant1.C_IPLANT_SKILL_ITEM_T
+	    		<where> 1=1
+	    			<if test="SKILL_CD!=null and SKILL_CD!='' ">
+	    				AND SKILL_CD='${SKILL_CD}'	
+	    			</if>
+	    			<if test="SKILL_NAME!=null and SKILL_NAME!='' ">
+	    				AND SKILL_NAME='${SKILL_NAME}'	
+	    			</if>
+	    			<if test="SKILL_TYPE!=null and SKILL_TYPE!='' ">
+	    				AND SKILL_TYPE='${SKILL_TYPE}'	
+	    			</if>
+	    		</where>
+	    		<include refid="oraclePagingFileBottom"></include> 	
+	</select>
+	<!-- 技能项查询分页总数 -->
+	<select id="QuerySkillItems_COUNT" parameterType="hashmap" resultType="java.util.HashMap" >
+	   		SELECT COUNT(1) ROWS_COUNT FROM iplant1.C_IPLANT_SKILL_ITEM_T
+	    	<where> 1=1
+	    		<if test="SKILL_NAME!=null and SKILL_NAME!='' ">
+	    				AND SKILL_NAME='${SKILL_NAME}'	
+	    			</if>
+	    			<if test="SKILL_TYPE!=null and SKILL_TYPE!='' ">
+	    				AND SKILL_TYPE='${SKILL_TYPE}'	
+	    			</if>
+	    	</where>
+	     </select>	
+	<!-- 新增技能项 -->
+	<insert id="insertSkillItems" parameterType="hashmap" > 
+			INSERT INTO 
+	     		 	iplant1.C_IPLANT_SKILL_ITEM_T
+	     		 		(
+	     		 		SKILL_ID,
+						SKILL_CD,
+						SKILL_NAME,
+						SKILL_TYPE,
+						DESCRIBE,
+						DATE_DUE,
+						ADVANCE_WARNING_DATE
+	     		 		)
+	     		 	 VALUES
+	     		 	 	(
+	     		 	 iplant1.C_IPLANT_SKILL_ITEM_SEQ.NEXTVAL, 
+	     		 	 	<!-- '${SKILL_ID}', -->
+						 '${SKILL_CD}',
+						 '${SKILL_NAME}',
+						 '${SKILL_TYPE}',
+						 '${DESCRIBE}',
+						 '${DATE_DUE}',
+						 '${ADVANCE_WARNING_DATE}'
+						 )	
+	</insert>
+	
+	<!-- 修改技能项 -->
+	<update id="updateSkillItems" parameterType="hashmap" > 
+			UPDATE iplant1.C_IPLANT_SKILL_ITEM_T
+	     		 	<set>
+	     		 	   <!-- <if test="SKILL_CD!=null and SKILL_CD!='' ">
+	     		 	   	    SKILL_CD='${SKILL_CD}',
+	     		 	   </if> -->
+	     		 	   <if test="SKILL_NAME!=null and SKILL_NAME!='' ">
+	     		 	   	    SKILL_NAME='${SKILL_NAME}',
+	     		 	   </if>
+	     		 	   <if test="SKILL_TYPE!=null and SKILL_TYPE!='' ">
+	     		 	   	    SKILL_TYPE='${SKILL_TYPE}',
+	     		 	   </if>
+	     		 	   <if test="DESCRIBE!=null and DESCRIBE!='' ">
+	     		 	   	    DESCRIBE='${DESCRIBE}',
+	     		 	   </if>
+	     		 	   <if test="DATE_DUE!=null and DATE_DUE!='' ">
+	     		 	   	    DATE_DUE='${DATE_DUE}',
+	     		 	   </if>
+	     		 	  
+	     		 	   <if test="ADVANCE_WARNING_DATE!=null and ADVANCE_WARNING_DATE!='' ">
+	     		 	   	    ADVANCE_WARNING_DATE='${ADVANCE_WARNING_DATE}',
+	     		 	   </if>
+	     		 	</set>
+	     		 	<where>
+	     		 		SKILL_ID='${SKILL_ID}'
+	     		 	</where>
+	</update>
+	
+	<!-- 删除技能项-->
+	<delete id="deleteSkillItems" parameterType="hashmap" > 
+			DELETE iplant1.C_IPLANT_SKILL_ITEM_T
+	     		 	 <where>
+	     		 	 	SKILL_ID='${SKILL_ID}'
+	     		 	 </where>	
+	</delete>
+	
+	
+	
+	 <!-- 查询技能授权 -->
+	<select id="QuerySkillsAuthorization" parameterType="hashmap" resultType="java.util.HashMap"> 
+			<include refid="oraclePagingFileTop"></include>	
+					ID,
+	    			EMP_NO,
+	    			SKILL_ID
+				FROM iplant1.C_IPLANT_U1_ITEM_T
+	    		<where> 1=1
+	    			<if test="USER_NAME!=null and USER_NAME!='' ">
+	    				AND USER_NAME='${USER_NAME}'	
+	    			</if>
+	    			<if test="JOB_NUMBER!=null and JOB_NUMBER!='' ">
+	    				AND JOB_NUMBER='${JOB_NUMBER}'	
+	    			</if>
+	    			<if test="CHINESE_NAME!=null and CHINESE_NAME!=''">
+	    				AND CHINESE_NAME='${CHINESE_NAME}'
+	    			</if>
+	    			<if test="AUDIT_STATUS!=null and AUDIT_STATUS!=''">
+	    				AND AUDIT_STATUS='${AUDIT_STATUS}'
+	    			</if>
+	    			<if test="LOCK_STATE!=null and LOCK_STATE!=''">
+	    				AND LOCK_STATE='${LOCK_STATE}'
+	    			</if>
+	    		</where>
+	    		<include refid="oraclePagingFileBottom"></include> 	
+	</select>
+	<!-- 查询技能授权分页总数 -->
+	<select id="QuerySkillsAuthorization_COUNT" parameterType="hashmap" resultType="java.util.HashMap" >
+	   		SELECT COUNT(1) ROWS_COUNT FROM iplant1.C_IPLANT_U1_ITEM_T
+	    	<where> 1=1
+	    			<if test="USER_NAME!=null and USER_NAME!='' ">
+	    				AND USER_NAME='${USER_NAME}'	
+	    			</if>
+	    			<if test="JOB_NUMBER!=null and JOB_NUMBER!='' ">
+	    				AND JOB_NUMBER='${JOB_NUMBER}'	
+	    			</if>
+	    			<if test="CHINESE_NAME!=null and CHINESE_NAME!=''">
+	    				AND CHINESE_NAME='${CHINESE_NAME}'
+	    			</if>
+	    			<if test="AUDIT_STATUS!=null and AUDIT_STATUS!=''">
+	    				AND AUDIT_STATUS='${AUDIT_STATUS}'
+	    			</if>
+	    			<if test="LOCK_STATE!=null and LOCK_STATE!=''">
+	    				AND LOCK_STATE='${LOCK_STATE}'
+	    			</if>
+	    	</where>
+	     </select>	
+	<!--新增技能授权-->
+	<insert id="insertSkillsAuthorization" parameterType="hashmap" > 
+			INSERT ALL 
+<foreach index="index" item="item" collection="list">INTO iplant1.c_iplant_u1_item_t (SKILL_ID,EMP_NO) VALUES (#{item.SKILL_ID},#{item.EMP_NO}) </foreach>
+SELECT 1 from dual 
+	</insert>
+	
+	<!-- 删除技能授权-->
+	<delete id="deleteSkillsAuthorization" parameterType="hashmap" > 
+			DELETE FROM iplant1.c_iplant_u1_item_t WHERE EMP_NO = '${EMP_NO}' and SKILL_ID IN 
+<foreach item="item" collection="list" close=")" separator="," open="("> #{item.SKILL_ID} </foreach>
+	</delete>
+	<!-- 修改技能授权 -->
+	<update id="updateSkillsAuthorization" parameterType="hashmap" > 
+			UPDATE iplant1.C_IPLANT_U1_ITEM_T
+	     		 	<set>
+	     		 	   <if test="ST_NM!=null and ST_NM!='' ">
+	     		 	   	    ST_NM='${ST_NM}',
+	     		 	   </if>
+	     		 	   <if test="DICT_IT!=null and DICT_IT!='' ">
+	     		 	   	    DICT_IT='${DICT_IT}',
+	     		 	   </if>
+	     		 	   <if test="IP_ADR!=null and IP_ADR!='' ">
+	     		 	   	    IP_ADR='${IP_ADR}',
+	     		 	   </if>
+	     		 	   <if test="USE_YN!=null and USE_YN!='' ">
+	     		 	   	    USE_YN='${USE_YN}',
+	     		 	   </if>
+	     		 	   <if test="ST_SORT!=null and ST_SORT!='' ">
+	     		 	   	    ST_SORT='${ST_SORT}',
+	     		 	   </if>
+	     		 	   <if test="KB_RM!=null and KB_RM!='' ">
+	     		 	   	    KB_RM='${KB_RM}',
+	     		 	   </if>
+	     		 	   	   UPT_ID='${F_USE_CD}', 			        	        			        
+                           UPT_DT=SYSDATE, 
+                           UPT_IP='${UPT_IP}'  
+	     		 	</set>
+	     		 	<where>
+	     		 		ID='${ID}'
+	     		 	</where>
+	</update> 
+	
+		<!-- 查询左边table -->	
+			<select id="selectSkillsAuthorizationLeftTable" resultType="java.util.HashMap" parameterType="hashmap" >
+				<include refid="oraclePagingFileTop"/>
+						T4.* FROM IPLANT1.C_IPLANT_SKILL_ITEM_T T4 WHERE T4.SKILL_ID NOT IN
+						(SELECT T1.SKILL_ID FROM IPLANT1.C_IPLANT_U1_ITEM_T T2
+						   LEFT JOIN IPLANT1.C_IPLANT_SKILL_ITEM_T T1 ON T1.SKILL_ID = T2.SKILL_ID 
+						   LEFT JOIN IPLANT1.C_IPLANT_U1_T T3 ON T2.EMP_NO = T3.EMP_NO  WHERE T3.USE_CD = '${USE_CD}' and SKILL_NAME = '${SKILL_NAME}') 
+				<include refid="oraclePagingFileBottom"/>
+			</select>
+
+      <!-- 查询右边table -->
+		<select resultType="java.util.HashMap" parameterType="hashmap" id="selectSkillsAuthorizationRightTable">
+			<include refid="oraclePagingFileTop"/>
+				T1.SKILL_ID,T1.SKILL_NAME FROM IPLANT1.C_IPLANT_U1_ITEM_T T2 LEFT JOIN IPLANT1.C_IPLANT_SKILL_ITEM_T T1 ON T1.SKILL_ID = T2.SKILL_ID LEFT JOIN IPLANT1.C_IPLANT_U1_T T3 ON T2.EMP_NO = T3.EMP_NO WHERE T3.USE_CD = '${USE_CD}' 
+			<include refid="oraclePagingFileBottom"/>
+		</select>
+	
+</mapper>

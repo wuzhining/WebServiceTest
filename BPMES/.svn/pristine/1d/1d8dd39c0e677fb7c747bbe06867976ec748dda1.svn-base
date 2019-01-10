@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<engines>
+    <!-- A1 系统管理 -->
+    <!-- A1.2 基础数据导入 -->
+	<engine engine_code="BasicDataImport" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="BasicDataImport" >
+	</engine>
+	
+	<!-- A1.3 基础数据导出 -->
+	<engine engine_code="BasicDataExport" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="BasicDataExport" >
+	</engine>
+	
+	<!-- A1.4 采集器端口配置 -->
+	<!-- 查询采集器 -->
+	<engine engine_code="queryCollector" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="queryCollector" >
+	</engine>
+	<!-- 新增采集器 -->
+	<engine engine_code="insertCollector" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="insertCollector" >
+	</engine>
+	<!-- 删除采集器 -->
+	<engine engine_code="deleteCollector" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="deleteCollector" >
+	</engine>
+	<!-- 修改采集器 -->
+	<engine engine_code="updateCollector" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="updateCollector" >
+	</engine>
+	
+	<!--A1.5岗位技能管理  -->
+	<!-- 技能项查询 -->
+	<engine engine_code="QuerySkillItems" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="QuerySkillItems" >
+	</engine>
+	<!-- 技能项新增 -->
+	<engine engine_code="insertSkillItems" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="insertSkillItems" >
+	</engine>
+	<!-- 技能项修改 -->
+	<engine engine_code="updateSkillItems" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="updateSkillItems" >
+	</engine>
+	<!-- 技能项删除 -->
+	<engine engine_code="deleteSkillItems" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="deleteSkillItems" >
+	</engine>
+	
+	<!-- 技能授权查询 -->
+	<engine engine_code="QuerySkillsAuthorization" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="QuerySkillsAuthorization" >
+	</engine>
+	<!-- 技能授权新增 -->
+	<engine engine_code="insertSkillsAuthorization" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="insertSkillsAuthorization" >
+	</engine>
+	<!-- 技能授权修改 -->
+	<engine engine_code="updateSkillsAuthorization" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="updateSkillsAuthorization" >
+	</engine>
+	<!-- 技能授权删除 -->
+	<engine engine_code="deleteSkillsAuthorization" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="deleteSkillsAuthorization" >
+	</engine>
+	<!-- 查询左边table -->
+	<engine attr1="selectSkillsAuthorizationLeftTable" engine_cate="1" page_mode="2" engine_type="4" engine_name="" engine_code="selectSkillsAuthorizationLeftTable"> </engine>
+	<!-- 查询右边table -->
+	<engine attr1="selectSkillsAuthorizationRightTable" engine_cate="1" page_mode="2" engine_type="4" engine_name="" engine_code="selectSkillsAuthorizationRightTable"> </engine>
+</engines>

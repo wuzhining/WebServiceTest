@@ -1,0 +1,236 @@
+
+(function() {
+	function application() {
+		initGridData=function(){
+			var dgrid=$('#productWConf_tab').datagrid('options');
+			if(!dgrid) return;
+			var reqData={
+					OBJECTTYPE: '1',
+					OPERATETYPE:'1',
+					IFS:'WMS_QHold002',
+					pageIndex:1,
+					pageSize:dgrid.pageSize
+			};
+			reqGridData('/iPlant_ajax','productWConf_tab',reqData);
+		},
+		bindGridData = function(reqData, jsonData) {
+			var gridList = {
+				name: 'productWConf_tab',
+				dataType: 'json',
+//				singleSelect:false, 是否单选 
+				columns: [
+							[
+							{
+								field: 'HISTORYID',
+								title: 'HoldID',
+								width: 150,
+								align: 'center',formatter: function (value) {
+					           	if(value != null)
+                                return "<span title='" + value + "'>" + value + "</span>";}
+							},
+							{
+								field: 'OBJECTCODE',
+								title: '编号',
+								width: 150,
+								align: 'center',formatter: function (value) {
+					           	if(value != null)
+                                return "<span title='" + value + "'>" + value + "</span>";}
+							},
+							{
+								field: 'OBJECTTYPE',
+								title: '对象类型',
+								width: 150,
+								align: 'center',formatter: function (value) {
+								if(value =='1')
+									return "<span title='" + '工单' + "'>" + '工单' + "</span>";
+								else if(value == '2')
+                                return "<span title='" + '产品' + "'>" + '产品' + "</span>";
+								else if(value == '3')
+	                               return "<span title='" + '物料' + "'>" + '物料' + "</span>";
+								else if(value == '4')
+	                                return "<span title='" + '在制品序列号' + "'>" + '在制品序列号' + "</span>";
+									
+								}
+							},{
+								field: 'OPERATETYPE',
+								title: '操作类型',
+								width: 150,
+								align: 'center',formatter: function (value) {
+					           	if(value == '1'){
+                                return "<span title='" + 'Hold' + "'>" + 'Hold' + "</span>";
+								}
+								else{
+									return "<span title='" + 'UnHold' + "'>" + 'UnHold' + "</span>";
+								}
+							}
+							},
+								{
+									field: 'REMARK',
+									title: '原因说明',
+									width: 220,
+									align: 'center',formatter: function (value) {
+						           	if(value != null)
+	                                return "<span title='" + value + "'>" + value + "</span>";}
+								},
+							
+							{
+								field: 'CRT_DT',
+								title: '创建日期',
+								width: 180,
+								align: 'center',formatter: function (value) {
+					           	if(value != null)
+                                return "<span title='" + value + "'>" + value + "</span>";}
+							},{
+								field: 'CRT_ID',
+								title: '创建人',
+								width: 150,
+								align: 'center',formatter: function (value) {
+					           	if(value != null)
+                                return "<span title='" + value + "'>" + value + "</span>";}
+							},
+							{
+								field: 'UPT_DT',
+								title: '修改日期',
+								width: 180,
+								align: 'center',formatter: function (value) {
+					           	if(value != null)
+                                return "<span title='" + value + "'>" + value + "</span>";}
+							},{
+								field: 'UPT_ID',
+								title: '修改人',
+								width: 150,
+								align: 'center',formatter: function (value) {
+					           	if(value != null)
+                                return "<span title='" + value + "'>" + value + "</span>";}
+							}
+						]
+					]
+			};
+			initGridView(reqData,gridList);
+			$('#productWConf_tab').datagrid('loadData',jsonData);
+		};
+					
+		getDataBySearch = function(objectType1){
+			var dgrid = $('#productWConf_tab').datagrid('options');
+			if(!dgrid) return;
+			var reqData = {
+				OBJECTTYPE: objectType1,
+				OPERATETYPE:'1',
+				IFS: 'WMS_QHold002',
+				pageIndex: 1,
+				pageSize: dgrid.pageSize
+			};
+			reqGridData('/iPlant_ajax', 'productWConf_tab',reqData);
+		};
+		
+        
+		//置空查询输入框
+		setQueryNull=function() {
+    		$("#txtCauseDescription1").textbox('setValue',"");
+    		$("#txtCauseDescription2").textbox('setValue',"");
+    		$("#txtCauseDescription3").textbox('setValue',"");
+		};
+		
+
+		savaStation2 = function(enable,number) {
+            var checkedItems = $('#productWConf_tab').datagrid('getSelections');
+			var moveIds = [];
+			var num = 0;
+			$.each(checkedItems, function(index, item) {
+				moveIds.push(item.moveid);
+				num++;
+			});
+			if(num != 1) {
+				$.messager.alert('提示', '请选择一条数据进行修改');
+				return false;
+			}
+			var row = $("#productWConf_tab").datagrid("getSelected");
+            
+            if(row){
+    			susMsg = '修改成功';
+    			errorMsg = '修改失败,请联系管理员';
+    				var ajaxParam = {
+    					url: '/iPlant_ajax',
+    					dataType: 'JSON',
+    					data: {
+    						HOLDORUNHOLDCAUSE:row.REMARK,
+    						HISTORYID:row.HISTORYID,
+    						OPERATETYPE: '2',
+    						REMARK:enable,
+    						OBJECTSTATUS:row.OPERATETYPE,
+    						IFS: 'WMS_QHold005'
+    					},
+    					successCallBack: function(data) {
+    						var susMsg=getReturnMsg(data);
+    	                	$.messager.alert("提示",susMsg,"",function(){
+    				    		getDataBySearch(number);
+    				    		setQueryNull();
+    	            		});
+    					},
+    				    errorCallBack: function() {
+    						$.messager.alert('提示', errorMsg);
+    					}
+    						
+    				};
+    				iplantAjaxRequest(ajaxParam);
+            };
+            
+		};
+	};
+	application.prototype = {
+		init: function() {
+			$(function() {			
+				initGridData();
+				var title1='工单QHold';
+				$('#btnResets').click(function(){
+		            setQueryNull();
+		        });
+				$('#tt').tabs({
+				    border:false,
+				    onSelect:function(title){
+				    	title1=title;
+			    		setQueryNull();
+				    	if(title === '工单QHold'){
+				    		getDataBySearch(1);
+				    	}
+				    	if(title=== '物料QHold'){
+				    		getDataBySearch(3);
+				    	}
+				    	if(title=== '在制品QHold'){
+				    		getDataBySearch(4);
+				    	}
+				    }
+				});
+				$('#btnSave').click(function() {
+					if(title1 === '工单QHold'){
+						var MO=$("#txtCauseDescription1").val();
+						if(MO==''){
+							$.messager.alert('提示', '原因说明不能为空！');
+							return;
+						}
+						savaStation2(MO,1);
+			    	}
+			    	if(title1 === '物料QHold'){
+						var MO=$("#txtCauseDescription2").val();
+						if(MO==''){
+							$.messager.alert('提示', '原因说明不能为空！');
+							return;
+						}
+						savaStation2(MO,3);
+			    	}
+			    	if(title1 === '在制品QHold'){
+						var MO=$("#txtCauseDescription3").val();
+						if(MO==''){
+							$.messager.alert('提示', '原因说明不能为空！');
+							return;
+						}
+						savaStation2(MO,4);
+			    	}
+				});
+			});
+		}
+	};
+
+	var fcfo = new application();
+	fcfo.init();
+})();

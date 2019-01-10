@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<podiums>
+    <!-- 生成命名规则共通类 -->
+    <podium podium_code="search_ProdBomTree"    podium_name="BOM树结构查询 " podium_class="com.iPlant.mes.common.ImesTreeNode" podium_method="BOMTree" attr1="" attr2=""/>
+	
+	<!-- AGV状态查询 -->
+	<podium podium_code="queryAgvState"    podium_name="AGV状态查询 " podium_class="com.iPlant.mes.common.AgvRunState" podium_method="execute" attr1="" attr2=""/>
+	
+</podiums>

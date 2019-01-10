@@ -1,0 +1,922 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="">
+	    <!-- A4. 报表管理 -->
+		<!-- A4.1 生产日报 -->
+		<!-- 查询生产日报 -->  
+		<resultMap id="productReportMap" type="java.util.HashMap">
+			<result property="PL_CD" column="PL_CD"/>
+			<result property="DR_DT" column="DR_DT"/>
+			<result property="CS_CD" column="CS_CD"/>
+			<result property="CS_NM" column="CS_NM"/>
+			<result property="DO_CD" column="DO_CD"/>
+			<result property="DICT_IT_NM" column="DICT_IT_NM"/>
+			<result property="MO_CD" column="MO_CD"/>
+			<result property="ET_CD" column="ET_CD"/>
+			<result property="PT_CD" column="PT_CD"/>
+			<result property="PT_NM" column="PT_NM"/>
+			<result property="DO_NUM" column="DO_NUM"/>
+			<result property="PT_NUM" column="PT_NUM"/>
+			<result property="DR_NUM" column="DR_NUM"/>
+			<result property="DR_GQ" column="DR_GQ"/>
+			<result property="DR_BN" column="DR_BN"/>
+			<result property="DR_AT" column="DR_AT"/>
+			<result property="DR_TC" column="DR_TC"/>
+			<result property="DR_DM" column="DR_DM"/>
+			<result property="DR_ST" column="DR_ST"/>
+			<result property="MD_CL" column="MD_CL"/>
+			<result property="DR_EE" column="DR_EE"/>
+			<result property="DR_ER" column="DR_ER"/>
+			<result property="DR_BR" column="DR_BR"/>
+			<result property="DR_OEE" column="DR_OEE"/>
+			<result property="DICT_IT" column="DICT_IT"/>
+			<result property="ET_NM" column="ET_NM"/>
+			<result property="CUS_NM" column="CUS_NM"/>
+			<result property="CRT_NM" column="CRT_NM"/>
+			<result property="UPT_NM" column="UPT_NM"/>
+		</resultMap>
+		<resultMap id="brReportMap" type="java.util.HashMap">
+			<result property="TITLE" column="TITLE"/>
+			<result property="DO_CD" column="DO_CD"/>
+			<result property="MO_CD" column="MO_CD"/>
+			<result property="PT_CD" column="PT_CD"/>
+			<result property="PD_TT_NUM" column="PD_TT_NUM"/>
+			<result property="BR_NUM" column="BR_NUM"/>
+			<result property="PCT" column="PCT"/>
+			<result property="CS_NM" column="CS_NM"/>
+			<result property="CS_CD" column="CS_CD"/>
+			<result property="CS_BGN" column="CS_BGN"/>
+			<result property="CS_END" column="CS_END"/>
+			<result property="DT" column="DT"/>
+		</resultMap>
+		<resultMap id="brReportDetail" type="java.util.HashMap">
+			<result property="TITLE" column="TITLE"/>
+			<result property="DO_CD" column="DO_CD"/>
+			<result property="MO_CD" column="MO_CD"/>
+			<result property="PT_CD" column="PT_CD"/>
+			<result property="PD_TT_NUM" column="PD_TT_NUM"/>
+			<result property="BR_NUM" column="BR_NUM"/>
+			<result property="PCT" column="PCT"/>
+			<result property="CS_NM" column="CS_NM"/>
+			<result property="CS_CD" column="CS_CD"/>
+			<result property="CS_BGN" column="CS_BGN"/>
+			<result property="CS_END" column="CS_END"/>
+			<result property="DT" column="DT"/>
+		</resultMap>
+	    <select id="queryProdDaily" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap"> 
+	    	{call TPM1.C_REPORT_PACK.PROC_DAY_PRODUCT('${START_TIME}', '${END_TIME}',  '${DO_CD}', '${MO_CD}',
+    				'${CUS_NM}', '${CS_NM}','${PT_NM}', '${ET_NM}', '${LVL}', '${pageIndex}', '${pageSize}', 
+    				#{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=productReportMap},
+    				#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, #{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},#{ROWS_COUNT,jdbcType=INTEGER,mode=OUT,javaType=Integer})}
+	    	
+	    </select>
+	    <!-- 次品报表列表详情 -->
+	    <select id="queryBrReportListDetail" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap"> 
+	    	{call C_REPORT_PACK.proc_br_report_update('${START_TIME}', '${END_TIME}',  '${DO_CD}', '${MO_CD}',
+    				'${PT_CD}', '${ET_CD}','${pageIndex}', '${pageSize}', #{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=brReportDetail},
+    				#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, #{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},#{ROWS_COUNT,jdbcType=INTEGER,mode=OUT,javaType=Integer})}
+	    </select>
+	    
+		<!-- 导出生产日报 -->
+	    <select id="exportProdDaily" parameterType="hashmap" resultType="java.util.HashMap"> 
+	    </select>
+    	<!-- 设置生产日报 -->
+    	<update id="updateProdDaily" parameterType="hashmap" >
+    	</update>
+	    
+		<!-- A4.2 次品报表 -->
+		<!-- 次品报表汇总查询 -->
+		<select id="queryBadDaily" parameterType="hashmap" resultType="java.util.HashMap" >
+				SELECT
+					CC.MO_CD,
+					CC.PT_CD,
+					CC.DO_CD,
+					SUM(NVL(CC.BR_NUM,0))        AS BR_NUM ,
+					SUM(NVL(CC.PD_TT_NUM,0))  AS PD_TT_NUM ,
+				CASE 
+					WHEN 
+					(TRUNC(SUM(NVL(CC.BR_NUM,0)) /SUM(CC.PD_TT_NUM),3) * 100 || '0%') 
+					 LIKE '.%' THEN '0' || 
+					(TRUNC(SUM(NVL(CC.BR_NUM,0)) /SUM(CC.PD_TT_NUM),3) * 100 || '0%')
+					ELSE 
+					(TRUNC(SUM(NVL(CC.BR_NUM,0)) /SUM(CC.PD_TT_NUM),3) * 100 || '0%')
+					END  AS BR_RATE   
+					FROM 
+						(
+						SELECT 
+							  T1.MO_CD,
+							  T1.PT_CD,
+							  T1.DO_CD,
+							  T2.PD_TT_NUM,
+							  T2.BR_NUM
+						 	 FROM TPM1.R_TPM_D2_T T1
+			                LEFT JOIN TPM1.R_TPM_D2_T T2
+			                ON  T1.MO_CD=T2.MO_CD AND T1.DO_CD=T2.DO_CD 
+			                AND T1.PT_CD=T2.PT_CD AND T1.ET_CD=T2.ET_CD
+						 	<where> 1=1 
+						 		<if test="A_BGN_DATE!=null and A_BGN_DATE!='' "> 						 		    
+                       				 AND  A_BGN_DATE>=TO_DATE('${A_BGN_DATE}','YYYY-MM-DD HH24:MI:SS')                 
+                       			  </if>  
+                       			<if test="A_END_DATE!=null and A_END_DATE!='' ">                    				                    			   
+                       			     AND  A_END_DATE&lt;=TO_DATE('${A_END_DATE}','YYYY-MM-DD HH24:MI:SS')						 		  
+						 		 </if>  						 		
+						 	</where> 
+						   )
+							CC
+						 		GROUP BY CC.MO_CD,
+							             CC.PT_CD,
+							             CC.DO_CD
+		</select>
+		<!-- 次品报表列表查询 -->
+	    <select id="queryBadDailyList" parameterType="hashmap" resultType="java.util.HashMap" statementType="CALLABLE" >  
+	        {call C_REPORT_PACK.PROC_BR_REPORT('${START_TIME}','${END_TIME}','${DO_CD}','${MO_CD}','${PT_NM}','${ET_CD}','${pageIndex}', '${pageSize}',
+		        #{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=brReportMap},
+	    		#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, #{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},#{ROWS_COUNT,jdbcType=INTEGER,mode=OUT,javaType=Integer})}     
+	    </select>
+	    <!-- 次品报表分页总数查询 -->
+	    <select id="queryBadDaily_COUNT" parameterType="hashmap" resultType="java.util.HashMap" >  
+	   			 SELECT 
+	    	    	COUNT(1) AS ROWS_COUNT
+	    	       FROM
+				      (
+				      SELECT
+						   CC.MO_CD,
+						   CC.PT_CD,
+						   CC.DO_CD,
+						   SUM(NVL(CC.BR_NUM,0))        AS BR_NUM ,
+						   SUM(NVL(CC.PD_TT_NUM,0))  AS PD_TT_NUM ,
+						   CASE 
+						      WHEN 
+						    (TRUNC(SUM(NVL(CC.BR_NUM,0)) /SUM(CC.PD_TT_NUM),3) * 100 || '%') 
+						      LIKE '.%' THEN '0' || 
+						    (TRUNC(SUM(NVL(CC.BR_NUM,0)) /SUM(CC.PD_TT_NUM),3) * 100 || '%')
+						      ELSE 
+						    (TRUNC(SUM(NVL(CC.BR_NUM,0)) /SUM(CC.PD_TT_NUM),3) * 100 || '%')
+						      END  AS BR_RATE   
+						    FROM 
+							(
+							 SELECT 
+							    T1.MO_CD,
+							    T1.PT_CD,
+							    T1.DO_CD,
+							    T2.PD_TT_NUM,
+							    T2.BR_NUM
+						 	 FROM TPM1.R_TPM_D2_T T1
+			                LEFT JOIN TPM1.R_TPM_D2_T T2
+			                ON  T1.MO_CD=T2.MO_CD AND T1.DO_CD=T2.DO_CD 
+			                AND T1.PT_CD=T2.PT_CD AND T1.ET_CD=T2.ET_CD
+						 	<where> 1=1 
+						 		<if test="A_BGN_DATE!=null and A_BGN_DATE!='' "> 						 		    
+                       				 AND  A_BGN_DATE>=TO_DATE('${A_BGN_DATE}','YYYY-MM-DD HH24:MI:SS')                 
+                       			</if>  
+                       			<if test="A_END_DATE!=null and A_END_DATE!='' ">                    				                    			   
+                       			     AND  A_END_DATE&lt;=TO_DATE('${A_END_DATE}','YYYY-MM-DD HH24:MI:SS')						 		  
+						 		 </if>  						 		
+						 	</where> 
+						   )
+							CC
+						 		GROUP BY CC.MO_CD,
+							             CC.PT_CD,
+							             CC.DO_CD
+						)FF	
+		</select>				             		
+	    	    
+		<!-- 导出次品报表 -->
+	    <select id="exportBadDaily" parameterType="hashmap" resultType="java.util.HashMap" >   
+	    </select>
+	    
+	    <!-- 次品报表列表  -->
+	    <select id="queryBrReportList" parameterType="hashmap" resultType="java.util.HashMap">
+	    	<include refid="oraclePagingFileTop"></include>
+			    	  d1.do_cd,
+		              d1.mo_cd,
+		              d1.pt_cd,
+		              d1.et_cd,
+		              nvl(d1.do_num,0) do_num,
+		              nvl(d1.mo_num,0) mo_num,
+		              nvl(d2.pd_tt_num,0) pd_tt_num,
+		              nvl(d2.br_num,0) br_num,
+		              p4.pt_nm,
+		              round(nvl(d2.br_num,0)/d2.pd_tt_num,4)*100||'%' pct 
+		        from TPM1.r_TPM_d1_t d1
+		        left join TPM1.r_TPM_d2_t d2
+		               on d1.do_cd = d2.do_cd
+		              and d1.mo_cd = d2.mo_cd
+		              and d1.et_cd = d2.et_cd
+		        left join iplant1.c_iplant_p4_t p4
+		               on d1.pt_cd = p4.pt_cd
+		            where 1 = 1
+		              <if test="START_TIME !=null and START_TIME !='' and END_TIME == null and END_TIME == '' ">
+		              	and d2.pd_bgn_cl <![CDATA[ >= to_date('${START_TIME}', 'yyyy-mm-dd hh24:mi:ss')]]>
+		              </if>
+		              <if test="START_TIME ==null and START_TIME =='' and END_TIME != null and END_TIME != '' ">
+		              	and d2.pd_end_cl <![CDATA[ <= to_date('${END_TIME}', 'yyyy-mm-dd hh24:mi:ss')]]>
+		              </if>
+		              <if test="START_TIME != null and START_TIME !='' and END_TIME != null and END_TIME != '' ">
+		              	and d2.pd_bgn_cl between to_date('${START_TIME}', 'yyyy-mm-dd hh24:mi:ss') and to_date('${END_TIME}', 'yyyy-mm-dd hh24:mi:ss')
+		              	and d2.pd_end_cl between to_date('${START_TIME}', 'yyyy-mm-dd hh24:mi:ss') and to_date('${END_TIME}', 'yyyy-mm-dd hh24:mi:ss') 
+		              </if>
+		              <if test="DO_CD != null and DO_CD !='' ">
+		              	and d1.do_cd = '${DO_CD}'
+		              </if>
+		              <if test="MO_CD != null and MO_CD !='' ">
+		              	and d1.mo_cd = '${MO_CD}'
+		              </if>
+		              <if test="PT_NM != null and PT_NM !='' ">
+		              	and p4.pt_nm like '%${PT_NM}%'
+		              </if>
+		              <if test="ET_CD != null and ET_CD !='' ">
+		              	and d1.et_cd = '${ET_CD}'
+		              </if>
+		         		order by d1.do_cd,d1.mo_cd,d1.et_cd
+	    	<include refid="oraclePagingFileBottom"></include>
+	    </select>
+	    <!-- 次品报表列表 汇总 -->
+	    <select id="queryBrReportList_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+	    			select count(1) rows_count from (
+	    			select
+	    			  d1.do_cd,
+		              d1.mo_cd,
+		              d1.pt_cd,
+		              d1.et_cd,
+		              d1.do_num,
+		              d1.mo_num,
+		              d2.pd_tt_num,
+		              d2.br_num,
+		              p4.pt_nm
+		        from TPM1.r_TPM_d1_t d1
+		        left join TPM1.r_TPM_d2_t d2
+		               on d1.do_cd = d2.do_cd
+		              and d1.mo_cd = d2.mo_cd
+		              and d1.et_cd = d2.et_cd
+		        left join iplant1.c_iplant_p4_t p4
+		               on d1.pt_cd = p4.pt_cd
+		            where 1 = 1
+		              <if test="START_TIME !=null and START_TIME !='' and END_TIME == null and END_TIME == '' ">
+		              	and d2.pd_bgn_cl <![CDATA[ >= to_date('${START_TIME}', 'yyyy-mm-dd hh24:mi:ss')]]>
+		              </if>
+		              <if test="START_TIME ==null and START_TIME =='' and END_TIME != null and END_TIME != '' ">
+		              	and d2.pd_end_cl <![CDATA[ <= to_date('${END_TIME}', 'yyyy-mm-dd hh24:mi:ss')]]>
+		              </if>
+		              <if test="START_TIME != null and START_TIME !='' and END_TIME != null and END_TIME != '' ">
+		              	and ( d2.pd_bgn_cl between to_date('${START_TIME}', 'yyyy-mm-dd hh24:mi:ss') and to_date('${END_TIME}', 'yyyy-mm-dd hh24:mi:ss')
+		              	or d2.pd_end_cl between to_date('${START_TIME}', 'yyyy-mm-dd hh24:mi:ss') and to_date('${END_TIME}', 'yyyy-mm-dd hh24:mi:ss') )
+		              </if>
+		              <if test="DO_CD != null and DO_CD !='' ">
+		              	and d1.do_cd = '${DO_CD}'
+		              </if>
+		              <if test="MO_CD != null and MO_CD !='' ">
+		              	and d1.mo_cd = '${MO_CD}'
+		              </if>
+		              <if test="PT_NM != null and PT_NM !='' ">
+		              	and p4.pt_nm like '%${PT_NM}%'
+		              </if>
+		              <if test="ET_CD != null and ET_CD !='' ">
+		              	and d1.et_cd = '${ET_CD}'
+		              </if>
+	    			)
+	    </select>
+	    
+		<!-- A4.3 计划达成率 -->
+		<!-- 查询计划达成率 --> 
+	    <select id="queryPlanYieldRate" parameterType="hashmap" resultType="java.util.HashMap" >
+	            <include refid="oraclePagingFileTop"></include>
+	                A2.*
+	              FROM
+		            (SELECT 
+						  A1.ET_NM,
+						  A1.MO_CD,
+						  A1.DO_CD,
+						  A1.PT_CD,
+						  SUM (A1.DO_NUM) AS DO_NUM,
+						  SUM (NVL(A1.PD_TT_NUM,0)) AS PD_TT_NUM,
+						  CASE
+						   WHEN
+						      ((TRUNC( (TRUNC(SUM (NVL(A1.PD_TT_NUM,0)),3)  /TRUNC(SUM (A1.DO_NUM),3)), 3) )*100 ||'%') LIKE '.%' 
+						      THEN '0'||((TRUNC( (TRUNC(SUM (NVL(A1.PD_TT_NUM,0)),3)  /TRUNC(SUM (A1.DO_NUM),3)), 3) )*100 ||'%') 
+						      ELSE ((TRUNC( (TRUNC(SUM (NVL(A1.PD_TT_NUM,0)),3)  /TRUNC(SUM (A1.DO_NUM),3)), 3) )*100 ||'%') 
+						  END                                 AS FINISHRATE     
+					FROM
+							(
+								SELECT
+								   T1.ET_CD,
+								   T2.ET_NM,
+								   T1.MO_CD,
+								   T1.DO_CD,
+								   T1.PT_CD,
+								   T1.DO_NUM,
+								   T3.PD_TT_NUM
+								FROM  TPM1.R_TPM_D1_T T1
+								LEFT JOIN iplant1.C_IPLANT_E2_T T2 ON T1.ET_CD=T2.ET_CD
+								LEFT JOIN TPM1.R_TPM_D2_T T3 ON T1.DO_CD=T3.DO_CD
+								                            AND T1.MO_CD=T3.MO_CD
+						        <where>
+						              1=1
+						              AND DO_NUM !=0
+						              AND DO_NUM IS NOT NULL
+						          <if test="BGN_DATE !=null and BGN_DATE !=''">
+						              AND T1.P_BGN_DATE <![CDATA[>=TO_DATE('${BGN_DATE}','yyyy-MM-dd HH24:mi:ss')]]>
+<!-- 						              AND T1.A_BGN_DATE <![CDATA[>=TO_DATE('${BGN_DATE}','yyyy-MM-dd HH24:mi:ss')]]> -->
+				    			  </if>
+				    			  <if test="END_DATE !=null and END_DATE !=''">
+						              AND T1.P_END_DATE <![CDATA[<=TO_DATE('${END_DATE}','yyyy-MM-dd HH24:mi:ss')]]>
+<!-- 						              AND T1.A_END_DATE <![CDATA[<=TO_DATE('${END_DATE}','yyyy-MM-dd HH24:mi:ss')]]>  -->
+				    			  </if>
+				    			  <if test="DO_CD !=null and DO_CD !=''">
+						              AND T1.DO_CD='${DO_CD}'
+				    			  </if>
+				    			  <if test="MO_CD !=null and MO_CD !=''">
+						              AND T1.MO_CD='${MO_CD}'
+				    			  </if>
+				    			  <if test="PT_CD !=null and PT_CD !=''">
+						              AND T1.PT_CD='${PT_CD}'
+				    			  </if>
+				    			  <if test="ET_NM !=null and ET_NM !=''">
+						              AND T2.ET_NM='${ET_NM}'
+				    			  </if>				    			  
+						        </where>
+						        ) A1 GROUP BY  A1.ET_NM,
+						                       A1.MO_CD,
+						                       A1.DO_CD,
+						                       A1.PT_CD  
+					         )A2  
+					 <include refid="oraclePagingFileBottom"></include>       
+	    </select>
+	    <!-- 查询计划达成率分页总数  -->
+	    <select id="queryPlanYieldRate_COUNT" parameterType="hashmap" resultType="java.util.HashMap" >
+	            SELECT
+                   COUNT(1) AS ROWS_COUNT
+	            FROM
+		            (SELECT 
+						  A1.ET_NM,
+						  A1.MO_CD,
+						  A1.DO_CD,
+						  A1.PT_CD,
+						  SUM (A1.DO_NUM) AS DO_NUM,
+						  SUM (NVL(A1.PD_TT_NUM,0)) AS PD_TT_NUM,						 
+						  CASE
+						   WHEN
+						      ((TRUNC( (TRUNC(SUM (NVL(A1.PD_TT_NUM,0)),3)  /TRUNC(SUM (A1.DO_NUM),3)), 3) )*100 ||'%') LIKE '.%' 
+						      THEN '0'||((TRUNC( (TRUNC(SUM (NVL(A1.PD_TT_NUM,0)),3)  /TRUNC(SUM (A1.DO_NUM),3)), 3) )*100 ||'%') 
+						      ELSE ((TRUNC( (TRUNC(SUM (NVL(A1.PD_TT_NUM,0)),3)  /TRUNC(SUM (A1.DO_NUM),3)), 3) )*100 ||'%') 
+						  END                                 AS finishRate     
+					FROM
+							(
+								SELECT
+								   T1.ET_CD,
+								   T2.ET_NM,
+								   T1.MO_CD,
+								   T1.DO_CD,
+								   T1.PT_CD,
+								   T1.DO_NUM,
+								   T3.PD_TT_NUM,
+								   T1.P_BGN_DATE,
+								   T1.P_END_DATE
+								FROM  TPM1.R_TPM_D1_T T1
+								LEFT JOIN iplant1.C_IPLANT_E2_T T2 ON T1.ET_CD=T2.ET_CD
+								LEFT JOIN TPM1.R_TPM_D2_T T3 ON T1.DO_CD=T3.DO_CD
+								                            AND T1.MO_CD=T3.MO_CD
+						        <where>
+						             1=1
+						              AND DO_NUM !=0
+						              AND DO_NUM IS NOT NULL
+						          <if test="BGN_DATE !=null and BGN_DATE !=''">
+						              AND T1.P_BGN_DATE <![CDATA[>=TO_DATE('${BGN_DATE}','yyyy-MM-dd HH24:mi:ss')]]>
+<!-- 						              AND T1.A_BGN_DATE <![CDATA[>=TO_DATE('${BGN_DATE}','yyyy-MM-dd HH24:mi:ss')]]> -->
+				    			  </if>
+				    			  <if test="END_DATE !=null and END_DATE !=''">
+						              AND T1.P_END_DATE <![CDATA[<=TO_DATE('${END_DATE}','yyyy-MM-dd HH24:mi:ss')]]>
+<!-- 						              AND T1.A_END_DATE <![CDATA[<=TO_DATE('${END_DATE}','yyyy-MM-dd HH24:mi:ss')]]> -->
+				    			  </if>
+				    			  <if test="DO_CD !=null and DO_CD !=''">
+						              AND T1.DO_CD='${DO_CD}'
+				    			  </if>
+				    			  <if test="MO_CD !=null and MO_CD !=''">
+						              AND T1.MO_CD='${MO_CD}'
+				    			  </if>
+				    			  <if test="PT_CD !=null and PT_CD !=''">
+						              AND T1.PT_CD='${PT_CD}'
+				    			  </if>
+				    			  <if test="ET_NM !=null and ET_NM !=''">
+						              AND T2.ET_NM='${ET_NM}'
+				    			  </if>				    			  
+						        </where>
+						        ) A1 GROUP BY  A1.ET_NM,
+						                       A1.MO_CD,
+						                       A1.DO_CD,
+						                       A1.PT_CD  
+					         )A2 
+	    </select>
+		<!-- 导出计划达成率  -->
+	    <select id="exportPlanYieldRate" parameterType="hashmap" resultType="java.util.HashMap" >   
+	    </select>
+	    
+		<!-- A4.4 设备OEE -->
+		<!-- 查询设备OEE -->  
+	    <select id="queryFacilityOEE" parameterType="hashmap" resultType="java.util.HashMap" >
+			<include refid="oraclePagingFileTop"></include>
+				    FF.*		 
+					 FROM 
+						 (
+						 SELECT 			   						    
+			               TO_CHAR(CC.DR_DT,'YYYY-MM-DD') AS DR_DT,
+			               CC.CS_CD,
+						   CC.CS_NM,
+						   CC.DO_CD,
+						   CC.DICT_IT_NM,
+					       CC.MO_CD,
+						   CC.ET_CD,
+						   CC.ET_NM,
+						   CC.PT_CD,
+						   CC.PT_NM,
+						   CC.DICT_IT,
+			               NVL(SUM(CC.DO_NUM),0) AS DO_NUM,
+			               NVL(SUM(CC.PT_NUM),0) AS PT_NUM,
+			               NVL(SUM(CC.DR_NUM),0) AS DR_NUM,
+			               NVL(SUM(CC.DR_GQ),0)  AS DR_GQ,
+			               NVL(SUM(CC.DR_BN),0)  AS DR_BN,
+			               TPM1.MINUTETODAY(SUM(CC.DR_AT))  AS DR_AT,
+			               NVL(SUM(CC.DR_TC),0)  AS DR_TC,   
+			               TPM1.MINUTETODAY(SUM(CC.DR_DM))  AS DR_DM,
+			               TPM1.MINUTETODAY(SUM(CC.DR_ST))  AS DR_ST,
+			               NVL(SUM(CC.MD_CL),0)  AS MD_CL,  
+			               SUM(DR_TW) AS DR_TW,
+			               TRUNC((SUM(CC.DR_NUM)/SUM(CC.DR_TC)),2)*100 || '%'             AS DR_EE,
+               			   TRUNC((SUM(CC.DR_AT)/(SUM(DR_TW)-SUM(DR_ST))),2)*100 || '%'                          AS DR_ER, 
+                           TRUNC(SUM(CC.DR_BN)/SUM(CC.DR_NUM),4)*100  || '%'                AS DR_BR,
+                           TRUNC((TRUNC(SUM(CC.DR_NUM)/SUM(CC.DR_TC),2))*TRUNC((SUM(CC.DR_AT)/(SUM(CC.DR_TW)-SUM(CC.DR_ST))),2)*(1-TRUNC((SUM(CC.DR_BN)/SUM(CC.DR_NUM)),4)),4)*100 || '%'   AS OEE                                                                              
+				  				FROM 
+				  				(
+				  				SELECT  
+					  				DR_DT,
+									CS_CD,
+									CS_NM,
+									DO_CD,
+									DICT_IT_NM,
+									MO_CD,
+									ET_CD,
+									ET_NM,
+									PT_CD,
+									PT_NM,
+									DO_NUM,
+									PT_NUM,
+									DR_NUM,
+									DR_GQ,
+									DR_BN,
+									DR_AT,
+									DR_TC,
+									DR_DM,
+									DR_ST,
+									MD_CL,
+									DR_EE,
+									DR_ER,
+									DR_BR,
+									DR_OEE,
+									DR_TW,
+									DICT_IT
+					          FROM TPM2.H_TPMR_D1_T     T1					       
+					          <where>  1=1
+					          	 <if test="ET_CD !=null and ET_CD !='' ">
+					          	     AND ET_CD = '${ET_CD}'
+					          	 </if>
+					        	 <if test="ET_NM!=null and ET_NM!='' ">
+					          	     AND ET_CD LIKE '%${ET_CD}%'
+					          	 </if>
+					          	 <if test="StartDate!=null and StartDate!='' ">
+						             AND DR_DT>=TO_DATE(substr('${StartDate}',1,10), 'YYYY-MM-DD')
+						         </if>
+						         <if test="EndDate!=null and EndDate!='' ">
+						             AND DR_DT&lt;=TO_DATE(substr('${EndDate}',1,10),'YYYY-MM-DD')
+						         </if> 	
+						         <if test="CS_CD!=null and CS_CD!='' ">          
+						             AND CS_CD ='${CS_CD}'
+						         </if>
+						         <if test="StartDate==null or StartDate=='' ">
+						         <if test="EndDate==null or EndDate=='' ">
+						         	<!--  AND TO_CHAR(DR_DT,'YYYY-MM-DD')=TO_CHAR(SYSDATE-1,'YYYY-MM-DD') -->
+						         </if>
+						         </if>
+					          </where>
+					            )CC
+					           GROUP BY CC.DR_DT,
+					                    CC.CS_CD,
+									    CC.CS_NM,
+									    CC.DO_CD,
+									    CC.DICT_IT_NM,
+								        CC.MO_CD,
+									    CC.ET_CD,
+									    CC.ET_NM,
+									    CC.PT_CD,
+									    CC.PT_NM,
+									    CC.DICT_IT
+					          )FF            
+						    <include refid="oraclePagingFileBottom"></include>		
+	    </select>
+	    
+	    <!-- 设备OEE分页总数 -->
+	    <select id="queryFacilityOEE_COUNT" parameterType="hashmap" resultType="java.util.HashMap" >
+	    		SELECT 
+	    		 	COUNT(1) AS ROWS_COUNT
+	    		 	FROM
+	    		 		( 
+						 SELECT 			   						    
+			               TO_CHAR(CC.DR_DT,'YYYY-MM-DD') AS DR_DT,
+			               CC.CS_CD,
+						   CC.CS_NM,
+						   CC.DO_CD,
+						   CC.DICT_IT_NM,
+					       CC.MO_CD,
+						   CC.ET_CD,
+						   CC.ET_NM,
+						   CC.PT_CD,
+						   CC.PT_NM,
+						   CC.DICT_IT,
+			               NVL(SUM(CC.DO_NUM),0) AS DO_NUM,
+			               NVL(SUM(CC.PT_NUM),0) AS PT_NUM,
+			               NVL(SUM(CC.DR_NUM),0) AS DR_NUM,
+			               NVL(SUM(CC.DR_GQ),0)  AS DR_GQ,
+			               NVL(SUM(CC.DR_BN),0)  AS DR_BN,
+			               NVL(SUM(CC.DR_AT),0)  AS DR_AT,
+			               NVL(SUM(CC.DR_TC),0)  AS DR_TC,   
+			               NVL(SUM(CC.DR_DM),0)  AS DR_DM,
+			               NVL(SUM(CC.DR_ST),0)  AS DR_ST,
+			               NVL(SUM(CC.MD_CL),0)  AS MD_CL,  
+			               TRUNC((SUM(CC.DR_NUM)/SUM(CC.DR_TC)),2)*100 || '%'             AS DR_EE,
+               			   TRUNC((SUM(CC.DR_AT)/(SUM(DR_TW)-SUM(DR_ST))),2)*100 || '%'                          AS DR_ER, 
+                           TRUNC(SUM(CC.DR_BN)/SUM(CC.DR_NUM),4)*100  || '%'                AS DR_BR,
+                           TRUNC((TRUNC(SUM(CC.DR_NUM)/SUM(CC.DR_TC),2))*TRUNC((SUM(CC.DR_AT)/(SUM(CC.DR_TW)-SUM(CC.DR_ST))),2)*(1-TRUNC((SUM(CC.DR_BN)/SUM(CC.DR_NUM)),4)),4)*100 || '%'   AS OEE                                                            
+				  				FROM 
+				  				(
+				  				SELECT  
+					  				DR_DT,
+									CS_CD,
+									CS_NM,
+									DO_CD,
+									DICT_IT_NM,
+									MO_CD,
+									ET_CD,
+									ET_NM,
+									PT_CD,
+									PT_NM,
+									DO_NUM,
+									PT_NUM,
+									DR_NUM,
+									DR_GQ,
+									DR_BN,
+									DR_AT,
+									DR_TC,
+									DR_DM,
+									DR_ST,
+									MD_CL,
+									DR_EE,
+									DR_ER,
+									DR_BR,
+									DR_OEE,
+									DR_TW,
+									DICT_IT
+					          FROM TPM2.H_TPMR_D1_T     T1					       
+					          <where>  1=1
+					          	 <if test="ET_CD !=null and ET_CD !='' ">
+					          	     AND ET_CD = '${ET_CD}'
+					          	 </if>
+					          	 <if test="ET_NM!=null and ET_NM!='' ">
+					          	     AND ET_NM LIKE '%${ET_NM}%'
+					          	 </if>
+					          	 <if test="StartDate!=null and StartDate!='' ">
+						             AND DR_DT>=TO_DATE(substr('${StartDate}',1,10), 'YYYY-MM-DD')
+						         </if>
+						         <if test="EndDate!=null and EndDate!='' ">
+						              AND DR_DT&lt;=TO_DATE(substr('${EndDate}',1,10),'YYYY-MM-DD')
+						         </if> 	
+						         <if test="CS_CD!=null and CS_CD!='' ">          
+						              AND CS_CD ='${CS_CD}'
+						          </if>
+						          <if test="StartDate==null or StartDate=='' ">
+						          <if test="EndDate==null or EndDate=='' ">
+						         	  AND TO_CHAR(DR_DT,'YYYY-MM-DD')=TO_CHAR(SYSDATE-1,'YYYY-MM-DD')
+						          </if>
+						          </if>
+					          </where>
+					           )CC
+					            GROUP BY  CC.DR_DT,
+					                      CC.CS_CD,
+									      CC.CS_NM,
+									      CC.DO_CD,
+									      CC.DICT_IT_NM,
+								          CC.MO_CD,
+									      CC.ET_CD,
+									      CC.ET_NM,
+									      CC.PT_CD,
+									      CC.PT_NM,
+									      CC.DICT_IT
+					          )FF  
+	    </select>
+	    
+		<!-- 导出设备OEE  -->
+	    <select id="exportFacilityOEE" parameterType="hashmap" resultType="java.util.HashMap" >  
+	    </select>
+	       
+		<!-- A4.5 停机报表 -->
+		<!-- 查询停机报表 -->
+	    <select id="queryStopReport" parameterType="hashmap" resultType="java.util.HashMap"> 
+	            <include refid="oraclePagingFileTop"></include> 
+	                 A2.*
+	               FROM
+			            (SELECT 
+							  A1.ET_CD,
+							  T1.ET_NM,
+							  T1.PL_CD,
+							  T2.PL_NM,							
+							  TPM1.MINUTETODAY(SUM (NVL (A1.CL_WT,0))) AS CL_WT							 
+						  FROM
+							   (
+								SELECT 
+								  ET_CD,
+								  CL_CD,
+								  CL_NM,
+								  CL_WT,
+								  CRT_ID,
+								  CRT_DT
+								FROM TPM2.H_TPM_C1_T
+								<where> 
+								      1=1
+								      AND STP_YN IN ('1','2')
+								  <if test="CL_BGN_DATE !=null and CL_BGN_DATE !='' ">  
+								      AND CL_BGN_DATE <![CDATA[>=TO_DATE('${CL_BGN_DATE}' || '00:00:00','yyyy-MM-dd HH24:mi:ss')]]>
+								  </if>
+								  <if test="CL_END_DATE !=null and CL_END_DATE !='' ">  
+								      AND CL_END_DATE <![CDATA[<=TO_DATE('${CL_END_DATE}' || '23:59:59','yyyy-MM-dd HH24:mi:ss')]]>
+								  </if>
+								 </where> 
+							   )A1
+							LEFT JOIN iplant1.C_IPLANT_E2_T T1 ON T1.ET_CD=A1.ET_CD
+							LEFT JOIN iplant1.C_IPLANT_P1_T T2 ON T2.PL_CD=T1.PL_CD 
+							 <where> 
+								    1=1
+								  <if test="PL_CD !=null and PL_CD !='' ">  
+								   AND T1.PL_CD='${PL_CD}'
+								  </if>
+								  <if test="ET_CD !=null and ET_CD !='' ">  
+								   AND T1.ET_CD='${ET_CD}'
+								  </if>
+								 </where>   
+							GROUP BY  A1.ET_CD,
+							          T1.ET_NM,
+							          T1.PL_CD,
+							          T2.PL_NM
+							          
+					  )A2
+				<include refid="oraclePagingFileBottom"></include>
+	    </select>
+	    <!-- 查询停机报表分页总数  -->
+	    <select id="queryStopReport_COUNT" parameterType="hashmap" resultType="java.util.HashMap" >
+	            SELECT
+                  COUNT(1) AS ROWS_COUNT
+	            FROM
+			            (SELECT 
+							  A1.ET_CD,
+							  T1.ET_NM,
+							  T1.PL_CD,
+							  T2.PL_NM,
+							  TPM1.MINUTETODAY(SUM (NVL (A1.CL_WT,0))) AS CL_WT							 
+						  FROM
+							   (
+								SELECT 
+								  ET_CD,
+								  CL_CD,
+								  CL_NM,
+								  CL_WT,
+								  CRT_ID,
+								  CRT_DT
+								FROM TPM2.H_TPM_C1_T
+								<where> 
+								      1=1
+								      AND STP_YN IN ('1','2')
+								  <if test="CL_BGN_DATE !=null and CL_BGN_DATE !='' ">  
+								      AND CL_BGN_DATE <![CDATA[>=TO_DATE('${CL_BGN_DATE}' || '00:00:00','yyyy-MM-dd HH24:mi:ss')]]>
+								  </if>
+								  <if test="CL_END_DATE !=null and CL_END_DATE !='' ">  
+								      AND CL_END_DATE <![CDATA[<=TO_DATE('${CL_END_DATE}' || '23:59:59','yyyy-MM-dd HH24:mi:ss')]]>
+								  </if>
+								 </where> 
+							   )A1
+							LEFT JOIN iplant1.C_IPLANT_E2_T T1 ON T1.ET_CD=A1.ET_CD
+							LEFT JOIN iplant1.C_IPLANT_P1_T T2 ON T2.PL_CD=T1.PL_CD 
+							 <where> 
+								    1=1
+								  <if test="PL_CD !=null and PL_CD !='' ">  
+								   AND T1.PL_CD='${PL_CD}'
+								  </if>
+								  <if test="ET_CD !=null and ET_CD !='' ">  
+								   AND T1.ET_CD='${ET_CD}'
+								  </if>
+								 </where>   
+							GROUP BY  A1.ET_CD,
+							          T1.ET_NM,
+							          T1.PL_CD,
+							          T2.PL_NM
+							          
+					  )A2
+	    </select> 
+	    <!-- 查询停机报表明细  -->
+	    <select id="queryStopReportDetail" parameterType="hashmap" resultType="java.util.HashMap">
+	            <include refid="oraclePagingFileTop"></include>
+					  T2.ET_NM,
+					  T2.PL_CD,  
+					  TPM1.MINUTETODAY(NVL (T1.CL_WT,0)) AS CL_WT,					 
+					  TO_CHAR(T1.CL_BGN_DATE,'YYYY-MM-DD HH24:Mi:SS') AS CL_BGN_DATE,
+					  TO_CHAR(T1.CL_END_DATE,'YYYY-MM-DD HH24:Mi:SS') AS CL_END_DATE,
+					  T1.BGN_EMP,
+					  T4.EMP_NM AS BGN_EMP_NM,
+					  T1.END_EMP,
+					  T6.EMP_NM AS END_EMP_NM,
+					  T1.CL_NM
+				FROM TPM2.H_TPM_C1_T T1
+				LEFT JOIN iplant1.C_IPLANT_E2_T T2 ON T1.ET_CD=T2.ET_CD				                  
+                LEFT JOIN iplant1.C_IPLANT_E1_T T4 ON T1.BGN_EMP=T4.EMP_CD
+                LEFT JOIN iplant1.C_IPLANT_E1_T T6 ON T1.END_EMP=T6.EMP_CD    
+				<where> 1=1 
+				          AND T1.STP_YN IN('1','2')
+				          AND T1.CL_WT IS NOT NULL   
+				          AND T2.PL_CD='${PL_CD}'
+				          AND T2.ET_CD='${ET_CD}'
+				   <if test="CL_BGN_DATE !=null and CL_BGN_DATE !='' ">  
+						   AND T1.CL_BGN_DATE <![CDATA[>=TO_DATE('${CL_BGN_DATE}' || '00:00:00','yyyy-MM-dd HH24:mi:ss')]]>
+				   </if>
+				   <if test="CL_END_DATE !=null and CL_END_DATE !='' ">  
+						   AND T1.CL_END_DATE <![CDATA[<=TO_DATE('${CL_END_DATE}' || '23:59:59','yyyy-MM-dd HH24:mi:ss')]]>
+				   </if>
+				</where>
+			<include refid="oraclePagingFileBottom"></include>
+	    </select>
+	    <!-- 查询停机报表明细分页总数  -->
+	    <select id="queryStopReportDetail_COUNT" parameterType="hashmap" resultType="java.util.HashMap" >
+	            SELECT
+                   COUNT(1) AS ROWS_COUNT
+	           FROM TPM2.H_TPM_C1_T T1
+			   LEFT JOIN iplant1.C_IPLANT_E2_T T2 ON T1.ET_CD=T2.ET_CD				                  
+               LEFT JOIN iplant1.C_IPLANT_E1_T T4 ON T1.BGN_EMP=T4.EMP_CD
+               LEFT JOIN iplant1.C_IPLANT_E1_T T6 ON T1.END_EMP=T6.EMP_CD    
+				<where> 1=1 
+				          AND T1.STP_YN IN('1','2')
+				          AND T1.CL_WT IS NOT NULL   
+				          AND T2.PL_CD='${PL_CD}'
+				          AND T2.ET_CD='${ET_CD}'
+				   <if test="CL_BGN_DATE !=null and CL_BGN_DATE !='' ">  
+						   AND T1.CL_BGN_DATE <![CDATA[>=TO_DATE('${CL_BGN_DATE}' || '00:00:00','yyyy-MM-dd HH24:mi:ss')]]>
+				   </if>
+				   <if test="CL_END_DATE !=null and CL_END_DATE !='' ">  
+						   AND T1.CL_END_DATE <![CDATA[<=TO_DATE('${CL_END_DATE}' || '23:59:59','yyyy-MM-dd HH24:mi:ss')]]>
+				   </if>
+				</where>
+	    </select>
+		<!-- 导出停机报表  -->
+	    <select id="exportStopReport" parameterType="hashmap" resultType="java.util.HashMap"> 
+	    </select>    
+	    
+		<!-- A4.6 设备保养 
+		<select id="queryDeviceMaintain" parameterType="hashmap" resultType="java.util.HashMap"> 
+	    </select> -->
+		<!-- A4.7 设备维修 
+		<select id="queryDeviceRepair" parameterType="hashmap" resultType="java.util.HashMap"> 
+	    </select> -->
+		<!-- A4.8 备件记录 -->
+		<select id="querySpRecord" parameterType="hashmap" resultType="java.util.HashMap">
+			<include refid="oraclePagingFileTop"></include>	
+					T1.SP_CD,
+				    T1.SP_NM,
+				    T1.RT_NUM,
+				    T2.RU_EP,
+				    TO_CHAR(T2.RU_RD,'YYYY-MM-DD HH24:MI:SS') AS CRT_DT,
+				    T3.DPT_CD,
+				    T3.EMP_NM,
+				    T4.DPT_NM
+		       FROM TPM1.R_TPM_R2_T T1
+		       LEFT JOIN TPM2.H_TPM_R3_T T2
+		       ON T1.SP_CD=T2.SP_CD
+		       LEFT JOIN iplant1.C_IPLANT_E1_T T3
+		       ON T2.RU_EP=T3.EMP_CD
+		       LEFT JOIN iplant1.C_IPLANT_D1_T T4
+		       ON T3.DPT_CD=T4.DPT_CD
+      		   <where> 1=1
+      		      <if test="SP_CD!=null and SP_CD!='' ">
+      		     	  AND T1.SP_CD='${SP_CD}'
+      		      </if>
+      		      <if test="SP_NM!=null and SP_NM!='' ">
+      		      	  AND T1.SP_NM LIKE '%${SP_NM}%'	
+      		      </if>
+      		   </where>
+      		   <include refid="oraclePagingFileBottom"></include> 			   	      		   		
+	    </select> 
+	    
+	    <!-- 备件记录分页总数 -->
+	    <select id="querySpRecord_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+	    		SELECT 
+	    			COUNT(1) AS ROWS_COUNT
+	    			FROM(
+	    				SELECT 
+			    			T1.SP_CD,
+						    T1.SP_NM,
+						    T1.RT_NUM,
+						    T2.RU_EP,
+						    TO_CHAR(T2.RU_RD,'YYYY-MM-DD HH24:MI:SS') AS CRT_DT,
+						    T3.DPT_CD,
+						    T3.EMP_NM,
+						    T4.DPT_NM
+				       FROM TPM1.R_TPM_R2_T T1
+				       LEFT JOIN TPM2.H_TPM_R3_T T2
+				       ON T1.SP_CD=T2.SP_CD
+				       LEFT JOIN iplant1.C_IPLANT_E1_T T3
+				       ON T2.RU_EP=T3.EMP_CD
+				       LEFT JOIN iplant1.C_IPLANT_D1_T T4
+				       ON T3.DPT_CD=T4.DPT_CD
+		      		   <where> 1=1
+		      		      <if test="SP_CD!=null and SP_CD!='' ">
+		      		     	  AND T1.SP_CD='${SP_CD}'
+		      		      </if>
+		      		      <if test="SP_NM!=null and SP_NM!='' ">
+		      		      	  AND T1.SP_NM LIKE '%${SP_NM}%'	
+		      		      </if>
+		      		   </where>
+		      		   )
+		      		   CC
+	    </select>
+	    
+	    <!-- A4.11  设备点检报表 -->
+	    <select id="queryEquipmentInspectionReport" parameterType="hashmap" resultType="java.util.HashMap">
+	    	<include refid="oraclePagingFileTop"></include>	
+	    			 TT_CD,
+	                 T2.ET_NM,
+	                 T4.PL_NM,
+	                 TO_CHAR(T1.TT_DT,'YYYY-MM-DD HH24:MI:SS') AS TT_DETE,
+	                 T3.EMP_NM,
+	                 case NVL(TT_RT,2)
+	                 when '1' then '开机'
+	                 when '2' then '未开机'
+	                 end as TT_RT
+	          FROM TPM1.R_TPM_C2_T T1
+	          LEFT JOIN iplant1.C_IPLANT_E2_T T2
+	          ON T1.ET_CD=T2.ET_CD
+	          LEFT JOIN iplant1.C_IPLANT_P1_T T4
+	          ON T2.PL_CD=T4.PL_CD
+	          LEFT JOIN iplant1.C_IPLANT_E1_T T3
+              ON T1.TT_CP=T3.EMP_CD
+	    			<where> 1=1
+	    				<if test="PL_CD!=null and PL_CD != '' ">
+	    					AND T4.PL_CD='${PL_CD}'
+	    				</if>
+	    				<if test="ET_CD!=null and ET_CD != '' ">
+	    					AND T1.ET_CD='${ET_CD}'
+	    				</if>
+	    				<if test="CL_BGN_DATE !=null and CL_BGN_DATE !='' ">  
+						   	AND TT_DT <![CDATA[>=TO_DATE('${CL_BGN_DATE}' || '00:00:00','yyyy-MM-dd HH24:mi:ss')]]>
+					   	</if>
+					   	<if test="CL_END_DATE !=null and CL_END_DATE !='' ">  
+							AND TT_DT <![CDATA[<=TO_DATE('${CL_END_DATE}' || '23:59:59','yyyy-MM-dd HH24:mi:ss')]]>
+					   	</if>
+	    			</where>
+	    	<include refid="oraclePagingFileBottom"></include> 	
+	    </select>
+	    
+	    <!-- 设备点检分页总数 -->
+	    <select id="queryEquipmentInspectionReport_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+	    	SELECT 
+	    			COUNT(1) AS ROWS_COUNT
+	          FROM TPM1.R_TPM_C2_T T1
+	    			<where> 1=1
+	    				<if test="ET_CD!=null and ET_CD !='' ">
+	    					AND T1.ET_CD='${ET_CD}'
+	    				</if>
+	    				<if test="CL_BGN_DATE !=null and CL_BGN_DATE !='' ">  
+						   	AND TT_DT <![CDATA[>=TO_DATE('${CL_BGN_DATE}' || '00:00:00','yyyy-MM-dd HH24:mi:ss')]]>
+					   	</if>
+					   	<if test="CL_END_DATE !=null and CL_END_DATE !='' ">  
+							AND TT_DT <![CDATA[<=TO_DATE('${CL_END_DATE}' || '23:59:59','yyyy-MM-dd HH24:mi:ss')]]>
+					   	</if>
+	    			</where>
+	    </select>
+	    
+	    <!-- 设备点检报表明细  -->
+	    <select id="queryEquipmentInspectionReportDetail" parameterType="hashmap" resultType="java.util.HashMap">
+	    	SELECT 
+	    		T1.CK_CD,
+	    		T2.CK_NM,
+	    		case CL_RT
+	                 when '1' then 'OK'
+	                 when '2' then 'NG'
+	                 when '3' then '未点检'
+	    		end as CL_RT,
+	    		CL_MT,
+	    		CL_MR
+	    	FROM TPM2.H_TPM_C2_T T1
+	    	LEFT JOIN iplant1.C_IPLANT_C6_T T2
+	    	ON T1.CK_CD=T2.CK_CD WHERE TT_CD='${TT_CD}'
+	    </select>
+	    
+		<!-- 查询设备 -->
+	    <select id="queryEquipment" parameterType="hashmap" resultType="java.util.HashMap">
+	    	SELECT ET_CD,ET_NM FROM iplant1.C_IPLANT_E2_T WHERE PL_CD='${PL_CD}'
+		</select>
+		
+</mapper>
+

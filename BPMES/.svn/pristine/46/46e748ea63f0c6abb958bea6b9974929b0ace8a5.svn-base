@@ -1,0 +1,327 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ifss>
+
+   
+    <ifs ifs_code="MB00001" ifs_name="生成工单BOM和领料信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="saveMoBomAndReqMat" biz_method="" serial_no="1" biz_name="saveMoBomAndReqMat" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+     <ifs ifs_code="MB00002" ifs_name="验证装配物料是否完成" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="scaneMatYn" biz_method="" serial_no="1" biz_name="scaneMatYn" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+     <ifs ifs_code="MB00003" ifs_name="APP大屏监视" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="APPScreenMonitor" biz_method="" serial_no="1" biz_name="APPScreenMonitor" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+     <ifs ifs_code="MB00004" ifs_name="APP大屏监视汇总" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="ScreenMonitorTOT" biz_method="" serial_no="1" biz_name="ScreenMonitorTOT" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+	<!-- 物料申请明细表 -->
+	<!-- 物料申请明细表查询 -->
+	<ifs ifs_code="MB00010" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryMaterialApplicationDetail" biz_method="" serial_no="1" biz_name="queryMaterialApplicationDetail" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 物料申请明细表新增 -->
+	<ifs ifs_code="MB00011" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertMaterialApplicationDetail" biz_method="" serial_no="1" biz_name="insertMaterialApplicationDetail" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 物料申请明细表新增 -->
+	<ifs ifs_code="MB00012" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateMaterialApplicationDetail" biz_method="" serial_no="1" biz_name="updateMaterialApplicationDetail" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 物料申请明细表新增 --> 
+	<ifs ifs_code="MB00013" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteMaterialApplicationDetail" biz_method="" serial_no="1" biz_name="deleteMaterialApplicationDetail" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!--物料申请明细表与新物料信息关联查询  -->
+	<ifs ifs_code="MB00022" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="searchMaterialDetailRelationNewMaterial" biz_method="" serial_no="1" biz_name="searchMaterialDetailRelationNewMaterial" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 测试工序结果判断表 -->
+	<!-- 测试工序结果判断表查询 -->
+	<ifs ifs_code="MB00014" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryTestProcedureResult" biz_method="" serial_no="1" biz_name="queryTestProcedureResult" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 测试工序结果判断表新增 -->
+	<ifs ifs_code="MB00015" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertTestProcedureResult" biz_method="" serial_no="1" biz_name="insertTestProcedureResult" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 测试工序结果判断表修改 -->
+	<ifs ifs_code="MB00016" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateTestProcedureResult" biz_method="" serial_no="1" biz_name="updateTestProcedureResult" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 测试工序结果判断表删除 -->
+	<ifs ifs_code="MB00017" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteTestProcedureResult" biz_method="" serial_no="1" biz_name="deleteTestProcedureResult" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+
+	<!-- 工单物料扫描信息表 -->
+	<!-- 查询工单扫描信息 -->
+	<ifs ifs_code="MB00050" ifs_name="查询工单扫描信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryWorkorderScanning" biz_method="" serial_no="1" biz_name="queryWorkorderScanning" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 新增工单扫描信息 -->
+	<ifs ifs_code="MB00051" ifs_name="批量新增工单扫描信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertWorkorderScanning" biz_method="" serial_no="1" biz_name="insertWorkorderScanning" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 修改工单扫描信息 -->
+	<ifs ifs_code="MB00052" ifs_name="批量修改工单扫描信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateWorkorderScanning" biz_method="" serial_no="1" biz_name="updateWorkorderScanning" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 批量新增工单扫描信息 -->
+	<ifs ifs_code="MB00006S" ifs_name="新增工单扫描信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertWorkorderScanningS" biz_method="" serial_no="1" biz_name="insertWorkorderScanningS" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 批量修改工单扫描信息 -->
+	<ifs ifs_code="MB00007S" ifs_name="修改工单扫描信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateWorkorderScanningS" biz_method="" serial_no="1" biz_name="updateWorkorderScanningS" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 删除工单扫描信息 -->
+	<ifs ifs_code="MB00053" ifs_name="删除工单扫描信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteWorkorderScanning" biz_method="" serial_no="1" biz_name="deleteWorkorderScanning" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- ================新物料信息==================== -->
+	<!-- 查询新物料信息 -->
+	<ifs ifs_code="MB00018" ifs_name="查询新物料信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryNewMaterial" biz_method="" serial_no="1" biz_name="queryNewMaterial" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 查询新物料类型 -->
+	<ifs ifs_code="MB00038" ifs_name="查询新物料类型" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryNewMaterialType" biz_method="" serial_no="1" biz_name="queryNewMaterialType" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 查询新物料单位 -->
+	<ifs ifs_code="MB00040" ifs_name="查询新物料单位" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryNewMaterialUnit" biz_method="" serial_no="1" biz_name="queryNewMaterialUnit" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 新物料验证编码条形码 -->
+	<ifs ifs_code="MB00039" ifs_name="新物料验证编码条形码" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="newMaterialValidate" biz_method="" serial_no="1" biz_name="newMaterialValidate" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 新增新物料信息 -->
+	<ifs ifs_code="MB00019" ifs_name="新增新物料信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertNewMaterial" biz_method="" serial_no="1" biz_name="insertNewMaterial" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 修改新物料信息 -->
+	<ifs ifs_code="MB00020" ifs_name="修改新物料信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="materialNewUpdate" biz_method="" serial_no="1" biz_name="materialNewUpdate" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 删除新物料信息 -->
+	<ifs ifs_code="MB00021" ifs_name="删除新物料信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteNewMaterial" biz_method="" serial_no="1" biz_name="deleteNewMaterial" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 工艺信息维护 -->
+	<!-- 查询工艺信息维护 -->
+	<ifs ifs_code="MB00026" ifs_name="查询工艺信息维护" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryProcessinformationmaintenance" biz_method="" serial_no="1" biz_name="queryProcessinformationmaintenance" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 新增工艺信息维护 -->
+	<ifs ifs_code="MB00027" ifs_name="新增工艺信息维护" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertProcessinformationmaintenance" biz_method="" serial_no="1" biz_name="insertProcessinformationmaintenance" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 修改工艺信息维护 -->
+	<ifs ifs_code="MB00028" ifs_name="修改工艺信息维护" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateProcessinformationmaintenance" biz_method="" serial_no="1" biz_name="updateProcessinformationmaintenance" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 删除工艺信息维护 -->
+	<ifs ifs_code="MB00029" ifs_name="删除工艺信息维护" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteProcessinformationmaintenance" biz_method="" serial_no="1" biz_name="deleteProcessinformationmaintenance" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 工单对应的设备编码 -->
+	<!-- 查询工单对应的设备编码 -->
+	<ifs ifs_code="MB00030" ifs_name="查询工单对应的设备编码" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryWorkorderToDevicecode" biz_method="" serial_no="1" biz_name="queryWorkorderToDevicecode" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 新增工单对应的设备编码 -->
+	<ifs ifs_code="MB00031" ifs_name="新增工单对应的设备编码" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertWorkorderToDevicecode" biz_method="" serial_no="1" biz_name="insertWorkorderToDevicecode" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 修改工单对应的设备编码 -->
+	<ifs ifs_code="MB00032" ifs_name="修改工单对应的设备编码" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateWorkorderToDevicecode" biz_method="" serial_no="1" biz_name="updateWorkorderToDevicecode" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 删除工单对应的设备编码 -->
+	<ifs ifs_code="MB00033" ifs_name="删除工单对应的设备编码" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteWorkorderToDevicecode" biz_method="" serial_no="1" biz_name="deleteWorkorderToDevicecode" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>	
+	
+	<ifs ifs_code="MB00034" ifs_name="APP扫描装配" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="APPScanningassembly" biz_method="" serial_no="1" biz_name="APPScanningassembly" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+     <ifs ifs_code="MB00035" ifs_name="APP领料" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="APPpicking" biz_method="" serial_no="1" biz_name="APPpicking" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+	
+	<ifs ifs_code="MB00036" ifs_name="APP测试" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="APPTest" biz_method="" serial_no="1" biz_name="APPTest" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    <ifs ifs_code="MB00037" ifs_name="APP装配查询工艺信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryProcessinformationmaintenanceassembling" biz_method="" serial_no="1" biz_name="queryProcessinformationmaintenanceassembling" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- 异型插件机制造模块看板 -->
+    <ifs ifs_code="MB00056" ifs_name="异型插件机制造模块看板" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="querySpecialPlug-inMachineManufacturingModuleBoard" biz_method="" serial_no="1" biz_name="querySpecialPlug-inMachineManufacturingModuleBoard" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- 异型插件机模块用量看板 -->
+    <ifs ifs_code="MB00055" ifs_name="异型插件机模块用量看板" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="querySpecialPluginMachineModuleConsumption" biz_method="" serial_no="1" biz_name="querySpecialPluginMachineModuleConsumption" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    <ifs ifs_code="MB00054" ifs_name="异型插件机生产工单看板" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryProductionorderKanban" biz_method="" serial_no="1" biz_name="queryProductionorderKanban" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    <!-- PDA pcb条码跟包装批次号绑定 -->
+	 <ifs ifs_code="MB00060" ifs_name="pcb条码跟包装批次号绑定" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="InserSNBATCH_P" biz_method="" serial_no="1" biz_name="InserSNBATCH_P" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+     <!-- PDA载具绑定产品条码新增 -->
+	 <ifs ifs_code="MB00061" ifs_name="载具与sn号绑定" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="InserCareSnBind_P" biz_method="" serial_no="1" biz_name="InserCareSnBind_P" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    
+      <!-- PDA产品条码过站  -->
+	 <ifs ifs_code="MB00062" ifs_name="产品条码过站" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="R_SN_STATION_P" biz_method="" serial_no="1" biz_name="R_SN_STATION_P" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    
+      <!-- PDA按工单号和线别查出产品对应的工序路线  -->
+	 <ifs ifs_code="MB00063" ifs_name="按工单号和线别查出产品对应的工序路线" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryProcedureRoute" biz_method="" serial_no="1" biz_name="queryProcedureRoute" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+     <!-- PDA pcb已扫描过的批次号  -->
+	 <ifs ifs_code="MB00064" ifs_name="pcb已扫描过的批次号" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryScanBatchNumber" biz_method="" serial_no="1" biz_name="queryScanBatchNumber" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+	 <!-- PDA 载具与产品解除绑定  -->
+	 <ifs ifs_code="MB00065" ifs_name="载具与产品解除绑定" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="DeleteCareSnUntie_P" biz_method="" serial_no="1" biz_name="DeleteCareSnUntie_P" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+     <!-- PDA 组装过站和条码绑定  -->
+	 <ifs ifs_code="MB00066" ifs_name="组装过站和条码绑定" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="R_SN_ZZ_STATION_P" biz_method="" serial_no="1" biz_name="R_SN_ZZ_STATION_P" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- PDA 周装箱与SN条码绑定  -->
+	 <ifs ifs_code="MB00067" ifs_name="周装箱与SN条码绑定" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="R_MES_BOX_SN_BIND_INSERT_P" biz_method="" serial_no="1" biz_name="R_MES_BOX_SN_BIND_INSERT_P" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+           <!-- PDA无载具产品条码过站  -->
+	 <ifs ifs_code="MB00068" ifs_name="无载具产品条码过站" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="R_SN_STATION_NO_CARE_P" biz_method="" serial_no="1" biz_name="R_SN_STATION_NO_CARE_P" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+</ifss>

@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<podiums>
+    <!-- 生成命名规则共通类 -->
+    <podium podium_code="CREATE_NAME_RULES"    podium_name="生成命名规则共通类 " podium_class="com.iPlant.frame.biz.mes.common.NameRulesComm" podium_method="createNameRules" attr1="" attr2=""/>
+	
+	<podium podium_code="queryOpUser"    podium_name="获取用户的数据权限" podium_class="com.iPlant.mes.biz.UserInfoBusiness" podium_method="execute" attr1="" attr2=""/>
+
+	<podium podium_code="querySysMenuTree"    podium_name="查询系统菜单树状结构 " podium_class="com.iPlant.frame.biz.podium.TreeNodePodium" podium_method="execute" attr1="" attr2=""/>
+	
+	<podium podium_code="querySysDptTree"    podium_name="查询部门信息树状结构 " podium_class="com.iPlant.mes.common.TreeNode" podium_method="execute" attr1="" attr2=""/>
+	
+	<podium podium_code="querySysSheBeiTree"    podium_name="查询部门信息树状结构 " podium_class="com.iPlant.mes.common.TreeNode" podium_method="sheBeiExecute" attr1="" attr2=""/>
+	<!-- 查询报警信息树结构 -->
+	<podium podium_code="querySysAlarmTree"    podium_name="查询报警信息树结构" podium_class="com.iPlant.mes.common.TreeNode" podium_method="alarmTreeExecute" attr1="" attr2=""/>
+	<!-- 用户新增 MD5码生成-->
+	<podium podium_code="insertOpUser"    podium_name="用户新增 MD5码生成" podium_class="com.iPlant.mes.biz.basis.BasisInfoManage" podium_method="execute" attr1="" attr2=""/>
+	<!-- 修改用户信息 MD5码生成-->
+	<podium podium_code="updateOpUser"    podium_name=" 修改用户信息 MD5码生成" podium_class="com.iPlant.mes.biz.basis.BasisInfoManage" podium_method="executeUpdate" attr1="" attr2=""/>
+	
+	<!-- 删除部门信息同时删除父表 -->
+	<podium podium_code="deleteDptInfo"    podium_name="删除部门信息" podium_class="com.iPlant.mes.biz.framework.FrameWorkManage" podium_method="execute" attr1="" attr2=""/>  
+	
+	<!-- 删除派工单类别 -->
+	<!-- <podium podium_code="deleteDictionaryDetail"    podium_name="删除派工单类别" podium_class="com.iPlant.mes.biz.basis.BasisInfoManage" podium_method="dictionaryItem" attr1="" attr2=""/> -->
+</podiums>
+ 

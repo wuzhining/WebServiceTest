@@ -1,0 +1,424 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="">
+
+	<!-- 移动PDA端数据库操作 -->
+	<!-- 通过订单号或者唯一码编号查询物料数据 -->
+	<select id="queryMateriaByOrderIdOrBarcode" parameterType="hashmap" resultType="java.util.HashMap"> 
+		SELECT A.ORDER_ID,A.DETAIL_ID,A.MATERIA_ID,A.MATERIA_NAME,A.UNIT_ID,A.UNIT_NAME,A.PACKAGE_NUMBER,A.PACKAGE_CAPACITY,A.BARCODE,A.CREATE_DATE,A.SN_NUMBER,A.CHECKIN_STATUS,C.SUPPLIER_ID,C.SUPPLIER_NAME
+		FROM WMS1.WMS_CHECKIN_PACKAGE A LEFT JOIN WMS1.WMS_ORDER_DETAIL B ON A.ORDER_ID = B.ORDER_ID AND A.MATERIA_ID = B.MATERIA_ID
+		LEFT JOIN WMS1.WMS_ORDER C ON A.ORDER_ID = C.ORDER_ID WHERE 1=1
+<!-- 		WHERE 1=1 AND A.CHECKIN_STATUS = 'ENT01.01'  -->
+		<if test="ORDER_ID !=null and ORDER_ID !='' "> AND A.ORDER_ID = '${ORDER_ID}'</if>
+		<if test="BARCODE !=null and BARCODE !='' "> AND A.BARCODE = '${BARCODE}'</if>
+	</select>
+	
+	  <!-- 更新唯一码对应的物料状态信息为待质检状态 -->
+	  <select id="updateMateriaStatusNeedCheck" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap">
+	  	{call MM_VENDOR_DELIVERY.mm_iqc_operate('${BARCODE}',
+	  				#{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=messageDetails},
+    				#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, 
+    				#{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},
+    				#{ROWS_COUNT,jdbcType=INTEGER,mode=OUT,javaType=Integer})}
+	 </select>
+	
+	<!-- 通过唯一码查询待质检物料清单 -->
+	<select id="queryNeedCheckingMateriaListByBarcode" parameterType="hashmap" resultType="java.util.HashMap"> 
+		SELECT A.ORDER_ID,A.DETAIL_ID,A.MATERIA_ID,A.MATERIA_NAME,A.UNIT_ID,A.UNIT_NAME,A.PACKAGE_NUMBER,A.PACKAGE_CAPACITY,A.BARCODE,to_char(A.CREATE_DATE, 'yyyy-mm-dd hh24:mi:ss') CREATE_DATE,A.SN_NUMBER,
+        A.CHECKIN_STATUS,B.DELIVE_NUMBER,to_char(B.PRODUCT_DATE, 'yyyy-mm-dd hh24:mi:ss') PRODUCT_DATE,C.SUPPLIER_ID,C.SUPPLIER_NAME,D.SAMPLE_LEVEL,D.SAMPLE_CODE,D.SAMPLE_STAND_VALUE,D.SAMPLE_ASK
+	    FROM WMS1.WMS_CHECKIN_PACKAGE A LEFT JOIN WMS1.WMS_ORDER_DETAIL B ON A.ORDER_ID = B.ORDER_ID AND A.MATERIA_ID = B.MATERIA_ID
+	    LEFT JOIN WMS1.WMS_ORDER C ON A.ORDER_ID = C.ORDER_ID LEFT JOIN WMS1.WMS_SAMPLE_DETAIL D ON A.BARCODE = D.BARCODE WHERE 1=1 AND A.CHECKIN_STATUS='ENT01.02'
+		<if test="BARCODE !=null and BARCODE !='' "> AND A.BARCODE = '${BARCODE}'</if>
+	</select>
+	
+	<!-- 通过唯一码确定物料质检是否通过 -->
+	  <select id="updateIQCStatusByBarcode" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap">
+	  	{call MM_VENDOR_DELIVERY.mm_iqc_passed('${BARCODE}','${IQCPASSED}',
+	  				#{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=messageDetails},
+    				#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, 
+    				#{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},
+    				#{ROWS_COUNT,jdbcType=INTEGER,mode=OUT,javaType=Integer})}
+	 </select>
+	 
+	 <!-- PDA入库 -->
+	  <select id="materiaCheckinByBarcode" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap">
+	  	{call MM_VENDOR_DELIVERY.mm_materia_checkin('${BARCODE}','${RFID}',
+	  				#{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=messageDetails},
+    				#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, 
+    				#{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},
+    				#{ROWS_COUNT,jdbcType=INTEGER,mode=OUT,javaType=Integer})}
+	 </select>
+	 
+	  <!--MSR入库调用接口 -->
+	  <select id="CheckinByMSR" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap">
+	  	{call MM_VENDOR_DELIVERY.mm_materia_checkinForMSR('${DID}','${TowerNo}','${PositionCode}',
+	  				#{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=messageDetails},
+    				#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, 
+    				#{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},
+    				#{ROWS_COUNT,jdbcType=INTEGER,mode=OUT,javaType=Integer})}
+	 </select>
+	 
+	  <!--MSR出库调用接口 -->
+	  <select id="CheckOutByMSR" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap">
+	  	{call MM_VENDOR_DELIVERY.mm_materia_checkOutForMSR('${DID}',
+	  				#{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=messageDetails},
+    				#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, 
+    				#{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},
+    				#{ROWS_COUNT,jdbcType=INTEGER,mode=OUT,javaType=Integer})}
+	 </select>
+	 
+	<!-- JIT备料查询JIT类型工单 -->
+	<select id="chooseJITTypeWorkOrder" parameterType="hashmap" resultType="java.util.HashMap">
+		<include refid="oraclePagingFileTop"></include>
+			MO_NO, WO_NO FROM (SELECT DISTINCT MO_NO, WO_NO FROM MES1.R_MES_CALL_MAT_T WHERE CALL_TY IN ('1', '2') AND USR_DFN_5 IS NULL ) A 
+	 	<include refid="oraclePagingFileBottom"></include>
+	</select>
+	
+	<!-- JIT备料查询JIT类型工单数据汇总 -->
+	<select id="chooseJITTypeWorkOrder_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+		select count(1) as rows_count from (select DISTINCT MO_NO, WO_NO FROM MES1.R_MES_CALL_MAT_T WHERE CALL_TY IN ('1', '2') AND USR_DFN_5 IS NULL)
+	</select>
+	
+	<!-- JIT备料通过工单号查询须备料信息 -->
+	<select id="chooseJITNeedMateriaByWorkOrder" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT FCT_CD,CALL_CD,CALL_NM,CALL_VAL,WC_CD,MO_NO,WO_NO,LINE_CD,ITEM_CD,REQ_STATE,PROGRAM_NM,VERSION,ET_CD,STACK_CD,PH_ARE,FD_CD,FEED_PW,MAT_CD,POSIT_NO,REQ_QTY,ISSUE_QTY
+       	FROM MES1.R_MES_CALL_MAT_T WHERE CALL_TY in ('1', '2')
+      	<if test="MO_NO !=null and MO_NO != ''"> and MO_NO = '${MO_NO}'</if>
+		<if test="WO_NO !=null and WO_NO != ''"> and WO_NO = '${WO_NO}'</if>
+	</select>
+	
+	<!--  JIT备料通过工单号查询须备料信息数据汇总 -->
+	<select id="chooseJITNeedMateriaByWorkOrder_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+	   	select count(1) as rows_count FROM MES1.R_MES_CALL_MAT_T WHERE CALL_TY in ('1', '2')
+      	<if test="MO_NO !=null and MO_NO != ''"> and MO_NO = '${MO_NO}'</if>
+		<if test="WO_NO !=null and WO_NO != ''"> and WO_NO = '${WO_NO}'</if>
+	</select>
+	
+	<!-- JIT备料分析存储过程返回结果集 -->
+	<resultMap id="jitPrepareResult" type="java.util.HashMap">
+			<result property="WAREHOUSE_ID" column="WAREHOUSE_ID"/>
+			<result property="WAREHOUSE_NAME" column="WAREHOUSE_NAME"/>
+			<result property="STORE_ID" column="STORE_ID"/>
+			<result property="STORE_NAME" column="STORE_NAME"/>
+			<result property="SHELF_ID" column="SHELF_ID"/>
+			<result property="SHELF_NAME" column="SHELF_NAME"/>
+			<result property="POSITION_ID" column="POSITION_ID"/>
+			<result property="ROW_ID" column="ROW_ID"/>
+			<result property="COLUMN_ID" column="COLUMN_ID"/>
+			<result property="ORDER_ID" column="ORDER_ID"/>
+			<result property="MATERIA_NAME" column="MATERIA_NAME"/>
+			<result property="BARCODE" column="BARCODE"/>
+			<result property="PACKAGE_NUMBER" column="PACKAGE_NUMBER"/>
+			<result property="PACKAGE_CAPACITY" column="PACKAGE_CAPACITY"/>
+			<result property="CHECKIN_STATUS" column="CHECKIN_STATUS"/>
+			<result property="UNPACK" column="UNPACK"/>
+	</resultMap>
+	
+	<!-- JIT备料分析 -->
+	  <select id="wms_jit_prepare" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap">
+	  	{call WMS_BASIC_INFO.wms_jit_prepare('${CALL_CD}','${MO_NO}','${WO_NO}','{MAT_CD}', '${REQ_QTY}',
+	  				#{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=jitPrepareResult},
+    				#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, 
+    				#{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},
+    				#{ROWS_COUNT,jdbcType=INTEGER,mode=OUT,javaType=Integer})}
+	 </select>
+	 
+	 <!-- JIT物料拆包存储过程返回结果集 -->
+	<resultMap id="jitUnpackResult" type="java.util.HashMap">
+			<result property="BARCODE" column="BARCODE"/>
+	</resultMap>
+	
+	 <!-- JIT物料拆包 -->
+	  <select id="wms_jit_unpack" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap">
+	  	{call WMS_BASIC_INFO.wms_jit_unpack('${CALL_CD}','${MO_NO}','${WO_NO}','{MAT_CD}', '${REQ_QTY}', '${BARCODE}',
+	  				#{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=jitUnpackResult},
+    				#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, 
+    				#{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},
+    				#{ROWS_COUNT,jdbcType=INTEGER,mode=OUT,javaType=Integer})}
+	 </select>
+	 
+	 <!-- JIT备料出库存储过程返回结果集 -->
+	<resultMap id="jitCheckoutResult" type="java.util.HashMap">
+			<result property="STATUS" column="STATUS"/>
+	</resultMap>
+	
+	 <!-- JIT备料出库 -->
+	  <select id="wms_jit_checkout" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap">
+	  	{call WMS_BASIC_INFO.wms_jit_checkout('${CALL_CD}','${MO_NO}','${WO_NO}','{MAT_CD}', '${REQ_QTY}', '${BARCODE}',
+	  				#{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=jitCheckoutResult},
+    				#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, 
+    				#{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},
+    				#{ROWS_COUNT,jdbcType=INTEGER,mode=OUT,javaType=Integer})}
+	 </select>
+	 
+	<!-- 工单备料查询待备料工单 -->
+	<select id="chooseNormalTypeWorkOrder" parameterType="hashmap" resultType="java.util.HashMap">
+		<include refid="oraclePagingFileTop"></include>
+			MO_NO, WO_NO FROM (SELECT DISTINCT MO_NO, WO_NO FROM MES1.R_MES_REQ_MAT_T WHERE USR_DFN_5 IS NULL AND WO_NO in(SELECT DISTINCT  WO_NO FROM MES1.R_MES_WO_T WHERE USR_DFN_5 IS NULL AND WO_STATE IN (2,5))) A 
+	 	<include refid="oraclePagingFileBottom"></include>
+	</select>
+	
+	<!-- 工单备料查询待备料工单汇总 -->
+	<select id="chooseNormalTypeWorkOrder_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT count(1) as rows_count from (SELECT DISTINCT MO_NO, WO_NO FROM MES1.R_MES_REQ_MAT_T WHERE USR_DFN_5 IS NULL AND WO_NO in(SELECT DISTINCT  WO_NO FROM MES1.R_MES_WO_T WHERE USR_DFN_5 IS NULL AND WO_STATE IN (2,5)))
+	</select>
+	 
+	<!-- 工单备料通过工单号查询须备料信息 -->
+	<select id="chooseNormalNeedMateriaByWorkOrder" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT A.WO_NO,A.MO_NO,A.PO_ROW_IDX,A.PRNT_MAT_CD,A.PRNT_MAT_NM,A.MAT_CD,A.MAT_NM,A.REQ_QTY,A.PLAN_QTY,A.REQ_PROC_QTY FROM MES1.R_MES_REQ_MAT_T A WHERE 1 = 1 
+      	<if test="MO_NO !=null and MO_NO != ''"> and MO_NO = '${MO_NO}'</if>
+		<if test="WO_NO !=null and WO_NO != ''"> and WO_NO = '${WO_NO}'</if>
+	</select>
+	
+	<!-- 工单备料通过工单号查询须备料信息汇总 -->
+	<select id="chooseNormalNeedMateriaByWorkOrder_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT count(1) as rows_count FROM MES1.R_MES_REQ_MAT_T A WHERE  1 = 1
+      	<if test="MO_NO !=null and MO_NO != ''"> and MO_NO = '${MO_NO}'</if>
+		<if test="WO_NO !=null and WO_NO != ''"> and WO_NO = '${WO_NO}'</if>
+	</select>
+	
+	<!-- 工单备料分析 -->
+	  <select id="wms_normal_prepare" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap">
+	  	{call WMS_BASIC_INFO.wms_normal_prepare('${MO_NO}','${WO_NO}','${MAT_CD}', '${REQ_QTY}', '${PO_ROW_IDX}',
+	  				#{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=jitPrepareResult},
+    				#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, 
+    				#{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},
+    				#{ROWS_COUNT,jdbcType=INTEGER,mode=OUT,javaType=Integer})}
+	 </select>
+	 
+	 <!-- 工单物料拆包 -->
+	  <select id="wms_normal_unpack" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap">
+	  	{call WMS_BASIC_INFO.wms_normal_unpack('${MO_NO}','${WO_NO}','${MAT_CD}', '${REQ_QTY}', '${BARCODE}', '${PO_ROW_IDX}',
+	  				#{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=jitUnpackResult},
+    				#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, 
+    				#{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},
+    				#{ROWS_COUNT,jdbcType=INTEGER,mode=OUT,javaType=Integer})}
+	 </select>
+	 
+	 <!-- 工单备料出库 -->
+	  <select id="wms_normal_checkout" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap">
+	  	{call WMS_BASIC_INFO.wms_normal_checkout('${BARCODE}',
+	  				#{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=jitCheckoutResult},
+	   				#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, 
+	   				#{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},
+	   				#{ROWS_COUNT,jdbcType=INTEGER,mode=OUT,javaType=Integer})}
+	 </select>
+	
+	<!-- 工单退料查询 -->
+	<select id="chooseMatReturnWorkOrder" parameterType="hashmap" resultType="java.util.HashMap">
+		<include refid="oraclePagingFileTop"></include>
+	 		DISTINCT MO_NO, WO_NO FROM MES1.R_MES_RTN_MAT_T A WHERE USR_DFN_5 IS NULL
+	 	<include refid="oraclePagingFileBottom"></include>
+	</select>
+	
+	<!-- 工单退料查询数据汇总 -->
+	<select id="chooseMatReturnWorkOrder_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+		select count(1) as rows_count from (select DISTINCT MO_NO, WO_NO FROM MES1.R_MES_RTN_MAT_T A WHERE USR_DFN_5 IS NULL)
+	</select>
+	
+	<!-- 选择箱单 -->
+	<select id="chooseBoxOrder" parameterType="hashmap" resultType="java.util.HashMap">
+		<include refid="oraclePagingFileTop"></include>
+	 		a.box_id from mes1.r_mes_box_mst_t a left join mes1.r_mes_box_dtl_t b on a.box_id = b.box_id where 1=1 and a.box_state = 2 
+		    <if test="BOX_ID !=null and BOX_ID != ''"> and a.box_id = '${BOX_ID}'</if>
+	 	<include refid="oraclePagingFileBottom"></include>
+	</select>
+	
+	<!-- 选择箱单汇总 -->
+	<select id="chooseBoxOrder_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+		select count(1) as rows_count from mes1.r_mes_box_mst_t a left join mes1.r_mes_box_dtl_t b on a.box_id = b.box_id where 1=1 and a.box_state = 2 
+		<if test="BOX_ID !=null and BOX_ID != ''"> and a.box_id = '${BOX_ID}'</if>
+	</select>
+	
+	<!-- 选择箱单详情 -->
+	<select id="chooseBoxDetailOrder" parameterType="hashmap" resultType="java.util.HashMap">
+		<include refid="oraclePagingFileTop"></include>
+	 		a.box_id,a.box_qty,a.item_cd,a.item_nm,b.bar_code from mes1.r_mes_box_mst_t a left join mes1.r_mes_box_dtl_t b on a.box_id = b.box_id where 1=1 and a.box_state = 2 
+		    <if test="BOX_ID !=null and BOX_ID != ''"> and a.box_id = '${BOX_ID}'</if>
+	 	<include refid="oraclePagingFileBottom"></include>
+	</select>
+	
+	<!-- 选择箱单详情汇总 -->
+	<select id="chooseBoxDetailOrder_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+		select count(1) as rows_count from mes1.r_mes_box_mst_t a left join mes1.r_mes_box_dtl_t b on a.box_id = b.box_id where 1=1 and a.box_state = 2 
+		<if test="BOX_ID !=null and BOX_ID != ''"> and a.box_id = '${BOX_ID}'</if>
+	</select>
+	
+	<!-- PDA成品入库 -->
+	  <select id="mm_product_checkin" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap">
+	  	{call MM_VENDOR_DELIVERY.mm_product_checkin('${MATERIAID}','${MATERIANM}', '${PACKNUM}', '${BOXID}',
+	  				#{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=jitCheckoutResult},
+	   				#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, 
+	   				#{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},
+	   				#{ROWS_COUNT,jdbcType=INTEGER,mode=OUT,javaType=Integer})}
+	 </select>
+	 
+	 <!-- PDA成品出库 -->
+	  <select id="mm_product_checkout" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap">
+	  	{call MM_VENDOR_DELIVERY.mm_product_checkout('${BOXID}',
+	  				#{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=jitCheckoutResult},
+	   				#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, 
+	   				#{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},
+	   				#{ROWS_COUNT,jdbcType=INTEGER,mode=OUT,javaType=Integer})}
+	 </select>
+	 
+	 <!-- 选择待出库的箱单详情 -->
+	<select id="chooseCheckOutBoxDetailOrder" parameterType="hashmap" resultType="java.util.HashMap">
+		<include refid="oraclePagingFileTop"></include>
+	 		a.box_id,a.box_qty,a.item_cd,a.item_nm,b.bar_code from mes1.r_mes_box_mst_t a left join mes1.r_mes_box_dtl_t b on a.box_id = b.box_id where 1=1 and a.box_state = 3 
+		    <if test="BOX_ID !=null and BOX_ID != ''"> and a.box_id = '${BOX_ID}'</if>
+	 	<include refid="oraclePagingFileBottom"></include>
+	</select>
+	 
+	 <!-- 选择待出库的箱单详情汇总 -->
+	<select id="chooseCheckOutBoxDetailOrder_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+		select count(1) as rows_count from mes1.r_mes_box_mst_t a left join mes1.r_mes_box_dtl_t b on a.box_id = b.box_id where 1=1 and a.box_state = 3 
+		<if test="BOX_ID !=null and BOX_ID != ''"> and a.box_id = '${BOX_ID}'</if>
+	</select>
+	
+	<!-- PDA库位看板报表 -->
+	<select id="WMSPositionBoard" parameterType="hashmap" resultType="java.util.HashMap">
+	 	SELECT ROWNUM,T.* FROM (SELECT ROWNUM AS RN,position_id,position_name,status,row_id,column_id,shelf_id,shelf_name,materia_id,materia_name,unit_name,package_capacity,barcode 
+        from (SELECT a.position_id,a.position_name,a.status,a.row_id,a.column_id,b.shelf_id,b.shelf_name,f.materia_id,f.materia_name,f.unit_name,(NVL(f.package_capacity,'0')+nvl(a.pos_num,'0')) as package_capacity,NVL(a.barcode,'') as barcode
+        FROM wms1.wms_position a inner JOIN wms1.wms_shelf b ON a.shelf_id = b.shelf_id
+        inner JOIN wms1.wms_store c ON b.store_id = c.store_id inner JOIN wms1.wms_warehouse d ON c.warehouse_id = d.warehouse_id
+        left JOIN wms1.wms_checkin_package f ON a.barcode = f.barcode WHERE a.enable = 'Y' AND d.enable = 'Y'
+        <if test="WAREHOUSE_ID !=null and WAREHOUSE_ID != ''"> and d.WAREHOUSE_ID = '${WAREHOUSE_ID}'</if> ORDER BY a.position_id asc)) T
+        <if test="pageIndex!=null and pageIndex!='' ">
+        <if test="pageSize!=null and pageSize!='' ">   
+           WHERE T.RN >  (${pageIndex}-1)*${pageSize} AND T.RN &lt; = ${pageIndex}*${pageSize}
+       	</if>
+       	</if>
+	</select>
+	 
+	 <!-- PDA库位看板报表汇总 -->
+	<select id="WMSPositionBoard_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+		select count(1) as rows_count from wms1.wms_position a
+		inner join wms1.wms_shelf b on a.shelf_id = b.shelf_id
+		inner join wms1.wms_store c on b.store_id = c.store_id
+		inner join wms1.wms_warehouse d on c.warehouse_id = d.warehouse_id
+		inner join wms1.wms_warehouse_type e on d.warehouse_type_id = e.warehouse_type_id
+		left join wms1.wms_checkin_package f on a.barcode = f.barcode
+		where a.enable = 'Y' and d.enable = 'Y' 
+		<if test="WAREHOUSE_ID !=null and WAREHOUSE_ID != ''"> and d.WAREHOUSE_ID = '${WAREHOUSE_ID}'</if>
+	</select>
+	
+	<!-- PDA库位状态看板 -->
+	<select id="WMSPositionStatusBoard" parameterType="hashmap" resultType="java.util.HashMap">
+		select count(1) as total, '空闲' as status, count(1)/4||'%' as pct, 400 as p_total from wms1.wms_position where shelf_id in ('SH0039','SH003A') and barcode is null
+        union 
+        select count(1) as total,'正常' as status, count(1)/4||'%' as pct, 400 as p_total from wms1.wms_position a where a.shelf_id in ('SH0039','SH003A') and a.barcode is not null
+        union
+        select 0 as total,'异常' as status, '0%' as pct, 400 as p_total from dual
+	</select>
+	
+	<!-- PDA退料 -->
+	  <select id="mm_return_materia" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap">
+	  	{call MM_VENDOR_DELIVERY.mm_return_materia('${BARCODE}','${RFID}', '${QTY}', '${USERID}',
+	  				#{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=jitCheckoutResult},
+	   				#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, 
+	   				#{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},
+	   				#{ROWS_COUNT,jdbcType=INTEGER,mode=OUT,javaType=Integer})}
+	 </select>
+	 
+	 <!-- 平库发料 -->
+	  <select id="wms_normal_checkout1" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap">
+	  	{call WMS_BASIC_INFO.wms_normal_checkout1('${MONO}','${WONO}', '${MAT_CD}', '${BARCODE}',
+	  				#{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=jitCheckoutResult},
+	   				#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, 
+	   				#{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},
+	   				#{ROWS_COUNT,jdbcType=INTEGER,mode=OUT,javaType=Integer})}
+	 </select>
+	 
+	  
+	 <!-- 立库演示发料 -->
+	  <select id="wms_show_checkout" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap">
+	  	{call WMS_BASIC_INFO.wms_show_checkout('${BARCODE}','${POSITION_ID}',
+	  				#{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=jitCheckoutResult},
+	   				#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, 
+	   				#{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},
+	   				#{ROWS_COUNT,jdbcType=INTEGER,mode=OUT,javaType=Integer})}
+	 </select>
+	  
+	  <!-- 查询备料工单 -->
+	<select id="wms_show_search" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT S.SHELF_NAME||W.POSITION_NAME AS WMSNAME,W.BARCODE AS BARCODE,W.POSITION_ID AS POSITION_ID FROM WMS1.WMS_POSITION W INNER JOIN WMS1.WMS_SHELF S ON S.SHELF_ID=W.SHELF_ID WHERE S.STORE_ID='1060' AND (W.BARCODE='N' OR W.BARCODE IS NOT NULL)
+	</select>
+	
+	<!-- 立库PDA入库验证 -->
+	  <select id="wms_enter_validate" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap">
+	  	{call WMS_LK_MANAGER.wms_enter_validate('${BARCODE}',
+	  				#{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=jitCheckoutResult},
+	   				#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, 
+	   				#{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},
+	   				#{ROWS_COUNT,jdbcType=INTEGER,mode=OUT,javaType=Integer})}
+	 </select>
+	 
+	 <!-- PDA库位看板报表 -->
+	<select id="wms_rows_List" parameterType="hashmap" resultType="java.util.HashMap">
+	 	select s.shelf_id,s.shelf_name,s.store_id,s.store_name,s.layer_number,s.col_number,p.position_id,p.position_name,p.row_id,p.column_id,nvl(p.status,'PST01.01') as status,P.POS_BARCODE from wms1.wms_position p left join wms1.wms_shelf s on s.shelf_id=p.shelf_id 
+	 	<where> 1=1
+           	<if test="shelf_id!=null and shelf_id!='' "> AND s.shelf_id='${shelf_id}'</if>
+           	<if test="column_id!=null and column_id!='' "> AND p.column_id='${column_id}'</if>
+        </where>
+	 	order by row_id desc
+	</select>
+	
+	<select id="wms_columns_List" parameterType="hashmap" resultType="java.util.HashMap">
+	    select s.shelf_id,s.shelf_name,s.store_id,s.store_name,s.layer_number,s.col_number,p.column_id from wms1.wms_position p left join wms1.wms_shelf s on s.shelf_id=p.shelf_id
+	 	<where> 1=1
+           	<if test="shelf_id!=null and shelf_id!='' "> AND s.shelf_id='${shelf_id}'</if>
+        </where>
+	 	group by s.shelf_id,s.shelf_name,s.store_id,s.store_name,s.layer_number,s.col_number,p.column_id order by to_number(column_id) desc
+	</select>
+	
+	<!-- 成品仓货架  -->
+	<select id="wms_shelf_List" parameterType="hashmap" resultType="java.util.HashMap">
+	 	select shelf_id,shelf_name from  wms1.wms_shelf where store_id='1080'
+	</select>
+	
+	<!-- 立库PDA入库 -->
+	  <select id="wms_materia_checkin" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap">
+	  	{call WMS_LK_MANAGER.wms_materia_checkin('${BARCODE}','${RFID}',
+	  				#{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=jitCheckoutResult},
+	   				#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, 
+	   				#{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},
+	   				#{ROWS_COUNT,jdbcType=INTEGER,mode=OUT,javaType=Integer})}
+	 </select>
+
+	 
+	  <!-- 工单备料分析 (多物料下架准备)-->
+	  <select id="wms_out_prepare" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap">
+	  	{call WMS_LK_MANAGER.wms_out_prepare('${MO_NO}','${WO_NO}','${MAT_CD}', '${REQ_QTY}', '${PO_ROW_IDX}',
+	  				#{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=jitPrepareResult},
+    				#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, 
+    				#{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},
+    				#{ROWS_COUNT,jdbcType=INTEGER,mode=OUT,javaType=Integer})}
+	 </select>
+	 
+	  <!-- 工单备料出库 -->
+	  <select id="wms_materia_checkout" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap">
+	  	{call WMS_LK_MANAGER.wms_materia_checkout('${BARCODE}',
+	  				#{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=jitCheckoutResult},
+	   				#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, 
+	   				#{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},
+	   				#{ROWS_COUNT,jdbcType=INTEGER,mode=OUT,javaType=Integer})}
+	 </select>
+	  
+     <!-- 返料上架 -->
+	 <select id="wmsMateriaReturn" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap">
+	  	{call WMS_LK_MANAGER.mm_materia_product_return('${RFID}',
+	  				#{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=messageDetails},
+    				#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, 
+    				#{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},
+    				#{ROWS_COUNT,jdbcType=INTEGER,mode=OUT,javaType=Integer})}
+	 </select>
+	 
+	 <!-- 立库rfid是否占用验证 -->
+	 <select id="wmsPositionCheckRfid" parameterType="hashmap" resultType="java.util.HashMap">
+	 	select count(1) as result from  wms1.wms_position 
+	 	<where> 1=1
+	 	    <if test="rfid !=null and rfid != ''"> and BARCODE = '${rfid}'</if>
+	 	</where>
+	</select>
+</mapper>

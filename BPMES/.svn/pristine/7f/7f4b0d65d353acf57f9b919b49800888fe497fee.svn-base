@@ -1,0 +1,794 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="">
+	    <!-- A3 生产计划 -->
+		<!-- A3.1 工单管理 -->
+	    <!-- 查询工单信息 --> 
+	    <select id="queryOdInfo" parameterType="hashmap" resultType="java.util.HashMap">
+	    	<include refid="oraclePagingFileTop"></include>	
+	    			  T1.DO_CD,
+			          T1.DICT_IT,
+			          MO_CD,
+			          PT_CD,
+			          PT_NM,
+			          T1.ET_CD,
+			          T2.STP_YN,
+			          T2.CL_CD,
+			          T2.CL_NM,
+			          T2.CL_BGN_DATE,
+			          MO_NUM,
+			          DO_NUM,
+			          PT_NUM,
+			          CK_STATUS,
+			          DO_STATUS,
+			          PT_CT,
+			          RT_SF,
+			          CUS_CD,
+			          PO_CD,
+			          TO_CHAR(P_BGN_DATE,'YYYY-MM-DD HH24:Mi:SS') AS P_BGN_DATE,
+			          TO_CHAR(P_END_DATE,'YYYY-MM-DD HH24:Mi:SS') AS P_END_DATE,
+			          TO_CHAR(A_BGN_DATE,'YYYY-MM-DD HH24:Mi:SS') AS A_BGN_DATE,
+			          TO_CHAR(A_END_DATE,'YYYY-MM-DD HH24:Mi:SS') AS A_END_DATE,
+			          MD_CL,
+			          MX_CL,
+			          MN_CL,
+			          T1.CRT_ID,
+			          TO_CHAR(T1.CRT_DT,'YYYY-MM-DD HH24:Mi:SS') AS CRT_DT,
+			          T1.CRT_IP,
+			          T1.UPT_ID,
+			          TO_CHAR(T1.UPT_DT,'YYYY-MM-DD HH24:Mi:SS') AS UPT_DT,
+			          T1.UPT_IP
+			          FROM  TPM1.R_TPM_D1_T T1
+			          LEFT JOIN TPM2.H_TPM_C1_T T2 ON T1.ET_CD=T2.ET_CD 
+			          AND T2.CL_END_DATE IS NULL AND STP_YN!=0
+	    		<where> 1=1
+	    			<if test="MO_CD!=null and MO_CD!='' ">
+	    				AND MO_CD='${MO_CD}'
+	    			</if>
+	    			<if test="DO_CD!=null and DO_CD!='' ">
+	    				AND T1.DO_CD='${DO_CD}'
+	    			</if>
+	    			<if test="CK_STATUS!=null and CK_STATUS!='' ">
+	    				AND CK_STATUS='${CK_STATUS}'
+	    			</if>
+	    			<if test="DO_STATUS!=null and DO_STATUS!='' ">
+	    				AND DO_STATUS='${DO_STATUS}'
+	    			</if>
+	    			<if test="ET_CD!=null and ET_CD!='' ">
+	    				AND T1.ET_CD='${ET_CD}'
+	    			</if>
+	    			
+	    		</where>
+	    		<include refid="oraclePagingFileBottom"></include> 	
+	    </select>   
+	    <!-- 查询工单信息分页总数-->
+	    <select id="queryWdInfo_COUNT" parameterType="hashmap" resultType="java.util.HashMap" >   
+	    		SELECT
+	    			COUNT(1) ROWS_COUNT
+	    		FROM  TPM1.R_TPM_D1_T T1
+			          LEFT JOIN TPM2.H_TPM_C1_T T2 ON T1.ET_CD=T2.ET_CD 
+			          AND T2.CL_END_DATE IS NULL AND STP_YN!=2
+	    		<where> 1=1
+	    			<if test="MO_CD!=null and MO_CD!='' ">
+	    				AND MO_CD='${MO_CD}'
+	    			</if>
+	    			<if test="DO_CD!=null and DO_CD!='' ">
+	    				AND T1.DO_CD='${DO_CD}'
+	    			</if>
+	    			<if test="CK_STATUS!=null and CK_STATUS!='' ">
+	    				AND CK_STATUS='${CK_STATUS}'
+	    			</if>
+	    			<if test="DO_STATUS!=null and DO_STATUS!='' ">
+	    				AND DO_STATUS='${DO_STATUS}'
+	    			</if>
+	    			<if test="ET_CD!=null and ET_CD!='' ">
+	    				AND T1.ET_CD='${ET_CD}'
+	    			</if>
+	    		</where>	
+	    </select>	
+	    
+	     <!-- 查询派工单号下拉框 -->
+	    <select id="queryOdInfogls" parameterType="hashmap" resultType="java.util.HashMap">
+	    	 SELECT
+                  distinct T1.DO_CD
+                    FROM TPM1.R_TPM_D1_T T1
+                    LEFT JOIN TPM1.R_TPM_D2_T T2
+                      ON T1.MO_CD = T2.MO_CD
+                     AND T1.DO_CD = T2.DO_CD
+                     AND T1.ET_CD = T2.ET_CD
+                     AND T1.PT_CD = T2.PT_CD
+                    LEFT JOIN IPLANT1.C_IPLANT_E2_T T3
+                      ON T1.ET_CD = T3.ET_CD
+                    LEFT JOIN IPLANT1.C_IPLANT_DD_T T4
+                      ON T1.DICT_IT = T4.DICT_IT
+	    </select>
+	    <!-- 查询工单信息(关联) -->
+	    <select id="queryOdInfogl" parameterType="hashmap" resultType="java.util.HashMap">
+	    	 <include refid="oraclePagingFileTop"></include>		    			
+					   EE.*
+			              FROM     
+			             ( 			             
+			             SELECT
+			              T1.MO_CD,
+			              T1.DO_CD,
+			              T1.ET_CD,
+			              T1.PT_CD,
+			              T1.PT_NM,
+			              T1.CK_STATUS,
+			              CASE 
+			                  WHEN
+			                T1.DO_STATUS='1' THEN '主单'
+			                WHEN
+			                T1.DO_STATUS='0' THEN '次单'
+			                WHEN
+			                T1.DO_STATUS='2' THEN '暂停'
+			                WHEN
+			                T1.DO_STATUS='3' THEN '结案'
+			              END AS DO_STATUS,
+			              T1.RT_SF,
+			              T1.PT_NUM,
+			              T3.ET_NM, 
+			              NVL(T1.MO_NUM,0) AS MO_NUM,
+			              NVL(T1.DO_NUM,0) AS DO_NUM,
+			              TO_CHAR(T1.P_BGN_DATE,'YYYY-MM-DD HH24:Mi:SS') AS P_BGN_DATE,
+			              TO_CHAR(T1.P_END_DATE,'YYYY-MM-DD HH24:Mi:SS') AS P_END_DATE,
+			              TO_CHAR(T1.A_BGN_DATE,'YYYY-MM-DD HH24:Mi:SS') AS A_BGN_DATE,
+			              TO_CHAR(T1.A_END_DATE,'YYYY-MM-DD HH24:Mi:SS') AS A_END_DATE,
+			              NVL(T2.PD_TT_NUM,0) AS PD_TT_NUM,
+			              NVL(T2.BR_NUM,0) AS BR_NUM,
+			              NVL((T2.PD_TT_NUM-T2.BR_NUM),0) AS GD_NUM,
+			               CASE 
+			                  WHEN 
+			                 (TRUNC((T2.PD_TT_NUM-T2.BR_NUM) /T1.DO_NUM,3) * 100 || '%') 
+			                    LIKE '.%' THEN '0' || 
+			                 (TRUNC((T2.PD_TT_NUM-T2.BR_NUM) /T1.DO_NUM,3) * 100 || '%') 
+			                   ELSE 
+			                 (TRUNC((T2.PD_TT_NUM-T2.BR_NUM) /T1.DO_NUM,3) * 100 || '%')
+			              END  AS GD_RATE,
+			              CASE 
+			              	 WHEN T1.DICT_IT IS NOT NULL THEN 1
+			              	 ELSE 0
+			              END AS STATUS,
+			              T1.DICT_IT,
+			              T4.DICT_IT_NM                
+			              FROM TPM1.R_TPM_D1_T      T1
+			              LEFT JOIN TPM1.R_TPM_D2_T T2 
+			              ON T1.MO_CD=T2.MO_CD   AND T1.DO_CD=T2.DO_CD 
+			              AND T1.ET_CD=T2.ET_CD  AND T1.PT_CD=T2.PT_CD 
+			              LEFT JOIN IPLANT1.C_IPLANT_E2_T   T3
+			              ON T1.ET_CD=T3.ET_CD   	
+			              LEFT JOIN IPLANT1.C_IPLANT_DD_T   T4
+			              ON T1.DICT_IT=T4.DICT_IT             
+			             <where>  T1.DO_NUM !=0  
+			             	<if test="MO_CD!=null and MO_CD!='' ">
+						   		AND T1.MO_CD='${MO_CD}'
+						    </if>
+						    <if test="DO_CD!=null and DO_CD!='' ">
+						        AND T1.DO_CD='${DO_CD}'
+						    </if>   
+						    <if test="StartDate!=null and StartDate!='' ">
+						        AND T1.CRT_DT>=TO_DATE('${StartDate}','YYYY-MM-DD') 
+					  		</if>
+					  		<if test="EndDate!=null and EndDate!='' ">
+					  		    AND T1.CRT_DT&lt;=TO_DATE('${EndDate}','YYYY-MM-DD') 
+					  		</if>
+					  		<if test="CK_STATUS!=null and CK_STATUS!='' ">
+					  			AND T1.CK_STATUS='${CK_STATUS}'
+					  		</if>
+					  		<if test="ET_CD!=null and ET_CD!='' ">
+						   		AND T1.ET_CD='${ET_CD}'
+						    </if>
+						    <if test="DICT_IT !=null and DICT_IT !='' ">
+ 	    						AND T1.DICT_IT='${DICT_IT}'
+ 	 						</if>
+      						</where>       
+			                  ORDER BY CK_STATUS ASC, P_BGN_DATE DESC			                  
+			              ) EE   					
+	    				<include refid="oraclePagingFileBottom"></include> 	
+	    			    			
+	    </select>
+	    <!-- 查询工单信息(关联)分页总数 -->
+	    <select id="queryOdInfogl_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+	    			 SELECT 
+	    			 	COUNT(1)  AS ROWS_COUNT               
+					   FROM TPM1.R_TPM_D1_T      T1
+			              LEFT JOIN TPM1.R_TPM_D2_T T2 
+			              ON T1.MO_CD=T2.MO_CD   AND T1.DO_CD=T2.DO_CD 
+			              AND T1.ET_CD=T2.ET_CD  AND T1.PT_CD=T2.PT_CD 
+			              LEFT JOIN IPLANT1.C_IPLANT_E2_T   T3
+			              ON T1.ET_CD=T3.ET_CD   	
+			              LEFT JOIN IPLANT1.C_IPLANT_DD_T   T4
+			              ON T1.DICT_IT=T4.DICT_IT        
+					    <where> T1.DO_NUM !=0 
+					    	<if test="MO_CD!=null and MO_CD!='' ">
+						   		AND T1.MO_CD='${MO_CD}'
+						    </if>
+						    <if test="DO_CD!=null and DO_CD!='' ">
+						        AND T1.DO_CD='${DO_CD}'
+						    </if>   
+						    <if test="StartDate!=null and StartDate!='' ">
+						        AND T1.CRT_DT>=TO_DATE('${StartDate}','YYYY-MM-DD') 
+					  		</if>
+					  		<if test="EndDate!=null and EndDate!='' ">
+					  		    AND T1.CRT_DT&lt;=TO_DATE('${EndDate}','YYYY-MM-DD') 
+					  		</if>
+					  		<if test="CK_STATUS!=null and CK_STATUS!='' ">
+					  			AND T1.CK_STATUS='${CK_STATUS}'
+					  		</if>
+					  		<if test="ET_CD!=null and ET_CD!='' ">
+						   		AND T1.ET_CD='${ET_CD}'
+						    </if>
+						    <if test="DICT_IT !=null and DICT_IT !='' ">
+ 	    						AND T1.DICT_IT='${DICT_IT}'
+ 	 						</if>
+      					</where>      					
+      					
+	    </select>	     
+		<!-- 新增工单信息 -->
+	    <insert id="insertOdInfo" parameterType="hashmap" > 
+	    		INSERT INTO  
+	    			TPM1.R_TPM_D1_T
+	    			   (
+	    			    DO_CD,
+						MO_CD,
+						PT_CD,
+						PT_NM,
+						ET_CD,
+						MO_NUM,
+						DO_NUM,
+						PT_NUM,
+						CK_STATUS,
+						DO_STATUS,
+						PT_CT,
+						RT_SF,
+						CUS_CD,
+						PO_CD,
+						MD_CL,
+						MX_CL,
+						MN_CL,
+						CRT_ID,
+						CRT_DT,
+						CRT_IP,
+						P_BGN_DATE,
+						P_END_DATE,
+						DICT_IT							     
+	    			    )
+	    			 VALUES
+	    			 	(
+	    			 	 '${DO_CD}',
+						 '${MO_CD}',
+						 '${PT_CD}',
+						 '${PT_NM}',
+						 '${ET_CD}',
+						 '${MO_NUM}',
+						 '${DO_NUM}',
+						 '${PT_NUM}',
+						 '0',
+						 '0',
+						 '${PT_CT}',
+						 '${RT_SF}',
+						 '${CUS_CD}',
+						 '${PO_CD}',
+						 '${MD_CL}',
+						 '${MX_CL}',
+						 '${MN_CL}',
+						 '${F_USE_CD}',
+						 SYSDATE,
+						 '${CRT_IP}',
+						 TO_DATE('${P_BGN_DATE}','YYYY-MM-DD HH24:MI:SS'),
+						 TO_DATE('${P_END_DATE}','YYYY-MM-DD HH24:MI:SS'),
+						 '${DICT_IT}'
+	    			 	 )    
+	    </insert>
+	    
+		<!-- 删除工单信息 -->
+		<delete id="deleteOdInfo" parameterType="hashmap" > 
+				DELETE TPM1.R_TPM_D1_T
+	    			<where>
+	    				DO_CD='${DO_CD}'	    				
+	    			</where>	
+		</delete>
+		
+		<!-- 修改工单信息  -->
+		<update id="updateOdInfo" parameterType="hashmap" > 
+				UPDATE TPM1.R_TPM_D1_T
+					<set>
+					   <if test="CK_STATUS==0">
+					   <if test="DICT_IT !=null">
+					  	   DICT_IT='${DICT_IT}',
+					   </if>
+					   </if>
+					   <if test="CK_STATUS==0">
+					   <if test="MO_CD2!=null and MO_CD2!='' ">
+					  	   MO_CD='${MO_CD2}',
+					   </if>
+					   </if>
+					   <if test="CK_STATUS==0">
+					   <if test="PT_CD!=null">
+					  	   PT_CD='${PT_CD}',
+					   </if>
+					   </if>
+					   <if test="CK_STATUS==0">
+					   <if test="PT_NM!=null">
+					  	   PT_NM='${PT_NM}',
+					   </if>
+					   </if>
+					   <if test="CK_STATUS==0">
+					   <if test="ET_CD!=null">
+					  	   ET_CD='${ET_CD}',
+					   </if>
+					   </if>
+					   <if test="CK_STATUS==0 or CK_STATUS==1">
+					   <if test="MO_NUM !=null">
+					  	   MO_NUM='${MO_NUM}',
+					   </if>
+					   </if>
+					   <if test="CK_STATUS==0 or CK_STATUS==1">
+					   <if test="DO_NUM !=null">
+					  	   DO_NUM='${DO_NUM}',
+					   </if>
+					   </if>
+					   <if test="CK_STATUS==0 or CK_STATUS==1">
+					   <if test="PT_NUM!=null">
+					  	   PT_NUM='${PT_NUM}',
+					   </if>
+					   </if>
+					   <if test="CK_STATUS==0">
+					   <if test="CK_STATUS2 !=null">
+					  	   CK_STATUS='${CK_STATUS2}',
+					   </if>
+					   </if>
+					   <if test="CK_STATUS==0">
+					   <if test="DO_STATUS !=null ">
+					  	   DO_STATUS='${DO_STATUS}',
+					   </if>
+					   </if>
+					   <if test="CK_STATUS==0">
+					   <if test="PT_CT !=null">
+					  	   PT_CT='${PT_CT}',
+					   </if>
+					   </if>
+					   <if test="CK_STATUS==0">
+					   <if test="RT_SF!=null">
+					  	   RT_SF='${RT_SF}',				  
+					   </if>
+					   </if>
+					   <if test="CK_STATUS==0">
+					   <if test="CUS_CD !=null ">
+					  	   CUS_CD='${CUS_CD}',				  
+					   </if>
+					   </if>
+					   <if test="CK_STATUS==0">
+					   <if test="PO_CD !=null">
+					  	   PO_CD='${PO_CD}',				  
+					   </if>
+					   </if>
+					   <if test="CK_STATUS==0">
+					   <if test="P_BGN_DATE!=null">
+					   	   P_BGN_DATE=TO_DATE('${P_BGN_DATE}','YYYY-MM-DD HH24:MI:SS'),
+					   </if>
+					   </if>
+					   <if test="CK_STATUS==0">
+					   <if test="P_END_DATE!=null">
+					   	   P_END_DATE=TO_DATE('${P_END_DATE}','YYYY-MM-DD HH24:MI:SS'),
+					   </if>
+					   </if>
+					   <if test="CK_STATUS==0">
+					   <if test="A_BGN_DATE !=null">
+					   	   A_BGN_DATE=TO_DATE('${A_BGN_DATE}','YYYY-MM-DD HH24:MI:SS'),
+					   </if>
+					   </if>
+					   <if test="CK_STATUS==0">
+					   <if test="A_END_DATE !=null">
+					   	   A_END_DATE=TO_DATE('${A_END_DATE}','YYYY-MM-DD HH24:MI:SS'),
+					   </if>
+					   </if>
+					   <if test="CK_STATUS==0">
+					   <if test="MD_CL !=null">
+					   	   MD_CL=TO_DATE('${MD_CL}','YYYY-MM-DD HH24:MI:SS'),
+					   </if>
+					   </if>
+					   <if test="CK_STATUS==0">
+					   <if test="MX_CL!=null">
+					  	   MX_CL='${MX_CL}',				  
+					   </if>
+					   </if>
+					   <if test="CK_STATUS==0">
+					   <if test="MN_CL!=null">
+					  	   MN_CL='${MN_CL}',					  
+					   </if>
+					   </if>
+					  	   UPT_ID='${F_USE_CD}', 			        	        			        
+				           UPT_DT=SYSDATE, 
+				           UPT_IP='${UPT_IP}'       
+					</set>
+					<where>
+						  DO_CD='${DO_CD}' 
+					  AND MO_CD='${MO_CD}'
+					  AND CK_STATUS='${CK_STATUS}'	
+					<!-- AND MO_CD='${MO_CD}'	  -->
+					<!-- AND ET_CD='${ET_CD}'	  -->
+					<!-- AND PT_CD='${PT_CD}'	  -->	
+					</where>
+		</update>
+		<!-- 根据派工单修改工单状态 -->
+		<update id="updateOdInfoDo" parameterType="hashmap" > 
+				UPDATE MES1.R_MES_D1_T
+					<set>
+					   <if test="DICT_IT!=null">
+					  	   DICT_IT='${DICT_IT}',
+					   </if>					   					   
+					   <if test="PT_NM!=null">
+					  	   PT_NM='${PT_NM}',
+					   </if>					   
+					   <if test="CK_STATUS!=null">
+					  	   CK_STATUS='${CK_STATUS}',
+					   </if>
+					   <if test="DO_STATUS!=null">
+					  	   DO_STATUS='${DO_STATUS}',
+					   </if>
+					   <if test="RT_SF!=null">
+					  	   RT_SF='${RT_SF}',				  
+					   </if>
+					   <if test="MX_CL!=null">
+					  	   MX_CL='${MX_CL}',				  
+					   </if>
+					   <if test="MN_CL!=null">
+					  	   MN_CL='${MN_CL}',					  
+					   </if>
+					   <if test="P_BGN_DATE!=null">
+					   	   P_BGN_DATE=TO_DATE('${P_BGN_DATE}','YYYY-MM-DD HH24:MI:SS'),
+					   </if>
+					   <if test="P_END_DATE!=null">
+					   	   P_END_DATE=TO_DATE('${P_END_DATE}','YYYY-MM-DD HH24:MI:SS'),
+					   </if>					       
+					  	   UPT_ID='${F_USE_CD}', 			        	        			        
+				           UPT_DT=SYSDATE, 
+				           UPT_IP='${UPT_IP}'       
+					</set>
+					<where>
+						   DO_CD='${DO_CD}'						   						
+						AND ET_CD='${ET_CD}'
+					</where>
+		</update>
+		<!-- 下载工单信息 -->
+	    <select id="downloadOdInfo" parameterType="hashmap" resultType="java.util.HashMap"> 
+	    			
+	    </select>
+		<!-- 导入生产工单 --> 
+	    <select id="importOdInfo" parameterType="hashmap" resultType="java.util.HashMap"> 
+	    </select>   
+	    
+		<!-- A3.2 派工管理 -->
+		<!-- 查询派工信息-->
+	    <select id="queryWdInfo" parameterType="hashmap" resultType="java.util.HashMap" >   
+	    	
+	    </select>
+		<!-- 新增派工信息 -->
+	    <insert id="insertWdInfo" parameterType="hashmap" >  	    		
+	    </insert>
+		<!-- 删除派工信息 --> 
+	    <delete id="deleteWdInfo" parameterType="hashmap"  >   	    		
+	    </delete>
+		<!-- 修改派工信息 -->
+		<update id="updateWdInfo" parameterType="hashmap"  >			
+		</update>
+		<!-- 获取派工时间 -->
+		<select id="getApprovalTime" parameterType="hashmap" resultType="java.util.HashMap">
+			select 
+			  substr(IPLANT1.GET_APPROVAL_TIME_FUN('${DO_CD}',${DO_NUM},'${ET_CD}'),0,instr(IPLANT1.GET_APPROVAL_TIME_FUN('${DO_CD}',${DO_NUM},'${ET_CD}'), ',')-1) as approve_start_time,
+			  substr(IPLANT1.GET_APPROVAL_TIME_FUN('${DO_CD}',${DO_NUM},'${ET_CD}'),instr(IPLANT1.GET_APPROVAL_TIME_FUN('${DO_CD}',${DO_NUM},'${ET_CD}'), ',')+1) as approve_end_time
+			from dual
+		</select>
+		
+		<!-- A3.3 生产数据  -->
+		<!-- 查询生产数据 -->
+		<select id="queryProdData" parameterType="hashmap" resultType="java.util.HashMap" > 
+			<include refid="oraclePagingFileTop"></include>	
+					DO_CD,
+					DICT_IT_NM,
+					MO_CD,
+					ET_CD,
+					PT_CD,
+					PD_TT,
+					PD_CL,
+					TO_CHAR(PD_BGN_CL,'YYYY-MM-DD HH24:Mi:SS')  AS PD_BGN_CL,
+					TO_CHAR(PD_END_CL,'YYYY-MM-DD HH24:Mi:SS')  AS PD_END_CL,
+					TP1,
+					TP2,
+					TP3,
+					TP4,
+					TP5,
+					TP6,
+					MX_PS,
+					PD_AT,
+					TO_CHAR(PD_BGN_DT,'YYYY-MM-DD HH24:Mi:SS') AS PD_BGN_DT,
+					TO_CHAR(CRT_DT,'YYYY-MM-DD HH24:MI:SS') AS CRT_DT
+				FROM MES1.R_MES_D2_T
+				<where> 1=1
+					<if test="DO_CD!=null and DO_CD!='' ">
+						AND DO_CD='${DO_CD}'
+					</if>
+					<if test="DICT_IT_NM!=null and DICT_IT_NM!='' ">
+						AND DICT_IT_NM LIKE '%${DICT_IT_NM}%'
+					</if>
+				</where>
+				<include refid="oraclePagingFileBottom"></include> 
+		</select>
+		<!-- 查询生产数据分页总数 -->
+		<select id="queryProdData_COUNT" parameterType="hashmap" resultType="java.util.HashMap" >
+				SELECT
+					COUNT(1) ROWS_COUNT
+				FROM MES1.R_MES_D2_T
+				<where> 1=1
+					<if test="DO_CD!=null and DO_CD!='' ">
+						AND DO_CD='${DO_CD}'
+					</if>
+					<if test="DICT_IT_NM!=null and DICT_IT_NM!='' ">
+						AND DICT_IT_NM LIKE '%${DICT_IT_NM}%'
+					</if>
+				</where>	
+		</select>
+		<!-- 新增生产数据 -->
+		<insert id="insertProdData" parameterType="hashmap" >
+				INSERT INTO   
+					MES1.R_MES_D2_T
+						(
+						 DO_CD,
+						 DICT_IT_NM,
+						 MO_CD,
+						 ET_CD,
+						 PT_CD,
+						 PD_TT,
+						 PD_CL,
+						 PD_BGN_CL,
+						 PD_END_CL,
+						 TP1,
+						 TP2,
+						 TP3,
+						 TP4,
+						 TP5,
+						 TP6,
+						 MX_PS,
+						 PD_AT,
+						 PD_BGN_DT,
+						 CRT_DT						
+						 )
+					 VALUES
+					 	(
+					 	 '${DO_CD}',
+						 '${DICT_IT_NM}',
+						 '${MO_CD}',
+						 '${ET_CD}',
+						 '${PT_CD}',
+						 '${PD_TT}',
+						 '${PD_CL}',
+						 TO_DATE('${PD_BGN_CL}','YYYY-MM-DD HH24:Mi:SS'),
+						 TO_DATE('${PD_END_CL}','YYYY-MM-DD HH24:Mi:SS'),
+						 '${TP1}',
+						 '${TP2}',
+						 '${TP3}',
+						 '${TP4}',
+						 '${TP5}',
+						 '${TP6}',
+						 '${MX_PS}',
+						 '${PD_AT}',
+						 TO_DATE('${PD_BGN_DT}','YYYY-MM-DD HH24:MI:SS')
+						 SYSDATE	
+					 	 )	 
+		</insert>
+		<!-- 删除生产数据 -->
+		<delete id="deleteProdData" parameterType="hashmap" >
+				DELETE MES1.R_MES_D2_T
+					<where>
+						DO_CD='${DO_CD}'
+					</where>
+		</delete>
+		<!-- 修改生产数据 -->
+		<update id="updateProdData" parameterType="hashmap" >
+				UPDATE MES1.R_MES_D2_T
+					<set>
+					   <if test="DICT_IT_NM!=null and DICT_IT_NM!='' ">
+					   	   DICT_IT_NM='${DICT_IT_NM}',
+					   </if>
+					   <if test="MO_CD!=null and MO_CD!='' ">
+					   	    MO_CD='${MO_CD}',
+					   </if>
+					   <if test="ET_CD!=null and ET_CD!='' ">
+					   	    ET_CD='${ET_CD}',
+					   </if>
+					   <if test="PT_CD!=null">
+					   	    PT_CD='${PT_CD}',
+					   </if>
+					   <if test="PD_TT!=null">
+					   	    PD_TT='${PD_TT}',
+					   </if>
+					   <if test="PD_TT!=null">
+					   	    PD_TT='${PD_TT}',
+					   </if>
+					   <if test="PD_CL!=null">
+						    PD_CL='${PD_CL}',						   
+					   </if>
+					   <if test="MX_PS!=null">
+						    MX_PS='${MX_PS}'						   
+					   </if>
+					</set>
+					<where>
+						    DO_CD='${DO_CD}'
+						AND MO_CD='${MO_CD}'
+						AND ET_CD='${ET_CD}'
+						AND PT_CD='${PT_CD}'
+					</where>
+		</update>
+		
+		<!-- 派工单号生成规则 -->
+		<select id="orderRules" parameterType="hashmap" resultType="java.util.HashMap" >
+			     SELECT 'D'||( TO_CHAR(SYSDATE,'YYMMDD')||(TRANS_10TO36_FUN(D_SEQ.NEXTVAL, 3))) AS DO_CD FROM DUAL 
+		</select>
+		
+		<!-- 查询已审核派工单是否开始生产 -->
+		<select id="queryCheckOd" parameterType="hashmap" resultType="java.util.HashMap" >
+				SELECT 
+					DO_CD,
+					CASE 
+				      WHEN DO_CD IS NOT NULL THEN 1
+   					  END AS STATUS
+				    FROM MES1.R_MES_D1_T
+				    <where> 
+				      DO_CD='${DO_CD}'
+				      AND CK_STATUS='1' 
+				      AND EXISTS 
+							(						
+							 SELECT DO_CD FROM MES1.R_MES_D2_T
+							 WHERE  DO_CD='${DO_CD}'
+							 UNION 
+							 SELECT DO_CD FROM MES2.H_MES_C1_T
+							 WHERE  DO_CD='${DO_CD}'
+							)
+				</where>		
+		</select>
+		
+		<!-- 工单审核 -->
+		<update id="updateOdInfoCheck" parameterType="hashmap" > 
+				UPDATE TPM1.R_TPM_D1_T 
+					SET         
+            		   CK_STATUS='${CK_STATUS}',
+            		   DO_STATUS = (CASE
+                       WHEN (SELECT COUNT(1) AS COUT  FROM TPM1.R_TPM_D1_T 
+                       WHERE ET_CD  = '${ET_CD}' 
+                      AND DO_STATUS = '1') >0  THEN '0'
+                      ELSE  '1'
+                      END),
+					  P_BGN_DATE=TO_DATE('${P_BGN_DATE}','YYYY-MM-DD HH24:MI:SS'),
+					  P_END_DATE=TO_DATE('${P_END_DATE}','YYYY-MM-DD HH24:MI:SS')				
+                  WHERE                     
+                       ET_CD ='${ET_CD}' 
+                   AND DO_CD='${DO_CD}'  
+		</update>
+		
+		
+		<!-- 调拨申请信息 -->
+		<!-- 查询调拨申请信息 -->
+	    <select id="queryApply" parameterType="hashmap" resultType="java.util.HashMap" >
+	            <include refid="oraclePagingFileTop"></include>                           
+						   	TF_SN,
+							T1.DICT_IT,
+							T3.DICT_IT_NM,
+							T1.ET_CD,
+							T2.ET_NM,
+							T1.EQ_LN,
+							T4.PD_LN_NM AS EQ_LN_NM,
+							T1.TF_LN,
+							T5.PD_LN_NM AS TF_LN_NM,
+							T1.TC_ID,	
+							T6.EMP_NM,						
+							T1.CRT_ID,
+							TO_CHAR(T1.CRT_DT,'YYYY-MM-DD HH24:Mi:SS') AS CRT_DT,
+							T1.UPT_ID,
+							TO_CHAR(T1.UPT_DT,'YYYY-MM-DD HH24:Mi:SS') AS UPT_DT
+						FROM TPM1.R_TPM_TF_T T1
+						LEFT JOIN IPLANT1.C_IPLANT_E2_T T2 ON T1.ET_CD=T2.ET_CD
+						LEFT JOIN IPLANT1.C_IPLANT_DD_T T3 ON T1.DICT_IT=T3.DICT_IT
+						LEFT JOIN IPLANT1.C_IPLANT_P5_T T4 ON T1.EQ_LN=T4.PD_LN_CD
+						LEFT JOIN IPLANT1.C_IPLANT_P5_T T5 ON T1.TF_LN=T5.PD_LN_CD
+						LEFT JOIN IPLANT1.C_IPLANT_E1_T T6 ON T1.TC_ID=T6.EMP_CD
+				   <where> 1=1
+		              <if test=" TF_SN !=null and TF_SN !='' ">		            	 
+		            	  AND TF_SN = '${TF_SN}'
+		              </if>
+		              <if test=" ET_CD !=null and ET_CD !='' ">		            	 
+		            	  AND T1.ET_CD ='${ET_CD}'
+		              </if>		             
+		           </where>
+		           ORDER BY T1.CRT_DT DESC
+		       <include refid="oraclePagingFileBottom"></include> 
+	    </select> 
+	    
+	    <!-- 查询调拨申请信息分页总数-->
+		<select id="queryApply_COUNT" parameterType="hashmap" resultType="java.util.HashMap"> 
+		        SELECT 
+ 					COUNT(1)   ROWS_COUNT
+	             FROM TPM1.R_TPM_TF_T T1
+						LEFT JOIN IPLANT1.C_IPLANT_E2_T T2 ON T1.ET_CD=T2.ET_CD
+						LEFT JOIN IPLANT1.C_IPLANT_DD_T T3 ON T1.DICT_IT=T3.DICT_IT
+						LEFT JOIN IPLANT1.C_IPLANT_P5_T T4 ON T1.EQ_LN=T4.PD_LN_CD
+						LEFT JOIN IPLANT1.C_IPLANT_P5_T T5 ON T1.TF_LN=T5.PD_LN_CD
+						LEFT JOIN IPLANT1.C_IPLANT_E1_T T6 ON T1.TC_ID=T6.EMP_CD
+				   <where> 1=1
+		              <if test=" TF_SN !=null and TF_SN !='' ">		            	 
+		            	  AND TF_SN = '${TF_SN}'
+		              </if>
+		              <if test=" ET_CD !=null and ET_CD !='' ">		            	 
+		            	  AND T1.ET_CD ='${ET_CD}'
+		              </if>		             
+		           </where>
+	    </select>
+	       
+	    <!-- 新增调拨申请信息 -->
+	    <insert id="insertApply" parameterType="hashmap"> 
+			   INSERT INTO 
+					   TPM1.R_TPM_TF_T
+					        (
+						        TF_SN,
+								DICT_IT,
+								ET_CD,
+								EQ_LN,
+								TF_LN,
+								TC_ID,
+								CRT_ID,
+								CRT_DT
+					         )
+					         VALUES
+					         (
+			                    '${TF_SN}',
+					         	'${DICT_IT}',
+					         	'${ET_CD}',
+					         	'${EQ_LN}',
+					         	'${TF_LN}',
+					         	'${TC_ID}',
+					         	'${F_USE_CD}',
+					         	 SYSDATE			         	
+		                    
+		                      )
+	    </insert>   
+	    
+	    <!-- 删除调拨申请信息 -->
+	     <delete id="deleteApply" parameterType="hashmap">
+	             DELETE TPM1.R_TPM_TF_T
+	             	<where>
+	             		TF_SN = '${TF_SN}'
+	             	</where>  
+	    </delete>
+		
+	    <!-- 修改调拨申请信息 -->    
+	    <update id="updateApply" parameterType="java.util.HashMap" >			
+				UPDATE TPM1.R_TPM_TF_T
+					<set>
+					   <if test="DICT_IT !=null"> 
+					      DICT_IT='${DICT_IT}',
+					   </if>
+					   <if test="ET_CD !=null"> 
+					      ET_CD='${ET_CD}',
+					   </if>
+					   <if test="EQ_LN !=null"> 
+					      EQ_LN='${EQ_LN}',
+					   </if>
+					   <if test="TF_LN !=null"> 
+					      TF_LN='${TF_LN}',
+					   </if>
+					   <if test="TC_ID !=null"> 
+					      TC_ID='${TC_ID}',
+					   </if>					   
+					   UPT_ID='${F_USE_CD}',
+	 				   UPT_DT=SYSDATE                   		            	 				  
+					</set>
+					<where> TF_SN = '${TF_SN}'</where>			
+		</update>
+		
+		<!-- 生成调拨申请单号-->
+	    <select id="Applyid" parameterType="hashmap" resultType="java.util.HashMap" >
+			 SELECT 'DB'||'-'||( TO_CHAR(SYSDATE,'YYMMDD'))||'-'||(iplant1.TRANS_10TO36_FUN(tpm1.DB_SEQ.NEXTVAL, 4)) AS TF_SN FROM DUAL   
+		</select> 
+		
+</mapper>
+

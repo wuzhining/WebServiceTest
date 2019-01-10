@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<link rel="stylesheet" type="text/css" href="../../../common/IplantCompent/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css" href="../../../common/IplantCompent/themes/icon.css">
+<link rel="stylesheet" type="text/css"	href="../../../common/IplantCompent/Demo/demo.css">
+<script src="../../../common/IplantCompent/jquery.min.js" type="text/javascript"></script>
+<script src="../../../common/IplantCompent/jquery.easyui.min.js" type="text/javascript"></script>
+<script src="../../../common/IplantCommon/DataRequest.js" type="text/javascript"></script>
+<script src="../../../common/IplantCommon/CommonUtil.js" type="text/javascript"></script>
+<script src="../../../common/IplantCommon/OutPutExcel.js" type="text/javascript"></script>
+<script src="js/MaterialMaintenance.js" type="text/javascript"></script>
+<script type="text/javascript">
+	function importFile(){
+		var customParams={
+				fileID:'txtPHOTO',
+				msgID:'showFileName',
+				importType:'R_MES_ITEM_T'
+			}
+			CheckImportFile(customParams);    
+	}
+	 /*
+	 *  通用导入方法
+	 *  inputParams:{
+	 *      fileID:文件浏览框ID
+	 *      formID:表单ID
+	 *      IFS:接口号
+	 *      msgID:导入结果信息接收控件ID
+	 *      importType:导入数据的类别
+	 *  }
+	*/
+	function CheckImportFile(inputParams){
+	  /* 以下即为完整客户端路径*/
+		   var pic = document.getElementById(inputParams.fileID),file,fileName,fileType,temp = [],strSrc;
+		   if(pic.files.length>0){
+			   file = pic.files[0],fileName = file.name,fileType=file.type;
+			   if(fileName.indexOf('.')>0){
+				   temp=fileName.split('.');
+				   strSrc = temp[temp.length-1];
+				   if(strSrc.toLowerCase().localeCompare('xlsx') === 0 || strSrc.toLowerCase().localeCompare('xls') === 0 ){
+					   $('#showFileName').html(fileName);
+				       $("#filename").val(fileName+";"+inputParams.importType);
+					   $('#'+inputParams.msgID).html(fileName);
+				   }
+				   else
+				   {
+					   $('#'+inputParams.msgID).html('<font color=red>请输入excel文件！</font>');
+					   return false;
+				   }
+			   }
+		   }
+	}
+	
+	function importMaterial(){
+		 document.getElementById("importUplod").submit();
+		 $('#materialImportDialog').dialog('close');
+		 $.messager.alert('提示',"文件导入结果以Excel文件形式返回，请查看文件导入结果"); 
+	}
+</script>
+<meta charset="utf-8" />
+</head>
+<body style="padding: 0; margin: 0;">
+	<div style="height: 100%; width: 100%" class="easyui-layout" fit="true">
+            <div region='north' id="tb" style="width: auto; height: 60px; background: linear-gradient(rgb(255, 255, 255) 0px, rgba(149, 184, 231, 0.28) 100%);">
+            <div region='north' id='tbsearch' style="width: auto; height: 30px;background: linear-gradient(rgb(255, 255, 255) 0px, rgba(149, 184, 231, 0.28) 100%);">
+                <table style="width: auto; height:100%;" cellspacing="0" border="0">
+                    <tr>
+                      <td>
+                         <!-- <a href="#" class="easyui-linkbutton add" iconCls="icon-add" id="btnAdd" data-options="plain:true">添加</a>
+                         <a href="#" class="easyui-linkbutton save" iconCls="icon-save" id="btnSave" data-options="plain:true">保存</a> 
+                         <a href="#" class="easyui-linkbutton" iconCls="icon-print" id="import" data-options="plain:true">导入</a>
+						 <a href="#" class="easyui-linkbutton" iconCls="icon-print" id="btnExprt" data-options="plain:true">导出</a>-->
+						 <a href="#" class="easyui-linkbutton delete" iconCls="icon-remove" id="btnDelete" data-options="plain:true">删除</a> 
+						 <a href="#" class="easyui-linkbutton" iconCls="icon-print" id="btnExprt2" data-options="plain:true">同步仓库物料</a>
+                         <span id='showMessageInfo' class='divspan' style='width:300px;'></span>
+                      </td>
+                    </tr>
+               </table>
+               <table>
+                <tr>
+	                <td>物料编码：</td>
+                    <td>
+                        <input id="searchITEM_CD" name="searchITEM_CD" style="width: 200px;" class="easyui-textbox" />
+                    </td>
+	                <td>物料名称：</td>
+                    <td>
+                        <input id="searchITEM_NM" name="searchITEM_NM" style="width: 200px;" class="easyui-textbox"/>
+                    </td>
+                   <!--  <td>物料类型：</td>
+                    <td>
+                        <select id="searchITEM_TYPE" name="searchITEM_TYPE"  editable="false" style="width: 200px;" class="easyui-combobox"></select>
+                    </td> -->
+                    <td>
+                    	<a href="#" class="easyui-linkbutton" iconCls="icon-search" id="btnSearch" data-options="plain:true">查询</a>
+					</td>
+                </tr>
+                </table>
+            </div>
+             </div>
+            <table region='center' style="height: auto;max-height: 100%" id="material_tab" class='easyui-datagrid' toolbar="#tb" rownumbers="true" ></table> 
+            
+    <!-- 物料属性 -->
+   <div id="editTabSet" class="easyui-dialog" style="width: 1160px;height: 650px;" closed="true" > 
+   <div id="Settitle" style="padding-left:280px; font-weight:bold; font-size:16px" ></div>
+	<div id="tt" class="easyui-tabs" style="width:1140px;height:590px;">
+		<div title="属性" style="padding:5px" id="view">
+			<div region='north' id='tbsearch' style="width: auto; height: 30px;background: linear-gradient(rgb(255, 255, 255) 0px, rgba(149, 184, 231, 0.28) 100%);">
+				<table style="width: auto; height:100%;" cellspacing="0" border="0">
+	                    <tr>
+		                     <td>
+		                         <a href="#" class="easyui-linkbutton add" iconCls="icon-add" id="btnViewAdd" data-options="plain:true">添加</a>
+	                        	 <a href="#" class="easyui-linkbutton save" iconCls="icon-save" id="btnViewSave" data-options="plain:true">保存</a>
+	                        	 <a href="#" class="easyui-linkbutton delete" iconCls="icon-remove" id="btnViewDelete" data-options="plain:true">删除</a>
+		                         <span id='showViewInfo' class='divspan' style='width:300px;'></span>
+		                     </td>
+		                </tr>
+	            </table>
+	        </div>
+			<table region='center' style="height: 500px;max-height: 500px" id="MaterialView" class='easyui-datagrid' rownumbers="true"></table>
+		</div>
+		<div title="设置" style="padding:5px" id="setting">
+			<div region='north' id='tbsearch' style="width: auto; height: 30px;background: linear-gradient(rgb(255, 255, 255) 0px, rgba(149, 184, 231, 0.28) 100%);">
+				<table style="width: auto; height:100%;" cellspacing="0" border="0">
+	                    <tr>
+		                     <td>
+		                         <a href="#" class="easyui-linkbutton add" iconCls="icon-add" id="btnSetAdd" data-options="plain:true">添加</a>
+	                        	 <a href="#" class="easyui-linkbutton save" iconCls="icon-save" id="btnSetSave" data-options="plain:true">保存</a>
+	                        	 <a href="#" class="easyui-linkbutton delete" iconCls="icon-remove" id="btnSetDelete" data-options="plain:true">删除</a>
+		                         <span id='showSetInfo' class='divspan' style='width:300px;'></span>
+		                     </td>
+		                </tr>
+	            </table>
+	        </div>
+	        <table region='center' id="MaterialSetiing" style="height: 500px;max-height: 500px" class='easyui-datagrid' rownumbers="true"></table>
+		</div>
+	</div>
+	</div> 
+	
+	<!-- MSD设置   -->
+   <div id="editTabMSD" class="easyui-dialog" style="width: 1000px;height: 620px;" closed="true" >
+	<div style="padding:10px;">
+			<div id="MSDtitle" style="padding-left:280px; font-weight:bold; font-size:16px" ></div>
+			<div region='north' id='tbsearch' style="width: auto; height: 30px;background: linear-gradient(rgb(255, 255, 255) 0px, rgba(149, 184, 231, 0.28) 100%);">
+				<table style="width: auto; height:100%;" cellspacing="0" border="0">
+	                    <tr>
+	                      <td>
+	                         <a href="#" class="easyui-linkbutton add" iconCls="icon-add" id="btnMSDAdd" data-options="plain:true">添加</a>
+                        	 <a href="#" class="easyui-linkbutton save" iconCls="icon-save" id="btnMSDSave" data-options="plain:true">保存</a>
+                        	 <a href="#" class="easyui-linkbutton delete" iconCls="icon-remove" id="btnMSDDelete" data-options="plain:true">删除</a>
+	                         <span id='showMSDInfo' class='divspan' style='width:300px;'></span>
+	                      </td>
+	                    </tr>
+	            </table>
+	        </div>
+			<table region='center' id="materialMSD_tab" style="height: 480px;max-height: 510px"  class='easyui-datagrid' rownumbers="true"></table>
+		</div>
+	</div>
+	
+	<!-- 物料位置 -->
+	<div id="editTabPosition" class="easyui-dialog" style="width: 1000px;height: 620px;" closed="true" >
+	<div style="padding:10px;">
+			<div id="Positiontitle" style="padding-left:280px;font-weight:bold; font-size:16px" ></div>
+			<div region='north' id='tbsearch' style="width: auto; height: 30px;background: linear-gradient(rgb(255, 255, 255) 0px, rgba(149, 184, 231, 0.28) 100%);">
+				<table style="width: auto; height:100%;" cellspacing="0" border="0">
+	                    <tr>
+	                      <td>
+	                         <a href="#" class="easyui-linkbutton add" iconCls="icon-add" id="btnPositionAdd" data-options="plain:true">添加</a>
+                        	 <a href="#" class="easyui-linkbutton save" iconCls="icon-save" id="btnPositionSave" data-options="plain:true">保存</a>
+                        	 <a href="#" class="easyui-linkbutton delete" iconCls="icon-remove" id="btnPositionDelete" data-options="plain:true">删除</a>
+	                         <span id='showPositionInfo' class='divspan' style='width:300px;'></span>
+	                      </td>
+	                    </tr>
+	            </table>
+	        </div>
+				<table region='center' id="materialPosition_tab" style="height: 480px;max-height: 510px" class='easyui-datagrid' rownumbers="true"></table>
+		</div>
+	</div>
+	
+	
+	<!-- 替代料设置 -->
+	<div id="editTabSubstitute" class="easyui-dialog" style="width: 1000px;height: 620px;" closed="true" >
+	<div style="padding:10px;">
+			<div id="Subtitle" style="padding-left:280px;font-weight:bold; font-size:16px" ></div>
+			<div region='north' id='tbsearch' style="width: auto; height: 30px;background: linear-gradient(rgb(255, 255, 255) 0px, rgba(149, 184, 231, 0.28) 100%);">
+				<table style="width: auto; height:100%;" cellspacing="0" border="0">
+	                    <tr>
+	                      <td>
+	                         <a href="#" class="easyui-linkbutton add" iconCls="icon-add" id="btnSubstituteAdd" data-options="plain:true">添加</a>
+                        	 <a href="#" class="easyui-linkbutton save" iconCls="icon-save" id="btnSubstituteSave" data-options="plain:true">保存</a>
+                        	 <a href="#" class="easyui-linkbutton delete" iconCls="icon-remove" id="btnSubstituteDelete" data-options="plain:true">删除</a>
+	                         <span id='showSubstituteInfo' class='divspan' style='width:300px;'></span>
+	                      </td>
+	                    </tr>
+	            </table>
+	        </div>
+				<table region='center' id="materialSubstitute_tab" style="height: 500px;max-height: 520px" id="df" class='easyui-datagrid' rownumbers="true"></table>
+		</div>
+	</div>
+	
+	<div id="materialImportDialog" class="easyui-dialog" style="width: 450px;height: 150px;max-height:100%;" closed="true" data-options="modal: true" buttons="#materialImport-buttons">
+		<FORM id ="importUplod" action="/iTaurus/materiaExcelImport" method="post" enctype="multipart/form-data" style="padding:10px 20px 10px 40px;" target="ifm">
+		   <div style='width:320px;' >
+   	  		 	<a href="/iTaurus/ServletDownload?filename=IntechMat.xlsx" class="easyui-linkbutton"  id="btnDownloadSupplier" style="text-decoration:none;">物料导入模板下载</a>
+       	   </div>  
+	       <table border="1" width="360" cellpadding="4" cellspacing="2" bordercolor="#9BD7FF">  
+	          <tr><td width="350px">  
+	          <div class='divFile' style='width:320px;' >
+	          	<a href="javascript:;" class="a-upload"><input name="txtPHOTO" id="txtPHOTO" type="file" onchange="importFile()" />请选择导入文件...</a>
+	          	<span id='showFileName' class='divspan' style='width:200px;'></span>
+	          	<input type="hidden" name="filename" id="filename" />
+	          </div>
+	           </td>
+	          </tr>
+	         </table>  
+	      </FORM>		
+    </div>	
+	 <iframe id='ifm' name='ifm' style="display:none"/></iframe>
+     <div id="materialImport-buttons">
+		<a href="#" onclick="javascript:$('#materialImportDialog').dialog('close')"><img src="../../../common/RootImages/cancel.png" style="width:80px;height:28px;vertical-align:middle;"/></a>
+				&nbsp;&nbsp;
+		<a href="#" onclick="javascript:importMaterial();"><img src="../../../common/RootImages/save-ok.png" style="width:80px;height:28px;vertical-align:middle;"/></a>
+	</div>
+	
+	<!-- <div id="enditTabupload" class="easyui-dialog" style="width: 450px;height: 150px;max-height:100%;" closed="true" data-options="modal: true,
+				buttons: [{
+					text:'提交',
+					iconCls:'icon-ok',
+					handler:function(){
+						ImportStation();
+					}
+				},{
+					text:'取消',
+					iconCls:'icon-no',
+					handler:function(){
+					setDataNull();
+					$('#enditTabupload').dialog('close');
+					}
+				}]">
+				
+	<FORM id ="importUplod" action="/iTaurus/iPlant_ImgUpload" method="post" enctype="multipart/form-data" style="padding:10px 20px 10px 40px;" target="ifm">  
+       <table border="1" width="360" cellpadding="4" cellspacing="2" bordercolor="#9BD7FF">  
+          <tr><td width="350px">  
+          <div class='divFile' style='width:320px;' >
+          	<a href="javascript:;" class="a-upload"><input name="txtPHOTO" id="txtPHOTO" type="file" onchange="importFile()" />选择...</a><span id='showFileName' class='divspan' style='width:260px;'></span>
+          </div>
+	           <input class='FILE_BELONG1' name="FILE_BELONG" id="FILE_BELONG" size="40" type="hidden"/> 
+	           <input class='FILE_CLS1' name="FILE_CLS" id = "FILE_CLS" size="40" type="hidden"/> 
+	           <input class='FILE_TYPE1' name="FILE_TYPE" id = "FILE_TYPE" size="40" type="hidden"/> 
+	           <input class='importType1' name="importType" id = "importType" size="40" value='1' type="hidden"/>
+	           <input name="IFS" id = "IFS" size="40" type="hidden"/>
+	           <input name="IFS2" id = "IFS2" size="40" type="hidden"/>
+           </td>
+          </tr>
+         </table>  
+      </FORM>		
+     </div>
+     <iframe id='ifm' name='ifm' style="display:none"/></iframe> -->
+</div>
+
+<!-- 产品图片保存 -->
+<div id="editTab" class="easyui-dialog"
+		style="width: 700px; height: 300px; line-height: 22px;" closed="true"
+		data-options="modal: true,
+				buttons: [{
+					text:'保存',
+					iconCls:'icon-ok',
+					handler:function(){
+						savaStation();
+					}
+				},{
+					text:'取消',
+					iconCls:'icon-no',
+					handler:function(){
+						setDataNull();
+						$('#editTab').dialog('close');
+					}
+				}]">
+		<form id="fmEquipmentFile" action="/iTaurus/iPlant_ImgUpload" method="post"
+			enctype="multipart/form-data" style="padding: 10px 20px 10px 40px;"
+			target="file_upload_return">
+			<table border="0">
+				<tr>
+					<td align="right">产品编码：</td>
+					<td>
+						<input id="txtFileNO" name="FileNO"
+						style="width: 200px;" class="easyui-textbox"
+						editable='false'/>
+					</td>
+				</tr>
+				<tr>
+					<td align="right">产品名称：</td>
+					<td>
+						<input id="txtFileBelong" name="FileNO"
+						style="width: 200px;" class="easyui-textbox"
+						editable='false'/>
+					</td>
+				</tr>
+				<tr style="height: 35px;">
+					<td align="right">附件：</td>
+					<td>
+						<div class='divFile' style='width: 500px;'>
+							<a href="javascript:;" class="a-upload">
+							<input name="txtFJ" id="textFJ" type="file" onchange="showPic()" />浏览...</a>
+							<span id='showFileName2' class='divspan' style='width:400px;'></span>
+						</div> 
+						<input class='FILE_BELONG2' name="FILE_BELONG" id="FILE_BELONG" size="40" type="hidden" />
+						<input class='FILE_CLS2' name="FILE_CLS" id="FILE_CLS" size="40" type="hidden" /> 
+						<input class='FILE_TYPE2' name="FILE_TYPE" id="FILE_TYPE" size="40" type="hidden" /> 
+						<input class='importType2' name="importType" id="importType" size="40" value='0' type="hidden" />
+						<img id="imgPicture" src=""  style="width:500PX ;border:1px solid #99D3F5;display:none" height="200PX "   />
+					</td>
+				</tr>
+			</table>
+		</form>
+	</div>
+	<iframe id="file_upload_return" hidden="true" name="file_upload_return"></iframe>
+</body>
+</html>

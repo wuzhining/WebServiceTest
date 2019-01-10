@@ -1,0 +1,352 @@
+﻿/* 启动时加载 */
+/*
+ */
+(function() {
+	function deptInfo() {
+		CompanyOpttype=0, //0：新增   1:编辑
+		initGridData = function() {
+				var dgrid = $('#dept_tab').datagrid('options');
+				if(!dgrid) return;
+				var reqData = {
+					IFS: 'D000024',
+					pageIndex: 1,
+					pageSize: dgrid.pageSize
+				}
+				reqGridData('/iPlant_ajax', 'dept_tab', reqData);
+				
+			},
+			bindGridData = function(reqData, jsonData) {
+				var gridList = {
+						name: 'dept_tab',
+						dataType: 'json',
+						columns: [[
+							{field: 'DPT_CD',title: '部门编码',width: 150,align: 'center',formatter: function (value) {if(checkNotEmpty(value)) return "<span title='" + value + "'>" + value + "</span>";},editor:{type:'validatebox',
+					        	   options:{required:true, validType:['length[1,30]','specialTextCharacter']}}},
+							{field: 'DPT_NM',title: '部门名称',width: 200,align: 'center',formatter: function (value) {if(checkNotEmpty(value)) return "<span title='" + value + "'>" + value + "</span>";},editor:{type:'validatebox',
+					        	   options:{required:true, validType:['length[1,30]','specialTextCharacter']}}},
+							{field: 'ST_P_CD',title: '上级部门',width: 150,align: 'center',formatter: function (value,row) {if(checkNotEmpty(value)) return arrData[value] ;},
+								   editor:{type:'combobox',options:{valueField:'value',textField:'text',data:dataDept,required:true,editable:false}}},  
+						    {field: 'DPT_LEVL',title: '部门等级',width: 100,align: 'center',formatter: function (value) {if(checkNotEmpty(value)) return "<span title='" + value + "'>" + value + "</span>";},editor:{type:'validatebox',
+							       options:{validType:['length[1,25]']}}},
+							{field: 'FT_CD',title: '所属工厂',width: 150,align: 'center',formatter: function (value,row) {if(checkNotEmpty(value)) return "<span title='" + value + "'>" + ( row.FT_NM  || value)+ "</span>";},
+								   editor:{type:'combobox',options:{valueField:'value',textField:'text',data:dataFactory,required:true,editable:false}}}, 
+							{field: 'USE_YN',title: '是否启用',width: 100,align: 'center',formatter: function(value, row, index) {if(value == 'Y') { return '启用';} else { return '未启用';}},editor:{type:'checkbox',options:{on: 'Y',off: 'N'}}},
+							{field: 'DPT_RM',title: '备注',width: 200,align: 'center',formatter: function (value) {if(checkNotEmpty(value)) return "<span title='" + value + "'>" + value + "</span>";},editor:{type:'validatebox',
+					        	   options:{validType:['length[1,100]','specialTextCharacter']}}}, 
+							{field: 'CRT_ID',title: '创建人',width: 100,align: 'center',formatter: function (value) {if(checkNotEmpty(value)) return "<span title='" + value + "'>" + value + "</span>";}},
+							{field: 'CRT_DT',title: '创建时间',width: 200,align: 'center',formatter: function (value) {if(checkNotEmpty(value)) return "<span title='" + value + "'>" + value + "</span>";}}, 
+							{field: 'UPT_ID',title: '修改人',width: 100,align: 'center',formatter: function (value) {if(checkNotEmpty(value)) return "<span title='" + value + "'>" + value + "</span>";}}, 
+							{field: 'UPT_DT',title: '修改时间',width: 200,align: 'center',formatter: function (value) {if(checkNotEmpty(value)) return "<span title='" + value + "'>" + value + "</span>";}}
+						]],
+						/**结束编辑模式的操作*/
+					     onEndEdit:function(index,row){
+					    	 var ed = $(this).datagrid('getEditor', {index: index,field: 'ST_P_CD'});
+					    	 row.ST_P_CD = $(ed.target).combobox('getValue');
+					    	 row.ST_P_NM = $(ed.target).combobox('getText');
+					    	 var eddi = $(this).datagrid('getEditor', {index: index,field: 'FT_CD'});
+					    	 row.FT_CD = $(eddi.target).combobox('getValue');
+					    	 row.FT_NM = $(eddi.target).combobox('getText');
+					     },
+					     /**进入编辑模式的操作*/
+					     onBeforeEdit:function(index,row){
+					    	 showmessage.html('');
+					    	 row.editing = true;
+					    	 row.edited = false;
+					    	 oldRow = JSON.stringify(row).replace(reg,'\"\"');
+					    	 $(this).datagrid('refreshRow', index);
+					     },
+					     /**编辑模式进入之后的操作*/
+					     onAfterEdit:function(index,row){
+					    	 /**判断是否进行数据变更*/
+					    	 var temp = JSON.stringify(row).replace(reg,'\"\"');
+					    	 if(temp!=oldRow){
+					    		 row.edited = true;
+					    	 }
+					    	 row.editing = false;
+					    	 $(this).datagrid('refreshRow', index);
+					     },
+				        onCancelEdit:function(index,row){
+				            row.editing = false;
+				            $(this).datagrid('refreshRow', index);
+				        },
+				        /**单击进入编辑模式*/
+					    onClickRow: function (index, row) {
+					    	if (editIndex != index){
+					    		var ed,fc,editorFt;
+					    		if(editIndex!=undefined){
+				    				/**判断是否为新增行，并验证新增工厂编码重复*/
+					    			var rowEdit = dataGrid.datagrid('getRows')[editIndex],edft = $(this).datagrid('getEditor', {index: editIndex,field: 'DPT_CD'}),editorFt = edft.target,ftCd = editorFt.val();
+					    			if(checkNotEmpty(rowEdit.editType)){
+					    				if(rowEdit.editType=='add'){
+					    					if(checkNotEmpty(ftCd)){
+							    				var ajaxParam = {
+													url : '/iPlant_ajax',
+													dataType : 'JSON',
+													data : {
+														IFS : 'D000024',
+														CP_CD : ftCd,
+														pageIndex : 1,
+														pageSize : 10
+													},
+													successCallBack : function(data) {
+														rowNum = parseInt(data.RESPONSE["0"].RESPONSE_HDR.DATA_ROWS);
+														if (rowNum > 0) {
+															dataGrid.datagrid('selectRow', editIndex).datagrid('beginEdit', editIndex);
+												       		showmessage.html('<font color=red>您输入的工厂编码['+ ftCd + ']已有相同,请重新输入!</font>');
+												       		return false;
+														} else {
+															addDatagridEditor(dataGrid,index);
+														}
+													}
+												};
+												iplantAjaxRequest(ajaxParam);
+							    			}else{
+								        	   addDatagridEditor(dataGrid,index);
+							    			}
+					    				}else{
+					    					addDatagridEditor(dataGrid,index);
+					    					if(!checkNotEmpty(row.editType)){//如果是修改的情况，ft_cd字段为只读模式
+									    		ed = $(this).datagrid('getEditor', {index: index,field: 'DPT_CD'});
+									    		fc = ed.target;
+									    		fc.prop('readonly',true);
+								    		}
+					    				}
+					    			}else{
+							    		 addDatagridEditor(dataGrid,index);
+							    		 if(!checkNotEmpty(row.editType)){
+									    		ed = $(this).datagrid('getEditor', {index: index,field: 'DPT_CD'});
+									    		fc = ed.target;
+									    		fc.prop('readonly',true);
+								    		}
+					    			}
+					    		}else{
+					    			addDatagridEditor(dataGrid,index);
+					    			if(!checkNotEmpty(row.editType)){
+							    		ed = $(this).datagrid('getEditor', {index: index,field: 'DPT_CD'});
+							    		fc = ed.target;
+							    		fc.prop('readonly',true);
+						    		}
+					    		}
+					    	}
+			            },
+					}
+				initGridView(reqData, gridList);
+				dataGrid.datagrid('loadData', jsonData);
+			}
+			/* 查询数据条件 */
+			getDataBySearch = function(){
+					var dgrid = $('#dept_tab').datagrid('options');
+					if(!dgrid) return;
+					var deptCode = $('#DeptCode').val();
+					var deptName = $('#DeptName').val();
+					var deptUse =$('#DeptUse').combobox('getValue');
+					var reqData = {
+						DPT_CD: deptCode,
+						DPT_NM: deptName,
+						USE_YN: deptUse,
+						IFS: 'D000024',
+						pageIndex: 1,
+						pageSize: dgrid.pageSize
+					}
+					reqGridData('/iPlant_ajax', 'dept_tab',reqData);
+				}
+			/**save数据**/
+			/**批量新增和修改的保存*/
+			saveDataGrid=function(){
+	            if (endEditing(dataGrid)){
+	            	//判断后变更数据
+	            	if (dataGrid.datagrid('getChanges').length) {
+	                    var inserted = dataGrid.datagrid('getChanges', "inserted");
+	                    var updated = dataGrid.datagrid('getChanges', "updated");
+	                    var deleted = dataGrid.datagrid('getChanges', "deleted");
+	                    /**装载数据*/
+	                    var arrInsert = new Array(),arrUpdate = new Array(),mapInsert = new Array(),mapUpdate = new Array();
+	                    if(inserted.length>0){
+	                    	for(var m=0;m<inserted.length;m++){
+	                    		arrInsert.push({ DPT_CD: inserted[m].DPT_CD,DPT_NM: inserted[m].DPT_NM,DPT_LEVL: inserted[m].DPT_LEVL,DPT_ST: inserted[m].DPT_ST,USE_YN: inserted[m].USE_YN,
+	                    			FT_CD: inserted[m].FT_CD,CRT_ID: inserted[m].CRT_ID,CRT_DT: inserted[m].CRT_DT,UPT_ID: inserted[m].UPT_ID,UPT_DT: inserted[m].UPT_DT,});
+	                    		mapInsert.push({ST_C_CD:inserted[m].DPT_CD,ST_P_CD:inserted[m].ST_P_CD,ST_TP:'1'});
+	                    	}
+	                    	//批量先增
+	                        var ajaxInsert = {
+	                            url: '/iPlant_ajax',
+	                            dataType: 'JSON',
+	                            data: {
+	                                list: arrInsert,
+	                                IFS: 'D000021'
+	                            },
+	                            successCallBack: function (data) {
+	                            	dataGrid.datagrid('acceptChanges');
+	                            	var ajaxParam1 = {
+	                						url: '/iPlant_ajax',
+	                						dataType: 'JSON',
+	                						data: {
+	                							list:mapInsert,
+	                							IFS:'D000052'
+	                						},
+	                						successCallBack: function(data) {
+	        	                            	showmessage.html('<font color=red>保存成功！</font>');
+	        	                            	initGridData();
+	                						}
+	                					};
+	                					iplantAjaxRequest(ajaxParam1);
+	                                return;
+	                            },
+	                            errorCallBack: function (data) {
+	                            	showmessage.html('<font color=red>保存失败！</font>');
+	                                return;
+	                            }
+	                        };
+	                        iplantAjaxRequest(ajaxInsert);
+	                    }
+	                    if(updated.length>0){
+	                    	for(var m=0;m<updated.length;m++){
+	                    		if(updated[m].edited){
+	                    			arrUpdate.push({ DPT_CD: updated[m].DPT_CD,DPT_NM: updated[m].DPT_NM,DPT_LEVL: updated[m].DPT_LEVL,DPT_ST: updated[m].DPT_ST,USE_YN: updated[m].USE_YN,
+		                    			FT_CD: updated[m].FT_CD,CRT_ID: updated[m].CRT_ID,CRT_DT: updated[m].CRT_DT,UPT_ID: updated[m].UPT_ID,UPT_DT: updated[m].UPT_DT});
+	                    			mapUpdate.push({ST_C_CD:updated[m].DPT_CD,ST_P_CD:updated[m].ST_P_CD,ST_TP:'1'});
+	                    		}
+	                    	}
+	                    	//批量修改
+	                        var ajaxUpdate = {
+	                            url: '/iPlant_ajax',
+	                            dataType: 'JSON',
+	                            data: {
+	                                list: arrUpdate,
+	                                IFS: 'D000023'
+	                            },
+	                            successCallBack: function (data) {
+	                            	dataGrid.datagrid('acceptChanges');
+	                            	var ajaxParam1 = {
+	                						url: '/iPlant_ajax',
+	                						dataType: 'JSON',
+	                						data: {
+	                							list:mapUpdate,
+	                							IFS:'D000054'
+	                						},
+	                						successCallBack: function(data) {
+	        	                            	showmessage.html('<font color=red>保存成功！</font>');
+	        	                            	initGridData();
+	                						}
+	                					};
+	                					iplantAjaxRequest(ajaxParam1);
+	                                return;
+	                            },
+	                            errorCallBack: function (data) {
+	                            	showmessage.html('<font color=red>保存失败！</font>');
+	                                return;
+	                            }
+	                        };
+	                        iplantAjaxRequest(ajaxUpdate);
+	                    }
+	                }else{
+	                	showmessage.html('<font color=red>没有进行变更！</font>');
+	                }
+				}else{
+					showmessage.html('<font color=red>请输入必填项！</font>');
+				}
+			}
+			/***删除数据结构***/
+			deleteDate = function () {
+				var indexs = datagridEditorRows();
+				$.each(indexs,function(j){
+					var row = dataGrid.datagrid('getRows')[indexs[j]];
+					 var ajaxParam = {
+	                         url: '/iPlant_ajax',
+	                         dataType: 'JSON',
+	                         data: {
+	                             IFS: 'D000053',
+	                             ST_C_CD: row.DPT_CD,
+	                         },
+	                         successCallBack:function(data){
+	                          	 	if(data.RESPONSE["0"].RESPONSE_HDR.MSG_CODE=='0'){
+	                          	 		showmessage.html('<font color=red>数据结构删除成功！</font>');
+	                          	 		deleteDataGrid('dept_tab','DPT_CD','D000022','showMessageInfo');
+	                                	
+	                          	 	}else{
+	                          	 		showmessage.html('<font color=red>数据结构删除失败,正在使用</font>');
+	                          	 	}
+	                 		},
+	                 		errorCallBack:function(data){
+	                 			showmessage.html('<font color=red>数据结构删除失败,</font>');
+	                 			
+	                 		}
+	            	 
+	                  };
+	                 iplantAjaxRequest(ajaxParam);
+				})
+				
+			}
+			
+}
+	deptInfo.prototype = {
+		init: function() {
+			$(function() {
+				dataGrid = $('#dept_tab'),dataDept=[],dataFactory=[],showmessage=$('#showMessageInfo'),editIndex = undefined,oldRow=undefined, reg=new RegExp("null","g"),arrData = {};
+				$("body")[0].onkeydown = keyPress;
+                $("body")[0].onkeyup = keyRelease;
+				initGridData();
+				//上级部门
+				dept = {
+		                url: "/iPlant_ajax",
+		                dataType: "JSON",
+		                data: {IFS:'D000024',USE_YN:'Y'},
+		                successCallBack: function(a) {
+		                	var op = a.RESPONSE[0].RESPONSE_DATA;
+		                	dataDept.push({"value":"N/A","text":"无"});
+				            arrData["N/A"]="无";
+		                    $.each(op,function(n,obj) {
+		                    	dataDept.push({'value':obj.DPT_CD,'text':obj.DPT_NM});
+		                    	arrData[obj.DPT_CD]=obj.DPT_NM;
+						    });  
+		                },
+		                errorCallBack: function() {
+		                    $.messager.alert("提示", '上级部门查询失败,请联系管理员！')
+		                }
+		            };
+				iplantAjaxRequest(dept);
+				factory = {
+		                url: "/iPlant_ajax",
+		                dataType: "JSON",
+		                data: {IFS:'B000021',USE_YN:'Y'},
+		                successCallBack: function(a) {
+		                	var op = a.RESPONSE[0].RESPONSE_DATA;
+		                    $.each(op,function(n,obj) {
+		                    	dataFactory.push({'value':obj.FT_CD,'text':obj.FT_NM});
+						    });  
+		                },
+		                errorCallBack: function() {
+		                    $.messager.alert("提示", '所属工厂查询失败,请联系管理员！')
+		                }
+		            };
+				iplantAjaxRequest(factory);
+				$('#btnSearch').click(function() {
+					getDataBySearch();
+				});
+				$('.add').click(function() {
+					insertDataGrid('dept_tab',{DPT_CD:'',DPT_NM:''}); 
+				})
+				$('.delete').click(function() {
+					deleteDate();
+				})
+
+				$('.save').click(function() {
+					saveDataGrid();
+				})
+
+				$('.close').click(function() {
+					setDataNull();
+					$('#enditTab').dialog('close');
+				});
+				$('.panel-tool-close').click(function() {
+					setDataNull();
+				});
+			});
+		}
+	}
+	var defo = new deptInfo();
+	defo.init();
+})();
+
+
+

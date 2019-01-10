@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
+    <title>SPC项目列表</title>
+    <link rel="stylesheet" type="text/css" href="../../../common/IplantCompent/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../../../common/IplantCompent/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="../../../common/IplantCompent/Demo/demo.css">
+    <script src="../../../common/IplantCompent/jquery.min.js" type="text/javascript"></script>
+    <script src="../../../common/IplantCompent/jquery.easyui.min.js" type="text/javascript"></script>
+    <script src="../../../common/IplantCommon/DataRequest.js" type="text/javascript"></script>
+    <script src="../../../common/IplantCommon/CommonUtil.js" type="text/javascript"></script>
+    <script src="js/SPCProjectList.js" type="text/javascript"></script>
+    <script src="../../../common/UICompent/locale/easyui-lang-zh_CN.js" type="text/javascript" ></script>  
+    <script type="text/javascript">
+    </script>
+    
+    
+  <meta charset="utf-8" />
+    <script type="text/javascript">
+		    function searchNGdefectGroup(){
+		    	addNGdefectGroup();
+		    	getNGdefectGroupBySearch();
+		    };
+		    function searchAQLRuleInfo(){
+		    	var id = $(this).attr('id');
+		    	addAQLRuleInfo();
+		    	getAQLRuleInfoSearche(id);
+		    }
+    </script> 
+    
+</head>
+<body style="padding: 0;margin: 0;">
+	<div style="height:100%;width:100%" class="easyui-layout" fit="true">
+        <div region='north' id="tb" style="width: auto; height: 30px;background: linear-gradient(rgb(255, 255, 255) 0px, rgba(149, 184, 231, 0.28) 100%);">
+               <table style="width: auto; height:100%;" cellspacing="0" border="0">
+                    <tr>
+                      <td>
+                      		<a id="btnAdd" href="#" class="easyui-linkbutton add" iconCls="icon-add" data-options="plain:true" >添加</a>
+                            <a id="btnUpdate" href="#" class="easyui-linkbutton update" iconCls="icon-edit" data-options="plain:true" >修改</a>
+                            <a id="btnDelete" href="#" class="easyui-linkbutton delete" iconCls="icon-remove" data-options="plain:true">删除</a>
+                            <a id="btnhelp"  href="#" class="easyui-linkbutton help" iconCls="icon-help"  data-options="plain:true" >帮助</a>
+                      </td>
+                    </tr>
+               </table>
+            </div>
+    	<div region="center" style="width:100%" style="border:0">
+           <div region='north' id='tbsearch' style="width: auto; height: 30px;background: linear-gradient(rgb(255, 255, 255) 0px, rgba(149, 184, 231, 0.28) 100%);">
+                <table>
+	                <tr >
+	                	<td>项目名称：</td>
+	                    <td>
+	                        <input id="projectName" name="postingdate" style="width: 200px;" class="easyui-textbox"/>
+	                         &nbsp;&nbsp; &nbsp;&nbsp;
+	                    </td>
+
+	                    <td>全字匹配：</td>
+	                    <td>
+	                        <input id="selectfullMatching" name="postingdate" style="width: 20px;" type="checkbox" /><!-- value="Y" checked="checked" -->
+	                         &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+	                    </td>
+	                                        
+	                    <td>
+	                       <a href="#" class="easyui-linkbutton" iconCls="icon-search" id="btnSearch" data-options="plain:true">查询</a>	
+	                       <a href="#" class="easyui-linkbutton" iconCls="icon-clear" id="btnResets" data-options="plain:true">重置</a>
+	                    </td>
+	                    
+	                    
+	                </tr>
+                </table>
+             </div>
+            <table region='center' style="height: auto;max-height: 100%" id="productWConf_tab" class='easyui-datagrid' toolbar="#tbsearch" rownumbers="true" ></table>
+            </div>
+      </div>
+      
+      	  <!-- 不良类别信息选择框 -->
+			<div id="NGdefectGroupDetails" class="easyui-dialog" style="width: 750px;height: 460px;" align="center" data-options="modal:'true',closed:'true',buttons:'#NGdefectGroupDetails-buttons'">
+			      <form id="searchNGdefectGroupForm">
+			         <table style="height:15%;width:550px;align:center;padding-top: 20px;">
+			         	<tr>
+		                   <td>不良类别编号:
+		                      <input id="searchNGdefectGroup" name="postingdate" style="width: 120px;" class="easyui-textbox"/>
+		                   </td>
+		                   <td>不良类别名称:
+		                      <input id="searchVendorName" name="postingdate" style="width: 120px;" class="easyui-textbox"/>
+		                   </td>
+			               <td>
+		                      <a href="#" class="easyui-linkbutton" iconCls="icon-search" id="btnSearch1" data-options="plain:true" onclick="javascript:getNGdefectGroupBySearch();">查询</a>	
+		                      &nbsp; <a href="#" class="easyui-linkbutton" iconCls="icon-clear" id="btnResets3" data-options="plain:true">重置</a>
+		                   </td>   
+		
+			               
+			               <td>
+			                   <div id="showMaster"><span id="showVendor" style="margin: 0;padding: 0;vertical-align:3px;width:250px; "></span></div>
+			               </td>
+			           </tr>
+			       	 </table>
+			       </form>
+		       <div style="height:85%;max-height: 85%;padding-left:20px;padding-right:20px;">
+		       		<table id="NGdefectGroupDetails_tab" class='easyui-datagrid' rownumbers="true"></table>
+		       </div>
+		    </div>
+		    
+		    
+
+    
+    
+    
+    <!-- 模版信息选择框 -->
+	<div id="TemplateNameDetails" class="easyui-dialog" style="width: 700px;height: 400px;" align="center" data-options="modal:'true',closed:'true',buttons:'#NGdefectGroupDetails-buttons'">
+	      <form id="searchTemplateNameForm">
+	         <table style="height:15%;width:650px;align:center;padding-top: 20px;">
+	         	<tr>
+                   <td>检验模板名:
+                      <input id="searchTemplateCode" name="postingdate" style="width: 120px;" class="easyui-textbox"/>
+                   </td>
+                   <td>检验类型名称:
+                      <input id="searchTemplateName" name="postingdate" style="width: 120px;" class="easyui-textbox"/>
+                   </td>
+           
+	               <td>
+                      <a href="#" class="easyui-linkbutton" iconCls="icon-search" id="btnSearch1" data-options="plain:true" onclick="javascript:getTemplateNamBySearche();">查询</a>	
+                      &nbsp; <a href="#" class="easyui-linkbutton" iconCls="icon-clear" id="btnResets3" data-options="plain:true">重置</a>
+                   </td>   
+
+	               
+	               <td>
+	                   <div id="showTemplate"><span id="showVendor" style="margin: 0;padding: 0;vertical-align:3px;width:250px; "></span></div>
+	               </td>
+	           </tr>
+	       	 </table>
+	       </form>
+       <div style="height:85%;max-height: 85%;padding-left:20px;padding-right:20px;">
+       		<table id="TemplateNameDetails_tab" class='easyui-datagrid' rownumbers="true"></table>
+       </div>
+    </div>
+    
+    
+    <!-- AQL规则信息选择框 -->
+	<div id="AQLruleinfoDetails" class="easyui-dialog" style="width: 700px;height: 400px;" align="center" data-options="modal:'true',closed:'true',buttons:'#AQLruleinfoDetails-buttons'">
+	      <form id="searchAQLRuleInfoForm">
+	         <table style="height:15%;width:650px;align:center;padding-top: 20px;">
+	         	<tr>
+                   <td>规则名:
+                      <input id="searchAQLRuleName" name="postingdate" style="width: 120px;" class="easyui-textbox"/>
+                   </td>
+                   <td>类别名称:
+                      <input id="searchAQLRuleTypeName" name="postingdate" style="width: 120px;" class="easyui-textbox"/>
+                   </td>
+           
+	               <td>
+                      <a href="#" class="easyui-linkbutton" iconCls="icon-search" id="btnSearch1" data-options="plain:true" onclick="javascript:getAQLRuleInfoSearche();">查询</a>	
+                      &nbsp; <a href="#" class="easyui-linkbutton" iconCls="icon-clear" id="btnResets3" data-options="plain:true">重置</a>
+                   </td>   
+
+	               
+	               <td>
+	                   <div id="showAQLRuleInfo"><span id="showVendor" style="margin: 0;padding: 0;vertical-align:3px;width:250px; "></span></div>
+	               </td>
+	           </tr>
+	       	 </table>
+	       </form>
+       <div style="height:85%;max-height: 85%;padding-left:20px;padding-right:20px;">
+       		<table id="AQLRuleInfoDetails_tab" class='easyui-datagrid' rownumbers="true"></table>
+       </div>
+    </div>
+    
+   
+
+
+    <div id="enditTab" class="easyui-dialog" style="width: 900px;height: 450px;" closed="true" align="center" data-options="modal: true,
+				buttons: [{
+					text:'保存',
+					iconCls:'icon-ok',
+					handler:function(){
+						savaStation();
+						
+					}
+				},{
+					text:'取消',
+					iconCls:'icon-no',
+					handler:function(){
+						setDataNull();
+						$('#enditTab').dialog('close');	
+					}
+				}]">
+        <form id="fmStation" method="post" style="padding:30px 20px 10px 25px;">
+            <table border="0">
+                    <tr style="height: 35px;">
+                       <td align=center>SPC项目名称：</td>         
+	                    <td>
+	                        <input id="SPCprojectName" style="width: 200px;" class="easyui-textbox"  required="required" data-options="missingMessage:'该选项为必填信息'"/>
+	                    </td>
+	                    <td style="color: red ">*</td>         
+                       <td align=center>SPC项目描述：</td>         
+	                    <td> 
+	                        <input id="SPCprojectDesc" style="width: 200px;" class="easyui-textbox" />
+	                    </td>
+                    </tr>
+                    
+                    <tr style="height: 35px;">
+                       <td align=center>SPC图表类型：</td>         
+	                    <td>
+	                        <input id="SPCchartType" style="width: 200px;" class="easyui-combobox"  required="required" data-options="missingMessage:'该选项为必填信息'"/>
+	                    </td>
+	                    <td style="color: red ">*</td>         
+                       <td align=center>组内样本数：</td>         
+	                    <td> 
+	                        <input id="sampleNumber" style="width: 200px;" class="easyui-numberbox" required="required" data-options="missingMessage:'该选项为必填信息'" />
+	                    </td>
+	                    <td style="color: red ">*</td>  
+                    </tr>
+                    
+                    
+                    <tr style="height: 35px;">
+                       <td align=center>每屏显示组数：</td>         
+	                    <td>
+	                        <input id="groupNumber" style="width: 200px;" class="easyui-numberbox"  required="required" data-options="missingMessage:'该选项为必填信息'"/>
+	                    </td>
+	                    <td style="color: red ">*</td>         
+                       <td align=center>样本小数位数：</td>         
+	                    <td> 
+	                        <input id="DecimalDigits" style="width: 200px;" class="easyui-numberbox" required="required" data-options="missingMessage:'该选项为必填信息'" />
+	                    </td>
+	                    <td style="color: red ">*</td>  
+                    </tr>
+                    
+                    
+                    <tr style="height: 35px;">
+                       <td align=center>是否显示CP：</td>         
+	                    <td>
+	                       <input id="displayCP" name="postingdate" style="width: 20px;" type="checkbox" />
+	                    </td>
+	                          
+                       <td align=center>是否显示CPK：</td>         
+	                    <td> 
+	                      <input id="displayCPK" name="postingdate" style="width: 20px;" type="checkbox" />
+	                    </td>   
+                    </tr>
+                    
+                    
+                    <tr style="height: 35px;">
+                       <td align=center>是否显示PP：</td>         
+	                    <td>
+	                       <input id="displayPP" name="postingdate" style="width: 20px;" type="checkbox" />
+	                    </td>
+	                          
+                       <td align=center>是否显示PPK：</td>         
+	                    <td> 
+	                      <input id="displayPPK" name="postingdate" style="width: 20px;" type="checkbox" />
+	                    </td>   
+                    </tr>
+                    
+                    <tr style="height: 35px;">
+                       <td align=center>不良/缺陷组：</td>         
+	                    <td>
+	                        <input id="NGdefectGroup" editable="false" name="NGdefectGroup" style="width: 200px;" class="easyui-searchbox"  required="required" data-options="prompt:'请点击选择',missingMessage:'该选项为必填信息',searcher:searchNGdefectGroup"/>
+	                    </td>
+	                    <td style="color: red ">*</td> 
+	                          
+                       <td align=center>不良/缺陷A：</td>         
+	                    <td>
+	                      <input id="NGdefectA" editable="false" name="NGdefectA" style="width: 200px;" class="easyui-searchbox"  required="required" data-options="prompt:'请点击选择',missingMessage:'该选项为必填信息',searcher:searchAQLRuleInfo"/>
+	                    </td>
+	                    <td style="color: red ">*</td>    
+                    </tr>
+                    
+                    
+                    <tr style="height: 35px;">
+                       <td align=center>不良/缺陷B：</td>         
+	                    <td>
+	                       <input id="NGdefectB" editable="false" name="NGdefectB" style="width: 200px;" class="easyui-searchbox"  required="required" data-options="prompt:'请点击选择',missingMessage:'该选项为必填信息',searcher:searchAQLRuleInfo"/>
+	                    </td>
+	                    <td style="color: red ">*</td> 
+	                          
+                       <td align=center>不良/缺陷C：</td>         
+	                    <td>
+	                      <input id="NGdefectC" editable="false" name="NGdefectC" style="width: 200px;" class="easyui-searchbox"  required="required" data-options="prompt:'请点击选择',missingMessage:'该选项为必填信息',searcher:searchAQLRuleInfo"/>
+	                    </td>
+	                    <td style="color: red ">*</td>    
+                    </tr>
+                    
+                    
+                    
+                    <tr style="height: 35px;">
+                       <td align=center>不良/缺陷D：</td>         
+	                    <td>
+	                        <input id="NGdefectD" editable="false" name="NGdefectD" style="width: 200px;" class="easyui-searchbox"  required="required" data-options="prompt:'请点击选择',missingMessage:'该选项为必填信息',searcher:searchAQLRuleInfo"/>
+	                    </td>
+	                    <td style="color: red ">*</td> 
+	                          
+                       <td align=center>不良/缺陷E：</td>         
+	                    <td>
+	                      <input id="NGdefectE" editable="false" name="NGdefectE" style="width: 200px;" class="easyui-searchbox"  required="required" data-options="prompt:'请点击选择',missingMessage:'该选项为必填信息',searcher:searchAQLRuleInfo"/>
+	                    </td>
+	                    <td style="color: red ">*</td>    
+                    </tr>
+                    
+                    
+                    
+                   <tr style="height: 35px;">
+                       <td align=center>A超控：</td>         
+	                    <td>
+	                        <input id="controlLine" name="postingdate" style="width: 20px;" type="checkbox" />
+	                       <label for="controlLine">超越控制线是否报警 </label>       
+	                    </td>
+	                          
+                       <td align=center>B超规：</td>         
+	                    <td>
+	                      <input id="gaugeLine" name="postingdate" style="width: 20px;" type="checkbox" />
+	                      <label for="gaugeLine">超越规格线是否报警 </label> 
+	                    </td>   
+                    </tr>
+                    
+                     <tr style="height: 35px;">
+	                     <td align=center  colspan="4">
+	                          <span style="margin-left: 20px; font-size: 13px;">(C预警)判异规则：n点在中线同一侧时是否报警</span>
+	                     </td>
+                     </tr>
+                     
+                     
+                     <tr style="height: 35px;">
+                       <td align=center>是否启用：</td>         
+	                    <td>
+	                       <input id="earlyWarning_C" name="postingdate" style="width: 20px;" type="checkbox" />
+	                    </td>
+	                          
+                       <td align=center>格式(n)：</td>         
+	                    <td> 
+	                       <input id="EWformatC" style="width: 200px;" class="easyui-textbox" />
+	                    </td>   
+                    </tr>
+                    
+                    <tr style="height: 35px;">
+	                     <td align=center  colspan="4">
+	                          <span style="margin-left: 20px; font-size: 13px;">(D预警)判异规则：n点连续上升或者下降是否报警</span>
+	                     </td>
+                     </tr>
+                  
+                     
+                   <tr style="height: 35px;">
+                       <td align=center>是否启用：</td>         
+	                    <td>
+	                       <input id="earlyWarning_D" name="postingdate" style="width: 20px;" type="checkbox" />
+	                    </td>
+	                          
+                       <td align=center>格式(n)：</td>         
+	                    <td> 
+	                       <input id="EWformatD" style="width: 200px;" class="easyui-textbox" />
+	                    </td>   
+                    </tr>
+                    
+                    
+                    <tr style="height: 35px;">
+	                     <td align=center  colspan="4">
+	                          <span style="margin-left: 20px; font-size: 13px;">(E预警)判异规则：n点上下交替是否报警</span>
+	                     </td>
+                     </tr>
+                  
+                     
+                   <tr style="height: 35px;">
+                       <td align=center>是否启用：</td>         
+	                    <td>
+	                       <input id="earlyWarning_E" name="postingdate" style="width: 20px;" type="checkbox" />
+	                    </td>
+	                          
+                       <td align=center>格式(n)：</td>         
+	                    <td> 
+	                       <input id="EWformatE" style="width: 200px;" class="easyui-textbox" />
+	                    </td>   
+                    </tr>
+                     
+  
+            </table>
+            
+            
+        </form>
+    </div>
+</body>
+
+</html>

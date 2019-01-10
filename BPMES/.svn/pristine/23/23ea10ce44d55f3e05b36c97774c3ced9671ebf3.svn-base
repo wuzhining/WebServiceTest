@@ -1,0 +1,121 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>员工管理</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="../IplantCompent/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../IplantCompent/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="../IplantCompent/Demo/demo.css">
+    <script src="../IplantCompent/jquery.min.js" type="text/javascript"></script>
+    <script src="../IplantCompent/jquery.easyui.min.js" type="text/javascript"></script> 
+    <script src="../UserManage/js/EmpManage.js" type="text/javascript"></script>
+</head>
+<body>
+    <div>
+        <table id="empDataGrid" class="easyui-datagrid">
+            <thead>
+                <tr>
+                    <th data-options="field:'itemid',width:80">Item ID</th>
+                    <th data-options="field:'productid',width:100">Product</th>
+                    <th data-options="field:'listprice',width:80,align:'right'">List Price</th>
+                    <th data-options="field:'unitcost',width:80,align:'right'">Unit Cost</th>
+                    <th data-options="field:'attr1',width:250">Attribute</th>
+                    <th data-options="field:'status',width:60,align:'center'">Status</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+    <div>
+        <div id="divEmp" class="easyui-dialog" style="width: 400px; height: 280px; padding: 10px 20px;"
+             closed="true" buttons="#dlg-buttons" data-options="modal: true">
+            <div class="ftitle">
+                信息编辑
+            </div>
+            <form id="fmAdd" method="post">
+                <div class="fitem">
+                    <label>
+                        编号
+                    </label>
+                    <input name="AccountCode" class="easyui-validatebox" required="true" />
+                </div>
+                <div class="fitem">
+                    <label>
+                        卡号
+                    </label>
+                    <input name="AccountName" class="easyui-validatebox" required="true" />
+                </div>
+                <div class="fitem">
+                    <label>
+                        密码
+                    </label>
+                    <input name="AccountPwd" class="easyui-validatebox" required="true" />
+                </div>
+                <div class="fitem">
+                    <label>
+                        创建时间
+                    </label>
+                    <input name="CreateTime" class="easyui-datebox" required="true" />
+                </div>
+                <div class="fitem">
+                    <label>
+                        创建人
+                    </label>
+                    <input name="CreateName" class="easyui-vlidatebox" />
+                </div>
+                <input type="hidden" name="action" id="hidtype" />
+                <input type="hidden" name="ID" id="Nameid" />
+            </form>
+        </div>
+
+        <div id="divSearch" class="easyui-dialog" style="width: 400px; height: 280px; padding: 10px 20px;"
+             closed="true" buttons="#search-buttons" data-options="modal: true">
+            <div class="ftitle">
+                信息编辑
+            </div>
+            <form id="fmAdd" method="post">
+                <div class="fitem">
+                    <label>
+                        编号
+                    </label>
+                    <input name="AccountCode" class="easyui-validatebox" required="true" />
+                </div>
+                <div class="fitem">
+                    <label>
+                        卡号
+                    </label>
+                    <input name="AccountName" class="easyui-validatebox" required="true" />
+                </div>
+                <div class="fitem">
+                    <label>
+                        密码
+                    </label>
+                    <input name="AccountPwd" class="easyui-validatebox" required="true" />
+                </div>
+                <div class="fitem">
+                    <label>
+                        创建时间
+                    </label>
+                    <input name="CreateTime" class="easyui-datebox" required="true" />
+                </div>
+                <div class="fitem">
+                    <label>
+                        创建人
+                    </label>
+                    <input name="CreateName" class="easyui-vlidatebox" />
+                </div>
+                <input type="hidden" name="action" id="hidtype" />
+                <input type="hidden" name="ID" id="Nameid" />
+            </form>
+        </div>
+    </div>
+    <div id="dlg-buttons">
+        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="saveuser()" iconcls="icon-save">保存</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="javascript: $('#divEmp').dialog('close')" iconcls="icon-cancel">取消</a>
+    </div>
+    <div id="search-buttons">
+        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="saveuser()" iconcls="icon-search">搜索</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="javascript: $('#divSearch').dialog('close')" iconcls="icon-cancel">取消</a>
+    </div>
+</body>
+</html>

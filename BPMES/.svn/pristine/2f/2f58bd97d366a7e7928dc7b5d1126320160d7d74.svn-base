@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>     
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>生产拉头看板</title>
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/custom.css" rel="stylesheet">
+	<script src="../../common/IplantCompent/jquery.min.js" type="text/javascript"></script>
+    <script src="../screen/report/js/handlebars-v4.0.5.js"></script>
+    <script src="lib/dataRequest.js" type="text/javascript"></script>
+    <script src="../screen/report/highcharts/code/highcharts.js" type="text/javascript"></script>
+    <script src="../screen/report/highcharts/code/highcharts-3d.js" type="text/javascript"></script>
+    <script src="../screen/report/highcharts/code/modules/exporting.js" type="text/javascript"></script>
+    <script src="../screen/report/highcharts/code/themes/dark-unica.js" type="text/javascript"></script>
+  </head>
+  <body style='font-size:62.5%;width:100%;height:100%'>
+  	<!-- 看板导航栏 -->
+    <nav class="navbar navbar-default" style='margin-bottom:5px'>
+	  <div class="container-fluid">
+	    <div class='container title'>
+	    	<p class="navbar-text title-p">生产拉头看板</p>
+	    </div>
+	  </div>
+	</nav>
+	
+	<!-- 看板主体 -->
+	<div class='container main-body'>
+		<!-- 产线信息表格 -->
+		<div class='line-info' id='line-info-div'>
+			<!--  此处引用handlebars模板 -->
+		</div>
+		
+		<!-- 产线直通率highchart柱状图 -->
+		<div id='container' class='charts'></div>
+		
+		<!-- 产线人员信息表格 -->
+		<div class='employees-info' id='employees-info-div'>
+			<!--  此处引用handlebars模板 -->
+		</div>
+	</div>
+	<!-- 产线信息主表模板 -->
+	<script type="text/x-handlebars-template" id="lineInfoTemplate">
+			<table class='table line-info-table' id = 'line-info'>
+				<tr height='32px'>
+					<td width='11.15%'>
+						<span>线 号</span>
+					</td>
+					<td width='22.23%'>
+						<span>{{LINE_CD}}</span>
+					</td>
+					<td width='11.15%'>
+						<span>目 标</span>
+					</td>
+					<td width='22.23%' colspan='2'>
+						<span>{{CAPA}}</span>
+					</td>
+					<td rowspan='6'  style='padding:0px;width:100%;height:100%'>
+						<div id='produc-img-container'></div>
+					</td>
+				</tr>
+				<tr height='32px'>
+					<td width='11.15%'>
+						<span>日 期</span>
+					</td>
+					<td width='22.23%'>
+						<span id='lineDate'></span>
+					</td>
+					<td width='11.15%'>
+						<span>完 成 数 量</span>
+					</td>
+					<td width='22.23%' colspan='2'>
+						<span>{{PROD_QTY}}</span>
+					</td>
+				</tr>
+				<tr height='32px'>
+					<td width='11.15%'>
+						<span>时 间</span>
+					</td>
+					<td width='22.23%'>
+						<span id='lineTime'></span>
+					</td>
+					<td width='11.15%'>
+						<span>效 率</span>
+					</td>
+					<td width='22.23%' colspan='2'>
+						<span>{{COM_RATE}}</span>
+					</td>
+				</tr>
+				<tr height='32px'>
+					<td width='11.15%'>
+						<span>系 列</span>
+					</td>
+					<td width='22.23%'>
+						<span>{{MO_NO}}</span>
+					</td>
+					<td width='11.15%' rowspan='2'>
+						<span>Job Order</span>
+					</td>
+					<td width='11.115%'>
+						<span>计 划 数 量</span>
+					</td>
+					<td width='11.115%'>
+						<span>{{PLAN_WO_QTY}}</span>
+					</td>
+				</tr>
+				<tr height='32px'>
+					<td width='11.15%'>
+						<span>型 号</span>
+					</td>
+					<td width='22.23%'>
+						<span>{{MODEL_CD}}</span>
+					</td>
+					<td width='11.115%'>
+						<span>累 计 完 成 数 量</span>
+					</td>
+					<td width='11.115%'>
+						<span>{{PROD_QTY}}</span>
+					</td>
+				</tr>
+				<tr height='32px'>
+					<td width='11.15%'>
+						<span>人 数</span>
+					</td>
+					<td width='22.23%'>
+						<span>{{LINE_QTY}}</span>
+					</td>
+					<td width='11.15%'>
+						<span>未 完 成 数 量</span>
+					</td>
+					<td width='22.23%' colspan='2'>
+						<span>{{NO_QTY}}</span>
+					</td>
+				</tr>
+			</table>
+	</script>
+	<!-- 人员信息模板 -->
+	<script type="text/x-handlebars-template" id='employeesInfoTemplate'>
+			<table class='table line-info-table'>
+				<tr height='27.3%'>
+					<td>
+						<span>生 产 状 态</span>
+					</td>
+					<td id='stauts-normal'>
+						<span>正 常</span>
+					</td>
+					<td id='stauts-Abnormal'>
+						<span>异 常</span>
+					</td>
+					<td id='stauts-stop'>
+						<span>停 机</span>
+					</td>
+				</tr>
+				<tr height='17.27%'>
+					{{#each employees}}
+					<td>
+						<span>{{PS_NM}}</span>
+					</td>
+					{{/each}}
+				</tr>
+				<tr id='personnel-info'>
+					{{#each employees}}
+					<td>
+						<div class='employees-info-div'>
+							<p>姓 名：{{EMP_NM}}</p>
+							<p>工 号：{{EMP_CD}}</p>
+							<p>手 机：{{TEL}}</p>
+						</div>
+						<div class='employees-img' style='background-image:url({{EMP_PIC}}); '></div>
+					</td>
+					{{/each}}
+				</tr>
+			</table>
+	</script>
+	
+	<script src="js/ProductionLineHeadScreen.js" type="text/javascript"></script>
+  </body>
+</html>

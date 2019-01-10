@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
+    <title>看板类型维护</title>
+    <link rel="stylesheet" type="text/css" href="../../../common/IplantCompent/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../../../common/IplantCompent/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="../../../common/IplantCompent/Demo/demo.css">
+    <script src="../../../common/IplantCompent/jquery.min.js" type="text/javascript"></script>
+    <script src="../../../common/IplantCompent/jquery.easyui.min.js" type="text/javascript"></script>
+    <script src="../../../common/IplantCommon/DataRequest.js" type="text/javascript"></script>
+    <script src="../../../common/IplantCommon/CommonUtil.js" type="text/javascript"></script>
+    <script src="js/RankList.js" type="text/javascript"></script>
+    <script src="../../../common/UICompent/locale/easyui-lang-zh_CN.js" type="text/javascript" ></script>
+    
+</head>
+<body style="padding: 0;margin: 0;">
+	<div style="height:100%;width:100%" class="easyui-layout" fit="true">
+        <div region='north' id="tb" style="width: auto; height: 30px;background: linear-gradient(rgb(255, 255, 255) 0px, rgba(149, 184, 231, 0.28) 100%);">
+               <table style="width: auto; height:100%;" cellspacing="0" border="0">
+                    <tr>
+                      <td>
+                      		<a id="bttAdd" href="#" class="easyui-linkbutton add" iconCls="icon-add" data-options="plain:true" >添加</a>
+                            <a id="bttUpdate" href="#" class="easyui-linkbutton update" iconCls="icon-edit" data-options="plain:true" >修改</a>
+                            <a id="bttDelete" href="#" class="easyui-linkbutton delete" iconCls="icon-remove" data-options="plain:true">删除</a>
+                      </td>
+                    </tr>
+               </table>
+            </div>
+    	<div region="center" style="width:100%" style="border:0">
+           <div region='north' id='tbsearch' style="width: auto; height: 30px;background: linear-gradient(rgb(255, 255, 255) 0px, rgba(149, 184, 231, 0.28) 100%);">
+                <table>
+	                <tr >
+	                	<td>湿度等级：</td>
+	                    <td>
+	                        <input id="HUM_GRADE1" name="HUM_GRADE1" style="width: 200px;" class="easyui-textbox"/>
+	                         &nbsp;&nbsp; &nbsp;&nbsp;
+	                    </td>
+	                    
+	                    <td>
+	                       <a href="#" class="easyui-linkbutton" iconCls="icon-search" id="bttSearch" data-options="plain:true">查询</a>	
+	                       <a href="#" class="easyui-linkbutton" iconCls="icon-reset" id="btnResets" data-options="plain:true">重置</a>
+	                    </td>
+	                </tr>
+                </table>
+             </div>
+            <table region='center' style="height: auto;max-height: 100%" id="RFID_tab" class='easyui-datagrid' toolbar="#tbsearch" rownumbers="true" ></table>
+            </div>
+      </div>
+
+    <div id="enditTab" class="easyui-dialog" style="width: 380px;height: 350px;" closed="true" align="center" data-options="modal: true,
+				buttons: [{
+					text:'保存',
+					iconCls:'icon-ok',
+					handler:function(){
+						savaStation();
+						
+					}
+				},{
+					text:'取消',
+					iconCls:'icon-no',
+					handler:function(){
+						setDataNull();
+						$('#enditTab').dialog('close');	
+					}
+				}]">
+        <form id="fmStation" method="post" style="padding:30px 20px 10px 25px;">
+            <table border="0">
+
+				<tr style="height: 35px;">
+                    <td>湿度等级：</td>
+                    <td>
+                   		<input id="HUM_GRADE"  name="HUM_GRADE" style="width: 170px;" class="easyui-textbox" required="required" data-options="missingMessage:'该选项为必填信息'" />
+                    </td>
+                   	<td style="color: red ">*</td>
+                </tr>                
+
+                <tr style="height: 35px;">
+                    <td>暴露时长(小时)：</td>
+                    <td>
+                   		<input id="TOTALEXPOSEMINUTE"  name="TOTALEXPOSEMINUTE" style="width: 170px;" class="easyui-textbox" required="required" data-options="missingMessage:'该选项为必填信息'" />
+                    </td>
+                    <td style="color: red ">*</td>
+                </tr>  
+                
+                <tr style="height: 35px;">
+                    <td>烘烤次数：</td>
+                    <td>
+                        <input id="ENCAPSTAUTS"  name="ENCAPSTAUTS" style="width: 170px;" class="easyui-textbox" required="required" data-options="missingMessage:'该选项为必填信息'" />
+                    </td>
+                    <td style="color: red ">*</td>
+                </tr>
+                
+                <tr style="height: 35px;">
+                    <td>存储期限(月)：</td>
+                    <td>
+                        <input id="STORAGE_TIME"  name="STORAGE_TIME" style="width: 170px;" class="easyui-textbox" required="required" data-options="missingMessage:'该选项为必填信息'" />
+                    </td>
+                    <td style="color: red ">*</td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <input type="hidden" id="hid"/>
+</body>
+
+</html>

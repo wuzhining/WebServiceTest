@@ -1,0 +1,599 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <title>产线动态看板</title>
+    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no"/>
+    <link rel="stylesheet" type="text/css" href="../../../common/IplantCompent/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="../../../common/IplantCompent/themes/icon.css">
+	<link rel="stylesheet" type="text/css" href="../../../common/IplantCompent/Demo/demo.css">
+	<script src="../../../common/IplantCompent/jquery.min.js" type="text/javascript"></script>
+	<script src="../../../common/IplantCompent/jquery.easyui.min.js" type="text/javascript"></script>
+	<script src="../../../business/IplantMobile/js/DataRequest.js" type="text/javascript"></script>
+	<script src="../../../common/IplantCommon/CommonUtil.js" type="text/javascript"></script>
+	<script src="../../../common/IplantCompent/jQuery.color.js" type="text/javascript"></script>
+    <script src="highcharts/code/highcharts.js"></script>
+	<script src="highcharts/code/highcharts-3d.js"></script>
+	<script src="highcharts/code/highcharts-more.js"></script>
+	<script src="highcharts/code/modules/exporting.js"></script>
+	<script src="highcharts/code/themes/dark-unica.js"></script>
+    <script src="js/productionLineBoard.js"></script>
+    <script type="text/javascript" >
+			//获取当前时间
+	        var oldTime,year,month,day,times,time,minute,second,hour;
+			function show_cur_times() {
+				iplantAjaxRequest({
+			           url: '/iPlant_ajax',
+			           data: {
+			               IFS: 'S0000021',
+			           },
+			           successCallBack: function (data) { 
+			        	   if(data.RESPONSE[0].RESPONSE_DATA.length>0){
+			        		   oldTime = data.RESPONSE[0].RESPONSE_DATA[0].SYS_TIME;
+			        		   year = parseInt(oldTime.slice(0,4));
+			        		   month = parseInt(oldTime.slice(5,7));
+			        		   day = parseInt(oldTime.slice(8,10));
+			        		   if(month<10){
+			   						month = '0'+month;
+			   				   };
+				   			   if(day<10){
+				   					day = '0'+day;
+			   				   };
+			        		   times = oldTime.slice(11);
+			        		   time =  year+'年'+month+'月'+day+'日'+'&nbsp&nbsp'+times;
+			        		   hour = parseInt(oldTime.slice(11,13));
+			        		   minute = parseInt(oldTime.slice(14,16));
+			        		   second = parseInt(oldTime.slice(17));
+			        	   }
+			           }
+			       });
+			};
+			function show_time(){
+				var cond1 = year % 4 == 0;  //条件1：年份必须要能被4整除
+			    var cond2 = year % 100 != 0;  //条件2：年份不能是整百数
+			    var cond3 = year % 400 ==0;  //条件3：年份是400的倍数
+			    var cond = cond1 && cond2 || cond3;
+				second = parseInt(second);
+				minute = parseInt(minute);
+				hour = parseInt(hour);
+				day = parseInt(day);
+				month = parseInt(month);
+				year = parseInt(year);
+				second+=1;
+				if(second == 60){
+					minute+=1;
+					second =0;
+				};
+				if(second<10){
+					second = '0'+second;
+				};
+				if(minute == 60){
+					hour+=1;
+					minute =0;
+				}
+				if(minute<10){
+					minute = '0'+minute;
+				};
+				if(hour == 24){
+					day+=1;
+					hour =0;
+				}
+				if(hour<10){
+					hour = '0'+hour;
+				};
+				
+				if(month == 1||month == 3||month == 5||month == 7||month == 8||month == 10||month == 12){
+					if(day==32){
+						month+=1;
+						day =1;
+					}
+				}else if(month == 2){
+					if(cond) {
+						if(day==30){
+							month+=1;
+							day =1;
+						}
+				    } else {
+				    	if(day==29){
+							month+=1;
+							day =1;
+						}
+				    }
+				}else if(month == 4||month == 6||month == 9||month == 11){
+					if(day==31){
+						month+=1;
+						day =1;
+					}
+				}
+				
+				if(day<10){
+					day = '0'+day;
+				};
+				
+				if(month==13){
+					year+=1;
+					month=1;
+				};
+				
+				if(month<10){
+					month = '0'+month;
+				};
+				
+				time = year+'年'+month+'月'+day+'日'+'&nbsp&nbsp'+hour+':'+minute+':'+second;
+				document.getElementById("admin_pid").innerHTML = "当前时间：" + time;
+   				document.getElementById("admin_pid").style.color = "yellow";
+			} 
+		
+			//设置1秒调用一次show_cur_times函数
+			setInterval("show_time()", 1000);
+			setInterval("show_cur_times()", 30000);
+   </script>
+    <style>
+	  	.panel-body {
+	  		color : #FFFFFF;
+	  		border-color: #393A4C;
+	  		font-size:7px;
+		}
+		
+		#topTable tr {
+			height:8%;
+			width:100%;
+		}
+		
+		#topTable tr td{
+			 /* border:1px solid yellow;    */ 
+			text-align:center;
+			font-size:7px;
+		}
+		
+		#processingHistory tr{
+			/* height:7.69%; */
+			width:100%;
+		}
+		
+		#processingHistory tr td,#processingHistory tbody tr td,#processingHistory thead tr td,
+		#processingState tr td,#processingState tbody tr td,#processingState thead tr td
+		{
+			color:#0792EA;
+			font-size:7px;
+			text-align:center;
+		}
+		
+		#machineFunction tr td{
+			color:#ffffff;
+			font-size:7px;
+			text-align:center;
+		}
+ 		
+		#processingState tr{
+			width:100%;
+		}
+		
+		.bckBlue{
+			background-color:#0099FF;
+		}
+		
+		.fontWhite{
+			color:#FFFFFF;
+		}
+		
+		.bckBlack{
+			background-color:#393A4C;
+		}
+		
+		.fontBlue{
+			color:#0A86DC;
+		}
+		#oneValue td{
+			font-size:7px
+		}
+		
+  	</style>
+  </head>
+  <body style="margin:0px;padding:0px;font-size:7px" class="easyui-layout" fit="true">
+	  	<div data-options="region:'north'" style="height:30px;background:#454E5D;overflow : hidden;">
+	  		<div style="text-align:center; width:200px; height:30px;line-height:30px;">
+	  			<img src="image/log.png" style="vertical-align:middle;" width="25px" height="25px" /><span style="font-size:12px;font-family:宋体;color:#FFFFFF;font-weight: bold;">德富莱</span>
+	  		</div>
+	  		<div style="text-align:center; height:30px;line-height:30px;margin-top:-30px; margin-right:200px;margin-left:200px;">
+	  			<span style="font-size:12px;font-family:宋体;font-weight: bold;color:#FFFFFF">PCBA生产动态看板</span>
+	  		</div>
+	        <div style="float: right;height: 30px;width: 402px;margin-top: 30px;font-size: 12px;font-family: '宋体';padding-right:'20px'">	
+		        <div id="admin_pid" style="height: 20px ;width: 348px;position:absolute;top:15px;right:-20px"><script>show_cur_times();</script></div>
+	        </div>
+	  	</div>   
+    	<div data-options="region:'center'" style="background:#393A4C;overflow : hidden;" >   
+       	 	<div class="easyui-layout" data-options="fit:true" > 
+	       	 	<div data-options="region:'north',borde:false" style="background:#393A4C;width:96%;height:60%">
+	       	 		<table style="width:98%;height:95%;margin-top:5px;margin-left:1%" id='topTable' cellspacing="0" cellpadding="0">
+	       	 			<!-- UPH、良品率、生产进度走势图 -->
+	       	 			<tr style='height:9%;'>
+	       	 				<td>
+	       	 					<div style='border:1px solid #FFFFFF;width:70%;height:80%;margin:0 auto' id='UPHChart'></div>
+	       	 				</td>
+	       	 				<td colspan='3'></td>
+	       	 				<td>
+	       	 					<div style='border:1px solid #FFFFFF;width:70%;height:80%;margin:0 auto' id='yieldChart'></div>
+	       	 				</td>
+	       	 				<td colspan='2'></td>
+	       	 				<td rowspan='1' colspan="2">
+	       	 				</td>
+	       	 				<td rowspan='3' colspan="2">
+	       	 				    <div id="machineOEE" style='width:95%;height:100%;'></div>
+	       	 				</td>
+	       	 				<td></td>
+	       	 			</tr>
+	       	 			<!-- UPH、良品率、生产进度数据值 -->
+	       	 			<tr id="oneValue" style="height:4.66%">
+							<td id="UPH" style="color:#2686CB;text-align:center;font-size:10px"></td>
+	       	 				<td id="assembleNum" style="color:#2686CB;text-align:center;font-size:10px"></td>
+	       	 				<td id="processingNum" style="color:#2686CB;text-align:center;font-size:10px">47</td>
+	       	 				<td id="goodNum" style="color:#FFFF00;text-align:center;font-size:10px"></td>
+	       	 				<td id="yield" style="color:#FFFF00;text-align:center;font-size:10px"></td>
+	       	 				<td id="badNum" style="color:#FFFF00;text-align:center;font-size:10px"></td>
+	       	 				<td id="productionSchedule" style="color:#2686CB;text-align:center;font-size:10px"></td>
+	       	 				<td colspan='2'>
+	       	 					<div style="width:90%;height:60%;margin:0 auto;border:2px solid #FFFFFF">
+	       	 						<div style="height:100%;background-color:#0099FF" id='productionScheduleWidth'></div>
+	       	 					</div>
+	       	 				</td>
+	       	 				<td id="OEEValue" style="color:#2686CB;text-align:center;font-size:10px"></td>
+	       	 			</tr>
+	       	 			
+	       	 			<tr style="height:4.66%;color:#FFFFFF">
+	       	 				<td style='font-size:10px'>UPHs</td>
+	       	 				<td style='font-size:10px'>总生产数</td>
+	       	 				<td style='font-size:10px'>加工中个数</td>
+	       	 				<td style='font-size:10px'>良品数</td>
+	       	 				<td style='font-size:10px'>良品率</td>
+	       	 				<td style='font-size:10px'>次品率</td>
+	       	 				<td style='font-size:10px'>生产进度</td>
+	       	 				<td colspan='2'>
+	       	 				</td>
+	       	 				<td style='font-size:10px'>产线OEE</td>
+	       	 			</tr>
+	       	 			<!-- 各工位过栈产品数量值 -->
+	       	 			<tr style="height:6%" id='machineFunction'>
+	       	 				<td>
+	       	 					印刷
+	       	 				</td>
+	       	 				<td>
+	       	 					检测
+	       	 				</td>
+	       	 				<td>
+	       	 					贴片
+	       	 				</td>
+	       	 				
+	       	 				<td>
+	       	 					焊锡
+	       	 				</td>
+	       	 				<td>
+	       	 					检测
+	       	 				</td>
+	       	 				<td>
+	       	 					烧录
+	       	 				</td>
+							<td>
+								分板
+							</td>
+	       	 				<td>
+	       	 					测试
+	       	 				</td>
+	       	 				<td>
+	       	 					 测试
+	       	 				</td>
+	       	 				<td>
+	       	 					 上料  
+	       	 				</td>
+	       	 				<td>
+	       	 					贴DOME片  
+	       	 				</td>
+	       	 				<td>
+	       	 					贴导电布
+	       	 				</td>
+	       	 			</tr>
+	       	 			
+	       	 			<tr style="height:6%" id='stationsImg'>
+	       	 				<td>
+	       	 					<img src='image/YSJ5.jpg' style="width:50%"/>
+	       	 				</td>
+	       	 				<td>
+	       	 					<img src='image/SPI8.jpg' style="width:50%"/>
+	       	 				</td>
+	       	 				
+	       	 				<td>
+	       	 					<img src='image/SXTPJ5.jpg' style="width:50%"/>
+	       	 				</td>
+	       	 				<td>
+	       	 					<img src='image/TPJ8.jpg' style="width:50%"/>
+	       	 				</td>
+	       	 				<td>
+	       	 					<img src='image/AOI8.jpg' style="width:50%"/>
+	       	 				</td>
+	       	 				<td>
+	       	 					<img src='../../Phone_Screen/image/SLJ.jpg' style="width:50%"/>
+	       	 				</td>
+						<td>
+	       	 					<img src='image/FBJ5.jpg' style="width:50%"/>
+	       	 				</td>
+	       	 				<td>
+	       	 					<img src='image/XZCS.png' style="width:50%"/>
+	       	 				</td>
+	       	 				<td>
+	       	 					<img src='image/GNCS.png' style="width:50%"/>
+	       	 				</td>
+	       	 				<td>
+	       	 					<img src='image/assembleLine01.jpg' style="width:50%"/>
+	       	 				</td>
+	       	 				<td>
+	       	 					<img src='image/assembleLine03.jpg' style="width:50%"/>
+	       	 				</td>
+	       	 				<td>
+	       	 					<img src='image/assembleLine02.jpg' style="width:50%"/>
+	       	 				</td>
+	       	 			</tr>
+	       	 			<!-- ../screen/report/image/assembleLine02.jpg -->
+	       	 			<tr style="height:9%" id="stationsState">
+	       	 				<td>
+	       	 					<div style="width:70%;height:70%;border-radius:20px;margin-left:14%;background-color:#393A4C;">
+	       	 						<div style="text-align:center;line-height:251%;color:#0A86DC;" id="SBJStyle" name="EQ009"></div>
+	       	 					</div>
+	       	 				</td>
+	       	 				<td>
+	       	 					<div style="width:70%;height:70%;border-radius:20px;margin-left:14%;background-color:#393A4C;">
+	       	 						<div style="text-align:center;line-height:251%;color:#0A86DC;" id="YSJStyle" name="EQ007"></div>
+	       	 					</div>
+	       	 				</td>
+	       	 				<td>
+	       	 					<div style="width:70%;height:70%;border-radius:20px;margin-left:14%;background-color:#393A4C;">
+	       	 						<div style="text-align:center;line-height:251%;color:#0A86DC;" id="SPIStyle" name="EQ006"></div>
+	       	 					</div>
+	       	 				</td>
+	       	 				<td>
+	       	 					<div style="width:70%;height:70%;border-radius:20px;margin-left:14%;background-color:#393A4C;">
+	       	 						<div style="text-align:center;line-height:251%;color:#0A86DC;" id="TPJStyle1" name="EQ005"></div>
+	       	 					</div>
+	       	 				</td>
+	       	 				<td>
+	       	 					<div style="width:70%;height:70%;border-radius:20px;margin-left:14%;background-color:#393A4C;">
+	       	 						<div style="text-align:center;line-height:251%;color:#0A86DC;" id="TPJStyle2" name="EQ005"></div>
+	       	 					</div>
+	       	 				</td>
+	       	 				<td>
+	       	 					<div style="width:70%;height:70%;border-radius:20px;margin-left:14%;background-color:#393A4C;">
+	       	 						<div style="text-align:center;line-height:251%;color:#0A86DC;" id="HLHStyle" name="EQ004"></div>
+	       	 					</div>
+	       	 				</td>
+	       	 				<td>
+	       	 					<div style="width:70%;height:70%;border-radius:20px;margin-left:14%;background-color:#393A4C;">
+	       	 						<div style="text-align:center;line-height:251%;color:#0A86DC;" id="AOIStyle" name="EQ003"></div>
+	       	 					</div>
+	       	 				</td>
+	       	 				<td>
+	       	 					<div style="width:70%;height:70%;border-radius:20px;margin-left:14%;background-color:#393A4C;">
+	       	 						<div style="text-align:center;line-height:251%;color:#0A86DC;" id="HCJStyle" name='EQ001'></div>
+	       	 					</div>
+	       	 				</td>
+	       	 				<td>
+	       	 					<div style="width:70%;height:70%;border-radius:20px;margin-left:14%;background-color:#393A4C;">
+	       	 						<div style="text-align:center;line-height:251%;color:#0A86DC;" name="ECD023"></div>
+	       	 					</div>
+	       	 				</td>
+	       	 				<td>
+	       	 					<div style="width:70%;height:70%;border-radius:20px;margin-left:14%;background-color:#393A4C;">
+	       	 						<div style="text-align:center;line-height:251%;color:#0A86DC;" name="ECD023"></div>
+	       	 					</div>
+	       	 				</td>
+	       	 				<td>
+	       	 					<div style="width:70%;height:70%;border-radius:20px;margin-left:14%;background-color:#393A4C;">
+	       	 						<div style="text-align:center;line-height:251%;color:#0A86DC;" name="ECD005"></div>
+	       	 					</div>
+	       	 				</td>
+	       	 				<td>
+	       	 					<div style="width:70%;height:70%;border-radius:20px;margin-left:14%;background-color:#393A4C;">
+	       	 						<div style="text-align:center;line-height:251%;color:#0A86DC;" name="ECD018"></div>
+	       	 					</div>
+	       	 				</td>
+	       	 			</tr>
+	       	 			
+	       	 			<tr style="height:6%;color:#0A86DC">
+	       	 				<td>印刷机</td>
+	       	 				<td>SPI机</td>
+	       	 				
+	       	 				<td>松下贴片机</td>
+	       	 				<td>回流焊</td>
+	       	 				<td>AOI检测机</td>
+	       	 				<td>烧录机</td>
+							<td>分板机</td>
+	       	 				<td>校准测试机</td>
+	       	 				<td>MMI测试机</td>
+	       	 				<td>主板上料机</td>
+	       	 				<td>贴DOME机</td>
+	       	 				<td>贴导电布机</td>
+	       	 			</tr>
+	       	 			
+	       	 			
+	       	 			<tr style="height:9%">
+	       	 				<td>
+	       	 					<div style='border:1px solid #FFFFFF;width:70%;height:85%;margin:0 auto' name = 'time-consuming'></div>
+	       	 				</td>
+	       	 				<td>
+	       	 					<div style='border:1px solid #FFFFFF;width:70%;height:85%;margin:0 auto' name = 'time-consuming'></div>
+	       	 				</td>
+	       	 				<td>
+	       	 					<div style='border:1px solid #FFFFFF;width:70%;height:85%;margin:0 auto' name = 'time-consuming'></div>
+	       	 				</td>
+	       	 				<td>
+	       	 					<div style='border:1px solid #FFFFFF;width:70%;height:85%;margin:0 auto' name = 'time-consuming'></div>
+	       	 				</td>
+	       	 				<td>
+	       	 					<div style='border:1px solid #FFFFFF;width:70%;height:85%;margin:0 auto' name = 'time-consuming'></div>
+	       	 				</td>
+	       	 				<td>
+	       	 					<div style='border:1px solid #FFFFFF;width:70%;height:85%;margin:0 auto' name = 'time-consuming'></div>
+	       	 				</td>
+	       	 				<td>
+	       	 					<div style='border:1px solid #FFFFFF;width:70%;height:85%;margin:0 auto' name = 'time-consuming'></div>
+	       	 				</td>
+	       	 				<td>
+	       	 					<div style='border:1px solid #FFFFFF;width:70%;height:85%;margin:0 auto' name = 'time-consuming'></div>
+	       	 				</td>
+	       	 				<td>
+	       	 					<div style='border:1px solid #FFFFFF;width:70%;height:85%;margin:0 auto' name = 'time-consuming'></div>
+	       	 				</td>
+	       	 				<td>
+	       	 					<div style='border:1px solid #FFFFFF;width:70%;height:85%;margin:0 auto' name = 'time-consuming'></div>
+	       	 				</td>
+	       	 				<td>
+	       	 					<div style='border:1px solid #FFFFFF;width:70%;height:85%;margin:0 auto' name = 'time-consuming'></div>
+	       	 				</td>
+	       	 				<td>
+	       	 					<div style='border:1px solid #FFFFFF;width:70%;height:85%;margin:0 auto' name = 'time-consuming'></div>
+	       	 				</td>
+	       	 			</tr>
+	       	 			
+	       	 			<tr style="height:6%;color:#0A86DC" id="time_Consuming">
+	       	 			</tr>
+	       	 			
+	       	 			<tr style="height:4%">
+	       	 				<td>
+	       	 					<div style="width:94%;height:28%;border-bottom:1px solid #FFFFFF;float:left"></div>
+	       	 					<div style="float:left;width:3%;height:50%;border:1px solid #FFFFFF;border-radius:60%"></div>
+	       	 				</td>
+	       	 				<td>
+	       	 					<div style="width:94%;height:28%;border-bottom:1px solid #FFFFFF;float:left"></div>
+	       	 					<div style="float:left;width:3%;height:50%;border:1px solid #FFFFFF;border-radius:60%"></div>
+	       	 				</td>
+	       	 				<td>
+	       	 					<div style="width:94%;height:28%;border-bottom:1px solid #FFFFFF;float:left"></div>
+	       	 					<div style="float:left;width:3%;height:50%;border:1px solid #FFFFFF;border-radius:60%"></div>
+	       	 				</td>
+	       	 				<td>
+	       	 					<div style="width:94%;height:28%;border-bottom:1px solid #FFFFFF;float:left"></div>
+	       	 					<div style="float:left;width:3%;height:50%;border:1px solid #FFFFFF;border-radius:60%"></div>
+	       	 				</td>
+	       	 				<td>
+	       	 					<div style="width:94%;height:28%;border-bottom:1px solid #FFFFFF;float:left"></div>
+	       	 					<div style="float:left;width:3%;height:50%;border:1px solid #FFFFFF;border-radius:60%"></div>
+	       	 				</td>
+	       	 				<td>
+	       	 					<div style="width:94%;height:28%;border-bottom:1px solid #FFFFFF;float:left"></div>
+	       	 					<div style="float:left;width:3%;height:50%;border:1px solid #FFFFFF;border-radius:60%"></div>
+	       	 				</td>
+	       	 				<td>
+	       	 					<div style="width:94%;height:28%;border-bottom:1px solid #FFFFFF;float:left"></div>
+	       	 					<div style="float:left;width:3%;height:50%;border:1px solid #FFFFFF;border-radius:60%"></div>
+	       	 				</td>
+	       	 				<td>
+	       	 					<div style="width:94%;height:28%;border-bottom:1px solid #FFFFFF;float:left"></div>
+	       	 					<div style="float:left;width:3%;height:50%;border:1px solid #FFFFFF;border-radius:60%"></div>
+	       	 				</td>
+	       	 				<td>
+	       	 					<div style="width:94%;height:28%;border-bottom:1px solid #FFFFFF;float:left"></div>
+	       	 					<div style="float:left;width:3%;height:50%;border:1px solid #FFFFFF;border-radius:60%"></div>
+	       	 				</td>
+	       	 				<td>
+	       	 					<div style="width:94%;height:28%;border-bottom:1px solid #FFFFFF;float:left"></div>
+	       	 					<div style="float:left;width:3%;height:50%;border:1px solid #FFFFFF;border-radius:60%"></div>
+	       	 				</td>
+	       	 				<td>
+	       	 					<div style="width:94%;height:28%;border-bottom:1px solid #FFFFFF;float:left"></div>
+	       	 					<div style="float:left;width:3%;height:50%;border:1px solid #FFFFFF;border-radius:60%"></div>
+	       	 				</td>
+	       	 				<td>
+	       	 					<div style="width:94%;height:28%;border-bottom:1px solid #FFFFFF;float:left"></div>
+	       	 					<div style="float:left;width:3%;height:50%;border:1px solid #FFFFFF;border-radius:60%"></div>
+	       	 				</td>
+	       	 			</tr>
+	       	 			
+	       	 			<tr style="height:12%" id='prod_imgs'>
+	       	 				<!-- <td colspan='12'>
+		       	 				<marquee direction="right" behavior="scroll" scrollamount="5" align="right" style="float:left;width:100%">
+	  								<img src="image/product1.png" style="width:5%" name="RP001" />
+	  							</marquee>
+	  						</td> -->
+	       	 				<td style="position:relative">
+	       	 					<img src="image/Phone_PCB0.png" style="width:50%;height:90%;position:absolute;left:0;top:0;display:none" name="RP001" />
+	       	 				</td>
+	       	 				<td style="position:relative">
+	       	 					<img src="image/Phone_PCB0.png" style="width:50%;height:90%;position:absolute;left:0;top:0;display:none" name="RP002"/>
+	       	 				</td>
+	       	 				<td style="position:relative">
+	       	 					<img src="image/Phone_PCB0.png" style="width:50%;height:90%;position:absolute;left:0;top:0;display:none" name="RP003"/>
+	       	 				</td>
+	       	 				<td style="position:relative">
+	       	 					<img src="image/Phone_PCB0.png" style="width:50%;height:90%;position:absolute;left:0;top:0;display:none" name="RP004"/>
+	       	 				</td>
+	       	 				<td style="position:relative">
+	       	 					<img src="image/Phone_PCB0.png" style="width:50%;height:90%;position:absolute;left:0;top:0;display:none" name="RP005"/>
+	       	 				</td>
+	       	 				<td style="position:relative">
+	       	 					<img src="image/Phone_PCB0.png" style="width:50%;height:90%;position:absolute;left:0;top:0;display:none" name="RP006"/>
+	       	 				</td>
+	       	 				<td style="position:relative">
+	       	 					<img src="image/Phone_PCB0.png" style="width:50%;height:90%;position:absolute;left:0;top:0;display:none" name="RP007"/>
+	       	 				</td>
+	       	 				<td style="position:relative">
+	       	 					<img src="image/Phone_PCB0.png" style="width:50%;height:90%;position:absolute;left:0;top:0;display:none" name="RP008"/>
+	       	 				</td>
+	       	 				<td style="position:relative">
+	       	 					<img src="image/Phone_PCB.png" style="width:50%;height:90%;position:absolute;left:0;top:0;display:none" name="RP009"/>
+	       	 				</td>
+	       	 				<td style="position:relative">
+	       	 					<img src="image/Phone_PCB.png" style="width:50%;height:90%;position:absolute;left:0;top:0;display:none" name="RP010"/>
+	       	 				</td>
+	       	 				<td style="position:relative">
+	       	 					<img src="image/Phone_PCB.png" style="width:50%;height:90%;position:absolute;left:0;top:0;display:none" name="RP011"/>
+	       	 				</td>
+	       	 				<td style="position:relative">
+	       	 					<img src="image/Phone_PCB.png" style="width:50%;height:90%;position:absolute;left:0;top:0;display:none" name="RP012"/>
+	       	 				</td> 
+	       	 			</tr>
+	       	 		</table>
+	       	 	</div> 
+       	 	
+	           	<div data-options="region:'center',borde:false" style="background:#393A4C;width:100%">
+	           		<div style="height:7%;width:98%;">
+		           		<div style="height:100%;width:49%;margin-left:1%;background-color:#012D3A;border-radius:10px;float:left">
+		           			<span style="color:#0792EA;line-height:200%;height:100%;overflow:hidden;font-size:10px;margin-left:2%;">
+		           				产品的加工状态
+		           			</span>
+		           		</div>
+		           		<div style="height:100%;width:49%;margin-left:1%;background-color:#012D3A;border-radius:10px;float:left">
+		           			<span style="width:5%;color:#11C342;line-height:200%;height:100%;overflow:hidden;margin-left:2%;font-size:10px" id='barCode'></span>
+		           			<span style="color:#11C342;line-height:100%;height:100%;overflow:hidden;font-size:10px">
+		           				产品的加工历史
+		           			</span>
+		           		</div>
+	           		</div>
+	           		
+	           		<div style="height:90%;width:100%" id='bottom_table'>
+		           		<table style="height:90%;width:49%;margin-left:1%;margin-top:10px;color:#0792EA;float:left" id="processingState">
+		           			<thead>
+			           			<tr>
+			           				<td>SN号</td>
+			           				<td>工位</td>
+			           				<td>进入当前工位时间</td>
+			           				<td>工位标准节拍</td>
+			           			</tr>
+		           			</thead>
+		           			<tbody></tbody>
+		           		</table>
+		           		
+		           		<table style="height:90%;width:49%;margin-left:1%;margin-top:10px;color:#0792EA;float:left" id="processingHistory">
+			           		<thead>
+			           			<tr>
+			           				<td>工位</td>
+			           				<td>进入当前工位时间</td>
+			           				<td>耗时</td>
+			           				<td>离开工位时间</td>
+			           				<td>最终状态</td>
+			           			</tr>
+			           		</thead>
+			           		<tbody></tbody>
+		           		</table>
+	           		</div>
+	           	</div> 
+        	</div>   
+    	</div> 
+  </body>
+</html>

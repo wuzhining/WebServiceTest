@@ -1,0 +1,56 @@
+{
+    "RESPONSE": [
+        {
+            "RESPONSE_DATA": [
+                {
+                    "prod_time": "08:00-09:00",
+                    "finished_qty":5000,
+                    "target_qty":6000,
+                    "prod_qty": 3725
+                },
+                {
+                    "prod_time": "09:00-10:00",
+                      "finished_qty":3000,
+                    "target_qty":5000,
+                    "prod_qty": 5163
+                },
+                 {
+                    "prod_time": "10:00-11:00",
+                    "finished_qty":3000,
+                    "target_qty":5000,
+                    "prod_qty": 3900
+                },
+                {
+                    "prod_time": "11:00-12:00",
+                    "finished_qty":5000,
+                    "target_qty":7000,
+                    "prod_qty": 4855
+                },
+                {
+                    "prod_time": "12:00-14:00",
+                    "finished_qty":4000,
+                    "target_qty":5000,
+                    "prod_qty": 3945
+                },
+                {
+                    "prod_time": "14:00-16:00",
+                    "finished_qty":3000,
+                    "target_qty":4000,
+                    "prod_qty": 4587
+                },
+                {
+                    "prod_time": "16:00-18:00",
+                    "finished_qty":8000,
+                    "target_qty":9000,
+                    "prod_qty": 3725
+                },
+                {
+                    "prod_time": "18:00-20:00",
+                    "finished_qty":6000,
+                    "target_qty":5000,
+                    "prod_qty": 4387
+                }    
+            ]
+        }
+    ]
+}

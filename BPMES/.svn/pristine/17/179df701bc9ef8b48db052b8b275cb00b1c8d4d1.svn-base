@@ -1,0 +1,1405 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="">
+    
+		<!-- A.1 出库和入库管理 -->
+	    
+	    <!-- 查询主订单信息 -->
+	   <select id="WMSOrderInfoQuery" parameterType="hashmap" resultType="java.util.HashMap">
+	   	<include refid="oraclePagingFileTop"></include>
+	   				CC.*
+		  		      FROM
+		  		      	 (
+		  		      	 SELECT T1.ORDER_ID,
+						       T1.ORDER_TYPE,
+						       TO_CHAR(T1.CREATE_DATE,'YYYY-MM-DD HH24:MI:SS') CREATE_DATE,
+						       T1.CREATOR,
+						       TO_CHAR(T1.P_DELIVE_DATE,'YYYY-MM-DD') P_DELIVE_DATE,
+						       T1.SN_NUMBER,
+						       T1.SUPPLIER_ID,
+						       T1.SUPPLIER_NAME,
+						       T2.CT_MN,
+						       T2.PN_NB
+						  FROM WMS1.WMS_ORDER T1
+						  LEFT JOIN IPLANT1.C_IPLANT_S3_T T2
+						    ON T1.SUPPLIER_ID = T2.SUP_CD  
+					 	    <where> 1=1
+					 	       <if test="CREATE_DATE !=null and CREATE_DATE !='' ">  
+					 	       	   AND T1.CREATE_DATE BETWEEN to_date('${CREATE_DATE} 00:00:01','yyyy-mm-dd hh24:mi:ss') 
+					 	       	   AND to_date('${CREATE_DATE} 23:59:59','yyyy-mm-dd hh24:mi:ss') 
+					 	       </if>
+					 	       <if test="ORDER_ID !=null and ORDER_ID !='' ">
+					 	       	   AND T1.ORDER_ID='${ORDER_ID}'
+					 	       </if>
+					 	       <if test="SUPPLIER_ID !=null and SUPPLIER_ID!='' ">
+					 	       	   AND T1.SUPPLIER_ID='${SUPPLIER_ID}'
+					 	       </if>
+					 	    </where>	
+					 	   	   ORDER BY CREATE_DATE DESC	   	
+		  		      	  )
+		  		      	  CC
+	    <include refid="oraclePagingFileBottom"></include> 
+	   </select>
+	   
+	   <!-- 查询主订单信息分页总数 -->
+	   <select id="WMSOrderInfoQuery_COUNT" parameterType="hashmap" resultType="java.util.HashMap"> 
+	   		SELECT COUNT(1) AS ROWS_COUNT
+		  FROM WMS1.WMS_ORDER T1
+		  LEFT JOIN IPLANT1.C_IPLANT_S3_T T2
+		    ON T1.SUPPLIER_ID = T2.SUP_CD  
+	 	    <where> 1=1
+	 	       <if test="CREATE_DATE !=null and CREATE_DATE !='' ">  
+	 	       	   AND T1.CREATE_DATE BETWEEN '${CREATE_DATE} 00:00:01' AND '${CREATE_DATE} 23:59:59';
+	 	       </if>
+	 	       <if test="ORDER_ID !=null and ORDER_ID !='' ">
+	 	       	   AND T1.ORDER_ID='${ORDER_ID}'
+	 	       </if>
+	 	       <if test="SUPPLIER_ID !=null and SUPPLIER_ID!='' ">
+	 	       	   AND T1.SUPPLIER_ID='${SUPPLIER_ID}'
+	 	       </if>
+	 	    </where>	
+	 	   	   ORDER BY CREATE_DATE DESC
+	   </select>
+	    
+	    
+	   <!-- ======订单管理====== -->
+	   <!-- 查询订单信息 -->
+	   <select id="IndentInfoQuery" parameterType="hashmap" resultType="java.util.HashMap"> 
+		  <include refid="oraclePagingFileTop"></include>
+		  		   CC.*
+		  		      FROM
+		  		      	 (
+		  		      	 SELECT 
+			                 T2.ORDER_ID,
+			                 T2.DETAIL_ID,
+			                 TO_CHAR(T2.CREATE_DATE,'YYYY-MM-DD HH24:MI:SS') AS CREATE_DATE,
+			                 T2.SUPPLIER_ID,
+			                 T2.SUPPLIER_NAME   AS SUP_NM,
+			                 T2.CONNECTOR_NAME  AS CT_MN,
+			                 T2.CONNECTOR_PHONE AS PN_NB,
+			                 T2.MATERIA_ID,
+			                 T2.MATERIA_NAME   AS ITEM_NM,
+			                 T2.PURCHASE_NUMBER,
+			                 T2.UNIT_ID,
+			                 T2.UNIT_NAME,
+			                 TO_CHAR(T2.P_DELIVE_DATE,'YYYY-MM-DD') AS P_DELIVE_DATE,
+			                 T2.DELIVE_NUMBER,
+			                 T2.CREATER_ID,
+			                 TO_CHAR(T2.PRODUCT_DATE,'YYYY-MM-DD HH24:MI:SS') AS PRODUCT_DATE,
+			                 T3.EMP_NM
+			                 FROM WMS1.WMS_ORDER	           T1
+			                 JOIN WMS1.WMS_ORDER_DETAIL T2
+			                 ON T1.ORDER_ID=T2.ORDER_ID 
+			                 LEFT JOIN IPLANT1.C_IPLANT_E1_T T3
+			                 ON T2.CREATER_ID=T3.ENG_NM  
+					 	    <where> 1=1
+					 	       <if test="invoicesDATE !=null and invoicesDATE !='' ">
+					 	       	   AND TO_CHAR(T2.CREATE_DATE, 'YYYY-MM-DD')='${invoicesDATE}'
+					 	       </if>
+					 	       <if test="START_DATE !=null and START_DATE !='' ">  
+					 	       	   AND T2.CREATE_DATE>=TO_DATE('${START_DATE}','YYYY-MM-DD HH24:MI:SS')	 
+					 	       </if>
+					 	       <if test="END_DATE !=null and END_DATE !='' ">
+					 	       	   AND T2.CREATE_DATE&lt;=TO_DATE('${END_DATE}','YYYY-MM-DD HH24:MI:SS')	 
+					 	       </if>
+					 	       <if test="ORDER_ID !=null and ORDER_ID !='' ">
+					 	       	   AND T2.ORDER_ID='${ORDER_ID}'
+					 	       </if>
+					 	       <if test="MATERIA_ID !=null and MATERIA_ID !='' ">
+					 	       	   AND T2.MATERIA_ID LIKE '%${MATERIA_ID}%'	 
+					 	       </if>
+					 	       <if test="ITEM_NM !=null and ITEM_NM !='' ">
+					 	       	   AND T2.MATERIA_NAME LIKE '%${ITEM_NM}%'
+					 	       </if> 
+					 	       <if test="SUPPLIER_ID !=null and SUPPLIER_ID!='' ">
+					 	       	   AND T1.SUPPLIER_ID='${SUPPLIER_ID}'
+					 	       </if>
+					 	       <if test="SUP_NM !=null and SUP_NM !='' ">
+					 	       	   AND T2.SUPPLIER_NAME LIKE '%${SUP_NM}%'
+					 	       </if> 
+					 	       <if test="CT_MN !=null and CT_MN !='' ">
+					 	       	   AND T2.CONNECTOR_NAME LIKE '%${CT_MN}%'
+					 	       </if>
+					 	       <if test="PN_NB !=null and PN_NB !='' ">
+					 	       	   AND T2.CONNECTOR_PHONE='${PN_NB}'
+					 	       </if>
+					 	       <if test="P_DELIVE_DATE !=null and P_DELIVE_DATE !='' ">
+					 	       	   AND TO_CHAR(T2.P_DELIVE_DATE,'YYYY-MM-DD')='${P_DELIVE_DATE}'
+					 	       </if>	   
+					 	    </where>	
+					 	   	   ORDER BY CREATE_DATE DESC	   	
+		  		      	  ) 
+		  		      	  CC
+		   <include refid="oraclePagingFileBottom"></include>      	  
+	   </select>	
+	   <!-- 查询订单信息分页总数 -->
+	   <select id="IndentInfoQuery_COUNT" parameterType="hashmap" resultType="java.util.HashMap"> 
+	   		   SELECT 
+                   COUNT(1) AS ROWS_COUNT
+                 FROM WMS1.WMS_ORDER	           T1
+                 JOIN WMS1.WMS_ORDER_DETAIL T2
+                 ON T1.ORDER_ID=T2.ORDER_ID 
+                 LEFT JOIN IPLANT1.C_IPLANT_E1_T T3
+                 ON T2.CREATER_ID=T3.EMP_CD 
+		 	     <where> 1=1
+		 	       <if test="invoicesDATE !=null and invoicesDATE !='' ">
+		 	       	   AND TO_CHAR(T2.CREATE_DATE, 'YYYY-MM-DD')='${invoicesDATE}'
+		 	       </if>
+		 	       <if test="START_DATE !=null and START_DATE !='' ">  
+		 	       	   AND T2.CREATE_DATE>=TO_DATE('${START_DATE}','YYYY-MM-DD HH24:MI:SS')	 
+		 	       </if>
+		 	       <if test="END_DATE !=null and END_DATE !='' ">
+		 	       	   AND T2.CREATE_DATE&lt;=TO_DATE('${END_DATE}','YYYY-MM-DD HH24:MI:SS')	 
+		 	       </if>
+		 	       <if test="ORDER_ID !=null and ORDER_ID !='' ">
+		 	       	   AND T2.ORDER_ID='${ORDER_ID}'
+		 	       </if>
+		 	       <if test="MATERIA_ID !=null and MATERIA_ID !='' ">
+		 	       	   AND T2.MATERIA_ID LIKE '%${MATERIA_ID}%'	 
+		 	       </if>
+		 	       <if test="ITEM_NM !=null and ITEM_NM !='' ">
+		 	       	   AND T2.MATERIA_NAME LIKE '%${ITEM_NM}%'
+		 	       </if> 
+		 	       <if test="SUPPLIER_ID !=null and SUPPLIER_ID!='' ">
+		 	       	   AND T1.SUPPLIER_ID='${SUPPLIER_ID}'
+		 	       </if>
+		 	       <if test="SUP_NM !=null and SUP_NM !='' ">
+		 	       	   AND T2.SUPPLIER_NAME LIKE '%${SUP_NM}%'
+		 	       </if> 
+		 	       <if test="CT_MN !=null and CT_MN !='' ">
+		 	       	   AND T2.CONNECTOR_NAME LIKE '%${CT_MN}%'
+		 	       </if>
+		 	       <if test="PN_NB !=null and PN_NB !='' ">
+		 	       	   AND T2.CONNECTOR_PHONE='${PN_NB}'
+		 	       </if>
+		 	       <if test="P_DELIVE_DATE !=null and P_DELIVE_DATE !='' ">
+		 	       	   AND TO_CHAR(T2.P_DELIVE_DATE,'YYYY-MM-DD')='${P_DELIVE_DATE}'
+		 	       </if>	   
+		 	     </where>	
+		 	   	   ORDER BY T2.CREATE_DATE DESC	
+	   </select>	   
+	   <!-- 新增订单信息 -->
+	   <insert id="IndentInfoInsert"  parameterType="hashmap">
+	   		   INSERT INTO 	
+	   		   	  WMS1.WMS_ORDER_DETAIL
+	   		   	   	  (
+	 		   	   	   ORDER_ID,
+	 		   	   	   DETAIL_ID,
+					   CREATE_DATE,
+					   SUPPLIER_ID,
+					   SUPPLIER_NAME,
+					   CONNECTOR_NAME,
+					   CONNECTOR_PHONE,
+					   MATERIA_ID,
+					   MATERIA_NAME,
+					   PURCHASE_NUMBER,
+					   UNIT_ID,
+					   UNIT_NAME,
+					   P_DELIVE_DATE,
+					   DELIVE_NUMBER,
+					   CREATER_ID,
+					   SN_NUMBER,
+					   PRODUCT_DATE
+	   		   	   	  )
+	   		   	   	  (
+	   		   	   	  <foreach collection="list" item="item" index="index" separator="union all">
+	   		   	   	   	   SELECT 
+			   		   	   	   '${item.ORDER_ID}',
+			   		   	   	    iplant1.C_GET_UNIQUE_ID(),
+			   		   	   	    SYSDATE,
+			   		   	   	   '${item.SUPPLIER_ID}',
+			   		   	   	   (SELECT SUP_NM FROM IPLANT1.C_IPLANT_S3_T WHERE SUP_CD = '${item.SUPPLIER_ID}') ,
+          					   (SELECT CT_MN  FROM IPLANT1.C_IPLANT_S3_T WHERE SUP_CD = '${item.SUPPLIER_ID}') ,
+                               (SELECT PN_NB  FROM IPLANT1.C_IPLANT_S3_T WHERE SUP_CD = '${item.SUPPLIER_ID}') ,
+							   '${item.MATERIA_ID}',
+							   '${item.MATERIA_NAME}',
+							   '${item.PURCHASE_NUMBER}',
+							   '${item.UNIT_ID}',
+							   (SELECT UNIT_NAME FROM WMS1.WMS_UNIT WHERE UNIT_ID='${item.UNIT_ID}' ),
+							   TO_DATE('${item.P_DELIVE_DATE}','YYYY-MM-DD'),
+							   '${item.DELIVE_NUMBER}',
+							   '${F_USE_CD}',
+							   '${item.SN_NUMBER}',
+<!-- 							   '${item.PRODUCT_DATE}' -->
+							   TO_DATE('${item.PRODUCT_DATE}','YYYY-MM-DD HH24:MI:SS')
+						    FROM DUAL 	   
+					   </foreach>	   
+	   		   	   	  )	  
+	   </insert>	   
+	   <!-- 修改订单信息 -->
+	   <update id="IndentInfoUpdate" parameterType="java.util.HashMap">
+		<foreach collection="list" item="item" index="index" open="begin" close=";end;" separator=";">
+	   		   UPDATE WMS1.WMS_ORDER_DETAIL
+	   		   		  <set>
+	   		   		  	 <if test="item.SUPPLIER_ID !=null">
+	   		   		  	 	 SUPPLIER_ID='${item.SUPPLIER_ID}',
+	   		   		  	 </if>
+	   		   		  	 <if test="item.MATERIA_ID !=null">
+	   		   		  	 	 MATERIA_ID='${item.MATERIA_ID}',
+	   		   		  	 </if>	 
+	   		   		  	 <if test="item.UNIT_ID !=null">
+	   		   		  	 	 UNIT_ID='${item.UNIT_ID}',
+	   		   		  	 </if>	
+	   		   		  	 <if test="item.PURCHASE_NUMBER !=null">
+	   		   		  	 	 PURCHASE_NUMBER='${item.PURCHASE_NUMBER}', 
+	   		   		  	 </if>
+	   		   		  	 <if test="item.P_DELIVE_DATE !=null">
+	   		   		  	 	 P_DELIVE_DATE=TO_DATE('${item.P_DELIVE_DATE}','YYYY-MM-DD HH24:MI:SS'), 
+	   		   		  	 </if>
+	   		   		  	 <if test="item.DELIVE_NUMBER !=null">
+	   		   		  	 	 DELIVE_NUMBER='${item.DELIVE_NUMBER}',
+	   		   		  	 </if>
+	   		   		  	 <if test="item.SN_NUMBER !=null">
+	   		   		  	 	 SN_NUMBER='${item.SN_NUMBER}',
+	   		   		  	 </if>
+	   		   		  	 <if test="item.PRODUCT_DATE !=null">
+	   		   		  	 	 PRODUCT_DATE=TO_DATE('${item.PRODUCT_DATE}','YYYY-MM-DD HH24:MI:SS')
+	   		   		  	 </if>
+	   		   		  </set>
+	   		   		  <where>
+	   		   		  	  ORDER_ID='${item.ORDER_ID}' AND DETAIL_ID='${item.DETAIL_ID}'
+	   		   		  </where>
+	   		</foreach>   		  
+	   </update>	   
+	   <!-- 删除订单信息 -->
+	   <delete id="IndentInfoDelete" parameterType="hashmap" >
+	   		   DELETE WMS1.WMS_ORDER_DETAIL
+	   		   		  <where>
+	   		   		  	 ORDER_ID='${ORDER_ID}'  
+	   		   		 <!--  	 <if test="MATERIA_ID !=null and MATERIA_ID !='' ">
+	   		   		  	 	 AND MATERIA_ID='${MATERIA_ID}'
+	   		   		  	 </if> -->
+	   		   		  </where>	 
+	   </delete>   
+	   
+	   
+	   <!-- 出库单的增删改操作 -->
+	   <!-- 查询出库单 -->
+	   <select id="CheckOutInfoQuery"  parameterType="hashmap" resultType="java.util.HashMap">
+		   	<include refid="oraclePagingFileTop"></include>
+				CHECKOUT_ID, 
+				MATERIA_ID, 
+				MATERIA_NAME, 
+				CHECKOUT_TYPE, 
+				CHECKOUT_NUMBER, 
+				PICKUP_NUMBER, 
+				UNIT_ID, 
+				UNIT_NAME, 
+				WAREHOUSE_ID, 
+				WAREHOUSE_NAME, 
+				STORE_ID, 
+				STORE_NAME, 
+				SHELF_ID, 
+				SHELF_NAME, 
+				POSITION_ID, 
+				POSITION_NAME, 
+				TO_CHAR(CREATE_DATE,'YYYY-MM-DD HH24:MI:SS') AS CREATE_DATE,
+				CREATER_ID, 
+				PICKUP_PERSON, 
+				PICKUP_PERSON_ID, 
+				PICKUP_DATE
+				FROM WMS1.WMS_CHECKOUT
+				<where>  1=1
+					<if test="CHECKOUT_ID!=null and CHECKOUT_ID!=''">
+						and CHECKOUT_ID='${CHECKOUT_ID}'
+					</if>
+					<if test="CREATE_DATE!=null and CREATE_DATE!=''">
+						and CREATE_DATE='${CREATE_DATE}'
+					</if>
+					<if test="PICKUP_PERSON!=null and PICKUP_PERSON!=''">
+						and PICKUP_PERSON='${PICKUP_PERSON}'
+					</if>
+					<if test="CHECKOUT_TYPE!=null and CHECKOUT_TYPE!=''">
+						and CHECKOUT_TYPE='${CHECKOUT_TYPE}'
+					</if>
+					<if test="MATERIA_ID!=null and MATERIA_ID!=''">
+						and MATERIA_ID='${MATERIA_ID}'
+					</if>
+					<if test="CHECKOUT_NUMBER!=null and CHECKOUT_NUMBER!=''">
+						and CHECKOUT_NUMBER='${CHECKOUT_NUMBER}'
+					</if>
+					<if test="PICKUP_NUMBER!=null and PICKUP_NUMBER!=''">
+						and PICKUP_NUMBER='${PICKUP_NUMBER}'
+					</if>
+					<if test="WAREHOUSE_ID!=null and WAREHOUSE_ID!=''">
+						and WAREHOUSE_ID='${WAREHOUSE_ID}'
+					</if>
+				</where>
+		   <include refid="oraclePagingFileBottom"></include>
+	   </select>
+	   
+	   <!-- 查询出库单总数 -->
+	   <select id="CheckOutInfoQuery_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+	   	select count(1) AS ROWS_COUNT FROM WMS1.WMS_CHECKOUT
+	 			  	<where>  1=1
+					<if test="CHECKOUT_ID!=null and CHECKOUT_ID!=''">
+						and CHECKOUT_ID='${CHECKOUT_ID}'
+					</if>
+					<if test="CREATE_DATE!=null and CREATE_DATE!=''">
+						and CREATE_DATE='${CREATE_DATE}'
+					</if>
+					<if test="PICKUP_PERSON!=null and PICKUP_PERSON!=''">
+						and PICKUP_PERSON='${PICKUP_PERSON}'
+					</if>
+					<if test="CHECKOUT_TYPE!=null and CHECKOUT_TYPE!=''">
+						and CHECKOUT_TYPE='${CHECKOUT_TYPE}'
+					</if>
+					<if test="MATERIA_ID!=null and MATERIA_ID!=''">
+						and MATERIA_ID='${MATERIA_ID}'
+					</if>
+					<if test="CHECKOUT_NUMBER!=null and CHECKOUT_NUMBER!=''">
+						and CHECKOUT_NUMBER='${CHECKOUT_NUMBER}'
+					</if>
+					<if test="PICKUP_NUMBER!=null and PICKUP_NUMBER!=''">
+						and PICKUP_NUMBER='${PICKUP_NUMBER}'
+					</if>
+					<if test="WAREHOUSE_ID!=null and WAREHOUSE_ID!=''">
+						and WAREHOUSE_ID='${WAREHOUSE_ID}'
+					</if>
+				</where>
+	   </select>
+	   
+	   <!-- 级联底层查询操作 -->
+	   <!-- 查询出所有仓库的名称 及编码-->
+	   <select id="CheckWarehouseQueryInfo" parameterType="hashmap" resultType="java.util.HashMap">
+	   	SELECT WAREHOUSE_ID, 
+	       WAREHOUSE_NAME
+	       from wms1.wms_warehouse
+	      <where> 1=1
+      		<if test="WAREHOUSE_TYPE_ID !=null and WAREHOUSE_TYPE_ID !='' ">	
+	      	 and	WAREHOUSE_TYPE_ID='${WAREHOUSE_TYPE_ID}'
+	      	</if>	
+	      </where>
+	   </select>
+	   
+	   <!-- 查询出储区的名字及编码 -->
+	   <select id="CheckStorageQueryInfo" parameterType="hashmap" resultType="java.util.HashMap">
+	   	SELECT STORE_ID, 
+	       STORE_NAME
+	      from wms1.wms_store
+	      <where> 1=1
+      		<if test="WAREHOUSE_ID !=null and WAREHOUSE_ID !='' ">	
+	      	 and	WAREHOUSE_ID='${WAREHOUSE_ID}'
+	      	</if>	
+	      </where>
+	   </select>
+	   
+	   <!-- 查询出货架的名称及编码 -->
+	   <select id="CheckShelfQueryInfo" parameterType="hashmap" resultType="java.util.HashMap">
+	   		SELECT SHELF_ID,
+		      SHELF_NAME
+		       FROM WMS1.WMS_SHELF
+		       <where> 1=1
+		           <if test="STORE_ID !=null and STORE_ID !='' ">	
+		       		 and STORE_ID='${STORE_ID}'
+		       		</if>
+		       </where>
+	   </select>
+	   
+	   <!-- 查询出货位的名称及编码 -->
+	   <select id="CheckAllocationfQueryInfo" parameterType="hashmap" resultType="java.util.HashMap">
+	   		SELECT  POSITION_ID,
+	        	POSITION_NAME,
+	        	ROW_ID,
+	        	COLUMN_ID
+	            FROM WMS1.WMS_POSITION
+	            <where> 1=1
+		           <if test="SHELF_ID !=null and SHELF_ID !='' ">	
+	            	  and SHELF_ID='${SHELF_ID}'
+	            	</if>
+	            </where>
+	   </select>
+	   
+	   <!-- 查询出物料的信息 -->
+	   <select id="MaterialQueryInfo" parameterType="hashmap" resultType="java.util.HashMap">
+	   	SELECT MATERIA_ID,
+	       MATERIA_NAME
+	        FROM WMS1.WMS_POSITION
+	      <where>	1=1
+	      	<if test="POSITION_ID!=null and POSITION_ID!=''"> and POSITION_ID='${POSITION_ID}'</if>
+	      </where>
+	   </select>
+	    
+	  <!-- ==================================== 入库通知   ==================================== -->
+	  <!-- 查询入库通知单 -->
+	  <select id="WarehousingNoticeQuery" parameterType="hashmap" resultType="java.util.HashMap">
+	  		  <include refid="oraclePagingFileTop"></include>
+		  		   CC.*
+		  		      FROM
+		  		      	  (
+		  		      	   SELECT 
+		                         DISTINCT
+		                         T1.CHECKIN_ID,
+		                         T1.ORDER_ID,
+		                         T1.WAREHOUSE_ID,
+		                         T1.WAREHOUSE_NAME,
+		                         T1.STORE_ID,
+		                         T1.STORE_NAME,
+		                         T1.SHELF_ID,
+		                         T1.SHELF_NAME,
+		                         T1.POSITION_ID,
+		                         T1.POSITION_NAME,
+		                         T2.PURCHASE_NUMBER,
+		                         T2.UNIT_ID,
+		                         T2.UNIT_NAME,
+		                         T2.SUPPLIER_ID,
+		                         T2.SUPPLIER_NAME    AS SUP_NM,
+		                         T2.CONNECTOR_NAME   AS CT_MN,
+                         		 T2.CONNECTOR_PHONE  AS PN_NB,
+		                         T2.DELIVE_NUMBER,
+		                         TO_CHAR(T2.P_DELIVE_DATE,'YYYY-MM-DD HH24:MI:SS') AS P_DELIVE_DATE,
+		                         T2.MATERIA_ID,
+		                         T2.MATERIA_NAME AS ITEM_NM,
+		                         TO_CHAR(T1.CHECK_IN_DATE,'YYYY-MM-DD HH24:MI:SS') AS CHECK_IN_DATE,
+		                         A1.EMP_NM,       
+		                         TO_CHAR(T2.CREATE_DATE,'YYYY-MM-DD HH24:MI:SS')   AS CREATE_DATE  
+		                   FROM WMS1.WMS_CHECK_IN           T1
+		                   JOIN WMS1.WMS_ORDER_DETAIL       T2
+		                   ON T1.ORDER_ID=T2.ORDER_ID AND T1.SUPPLIER_ID=T2.SUPPLIER_ID
+		                   LEFT JOIN IPLANT1.C_IPLANT_E1_T  A1
+		                   ON T1.CREATER_ID=A1.ENG_NM
+				           <where> 1=1
+				              <if test="invoicesDATE !=null and invoicesDATE !='' ">
+					  		      AND TO_CHAR(T2.CREATE_DATE, 'YYYY-MM-DD')='${invoicesDATE}'
+				   			  </if>
+				           	  <if test="CHECKIN_ID !=null and CHECKIN_ID !='' ">
+				           	      AND T1.CHECKIN_ID='${CHECKIN_ID}'
+				           	  </if>
+				           	  <if test="ORDER_ID !=null and ORDER_ID !='' ">
+				           	      AND T1.ORDER_ID='${ORDER_ID}'
+				           	  </if>
+				           	  <if test="SUPPLIER_ID !=null and SUPPLIER_ID !='' ">
+				           	      AND T2.SUPPLIER_ID LIKE '%${SUPPLIER_ID}%'
+				           	  </if>
+				           	  <if test="START_DATE !=null and START_DATE !='' ">  
+			 	       	          AND T2.CREATE_DATE>=TO_DATE('${START_DATE}','YYYY-MM-DD HH24:MI:SS')	 
+			 	       		  </if>
+			 	              <if test="END_DATE !=null and END_DATE !='' ">
+			 	       	   		  AND T2.CREATE_DATE&lt;=TO_DATE('${END_DATE}','YYYY-MM-DD HH24:MI:SS')	 
+			 	              </if>
+			 	              <if test="MATERIA_ID !=null and MATERIA_ID!='' ">
+			 	              	  AND T2.MATERIA_ID LIKE '%${MATERIA_ID}%' 
+			 	              </if>
+			 	              <if test="PN_NB !=null and PN_NB != '' ">
+			 	              	  AND T2.CONNECTOR_PHONE LIKE '%${PN_NB}%' 
+			 	              </if>
+				           </where>
+				           	      ORDER BY CHECK_IN_DATE DESC
+				           )
+				           CC
+			<include refid="oraclePagingFileBottom"></include>           
+	  </select>  
+	  
+	  <!-- 查询入库通知单分页总数 -->
+	  <select id="WarehousingNoticeQuery_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+	  		  SELECT 
+	  		  	  COUNT(DISTINCT T2.P_DELIVE_DATE) AS ROWS_COUNT
+	  		   FROM WMS1.WMS_CHECK_IN           T1
+               JOIN WMS1.WMS_ORDER_DETAIL       T2
+               ON T1.ORDER_ID=T2.ORDER_ID AND T1.SUPPLIER_ID=T2.SUPPLIER_ID
+               LEFT JOIN IPLANT1.C_IPLANT_E1_T  A1
+               ON T1.CREATER_ID=A1.ENG_NM
+	          <where> 1=1
+	              <if test="invoicesDATE !=null and invoicesDATE !='' ">
+		  		      AND TO_CHAR(T2.CREATE_DATE, 'YYYY-MM-DD')='${invoicesDATE}'
+	   			  </if>
+	           	  <if test="CHECKIN_ID !=null and CHECKIN_ID !='' ">
+	           	      AND T1.CHECKIN_ID='${CHECKIN_ID}'
+	           	  </if>
+	           	  <if test="ORDER_ID !=null and ORDER_ID !='' ">
+	           	      AND T1.ORDER_ID='${ORDER_ID}'
+	           	  </if>
+	           	  <if test="SUPPLIER_ID !=null and SUPPLIER_ID !='' ">
+	           	      AND T2.SUPPLIER_ID LIKE '%${SUPPLIER_ID}%'
+	           	  </if>
+	           	  <if test="START_DATE !=null and START_DATE !='' ">  
+ 	       	          AND T2.CREATE_DATE>=TO_DATE('${START_DATE}','YYYY-MM-DD HH24:MI:SS')	 
+ 	       		  </if>
+ 	              <if test="END_DATE !=null and END_DATE !='' ">
+ 	       	   		  AND T2.CREATE_DATE&lt;=TO_DATE('${END_DATE}','YYYY-MM-DD HH24:MI:SS')	 
+ 	              </if>
+ 	              <if test="MATERIA_ID !=null and MATERIA_ID!='' ">
+ 	              	  AND T2.MATERIA_ID LIKE '%${MATERIA_ID}%' 
+ 	              </if>
+ 	              <if test="PN_NB !=null and PN_NB != '' ">
+ 	              	  AND T2.CONNECTOR_PHONE LIKE '%${PN_NB}%' 
+ 	              </if>
+	           </where>
+	  </select>
+	  
+	  <!-- 新增入库通知单 -->
+	  <insert id="WarehousingNoticeInsert" parameterType="hashmap">
+	  		  INSERT INTO 
+	          	   WMS1.WMS_CHECK_IN
+	          		  (
+	          		   CHECKIN_ID,
+					   ORDER_ID,
+					   WAREHOUSE_ID,
+					   WAREHOUSE_NAME,
+					   STORE_ID,
+					   STORE_NAME,
+					   SHELF_ID,
+					   SHELF_NAME,
+					   POSITION_ID,
+					   POSITION_NAME,
+					   PURCHASE_NUMBER,
+					   UNIT_ID,
+					   SUPPLIER_ID,
+					   MATERIA_ID,
+					   MATERIA_NAME,
+					   DELIVE_NUMBER,
+					   P_DILIVE_DATE,
+					   CHECK_IN_DATE,
+					   CREATER_ID,
+					   CREATE_DATE	
+	          		  )
+	          	   	  (
+	          	   	   <foreach collection="list" item="item" index="index" separator="union all">
+	          	   	   		SELECT
+	          	   	   			'${item.CHECKIN_ID}',
+	          	   	   			'${item.ORDER_ID}',	
+	          	   	   			'${item.WAREHOUSE_ID}',	 
+	          	   	   			(SELECT WAREHOUSE_NAME FROM WMS1.WMS_WAREHOUSE WHERE WAREHOUSE_ID='${item.WAREHOUSE_ID}'),
+	          	   	   			'${item.STORE_ID}',	
+	          	   	   			(SELECT STORE_NAME FROM WMS1.WMS_STORE WHERE STORE_ID='${item.STORE_ID}'),
+	          	   	   			'${item.SHELF_ID}',	
+	          	   	   			(SELECT SHELF_NAME FROM WMS1.WMS_SHELF WHERE SHELF_ID='${item.SHELF_ID}'),
+	          	   	   			'${item.POSITION_ID}',
+	          	   	   			(SELECT POSITION_NAME FROM WMS1.WMS_POSITION WHERE POSITION_ID='${item.POSITION_ID}'),
+	          	   	   			'${item.PURCHASE_NUMBER}',
+	          	   	   			(SELECT UNIT_ID FROM (SELECT * FROM WMS1.WMS_UNIT WHERE 
+	          	   	   			<if test="item.UNIT_NAME != null and item.UNIT_NAME != '' ">
+	          	   	   				UNIT_NAME='${item.UNIT_NAME}' ORDER BY UNIT_ID DESC) WHERE ROWNUM=1),
+	          	   	   			</if>	
+	          	   	   			<if test="item.UNIT_NAME=='' or item.UNIT_NAME ==null ">
+	          	   	   				UNIT_NAME IS NULL ORDER BY UNIT_ID DESC) WHERE ROWNUM=1),
+	          	   	   			</if>
+	          	   	   			(SELECT SUP_CD  FROM IPLANT1.C_IPLANT_S3_T  WHERE SUP_NM='${item.SUP_NM}'),
+	          	   	   			'${item.MATERIA_ID}',
+	          	   	   			'${item.MATERIA_NAME}',
+	          	   	   			'${item.DELIVE_NUMBER}',
+	          	   	   			TO_DATE('${item.P_DILIVE_DATE}','YYYY-MM-DD HH24:MI:SS'),
+	          	   	   			TO_DATE('${item.CHECK_IN_DATE}','YYYY-MM-DD HH24:MI:SS'),
+	          	   	   			'${F_USE_CD}',
+	          	   	   			TO_DATE('${item.CREATE_DATE}','YYYY-MM-DD HH24:MI:SS')
+	          	   	   		FROM DUAL	          	   	   		
+	          	   	   </foreach>
+	          	   	  )	  
+	  </insert>
+	  
+	  <!-- 修改入库通知单 -->
+	  <update id="WarehousingNoticeUpdate" parameterType="hashmap">
+	  		  UPDATE WMS1.WMS_CHECK_IN
+	  		  		 <set>
+	  		  		 	<if test="ORDER_ID !=null">
+	  		  		 	    ORDER_ID='${ORDER_ID}',
+	  		  		 	</if>
+	  		  		 	<if test="WAREHOUSE_ID !=null">
+	  		  		 	    WAREHOUSE_ID='${WAREHOUSE_ID}',
+	  		  		 	</if>
+	  		  		 	<if test="STORE_ID !=null">
+	  		  		 	    STORE_ID='${STORE_ID}'
+	  		  		 	</if>
+	  		  		 	<if test="SHELF_ID !=null">
+	  		  		 		SHELF_ID='${SHELF_ID}',  
+	  		  		 	</if>
+	  		  		 	<if test="POSITION_ID !=null">
+	  		  		 		POSITION_ID='${POSITION_ID}',  
+	  		  		 	</if>
+	  		  		 	<if test="PURCHASE_NUMBER !=null">
+	  		  		 		PURCHASE_NUMBER='${PURCHASE_NUMBER}',  
+	  		  		 	</if>
+	  		  		 	<if test="UNIT_ID !=null">
+	  		  		 		UNIT_ID='${UNIT_ID}',  
+	  		  		 	</if>
+	  		  		 	<if test="SUPPLIER_ID !=null">
+	  		  		 		SUPPLIER_ID='${SUPPLIER_ID}',  
+	  		  		 	</if>
+	  		  		 	<if test="MATERIA_ID !=null">
+	  		  		 		MATERIA_ID='${MATERIA_ID}'
+	  		  		 	</if>	  		  		 	  		  		 	
+	  		  		 </set>
+	  		  		 <where>
+	  		  		     CHECKIN_ID='${CHECKIN_ID}'		
+	  		  		 </where>
+	  
+	  </update>
+	  
+	  <!-- 删除入库通知单 -->
+	  <delete id="WarehousingNoticeDelete" parameterType="hashmap">
+	  		  DELETE WMS1.WMS_CHECK_IN
+	  		  		<where>
+	  		  			CHECKIN_ID='${CHECKIN_ID}'		
+	  		  		</where>
+	  </delete> 
+	  
+	  <!-- 查询出计量单位的名称和ID -->
+	  <select id="UnitQueryInfo" parameterType="hashmap" resultType="java.util.HashMap">
+	  	SELECT  UNIT_ID,
+        UNIT_NAME
+          FROM WMS1.WMS_UNIT
+	  </select>
+	  
+	  <!-- 添加出库单 -->
+	  <insert id="CheckOutInsert" parameterType="hashmap">
+	  	INSERT INTO WMS1.WMS_CHECKOUT
+			(
+			    CHECKOUT_ID, 
+			    MATERIA_ID, 
+			    MATERIA_NAME, 
+			    CHECKOUT_TYPE, 
+			    CHECKOUT_NUMBER, 
+			    PICKUP_NUMBER, 
+			    UNIT_ID, 
+			    UNIT_NAME, 
+			    WAREHOUSE_ID, 
+			    WAREHOUSE_NAME, 
+			    STORE_ID, 
+			    STORE_NAME, 
+			    SHELF_ID, 
+			    SHELF_NAME, 
+			    POSITION_ID, 
+			    POSITION_NAME, 
+			    CREATE_DATE, 
+			    CREATER_ID, 
+			    PICKUP_PERSON, 
+			    PICKUP_PERSON_ID, 
+			    PICKUP_DATE   
+			)
+			VALUES
+			(
+			    '${CHECKOUT_ID}',
+			    '${MATERIA_ID}',
+			    '${MATERIA_NAME}',
+			    '${CHECKOUT_TYPE}',
+			    '${CHECKOUT_NUMBER}',
+			    '${PICKUP_NUMBER}',
+			    '${UNIT_ID}',
+			    '${UNIT_NAME}',
+			    '${WAREHOUSE_ID}',
+			    '${WAREHOUSE_NAME}',
+			    '${STORE_ID}',
+			    '${STORE_NAME}',
+			    '${SHELF_ID}',
+			    '${SHELF_NAME}',
+			    '${POSITION_ID}',
+			    '${POSITION_NAME}',
+			     SYSDATE,
+			    '${F_USE_CD}',
+			    '${PICKUP_PERSON}',
+			    '${PICKUP_PERSON_ID}',
+			     SYSDATE
+			)
+	  </insert>
+	  
+	  <!-- 修改出库单 -->
+	  <update id="CheckOutUpdate" parameterType="hashmap">
+	  	UPDATE WMS1.WMS_CHECKOUT SET 
+			MATERIA_ID='${MATERIA_ID}', 
+			MATERIA_NAME='${MATERIA_NAME}', 
+			CHECKOUT_TYPE='${CHECKOUT_TYPE}', 
+			CHECKOUT_NUMBER='${CHECKOUT_NUMBER}', 
+			PICKUP_NUMBER='${PICKUP_NUMBER}', 
+			UNIT_ID='${UNIT_ID}', 
+			UNIT_NAME='${UNIT_NAME}', 
+			WAREHOUSE_ID='${WAREHOUSE_ID}', 
+			WAREHOUSE_NAME='${WAREHOUSE_NAME}', 
+			STORE_ID='${STORE_ID}', 
+			STORE_NAME='${STORE_NAME}', 
+			SHELF_ID='${SHELF_ID}', 
+			SHELF_NAME='${SHELF_NAME}', 
+			POSITION_ID='${POSITION_ID}', 
+			POSITION_NAME='${POSITION_NAME}', 
+			PICKUP_PERSON='${PICKUP_PERSON}', 
+			PICKUP_PERSON_ID='${PICKUP_PERSON_ID}', 
+			PICKUP_DATE='${PICKUP_DATE}'
+			WHERE CHECKOUT_ID='${CHECKOUT_ID}'
+	  </update>
+	  
+	  <!-- 删除出库单 -->
+	  <delete id="CheckOutDelete" parameterType="hashmap" >
+	  	DELETE WMS1.WMS_CHECKOUT WHERE CHECKOUT_ID='${CHECKOUT_ID}'
+	  </delete>
+	  
+	  <!-- 拣货单操作 -->
+	  <!-- 查询拣货单数据拣货单号不重复 -->
+	  <select id="PickInfoQuery" parameterType="hashmap" resultType="java.util.HashMap">
+	  	<include refid="oraclePagingFileTop"></include>
+	  		DETAIL_ID,
+			PICKUP_ID, 
+			WAREHOUSE_ID, 
+			WAREHOUSE_NAME, 
+			STORE_ID, 
+			STORE_NAME, 
+			SHELF_ID, 
+			SHELF_NAME, 
+			MATERIA_ID, 
+			MATERIA_NAME, 
+			PICKUP_NUMBER, 
+			UNIT_ID, 
+			UNIT_NAME, 
+			CREATE_ID, 
+			CREATE_NAME, 
+			PICKUPER_ID, 
+			PICKUPER_NAME, 
+			TO_CHAR(CREATE_DATE,'YYYY-MM-DD HH24:MI:SS') AS CREATE_DATE,
+			PICKUP_DATE
+			 FROM (select * from WMS1.WMS_PICK_UP_DETAIL w where w.rowid  in
+				(
+				select min(w1.rowid) from WMS1.WMS_PICK_UP_DETAIL w1 where w1.pickup_id = w.pickup_id
+				))
+			 <where> 1=1
+			 	<if test="PICKUP_ID!=null and PICKUP_ID!=''">
+			 		and PICKUP_ID='${PICKUP_ID}'
+			 	</if>
+			 	<if test="PICKUP_DATE!=null and PICKUP_DATE!=''">
+			 		and PICKUP_DATE='${PICKUP_DATE}'
+			 	</if>
+			 	<if test="WAREHOUSE_ID!=null and WAREHOUSE_ID!=''">
+			 		and WAREHOUSE_ID='${WAREHOUSE_ID}'
+			 	</if>
+			 	<if test="PICKUPER_ID!=null and PICKUPER_ID!=''">
+			 		and PICKUPER_ID='${PICKUPER_ID}'
+			 	</if>
+			 </where>
+			 <include refid="oraclePagingFileBottom"></include>
+	  </select>
+	  
+	  <!-- 查询出子节点的数据 -->
+	  <select id="PickInfoChildrenQuery" parameterType="hashmap" resultType="java.util.HashMap">
+	  	select
+	  		DETAIL_ID, 
+	  		PICKUP_ID, 
+			WAREHOUSE_ID, 
+			WAREHOUSE_NAME, 
+			STORE_ID, 
+			STORE_NAME, 
+			SHELF_ID, 
+			SHELF_NAME, 
+			MATERIA_ID, 
+			MATERIA_NAME, 
+			PICKUP_NUMBER, 
+			UNIT_ID, 
+			UNIT_NAME, 
+			CREATE_ID, 
+			CREATE_NAME,
+			POSITION_ID, 
+			POSITION_NAME, 
+			PICKUPER_ID, 
+			PICKUPER_NAME, 
+			TO_CHAR(CREATE_DATE,'YYYY-MM-DD HH24:MI:SS') AS CREATE_DATE,
+			PICKUP_DATE
+			FROM WMS1.WMS_PICK_UP_DETAIL
+			where PICKUP_ID='${PICKUP_ID}' 
+	  </select>
+	  
+	  <!-- 拣货单总数量 -->
+	  <select id="PickInfoQuery_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+	  	SELECT 
+			count(1) AS ROWS_COUNT
+			 FROM  WMS1.WMS_PICK_UP
+			  <where> 1=1
+			 	<if test="PICKUP_ID!=null and PICKUP_ID!=''">
+			 		and PICKUP_ID='${PICKUP_ID}'
+			 	</if>
+			 	<if test="PICKUP_DATE!=null and PICKUP_DATE!=''">
+			 		and PICKUP_DATE='${PICKUP_DATE}'
+			 	</if>
+			 	<if test="WAREHOUSE_ID!=null and WAREHOUSE_ID!=''">
+			 		and WAREHOUSE_ID='${WAREHOUSE_ID}'
+			 	</if>
+			 	<if test="PICKUPER_ID!=null and PICKUPER_ID!=''">
+			 		and PICKUPER_ID='${PICKUPER_ID}'
+			 	</if>
+			 </where>
+	  </select>
+	  
+	  <!-- 添加将货单 -->
+	  <insert id="PickInsert" parameterType="hashmap">
+	  	insert into WMS1.WMS_PICK_UP_DETAIL
+			(
+		      PICKUP_ID, 
+		      DETAIL_ID, 
+		      WAREHOUSE_ID, 
+		      WAREHOUSE_NAME, 
+		      STORE_ID, 
+		      STORE_NAME, 
+		      SHELF_ID, 
+		      SHELF_NAME, 
+		      POSITION_ID, 
+		      POSITION_NAME, 
+		      MATERIA_ID, 
+		      MATERIA_NAME, 
+		      PICKUP_NUMBER, 
+		      UNIT_ID, 
+		      UNIT_NAME, 
+		      CREATE_ID, 
+		      CREATE_NAME, 
+		      PICKUPER_ID, 
+		      PICKUPER_NAME, 
+		      CREATE_DATE, 
+		      PICKUP_DATE
+			)
+			VALUES
+			(
+			   '${PICKUP_ID}',
+			   '${DETAIL_ID}',
+			   '${WAREHOUSE_ID}',
+			   '${WAREHOUSE_NAME}',
+			   '${STORE_ID}',
+			   '${STORE_NAME}',
+			   '${SHELF_ID}',
+			   '${SHELF_NAME}',
+			   '${POSITION_ID}',
+			   '${POSITION_NAME}',
+			   '${MATERIA_ID}',
+			   '${MATERIA_NAME}',
+			   '${PICKUP_NUMBER}',
+			   '${UNIT_ID}',
+			   '${UNIT_NAME}',
+			   '${F_USE_CD}',
+			   '${CREATE_NAME}',
+			   '${F_USE_CD}',
+			   '${PICKUPER_NAME}',
+			   SYSDATE,
+			   SYSDATE
+			)
+	  </insert>
+	  
+	  <!-- 根据ID查询出拣货单的一条数据 -->
+	  <select id="PickInfoQueryOne" parameterType="hashmap" resultType="java.util.HashMap">
+	  	SELECT 
+			PICKUP_ID, 
+			WAREHOUSE_ID, 
+			WAREHOUSE_NAME, 
+			STORE_ID, 
+			STORE_NAME, 
+			SHELF_ID, 
+			SHELF_NAME, 
+			MATERIA_ID, 
+			MATERIA_NAME, 
+			PICKUP_NUMBER, 
+			UNIT_ID, 
+			UNIT_NAME, 
+			CREATE_ID, 
+			CREATE_NAME, 
+			PICKUPER_ID, 
+			PICKUPER_NAME, 
+			CREATE_DATE, 
+			PICKUP_DATE
+			 FROM WMS1.WMS_PICK_UP
+			 where PICKUP_ID='${PICKUP_ID}'
+	  </select>
+	  
+	  
+	  <!-- 删除拣货单（子节点数据） -->
+	  <delete id="PickDelete"  parameterType="hashmap">
+	  	delete WMS1.WMS_PICK_UP_DETAIL where DETAIL_ID='${DETAIL_ID}'
+	  </delete>
+	  
+	  <!-- 修改拣货单 -->
+	  <update id="PickUpdate" parameterType="hashmap">
+	  		UPDATE WMS1.WMS_PICK_UP_DETAIL SET 
+	  						<if test="WAREHOUSE_ID!=null and WAREHOUSE_ID!='' and WAREHOUSE_ID!='undefined'">
+	  							WAREHOUSE_ID='${WAREHOUSE_ID}',
+	  						</if>
+                            <if test="WAREHOUSE_NAME!=null and WAREHOUSE_NAME!='' and WAREHOUSE_NAME!='undefined'">
+                            	WAREHOUSE_NAME='${WAREHOUSE_NAME}', 
+                            </if>
+                            <if test="STORE_ID!=null and STORE_ID!='' and  STORE_ID!='undefined'">
+                            	STORE_ID='${STORE_ID}', 
+                            </if>
+                            <if test="STORE_NAME!=null and STORE_NAME!='' and STORE_NAME!='undefined'">
+                            	STORE_NAME='${STORE_NAME}',
+                            </if>
+                            <if test="SHELF_ID!=null and SHELF_ID!='undefined'">
+                            	SHELF_ID='${SHELF_ID}',
+                            </if>
+                            <if test="SHELF_NAME!=null and SHELF_NAME!='' and SHELF_NAME!='undefined'">
+                            	SHELF_NAME='${SHELF_NAME}',
+                            </if>
+                            <if test="POSITION_ID!=null and POSITION_ID!='' and POSITION_ID!='undefined'">
+                            	POSITION_ID='${POSITION_ID}',
+                            </if>
+                            <if test="POSITION_NAME!=null and POSITION_NAME!='' and POSITION_NAME!='undefined'">
+                            	POSITION_NAME='${POSITION_NAME}',
+                            </if>
+                            <if test="MATERIA_ID!=null and MATERIA_ID!='' and MATERIA_ID!='undefined'">
+                            	MATERIA_ID='${MATERIA_ID}',
+                            </if>
+                            <if test="MATERIA_NAME!=null and MATERIA_NAME!='' and MATERIA_NAME!='undefined'">
+                            	MATERIA_NAME='${MATERIA_NAME}',
+                            </if>
+                            <if test="PICKUP_NUMBER!=null and PICKUP_NUMBER!='' and PICKUP_NUMBER!='undefined'">
+                            	PICKUP_NUMBER='${PICKUP_NUMBER}',
+                            </if>
+                            <if test="UNIT_ID!=null and UNIT_ID!='' and UNIT_ID!='undefined'">
+                            	UNIT_ID='${UNIT_ID}',
+                            </if>
+                            <if test="UNIT_NAME!=null and UNIT_NAME!='' and UNIT_NAME!='undefined'">
+                            	UNIT_NAME='${UNIT_NAME}',
+                            </if>
+                            <if test="CREATE_NAME!=null and CREATE_NAME!='' and CREATE_NAME!='undefined'">
+                            	CREATE_NAME='${CREATE_NAME}', 
+                            </if>
+                            <if test="PICKUPER_NAME!=null and PICKUPER_NAME!='' and PICKUPER_NAME!='undefined'">
+                            	PICKUPER_NAME='${PICKUPER_NAME}',
+                            </if>  
+                            pickup_date=SYSDATE
+                            WHERE  DETAIL_ID='${DETAIL_ID}'
+	  </update>
+	  
+	  <!-- 查询未入通知单的订单信息 -->
+	  <select id="IndentNotQuery" parameterType="hashmap" resultType="java.util.HashMap">
+	  		 SELECT 
+			     T2.ORDER_ID,
+			     TO_CHAR(T2.CREATE_DATE,'YYYY-MM-DD HH24:MI:SS') AS CREATE_DATE,
+			     T2.SUPPLIER_ID,
+			     T2.SUPPLIER_NAME   AS SUP_NM,
+			     T2.CONNECTOR_NAME  AS CT_MN,
+			     T2.CONNECTOR_PHONE AS PN_NB,
+			     T2.MATERIA_ID,
+			     T2.MATERIA_NAME   AS ITEM_NM,
+			     T2.PURCHASE_NUMBER,
+			     T2.UNIT_ID,
+			     T2.UNIT_NAME,
+			     TO_CHAR(T2.P_DELIVE_DATE,'YYYY-MM-DD HH24:MI:SS') AS P_DELIVE_DATE,
+			     T2.DELIVE_NUMBER,
+			     T2.CREATER_ID,
+			     T3.EMP_NM 
+			  FROM WMS1.WMS_ORDER	           T1
+			  JOIN WMS1.WMS_ORDER_DETAIL T2
+			  ON T1.ORDER_ID=T2.ORDER_ID 
+			  LEFT JOIN IPLANT1.C_IPLANT_E1_T T3
+			  ON T2.CREATER_ID=T3.ENG_NM 
+			 <where> T2.ORDER_ID NOT IN (SELECT ORDER_ID FROM WMS1.WMS_CHECK_IN)
+			 	 	 AND T2.MATERIA_ID=(SELECT MAX(MATERIA_ID) FROM WMS1.WMS_ORDER_DETAIL T4 WHERE T4.ORDER_ID=T1.ORDER_ID)
+				 <if test="invoicesDATE !=null and invoicesDATE !='' ">
+					 AND TO_CHAR(T2.CREATE_DATE, 'YYYY-MM-DD')='${invoicesDATE}'
+				 </if>
+	 	         <if test="START_DATE !=null and START_DATE !='' ">  
+	 	       	    AND T2.CREATE_DATE>=TO_DATE('${START_DATE}','YYYY-MM-DD HH24:MI:SS')	 
+	 	         </if>
+	 	         <if test="END_DATE !=null and END_DATE !='' ">
+	 	       	    AND T2.CREATE_DATE&lt;=TO_DATE('${END_DATE}','YYYY-MM-DD HH24:MI:SS')	 
+	 	         </if>
+	 	         <if test="ORDER_ID !=null and ORDER_ID !='' ">
+	 	       	    AND T2.ORDER_ID='${ORDER_ID}'
+	 	         </if>
+	 	         <if test="MATERIA_ID !=null and MATERIA_ID !='' ">
+	 	       	    AND T2.MATERIA_ID LIKE '%${MATERIA_ID}%'	 
+	 	         </if>
+	 	         <if test="ITEM_NM !=null and ITEM_NM !='' ">
+	 	       	    AND T2.MATERIA_NAME LIKE '%${ITEM_NM}%'
+	 	         </if> 
+	 	         <if test="SUPPLIER_ID !=null and SUPPLIER_ID!='' ">
+	 	       	    AND T1.SUPPLIER_ID='${SUPPLIER_ID}'
+	 	         </if>
+	 	         <if test="SUP_NM !=null and SUP_NM !='' ">
+	 	       	    AND T2.SUPPLIER_NAME LIKE '%${SUP_NM}%'
+	 	         </if> 
+	 	         <if test="CT_MN !=null and CT_MN !='' ">
+	 	       	    AND T2.CONNECTOR_NAME LIKE '%${CT_MN}%'
+	 	         </if>
+	 	         <if test="PN_NB !=null and PN_NB !='' ">
+	 	       	    AND T2.CONNECTOR_PHONE='${PN_NB}'
+	 	         </if>
+	 	         <if test="P_DELIVE_DATE !=null and P_DELIVE_DATE !='' ">
+	 	        	AND TO_CHAR(T2.P_DELIVE_DATE,'YYYY-MM-DD')='${P_DELIVE_DATE}'
+	 	         </if>  	   
+            </where>  	                	
+	  </select>
+	  
+	  <!-- 生成采购单号 -->
+	  <select id="orderIdRules" parameterType="hashmap" resultType="java.util.HashMap">
+	  		  SELECT iplant1.C_GET_UNIQUE_ID() AS ORDER_ID FROM  DUAL
+	  </select>
+	  
+	  
+	  <!-- 订单主表管理   -->
+	  <!-- 查询订单主表 -->
+	  <select id="OrderInfoMainQuery" parameterType="hashmap" resultType="java.util.HashMap">
+	  		  SELECT ORDER_ID,
+	  		  		 ORDER_TYPE,
+	  		  		 CREATE_DATE,
+	  		  		 CREATOR
+	  		  FROM   WMS1.WMS_ORDER	
+	  		  <where> 1=1
+	  		  	  <if test="ORDER_ID !=null and ORDER_ID !='' ">
+	  		  	      AND ORDER_ID='${ORDER_ID}'
+	  		  	  </if>
+	  		  	  <if test="ORDER_TYPE !=null and ORDER_TYPE !='' ">
+	  		  	      AND ORDER_TYPE='${ORDER_TYPE}' 
+	  		  	  </if>
+	  		  </where>	 
+	  </select>
+	  
+	  <!-- 新增订单主表 -->
+	  <insert id="OrderInfoMainInsert" parameterType="hashmap">
+	  		  INSERT INTO 
+	  		  	  WMS1.WMS_ORDER
+	  		  		(
+	  		  		 ORDER_ID,
+	  		  		 ORDER_TYPE,
+	  		  		 CREATE_DATE,
+	  		  		 CREATOR,
+	  		  		 P_DELIVE_DATE,
+	  		  		 SN_NUMBER,
+	  		  		 SUPPLIER_ID,
+	  		  		 SUPPLIER_NAME
+	  		  		)
+     		  	  VALUES	
+	  		  		(
+	  		  		'${ORDER_ID}',
+	  		  	  	'${ORDER_TYPE}',
+	  		  	  	SYSDATE,
+	  		  	  <if test=" F_USE_CD !=null and F_USE_CD!= '' ">	
+	  		  	  	'${F_USE_CD}',
+	  		  	  </if>	
+	  		  	  <if test=" F_USE_CD=='' and F_USE_CD==null ">
+	  		  	  	'admin',
+	  		  	  </if>
+	  		  	  <if test=" P_DELIVE_DATE !=null and P_DELIVE_DATE!= '' ">
+	  		  	  	TO_DATE('${P_DELIVE_DATE}','YYYY-MM-DD HH24:MI:SS'),
+	  		  	  </if>
+	  		  	  <if test=" SN_NUMBER !=null and SN_NUMBER!= '' ">
+	  		  	  '${SN_NUMBER}',
+	  		  	  </if>
+	  		  	  <if test=" SUPPLIER_ID !=null and SUPPLIER_ID !='' ">
+	  		  	  '${SUPPLIER_ID}',
+	  		  	  </if>
+	  		  	  <if test=" SUPPLIER_NAME !=null and SUPPLIER_NAME !='' ">
+	  		  	  '${SUPPLIER_NAME}'
+	  		  	  </if>
+	  		  		)
+	  </insert>
+	  
+	  <!-- 修改订单主表 -->
+	  <update id="OrderInfoMainUpdate" parameterType="hashmap">
+	  		  UPDATE WMS1.WMS_ORDER
+	  			   <set>
+	  			   	 <if test="ORDER_TYPE !=null">
+	  			   	 	 ORDER_TYPE='${ORDER_TYPE}',
+	  			   	 </if>
+	  			   	 <if test="P_DELIVE_DATE !=null">
+	  			   	 	 P_DELIVE_DATE=TO_DATE('${P_DELIVE_DATE}','YYYY-MM-DD HH24:MI:SS'),
+	  			   	 </if>
+	  			   	 <if test="SN_NUMBER !=null">
+	  			   	 	 SN_NUMBER='${SN_NUMBER}',
+	  			   	 </if>
+	  			   	 <if test="SUPPLIER_ID !=null">
+	  			   	 	 SUPPLIER_ID='${SUPPLIER_ID}',
+	  			   	 </if>
+	  			   	 <if test="SUPPLIER_NAME !=null">
+	  			   	 	 SUPPLIER_NAME='${SUPPLIER_NAME}'
+	  			   	 </if>
+	  			   </set> 
+	  			   <where>
+	  			   	   ORDER_ID='${ORDER_ID}'
+	  			   </where>
+	  </update>
+	  
+	  <!-- 删除订单主表 -->
+	  <delete id="OrderInfoMainDelete" parameterType="hashmap">
+	  		  DELETE WMS1.WMS_ORDER
+	  		  	 <where>
+	  		  	 	 ORDER_ID='${ORDER_ID}'
+	  		  	 </where>
+	  </delete>
+	  
+
+
+  <!-- 查询未入库单的订单信息 -->
+  <select id="IndentNotQuerys" parameterType="hashmap" resultType="java.util.HashMap">
+          SELECT 
+		     T2.ORDER_ID,
+		     TO_CHAR(T2.CREATE_DATE,'YYYY-MM-DD HH24:MI:SS') AS CREATE_DATE,
+		     T2.SUPPLIER_ID,
+		     T2.SUPPLIER_NAME   AS SUP_NM,
+		     T2.CONNECTOR_NAME  AS CT_MN,
+		     T2.CONNECTOR_PHONE AS PN_NB,
+		     T2.MATERIA_ID,
+		     T2.MATERIA_NAME   AS ITEM_NM,
+		     T2.PURCHASE_NUMBER,
+		     T2.UNIT_ID,
+		     T2.UNIT_NAME,
+		     TO_CHAR(T2.P_DELIVE_DATE,'YYYY-MM-DD HH24:MI:SS') AS P_DELIVE_DATE,
+		     T2.DELIVE_NUMBER,
+		     T2.CREATER_ID,
+		     T3.EMP_NM 
+		  FROM WMS1.WMS_ORDER	           T1
+		  JOIN WMS1.WMS_ORDER_DETAIL T2
+		  ON T1.ORDER_ID=T2.ORDER_ID 
+		  LEFT JOIN IPLANT1.C_IPLANT_E1_T T3
+		  ON T2.CREATER_ID=T3.ENG_NM 
+		 <where> T2.ORDER_ID NOT IN (SELECT ORDER_ID FROM WMS1.WMS_CHECK_IN)
+ 	         <if test="ORDER_ID !=null and ORDER_ID !='' ">
+ 	       	    AND T2.ORDER_ID='${ORDER_ID}'
+ 	         </if>	   
+           </where>  	          
+  </select>
+
+	<!-- 删除拣货单主从表的数据 -->
+	<select id="DeleteWmsPickUp" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap">
+	  	{
+	  		call WMS1.warehouse_in_out.deleteWms_pick_up('${PICKUP_ID}',
+	  				#{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=messageDetails},
+    				#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, 
+    				#{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},
+    				#{ROWS_COUNT,jdbcType=INTEGER,mode=OUT,javaType=Integer})
+	  	}
+	 </select>
+
+	<!-- 新增物料打包数据 -->
+	  <insert id="CheckinPackageInsert" parameterType="hashmap">
+	  		  INSERT INTO 
+	  		  	  WMS1.WMS_CHECKIN_PACKAGE
+	  		  		(
+	  		  		 CHECKIN_ID,
+	  		  		 MATERIA_ID,
+	  		  		 MATERIA_NAME,
+	  		  		 UNIT_ID,
+	  		  		 UNIT_NAME,
+	  		  		 PACKAGE_NUMBER, 
+	  		  		 PACKAGE_CAPACITY,
+	  		  		 BARCODE,
+	  		  		 IQC_PASSED,
+	  		  		 CHECKIN_STATUS,
+	  		  		 CREATE_DATE,
+	  		  		 DETAIL
+	  		  		)
+     		  	  (<foreach collection="list" item="item" index="index" separator="union all"  >	
+	  		  		SELECT 
+		  		  		'${item.CHECKIN_ID}',
+		  		  	  	'${item.MATERIA_ID}',
+		  		  	  	'${item.MATERIA_NAME}',
+		  		  	  	'${item.UNIT_ID}',
+		  		  	  	'${item.UNIT_NAME}',
+		  		  	  	'${item.PACKAGE_NUMBER}',
+		  		  	  	'${item.PACKAGE_CAPACITY}',
+		  		  	  	'${item.BARCODE}',
+		  		  	  	'${item.IQC_PASSED}',
+		  		  	  	'ENT01.01',
+		  		  	  	SYSDATE,
+		  		  	  	'${item.DETAIL}'
+	  		  	  	 FROM DUAL
+	  		  	  <!-- <if test=" F_USE_CD=='' and F_USE_CD==null ">
+	  		  	  	'admin'
+	  		  	  </if> -->
+	  		  	  </foreach>) 
+	  </insert>
+	
+	  <!-- 查询未入库单的订单信息 -->
+  <select id="CheckinPackageQuerys" parameterType="hashmap" resultType="java.util.HashMap">
+          SELECT 
+		     T1.CHECKIN_ID,
+		     T1.MATERIA_ID,
+		     T1.MATERIA_NAME,
+		     T1.UNIT_ID,
+		     T1.UNIT_NAME,
+		     T1.PACKAGE_NUMBER,
+		     T1.PACKAGE_CAPACITY,
+		     T1.BARCODE,
+		     T1.IQC_PASSED,
+		     T1.CHECKIN_STATUS,
+		     T1.DETAIL,
+		     TO_CHAR(T1.CREATE_DATE,'YYYY-MM-DD HH24:MI:SS') AS CREATE_DATE,
+		     TO_CHAR(T1.UPDATE_DATE,'YYYY-MM-DD HH24:MI:SS') AS UPDATE_DATE
+		  FROM WMS1.WMS_CHECKIN_PACKAGE	           T1
+		  JOIN WMS1.WMS_CHECK_IN T2
+		  ON T1.CHECKIN_ID=T2.CHECKIN_ID 
+		  <where> 
+ 	         <if test="CHECKIN_ID !=null and CHECKIN_ID !='' ">
+ 	       	     AND T1.CHECKIN_ID='${CHECKIN_ID}'
+ 	         </if>	 
+ 	         <if test="CHECKIN_ID !=null and CHECKIN_ID !='' ">
+ 	       	     AND T1.MATERIA_ID='${MATERIA_ID}'
+ 	         </if>  
+           </where>  	          
+  </select>
+  
+  <!-- 保存物料和唯一码对应关系信息 -->
+  <select id="materiaPackageInfoAdd" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap">
+		
+		{call MM_VENDOR_DELIVERY.mm_vendor_delivery('${ORDERID}','${DETAILID}','${MATERIAID}','${MATERIANAME}','${UNITID}',
+					'${UNITNAME}','${DELIVERYNUMBER}','${PACKAGECAPACITY}','${BARCODE}','${SN}',
+					#{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=checkInResult},
+    				#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, 
+    				#{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},
+    				#{ROWS_COUNT,jdbcType=INTEGER,mode=OUT,javaType=Integer})}
+	
+  </select>
+  
+  <!-- 删除采购订单数据 -->
+  <select id="orderInfoDelete" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap">
+		
+		{call MM_VENDOR_DELIVERY.mm_orderInfo_delete('${ORDERID}','${BARCODE}','${MATERIAID}','${DELETETYPE}',
+					#{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=checkInResult},
+    				#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, 
+    				#{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},
+    				#{ROWS_COUNT,jdbcType=INTEGER,mode=OUT,javaType=Integer})}
+	
+  </select>
+
+	<!-- 查询物料打包数据 -->
+  <select id="materiaPackageInfoQuery" parameterType="hashmap" resultType="java.util.HashMap">
+          SELECT A.ORDER_ID,
+		       A.DETAIL_ID,
+		       A.MATERIA_ID,
+		       A.MATERIA_NAME,
+		       A.UNIT_ID,
+		       A.UNIT_NAME,
+		       A.PACKAGE_NUMBER,
+		       A.PACKAGE_CAPACITY,
+		       A.BARCODE,
+		       to_char(A.CREATE_DATE,'yyyy-mm-dd hh24:mi:ss') CREATE_DATE,
+		       A.SN_NUMBER,
+		       A.CHECKIN_STATUS
+		FROM WMS1.WMS_CHECKIN_PACKAGE A
+		WHERE 1 = 1 
+		<if test="ORDER_ID !=null and ORDER_ID !='' ">
+			AND A.ORDER_ID = '${ORDER_ID}'   
+		</if>
+		<if test="DETAIL_ID !=null and DETAIL_ID !='' ">
+			AND A.DETAIL_ID = '${DETAIL_ID}'   
+		</if>
+		<if test="MATERIA_ID !=null and MATERIA_ID !='' ">
+			AND A.MATERIA_ID = '${MATERIA_ID}'   
+		</if>
+  </select>
+  
+  <!-- 查询货位详情数据 -->
+  <select id="positionMateriaInfoQuery" parameterType="hashmap" resultType="java.util.HashMap">
+          SELECT P.POSITION_ID,
+		       P.ROW_ID,
+		       P.COLUMN_ID,
+		       P.BARCODE,
+		       P.POS_BARCODE,
+		       C.MATERIA_ID,
+		       C.MATERIA_NAME,
+		       C.PACKAGE_NUMBER,
+		       C.PACKAGE_CAPACITY,
+		       C.UNIT_ID P_UNIT_ID,
+		       C.UNIT_NAME P_UNIT_NAME,
+		       D.ORDER_ID,
+		       D.PURCHASE_NUMBER,
+		       D.DELIVE_NUMBER,
+		       D.SN_NUMBER,
+		       to_char(D.P_DELIVE_DATE, 'yyyy-mm-dd hh24:mi:ss') P_DELIVE_DATE,
+		       D.UNIT_ID,
+		       D.UNIT_NAME,
+		       to_char(D.PRODUCT_DATE, 'yyyy-mm-dd hh24:mi:ss') PRODUCT_DATE
+		  FROM WMS1.WMS_POSITION P
+		 INNER JOIN WMS1.WMS_CHECKIN_PACKAGE C
+		    ON P.POSITION_ID = C.POSITION_ID
+		 INNER JOIN WMS1.WMS_ORDER_DETAIL D
+		    ON C.ORDER_ID = D.ORDER_ID
+		   AND C.MATERIA_ID = D.MATERIA_ID
+		WHERE 1 = 1 
+		<if test="POSITION_ID !=null and POSITION_ID !='' ">
+			AND P.POSITION_ID = '${POSITION_ID}'
+		</if>
+  </select>
+
+  <!-- 查询条码补打数据 -->
+  <select id="printedBarcodeInfoQuery" parameterType="hashmap" resultType="java.util.HashMap">
+        <include refid="oraclePagingFileTop"></include> 
+               A.ORDER_ID,
+		       A.DETAIL_ID,
+		       A.MATERIA_ID,
+		       A.MATERIA_NAME,
+		       A.UNIT_ID,
+		       A.UNIT_NAME,
+		       A.PACKAGE_NUMBER,
+		       A.PACKAGE_CAPACITY,
+		       A.BARCODE,		      
+		       TO_CHAR(B.PRODUCT_DATE, 'YYYY-MM-DD HH24:MI:SS') AS PRODUCT_DATE,
+		       A.SN_NUMBER,
+		       A.CHECKIN_STATUS,
+		       D.DICT_IT_NM,               	       
+		       C.SUPPLIER_ID,
+		       C.SUPPLIER_NAME
+		FROM WMS1.WMS_CHECKIN_PACKAGE A
+		LEFT JOIN WMS1.WMS_ORDER_DETAIL B ON A.ORDER_ID = B.ORDER_ID AND A.MATERIA_ID = B.MATERIA_ID
+		LEFT JOIN WMS1.WMS_ORDER C ON A.ORDER_ID = C.ORDER_ID
+		LEFT JOIN IPLANT1.C_IPLANT_DD_T D ON A.CHECKIN_STATUS=D.DICT_IT
+		<where>	
+		     1=1	  	
+		  <if test="ORDER_ID !=null and ORDER_ID != ''">
+				and A.ORDER_ID='${ORDER_ID}'
+			</if>			
+		  <if test="BARCODE !=null and BARCODE != ''">
+				and A.BARCODE LIKE '%${BARCODE}%'
+		  </if>
+		   <if test="SN_NUMBER !=null and SN_NUMBER != ''">
+				and A.SN_NUMBER = '${SN_NUMBER}'
+		  </if>
+		</where>
+	<include refid="oraclePagingFileBottom"></include>
+  </select>
+  <!-- 查找补打条码数据数据分页 -->
+	<select id="printedBarcodeInfoQuery_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT
+		   COUNT(1) AS ROWS_COUNT
+		FROM WMS1.WMS_CHECKIN_PACKAGE A
+		LEFT JOIN WMS1.WMS_ORDER_DETAIL B ON A.ORDER_ID = B.ORDER_ID AND A.MATERIA_ID = B.MATERIA_ID
+		LEFT JOIN WMS1.WMS_ORDER C ON A.ORDER_ID = C.ORDER_ID
+		LEFT JOIN IPLANT1.C_IPLANT_DD_T D ON A.CHECKIN_STATUS=D.DICT_IT
+		<where>	
+		     1=1	  	
+		  <if test="ORDER_ID !=null and ORDER_ID != ''">
+				and A.ORDER_ID='${ORDER_ID}'
+			</if>			
+		  <if test="BARCODE !=null and BARCODE != ''">
+				and A.BARCODE LIKE '%${BARCODE}%'
+		  </if>
+		   <if test="SN_NUMBER !=null and SN_NUMBER != ''">
+				and A.SN_NUMBER = '${SN_NUMBER}'
+		  </if>
+		</where>
+	</select>
+
+  <!-- WMS交互 -->
+  <select id="wmsPackage" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap">
+		
+		{call MM_VENDOR_DELIVERY.mm_materiapackage_check('${BARCODE}',
+		            #{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=checkInResult},
+    				#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, 
+    				#{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},
+    				#{ROWS_COUNT,jdbcType=INTEGER,mode=OUT,javaType=Integer})}
+	
+  </select>
+  
+  <!-- 查询货位详情 -->
+  <select id="posQuery" parameterType="hashmap" resultType="java.util.HashMap">
+          SELECT
+          POSITION_ID,
+          SHELF_ID,
+          (SELECT SHELF_NAME FROM WMS1.WMS_SHELF H WHERE T.SHELF_ID=H.SHELF_ID) AS SHELF_NAME,
+		      ROW_ID,
+		      COLUMN_ID,
+		      BARCODE,
+		      POS_BARCODE
+		  FROM WMS1.WMS_POSITION T
+		WHERE 1 = 1 
+		<if test="POSITION_ID !=null and POSITION_ID !='' ">
+			AND POSITION_ID = '${POSITION_ID}'
+		</if>
+  </select>
+  
+  <!-- 修改货位状态-->
+	  <update id="positionStatusUpdate" parameterType="hashmap">
+	  		  UPDATE WMS1.WMS_POSITION
+	  			   <set>
+	  			   	 <if test="STATUS !=null">
+	  			   	 	 STATUS='${STATUS}',
+	  			   	 </if>
+	  			   	 <if test="BARCODE !=null">
+	  			   	 	 BARCODE='${BARCODE}',
+	  			   	 </if>
+	  			   </set> 
+	  			   <where>
+	  			   	   POSITION_ID='${POSITION_ID}'
+	  			   </where>
+	  </update>
+</mapper>

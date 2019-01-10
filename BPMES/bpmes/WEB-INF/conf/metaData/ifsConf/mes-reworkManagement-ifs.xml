@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ifss>
+    <!-- MES 返工管理  -->
+    
+    
+    <!-- 维修方法 -->
+    <!-- 查询维修方法 -->
+    <ifs ifs_code="E000001" ifs_name="查询维修方法" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryMaintenanceMethodsMain" biz_method="" serial_no="1" biz_name="queryMaintenanceMethodsMain" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+    <!-- 批量新增维修方法 -->
+    <ifs ifs_code="E000002" ifs_name="新增维修方法" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertMaintenanceMethodsMainY" biz_method="" serial_no="1" biz_name="insertMaintenanceMethodsMainY" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+    <!-- 批量修改维修方法 -->
+    <ifs ifs_code="E000003" ifs_name="修改维修方法" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateMaintenanceMethodsMain" biz_method="" serial_no="1" biz_name="updateMaintenanceMethodsMain" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+    <!-- 删除维修方法 -->
+    <ifs ifs_code="E000004" ifs_name="删除维修方法" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteMaintenanceMethodsMain" biz_method="" serial_no="1" biz_name="deleteMaintenanceMethodsMain" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 缺陷代码维护 -->
+	<!-- 查询缺陷代码维护 -->
+	<ifs ifs_code="E000005" ifs_name="查询缺陷代码维护" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryDefectcodeMain" biz_method="" serial_no="1" biz_name="queryDefectcodeMain" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 新增缺陷代码维护 -->
+	<ifs ifs_code="E000006" ifs_name="新增缺陷代码维护" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertDefectcodeMain" biz_method="" serial_no="1" biz_name="insertDefectcodeMain" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 修改缺陷代码维护 -->
+	<ifs ifs_code="E000007" ifs_name="修改缺陷代码维护" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateDefectcodeMain" biz_method="" serial_no="1" biz_name="updateDefectcodeMain" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 删除缺陷代码维护 -->
+	<ifs ifs_code="E000008" ifs_name="删除缺陷代码维护" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteDefectcodeMain" biz_method="" serial_no="1" biz_name="deleteDefectcodeMain" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+    
+    
+    <!-- 维修方法明细 -->
+    <!-- 查询维修方法明细 -->
+    <ifs ifs_code="E000009" ifs_name="查询维修方法明细" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryMaintenanceMethods" biz_method="" serial_no="1" biz_name="queryMaintenanceMethods" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 维修方法树节点 -->
+    <ifs ifs_code="E0000017" ifs_name="查询维修方法树结构" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryMaintenanceMethodsTree" biz_method="" serial_no="1" biz_name="queryMaintenanceMethodsTree" biz_type="3" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+    <!-- 批量新增维修方法明细 -->
+    <ifs ifs_code="E0000010" ifs_name="新增维修方法明细" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertMaintenanceMethods" biz_method="" serial_no="1" biz_name="insertMaintenanceMethods" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+    <!-- 批量修改维修方法明细 -->
+    <ifs ifs_code="E0000011" ifs_name="修改维修方法明细" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateMaintenanceMethods" biz_method="" serial_no="1" biz_name="updateMaintenanceMethods" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+    <!-- 删除维修方法明细 -->
+    <ifs ifs_code="E0000012" ifs_name="删除维修方法明细" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteMaintenanceMethods" biz_method="" serial_no="1" biz_name="deleteMaintenanceMethods" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 缺陷代码维护明细 -->
+	<!-- 查询缺陷代码维护明细 -->
+	<ifs ifs_code="E0000013" ifs_name="查询缺陷代码维护明细" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryDefectcode" biz_method="" serial_no="1" biz_name="queryDefectcode" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 缺陷代码树节点 -->
+	 <ifs ifs_code="E0000018" ifs_name="查询缺陷代码树结构" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryDefectcodeTree" biz_method="" serial_no="1" biz_name="queryDefectcodeTree" biz_type="3" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 新增缺陷代码维护明细 -->
+	<ifs ifs_code="E0000014" ifs_name="新增缺陷代码维护明细" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertDefectcode" biz_method="" serial_no="1" biz_name="insertDefectcode" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 修改缺陷代码维护明细 -->
+	<ifs ifs_code="E0000015" ifs_name="修改缺陷代码维护明细" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateDefectcode" biz_method="" serial_no="1" biz_name="updateDefectcode" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 删除缺陷代码维护明细 -->
+	<ifs ifs_code="E0000016" ifs_name="删除缺陷代码维护明细" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteDefectcode" biz_method="" serial_no="1" biz_name="deleteDefectcode" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+    
+    
+    <!-- 维修职责-->
+    <!-- 查询维修职责 -->
+    <ifs ifs_code="E000040" ifs_name="查询维修职责" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="search_MaintenanceDuties" biz_method="" serial_no="1" biz_name="search_MaintenanceDuties" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+    <!-- 新增维修职责 -->
+    <ifs ifs_code="E000041" ifs_name="新增维修职责" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="add_MaintenanceDuties" biz_method="" serial_no="1" biz_name="add_MaintenanceDuties" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+    <!-- 修改维修职责 -->
+    <ifs ifs_code="E000042" ifs_name="修改维修职责 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="update_MaintenanceDuties" biz_method="" serial_no="1" biz_name="update_MaintenanceDuties" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+    <!-- 删除维修职责 -->
+    <ifs ifs_code="E000043" ifs_name="删除维修职责" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="delete_MaintenanceDuties" biz_method="" serial_no="1" biz_name="delete_MaintenanceDuties" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+    
+    
+    <!-- 维修原因录入-->
+    <!-- 查询维修原因 -->
+    <ifs ifs_code="E000020" ifs_name="查询维修原因" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="search_MaintenanceReason" biz_method="" serial_no="1" biz_name="search_MaintenanceReason" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+    <!-- 新增维修原因-->
+    <ifs ifs_code="E000021" ifs_name="新增维修原因" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="add_MaintenanceReason" biz_method="" serial_no="1" biz_name="add_MaintenanceReason" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+    <!-- 修改维修原因-->
+    <ifs ifs_code="E000022" ifs_name="修改维修原因" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="update_MaintenanceReason" biz_method="" serial_no="1" biz_name="update_MaintenanceReason" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+    <!-- 删除维修原因 -->
+    <ifs ifs_code="E000023" ifs_name="删除维修原因" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="delete_MaintenanceReason" biz_method="" serial_no="1" biz_name="delete_MaintenanceReason" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+    <!-- 维修原因主表 架构查询-->
+    <ifs ifs_code="E000024" ifs_name="维修原因主表 架构查询" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="search_MaintenanceReasonFramework" biz_method="" serial_no="1" biz_name="search_MaintenanceReasonFramework" biz_type="3" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+    <!-- 维修原因主表 架构新增-->
+    <ifs ifs_code="E000025" ifs_name="维修原因主表 架构新增" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="add_MaintenanceReasonFramework" biz_method="" serial_no="1" biz_name="add_MaintenanceReasonFramework" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+    <!-- 维修原因主表 架构修改-->
+    <ifs ifs_code="E000026" ifs_name="维修原因主表 架构修改" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="update_MaintenanceReasonFramework" biz_method="" serial_no="1" biz_name="update_MaintenanceReasonFramework" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+    <!-- 维修原因主表 架构删除-->
+    <ifs ifs_code="E000027" ifs_name="维修原因主表 架构删除" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="delete_MaintenanceReasonFramework" biz_method="" serial_no="1" biz_name="delete_MaintenanceReasonFramework" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+    
+    <!-- 故障代码维护-->
+    <!-- 查询故障代码 -->
+    <ifs ifs_code="E000030" ifs_name="查询故障代码" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="search_FaultCode" biz_method="" serial_no="1" biz_name="search_FaultCode" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+    <!-- 新增故障代码 -->
+    <ifs ifs_code="E000031" ifs_name="新增故障代码" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="add_FaultCode" biz_method="" serial_no="1" biz_name="add_FaultCode" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+    <!-- 修改故障代码 -->
+    <ifs ifs_code="E000032" ifs_name="修改故障代码" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="update_FaultCode" biz_method="" serial_no="1" biz_name="update_FaultCode" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+    <!-- 删除故障代码  -->
+    <ifs ifs_code="E000033" ifs_name="删除故障代码" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="delete_FaultCode" biz_method="" serial_no="1" biz_name="delete_FaultCode" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+    <!-- 故障代码主表 架构查询-->
+    <ifs ifs_code="E000034" ifs_name="故障代码主表 架构查询" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="search_FaultCodeFramework" biz_method="" serial_no="1" biz_name="search_FaultCodeFramework" biz_type="3" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+    <!-- 故障代码主表 架构新增 -->
+    <ifs ifs_code="E000035" ifs_name="故障代码主表 架构新增" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="add_FaultCodeFramework" biz_method="" serial_no="1" biz_name="add_FaultCodeFramework" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+   <!-- 故障代码主表 架构修改-->
+    <ifs ifs_code="E000036" ifs_name="故障代码主表 架构修改" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="update_FaultCodeFramework" biz_method="" serial_no="1" biz_name="update_FaultCodeFramework" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+    <!-- 故障代码主表 架构删除 -->
+    <ifs ifs_code="E000037" ifs_name="故障代码主表 架构删除" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="delete_FaultCodeFramework" biz_method="" serial_no="1" biz_name="delete_FaultCodeFramework" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+    <!-- 查询维修原因主表父节点 -->
+     <ifs ifs_code="E000038" ifs_name="查询维修原因主表父节点" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="search_MaintenanceReasonFrameworkFather" biz_method="" serial_no="1" biz_name="search_MaintenanceReasonFrameworkFather" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+    
+    
+</ifss>

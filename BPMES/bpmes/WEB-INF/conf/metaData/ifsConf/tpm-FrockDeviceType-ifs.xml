@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ifss>
+    
+    <!-- 1.1 数据字典管理 -->
+    <!-- 查询字典项信息 -->
+	<ifs ifs_code="T0000201" ifs_name="查询字典项" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryFrockDevice" biz_method="" serial_no="1" biz_name="queryFrockDevice" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+    
+     <!-- 查询供应商下拉 -->
+	<ifs ifs_code="T0000212" ifs_name="查询字典项" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="querySupplierbox" biz_method="" serial_no="1" biz_name="querySupplierbox" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+    
+     <ifs ifs_code="T0000203" ifs_name="修改数据字典" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateFrockDevice" biz_method="" serial_no="1" biz_name="updateFrockDevice" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+    <!-- 新增数据字典信息 -->
+    <ifs ifs_code="T0000202" ifs_name="新增数据字典" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertFrockDevice" biz_method="" serial_no="1" biz_name="insertFrockDevice" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	  <!-- 删除数据字典信息 -->
+    <ifs ifs_code="T0000204" ifs_name="删除数据字典" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteFrockDevice" biz_method="" serial_no="1" biz_name="deleteFrockDevice" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+</ifss>

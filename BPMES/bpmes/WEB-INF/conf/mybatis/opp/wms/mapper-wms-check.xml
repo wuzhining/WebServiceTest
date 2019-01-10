@@ -1,0 +1,498 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="">
+
+        
+	   <!-- ======盘点管理====== -->
+	   <!-- 查询盘点信息 -->
+	   <select id="InventInfoQuery" parameterType="hashmap" resultType="java.util.HashMap"> 
+		  <include refid="oraclePagingFileTop"></include>
+		  		   CC.*
+		  		      FROM
+		  		      	 (
+		  		      	  SELECT 
+		  		      	  	   T1.INVENTORY_ID,
+		  		      	  	   TO_CHAR(T1.INVENTORY_DATE,'YYYY-MM-DD') AS INVENTORY_DATE,
+		  		      	  	   <!-- T1.INVENTORY_DATE, -->
+		  		      	  	   T1.STATUS,
+		  		      	  	   T1.INVENTOR,
+		  		      	  	   T1.INVENTOR_NAME,
+		  		      	  	   T1.MATERIA_ID,
+		  		      	  	   T1.MATERIA_NAME,
+							   T2.WAREHOUSE_ID,
+							   T2.WAREHOUSE_NAME,
+							   T3.STORE_ID,
+							   T3.STORE_NAME,
+							   T4.POSITION_ID,
+							   T4.POSITION_NAME,
+							   T5.SHELF_ID,
+							   T5.SHELF_NAME
+					 	    FROM WMS1.WMS_INVENTORY              T1
+					 	    LEFT JOIN WMS1.WMS_WAREHOUSE         T2
+					 	    ON T1.WAREHOUSE_ID=T2.WAREHOUSE_ID    
+					 	    LEFT JOIN WMS1.WMS_STORE             T3
+					 	    ON T1.STORE_ID=T3.STORE_ID
+					 	    LEFT JOIN WMS1.WMS_POSITION          T4
+		 	   			    ON T1.POSITION_ID=T4.POSITION_ID            
+		 	   			    LEFT JOIN WMS1.WMS_SHELF             T5
+		 	   			    ON T1.SHELF_ID=T5.SHELF_ID   
+		 	   			    LEFT JOIN MES1.R_MES_ITEM_T          T6
+		 	   			    ON T1.MATERIA_ID=T6.ITEM_CD       
+					 	    <where> 1=1
+					 	       <if test="INVENTORY_ID !=null and INVENTORY_ID !='' ">
+					 	       	   AND T1.INVENTORY_ID='${INVENTORY_ID}'
+					 	       </if>
+					 	       <if test="INVENTOR !=null and INVENTOR !='' ">
+					 	       	   AND T1.INVENTOR='${INVENTOR}'
+					 	       </if>
+					 	       <if test="INVENTORY_DATE !=null and INVENTORY_DATE !='' ">
+					 	       	   AND T1.INVENTORY_DATE=TO_DATE('${INVENTORY_DATE}','YYYY-MM-DD')
+					 	       </if>
+					 	       <if test="WAREHOUSE_ID !=null and WAREHOUSE_ID !='' ">
+					 	       	   AND T2.WAREHOUSE_ID='${WAREHOUSE_ID}'	 
+					 	       </if>
+					 	       <if test="STORE_ID !=null and STORE_ID !='' ">
+					 	       	   AND T3.STORE_ID ='%{STORE_ID}'
+					 	       </if> 
+					 	       <if test="POSITION_ID !=null and POSITION_ID!='' ">
+					 	       	   AND T4.POSITION_ID='${POSITION_ID}'
+					 	       </if>
+					 	       <if test="SHELF_ID !=null and SHELF_ID !='' ">
+					 	       	   AND T5.SHELF_ID='${SHELF_ID}'
+					 	       </if>
+					 	    </where>	
+					 	   	   ORDER BY T1.INVENTORY_DATE DESC	   	
+		  		      	  ) 
+		  		      	  CC
+		   <include refid="oraclePagingFileBottom"></include>      	  
+	   </select>	
+	   <!-- 查询盘点信息分页总数 -->
+	   <select id="InventInfoQuery_COUNT" parameterType="hashmap" resultType="java.util.HashMap"> 
+	   		   SELECT 
+              		COUNT(1) AS ROWS_COUNT
+		        FROM WMS1.WMS_INVENTORY                 T1
+		        LEFT JOIN WMS1.WMS_WAREHOUSE            T2
+		        ON T1.WAREHOUSE_ID=T2.WAREHOUSE_ID    
+		        LEFT JOIN WMS1.WMS_STORE                T3
+		        ON T1.STORE_ID=T3.STORE_ID
+		        LEFT JOIN WMS1.WMS_POSITION             T4
+		        ON T1.POSITION_ID=T4.POSITION_ID            
+		        LEFT JOIN WMS1.WMS_SHELF                T5
+		        ON T1.SHELF_ID=T5.SHELF_ID          
+		 	    <where> 1=1
+		 	       <if test="INVENTORY_ID !=null and INVENTORY_ID !='' ">
+		 	       	   AND T1.INVENTORY_ID='${INVENTORY_ID}'
+		 	       </if>
+		 	       <if test="INVENTOR !=null and INVENTOR !='' ">
+		 	       	   AND T1.INVENTOR='${INVENTOR}'
+		 	       </if>
+		 	       <if test="INVENTORY_DATE !=null and INVENTORY_DATE !='' ">
+		 	       	   AND T1.INVENTORY_DATE=TO_DATE('${INVENTORY_DATE}','YYYY-MM-DD')
+		 	       </if>
+		 	       <if test="WAREHOUSE_ID !=null and WAREHOUSE_ID !='' ">
+		 	       	   AND T2.WAREHOUSE_ID='${WAREHOUSE_ID}'	 
+		 	       </if>
+		 	       <if test="STORE_ID !=null and STORE_ID !='' ">
+		 	       	   AND T3.STORE_ID ='%{STORE_ID}'
+		 	       </if> 
+		 	       <if test="POSITION_ID !=null and POSITION_ID!='' ">
+		 	       	   AND T4.POSITION_ID='${POSITION_ID}'
+		 	       </if>
+		 	       <if test="SHELF_ID !=null and SHELF_ID !='' ">
+		 	       	   AND T5.SHELF_ID='${SHELF_ID}'
+		 	       </if>
+		 	    </where>	
+	   </select>	   
+	   
+	   <!-- 删除盘点信息 -->
+	   <delete id="InventInfoDelete" parameterType="hashmap" >
+	   		   DELETE WMS1.WMS_INVENTORY
+	   		   		  <where>
+	   		   		  	 INVENTORY_ID='${INVENTORY_ID}'  
+	   		   		  </where>	 
+	   </delete>   
+	    
+
+		
+	   <!-- 查询采购退货单 -->
+	   <select id="PurchaseReturnInfoQuery" parameterType="hashmap"
+		resultType="java.util.HashMap">
+		<include refid="oraclePagingFileTop"></include>
+	   WPR.RETURN_ID, 
+       WPR.ORDER_ID, 
+       WPR.MATERIA_ID, 
+       WPR.MATERIA_NAME, 
+       WPR.SUPPLIER_ID, 
+       WPR.SUPPLIER_NAME, 
+       WPR.CONNECTOR_ID, 
+       WPR.CONNECTOR_NAME, 
+       WPR.CONNECTOR_PHONE, 
+       WPR.RETURN_NUMBER, 
+       WPR.PURCHASE_NUMBER, 
+       WPR.UNIT_ID, 
+       WPR.UNIT_NAME, 
+       WPR.STATUS,
+       TO_CHAR(WPR.CREATE_DATE,'YYYY-MM-DD') AS CREATE_DATE,  
+       WPR.CREATER_ID, 
+       WPR.CREATER_NAME FROM WMS1.WMS_PURCHASE_RETURN WPR
+       <where>
+       1=1
+       <if test="RETURN_ID !=null and RETURN_ID !='' ">
+				AND RETURN_ID='${RETURN_ID}'
+			</if>
+			<if test="MATERIA_ID !=null and MATERIA_ID !='' ">
+				AND MATERIA_ID='${MATERIA_ID}'
+			</if>
+			<if test="SUPPLIER_NAME !=null and SUPPLIER_NAME !='' ">
+				AND SUPPLIER_NAME='${SUPPLIER_NAME}'
+			</if>
+       </where>
+		<include refid="oraclePagingFileBottom"></include>
+	</select>
+	<!-- 查询采购退货单总数 -->
+	<select id="PurchaseReturnInfoQuery_COUNT" parameterType="hashmap"
+		resultType="java.util.HashMap">
+		SELECT COUNT(1) AS ROWS_COUNT
+		FROM WMS1.WMS_PURCHASE_RETURN WPR
+		<where>
+       1=1
+       <if test="RETURN_ID !=null and RETURN_ID !='' ">
+				AND RETURN_ID='${RETURN_ID}'
+			</if>
+			<if test="MATERIA_ID !=null and MATERIA_ID !='' ">
+				AND MATERIA_ID='${MATERIA_ID}'
+			</if>
+			<if test="SUPPLIER_NAME !=null and SUPPLIER_NAME !='' ">
+				AND SUPPLIER_NAME='${SUPPLIER_NAME}'
+			</if>
+       </where>
+	</select>
+	 <!-- 点击采购订单查看退货订单 -->
+	   <select id="OrderInfoQuery" parameterType="hashmap"
+		resultType="java.util.HashMap">
+		<include refid="oraclePagingFileTop"></include>
+	   T.RETURN_ID,W.ORDER_ID,
+       W.MATERIA_ID,
+       W.MATERIA_NAME,
+       W.SUPPLIER_NAME,
+       W.CONNECTOR_NAME,
+       W.CONNECTOR_PHONE,
+       W.PURCHASE_NUMBER,
+       W.DELIVE_NUMBER,
+       W.UNIT_NAME,
+       TO_CHAR(W.CREATE_DATE,'YYYY-MM-DD') AS  CREATE_DATE
+   
+  FROM WMS1.WMS_PURCHASE_RETURN T
+  LEFT JOIN WMS1.WMS_ORDER W
+    ON W.ORDER_ID = T.ORDER_ID
+       <where>
+       1=1 AND W.ORDER_ID='${ORDER_ID}'
+       </where>
+		<include refid="oraclePagingFileBottom"></include>
+	</select>
+	<!-- 点击采购订单查看退货订单 总数 -->
+	<select id="OrderInfoQuery_COUNT" parameterType="hashmap"
+		resultType="java.util.HashMap">
+		SELECT COUNT(1) AS ROWS_COUNT
+		FROM WMS1.WMS_PURCHASE_RETURN T
+  LEFT JOIN WMS1.WMS_ORDER W
+    ON W.ORDER_ID = T.ORDER_ID
+	</select>
+	<!-- 删除采购退货单数据 -->
+	<select id="PurchaseReturnInfoDelete" parameterType="hashmap"
+		resultType="java.util.HashMap">
+		DELETE FROM WMS1.WMS_PURCHASE_RETURN WPR WHERE WPR.RETURN_ID='${RETURN_ID}'
+	</select>
+	<!-- 查询生产退料单 -->
+	<select id="ProductionReturnInfoQuery" parameterType="hashmap"
+		resultType="java.util.HashMap">
+		<include refid="oraclePagingFileTop"></include>
+	   PR.RETURN_ID,
+       PR.WAREHOUSE_ID,
+       PR.WAREHOUSE_NAME,
+       PR.STORE_ID,
+       PR.STORE_NAME,
+       PR.SHELF_ID,
+       PR.SHELF_NAME,
+       PR.POSITION_ID,
+       PR.POSITION_NAME,
+       PR.MATERIA_ID,
+       PR.MATERIA_NAME,
+       PR.RETURN_NUMBER,
+       PR.RETURN_TYPE,
+       PR.UNIT_ID,
+       PR.UNIT_NAME,
+       PR.SUPPLIER_ID,
+       PR.SUPPLIER_NAME,
+       PR.CONNECTOR_ID,
+       PR.CONNECTOR_NAME,
+       PR.CONNECTOR_PHONE,
+       PR.STATUS,
+       PR.CREATER_ID,
+       PR.CREATER_NAME,
+       TO_CHAR(PR.CREATE_DATE,'YYYY-MM-DD') AS CREATE_DATE
+       FROM WMS1.WMS_PRODUCT_RETURN PR
+       <where>
+       1=1
+       <if test="RETURN_ID !=null and RETURN_ID !='' ">
+				AND RETURN_ID='${RETURN_ID}'
+			</if>
+			 <if test="MATERIA_ID !=null and MATERIA_ID !='' ">
+				AND MATERIA_ID='${MATERIA_ID}'
+			</if>
+       </where>
+      
+		<include refid="oraclePagingFileBottom"></include>
+	</select>
+	<!-- 查询生产退料单总数 -->
+	<select id="ProductionReturnInfoQuery_COUNT" parameterType="hashmap"
+		resultType="java.util.HashMap">
+		SELECT COUNT(1) AS ROWS_COUNT
+		 FROM WMS1.WMS_PRODUCT_RETURN PR
+		 <where>
+       1=1
+       <if test="RETURN_ID !=null and RETURN_ID !='' ">
+				AND RETURN_ID='${RETURN_ID}'
+			</if>
+			 <if test="MATERIA_ID !=null and MATERIA_ID !='' ">
+				AND MATERIA_ID='${MATERIA_ID}'
+			</if>
+       </where>
+	</select>
+	<!-- 删除生产退料单数据 -->
+	<select id="ProductionReturnInfoDelete" parameterType="hashmap"
+		resultType="java.util.HashMap">
+		DELETE FROM WMS1.WMS_PRODUCT_RETURN PR WHERE PR.RETURN_ID='${RETURN_ID}'
+	</select>
+
+	<!-- 修改采购退货信息 -->
+	<update id="PurchaseReturnInfoUpdate" parameterType="java.util.HashMap">
+		<foreach collection="list" item="item" index="index" open="begin" close=";end;" separator=";">
+			UPDATE WMS1.WMS_PURCHASE_RETURN 
+			<set>
+				<if test="item.ORDER_ID !=null ">
+					ORDER_ID='${item.ORDER_ID}',
+				</if>
+				<if test="item.MATERIA_ID !=null">
+					MATERIA_ID='${item.MATERIA_ID}',
+				</if>
+				<if test="item.MATERIA_NAME !=null">
+					MATERIA_NAME='${item.MATERIA_NAME}',
+				</if>
+				
+				<if test="item.SUPPLIER_ID !=null">
+					SUPPLIER_ID='${item.SUPPLIER_ID}',
+				</if>
+				<if test="item.SUPPLIER_NAME !=null">
+					SUPPLIER_NAME='${item.SUPPLIER_NAME}',
+				</if>
+				<if test="item.CONNECTOR_ID !=null">
+					CONNECTOR_ID='${item.CONNECTOR_ID}',
+				</if>
+				<if test="item.CONNECTOR_NAME !=null">
+					CONNECTOR_NAME='${item.CONNECTOR_NAME}',
+				</if>
+				<if test="item.CONNECTOR_PHONE !=null">
+					CONNECTOR_PHONE='${item.CONNECTOR_PHONE}',
+				</if>
+				<if test="item.RETURN_NUMBER !=null">
+					RETURN_NUMBER='${item.RETURN_NUMBER}',
+				</if>
+				<if test="item.PURCHASE_NUMBER !=null">
+					PURCHASE_NUMBER='${item.PURCHASE_NUMBER}',
+				</if>
+				<if test="item.UNIT_ID !=null">
+					UNIT_ID='${item.UNIT_ID}',
+				</if>
+				<if test="item.UNIT_NAME !=null">
+					UNIT_NAME='${item.UNIT_NAME}',
+				</if>
+			</set>
+			<where>
+				RETURN_ID='${item.RETURN_ID}'
+			</where>
+		</foreach>
+	</update>
+	<!-- 修改生产退货信息 -->
+	<update id="ProductionReturnInfoUpdate" parameterType="java.util.HashMap">
+		<foreach collection="list" item="item" index="index" open="begin" close=";end;" separator=";">
+			UPDATE WMS1.WMS_PRODUCT_RETURN 
+			<set>
+			<if test="item.WAREHOUSE_ID !=null">
+					WAREHOUSE_ID='${item.WAREHOUSE_ID}',
+				</if>
+				<if test="item.WAREHOUSE_NAME !=null">
+					WAREHOUSE_NAME='${item.WAREHOUSE_NAME}',
+				</if>
+				<if test="item.STORE_ID !=null">
+					STORE_ID='${item.STORE_ID}',
+				</if>
+				<if test="item.STORE_NAME !=null">
+					STORE_NAME='${item.STORE_NAME}',
+				</if>
+				<if test="item.SHELF_ID !=null">
+					SHELF_ID='${item.SHELF_ID}',
+				</if>
+				<if test="item.SHELF_NAME !=null">
+					SHELF_NAME='${item.SHELF_NAME}',
+				</if>
+				<if test="item.POSITION_ID !=null">
+					POSITION_ID='${item.POSITION_ID}',
+				</if>
+				<if test="item.POSITION_NAME !=null">
+					POSITION_NAME='${item.POSITION_NAME}',
+				</if>
+				
+				<if test="item.MATERIA_ID !=null and">
+					MATERIA_ID='${item.MATERIA_ID}',
+				</if>
+				<if test="item.MATERIA_NAME !=null">
+					MATERIA_NAME='${item.MATERIA_NAME}',
+				</if>
+				<if test="item.RETURN_NUMBER !=null">
+					RETURN_NUMBER='${item.RETURN_NUMBER}',
+				</if>
+				<if test="item.RETURN_TYPE !=null">
+					RETURN_TYPE='${item.RETURN_TYPE}',
+				</if>
+				<if test="item.SUPPLIER_ID !=null">
+					SUPPLIER_ID='${item.SUPPLIER_ID}',
+				</if>
+				<if test="item.SUPPLIER_NAME !=null">
+					SUPPLIER_NAME='${item.SUPPLIER_NAME}',
+				</if>
+				<if test="item.UNIT_ID !=null">
+					UNIT_ID='${item.UNIT_ID}',
+				</if>
+				<if test="item.UNIT_NAME !=null">
+					UNIT_NAME='${item.UNIT_NAME}',
+				</if>
+				<if test="item.CONNECTOR_ID !=null">
+					CONNECTOR_ID='${item.CONNECTOR_ID}',
+				</if>
+				<if test="item.CONNECTOR_NAME !=null">
+					CONNECTOR_NAME='${item.CONNECTOR_NAME}',
+				</if>
+				<if test="item.CONNECTOR_PHONE !=null">
+					CONNECTOR_PHONE='${item.CONNECTOR_PHONE}',
+				</if>
+				<if test="item.STATUS !=null">
+					STATUS='${item.STATUS}',
+				</if>
+			</set>
+			<where>
+				RETURN_ID='${item.RETURN_ID}'
+			</where>
+		</foreach>
+	</update>
+	<!-- 新增采购退货单 -->
+	<insert id="PurchaseReturnInfoInsert" parameterType="hashmap">
+		insert into WMS1.WMS_PURCHASE_RETURN WPR
+		(
+	   WPR.RETURN_ID, 
+       WPR.ORDER_ID, 
+       WPR.MATERIA_ID, 
+       WPR.MATERIA_NAME, 
+       WPR.SUPPLIER_ID, 
+       WPR.SUPPLIER_NAME, 
+       WPR.CONNECTOR_ID, 
+       WPR.CONNECTOR_NAME, 
+       WPR.CONNECTOR_PHONE, 
+       WPR.RETURN_NUMBER, 
+       WPR.PURCHASE_NUMBER, 
+       WPR.UNIT_ID, 
+       WPR.UNIT_NAME, 
+       WPR.STATUS, 
+       WPR.CREATE_DATE, 
+       WPR.CREATER_ID, 
+       WPR.CREATER_NAME
+		)
+
+		(
+		<foreach collection="list" item="item" index="index"
+			separator="union all">
+			SELECT
+			 '${item.RETURN_ID}',
+			'${item.ORDER_ID}',
+			'${item.MATERIA_ID}',
+			' ${item.MATERIA_NAME}',
+			'${item.SUPPLIER_ID}',
+			'${item.SUPPLIER_NAME}',
+			'${item.CONNECTOR_ID}',
+			'${item.CONNECTOR_NAME}',
+			'${item.CONNECTOR_PHONE}',
+			'${item.RETURN_NUMBER}',
+			'${item.PURCHASE_NUMBER}',
+			'${item.UNIT_ID}',
+			'${item.UNIT_NAME}',
+			'${item.STATUS}',
+			 SYSDATE,
+			'${F_USE_CD}',
+			'${F_USE_CD}'
+			FROM DUAL
+		</foreach>
+		)
+	</insert>
+	<!-- 新增生产退货单 -->
+	<insert id="ProductionReturnInfoInsert" parameterType="hashmap">
+		insert into WMS1.WMS_PRODUCT_RETURN PR
+		(
+		PR.RETURN_ID,
+       PR.WAREHOUSE_ID,
+       PR.WAREHOUSE_NAME,
+       PR.STORE_ID,
+       PR.STORE_NAME,
+       PR.SHELF_ID,
+       PR.SHELF_NAME,
+       PR.POSITION_ID,
+       PR.POSITION_NAME,
+       PR.MATERIA_ID,
+       PR.MATERIA_NAME,
+       PR.RETURN_NUMBER,
+       PR.RETURN_TYPE,
+       PR.UNIT_ID,
+       PR.UNIT_NAME,
+       PR.SUPPLIER_ID,
+       PR.SUPPLIER_NAME,
+       PR.CONNECTOR_ID,
+       PR.CONNECTOR_NAME,
+       PR.CONNECTOR_PHONE,
+       PR.STATUS,
+       PR.CREATER_ID,
+       PR.CREATER_NAME,
+       PR.CREATE_DATE
+		)
+
+		(
+		<foreach collection="list" item="item" index="index"
+			separator="union all">
+			SELECT
+			'${item.RETURN_ID}',
+			'${item.WAREHOUSE_ID}',
+			'${item.WAREHOUSE_NAME}',
+			'${item.STORE_ID}',
+			'${item.STORE_NAME}',
+			'${item.SHELF_ID}',
+			'${item.SHELF_NAME}',
+			'${POSITION_ID}',
+			'${item.POSITION_NAME}',
+			'${item.MATERIA_ID}',
+			'${item.MATERIA_NAME}',
+			'${item.RETURN_NUMBER}',
+			'${item.RETURN_TYPE}',
+			'${item.UNIT_ID}',
+			'${item.UNIT_NAME}',
+			'${item.SUPPLIER_ID}',
+			'${item.SUPPLIER_NAME}',
+			'${item.CONNECTOR_ID}',
+			'${item.CONNECTOR_NAME}',
+			'${item.CONNECTOR_PHONE}',
+			'${item.STATUS}',
+			'${F_USE_CD}',
+			'${F_USE_CD}',
+			SYSDATE
+			FROM DUAL
+		</foreach>
+		)
+	</insert>
+</mapper>

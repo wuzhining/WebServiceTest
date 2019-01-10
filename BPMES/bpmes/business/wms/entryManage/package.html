@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html" charset="utf-8">
+	<title>打包入库</title>
+	<script type="text/javascript" src=""></script>
+	<link rel="stylesheet" type="text/css" href="../../../common/IplantCompent/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../../../common/IplantCompent/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="../../../common/IplantCompent/Demo/demo.css">
+    <script src="../../../common/IplantCompent/jquery.min.js" type="text/javascript"></script>
+    <script src="../../../common/IplantCompent/jquery.easyui.min.js" type="text/javascript"></script>
+    <script src="../../../common/IplantCommon/DataRequest.js" type="text/javascript"></script>
+    <script src="../../../common/IplantCommon/CommonUtil.js" type="text/javascript"></script>
+     <script src="../../../system/rootJs/jquery.cookie.js" type="text/javascript"></script>
+    <script src="js/package.js" type="text/javascript"></script>
+    <script src="../../../common/IplantCommon/datagrid-detailview.js" type="text/javascript"></script>
+    <script src="../../../common/UICompent/locale/easyui-lang-zh_CN.js" type="text/javascript" ></script>
+    <meta charset="utf-8" />
+</head>
+<body style="margin:0;padding:0">
+	<div style="height:100%;width:100%;" class="easyui-layout" fit='true'>
+        <div region='north' id="tb" style="width: auto; height: 30px; background: linear-gradient(rgb(255, 255, 255) 0px, rgba(149, 184, 231, 0.28) 100%);">
+            <table style="width: auto; height:100%;" cellspacing="0" border="0">
+                <tr>
+                  <td>
+                     <a href="#" class="easyui-linkbutton add" iconCls="icon-add" id="btnAdd" data-options="plain:true">生成</a>
+                     <a href="#" class="easyui-linkbutton search" iconCls="icon-search" id="btnGaoSearch" data-options="plain:true" ">高级查询</a> 
+                     <span id='showMessageInfo' class='divspan' style='width:300px;'></span>
+                  </td>
+                </tr>
+            </table>
+        </div>
+
+        <div region="center" style="width:100%" style="border:0">
+            <div region='north' id='tbsearch' style="width: auto; height: 30px;background: linear-gradient(rgb(255, 255, 255) 0px, rgba(149, 184, 231, 0.28) 100%);">
+                <table>
+	                <tr >
+	                	<td>采购单号：</td>
+	                    <td>
+	                        <input id="queryORDER_ID" name="postingdate" style="width: 200px;" class="easyui-textbox"/>&nbsp;&nbsp;
+	                    </td>  
+	                    <td>单据日期:</td> 
+	                    <td>   
+	                        <input id="invoicesDATE" name="postingdate" style="width: 200px;" class="easyui-datebox"/>&nbsp;&nbsp;
+	 			        </td>   
+	 			        <td>供应商编码:</td>
+	 			        <td>
+	 			        	<input id="querySUPPLIER_ID" name="postingdate" style="width: 200px;" class="easyui-textbox"/>&nbsp;&nbsp;
+	 			        </td>
+	 			        <td>
+	                        <a href="#" class="easyui-linkbutton" iconCls="icon-search" id="btnSearch" data-options="plain:true" onclick="conditionQuery();">查询</a>	
+	                    </td>
+	                </tr>
+                </table>
+            </div>
+            <table region='center' id="Package_tab" class='easyui-datagrid' style="height: auto; max-height: 100%; padding-top:10px;" toolbar="#tbsearch" iconCls="icon-edit" rownumbers="true"></table>
+    	</div>
+    </div>
+
+	    <div id="enditTab2" class="easyui-dialog" style="width: 900px;height: 580px;" closed="true"  data-options="modal: true,
+	        buttons: [{
+	            text:'保存',
+	            iconCls:'icon-ok',
+	            id:'save2',
+	            handler:function(){
+	                savePackageMes();
+	            }
+	        },{
+	            text:'打印',
+	            iconCls:'icon-print',
+	            id:'save3',
+	            handler:function(){
+	               printConfig(); 
+	            }
+	        },{
+	            text:'取消',
+	            iconCls:'icon-no',
+	            handler:function(){
+	                $('#enditTab2').dialog('close');
+	            }
+	        }]">
+        <form id="fmWorkOrder2" method="post" style="padding:10px 30px 10px 30px;">
+               <div style="width:100%;height:40px;margin-top:10px">
+      	        	<span style='line-height: 100%;font-size: 20px;font-weight: bolder;font-family: fantasy;'>物料信息</span> 
+               	</div>
+               <table  id="dispatch_tab2" class='easyui-datagrid' style="height:auto;width:642px;" iconCls="icon-edit"></table>  
+               <div style="width:100%;height:40px;margin-top:20px">
+               		<span style='line-height: 100%;font-size: 20px;font-weight: bolder;font-family: fantasy;'>物料打包设置</span>
+               </div>
+               <table  id="dispatch_tab3" class='easyui-datagrid' style="height:auto;width:642px;" iconCls="icon-edit",
+              	data-options="
+                          onClickRow: onClickRow3">
+               </table>
+               <div style="width:100%;height:40px;margin-top:20px">
+               		<span style='line-height: 100%;font-size: 20px;font-weight: bolder;font-family: fantasy;'>物料条码信息</span>
+               </div>
+               <table  id="dispatch_tab4" class='easyui-datagrid' style="height:auto;max-height:200px; width:824px;" iconCls="icon-edit"></table>
+        </form>
+    </div>
+</body>
+
+</body>
+</html>

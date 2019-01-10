@@ -1,0 +1,65 @@
+{
+    "rows": [
+        {
+            "attr1": "Y",
+            "sT_C_NM": "系统规则",
+            "attr2": "T",
+            "children": [
+                {
+                    "attr1": "Y",
+                    "sT_C_NM": "ERP集成有效",
+                    "attr2": "T",
+                    "sT_C_CD": 11
+                },
+                {
+                    "attr1": "Y",
+                    "sT_C_NM": "忽略工艺路线更新",
+                    "attr2": "T",
+                    "sT_C_CD": 12
+                },
+                {
+                    "attr1": "Y",
+                    "sT_C_NM": "忽略物料清单更新",
+                    "attr2": "T",
+                    "sT_C_CD": 13
+                }
+            ],
+            "sT_C_CD": 1
+        },
+        {
+            "attr1": "Y",
+            "sT_C_NM": "订单",
+            "attr2": "T",
+            "sT_C_CD": 2
+        },
+        {
+            "attr1": "N",
+            "sT_C_NM": "BOM",
+            "attr2": "T",
+            "sT_C_CD": 3
+        },
+        {
+            "attr1": "Y",
+            "sT_C_NM": "其它",
+            "attr2": "T",
+            "children": [
+                {
+                    "IS_OVER": "N",
+                    "sT_C_NM": "语言",
+                    "SET": "0",
+                    "attr2": "T",
+                    "sT_C_CD": 41
+                },
+                {
+                    "IS_OVER": "",
+                    "sT_C_NM": "背景颜色",
+                    "SET": "0",
+                    "attr2": "Y",
+                    "sT_C_CD": 42
+                }
+            ],
+            "sT_C_CD": 4
+        }
+    ],
+    "total": 4
+}

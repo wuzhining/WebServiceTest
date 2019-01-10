@@ -1,0 +1,615 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="">
+
+	<!--SMT生产车间 -->
+	<!--SMT日看板信息查询 -->
+    <select id="queryAllSMTKanban" parameterType="hashmap" resultType="java.util.HashMap">
+SELECT R.MO_NO,
+       R1.LINE_CD,
+       R1.ITEM_NM,
+       R1.ITEM_CD,
+       R1.ITEM_NM,
+       R1.FACE,
+       R1.WORKINGSTATE,
+       R.PLAN_PO_QTY,
+       R.PLAN_WO_QTY,
+       R.AMOUNT,
+       NVL(NULL, '0') NG
+  FROM (SELECT R.WO_NO,
+               R.MO_NO,
+               R.TOP_ITEM_CD,
+               R.FCT_CD,
+               R.PROD_TYPE,
+               R.LINE_CD,
+               R.WO_STATE,
+               NVL((SELECT DICT_IT_NM
+                     FROM IPLANT1.C_IPLANT_DD_T T
+                    WHERE T.DICT_IT = 'RDI02.01'),
+                   '模拟生产中') WORKINGSTATE,
+               NVL(R.SHIFT_CD, '无') FACE,
+               R.WC_CD,
+               R.ITEM_CD,
+               R.ITEM_NM,
+               R.ITEM_TYPE,
+               R.MODEL_CD,
+               R.PLAN_STRT_DT,
+               R.PLAN_END_DT,
+               ROUND(TO_NUMBER(R.PLAN_END_DT - R.PLAN_STRT_DT) * 24) TOURUWORK,
+               R.MODEL_NM,
+               R.UGT_TYPE,
+               R.PLAN_STRT_DT,
+               R.PLAN_END_DT,
+               R.PLAN_WRK_TIME,
+               R.PLAN_PO_QTY,
+               R.PLAN_WO_QTY,
+               R.CRT_DT,
+               R.UPT_ID,
+               R.UPT_DT,
+               R.PROD_QTY,
+               R.GOOD_QTY,
+               R.DFCT_QTY,
+               R.SCRAP_QTY,
+               R.CAPA,
+               R.INPUT_QTY,
+               (SELECT PD_LN_NM
+                  FROM IPLANT1.C_IPLANT_P5_T
+                 WHERE R.LINE_CD = PD_LN_CD) LINE_NAME
+          FROM R_MES_WO_T R
+         WHERE MO_NO = NVL((SELECT T1.MO_NO
+                             FROM MES1.R_MES_ZZ_WIP_T T1
+                            WHERE TRUNC(UPT_DT) = TRUNC(SYSDATE)
+                              AND CURR_ROUT_CD = 'END'
+                            GROUP BY T1.MO_NO),
+                           (SELECT T1.MO_NO
+                              FROM MES1.R_MES_ZZ_WIP_T T1
+                             WHERE TRUNC(CRT_DT) = TRUNC(SYSDATE)))) R1,
+       (SELECT MO_NO, PLAN_PO_QTY, PLAN_WO_QTY, AMOUNT
+          FROM (SELECT NVL(A1.MO_NO, A2.MO_NO) MO_NO,
+                       (SELECT R.PLAN_PO_QTY
+                          FROM R_MES_WO_T R
+                         WHERE R.MO_NO = NVL(A1.MO_NO, A2.MO_NO)) PLAN_PO_QTY,
+                       NVL(A1.PLAN_WO_QTY, '0') PLAN_WO_QTY,
+                       A2.AMOUNT
+                  FROM (SELECT T.MO_NO,
+                               T.PLAN_PO_QTY,
+                               (SELECT COUNT(*)
+                                  FROM MES1.R_MES_ZZ_WIP_T
+                                 WHERE TRUNC(CRT_DT) = TRUNC(SYSDATE)) PLAN_WO_QTY
+                          FROM R_MES_WO_T T
+                         WHERE MO_NO = (SELECT T1.MO_NO
+                                          FROM MES1.R_MES_ZZ_WIP_T T1
+                                         WHERE NVL(TRUNC(CRT_DT), TRUNC(UPT_DT)) =
+                                               TRUNC(SYSDATE)
+                                         GROUP BY T1.MO_NO)
+                         GROUP BY T.MO_NO, T.PLAN_PO_QTY, T.PLAN_WO_QTY) A1
+                  FULL OUTER JOIN (SELECT T1.MO_NO, COUNT(*) AMOUNT
+                                    FROM MES1.R_MES_ZZ_WIP_T T1
+                                   WHERE TRUNC(UPT_DT) = TRUNC(SYSDATE)
+                                     AND CURR_ROUT_CD = 'END'
+                                   GROUP BY T1.MO_NO) A2
+                    ON A1.MO_NO = A2.MO_NO)) R
+ WHERE R1.MO_NO = R.MO_NO
+
+UNION
+
+SELECT R1.MO_NO,
+       R1.LINE_CD,
+       R1.ITEM_NM,
+       R1.ITEM_CD,
+       R1.ITEM_NM,
+       R1.FACE,
+       R1.WORKINGSTATE,
+       R.PLAN_PO_QTY,
+       R.PLAN_WO_QTY,
+       R.AMOUNT,
+       NVL(NULL, '0') NG
+  FROM (SELECT R.WO_NO,
+               R.MO_NO,
+               R.TOP_ITEM_CD,
+               R.FCT_CD,
+               R.PROD_TYPE,
+               R.LINE_CD,
+               R.WO_STATE,
+               NVL((SELECT DICT_IT_NM
+                     FROM IPLANT1.C_IPLANT_DD_T T
+                    WHERE T.DICT_IT = 'RDI02.01'),
+                   '模拟生产中') WORKINGSTATE,
+               NVL(R.SHIFT_CD, '无') FACE,
+               R.WC_CD,
+               R.ITEM_CD,
+               R.ITEM_NM,
+               R.ITEM_TYPE,
+               R.MODEL_CD,
+               R.PLAN_STRT_DT,
+               R.PLAN_END_DT,
+               ROUND(TO_NUMBER(R.PLAN_END_DT - R.PLAN_STRT_DT) * 24) TOURUWORK,
+               R.MODEL_NM,
+               R.UGT_TYPE,
+               R.PLAN_STRT_DT,
+               R.PLAN_END_DT,
+               R.PLAN_WRK_TIME,
+               R.PLAN_PO_QTY,
+               R.PLAN_WO_QTY,
+               R.CRT_DT,
+               R.UPT_ID,
+               R.UPT_DT,
+               R.PROD_QTY,
+               R.GOOD_QTY,
+               R.DFCT_QTY,
+               R.SCRAP_QTY,
+               R.CAPA,
+               R.INPUT_QTY,
+               (SELECT PD_LN_NM
+                  FROM IPLANT1.C_IPLANT_P5_T
+                 WHERE R.LINE_CD = PD_LN_CD) LINE_NAME
+          FROM R_MES_WO_T R
+         WHERE MO_NO = NVL((SELECT T1.MO_NO
+                             FROM MES1.R_MES_WIP_T T1
+                            WHERE TRUNC(UPT_DT) = TRUNC(SYSDATE)
+                              AND CURR_ROUT_CD = 'END'
+                            GROUP BY T1.MO_NO),
+                           (SELECT T1.MO_NO
+                              FROM MES1.R_MES_WIP_T T1
+                             WHERE TRUNC(CRT_DT) = TRUNC(SYSDATE)))) R1,
+       (SELECT NVL(A1.MO_NO, A2.MO_NO) MO_NO,
+               (SELECT R.PLAN_PO_QTY
+                  FROM R_MES_WO_T R
+                 WHERE R.MO_NO = NVL(A1.MO_NO, A2.MO_NO)) PLAN_PO_QTY,
+               A1.PLAN_WO_QTY,
+               A2.AMOUNT
+          FROM (SELECT T.MO_NO,
+                       T.PLAN_PO_QTY,
+                       (SELECT COUNT(*)
+                          FROM MES1.R_MES_WIP_T
+                         WHERE TRUNC(CRT_DT) = TRUNC(SYSDATE)) PLAN_WO_QTY
+                  FROM R_MES_WO_T T
+                 WHERE MO_NO = (SELECT T1.MO_NO
+                                  FROM MES1.R_MES_WIP_T T1
+                                 WHERE TRUNC(CRT_DT) = TRUNC(SYSDATE)
+                                 GROUP BY T1.MO_NO)
+                 GROUP BY T.MO_NO, T.PLAN_PO_QTY, T.PLAN_WO_QTY) A1
+          FULL OUTER JOIN (SELECT T1.MO_NO, COUNT(*) AMOUNT
+                            FROM MES1.R_MES_WIP_T T1
+                           WHERE TRUNC(UPT_DT) = TRUNC(SYSDATE)
+                             AND CURR_ROUT_CD = 'END'
+                           GROUP BY T1.MO_NO) A2
+            ON A1.MO_NO = A2.MO_NO) R
+ WHERE R1.MO_NO = R.MO_NO
+
+
+
+    </select>
+
+  	<!-- SMT车间生产汇总 -->
+ 	<select id="sumSMTKanban" parameterType="hashmap" resultType="java.util.HashMap">
+ SELECT SUM(PLAN_PO_QTY) SUMPO,
+       SUM(PLAN_WO_QTY) SUMWO,
+       NVL(SUM(AMOUNT), '0') SUMPROD,
+       SUM(NG) SUMDFCT
+  FROM (SELECT R.MO_NO,
+               R1.LINE_CD,
+               R1.ITEM_NM,
+               R1.ITEM_CD,
+               R1.ITEM_NM,
+               R1.FACE,
+               R1.WORKINGSTATE,
+               R.PLAN_PO_QTY,
+               R.PLAN_WO_QTY,
+               R.AMOUNT,
+               NVL(NULL, '0') NG
+          FROM (SELECT R.WO_NO,
+                       R.MO_NO,
+                       R.TOP_ITEM_CD,
+                       R.FCT_CD,
+                       R.PROD_TYPE,
+                       R.LINE_CD,
+                       R.WO_STATE,
+                       NVL((SELECT DICT_IT_NM
+                             FROM IPLANT1.C_IPLANT_DD_T T
+                            WHERE T.DICT_IT = 'RDI02.01'),
+                           '模拟生产中') WORKINGSTATE,
+                       NVL(R.SHIFT_CD, '无') FACE,
+                       R.WC_CD,
+                       R.ITEM_CD,
+                       R.ITEM_NM,
+                       R.ITEM_TYPE,
+                       R.MODEL_CD,
+                       R.PLAN_STRT_DT,
+                       R.PLAN_END_DT,
+                       ROUND(TO_NUMBER(R.PLAN_END_DT - R.PLAN_STRT_DT) * 24) TOURUWORK,
+                       R.MODEL_NM,
+                       R.UGT_TYPE,
+                       R.PLAN_STRT_DT,
+                       R.PLAN_END_DT,
+                       R.PLAN_WRK_TIME,
+                       R.PLAN_PO_QTY,
+                       R.PLAN_WO_QTY,
+                       R.CRT_DT,
+                       R.UPT_ID,
+                       R.UPT_DT,
+                       R.PROD_QTY,
+                       R.GOOD_QTY,
+                       R.DFCT_QTY,
+                       R.SCRAP_QTY,
+                       R.CAPA,
+                       R.INPUT_QTY,
+                       (SELECT PD_LN_NM
+                          FROM IPLANT1.C_IPLANT_P5_T
+                         WHERE R.LINE_CD = PD_LN_CD) LINE_NAME
+                  FROM R_MES_WO_T R
+                 WHERE MO_NO =
+                       NVL((SELECT T1.MO_NO
+                             FROM MES1.R_MES_ZZ_WIP_T T1
+                            WHERE TRUNC(UPT_DT) = TRUNC(SYSDATE)
+                              AND CURR_ROUT_CD = 'END'
+                            GROUP BY T1.MO_NO),
+                           (SELECT T1.MO_NO
+                              FROM MES1.R_MES_ZZ_WIP_T T1
+                             WHERE TRUNC(CRT_DT) = TRUNC(SYSDATE)))) R1,
+               (SELECT MO_NO, PLAN_PO_QTY, PLAN_WO_QTY, AMOUNT
+                  FROM (SELECT NVL(A1.MO_NO, A2.MO_NO) MO_NO,
+                               (SELECT R.PLAN_PO_QTY
+                                  FROM R_MES_WO_T R
+                                 WHERE R.MO_NO = NVL(A1.MO_NO, A2.MO_NO)) PLAN_PO_QTY,
+                               NVL(A1.PLAN_WO_QTY, '0') PLAN_WO_QTY,
+                               A2.AMOUNT
+                          FROM (SELECT T.MO_NO,
+                                       T.PLAN_PO_QTY,
+                                       (SELECT COUNT(*)
+                                          FROM MES1.R_MES_ZZ_WIP_T
+                                         WHERE TRUNC(CRT_DT) = TRUNC(SYSDATE)) PLAN_WO_QTY
+                                  FROM R_MES_WO_T T
+                                 WHERE MO_NO =
+                                       (SELECT T1.MO_NO
+                                          FROM MES1.R_MES_ZZ_WIP_T T1
+                                         WHERE NVL(TRUNC(CRT_DT), TRUNC(UPT_DT)) =
+                                               TRUNC(SYSDATE)
+                                         GROUP BY T1.MO_NO)
+                                 GROUP BY T.MO_NO, T.PLAN_PO_QTY, T.PLAN_WO_QTY) A1
+                          FULL OUTER JOIN (SELECT T1.MO_NO, COUNT(*) AMOUNT
+                                            FROM MES1.R_MES_ZZ_WIP_T T1
+                                           WHERE TRUNC(UPT_DT) =
+                                                 TRUNC(SYSDATE)
+                                             AND CURR_ROUT_CD = 'END'
+                                           GROUP BY T1.MO_NO) A2
+                            ON A1.MO_NO = A2.MO_NO)) R
+         WHERE R1.MO_NO = R.MO_NO
+        
+        UNION
+        
+        SELECT R1.MO_NO,
+               R1.LINE_CD,
+               R1.ITEM_NM,
+               R1.ITEM_CD,
+               R1.ITEM_NM,
+               R1.FACE,
+               R1.WORKINGSTATE,
+               R.PLAN_PO_QTY,
+               R.PLAN_WO_QTY,
+               R.AMOUNT,
+               NVL(NULL, '0') NG
+          FROM (SELECT R.WO_NO,
+                       R.MO_NO,
+                       R.TOP_ITEM_CD,
+                       R.FCT_CD,
+                       R.PROD_TYPE,
+                       R.LINE_CD,
+                       R.WO_STATE,
+                       NVL((SELECT DICT_IT_NM
+                             FROM IPLANT1.C_IPLANT_DD_T T
+                            WHERE T.DICT_IT = 'RDI02.01'),
+                           '模拟生产中') WORKINGSTATE,
+                       NVL(R.SHIFT_CD, '无') FACE,
+                       R.WC_CD,
+                       R.ITEM_CD,
+                       R.ITEM_NM,
+                       R.ITEM_TYPE,
+                       R.MODEL_CD,
+                       R.PLAN_STRT_DT,
+                       R.PLAN_END_DT,
+                       ROUND(TO_NUMBER(R.PLAN_END_DT - R.PLAN_STRT_DT) * 24) TOURUWORK,
+                       R.MODEL_NM,
+                       R.UGT_TYPE,
+                       R.PLAN_STRT_DT,
+                       R.PLAN_END_DT,
+                       R.PLAN_WRK_TIME,
+                       R.PLAN_PO_QTY,
+                       R.PLAN_WO_QTY,
+                       R.CRT_DT,
+                       R.UPT_ID,
+                       R.UPT_DT,
+                       R.PROD_QTY,
+                       R.GOOD_QTY,
+                       R.DFCT_QTY,
+                       R.SCRAP_QTY,
+                       R.CAPA,
+                       R.INPUT_QTY,
+                       (SELECT PD_LN_NM
+                          FROM IPLANT1.C_IPLANT_P5_T
+                         WHERE R.LINE_CD = PD_LN_CD) LINE_NAME
+                  FROM R_MES_WO_T R
+                 WHERE MO_NO =
+                       NVL((SELECT T1.MO_NO
+                             FROM MES1.R_MES_WIP_T T1
+                            WHERE TRUNC(UPT_DT) = TRUNC(SYSDATE)
+                              AND CURR_ROUT_CD = 'END'
+                            GROUP BY T1.MO_NO),
+                           (SELECT T1.MO_NO
+                              FROM MES1.R_MES_WIP_T T1
+                             WHERE TRUNC(CRT_DT) = TRUNC(SYSDATE)))) R1,
+               (SELECT NVL(A1.MO_NO, A2.MO_NO) MO_NO,
+                       (SELECT R.PLAN_PO_QTY
+                          FROM R_MES_WO_T R
+                         WHERE R.MO_NO = NVL(A1.MO_NO, A2.MO_NO)) PLAN_PO_QTY,
+                       A1.PLAN_WO_QTY,
+                       A2.AMOUNT
+                  FROM (SELECT T.MO_NO,
+                               T.PLAN_PO_QTY,
+                               (SELECT COUNT(*)
+                                  FROM MES1.R_MES_WIP_T
+                                 WHERE TRUNC(CRT_DT) = TRUNC(SYSDATE)) PLAN_WO_QTY
+                          FROM R_MES_WO_T T
+                         WHERE MO_NO = (SELECT T1.MO_NO
+                                          FROM MES1.R_MES_WIP_T T1
+                                         WHERE TRUNC(CRT_DT) = TRUNC(SYSDATE)
+                                         GROUP BY T1.MO_NO)
+                         GROUP BY T.MO_NO, T.PLAN_PO_QTY, T.PLAN_WO_QTY) A1
+                  FULL OUTER JOIN (SELECT T1.MO_NO, COUNT(*) AMOUNT
+                                    FROM MES1.R_MES_WIP_T T1
+                                   WHERE TRUNC(UPT_DT) = TRUNC(SYSDATE)
+                                     AND CURR_ROUT_CD = 'END'
+                                   GROUP BY T1.MO_NO) A2
+                    ON A1.MO_NO = A2.MO_NO) R
+         WHERE R1.MO_NO = R.MO_NO)
+
+
+ 	</select>
+ 	
+ 	<!-- 每条SMT生产效率圆柱视图 -->
+ 	<select id="yuazhuSMTKanban" parameterType="hashmap" resultType="java.util.HashMap">
+	 SELECT R3.LINE_CD,
+       SUM(R3.PLAN_PO_QTY) JIHUA,
+       SUM(R3.AMOUNT) CHANCHU,
+       SUM(R3.NG) BULIANG
+  FROM (SELECT R.MO_NO,
+               R1.LINE_CD,
+               R1.ITEM_NM,
+               R1.ITEM_CD,
+               R1.ITEM_NM,
+               R1.FACE,
+               R1.WORKINGSTATE,
+               R.PLAN_PO_QTY,
+               R.PLAN_WO_QTY,
+               R.AMOUNT,
+               NVL(NULL, '0') NG
+          FROM (SELECT R.WO_NO,
+                       R.MO_NO,
+                       R.TOP_ITEM_CD,
+                       R.FCT_CD,
+                       R.PROD_TYPE,
+                       R.LINE_CD,
+                       R.WO_STATE,
+                       NVL((SELECT DICT_IT_NM
+                             FROM IPLANT1.C_IPLANT_DD_T T
+                            WHERE T.DICT_IT = 'RDI02.01'),
+                           '模拟生产中') WORKINGSTATE,
+                       NVL(R.SHIFT_CD, '无') FACE,
+                       R.WC_CD,
+                       R.ITEM_CD,
+                       R.ITEM_NM,
+                       R.ITEM_TYPE,
+                       R.MODEL_CD,
+                       R.PLAN_STRT_DT,
+                       R.PLAN_END_DT,
+                       ROUND(TO_NUMBER(R.PLAN_END_DT - R.PLAN_STRT_DT) * 24) TOURUWORK,
+                       R.MODEL_NM,
+                       R.UGT_TYPE,
+                       R.PLAN_STRT_DT,
+                       R.PLAN_END_DT,
+                       R.PLAN_WRK_TIME,
+                       R.PLAN_PO_QTY,
+                       R.PLAN_WO_QTY,
+                       R.CRT_DT,
+                       R.UPT_ID,
+                       R.UPT_DT,
+                       R.PROD_QTY,
+                       R.GOOD_QTY,
+                       R.DFCT_QTY,
+                       R.SCRAP_QTY,
+                       R.CAPA,
+                       R.INPUT_QTY,
+                       (SELECT PD_LN_NM
+                          FROM IPLANT1.C_IPLANT_P5_T
+                         WHERE R.LINE_CD = PD_LN_CD) LINE_NAME
+                  FROM R_MES_WO_T R
+                 WHERE MO_NO =
+                       NVL((SELECT T1.MO_NO
+                             FROM MES1.R_MES_ZZ_WIP_T T1
+                            WHERE TRUNC(UPT_DT) = TRUNC(SYSDATE)
+                              AND CURR_ROUT_CD = 'END'
+                            GROUP BY T1.MO_NO),
+                           (SELECT T1.MO_NO
+                              FROM MES1.R_MES_ZZ_WIP_T T1
+                             WHERE TRUNC(CRT_DT) = TRUNC(SYSDATE)))) R1,
+               (SELECT MO_NO, PLAN_PO_QTY, PLAN_WO_QTY, AMOUNT
+                  FROM (SELECT NVL(A1.MO_NO, A2.MO_NO) MO_NO,
+                               (SELECT R.PLAN_PO_QTY
+                                  FROM R_MES_WO_T R
+                                 WHERE R.MO_NO = NVL(A1.MO_NO, A2.MO_NO)) PLAN_PO_QTY,
+                               NVL(A1.PLAN_WO_QTY, '0') PLAN_WO_QTY,
+                               A2.AMOUNT
+                          FROM (SELECT T.MO_NO,
+                                       T.PLAN_PO_QTY,
+                                       (SELECT COUNT(*)
+                                          FROM MES1.R_MES_ZZ_WIP_T
+                                         WHERE TRUNC(CRT_DT) = TRUNC(SYSDATE)) PLAN_WO_QTY
+                                  FROM R_MES_WO_T T
+                                 WHERE MO_NO =
+                                       (SELECT T1.MO_NO
+                                          FROM MES1.R_MES_ZZ_WIP_T T1
+                                         WHERE NVL(TRUNC(CRT_DT), TRUNC(UPT_DT)) =
+                                               TRUNC(SYSDATE)
+                                         GROUP BY T1.MO_NO)
+                                 GROUP BY T.MO_NO, T.PLAN_PO_QTY, T.PLAN_WO_QTY) A1
+                          FULL OUTER JOIN (SELECT T1.MO_NO, COUNT(*) AMOUNT
+                                            FROM MES1.R_MES_ZZ_WIP_T T1
+                                           WHERE TRUNC(UPT_DT) =
+                                                 TRUNC(SYSDATE)
+                                             AND CURR_ROUT_CD = 'END'
+                                           GROUP BY T1.MO_NO) A2
+                            ON A1.MO_NO = A2.MO_NO)) R
+         WHERE R1.MO_NO = R.MO_NO
+        
+        UNION
+        
+        SELECT R1.MO_NO,
+               R1.LINE_CD,
+               R1.ITEM_NM,
+               R1.ITEM_CD,
+               R1.ITEM_NM,
+               R1.FACE,
+               R1.WORKINGSTATE,
+               R.PLAN_PO_QTY,
+               R.PLAN_WO_QTY,
+               R.AMOUNT,
+               NVL(NULL, '0') NG
+          FROM (SELECT R.WO_NO,
+                       R.MO_NO,
+                       R.TOP_ITEM_CD,
+                       R.FCT_CD,
+                       R.PROD_TYPE,
+                       R.LINE_CD,
+                       R.WO_STATE,
+                       NVL((SELECT DICT_IT_NM
+                             FROM IPLANT1.C_IPLANT_DD_T T
+                            WHERE T.DICT_IT = 'RDI02.01'),
+                           '模拟生产中') WORKINGSTATE,
+                       NVL(R.SHIFT_CD, '无') FACE,
+                       R.WC_CD,
+                       R.ITEM_CD,
+                       R.ITEM_NM,
+                       R.ITEM_TYPE,
+                       R.MODEL_CD,
+                       R.PLAN_STRT_DT,
+                       R.PLAN_END_DT,
+                       ROUND(TO_NUMBER(R.PLAN_END_DT - R.PLAN_STRT_DT) * 24) TOURUWORK,
+                       R.MODEL_NM,
+                       R.UGT_TYPE,
+                       R.PLAN_STRT_DT,
+                       R.PLAN_END_DT,
+                       R.PLAN_WRK_TIME,
+                       R.PLAN_PO_QTY,
+                       R.PLAN_WO_QTY,
+                       R.CRT_DT,
+                       R.UPT_ID,
+                       R.UPT_DT,
+                       R.PROD_QTY,
+                       R.GOOD_QTY,
+                       R.DFCT_QTY,
+                       R.SCRAP_QTY,
+                       R.CAPA,
+                       R.INPUT_QTY,
+                       (SELECT PD_LN_NM
+                          FROM IPLANT1.C_IPLANT_P5_T
+                         WHERE R.LINE_CD = PD_LN_CD) LINE_NAME
+                  FROM R_MES_WO_T R
+                 WHERE MO_NO =
+                       NVL((SELECT T1.MO_NO
+                             FROM MES1.R_MES_WIP_T T1
+                            WHERE TRUNC(UPT_DT) = TRUNC(SYSDATE)
+                              AND CURR_ROUT_CD = 'END'
+                            GROUP BY T1.MO_NO),
+                           (SELECT T1.MO_NO
+                              FROM MES1.R_MES_WIP_T T1
+                             WHERE TRUNC(CRT_DT) = TRUNC(SYSDATE)))) R1,
+               (SELECT NVL(A1.MO_NO, A2.MO_NO) MO_NO,
+                       (SELECT R.PLAN_PO_QTY
+                          FROM R_MES_WO_T R
+                         WHERE R.MO_NO = NVL(A1.MO_NO, A2.MO_NO)) PLAN_PO_QTY,
+                       A1.PLAN_WO_QTY,
+                       A2.AMOUNT
+                  FROM (SELECT T.MO_NO,
+                               T.PLAN_PO_QTY,
+                               (SELECT COUNT(*)
+                                  FROM MES1.R_MES_WIP_T
+                                 WHERE TRUNC(CRT_DT) = TRUNC(SYSDATE)) PLAN_WO_QTY
+                          FROM R_MES_WO_T T
+                         WHERE MO_NO = (SELECT T1.MO_NO
+                                          FROM MES1.R_MES_WIP_T T1
+                                         WHERE TRUNC(CRT_DT) = TRUNC(SYSDATE)
+                                         GROUP BY T1.MO_NO)
+                         GROUP BY T.MO_NO, T.PLAN_PO_QTY, T.PLAN_WO_QTY) A1
+                  FULL OUTER JOIN (SELECT T1.MO_NO, COUNT(*) AMOUNT
+                                    FROM MES1.R_MES_WIP_T T1
+                                   WHERE TRUNC(UPT_DT) = TRUNC(SYSDATE)
+                                     AND CURR_ROUT_CD = 'END'
+                                   GROUP BY T1.MO_NO) A2
+                    ON A1.MO_NO = A2.MO_NO) R
+         WHERE R1.MO_NO = R.MO_NO) R3
+
+ GROUP BY R3.LINE_CD
+
+ 	</select>
+ 	
+ 	<!-- 不良明细统计 -->
+ 	<select id="NGSMTKanban" parameterType="hashmap" resultType="java.util.HashMap">
+	SELECT A.RESULT_NG ,A.NOWDATE,COUNT(A.RESULT_NG) TEMP FROM (
+	SELECT S.PCBID,TRUNC(TO_DATE(S.INSPECTTIME,'yyyy-mm-dd HH24-mi-ss')) NOWDATE,
+	CASE
+	WHEN S.RESULT = 1 THEN
+	'null'
+	WHEN S.RESULT = 2 THEN
+	'通用'
+	WHEN S.RESULT = 3 or S.RESULT =4 THEN
+	'mark'
+	WHEN S.RESULT > 4 AND S.RESULT &lt; 9 THEN
+	'缺件'
+	WHEN S.RESULT >8 AND S.RESULT &lt; 17 THEN
+	'偏移'
+	WHEN S.RESULT >16 AND S.RESULT &lt; 33 THEN
+	'侧立'
+	WHEN S.RESULT >32 AND S.RESULT &lt; 65 THEN
+	'立碑'
+	WHEN S.RESULT >64 AND S.RESULT &lt; 129 THEN
+	'反贴'
+	WHEN S.RESULT >129 AND S.RESULT &lt; 257 THEN
+	'错件'
+	WHEN S.RESULT >256 AND S.RESULT &lt; 513 THEN
+	'极反'
+	WHEN S.RESULT >512 AND S.RESULT &lt; 1025THEN
+	'缺锡'
+	WHEN S.RESULT >1024 AND S.RESULT &lt; 2049 THEN
+	'多锡'
+	WHEN S.RESULT >2048 AND S.RESULT &lt; 4097 THEN
+	'虚焊'
+	WHEN S.RESULT >4096 AND S.RESULT &lt; 8193THEN
+	'翘脚'
+	WHEN S.RESULT > 8192 AND S.RESULT &lt; 16385 THEN
+	'桥连'
+	WHEN S.RESULT >16384 AND S.RESULT &lt; 32769 THEN
+	'破损'
+	WHEN S.RESULT >32768 AND S.RESULT &lt; 65537 THEN
+	'刮痕'
+	WHEN S.RESULT >65536 AND S.RESULT &lt; 131073 THEN
+	'凹陷'
+	WHEN S.RESULT >131072 AND S.RESULT &lt; 262145 THEN
+	'多件'
+	WHEN S.RESULT >262144 AND S.RESULT &lt; 524289 THEN
+	'锡珠'
+	WHEN S.RESULT >524288 AND S.RESULT &lt; 1048577 THEN
+	'异物'
+	WHEN S.RESULT > 1048576 AND S.RESULT &lt; 2097153 THEN
+	'漏铜'
+	WHEN S.RESULT >2097152 AND S.RESULT &lt; 4194305 THEN
+	'溢胶'
+	END RESULT_NG
+	FROM SCADA_AOI S
+	<!-- WHERE TRUNC(TO_DATE(S.INSPECTTIME,'yyyy-mm-dd HH24-mi-ss')) = to_date('2017-05-10','yyyy-mm-dd') -->
+	WHERE TRUNC(TO_DATE(S.INSPECTTIME,'yyyy-mm-dd HH24-mi-ss')) = TRUNC(SYSDATE)
+	) A
+	GROUP BY A.RESULT_NG ,A.NOWDATE
+</select>
+ 
+  
+</mapper>

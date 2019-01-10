@@ -1,0 +1,793 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="">
+
+    <!-- ==============================质量管理============================= -->
+    <!-- =============OQC抽检比例维护=========== -->
+    <!-- 查询抽检比例信息 -->
+    <select id="querySamplingProportion" parameterType="hashmap" resultType="java.util.HashMap">
+    	<include refid="oraclePagingFileTop"></include>
+			   	Q.FCT_CD, 
+			   	F.FT_NM AS FCT_NM,
+				Q.SAMP_ST, 
+				Q.SAMP_VAL, 
+				Q.SAMP_LOT, 
+				Q.SAMP_QTY, 
+				Q.USE_YN, 
+				Q.MO, 
+				Q.CRT_ID,
+				(SELECT EMP_NM FROM IPLANT1.C_IPLANT_E1_T BB WHERE BB.EMP_CD =(SELECT EMP_NO AS EMP_CD FROM IPLANT1.C_IPLANT_U1_T AA WHERE AA.USE_CD = Q.CRT_ID)) AS CRT_NM, 
+				Q.CRT_IP, 
+				TO_CHAR(Q.CRT_DT, 'YYYY-MM-DD HH24:MI:SS')CRT_DT,
+				Q.UPT_ID, 
+				Q.UPT_IP, 
+				TO_CHAR(Q.UPT_DT, 'YYYY-MM-DD HH24:MI:SS')UPT_DT
+	    	FROM MES1.R_MES_QC_MT_T Q
+	    		LEFT JOIN IPLANT1.C_IPLANT_F1_T F ON F.FT_CD = Q.FCT_CD
+	    	<where> 1=1
+	    		<if test="SAMP_ST!=null and SAMP_ST!=''">
+	    			AND Q.SAMP_ST ='${SAMP_ST}'
+	    		</if>
+	    		<if test="SAMP_VAL!=null and SAMP_VAL!=''">
+	    			AND Q.SAMP_VAL LIKE '%${SAMP_VAL}%'
+	    		</if>
+	    		<if test="FCT_CD!=null and FCT_CD!=''">
+	    			AND Q.FCT_CD = '${FCT_CD}'
+	    		</if>
+	    	</where>
+	    		ORDER BY Q.CRT_DT DESC
+	    <include refid="oraclePagingFileBottom"></include>
+	</select>
+	<!-- 查询抽检比例信息分页总数 -->
+	<select id="querySamplingProportion_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT
+			COUNT(1) AS ROWS_COUNT
+		FROM MES1.R_MES_QC_MT_T
+		<where> 1=1
+	    	<if test="SAMP_ST!=null and SAMP_ST!=''">
+	    		AND SAMP_ST ='${SAMP_ST}'
+	    	</if>
+	    	<if test="SAMP_VAL!=null and SAMP_VAL!=''">
+	    		AND SAMP_VAL LIKE '%${SAMP_VAL}%'
+	    	</if>
+	    </where>		
+	</select>
+	<!-- 新增抽检比例信息 -->
+	<insert id="insertSamplingProportion" parameterType="java.util.List">
+		INSERT INTO 
+			MES1.R_MES_QC_MT_T
+				(
+				   	FCT_CD, 
+					SAMP_ST, 
+					SAMP_VAL, 
+					SAMP_LOT, 
+					SAMP_QTY, 
+					USE_YN, 
+					MO, 
+					USR_DFN_1, 
+					USR_DFN_2, 
+					USR_DFN_3, 
+					USR_DFN_4, 
+					USR_DFN_5, 
+					CRT_ID, 
+					CRT_IP, 
+					CRT_DT
+				)
+				(
+				<foreach collection="list" item="item" index="index" separator="union all">
+				SELECT
+				   '${item.FCT_CD}',
+			       '${item.SAMP_ST}',
+			       '${item.SAMP_VAL}',
+			       '${item.SAMP_LOT}',
+			       '${item.SAMP_QTY}',
+			       '${item.USE_YN}',
+			       '${item.MO}',
+			       '${item.USR_DFN_1}',
+			       '${item.USR_DFN_2}',
+			       '${item.USR_DFN_3}',
+			       '${item.USR_DFN_4}',
+			       '${item.USR_DFN_5}',
+			       '${F_USE_CD}',
+			       '${item.CRT_IP}',
+			        SYSDATE
+			    FROM DUAL
+			    </foreach>
+				)
+	</insert>
+	<!-- 修改抽检比例信息 -->
+	<update id="updateSamplingProportion" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" open="begin" close=";end;" separator=";">
+		UPDATE MES1.R_MES_QC_MT_T
+			<set>
+				<!-- <if test="item.FCT_CD!=null and item.FCT_CD!=''">
+					FCT_CD='${item.FCT_CD}',
+				</if> -->
+				<if test="item.SAMP_ST!=null and item.SAMP_ST!=''">
+					SAMP_ST='${item.SAMP_ST}',
+				</if>
+				<if test="item.SAMP_VAL!=null and item.SAMP_VAL!=''">
+					SAMP_VAL='${item.SAMP_VAL}',
+				</if>
+				<if test="item.SAMP_LOT!=null and item.SAMP_LOT!=''">
+					SAMP_LOT='${item.SAMP_LOT}',
+				</if>
+				<if test="item.SAMP_QTY!=null and item.SAMP_QTY!=''">
+					SAMP_QTY='${item.SAMP_QTY}',
+				</if>
+				<if test="item.USE_YN!=null and item.USE_YN!=''">
+					USE_YN='${item.USE_YN}',
+				</if>
+				<if test="item.MO!=null and item.MO!=''">
+					MO='${item.MO}',
+				</if>
+<!-- 				<if test="item.USR_DFN_1!=null and item.USR_DFN_1!=''">
+					USR_DFN_1='${item.USR_DFN_1}',
+				</if>
+				<if test="item.USR_DFN_2!=null and item.USR_DFN_2!=''">
+					USR_DFN_2='${item.USR_DFN_2}',
+				</if>
+				<if test="item.USR_DFN_3!=null and item.USR_DFN_3!=''">
+					USR_DFN_3='${item.USR_DFN_3}',
+				</if>
+				<if test="item.USR_DFN_4!=null and item.USR_DFN_4!=''">
+					USR_DFN_4='${item.USR_DFN_4}',
+				</if>
+				<if test="item.USR_DFN_5!=null and item.USR_DFN_5!=''">
+					USR_DFN_5='${item.USR_DFN_5}',
+				</if> -->
+					UPT_ID='${F_USE_CD}',
+					UPT_IP='${item.UPT_IP}',
+					UPT_DT=SYSDATE
+			</set>
+			<where>
+				SAMP_VAL='${item.SAMP_VAL}'
+			</where>
+		</foreach>
+	</update>
+	<!-- 删除抽检比例信息 -->
+	<delete id="deleteSamplingProportion" parameterType="hashmap">
+		DELETE MES1.R_MES_QC_MT_T
+			  WHERE	FCT_CD='${FCT_CD}' AND SAMP_VAL='${SAMP_VAL}'
+	</delete>
+	
+	
+	<!-- ===============抽检项目维护=========== -->
+	<!-- 查询抽检项目信息 -->
+    <select id="querySamplingProject" parameterType="hashmap" resultType="java.util.HashMap">
+    	<include refid="oraclePagingFileTop"></include>
+			   	  D.FCT_CD, 
+				  F.FT_NM AS FCT_NM,
+		          D.SAMP_ITEM_CD,
+		          D.SAMP_ITEM_NM, 
+		          D.SAMP_ITEM_DESC, 
+		          D.PRNT_CD, 
+		          D.PRNT_NM,  
+		          D.USE_YN, 
+		          D.MO, 
+		          D.CRT_ID,
+		          (SELECT EMP_NM FROM IPLANT1.C_IPLANT_E1_T BB WHERE BB.EMP_CD =(SELECT EMP_NO AS EMP_CD FROM IPLANT1.C_IPLANT_U1_T AA WHERE AA.USE_CD = D.CRT_ID)) AS CRT_NM, 
+		          D.CRT_IP, 
+		          TO_CHAR(D.CRT_DT, 'YYYY-MM-DD HH24:MI:SS')CRT_DT, 
+		          D.UPT_ID, 
+		          D.UPT_IP, 
+		          TO_CHAR(D.UPT_DT, 'YYYY-MM-DD HH24:MI:SS')UPT_DT
+		          	FROM MES1.R_MES_QC_SAMP_DTL_T D
+          		LEFT JOIN IPLANT1.C_IPLANT_F1_T F ON F.FT_CD = D.FCT_CD
+          		LEFT JOIN MES1.R_MES_QC_SAMP_MST_T M ON M.PRNT_CD=D.PRNT_CD
+	    	<where> 1=1
+	    		<if test="SAMP_ITEM_NM!=null and SAMP_ITEM_NM!=''">
+	    			AND D.SAMP_ITEM_NM LIKE '%${SAMP_ITEM_NM}%'
+	    		</if>
+	    		<if test="PRNT_NM!=null and PRNT_NM!=''">
+	    			AND D.PRNT_NM = '${PRNT_NM}'
+	    		</if>
+	    		<if test="SAMP_ITEM_CD!=null and SAMP_ITEM_CD!=''">
+	    			AND D.SAMP_ITEM_CD = '${SAMP_ITEM_CD}'
+	    		</if>
+	    		<if test="PRNT_CD!=null and PRNT_CD!=''">
+	    			AND D.PRNT_CD = '${PRNT_CD}'
+	    		</if>
+	    		
+	    	</where>
+	    		ORDER BY D.CRT_DT DESC
+	    <include refid="oraclePagingFileBottom"></include>
+	</select>
+	<!-- 查询抽检项目信息分页总数 -->
+	<select id="querySamplingProject_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT
+			COUNT(1) AS ROWS_COUNT
+		FROM MES1.R_MES_QC_SAMP_DTL_T
+		<where> 1=1
+	    	<if test="SAMP_ITEM_NM!=null and SAMP_ITEM_NM!=''">
+	    		AND SAMP_ITEM_NM LIKE '%${SAMP_ITEM_NM}%'
+	    	</if>
+	    	<if test="PRNT_NM!=null and PRNT_NM!=''">
+	    		AND PRNT_NM = '${PRNT_NM}'
+	    	</if>
+	    </where>		
+	</select>
+	<!-- 新增抽检项目信息 -->
+	<insert id="insertSamplingProject" parameterType="java.util.List">
+		INSERT INTO 
+			MES1.R_MES_QC_SAMP_DTL_T
+				(
+				   	FCT_CD, 
+					SAMP_ITEM_CD, 
+					SAMP_ITEM_NM, 
+					SAMP_ITEM_DESC,
+					PRNT_CD,
+					PRNT_NM,
+					USE_YN, 
+					MO, 
+					USR_DFN_1, 
+					USR_DFN_2, 
+					USR_DFN_3, 
+					USR_DFN_4, 
+					USR_DFN_5, 
+					CRT_ID, 
+					CRT_IP, 
+					CRT_DT
+				)
+				(
+				<foreach collection="list" item="item" index="index" separator="union all">
+				SELECT
+				   '${item.FCT_CD}',
+			       '${item.SAMP_ITEM_CD}',
+			       '${item.SAMP_ITEM_NM}',
+			       '${item.SAMP_ITEM_DESC}',
+			       '${item.PRNT_CD}',
+				   '${item.PRNT_NM}',
+			       '${item.USE_YN}',
+			       '${item.MO}',
+			       '${item.USR_DFN_1}',
+			       '${item.USR_DFN_2}',
+			       '${item.USR_DFN_3}',
+			       '${item.USR_DFN_4}',
+			       '${item.USR_DFN_5}',
+			       '${F_USE_CD}',
+			       '${item.CRT_IP}',
+			        SYSDATE
+			    FROM DUAL
+			    </foreach>
+				)
+	</insert>
+	<!-- 修改抽检项目信息 -->
+	<update id="updateSamplingProject" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" open="begin" close=";end;" separator=";">
+		UPDATE MES1.R_MES_QC_SAMP_DTL_T
+			<set>
+				<!-- <if test="item.FCT_CD!=null and item.FCT_CD!=''">
+					FCT_CD='${item.FCT_CD}',
+				</if>
+				<if test="item.SAMP_ITEM_CD!=null and item.SAMP_ITEM_CD!=''">
+					SAMP_ITEM_CD='${item.SAMP_ITEM_CD}',
+				</if> -->
+				<if test="item.SAMP_ITEM_NM!=null and item.SAMP_ITEM_NM!=''">
+					SAMP_ITEM_NM='${item.SAMP_ITEM_NM}',
+				</if>
+				<if test="item.SAMP_ITEM_DESC!=null and item.SAMP_ITEM_DESC!=''">
+					SAMP_ITEM_DESC='${item.SAMP_ITEM_DESC}',
+				</if>
+				<if test="item.PRNT_CD!=null and item.PRNT_CD!=''">
+					PRNT_CD='${item.PRNT_CD}',
+				</if>
+				<if test="item.PRNT_NM!=null and item.PRNT_NM!=''">
+					PRNT_NM='${item.PRNT_NM}',
+				</if>
+				<if test="item.USE_YN!=null and item.USE_YN!=''">
+					USE_YN='${item.USE_YN}',
+				</if>
+				<if test="item.MO!=null and item.MO!=''">
+					MO='${item.MO}',
+				</if>
+				<if test="item.USR_DFN_1!=null and item.USR_DFN_1!=''">
+					USR_DFN_1='${item.USR_DFN_1}',
+				</if>
+				<if test="item.USR_DFN_2!=null and item.USR_DFN_2!=''">
+					USR_DFN_2='${item.USR_DFN_2}',
+				</if>
+				<if test="item.USR_DFN_3!=null and item.USR_DFN_3!=''">
+					USR_DFN_3='${item.USR_DFN_3}',
+				</if>
+				<if test="item.USR_DFN_4!=null and item.USR_DFN_4!=''">
+					USR_DFN_4='${item.USR_DFN_4}',
+				</if>
+				<if test="item.USR_DFN_5!=null and item.USR_DFN_5!=''">
+					USR_DFN_5='${item.USR_DFN_5}',
+				</if>
+					UPT_ID='${F_USE_CD}',
+					UPT_IP='${item.UPT_IP}',
+					UPT_DT=SYSDATE
+			</set>
+			<where> 1=1
+				<if test="item.FCT_CD!=null and item.FCT_CD!=''">
+					AND FCT_CD='${item.FCT_CD}'
+				</if>
+				<if test="item.SAMP_ITEM_CD!=null and item.SAMP_ITEM_CD!=''">
+					AND SAMP_ITEM_CD='${item.SAMP_ITEM_CD}'
+				</if>
+			</where>
+		</foreach>
+	</update>
+	<!-- 删除抽检项目信息 -->
+	<delete id="deleteSamplingProject" parameterType="hashmap">
+		DELETE MES1.R_MES_QC_SAMP_DTL_T
+		  <where>
+			<if test="SAMP_ITEM_CD!=null and SAMP_ITEM_CD!='' ">
+				AND SAMP_ITEM_CD='${SAMP_ITEM_CD}'
+			</if>
+			<if test="PRNT_CD!=null and PRNT_CD!='' ">
+				AND PRNT_CD='${PRNT_CD}'
+			</if>
+		  </where>
+	</delete>
+
+	<!-- 查询抽检项目树结构信息 -->
+	<select id="querySamplingProjectTree" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT
+			SAMP_ITEM_CD AS ST_C_CD,
+	        SAMP_ITEM_NM AS ST_C_NM,
+	        PRNT_CD AS ST_P_CD,
+	        PRNT_NM AS ST_P_NM
+		FROM
+			MES1.R_MES_QC_SAMP_DTL_T
+			<where>
+				<if test="SAMP_ITEM_NM!=null and SAMP_ITEM_NM!='' ">
+					AND SAMP_ITEM_NM like '%{SAMP_ITEM_NM}%'
+				</if>
+				<if test="PRNT_CD!=null and PRNT_CD!='' ">
+					AND PRNT_CD = '{PRNT_CD}'
+				</if>
+				   AND USE_YN='Y'
+			</where>
+			UNION 
+		SELECT
+		    PRNT_CD   AS ST_P_CD,
+		    PRNT_NM   AS ST_P_NM,
+		    'N/A'     AS ST_C_CD,
+		    '0'      AS ST_C_NM
+		    FROM MES1.R_MES_QC_SAMP_MST_T
+		<where>
+			<if test="samp_item_nm!=null and samp_item_nm!='' ">
+				AND samp_item_nm like '%{samp_item_nm}%'
+			</if>
+			<if test="PRNT_CD!=null and PRNT_CD!='' ">
+				AND PRNT_CD = '{PRNT_CD}'
+			</if>
+			   AND USE_YN='Y' AND MR_YN='Y'
+		</where>
+	</select>
+	
+	<!-- 查询抽检项目顶层架构 -->
+	<select id="querySamplingProjectTop" parameterType="hashmap" resultType="java.util.HashMap">
+			SELECT	FCT_CD,
+				PRNT_CD,
+				PRNT_NM,
+				MR_YN,
+				USE_YN,
+				MO,
+				USR_DFN_1,
+				USR_DFN_2,
+				USR_DFN_3,
+				USR_DFN_4,
+				USR_DFN_5,
+				CRT_ID,
+				CRT_IP,
+				TO_CHAR(CRT_DT, 'yyyy-mm-dd hh24:mi:ss')CRT_DT, 
+				UPT_ID, 
+				UPT_IP, 
+				TO_CHAR(UPT_DT, 'yyyy-mm-dd hh24:mi:ss')UPT_DT
+	    	FROM MES1.R_MES_QC_SAMP_MST_T
+	    	<if test="PRNT_CD!=null and PRNT_CD!=''">
+				WHERE PRNT_CD='${PRNT_CD}'
+			</if>
+	</select>
+	<!-- 查询工序 -->
+	<select id="queryWorkingProcedure" parameterType="hashmap" resultType="java.util.HashMap">
+			SELECT	BAR_CODE, 
+				FCT_CD, 
+				PRF_CD, 
+				PRF_NM, 
+				USE_YN, 
+				MO, 
+				PRF_TYPE,
+				CRT_ID,
+				CRT_IP,
+				TO_CHAR(CRT_DT, 'yyyy-mm-dd hh24:mi:ss')CRT_DT, 
+				UPT_ID, 
+				UPT_IP, 
+				TO_CHAR(UPT_DT, 'yyyy-mm-dd hh24:mi:ss')UPT_DT
+	    	FROM MES1.R_MES_PRF_MT_T
+	</select>
+	
+	<!-- 新增抽检项目顶层架构 -->
+	<insert id="insertSamplingProjectTop" parameterType="hashmap">
+		INSERT INTO 
+			MES1.R_MES_QC_SAMP_MST_T
+				(
+				   	FCT_CD,
+					PRNT_CD,
+					PRNT_NM,
+					MR_YN,
+					USE_YN,
+					MO,
+					CRT_ID,
+					CRT_IP,
+					CRT_DT
+				)
+				VALUES
+				(
+				   '${FCT_CD}',
+				   '${PRNT_CD}',
+				   '${PRNT_NM}',
+				   '${MR_YN}',
+				   '${USE_YN}',
+				   '${MO}',
+			       '${F_USE_CD}',
+			       '${CRT_IP}',
+			        SYSDATE
+				)
+	</insert>
+	
+	<update id="updateSamplingProjectTop" parameterType="hashmap">
+		UPDATE MES1.R_MES_QC_SAMP_MST_T
+			<set>
+				<!-- <if test="PRNT_CD!=null and PRNT_CD!=''">
+					PRNT_CD='${PRNT_CD}',
+				</if>
+				<if test="PRNT_NM!=null and PRNT_NM!=''">
+					PRNT_NM='${PRNT_NM}',
+				</if> -->
+				<if test="MR_YN!=null and MR_YN!=''">
+					MR_YN='${MR_YN}',
+				</if>
+				<if test="USE_YN!=null and USE_YN!=''">
+					USE_YN='${USE_YN}',
+				</if>
+				<if test="MO!=null and MO!=''">
+					MO='${MO}',
+				</if>
+				<!-- <if test="USR_DFN_1!=null and USR_DFN_1!=''">
+					USR_DFN_1='${USR_DFN_1}',
+				</if>
+				<if test="USR_DFN_2!=null and USR_DFN_2!=''">
+					USR_DFN_2='${USR_DFN_2}',
+				</if>
+				<if test="USR_DFN_3!=null and USR_DFN_3!=''">
+					USR_DFN_3='${USR_DFN_3}',
+				</if>
+				<if test="USR_DFN_4!=null and USR_DFN_4!=''">
+					USR_DFN_4='${USR_DFN_4}',
+				</if>
+				<if test="USR_DFN_5!=null and USR_DFN_5!=''">
+					USR_DFN_5='${USR_DFN_5}',
+				</if> -->
+					UPT_ID='${F_USE_CD}',
+					UPT_IP='${UPT_IP}',
+					UPT_DT=SYSDATE
+			</set>
+			<where>
+				PRNT_CD='${PRNT_CD}' AND PRNT_NM='${PRNT_NM}'
+			</where>
+	</update>
+	
+	<!-- 删除抽检项目顶层架构 -->
+	<delete id="deleteSamplingProjectTop" parameterType="hashmap">
+		DELETE MES1.R_MES_QC_SAMP_MST_T
+			WHERE PRNT_CD='${PRNT_CD}'
+	</delete>
+	
+	<!-- ==============Q-HOLD功能=============== -->
+	<!-- 查询Q-HOLD功能信息 -->
+	<select id="queryQ-HOLDFunction" parameterType="hashmap" resultType="java.util.HashMap">
+    	<include refid="oraclePagingFileTop"></include>
+			   	Q.FCT_CD, 
+			   	F.FT_NM AS FCT_NM,
+				Q.HOLD_TY, 
+				T.DICT_IT_NM AS HOLD_TY_NM,
+				Q.HOLD_VAL, 
+				Q.HOLD_ST, 
+				Q.FRZE_YN, 
+				Q.USE_YN, 
+				Q.MO, 
+				Q.CRT_ID, 
+				Q.CRT_IP, 
+				TO_CHAR(Q.CRT_DT, 'yyyy-mm-dd hh24:mi:ss')CRT_DT, 
+				Q.UPT_ID, 
+				Q.UPT_IP, 
+				TO_CHAR(Q.UPT_DT, 'yyyy-mm-dd hh24:mi:ss')UPT_DT
+	    	FROM MES1.R_MES_QC_Q_HOLD_T Q
+	    		LEFT JOIN IPLANT1.C_IPLANT_F1_T F ON F.FT_CD = Q.FCT_CD
+	    		LEFT JOIN IPLANT1.C_IPLANT_DD_T T ON T.DICT_IT = Q.HOLD_TY
+	    	<where> 1=1
+	    		<if test="HOLD_TY!=null and HOLD_TY!=''">
+	    			AND Q.HOLD_TY = '${HOLD_TY}'
+	    		</if>
+	    		<if test="HOLD_VAL!=null and HOLD_VAL!=''">
+	    			AND Q.HOLD_VAL LIKE '%${HOLD_VAL}%'
+	    		</if>
+	    		<if test="FCT_CD!=null and FCT_CD!=''">
+	    			AND Q.FCT_CD ='${FCT_CD}'
+	    		</if>
+	    	</where>
+	    		ORDER BY CRT_DT DESC
+	    <include refid="oraclePagingFileBottom"></include>
+	</select>
+	<!-- 查询Q-HOLD功能信息分页总数 -->
+	<select id="queryQ-HOLDFunction_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT
+			COUNT(1) AS ROWS_COUNT
+		FROM MES1.R_MES_QC_Q_HOLD_T
+		<where> 1=1
+	    	<if test="HOLD_TY!=null and HOLD_TY!=''">
+	    		AND HOLD_TY = '${HOLD_TY}'
+	    	</if>
+	    	<if test="HOLD_VAL!=null and HOLD_VAL!=''">
+	    		AND HOLD_VAL LIKE '%${HOLD_VAL}%'
+	    	</if>
+	    </where>		
+	</select>
+	
+	<!-- 查询Q-HOLD类型信息 -->
+	<select id="queryQ-HOLDType" parameterType="hashmap" resultType="java.util.HashMap">
+			 SELECT * FROM  IPLANT1.C_IPLANT_DD_T  WHERE DICT_CD = 'HOLD1'
+	</select>
+	<!-- 新增Q-HOLD功能信息信息 -->
+	<insert id="insertQ-HOLDFunction" parameterType="java.util.List">
+		INSERT INTO 
+			MES1.R_MES_QC_Q_HOLD_T
+				(
+				   	FCT_CD, 
+					HOLD_TY, 
+					HOLD_VAL, 
+					HOLD_ST, 
+					FRZE_YN,
+					USE_YN, 
+					MO, 
+					USR_DFN_1, 
+					USR_DFN_2, 
+					USR_DFN_3, 
+					USR_DFN_4, 
+					USR_DFN_5, 
+					CRT_ID, 
+					CRT_IP, 
+					CRT_DT
+				)
+				(
+				<foreach collection="list" item="item" index="index" separator="union all">
+				SELECT
+				   '${item.FCT_CD}',
+			       '${item.HOLD_TY}',
+			       '${item.HOLD_VAL}',
+			       '${item.HOLD_ST}',
+			       '${item.FRZE_YN}',
+			       '${item.USE_YN}',
+			       '${item.MO}',
+			       '${item.USR_DFN_1}',
+			       '${item.USR_DFN_2}',
+			       '${item.USR_DFN_3}',
+			       '${item.USR_DFN_4}',
+			       '${item.USR_DFN_5}',
+			       '${F_USE_CD}',
+			       '${item.CRT_IP}',
+			        SYSDATE
+			    FROM DUAL
+			    </foreach>
+				)
+	</insert>
+	<!-- 修改Q-HOLD功能信息 -->
+	<update id="updateQ-HOLDFunction" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" open="begin" close=";end;" separator=";">
+		UPDATE MES1.R_MES_QC_Q_HOLD_T
+			<set>
+				<if test="item.HOLD_TY!=null and item.HOLD_TY!=''">
+					HOLD_TY='${item.HOLD_TY}',
+				</if>
+				<if test="item.HOLD_VAL!=null and item.HOLD_VAL!=''">
+					HOLD_VAL='${item.HOLD_VAL}',
+				</if>
+				<if test="item.HOLD_ST!=null and item.HOLD_ST!=''">
+					HOLD_ST='${item.HOLD_ST}',
+				</if>
+				<if test="item.FRZE_YN!=null and item.FRZE_YN!=''">
+					FRZE_YN='${item.FRZE_YN}',
+				</if>
+				<if test="item.USE_YN!=null and item.USE_YN!=''">
+					USE_YN='${item.USE_YN}',
+				</if>
+				<if test="item.MO!=null and item.MO!=''">
+					MO='${item.MO}',
+				</if>
+				<if test="item.USR_DFN_1!=null and item.USR_DFN_1!=''">
+					USR_DFN_1='${item.USR_DFN_1}',
+				</if>
+				<if test="item.USR_DFN_2!=null and item.USR_DFN_2!=''">
+					USR_DFN_2='${item.USR_DFN_2}',
+				</if>
+				<if test="item.USR_DFN_3!=null and item.USR_DFN_3!=''">
+					USR_DFN_3='${item.USR_DFN_3}',
+				</if>
+				<if test="item.USR_DFN_4!=null and item.USR_DFN_4!=''">
+					USR_DFN_4='${item.USR_DFN_4}',
+				</if>
+				<if test="item.USR_DFN_5!=null and item.USR_DFN_5!=''">
+					USR_DFN_5='${item.USR_DFN_5}',
+				</if>
+					UPT_ID='${F_USE_CD}',
+					UPT_IP='${item.UPT_IP}',
+					UPT_DT=SYSDATE
+			</set>
+			<where>
+				FCT_CD='${item.FCT_CD}'
+				AND HOLD_TY = '${item.HOLD_TY}'
+			</where>
+		</foreach>
+	</update>
+	<!-- 删除Q-HOLD功能信息 -->
+	<delete id="deleteQ-HOLDFunction" parameterType="hashmap">
+		DELETE MES1.R_MES_QC_Q_HOLD_T
+			<where>
+				HOLD_TY='${HOLD_TY}' AND FCT_CD='${FCT_CD}'
+			</where>
+	</delete>
+	
+	<!-- 查询Q-HOLD时间段信息 -->
+	<select id="queryQ-HOLDTime" parameterType="hashmap" resultType="java.util.HashMap">
+			  SELECT 
+		        H.FCT_CD,
+		        H.HOLD_TY, 
+		        T.DICT_IT_NM AS HOLD_TY_NM,
+		        H.PROCESS,
+		        H.INPUT_STAT_DT,
+		        H.INPUT_END_DT,
+		        H.MO,
+		        H.CRT_ID,
+		        H.CRT_IP,
+		        H.CRT_DT,
+		        H.UPT_ID,
+		        H.UPT_IP,
+		        H.UPT_DT,
+		        H.BAR_CODE 
+		       FROM  MES1.R_MES_QC_HOLD_TIME_T H
+		       LEFT JOIN IPLANT1.C_IPLANT_DD_T T ON T.DICT_IT = H.HOLD_TY
+		       <if test="FCT_CD!=null and FCT_CD!=''">
+					WHERE H.FCT_CD = '${FCT_CD}'
+				</if>
+	</select>
+	<!-- 新增Q-HOLD时间段信息 -->
+	<insert id="insertQ-HOLDTime" parameterType="hashmap">
+		INSERT INTO 
+			MES1.R_MES_QC_HOLD_TIME_T
+				(
+				   	FCT_CD,
+					HOLD_TY,
+					PROCESS,
+					INPUT_STAT_DT,
+					INPUT_END_DT,
+					BAR_CODE,
+					MO,
+					CRT_ID,
+					CRT_IP,
+					CRT_DT
+				)VALUES
+				(
+				   '${FCT_CD}',
+			       '${HOLD_TY}',
+			       '${PROCESS}',
+			       '${INPUT_STAT_DT}',
+			       '${INPUT_END_DT}',
+			       '${BAR_CODE}',
+			       '${MO}',
+			       '${F_USE_CD}',
+			       '${CRT_IP}',
+			        SYSDATE
+				)
+	</insert>
+	<!-- 修改Q-HOLD时间段信息 -->
+	<update id="updateQ-HOLDTime" parameterType="hashmap">
+		UPDATE MES1.R_MES_QC_HOLD_TIME_T
+			<set>
+				<if test="HOLD_TY!=null and HOLD_TY!=''">
+					HOLD_TY='${HOLD_TY}',
+				</if>
+				<if test="PROCESS!=null and PROCESS!=''">
+					PROCESS='${PROCESS}',
+				</if>
+				<if test="HOLD_ST!=null and HOLD_ST!=''">
+					HOLD_ST='${HOLD_ST}',
+				</if>
+				<if test="INPUT_STAT_DT!=null and INPUT_STAT_DT!=''">
+					INPUT_STAT_DT='${INPUT_STAT_DT}',
+				</if>
+				<if test="INPUT_END_DT!=null and INPUT_END_DT!=''">
+					INPUT_END_DT='${INPUT_END_DT}',
+				</if>
+				<if test="MO!=null and MO!=''">
+					MO='${MO}',
+				</if>
+				<if test="BAR_CODE!=null and BAR_CODE!=''">
+					BAR_CODE='${BAR_CODE}',
+				</if>
+					UPT_ID='${F_USE_CD}',
+					UPT_IP='${UPT_IP}',
+					UPT_DT=SYSDATE
+			</set>
+			<where>
+				FCT_CD='${FCT_CD}'
+			</where>
+	</update>
+	<!-- 删除Q-HOLD时间段信息 -->
+	<delete id="deleteQ-HOLDTime" parameterType="hashmap">
+		DELETE MES1.R_MES_QC_HOLD_TIME_T
+			<where>
+				FCT_CD='${FCT_CD}'
+				AND HOLD_TY = '${HOLD_TY}'
+				AND PROCESS = '${PROCESS}'
+			</where>
+	</delete>
+	
+	
+	
+  <!--查询QC不良组信息表  -->
+  <select id="queryQCbadGroup" parameterType="hashmap" resultType="java.util.HashMap">
+  <include refid="oraclePagingFileTop"></include>
+     FCT_CD,
+     QC_DFCT_CD,
+     QC_DFCT_NM_CN,
+     QC_DFCT_NM_KO,
+     QC_DFCT_NM_EN,
+     QC_DFCT_GRP_CD,
+     PRNT_DFCT_CD,
+     MR_YN,
+     SORT,
+     USE_YN,
+     MO,
+     USR_DFN_1,
+     USR_DFN_2,
+     USR_DFN_3,
+     USR_DFN_4,
+     USR_DFN_5,
+     CRT_ID,
+     CRT_IP,
+     CRT_DT,
+     UPT_ID,
+     UPT_IP,
+     UPT_DT
+  FROM MES1.R_MES_QC_DFCT_T
+  <include refid="oraclePagingFileBottom"></include>
+  </select>
+  <!--新增QC不良组信息表  -->
+  <insert id="insertQCbadGroup" parameterType="java.util.HashMap"></insert>
+  <!--修改QC不良组信息表  -->
+  <update id="updateQCbadGroup" parameterType="java.util.HashMap"></update>
+  <!--删除QC不良组信息表  -->
+  <delete id="deleteQCbadGroup" parameterType="hashmap"></delete>
+	
+	
+	
+	
+  <!-- 查询QC不良信息明细表 -->
+  <select id="queryQCbadGroupDetailed" parameterType="hashmap" resultType="java.util.HashMap">
+  <include refid="oraclePagingFileTop"></include>
+  <include refid="oraclePagingFileBottom"></include>
+  </select>
+  <!-- 新增QC不良信息明细表 -->
+  <insert id="insertQCbadGroupDetailed" parameterType="java.util.HashMap"></insert>
+  <!-- 修改QC不良信息明细表 -->
+  <update id="updateQCbadGroupDetailed" parameterType="java.util.HashMap"></update>
+  <!-- 删除QC不良信息明细表 -->
+  <delete id="deleteQCbadGroupDetailed" parameterType="hashmap"></delete>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</mapper>

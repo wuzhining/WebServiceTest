@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<engines>
+	<!-- A.2 看板管理 -->
+	
+    <!-- A2.1.1 看板类型维护 -->
+	<!-- 查询托盘信息 -->
+	<engine engine_code="TypeSelect" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="TypeSelect" >
+	</engine>
+	<!-- 新增看板类型 -->
+	<engine engine_code="TypeInsert" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="TypeInsert" >
+	</engine>	
+	<!-- 删除看板类型 -->
+	<engine engine_code="TypeDelete" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="TypeDelete" >
+	</engine>	
+	<!-- 修改看板类型 -->
+	<engine engine_code="TypeUpdate" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="TypeUpdate" >
+	</engine>
+	<!-- 查询id -->
+	<engine engine_code="TypeSelectId" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="TypeSelectId" >
+	</engine>
+	
+	
+	    <!-- A2.1.1 看板类型维护 -->
+	<!-- 查询托盘信息 -->
+	<engine engine_code="MaintainSelect" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="MaintainSelect" >
+	</engine>
+	<!-- 新增看板类型 -->
+	<engine engine_code="MaintainInsert" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="MaintainInsert" >
+	</engine>	
+	<!-- 删除看板类型 -->
+	<engine engine_code="MaintainDelete" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="MaintainDelete" >
+	</engine>	
+	<!-- 修改看板类型 -->
+	<engine engine_code="MaintainUpdate" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="MaintainUpdate" >
+	</engine>
+	<!-- 查询id -->
+	<engine engine_code="MaintainSelectId" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="MaintainSelectId" >
+	</engine>
+	
+	<!-- A3.1 新增自定义布局 -->
+	<engine engine_code="ContainTypeInsert" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="ContainTypeInsert" >
+	</engine>
+	
+	<!-- A4 容器维护-->
+	<!-- A4.1 查询容器维护-->
+	<engine engine_code="ContainerSelect" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="ContainerSelect" >
+	</engine>
+	<!-- 新增 -->
+	<engine engine_code="ContainerInsert" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="ContainerInsert" >
+	</engine>	
+	<!-- 删除 -->
+	<engine engine_code="ContainerDelete" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="ContainerDelete" >
+	</engine>	
+	<!-- 修改-->
+	<engine engine_code="ContainerUpdate" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="ContainerUpdate" >
+	</engine>
+	
+</engines>

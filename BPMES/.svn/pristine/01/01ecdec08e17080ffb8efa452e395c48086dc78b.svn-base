@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<engines>
+	<!-- A7 报警管理 -->
+    <!-- A7.1 班组信息-->
+    <!-- 查询班组信息 -->
+	<engine engine_code="queryTeamInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryTeamInfo" >
+	</engine>
+    <!-- 新增班组信息 -->
+	<engine engine_code="insertTeamInfo" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="insertTeamInfo" >
+	</engine>
+	<!-- 修改班组信息 -->
+	<engine engine_code="updateTeamInfo" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="updateTeamInfo" >
+	</engine>
+	<!-- 删除班组信息 -->
+	<engine engine_code="deleteTeamInfo" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="deleteTeamInfo" >
+	</engine>
+	
+	<!-- A7.2  报警配置-->
+	<!-- 查询报警配置信息 -->
+	<engine engine_code="queryAlertConfiguration" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryAlertConfiguration" >
+	</engine>
+	<!-- 新增报警配置信息 -->
+	<engine engine_code="insertAlertConfiguration" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="insertAlertConfiguration" >
+	</engine>
+	<!-- 修改报警配置信息 -->
+	<engine engine_code="updateAlertConfiguration" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="updateAlertConfiguration" >
+	</engine>
+	<!-- 删除报警配置信息 -->
+	<engine engine_code="deleteAlertConfiguration" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="deleteAlertConfiguration" >
+	</engine>
+	
+	<!-- A7.3  报警消息-->
+	<!-- 报警消息查询 -->
+	<engine engine_code="queryAlarmNews" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryAlarmNews" >
+	</engine>
+	<!-- 修改报警消息-->
+	<engine engine_code="updateAlarmNews" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="updateAlarmNews" >
+	</engine>
+	<!-- 删除报警消息-->
+	<engine engine_code="deleteAlarmNews" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="deleteAlarmNews" >
+	</engine>
+	<!-- 新增报警消息-->
+	<engine engine_code="insertAlarmNews" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="insertAlarmNews" >
+	</engine>
+	
+	<!-- A7.4  报警项目-->
+	<!-- 报警项目查询 -->
+	<engine engine_code="queryAlarmTypeList" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryAlarmTypeList" >
+	</engine>
+	<!-- 修改报警项目--> 
+	<engine engine_code="updateAlarmTypeList" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="updateAlarmTypeList" >
+	</engine>
+	<!-- 删除报警项目--> 
+	<engine engine_code="deleteAlarmTypeList" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="deleteAlarmTypeList" >
+	</engine>
+	<!-- 新增报警项目--> 
+	<engine engine_code="insertAlarmTypeList" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="insertAlarmTypeList" >
+	</engine>
+	
+	<!-- 班组信息-->
+    <!-- 查询班组明细信息 -->
+	<engine engine_code="queryTeamInfoDetail" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryTeamInfoDetail" >
+	</engine>
+	<!-- 查询未分班组人员表 -->
+	<engine engine_code="queryNoneTeamInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryNoneTeamInfo" >
+	</engine>
+    <!-- 新增班组明细信息 -->
+	<engine engine_code="insertTeamInfoDetail" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="insertTeamInfoDetail" >
+	</engine>
+	<!-- 修改班组明细信息 -->
+	<engine engine_code="updateTeamInfoDetail" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="updateTeamInfoDetail" >
+	</engine>
+	<!-- 删除班组明细信息 -->
+	<engine engine_code="deleteTeamInfoDetail" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="deleteTeamInfoDetail" >
+	</engine>
+	
+	<!-- 报警配置班次配对表-->
+    <!-- 查询报警配置班次配对表 -->
+	<engine engine_code="queryFrequencyPair" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryFrequencyPair" >
+	</engine>
+	 <!-- 查询报警配置班次未选择配对表 -->
+	<engine engine_code="queryNoneFrequencyPair" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryNoneFrequencyPair" >
+	</engine>
+    <!-- 新增报警配置班次配对表 -->
+	<engine engine_code="insertFrequencyPair" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="insertFrequencyPair" >
+	</engine>
+	<!-- 修改报警配置班次配对表 -->
+	<engine engine_code="updateFrequencyPair" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="updateFrequencyPair" >
+	</engine>
+	<!-- 删除报警配置班次配对表 -->
+	<engine engine_code="deleteFrequencyPair" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="deleteFrequencyPair" >
+	</engine>
+	
+	<!-- 报警配置机器配对表-->
+    <!-- 查询报警配置机器配对表 -->
+	<engine engine_code="queryMachinePair" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryMachinePair" >
+	</engine>
+	<!-- 查询报警配置机器未选择配对表 -->
+	<engine engine_code="queryNoneMachinePair" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryNoneMachinePair" >
+	</engine>
+    <!-- 新增报警配置机器配对表 -->
+	<engine engine_code="insertMachinePair" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="insertMachinePair" >
+	</engine>
+	<!-- 修改报警配置机器配对表 -->
+	<engine engine_code="updateMachinePair" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="updateMachinePair" >
+	</engine>
+	<!-- 删除报警配置机器配对表 -->
+	<engine engine_code="deleteMachinePair" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="deleteMachinePair" >
+	</engine>
+	
+	<!-- 报警配置单条件表-->
+    <!-- 查询报警配置单条件表 -->
+	<engine engine_code="queryAlarmSingleCondition" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryAlarmSingleCondition" >
+	</engine>
+    <!-- 新增报警配置单条件表 -->
+	<engine engine_code="insertAlarmSingleCondition" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="insertAlarmSingleCondition" >
+	</engine>
+	<!-- 修改报警配置单条件表 -->
+	<engine engine_code="updateAlarmSingleCondition" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="updateAlarmSingleCondition" >
+	</engine>
+	<!-- 删除报警配置单条件表 -->
+	<engine engine_code="deleteAlarmSingleCondition" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="deleteAlarmSingleCondition" >
+	</engine>
+	
+	<!-- 报警配置双条件表-->
+    <!-- 查询报警配置双条件表 -->
+	<engine engine_code="queryAlarmDoubleCondition" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryAlarmDoubleCondition" >
+	</engine>
+    <!-- 新增报警配置双条件表 -->
+	<engine engine_code="insertAlarmDoubleCondition" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="insertAlarmDoubleCondition" >
+	</engine>
+	<!-- 修改报警配置双条件表 -->
+	<engine engine_code="updateAlarmDoubleCondition" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="updateAlarmDoubleCondition" >
+	</engine>
+	<!-- 删除报警配置双条件表 -->
+	<engine engine_code="deleteAlarmDoubleCondition" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="deleteAlarmDoubleCondition" >
+	</engine>
+
+	<!-- 查询车间树形结构 -->
+	<engine engine_code="queryPLCDTree" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryPLCDTree" >
+	</engine>
+	<!-- 报警班次信息-->
+    <!-- 查询报警班次信息 -->
+	<engine engine_code="queryTeamScheduleInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryTeamScheduleInfo" >
+	</engine>
+    <!-- 新增报警班次信息 -->
+	<engine engine_code="insertTeamScheduleInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertTeamScheduleInfo" >
+	</engine>
+	<!-- 修改报警班次信息 -->
+	<engine engine_code="updateTeamScheduleInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateTeamScheduleInfo" >
+	</engine>
+	<!-- 删除报警班次信息 -->
+	<engine engine_code="deleteTeamScheduleInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteTeamScheduleInfo" >
+	</engine>
+	
+	<!-- 报警信息 -->
+	<!-- 报警信息查询 -->
+	<engine engine_code="queryAlarmInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryAlarmInfo" >
+	</engine>
+    <!-- 报警信息关联查询 -->
+	<engine engine_code="queryAlarmInfoGl" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryAlarmInfoGl" >
+	</engine>
+	<!-- 报警信息增加 -->
+	<engine engine_code="insertAlarmInfo" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="insertAlarmInfo" >
+	</engine>
+	<!-- 报警信息删除 -->
+	<engine engine_code="deleteAlarmInfo" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="deleteAlarmInfo" >
+	</engine>
+	<!-- 报警信息修改 -->
+	<engine engine_code="updateAlarmInfo" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="updateAlarmInfo" >
+	</engine>
+	
+	<!-- 查询报警信息树结构 -->
+	<engine engine_code="querySysAlarmTree" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querySysAlarmTree" >
+	</engine>
+	
+	<!-- 查询报警配置 -->
+	<engine engine_code="queryAlarmConditionDetail" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryAlarmConditionDetail" >
+	</engine>
+	
+	<!-- 报警配置编码生成规则 -->
+	<engine engine_code="alarmOrderRules" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="alarmOrderRules" >
+	</engine>
+	
+	<!-- 查询报警配置详细 -->
+	<engine engine_code="queryAlarmConditionDetailXx" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryAlarmConditionDetailXx" >
+	</engine>
+</engines>

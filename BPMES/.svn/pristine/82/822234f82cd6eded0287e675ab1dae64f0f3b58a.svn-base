@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="">
+    <!-- A6 大屏幕监视 -->
+    <!-- A6.1 设备监视-->
+	    <select id="queryEquipent" parameterType="hashmap" resultType="java.util.HashMap">
+	    	<include refid="oraclePagingFileTop"></include>	
+			    	   s1.dict_it,
+		               s1.dict_it_nm,
+		               d1.do_cd,
+		               d1.mo_cd,
+		               d1.pt_cd,
+		               p4.pt_nm,
+		               d1.mo_num,
+		               d1.pt_num,
+		               to_char(d1.a_bgn_date, 'yyyy-mm-dd hh24:mi:ss') p_bgn_date,
+					   TPM1.minutetoday(d2.pd_at) pd_at,
+		               nvl(d2.pd_tt_num, 0) pd_tt_num,
+		               nvl(d2.br_num, 0) br_num,
+		               nvl(d2.pd_tt_num, 0) - nvl(d2.br_num, 0) gd_num,
+		               d2.pd_tt,
+		               e2.et_cd,
+		               e2.et_nm,
+		               round(nvl(d2.br_num, 0) / d2.pd_tt_num, 4) * 100 || '%' pct,
+		               c1.cl_cd,
+		               c1.cl_nm,
+		               c1.cl_wt,
+		               to_char(c1.cl_bgn_date, 'yyyy-mm-dd hh24:mi:ss') cl_bgn_date,
+		               TPM1.minutetoday(round(to_number(sysdate - s1.bgn_date) * 24 * 60 * 60)) as lasttime
+		          from iplant1.c_iplant_e2_t e2
+		          left join tpm1.r_tpm_s1_t s1
+		            on s1.et_cd = e2.et_cd
+		          left join tpm1.r_tpm_d1_t d1
+		            on e2.et_cd = d1.et_cd
+		           and d1.do_status = 1
+		          left join tpm1.r_tpm_d2_t d2
+		            on d1.et_cd = d2.et_cd
+		            and d1.mo_cd = d2.mo_cd
+		            and d1.et_cd = d2.et_cd
+		          left join tpm2.h_tpm_c1_t c1
+		            on e2.et_cd = c1.et_cd
+		           and c1.cl_end_date is null
+		           and c1.STP_YN != 0
+		          left join iplant1.c_iplant_p4_t p4
+		            on d1.pt_cd = p4.pt_cd
+		        where 1=1 
+				    <if test="DICT_IT!=null and DICT_IT!='' ">
+	    				and s1.dict_it='${DICT_IT}'
+	    			</if>
+	    			<if test="ET_CD!=null and ET_CD!='' ">
+	    				and s1.et_cd='${ET_CD}'
+	    			</if>
+				 order by d1.do_cd, d1.et_cd, d1.pt_cd
+	     	<include refid="oraclePagingFileBottom"></include> 	
+	    </select>
+	    <select id="queryEquipent_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+	    			select count(1) as rows_count
+				  from (select do_cd,
+				               pt_cd,
+				               et_cd,
+				               sum(pt_num) pt_num,
+				               sum(pd_tt) pd_tt,
+				               sum(tot) tot,
+				               sum(pd_tt_num) pd_tt_num,
+				               max(pd_at) pd_at,
+				               dict_it
+				          from (select d1.do_cd,
+				                       d1.mo_cd,
+				                       d1.pt_cd,
+				                       d1.pt_nm,
+				                       d1.et_cd,
+				                       d1.pt_num,
+				                       d2.pd_tt,
+				                       d1.pt_num * d2.pd_tt as tot,
+				                       d2.pd_tt_num,
+				                       d2.pd_at,
+				                       s1.dict_it
+				                  from tpm1.r_tpm_d1_t d1
+				                 inner join tpm1.r_tpm_d2_t d2
+				                    on d1.do_cd = d2.do_cd
+				                   and d1.mo_cd = d2.mo_cd
+				                   and d1.et_cd = d2.et_cd
+				                 inner join tpm1.r_tpm_s1_t s1
+				                    on d1.et_cd = s1.et_cd
+				                   and d1.do_cd = s1.do_cd)
+				         group by do_cd, pt_cd, et_cd, dict_it) a
+				  left join (select b1.do_cd, b1.pt_cd, b1.et_cd, sum(b1.br_num) br_num
+				               from tpm1.r_tpm_b1_t b1
+				              group by b1.do_cd, b1.pt_cd, b1.et_cd) b
+				    on a.do_cd = b.do_cd
+				   and a.pt_cd = b.pt_cd
+				   and a.et_cd = b.et_cd
+				  left join tpm2.h_tpm_c1_t c1
+				    on a.do_cd = c1.do_cd
+				   and a.et_cd = c1.et_cd
+				  left join iplant1.c_iplant_p4_t p4
+				    on a.pt_cd = p4.pt_cd
+				  left join iplant1.c_iplant_dd_t dd
+				    on a.dict_it = dd.dict_it
+				  left join iplant1.c_iplant_e2_t e2
+            		on a.et_cd = e2.et_cd
+            	  left join (
+			          select do_cd, et_cd, min(d1.p_bgn_date) p_bgn_date, mo_cd
+			           from tpm1.r_tpm_d1_t d1
+			          group by d1.do_cd, d1.et_cd, d1.mo_cd
+			          ) pp on a.do_cd = pp.do_cd and a.et_cd = pp.et_cd
+				    where 1 = 1 
+				    <if test="DICT_IT!=null and DICT_IT!='' ">
+	    				and a.dict_it='${DICT_IT}'
+	    			</if>
+	    			<if test="ET_CD!=null and ET_CD!='' ">
+	    				and a.et_cd='${ET_CD}'
+	    			</if>
+				 order by a.do_cd, a.et_cd, a.pt_cd, a.dict_it
+	    </select>
+	    <!-- A6.2   设备监视统计-->
+	    <select id="queryEquipentTotal" parameterType="hashmap" resultType="java.util.HashMap" > 
+	    	 
+             select vm.dict_it,
+			       vm.dict_it_nm,
+			       count(1) as tot,
+			       round(count(1) / (
+			       select count(1) 
+			       from tpm1.v_screen_monitor2 v
+			       where 1 = 1 and v.et_nm is not null 
+				    <if test="DICT_IT!=null and DICT_IT!='' ">
+	    				and v.dict_it='${DICT_IT}'
+	    			</if>
+			       ), 4) * 100 || '%' as pct
+			 from tpm1.v_screen_monitor2 vm
+			 where 1 = 1 and vm.et_nm is not null 
+			 <if test="DICT_IT!=null and DICT_IT!='' ">
+	    				and vm.dict_it='${DICT_IT}'
+	    	 </if>
+	    	  and not exists
+          		(select * from tpm1.v_screen_monitor2 vs 
+         		where vs.p_bgn_date>vm.p_bgn_date)
+			 group by vm.dict_it, vm.dict_it_nm
+	    </select>
+	    <!-- A6.2   设备监视统计-->
+	    <select id="queryEquipentMachineList" parameterType="hashmap" resultType="java.util.HashMap" > 
+			   select vv.*, TPM1.MinuteToDay(pd_at) pd_at,c1.cl_cd,c1.cl_nm,
+			   TPM1.MinuteToDay((sysdate - s1.bgn_date)* 24 * 60 * 60) lastTime,dd.dict_it e_dict_it,dd.et_pl,cc.emp_nm,dd.et_st
+               from tpm1.v_screen_monitor1 vv
+               left join (select do_cd, et_cd, max(pd_at) pd_at
+                            from tpm1.r_tpm_d2_t d2
+                           group by d2.do_cd, d2.et_cd) tt
+                 on vv.do_cd = tt.do_cd
+                and vv.et_cd = tt.et_cd
+               left join tpm2.h_tpm_c1_t c1
+                   on vv.et_cd = c1.et_cd and c1.cl_end_date is null and c1.STP_YN != 0
+               left join tpm1.r_tpm_s1_t s1
+                    on vv.et_cd = s1.et_cd
+               left join iplant1.c_iplant_e2_t dd
+                   on vv.et_cd = dd.et_cd
+               left join iplant1.c_iplant_e1_t cc
+                on cc.emp_cd=dd.et_res
+	            where 1 = 1 and vv.et_nm is not null 
+               <if test="DICT_IT!=null and DICT_IT!='' ">
+					and vv.dict_it='${DICT_IT}'
+			   </if>
+			   and not exists
+         		 	(select * from tpm1.v_screen_monitor1 vs 
+         			where vs.p_bgn_date>vv.p_bgn_date)
+			   order by vv.et_nm
+	    </select>
+	    <!-- A6.2   设备监视统计汇总-->
+	    <select id="queryEquipentMachineList_COUNT" parameterType="hashmap" resultType="java.util.HashMap" > 
+    			select count(1) as rows_count from (
+               select vv.*, TPM1.MinuteToDay(pd_at) pd_at,c1.cl_cd,c1.cl_nm,
+			   TPM1.MinuteToDay((sysdate - s1.bgn_date)* 24 * 60 * 60) lastTime,dd.dict_it e_dict_it,dd.et_pl
+               from TPM1.v_screen_monitor1 vv
+               left join (select do_cd, et_cd, max(pd_at) pd_at
+                            from tpm1.r_tpm_d2_t d2
+                           group by d2.do_cd, d2.et_cd) tt
+                 on vv.do_cd = tt.do_cd
+                and vv.et_cd = tt.et_cd
+               left join tpm2.h_tpm_c1_t c1
+                   on vv.et_cd = c1.et_cd and c1.cl_end_date is null and c1.STP_YN != 0
+               left join tpm1.r_tpm_s1_t s1
+                    on vv.et_cd = s1.et_cd
+               left join iplant1.c_iplant_e2_t dd
+                   on vv.et_cd = dd.et_cd
+	            where 1 = 1 and vv.et_nm is not null 
+               <if test="DICT_IT!=null and DICT_IT!='' ">
+					and vv.dict_it='${DICT_IT}'
+			   </if>
+			   and not exists
+         		 	(select * from tpm1.v_screen_monitor1 vs 
+         			where vs.p_bgn_date>vv.p_bgn_date)
+			   order by vv.et_nm
+			   )
+	    </select>
+	<!-- A6.2   工单监视-->
+	    <select id="queryOrderMonitor" parameterType="hashmap" resultType="java.util.HashMap" >   
+	    </select>
+	    
+	<!-- A6.3   报警监视--> 
+	    <select id="queryAlarm" parameterType="hashmap" resultType="java.util.HashMap" > 
+	    </select>
+	    
+	<!-- A6.4 OEE综合分析-->
+	    <select id="queryOee" parameterType="hashmap" resultType="java.util.HashMap" > 
+	    </select>
+	    
+	<!-- A6.5   停机柱状图--> 
+	    <select id="queryDowntimeHistogram" parameterType="hashmap" resultType="java.util.HashMap">  
+	    </select>
+	    
+	<!-- A6.6   质量雷达-->
+	    <select id="queryQualityRadar" parameterType="hashmap" resultType="java.util.HashMap"> 
+	    </select>     
+</mapper>

@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <title>70寸监控中心-生产进度</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="../../../common/IplantCompent/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="../../../common/IplantCompent/themes/icon.css">
+	<link rel="stylesheet" type="text/css" href="../../../common/IplantCompent/Demo/demo.css">
+	<script src="../../../common/IplantCompent/jquery.min.js" type="text/javascript"></script>
+	<script src="../../../common/IplantCompent/jquery.easyui.min.js" type="text/javascript"></script>
+	<script src="../../../business/IplantMobile/js/DataRequest.js" type="text/javascript"></script>
+	<script src="../../../common/IplantCommon/CommonUtil.js" type="text/javascript"></script>
+   <script src="highcharts/code/highcharts.js"></script>
+	<script src="highcharts/code/highcharts-3d.js"></script>
+	<script src="highcharts/code/highcharts-more.js"></script>
+	<script src="highcharts/code/modules/exporting.js"></script>
+    <script src="js/70inches_monitoringCenter_ProductionSchedule.js"></script>
+    <style>
+  	.panel-body {
+  		border-color: #BFC8D1;
+	}
+	.panel-title {
+    	font-size: 4px;
+   	 	height: 6px;
+    	line-height: 6px;
+	}
+  	</style>
+  </head>
+  <body style="margin:0px;padding:0px;" class="easyui-layout">
+  		<div data-options="region:'north'" style="height:8%;background:#BFC8D1;">	
+  			<div style="height:18px;background:#1172C9;overflow : hidden;text-align:center">
+  				<span style="font-size:10px;font-family:宋体;font-weight: bold;color:#FFFFFF;line-height:10px">生产进度</span>
+  			</div>
+  		</div>   
+  		
+    	<div data-options="region:'center'" style="background:#BFC8D1;overflow : hidden;" >   
+    		<div style="width:100%;height:100%" class="easyui-layout">
+    			<div data-options="region:'north'" style="width:100%;height:60%">
+    				<div style="width:100%;height:100%" id="container"></div>
+    			</div>
+    			
+    			<div data-options="region:'center'" style="width:100%;height:40%">
+    				<div style="width:50%;height:100%;float:left" id="container2"></div>
+       	 			<div style="width:50%;height:100%;float:left" id="container3"></div>
+    			</div>
+    		</div>
+    	</div> 
+  </body>
+</html>

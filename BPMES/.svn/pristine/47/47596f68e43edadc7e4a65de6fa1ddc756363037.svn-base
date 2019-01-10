@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ifss>
+    <!-- A7 报警管理 -->
+    <!-- A7.1 班组信息-->
+    <!-- 查询班组信息-->
+	<ifs ifs_code="A000001" ifs_name="查询班组信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryTeamInfo" biz_method="" serial_no="1" biz_name="queryTeamInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+    <!-- 新增班组信息 -->
+	<ifs ifs_code="A000002" ifs_name="新增班组信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertTeamInfo" biz_method="" serial_no="1" biz_name="insertTeamInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 修改班组信息-->
+	<ifs ifs_code="A000003" ifs_name="修改班组信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateTeamInfo" biz_method="" serial_no="1" biz_name="updateTeamInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 删除班组信息-->
+	<ifs ifs_code="A000004" ifs_name="删除班组信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteTeamInfo" biz_method="" serial_no="1" biz_name="deleteTeamInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- A7.2  报警配置-->
+	<!-- 查询报警配置信息 -->
+	<ifs ifs_code="A000005" ifs_name="查询报警配置信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryAlertConfiguration" biz_method="" serial_no="1" biz_name="queryAlertConfiguration" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 新增报警配置信息-->
+	<ifs ifs_code="A000006" ifs_name="新增报警配置信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertAlertConfiguration" biz_method="" serial_no="1" biz_name="insertAlertConfiguration" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 修改报警配置信息-->
+	<ifs ifs_code="A000007" ifs_name="修改报警配置信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateAlertConfiguration" biz_method="" serial_no="1" biz_name="updateAlertConfiguration" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 删除报警配置信息-->
+	<ifs ifs_code="A000008" ifs_name="删除报警配置信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteAlertConfiguration" biz_method="" serial_no="1" biz_name="deleteAlertConfiguration" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- A7.3  报警消息-->
+	<!-- 报警消息查询 -->
+	<ifs ifs_code="A000009" ifs_name="报警消息查询" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryAlarmNews" biz_method="" serial_no="1" biz_name="queryAlarmNews" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 修改报警消息-->
+	<ifs ifs_code="A000010" ifs_name="修改报警消息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateAlarmNews" biz_method="" serial_no="1" biz_name="updateAlarmNews" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 新增报警消息-->
+	<ifs ifs_code="A000011" ifs_name="新增报警消息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertAlarmNews" biz_method="" serial_no="1" biz_name="insertAlarmNews" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 删除报警消息-->
+	<ifs ifs_code="A000012" ifs_name="删除报警消息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteAlarmNews" biz_method="" serial_no="1" biz_name="deleteAlarmNews" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- A7.4  报警项目-->
+	<!-- 报警项目查询 -->
+	<ifs ifs_code="A000013" ifs_name="报警项目查询" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryAlarmTypeList" biz_method="" serial_no="1" biz_name="queryAlarmTypeList" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 修改报警项目-->
+	<ifs ifs_code="A000014" ifs_name="修改报警项目" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateAlarmTypeList" biz_method="" serial_no="1" biz_name="updateAlarmTypeList" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 删除报警项目信息-->
+	<ifs ifs_code="A000015" ifs_name="删除报警项目信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteAlarmTypeList" biz_method="" serial_no="1" biz_name="deleteAlarmTypeList" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 新增报警项目信息-->
+	<ifs ifs_code="A000016" ifs_name="新增报警项目信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+         <Bizes>
+			<ifs_biz biz_code="insertAlarmTypeList" biz_method="" serial_no="1" biz_name="insertAlarmTypeList" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- A7.5  班组信息明细-->
+	<!-- 班组信息明细查询 -->
+	<ifs ifs_code="A000017" ifs_name="班组信息明细查询" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryTeamInfoDetail" biz_method="" serial_no="1" biz_name="queryTeamInfoDetail" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 修改班组信息明细-->
+	<ifs ifs_code="A000018" ifs_name="修改班组信息明细" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateTeamInfoDetail" biz_method="" serial_no="1" biz_name="updateTeamInfoDetail" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 删除班组信息明细-->
+	<ifs ifs_code="A000019" ifs_name="删除班组信息明细" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteTeamInfoDetail" biz_method="" serial_no="1" biz_name="deleteTeamInfoDetail" biz_type="3" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 新增班组信息明细-->
+	<ifs ifs_code="A000020" ifs_name="新增班组信息明细" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertTeamInfoDetail" biz_method="" serial_no="1" biz_name="insertTeamInfoDetail" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 报警配置班次配对表-->
+	<!-- 查询报警配置班次配对表 -->
+	<ifs ifs_code="A000021" ifs_name="查询报警配置班次配对表" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryFrequencyPair" biz_method="" serial_no="1" biz_name="queryFrequencyPair" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 修改报警配置班次配对表-->
+	<ifs ifs_code="A000022" ifs_name="修改报警配置班次配对表" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateFrequencyPair" biz_method="" serial_no="1" biz_name="updateFrequencyPair" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 删除报警配置班次配对表-->
+	<ifs ifs_code="A000023" ifs_name="删除报警配置班次配对表" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteFrequencyPair" biz_method="" serial_no="1" biz_name="deleteFrequencyPair" biz_type="3" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 新增报警配置班次配对表-->
+	<ifs ifs_code="A000024" ifs_name="新增报警配置班次配对表" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertFrequencyPair" biz_method="" serial_no="1" biz_name="insertFrequencyPair" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>	
+	
+	<!-- 报警配置机器配对表-->
+	<!-- 查询报警配置机器配对表 -->
+	<ifs ifs_code="A000025" ifs_name="查询报警配置机器配对表" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryMachinePair" biz_method="" serial_no="1" biz_name="queryMachinePair" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 修改报警配置机器配对表-->
+	<ifs ifs_code="A000026" ifs_name="修改报警配置机器配对表" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateMachinePair" biz_method="" serial_no="1" biz_name="updateMachinePair" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 删除报警配置机器配对表-->
+	<ifs ifs_code="A000027" ifs_name="删除报警配置机器配对表" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteMachinePair" biz_method="" serial_no="1" biz_name="deleteMachinePair" biz_type="3" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 新增报警配置机器配对表-->
+	<ifs ifs_code="A000028" ifs_name="新增报警配置机器配对表" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertMachinePair" biz_method="" serial_no="1" biz_name="insertMachinePair" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 报警配置单条件表-->
+	<!-- 查询报警配置单条件表 -->
+	<ifs ifs_code="A000029" ifs_name="查询报警配置单条件表" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryAlarmSingleCondition" biz_method="" serial_no="1" biz_name="queryAlarmSingleCondition" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 修改报警配置单条件表-->
+	<ifs ifs_code="A000030" ifs_name="修改报警配置单条件表" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateAlarmSingleCondition" biz_method="" serial_no="1" biz_name="updateAlarmSingleCondition" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 删除报警配置单条件表-->
+	<ifs ifs_code="A000031" ifs_name="删除报警配置单条件表" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteAlarmSingleCondition" biz_method="" serial_no="1" biz_name="deleteAlarmSingleCondition" biz_type="3" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 新增报警配置单条件表-->
+	<ifs ifs_code="A000032" ifs_name="新增报警配置单条件表" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertAlarmSingleCondition" biz_method="" serial_no="1" biz_name="insertAlarmSingleCondition" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 报警配置双条件表-->
+	<!-- 查询报警配置双条件表 -->
+	<ifs ifs_code="A000033" ifs_name="查询报警配置双条件表" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryAlarmDoubleCondition" biz_method="" serial_no="1" biz_name="queryAlarmDoubleCondition" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 修改报警配置双条件表-->
+	<ifs ifs_code="A000034" ifs_name="修改报警配置双条件表" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateAlarmDoubleCondition" biz_method="" serial_no="1" biz_name="updateAlarmDoubleCondition" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 删除报警配置双条件表-->
+	<ifs ifs_code="A000035" ifs_name="删除报警配置双条件表" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteAlarmDoubleCondition" biz_method="" serial_no="1" biz_name="deleteAlarmDoubleCondition" biz_type="3" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 新增报警配置双条件表-->
+	<ifs ifs_code="A000036" ifs_name="新增报警配置双条件表" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertAlarmDoubleCondition" biz_method="" serial_no="1" biz_name="insertAlarmDoubleCondition" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>																																				
+															
+	<!-- 查询车间数结构信息 -->
+	<ifs ifs_code="A000037" ifs_name="查询车间信息状结构" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryPLCDTree" biz_method="" serial_no="1" biz_name="queryPLCDTree" biz_type="3" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 报警班次信息-->
+	<!-- 查询报警班次信息 -->
+	<ifs ifs_code="A000038" ifs_name="查询报警班次信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryTeamScheduleInfo" biz_method="" serial_no="1" biz_name="queryTeamScheduleInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 修改报警班次信息-->
+	<ifs ifs_code="A000039" ifs_name="修改报警班次信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateTeamScheduleInfo" biz_method="" serial_no="1" biz_name="updateTeamScheduleInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 删除报警班次信息-->
+	<ifs ifs_code="A000040" ifs_name="删除报警班次信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteTeamScheduleInfo" biz_method="" serial_no="1" biz_name="deleteTeamScheduleInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 新增报警班次信息-->
+	<ifs ifs_code="A000041" ifs_name="新增报警班次信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertTeamScheduleInfo" biz_method="" serial_no="1" biz_name="insertTeamScheduleInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>	
+	
+	<!-- 报警信息 -->
+	<!-- 查询报警信息 -->
+	<ifs ifs_code="A000042" ifs_name="查询报警信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryAlarmInfo" biz_method="" serial_no="1" biz_name="queryAlarmInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>	
+	<!-- 查询报警信息关联 -->
+	<ifs ifs_code="A000043" ifs_name="查询报警信息关联" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryAlarmInfoGl" biz_method="" serial_no="1" biz_name="queryAlarmInfoGl" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 新增报警信息 -->
+	<ifs ifs_code="A000044" ifs_name="新增报警信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertAlarmInfo" biz_method="" serial_no="1" biz_name="insertAlarmInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>	
+	<!-- 删除报警信息 -->
+	<ifs ifs_code="A000045" ifs_name="删除报警信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteAlarmInfo" biz_method="" serial_no="1" biz_name="deleteAlarmInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>	
+	<!-- 修改报警信息 -->
+	<ifs ifs_code="A000046" ifs_name="修改报警信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateAlarmInfo" biz_method="" serial_no="1" biz_name="updateAlarmInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>	
+				
+    <!-- 查询报警信息树结构 -->
+	<ifs ifs_code="A000047" ifs_name="修改报警信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="querySysAlarmTree" biz_method="" serial_no="1" biz_name="querySysAlarmTree" biz_type="3" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 查询报警配置班次未选择配对表 -->
+	<ifs ifs_code="A000048" ifs_name="查询报警配置班次未选择配对表" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryNoneFrequencyPair" biz_method="" serial_no="1" biz_name="queryNoneFrequencyPair" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>	
+	
+	<!-- 查询报警配置机器未选择配对表 -->
+	<ifs ifs_code="A000049" ifs_name="查询报警配置机器未选择配对表" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryNoneMachinePair" biz_method="" serial_no="1" biz_name="queryNoneMachinePair" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>									
+									
+	<!-- 查询未分班组人员表 -->
+	<ifs ifs_code="A000050" ifs_name="查询未分班组人员表" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryNoneTeamInfo" biz_method="" serial_no="1" biz_name="queryNoneTeamInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 查询报警配置 -->
+	<ifs ifs_code="A000051" ifs_name="查询报警配置" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryAlarmConditionDetail" biz_method="" serial_no="1" biz_name="queryAlarmConditionDetail" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>	
+	
+	<!-- 报警配置编码生成规则 -->
+	<ifs ifs_code="A000052" ifs_name="报警配置编码生成规则" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="alarmOrderRules" biz_method="" serial_no="1" biz_name="alarmOrderRules" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>		
+	
+	<!-- 查询报警配置详细 -->
+	<ifs ifs_code="A000053" ifs_name="查询报警配置详细" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryAlarmConditionDetailXx" biz_method="" serial_no="1" biz_name="queryAlarmConditionDetailXx" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>											
+ </ifss>

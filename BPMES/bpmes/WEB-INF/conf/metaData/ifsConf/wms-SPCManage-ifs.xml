@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ifss>
+    <!--SPC管理 -->
+	<!--模块关联列表模块 -->
+	<!-- 新增SPC任务列表信息 -->
+	<ifs ifs_code="MES_SPC0001" ifs_name="新增SPC项目列表信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="INSERT_MES_SPCPROJECTLIST" biz_method="" serial_no="1" biz_name="INSERT_MES_SPCPROJECTLIST" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>	
+	
+	
+	<!--查询SPC项目列表信息 -->
+	<ifs ifs_code="MES_SPC0002" ifs_name="查询SPC项目列表信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="select_MES_SPCPROJECTLIST" biz_method="" serial_no="1" biz_name="select_MES_SPCPROJECTLIST" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	
+   <!--修改SPC项目列表信息 -->
+	<ifs ifs_code="MES_SPC0003" ifs_name="修改SPC项目列表信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="update_MES_SPCPROJECTLIST" biz_method="" serial_no="1" biz_name="update_MES_SPCPROJECTLIST" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	
+	 <!--删除SPC项目列表信息 -->
+	<ifs ifs_code="MES_SPC0004" ifs_name="删除SPC项目列表信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="delete_MES_SPCPROJECTLIST" biz_method="" serial_no="1" biz_name="delete_MES_SPCPROJECTLIST" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- SPC任务列表-->
+	<!-- 新增SPC任务列表信息 -->
+	<ifs ifs_code="MES_SPC0005" ifs_name="新增SPC任务列表信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="INSERT_MES_SPCTASKLIST" biz_method="" serial_no="1" biz_name="INSERT_MES_SPCTASKLIST" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>	
+	
+	
+	<!--查询SPC任务列表信息 -->
+	<ifs ifs_code="MES_SPC0006" ifs_name="查询SPC任务列表信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="select_MES_SPCTASKLIST" biz_method="" serial_no="1" biz_name="select_MES_SPCTASKLIST" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	
+   <!--修改SPC任务列表信息 -->
+	<ifs ifs_code="MES_SPC0007" ifs_name="修改SPC任务列表信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="update_MES_SPCTASKLIST" biz_method="" serial_no="1" biz_name="update_MES_SPCTASKLIST" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	
+	 <!--删除SPC任务列表信息 -->
+	<ifs ifs_code="MES_SPC0008" ifs_name="删除SPC项目列表信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="delete_MES_SPCTASKLIST" biz_method="" serial_no="1" biz_name="delete_MES_SPCTASKLIST" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+</ifss>

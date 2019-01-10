@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ifss>
+    
+    <!-- 1.1 数据字典管理 -->
+    <!-- 查询字典项信息 -->
+	<ifs ifs_code="D00000112" ifs_name="查询字典项" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryEquipmentList" biz_method="" serial_no="1" biz_name="queryEquipmentList" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+    
+    
+    <!-- 新增数据字典信息 -->
+    <ifs ifs_code="T0000011" ifs_name="新增数据字典" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertEquipmentList" biz_method="" serial_no="1" biz_name="insertEquipmentList" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 新增关联字典信息设备厂商 -->
+    <ifs ifs_code="T0000012" ifs_name="新增数据字典" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertEquipmentFactory" biz_method="" serial_no="1" biz_name="insertEquipmentFactory" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 删除关联字典信息设备厂商 -->
+    <ifs ifs_code="T0000014" ifs_name="删除数据字典" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteEquipmentFactory" biz_method="" serial_no="1" biz_name="deleteEquipmentFactory" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 修改关联字典信息设备厂商 -->
+    <ifs ifs_code="T0000013" ifs_name="修改数据字典" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateEquipmentFactory" biz_method="" serial_no="1" biz_name="updateEquipmentFactory" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	  <!-- 删除数据字典信息 -->
+    <ifs ifs_code="C00001" ifs_name="删除数据字典" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteEquipmentList" biz_method="" serial_no="1" biz_name="deleteEquipmentList" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	  <!-- 修改数据字典信息 -->
+    <ifs ifs_code="M000077" ifs_name="修改数据字典" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateEquipmentList" biz_method="" serial_no="1" biz_name="updateEquipmentList" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 查询下拉框设备类型 -->
+    <ifs ifs_code="Y00011" ifs_name="查询数据字典" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryEqType" biz_method="" serial_no="1" biz_name="queryEqType" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+		<!-- 查询下拉框产线名称 -->
+    <ifs ifs_code="U00011" ifs_name="查询数据字典" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryProduName" biz_method="" serial_no="1" biz_name="queryProduName" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+		<!-- 查询下拉框设备状态 -->
+    <ifs ifs_code="U00012" ifs_name="查询数据字典" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryEqState" biz_method="" serial_no="1" biz_name="queryEqState" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+		<!-- 查询下拉框保养项目-->
+    <ifs ifs_code="U00013" ifs_name="查询数据字典" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="stationName" biz_method="" serial_no="1" biz_name="stationName" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+		<!-- 查询下拉框工位名称-->
+    <ifs ifs_code="U00014" ifs_name="查询数据字典" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="stationNames" biz_method="" serial_no="1" biz_name="stationNames" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+</ifss>

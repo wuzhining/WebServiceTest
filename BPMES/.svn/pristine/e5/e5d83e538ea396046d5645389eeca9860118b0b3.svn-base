@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<engines>
+	<!-- A.2 基础资料管理 -->
+	<!-- 查找来料入库信息 -->
+	<engine engine_code="queryBPMateriaChechIn" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryBPMateriaChechIn" >
+	</engine>
+	
+	<!-- 新增来料入库 -->
+	<engine engine_code="insertBPMateriaChechIn" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertBPMateriaChechIn" >
+	</engine>
+	
+	<!-- 更新来料入库 -->
+	<engine engine_code="updateBPMateriaChechIn" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateBPMateriaChechIn" >
+	</engine>
+	
+	<!-- 删除来料入库 -->
+	<engine engine_code="deleteBPMateriaChechIn" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteBPMateriaChechIn" >
+	</engine>
+	
+	<!-- 查找来料入库单详情 -->
+	<engine engine_code="queryBPMateriaChechInDetail" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryBPMateriaChechInDetail" >
+	</engine>
+	
+	<!-- 新增来料单与物料关联信息 -->
+	<engine engine_code="insertMateriaRelation" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertMateriaRelation" >
+	</engine>
+	
+	<!-- 删除来料单与物料关联信息 -->
+	<engine engine_code="deleteMateriaRelation" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteMateriaRelation" >
+	</engine>
+	
+	<!-- 查询物料信息 -->
+	<engine engine_code="queryBPMateriaInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryBPMateriaInfo" >
+	</engine>
+	
+	<!-- 查询物料打包信息 -->
+	<engine engine_code="queryBPMateriaPack" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryBPMateriaPack" >
+	</engine>
+	
+	<!-- 插入物料打包信息 -->
+	<engine engine_code="insertBPMateriaPack" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertBPMateriaPack" >
+	</engine>
+	
+	<!-- 删除物料打包信息 -->
+	<engine engine_code="deleteBPMateriaPack" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteBPMateriaPack" >
+	</engine>
+	
+	<!-- 根据物料号生成条码数据 -->
+	<engine engine_code="generateMeteriaPackageBarcode" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="generateMeteriaPackageBarcode" >
+	</engine>
+	
+	<!-- 查询出检测数据   -->
+	<engine engine_code="queryPack" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryPack" >
+	</engine>
+	
+	<!-- 修改检测数据   -->
+	<engine engine_code="updatePack" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updatePack" >
+	</engine>
+	
+	<!-- 物料包扫描入库 -->
+	<engine engine_code="materiaPackagePDACheckIn" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="materiaPackagePDACheckIn" >
+	</engine>
+	
+	<!-- 添加来料与物料关联信息存储过程添加 -->
+	<engine engine_code="addMateriaRelationByProc" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="addMateriaRelationByProc" >
+	</engine>
+	
+	<!-- 添加物料打包数据存储过程添加 -->
+	<engine engine_code="addMateriaPackageByProc" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="addMateriaPackageByProc" >
+	</engine>
+	
+	<!-- 修改检测数据   -->
+	<engine engine_code="updaterelation" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updaterelation" >
+	</engine>
+	
+	<!-- 删除物料关联数据存储过程   -->
+	<engine engine_code="materiaPackageInfoDeleted" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="materiaPackageInfoDeleted" >
+	</engine>
+	
+	<!-- 查找补打条码数据   -->
+	<engine engine_code="queryPrintedBarcode" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryPrintedBarcode" >
+	</engine>
+	
+	<!-- 添加物料包出库拆包的数据存储过程添加   -->
+	<engine engine_code="materiaUnpackingByProc" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="materiaUnpackingByProc" ></engine>
+	
+	<!-- 成品仓agv调度出入库查询   -->
+	<engine engine_code="agvProductSearch" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="agvProductSearch" ></engine>
+	<!-- 成品仓agv调度出入库更新    -->
+	<engine engine_code="agvProductUpdate" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="agvProductUpdate" ></engine>
+	<!-- 立库堆垛机状态   -->
+	<engine engine_code="wmsComMstatusInsert" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="wmsComMstatusInsert" ></engine>
+	<!-- 立库堆垛机状态    -->
+	<engine engine_code="wmsComMstatusSearch" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="wmsComMstatusSearch" ></engine>
+	<!-- 成品仓库位初始化    -->
+	<engine engine_code="wmsComProductSearch" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="wmsComProductSearch" ></engine>
+	<!-- 成品仓入库演示    -->
+	<engine engine_code="wmsComProductShowin" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="wmsComProductShowin" ></engine>
+	<!-- 成品仓出库演示    -->
+	<engine engine_code="wmsComProductShowout" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="wmsComProductShowout" ></engine>
+</engines>

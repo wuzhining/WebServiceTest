@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<podiums>
+	<!-- 成品仓初始化列表 -->
+	<podium podium_code="wms_rows_List"  podium_name="成品仓初始化列表" podium_class="com.iPlant.mes.biz.wms.WmsProductManager" podium_method="execute" attr1="" attr2=""/>
+	<podium podium_code="wms_columns_List"  podium_name="成品仓初始化列表" podium_class="com.iPlant.mes.biz.wms.WmsProductManager" podium_method="execute" attr1="" attr2=""/>
+	<podium podium_code="wms_shelf_List"  podium_name="成品仓初始化列表" podium_class="com.iPlant.mes.biz.wms.WmsProductManager" podium_method="execute" attr1="" attr2=""/>
+</podiums>
+ 

@@ -1,0 +1,629 @@
+(function() {
+	var otype;
+	function dictItem() {
+		pageConfig = {
+			dictCD : windowPageConfig.dictCode || 'CCT01',
+			gridName : windowPageConfig.gridName || 'dict_tab',
+			txtDictCode : windowPageConfig.txtDictCode || 'txtDictCode',
+			txtDictName : windowPageConfig.txtDictName || 'txtDictName',
+			cbUsed : windowPageConfig.windowPageConfig || 'cbUsedFlag',
+			dictRemark : windowPageConfig.dictRemark || 'txtDictRemrk',
+			title : windowPageConfig.title || '客户类别',
+			gcDictCD : windowPageConfig.gcDictCD || '字典编号',
+			gcDictName : windowPageConfig.gcDictName || '字典名称'
+		}
+		initGridData = function(eqType,eqCode,eqName,a) {
+			var dgrid = $('#' + pageConfig.gridName).datagrid('options');
+			if (!dgrid) return;
+			var reqData = {
+				IFS : 'D00000111',
+				type: eqType,
+				code: eqCode,
+				name: eqName,
+				flag: a,
+				DICT_CD : pageConfig.dictCD,
+				pageIndex : 1,
+				pageSize : dgrid.pageSize
+			}
+			reqGridData('/iPlant_ajax', pageConfig.gridName, reqData);
+		}
+		eqList=function (){//模糊查询
+			var eqType=$("#eqType").val();//设备类型
+			var eqCode=$("#eqCode").val();//设备编码
+			var eqName=$("#eqName").val();//按设备名称查
+			var a=$("input[type='checkbox']").is(':checked');
+			initGridData(eqType,eqCode,eqName,a);
+		}
+		
+		clean = function(){//清空
+			$("#eqType").textbox('setValue');
+			$("#eqCode").textbox('setValue');
+			$("#eqName").textbox('setValue');
+		}
+		
+		bindGridData = function(reqData, jsonData) {
+			var grid = {
+				name : pageConfig.gridName,
+				dataType : 'json',
+				columns : [[ 
+					           { field : "CZ",width : 10,checkbox : true}, 
+					           { field : 'ET_CD',title : pageConfig.gcDictCD,width : 200,align : 'center'}, 
+					           { field : 'ET_NM',title : pageConfig.gcDictName,width : 200,align : 'center'}, 
+					           { field : 'ET_UT',title : '设备型号',width : 200,align : 'center'}, 
+					           { field : 'DICT_IT',title : '设备类型名称',width : 200,align : 'center'}, 
+					           { field : 'ET_TT',title : '产线名称',width : 200,align : 'center'}, 
+					           { field : 'ROUT_CD',title : '工位名称',width : 200,align : 'center'}, 
+					           { field : 'ET_MT',title : '设备状态',width : 200,align : 'center'}, 
+					           { field : 'CRT_DT',title : '生产日期',width : 200,align : 'center'}
+					         ]]
+				
+			}
+			initGridView(reqData, grid);
+			$('#' + pageConfig.gridName).datagrid('loadData', jsonData);
+		}
+		OptType = 0, 
+		getOptType = function() {
+			return this.OptType;
+		} 
+		setOptType = function(value) {
+			this.OptType = value;
+		}
+		/* 数据有效性验证 */
+		checkDataValid = function() {
+			/* 数据不能为空验证 */
+			var dictCode = $('#' + pageConfig.txtDictCode).val();
+			if (dictCode == '') {
+		     	return false;
+			}
+			var dictName = $('#' + pageConfig.txtDictName).val();
+			if (dictName == '') {
+				//$('#' + pageConfig.txtDictName).textbox({required : true});
+				return false;
+			}
+			return true;
+		}
+		/*是否存在输入的字典项*/
+		existDictItem = function(dictCode) {
+			var rowNum, tpm = $('#' + pageConfig.txtDictCode);
+			if (OptType == 0) {
+				if(/[　，。、！？：“”［］——（）…！＠＃￥＆＊＋＞＜；：‘\u4e00-\u9fa5\s\n\r\t]+/.test($('#' + pageConfig.txtDictCode).textbox('getText'))){
+		        	$.messager.alert('提示', pageConfig.gcDictCD+"不能是中文和非法字符，请重新输入。","",function(){
+		        		$('#' + pageConfig.txtDictCode).textbox('setValue', '');
+		        	});
+		        	return;
+		        }
+				if (tpm.val() != undefined && tpm.val() != ''&& tpm.val() != null) {
+					if (dictCode != undefined && dictCode != ''&& dictCode != null) {
+						if (tpm.textbox('getValue') != undefined && tpm.textbox('getValue') != '' && tpm.textbox('getValue') != null){
+							var ajaxParam = {
+								url : '/iPlant_ajax',
+								dataType : 'JSON',
+								data : {
+									IFS : 'D000008',
+									DICT_CD : pageConfig.dictCD,
+									DICT_IT:dictCode,
+									pageIndex : 1,
+									pageSize : 10
+								},
+								successCallBack : function(data) {
+									rowNum = parseInt(data.RESPONSE["0"].RESPONSE_HDR.DATA_ROWS);
+									if (rowNum > 0) {
+										$.messager.alert('提示','您输入的'+pageConfig.gcDictCD+'['+ dictCode+ ']已有相同,请重新输入!');
+										tpm.textbox('setValue', '');
+										return false;
+									} 
+									else {
+										return 1;
+									}
+								}
+							};
+							iplantAjaxRequest(ajaxParam);
+						}
+					}
+				}
+			}
+		}
+		/*修改时,验证是否修改任何内容*/
+		/*saveUpdateValidate = function() {
+			var checkedItems = $('#'+windowPageConfig.gridName).datagrid('getSelections');
+			row = checkedItems[0];
+			if (row.DICT_IT) {
+				var isUserYn = 'N';
+				if ($('#'+pageConfig.cbUsed).is(':checked')) {
+					isUserYn = "Y";
+				} 
+				else {
+					isUserYn = "N";
+				}
+				if ($('#'+pageConfig.txtDictName).val() != (row.DICT_IT_NM==null?'':row.DICT_IT_NM)
+					|| $('#'+pageConfig.dictRemark).val() !=(row.DICT_RM==null?'':row.DICT_RM)
+					|| isUserYn != (row.USE_YN==null?'N':row.USE_YN)) {
+					return true;
+				} 
+				else {
+					return false;
+				}
+			}
+		}*/
+		setDataNull = function() {
+			$('#' + pageConfig.txtDictCode).textbox('setValue', '');
+			$('#' + pageConfig.txtDictName).textbox('setValue', '');
+			$('#' + pageConfig.dictRemark).textbox('setValue', '');
+		}
+		validSelectedData = function(gridName, type){
+			var checkedItems = $('#' + gridName).datagrid('getSelections');
+			var num = 0;
+			$.each(checkedItems, function(index, item) {
+				num++;
+			});
+			if (type == 'Update') {
+				if (num != 1) {
+					return false;
+				}
+			} 
+			else{
+				if (num <= 0){
+					return false;
+			    }
+			}
+			return true;
+		}
+		updateDictItem = function() {
+			var isSelectedData = validSelectedData(pageConfig.gridName,'Update');
+			textbobom();//调用下拉框
+			if (!isSelectedData) {
+				   $.messager.alert('提示', '请选择一条数据进行修改');
+				   return;
+			}
+			var row = $("#" + pageConfig.gridName).datagrid("getSelected");
+			setOptType(1);
+			if (row){
+				$("#enditTab").dialog("open").dialog('setTitle','编辑' + pageConfig.title + '维护');
+				$('#' + pageConfig.txtDictCode).textbox('textbox').attr('readonly', true);
+				$('#' + pageConfig.txtDictCode).textbox('textbox').attr('disabled', true);
+				$('#' + pageConfig.txtDictCode).textbox('setValue',row.ET_CD);
+				$('#' + pageConfig.txtDictName).textbox('setValue',row.ET_NM);
+				$('#equipmentModel').textbox('setValue',row.ET_UT);
+				if (row.USE_YN == "Y") {
+					$('#' + pageConfig.cbUsed).prop('checked','checked');
+				} 
+				else{
+					$('#' + pageConfig.cbUsed).prop('checked', '');
+				}
+			}
+		}
+		deleteDictItem=function(){
+			var isSelectedData = validSelectedData(pageConfig.gridName,'Delete');
+			if (!isSelectedData) {
+				 $.messager.alert('提示', '请选择一条数据进行删除');
+				 return;
+			}
+			var checkedItems = $('#' + pageConfig.gridName).datagrid('getSelections');
+			// 确认提示框
+		    var delCnt = 0;
+		    var exceptionCode = '';
+		    $.messager.confirm('确认框','您确定要删除您所选择的数据?',
+		      function(r){
+		    	  if(r==true){
+		    		 $.each(checkedItems,function(index,item){
+		    			 delCnt++;
+		    			 var ajaxParam = {
+		    				 url : '/iPlant_ajax',
+			    			 dataType : 'JSON',
+			    			 data:{
+			    				 IFS : 'C00001',
+			    				 ET_CD : item.ET_CD
+			    			 },
+			    			 successCallBack : function(data){
+			    				/* if(data.RESPONSE["0"].RESPONSE_DATA[0].STATUS == '1') { 
+			    					exceptionCode += ','+ item.DICT_IT;
+			    					exceptionCode = exceptionCode.substring(1);
+			    					if (exceptionCode) {
+		    						      susMsg = pageConfig.gcDictCD+ exceptionCode + '被使用，不能删除，请联系管理员';
+								    }
+			    					if ($.messager.alert('提示',susMsg)){
+		    						      initGridData();
+		    					    }
+			    				 }
+			    				 else
+			    				 {
+			    					 var ajaxParam = {
+			    					     url: '/iPlant_ajax',
+			    					     dataType: 'JSON',
+			    					     data:{
+			    						   IFS:'D000006',
+			    						   ET_CD:item.ET_CD
+			    					     },
+			    					     async:false,
+			    					     successCallBack:function(data){
+	    					        	    if (delCnt == checkedItems.length) {
+	    							            var susMsg = '删除成功';
+	    							            if ($.messager.alert('提示',susMsg)){
+	    								           initGridData();
+	    								        }
+	    							        }
+	    					             }
+			    					 }
+			    					 iplantAjaxRequest(ajaxParam);
+			    				 }*/
+			    				 if (delCnt == checkedItems.length) {
+							            var susMsg = '删除成功';
+							            if ($.messager.alert('提示',susMsg)){
+							            	
+								           initGridData();
+								           otype=3;//删除
+								           allSun(item.ET_CD,otype);
+								        }
+							        }
+			    			 }
+		    			 }
+		    			 iplantAjaxRequest(ajaxParam);
+		    		 });
+		    	  }
+		      });
+		}
+		
+		//获取下拉框
+		textbobom=function(){
+			//设备类型下拉框
+			 var ajaxParam = {
+   				 url : '/iPlant_ajax',
+	    			 dataType : 'JSON',
+	    			 data:{
+	    				 IFS : 'Y00011',
+	    			 },
+	    			 successCallBack : function(data){
+	    				 var rowCollection=createSourceObj(data);
+	    				 
+	    				 var arr=[];
+	    				 arr.push({"value":"","text":"全部"});
+	    				 for(var i=0;i< rowCollection.length;i++){
+	    					 arr.push({"value":rowCollection[i].DICT_IT,"text":rowCollection[i].DICT_IT});
+	    				 }
+	    				 $('#equipmentType').combobox({
+	    					 	data:arr,
+	    		                valueField:'value',
+	    		                textField:'text',
+	    		                panelWidth:200,
+	    		                panelHeight:200
+	    		            });
+	    			 }
+	    			}
+			 iplantAjaxRequest(ajaxParam);
+			 
+			//产线名称下拉框
+			 var ajaxParam = {
+   				 url : '/iPlant_ajax',
+	    			 dataType : 'JSON',
+	    			 data:{
+	    				 IFS : 'U00011',
+	    			 },
+	    			 successCallBack : function(data){
+	    				 var rowCollection=createSourceObj(data);
+	    				 
+	    				 var arr=[];
+	    				 arr.push({"value":"","text":"全部"});
+	    				 for(var i=0;i< rowCollection.length;i++){
+	    					 arr.push({"value":rowCollection[i].ET_TT,"text":rowCollection[i].ET_TT});
+	    				 }
+	    				 $('#productionName').combobox({
+	    					 	data:arr,
+	    		                valueField:'value',
+	    		                textField:'text',
+	    		                panelWidth:200,
+	    		                panelHeight:200
+	    		            });
+	    			 }
+	    			}
+			 iplantAjaxRequest(ajaxParam);
+			 
+			//设备状态下拉框
+			 var ajaxParam = {
+   				 url : '/iPlant_ajax',
+	    			 dataType : 'JSON',
+	    			 data:{
+	    				 IFS : 'U00012',
+	    			 },
+	    			 successCallBack : function(data){
+	    				 var rowCollection=createSourceObj(data);
+	    				 
+	    				 var arr=[];
+	    				 arr.push({"value":"","text":"全部"});
+	    				 for(var i=0;i< rowCollection.length;i++){
+	    					 arr.push({"value":rowCollection[i].ET_MT,"text":rowCollection[i].ET_MT});
+	    				 }
+	    				 $('#equipmentState').combobox({
+	    					 	data:arr,
+	    		                valueField:'value',
+	    		                textField:'text',
+	    		                panelWidth:200,
+	    		                panelHeight:200
+	    		            });
+	    			 }
+	    			}
+			 iplantAjaxRequest(ajaxParam);
+			 
+			//保养项目下拉框
+			 var ajaxParam = {
+   				 url : '/iPlant_ajax',
+	    			 dataType : 'JSON',
+	    			 data:{
+	    				 IFS : 'U00013',
+	    			 },
+	    			 successCallBack : function(data){
+	    				 var rowCollection=createSourceObj(data);
+	    				 
+	    				 var arr=[];
+	    				 arr.push({"value":"","text":"全部"});
+	    				 for(var i=0;i< rowCollection.length;i++){
+	    					 arr.push({"value":rowCollection[i].KB_IU,"text":rowCollection[i].KB_IU});
+	    				 }
+	    				 $('#stationName').combobox({
+	    					 	data:arr,
+	    		                valueField:'value',
+	    		                textField:'text',
+	    		                panelWidth:200,
+	    		                panelHeight:200
+	    		            });
+	    			 }
+	    			}
+			 iplantAjaxRequest(ajaxParam);
+			 
+			//工位名称下拉框
+			 var ajaxParam = {
+   				 url : '/iPlant_ajax',
+	    			 dataType : 'JSON',
+	    			 data:{
+	    				 IFS : 'U00014',
+	    			 },
+	    			 successCallBack : function(data){
+	    				 var rowCollection=createSourceObj(data);
+	    				 
+	    				 var arr=[];
+	    				 arr.push({"value":"","text":"全部"});
+	    				 for(var i=0;i< rowCollection.length;i++){
+	    					 arr.push({"value":rowCollection[i].ROUT_CD,"text":rowCollection[i].ROUT_CD});
+	    				 }
+	    				 $('#stationNames').combobox({
+	    					 	data:arr,
+	    		                valueField:'value',
+	    		                textField:'text',
+	    		                panelWidth:200,
+	    		                panelHeight:200
+	    		            });
+	    			 }
+	    			}
+			 iplantAjaxRequest(ajaxParam);
+		}
+		
+		
+		addDictItem = function() {
+			
+			textbobom();//调用下拉框
+			
+			$('#' + pageConfig.txtDictCode).textbox('textbox').attr('readonly',false);
+			$('#' + pageConfig.txtDictCode).textbox('textbox').attr('disabled',false);
+			$("#enditTab").dialog("open").dialog('setTitle',pageConfig.title + '维护');
+			$("#fmCompany").form("clear");
+			$('#' + pageConfig.cbUsed).prop('checked','checked');
+			setOptType(0);
+			
+			
+			/*
+			 * $('#' +pageConfig.txtDictCode).textbox('setValue', ccCount); 
+			 * $('#' +pageConfig.txtDictCode).textbox('readonly', true);
+		    */
+			
+		}
+		
+		allSun=function(reqData1,otype){ //关联增删改
+			var req;
+			var ifsnow;
+			if(otype==1){//增加
+				req=reqData1.ET_CD;
+				ifsnow='T0000012';
+			}else if(otype==2){//修改
+				req=reqData1.ET_CD;
+				ifsnow='T0000013';
+			}else{//删除
+				ifsnow='T0000014';
+				req=reqData1;
+			}
+			 var ajaxParam = {
+	   				 url : '/iPlant_ajax',
+		    			 dataType : 'JSON',
+		    			 data:{
+		    				 FACTORY_ID:reqData1.FACTORY_ID,
+		    				 MANUFACTURER:reqData1.MANUFACTURER,
+		    				 SUPPLIER :reqData1.SUPPLIER,
+		    				 ASSET_NUMBER :reqData1.ASSETCODE,
+		    				 AOI_IP :reqData1.AOI_IP,
+		    				 DBA_NAME:reqData1.DBA_NAME,
+		    				 LOGIN_NAME:reqData1.LOGINNAME,
+		    				 PW:reqData1.PWD,
+		    				 ET_CD:req,
+		    				 EQ_CR_DT:reqData1.MAKEDATE,
+		    				 EQ_BUY:reqData1.BUYDATE,
+		    				 IFS : ifsnow
+		    			 }
+		}
+			 iplantAjaxRequest(ajaxParam);
+		}
+		
+		saveDictItem = function() {
+			// 校验
+			if ($("#" + pageConfig.txtDictName).val() == null || $("#" + pageConfig.txtDictName).val() == "") {
+					 $.messager.alert('提示', "请输入" + pageConfig.gcDictName+ "。");
+					 return;
+			}
+			var cmbCheckType=$('#equipmentType').combobox('getValue');//获取设备类型下拉框选中的值
+			var produName=$('#productionName').combobox('getValue');//获取产线名称下拉框选中的值
+			var eqState=$('#equipmentState').combobox('getValue');//获取设备状态下拉框选中的值
+			var station=$('#stationName').combobox('getValue');//获取保养项目下拉框选中的值
+			var rout=$('#stationNames').combobox('getValue');//获取工位名称下拉框选中的值
+			var IFServerNo = '', isUsed = '';
+			if ($("input[name='postingdate']").is(':checked'))
+				 isUsed = 'Y';
+			else
+				 isUsed = 'N';
+			
+			var reqData1={
+				FACTORY_ID:	$("#EquipmentFacCode").val(),//设备厂商编码
+				MANUFACTURER: $("#manufacturer").val(),//制造商
+				SUPPLIER: $("#supplier").val(),//供应商
+				MAKEDATE: $("#makeDate").datebox('getValue'),//设备制造日期
+				BUYDATE: $("#buyDate").datebox('getValue'),//购买日期
+				ASSETCODE: $("#assetCode").val(),//资产编号
+				AOI_IP: $("#IP").val(),//aoi ip
+				DBA_NAME: $("#dataName").val(),//数据库名
+				LOGINNAME: $("#loginName").val(),//登录名
+				ET_CD : $("#txtListCode").val(),//外键
+				PWD : $("#pwd").val()// 密码
+			}
+			
+			var reqData = {
+				ET_CD : $("#txtListCode").val(), // 设备编码
+				ET_NM : $("#txtListName").val(), // 设备名称
+				ET_UT : $('#equipmentModel').val(), // 设备型号
+				DICT_IT : cmbCheckType, // 设备类型
+				ET_TT : produName,//产线名称
+				ET_MT : eqState,//设备状态
+				//KB_IU : station,//保养项目
+				ROUT_CD: rout,//工位名称
+				USE_YN : isUsed
+			}
+			var optType = getOptType();
+			// 新增
+			if (optType == 0) {
+				IFServerNo = 'T0000011', 
+				$.extend(reqData, {
+					CRT_ID : '',
+					CRT_IP : '',
+					IFS : IFServerNo
+				});
+			}
+			// 修改
+			else if (optType == 1) {
+				/*if (!saveUpdateValidate()) {
+					$.messager.alert("提示", '内容没有更新，请修改')
+					return false;
+				}*/
+				
+				IFServerNo = 'M000077', 
+				reqData = $.extend(reqData, {
+					CRT_ID : '',
+					CRT_IP : '',
+					IFS : IFServerNo
+				});
+			}
+			var susMsg = '', errorMsg = '';
+			if (optType == 0) {
+				susMsg = '添加成功';
+				errorMsg = '添加失败,请联系管理员';
+			} 
+			else{
+				susMsg = '更新成功';
+				errorMsg = '更新失败,请联系管理员';
+			}
+			var ajaxParam = {
+				url : '/iPlant_ajax',
+				dataType : 'JSON',
+				data : reqData,
+				successCallBack : function(data) {
+					if (data.RESPONSE[0].RESPONSE_HDR.MSG_CODE == '-1007') {
+						susMsg = data.RESPONSE[0].RESPONSE_HDR.MSG_TEXT;
+					}
+					if ($.messager.alert('提示', susMsg)) {
+						if(susMsg=='添加成功'){
+							otype=1;
+							allSun(reqData1,otype);
+						}else if(susMsg=='更新成功'){
+							otype=2;
+							allSun(reqData1,otype);
+						}
+						  $('#enditTab').dialog('close');
+						  setDataNull();
+						  initGridData();
+					}
+				},
+				errorCallBack : function() {
+					$.messager.alert('提示', errorMsg);
+				}
+			};
+			iplantAjaxRequest(ajaxParam);
+		}
+		addID = function(data) {
+			var arr = data.split(".");
+			var i = parseInt(arr[1]) + 1;
+			if (i < 10) {
+				return pageConfig.dictCD + ".00" + i;
+			} 
+			else if (i < 100) {
+				return pageConfig.dictCD + ".0" + i;
+			} 
+			else {
+				return pageConfig.dictCD + "." + i;
+			}
+		}
+		addCCID = function(data) {
+			var arr = data.split(".");
+			var i = parseInt(arr[1]) + 1;
+			if (i < 10) {
+				return pageConfig.dictCD + ".0" + i;
+			} 
+			else{
+				return pageConfig.dictCD + "." + i;
+			}
+		}
+	 }
+	 dictItem.prototype = {
+		init:function() {
+			$(function() {
+				$("body")[0].onkeydown = keyPress;
+                $("body")[0].onkeyup = keyRelease;
+				initGridData();
+				$('#btnFreshen').click(function() {
+					initGridData();
+				});
+				$('.add').click(function() {
+					addDictItem();
+				});
+				$('.update').click(function() {
+					updateDictItem();
+				});
+				$('.save').click(function() {
+					saveDictItem();
+				});
+				$('.close').click(function() {
+					setDataNull();
+					$('#enditTab').dialog('close');
+				});
+				$('.panel-tool-close').click(function() {
+					setDataNull();
+				});
+				$('.delete').click(function() {
+					deleteDictItem();
+				});
+				$("input",$("#"+pageConfig.txtDictCode).next("span")).blur(function(){
+				    var dictCode = $("#"+pageConfig.txtDictCode).val();
+				    existDictItem(dictCode);
+			    });
+				//判断输入文字的长度
+//				$("input", $("#" + pageConfig.txtDictCode).next("span")).keyup(function() {
+//					checkInputLength('#' + pageConfig.txtDictCode, 20);
+//				})
+//
+//				$("input", $("#" + pageConfig.txtDictName).next("span")).keyup(function() {
+//					checkInputLength('#' + pageConfig.txtDictName, 50);
+//				})
+//
+//                $("#" + pageConfig.dictRemark).textbox('textbox').bind("keyup", function() {
+//					checkInputLength('#' + pageConfig.dictRemark, 200);
+//				})
+			});
+		}
+	}
+	var dict = new dictItem();
+	dict.init();
+
+})();

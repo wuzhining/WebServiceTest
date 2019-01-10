@@ -1,0 +1,283 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <title>SM卡测试机看板</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="../../common/IplantCompent/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="../../common/IplantCompent/themes/icon.css">
+	<link rel="stylesheet" type="text/css" href="../../common/IplantCompent/Demo/demo.css">
+	<script src="../../common/IplantCompent/jquery.min.js" type="text/javascript"></script>
+	<script src="../../common/IplantCompent/jquery.easyui.min.js" type="text/javascript"></script>
+    <script src="../../business/IplantMobile/js/DataRequest.js" type="text/javascript"></script>
+    <script src="../../common/IplantCompent/jquery.lazyload.min.js" type="text/javascript"></script>
+	<script type="text/javascript" charset="utf-8"> 
+        function loadscript(){
+        	LazyLoad.js([
+			 "../../common/IplantCommon/CommonUtil.js",
+			 "../screen/report/highcharts/code/highcharts.js",
+			 "../screen/report/highcharts/code/highcharts-3d.js",
+			 "../screen/report/highcharts/code/modules/exporting.js",
+			 "../screen/report/highcharts/code/themes/dark-unica.js",
+			 
+			 "js/SMTest.js"
+			]);
+		 };
+        setTimeout(loadscript,0);
+    </script>
+    <script type="text/javascript" >
+			//获取当前时间
+	        var oldTime,year,month,day,times,time,minute,second,hour;
+			function show_cur_times() {
+				iplantAjaxRequest({
+			           url: '/iPlant_ajax',
+			           data: {
+			               IFS: 'S0000021',
+			           },
+			           successCallBack: function (data) { 
+			        	   if(data.RESPONSE[0].RESPONSE_DATA.length>0){
+			        		   oldTime = data.RESPONSE[0].RESPONSE_DATA[0].SYS_TIME;
+			        		   year = parseInt(oldTime.slice(0,4));
+			        		   month = parseInt(oldTime.slice(5,7));
+			        		   day = parseInt(oldTime.slice(8,10));
+			        		   if(month<10){
+			   						month = '0'+month;
+			   				   };
+				   			   if(day<10){
+				   					day = '0'+day;
+			   				   };
+			        		   times = oldTime.slice(11);
+			        		   time =  year+'年'+month+'月'+day+'日'+'&nbsp&nbsp'+times;
+			        		   hour = parseInt(oldTime.slice(11,13));
+			        		   minute = parseInt(oldTime.slice(14,16));
+			        		   second = parseInt(oldTime.slice(17));
+			        	   }
+			           }
+			       });
+			};
+			function show_time(){
+				var cond1 = year % 4 == 0;  //条件1：年份必须要能被4整除
+			    var cond2 = year % 100 != 0;  //条件2：年份不能是整百数
+			    var cond3 = year % 400 ==0;  //条件3：年份是400的倍数
+			    var cond = cond1 && cond2 || cond3;
+				second = parseInt(second);
+				minute = parseInt(minute);
+				hour = parseInt(hour);
+				day = parseInt(day);
+				month = parseInt(month);
+				year = parseInt(year);
+				second+=1;
+				if(second == 60){
+					minute+=1;
+					second =0;
+				};
+				if(second<10){
+					second = '0'+second;
+				};
+				if(minute == 60){
+					hour+=1;
+					minute =0;
+				}
+				if(minute<10){
+					minute = '0'+minute;
+				};
+				if(hour == 24){
+					day+=1;
+					hour =0;
+				}
+				if(hour<10){
+					hour = '0'+hour;
+				};
+				
+				if(month == 1||month == 3||month == 5||month == 7||month == 8||month == 10||month == 12){
+					if(day==32){
+						month+=1;
+						day =1;
+					}
+				}else if(month == 2){
+					if(cond) {
+						if(day==30){
+							month+=1;
+							day =1;
+						}
+				    } else {
+				    	if(day==29){
+							month+=1;
+							day =1;
+						}
+				    }
+				}else if(month == 4||month == 6||month == 9||month == 11){
+					if(day==31){
+						month+=1;
+						day =1;
+					}
+				}
+				
+				if(day<10){
+					day = '0'+day;
+				};
+				
+				if(month==13){
+					year+=1;
+					month=1;
+				};
+				
+				if(month<10){
+					month = '0'+month;
+				};
+				
+				time = year+'年'+month+'月'+day+'日'+'&nbsp&nbsp'+hour+':'+minute+':'+second;
+				document.getElementById("admin_pid").innerHTML = "当前时间：" + time;
+   				document.getElementById("admin_pid").style.color = "yellow";
+			} 
+		
+			//设置1秒调用一次show_cur_times函数
+			setInterval("show_time()", 1000);
+			setInterval("show_cur_times()", 30000);
+   </script>
+   <style>
+  	.panel-body {
+  		border-color: #393A4C;
+	}
+	#wonoTable{
+		margin:auto;
+		border-right: 1px solid #95B8E7; 
+		border-bottom: 1px solid #95B8E7;
+		border-top: 1px solid #95B8E7;
+		border-left: 1px solid #95B8E7;
+		border-collapse:collapse;
+		width: 98%;
+		height: 50%; 
+	}
+	#wonoTable tr{
+		text-align: center;
+		height:25px;
+		vertical-align: middle;
+	}
+	#wonoTable tr td{
+		width:16.66%;
+		text-align: center;
+		border-left: 1px solid #95B8E7;
+		border-top: 1px solid #95B8E7;
+		vertical-align: middle;
+		color:#1771B3
+	}
+	#wonoTable tr td span{
+		font-size:10px;
+		font-family:宋体;
+		font-weight: bold;
+	}
+  </style>
+  </head>
+  <body style="margin:0px;padding:0px;" class="easyui-layout">
+	  	<div data-options="region:'north'" style="height:60px;background:#454E5D;overflow : hidden;">
+	  		<div style="text-align:center; width:200px; height:80px;line-height:80px;">
+	  			<img src="image/log.png" style="vertical-align:middle;" width="50px" height="50px" /><span style="font-size:20px;font-family:宋体;color:#FFFFFF;font-weight: bold;">德富莱</span>
+	  		</div>
+	  		<div style="text-align:center; height:80px;line-height:80px;margin-top:-80px; margin-right:200px;margin-left:200px;">
+	  			<span style="font-size:30px;font-family:宋体;font-weight: bold;color:#FFFFFF">SM卡测试机看板</span>
+	  		</div>
+	        <div style="float: right;height: 60px;width: 402px;margin-top: 40px;font-size: 14px;font-family: '宋体';padding-right:'20px'">	
+		        <div id="admin_pid" style="height: 20px ;width: 348px;position:absolute;top:40px;right:-40px"><script>show_cur_times();</script></div>
+	        </div>
+	  	</div>   
+    	<div data-options="region:'center'" style="background:#393A4C;overflow : hidden;" >   
+       	 	<div class="easyui-layout" data-options="fit:true" >   
+            	<div data-options="region:'west',borde:false" style="background:#393A4C;width:180px">
+            		<table>
+	      				<tr height='200px'>
+	      				<td>
+	      					<a href="http://192.168.1.228:8088/iTaurus/system/screen/report/monitoringCenter.html?line=LINE01">
+	      						<img src="../screen/report/image/assembleLine02.jpg" width='168px'></img>
+
+	      					</a>
+	      				</td>
+	      				</tr>
+	      				<tr height='20px'>
+	      				<td ><span style="font-size:10px;font-family:宋体;font-weight: bold;color:#1771B3">设备名称:<span>SM卡测试机</span></span></td>
+	      				</tr>
+	      				<tr  height='20px'>
+	      				<td ><span style="font-size:10px;font-family:宋体;font-weight: bold;color:#1771B3">设备品牌:<span>德富莱</span></span></td>
+	      				</tr>
+	      				<tr  height='20px'>
+	      				<td ><span style="font-size:10px;font-family:宋体;font-weight: bold;color:#1771B3">厂商名称:<span>德富莱智能科技股份有限公司</span></span></td>
+	      				</tr>
+	      				<tr  height='20px'>
+	      				<td ><span style="font-size:10px;font-family:宋体;font-weight: bold;color:#1771B3">工艺功能简介:</span></td>
+	      				</tr>
+	      				<tr  height='30px'>
+	      				<td ><span style="font-size:10px;font-family:宋体;font-weight: bold;color:#1771B3">&nbsp&nbsp流水线将组装好手机的载板送到操作工位，顶升定位，模组抓取手机放入测试夹具内，测试SM卡T卡的信号，通话、耳机等功能。</span></td>
+	      				</tr>
+	      	    	</table>
+            	</div>   
+            	<div data-options="region:'center',borde:false" style="background:#393A4C;width:100%">
+            		<div class="easyui-layout" data-options="fit:true">   
+            			<div data-options="region:'north'" style="background:#393A4C;height:30%;">
+            				<div style="width: 100%;height: 100%;text-align:center">
+            					<table style="height: 20%; "></table>
+	      	    				<table id='wonoTable'>
+	      							<tr>
+		      							<td style="width:16.66%;"><span>工单号：</span></td>
+		      							<td style="width:16.66%;"><span id="txtgdh"></span></td>
+		      							<td style="width:16.66%;"><span>计划数量：</span></td>
+		      							<td style="width:16.66%;"><span id="txtjhsl"></span></td>
+		      							<td style="width:16.66%;"><span>程序名称：</span></td>
+		      							<td style="width:16.66%;"><span id="txtaoi"></span></td>
+	      							</tr>
+	      							<tr>
+		      							<td><span>标准产能：</span></td>
+		      							<td><span id="txtbzcn"></span></td>
+		      							<td><span>实际产出：</span></td>
+		      							<td><span id="txtsjcc"></span></td>
+		      							<td><span>设备状态：</span></td>
+		      							<td><span id="txtyxz"></span></td>
+	      							</tr>
+	      							<tr>
+		      							<td><span>当前生产时长：</span></td>
+		      							<td><span id="txtdqscsc"></span></td>
+		      							<td><span>转产时长：</span></td>
+		      							<td><span id="txtzcsc"></span></td>
+		      							<td><span>当前停机时长：</span></td>
+		      							<td><span id="txtdqtjsc"></span></td>
+	      							</tr>
+	      							<tr>
+		      							<td><span>总生产时长：</span></td>
+		      							<td><span id="txtzscsc"></span></td>
+		      							<td><span>总停机时长：</span></td>
+		      							<td><span id="txtztjsc"></span></td>
+		      							<td><span>总故障时长：</span></td>
+		      							<td><span id="txtpjwgzsc"></span></td>
+	      							</tr>
+	      	    				</table>
+	        				</div>
+	            		</div>   
+	            		<div data-options="region:'center',borde:false" style="background:#393A4C;overflow : hidden;height:60%;"> 
+	            			<div style="width: 100%;height: 100%;text-align:center">
+	            				<table style="margin:auto;border-collapse:collapse;width: 98%;height: 100%; ">
+	            					<tr>
+	            					<td style="width:33.33%;height:100%">
+	            						<div id="container1" style="width: 95%;height: 100%;"></div>
+	            					</td>
+	            					<td style="width:33.33%;height:100%">
+	            						<div id="container2" style="width: 95%;height: 100%;"></div>
+	            					</td>
+	            					<td style="width:33.33%;height:100%">
+	            						<div id="container3" style="width: 95%;height: 100%;"></div>
+	            					</td>
+	            					</tr>
+	            				</table>
+	            				</div>
+	            		</div>    
+	            		<div data-options="region:'south'" style="background:#393A4C;overflow : hidden;height:10%;"> 
+	            			<div style="text-align:left; height:100px;line-height:40px; margin-left:2%;overflow : hidden;">
+	            				<div id="abnormalInfo_title" style="font-size:25px;font-family:宋体;font-weight: bold;color:red;float:left;width:20%">异常信息：</div>
+	            				<marquee direction="left" behavior="scroll" scrollamount="5" align="right" style="float:left;width:80%">
+	  								<span id="abnormalInfo" style="font-size:25px;font-family:宋体;font-weight: bold;color:red"></span>
+	  							</marquee>
+	  						</div>
+	            		</div>   
+	        		</div>
+            	</div>   
+        	</div>   
+    	</div> 
+  </body>
+</html>

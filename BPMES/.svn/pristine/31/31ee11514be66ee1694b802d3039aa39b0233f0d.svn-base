@@ -1,0 +1,1809 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="">
+
+	<!--====================================工位管理======================================== -->
+
+	<!-- 扫描ENTER SN：查找工单信息 -->
+	<select id="querySnWorkOrderInformation" parameterType="hashmap"
+		resultType="java.util.HashMap">
+		SELECT
+	        T1.FCT_CD,
+	        (select FT_NM from IPLANT1.C_IPLANT_F1_T C WHERE C.FT_CD = T1.FCT_CD) AS
+	        FCT_NM,
+	         (CASE WHEN T4.CURR_ROUT_CD IS NULL THEN 
+	        (SELECT T9.TO_ROUT_CD FROM MES1.R_MES_MO_PRF_CONF_T  T9  WHERE T2.MO_NO = T9.MO_NO
+	          AND FROM_ROUT_CD ='START')
+	          ELSE T4.CURR_ROUT_CD
+	            END ) AS NEXT_ROUT_CD,
+	        T8.ROUT_NAME AS CURR_ROUT_NM,
+	        T1.BAR_CODE,
+	        T1.SN_NO,
+	        T1.MO_NO,
+	        T1.WO_NO,
+	        T1.WC_CD,
+	        T3.ITEM_ATTR_NM,
+	        T3.ITEM_ATTR_VAL AS PCS_IN_BOX,
+	        (SELECT A.PL_NM FROM IPLANT1.C_IPLANT_P1_T A WHERE A.PL_CD = T1.WC_CD) AS
+	        WC_NM,
+	        T1.LINE_CD,
+	        (SELECT B.PD_LN_NM FROM IPLANT1.C_IPLANT_P5_T B WHERE B.PD_LN_CD =
+	        T1.LINE_CD) AS LINE_NM,
+	        T1.SHIFT_CD,
+	        (SELECT C.TG_NM FROM IPLANT1.C_IPLANT_S7_T C WHERE C.TG_CD = T1.SHIFT_CD) AS
+	        SHIFT_NM,
+	        T1.ITEM_CD,
+	        T1.ITEM_NM,
+	        T1.MODEL_CD,
+	        T1.MODEL_NM,
+	        T2.PLAN_WO_QTY,
+	        T2.PRF_CD,
+	        (SELECT PRF_NM FROM MES1.R_MES_PRF_MT_T T WHERE T.PRF_CD = T2.PRF_CD) AS
+	        PRF_NM,
+	        T2.PROD_TYPE,
+	        T2.WO_STATE,
+	        (SELECT DICT_IT_NM FROM IPLANT1.C_IPLANT_DD_T D WHERE D.DICT_IT =
+	        T2.WO_STATE) AS WO_STATE_NM,
+	        T1.MO,
+	        T1.USR_DFN_1,
+	        T1.USR_DFN_2,
+	        T1.USR_DFN_3,
+	        T1.USR_DFN_4,
+	        T1.USR_DFN_5,
+	        T1.CRT_ID,
+	        T1.CRT_IP,
+	        T1.CRT_DT,
+	        T1.UPT_ID,
+	        T1.UPT_IP,
+	        T1.UPT_DT,
+	        T1.BC_STATUS,
+	        T1.ROUT_CD,
+	        T1.OLD_ROUT_CD,
+	        T1.ID,
+	        T1.BC_QTY
+	      FROM MES1.R_MES_MO_BC_T T1
+	      LEFT JOIN MES1.R_MES_WO_T T2
+	      ON T1.WO_NO = T2.WO_NO
+	      LEFT JOIN MES1.R_MES_ITEM_ATTR_VAL_T T3
+	        ON T1.ITEM_CD = T3.ITEM_CD
+	      LEFT JOIN MES1.R_MES_WIP_T T4            ON T1.BAR_CODE = T4.BAR_CODE
+	      LEFT JOIN MES1.R_MES_PRF_BUSI_CONF_T CON ON CON.ROUT_CD = T4.CURR_ROUT_CD
+	      LEFT JOIN MES1.R_MES_ROUTE_DEF_T T8      ON T4.CURR_ROUT_CD = T8.ROUT_CD
+		<where>1=1
+			AND T1.BAR_CODE = '${BAR_CODE}'
+			<!-- AND T3.ITEM_ATTR ='PCS_IN_BOX' -->
+			
+		</where>
+
+	</select>
+
+
+	<!-- APP扫描ENTER SN：查找工单信息 -->
+	<select id="querySnWorkOrderInformationAPP" parameterType="hashmap"
+		resultType="java.util.HashMap">
+	 SELECT
+      T2.WO_NO,
+      T2.MO_NO,
+      DB.BAR_CODE,
+      DB.SN_NO,
+      T2.ITEM_CD,
+      T2.ITEM_NM,
+      (CASE WHEN TW.CURR_ROUT_CD IS NULL THEN 
+        (SELECT T9.TO_ROUT_CD FROM MES1.R_MES_MO_PRF_CONF_T  T9  WHERE T2.MO_NO = T9.MO_NO
+          AND FROM_ROUT_CD ='START')
+          ELSE TW.CURR_ROUT_CD
+            END ) AS CURR_ROUT_CD,
+      T8.ROUT_NAME AS CURR_ROUT_NM,
+      TW.NEXT_ROUT_CD,
+      T3.INPUT_NUM,
+      T2.PRF_CD,
+      (SELECT PRF_NM FROM MES1.R_MES_PRF_MT_T T WHERE T.PRF_CD = T2.PRF_CD) AS
+      PRF_NM,
+      T2.PROD_TYPE,
+      T2.PLAN_WO_QTY,
+      T2.LINE_CD,
+      NVL(T7.NO_PASS,0) AS NO_PASS,
+      (SELECT I.PD_LN_NM FROM IPLANT1.C_IPLANT_P5_T I WHERE I.PD_LN_CD =
+      T2.LINE_CD) AS LINE_NM,
+      T2.WO_STATE,
+      (SELECT DICT_IT_NM FROM IPLANT1.C_IPLANT_DD_T C WHERE C.DICT_IT = T2.WO_STATE
+      AND C.DICT_CD = 'MO001') AS WO_STATE_NM,
+      T2.FCT_CD,
+      (select FT_NM from IPLANT1.C_IPLANT_F1_T C WHERE C.FT_CD = T2.FCT_CD) AS
+      FCT_NM,
+      T2.WC_CD,
+      (SELECT A.PL_NM FROM IPLANT1.C_IPLANT_P1_T A WHERE A.PL_CD = T2.WC_CD) AS
+      WC_NM,
+      T2.SHIFT_CD,
+      (SELECT C.TG_NM FROM IPLANT1.C_IPLANT_S7_T C WHERE C.TG_CD = T2.SHIFT_CD) AS
+      SHIFT_NM,
+      DB.BOX_QTY
+      FROM MES1.R_MES_WO_T T2
+      LEFT JOIN
+      (
+      SELECT
+      T1.WO_NO,
+      T1.MO_NO,
+      T1.ITEM_CD,
+      SUM(T1.INPUT_NUM) AS INPUT_NUM
+      FROM MES1.R_MES_OP_LOT_T T1
+      GROUP BY
+      T1.WO_NO,
+      T1.MO_NO,
+      T1.ITEM_CD
+      ) T3 ON T2.WO_NO = T3.WO_NO
+      LEFT JOIN
+      (
+      SELECT
+      MO_NO,
+      WO_NO,
+      ITEM_CD,
+      COUNT(IPQC_RSLT) AS NO_PASS
+      FROM MES1.R_MES_IPQC_DTL_T WHERE IPQC_RSLT = 'fail'
+      GROUP BY
+      MO_NO,
+      WO_NO,
+      ITEM_CD
+      ) T7 ON T2.WO_NO = T7.WO_NO
+      LEFT JOIN
+      (
+        SELECT
+             T1.BAR_CODE,
+             T1.SN_NO,
+             T1.WO_NO,
+             T2.ITEM_ATTR_VAL AS BOX_QTY
+        FROM MES1.R_MES_MO_BC_T T1
+        LEFT JOIN MES1.R_MES_ITEM_ATTR_VAL_T T2 ON T1.ITEM_CD = T2.ITEM_CD
+      )DB ON T2.WO_NO = DB.WO_NO
+      LEFT JOIN MES1.R_MES_WIP_T TW            ON DB.BAR_CODE = TW.BAR_CODE
+      LEFT JOIN MES1.R_MES_PRF_BUSI_CONF_T CON ON CON.ROUT_CD = TW.CURR_ROUT_CD  
+      LEFT JOIN MES1.R_MES_ROUTE_DEF_T T8      ON TW.CURR_ROUT_CD = T8.ROUT_CD
+		<where>
+			DB.BAR_CODE = '${BAR_CODE}'
+		</where>
+	</select>
+
+	<!-- 投入工位 START -->
+	<!-- 根据作业指示编号查询作业信息 -->
+	<select id="queryInputStation" parameterType="hashmap"
+		resultType="java.util.HashMap">
+		SELECT
+		T1.WO_NO,
+		T1.FCT_CD,
+		T1.WO_STATE,
+		T2.PROD_TYPE,
+		T1.LINE_CD,
+		(SELECT T5.PD_LN_NM FROM IPLANT1.C_IPLANT_P5_T T5 WHERE T5.PD_LN_CD =
+		T1.LINE_CD) AS LINE_NM,
+		T1.SHIFT_CD,
+		(SELECT TG_NM FROM IPLANT1.C_IPLANT_S7_T T6 WHERE T6.TG_CD = T1.SHIFT_CD) AS
+		SHIFT_NM,
+		T1.MO_NO,
+		T2.MO_STATE,
+		(SELECT DICT_IT_NM FROM IPLANT1.C_IPLANT_DD_T C WHERE C.DICT_IT = T2.MO_STATE
+		AND C.DICT_CD = 'MO001') AS MO_STATE_NM,
+		(SELECT PRF_NM FROM MES1.R_MES_PRF_MT_T R WHERE R.PRF_CD = T1.PRF_CD) AS
+		PRF_NM,
+		T2.MO_STATE,
+		T1.PRF_CD,
+		T1.WC_CD,
+		(SELECT T4.PL_NM FROM IPLANT1.C_IPLANT_P1_T T4 WHERE T4.PL_CD = T1.WC_CD) AS
+		WC_NM,
+		T1.ITEM_CD,
+		T1.ITEM_NM,
+		T1.ITEM_TYPE,
+		T1.MODEL_CD,
+		T1.MODEL_NM,
+		T1.TOP_ITEM_CD,
+		T1.UOM,
+		T1.UGT_TYPE,
+		T1.NXT_OPER,
+		TO_CHAR(T1.PLAN_STRT_DT,'YYYY-MM-DD HH24:MI:SS') AS PLAN_STRT_DT,
+		TO_CHAR(T1.PLAN_END_DT,'YYYY-MM-DD HH24:MI:SS') AS PLAN_END_DT,
+		T1.TOT_PLAN_WRK_TIME,
+		T1.PLAN_WRK_TIME,
+		TO_CHAR(T1.PROD_STRT_DT,'YYYY-MM-DD HH24:MI:SS') AS PROD_STRT_DT,
+		TO_CHAR(T1.PROD_END_DT,'YYYY-MM-DD HH24:MI:SS') AS PROD_END_DT,
+		T1.PLAN_PO_QTY,
+		T1.MAX_STCK_QTY,
+		T1.TOT_PLAN_WO_QTY,
+		T1.PLAN_WO_QTY,
+		T1.MO,
+		T1.USR_DFN_1,
+		T1.USR_DFN_2,
+		T1.USR_DFN_3,
+		T1.USR_DFN_4,
+		T1.USR_DFN_5,
+		T1.CRT_ID,
+		T1.CRT_IP,
+		T1.CRT_DT,
+		T1.UPT_ID,
+		T1.UPT_IP,
+		T1.UPT_DT,
+		T1.PROD_QTY,
+		T1.GOOD_QTY,
+		T1.DFCT_QTY,
+		T1.SCRAP_QTY
+		FROM MES1.R_MES_WO_T T1 LEFT JOIN MES1.R_MES_MO_T T2 ON T1.MO_NO =
+		T2.MO_NO
+		<where>
+			<if test="WO_NO!=null and WO_NO!='' ">
+				AND WO_NO = '${WO_NO}'
+			</if>
+		</where>
+
+	</select>
+
+	<!-- 查询该物料是否属于该作业指示 -->
+	<select id="queryInputStationITEMCD" parameterType="hashmap"
+		resultType="java.util.HashMap">
+		SELECT
+		WO_NO,
+		FCT_CD,
+		WO_STATE,
+		PROD_TYPE,
+		LINE_CD,
+		SHIFT_CD,
+		MO_NO,
+		PRF_CD,
+		WC_CD,
+		ITEM_CD,
+		ITEM_NM,
+		ITEM_TYPE,
+		MODEL_CD,
+		MODEL_NM,
+		TOP_ITEM_CD,
+		UOM,
+		UGT_TYPE,
+		NXT_OPER,
+		TO_CHAR(PLAN_STRT_DT,'YYYY-MM-DD HH24:MI:SS') AS PLAN_STRT_DT,
+		TO_CHAR(PLAN_END_DT,'YYYY-MM-DD HH24:MI:SS') AS PLAN_END_DT,
+		TOT_PLAN_WRK_TIME,
+		PLAN_WRK_TIME,
+		TO_CHAR(PROD_STRT_DT,'YYYY-MM-DD HH24:MI:SS') AS PROD_STRT_DT,
+		TO_CHAR(PROD_END_DT,'YYYY-MM-DD HH24:MI:SS') AS PROD_END_DT,
+		PLAN_PO_QTY,
+		MAX_STCK_QTY,
+		TOT_PLAN_WO_QTY,
+		PLAN_WO_QTY,
+		MO,
+		USR_DFN_1,
+		USR_DFN_2,
+		USR_DFN_3,
+		USR_DFN_4,
+		USR_DFN_5,
+		CRT_ID,
+		CRT_IP,
+		CRT_DT,
+		UPT_ID,
+		UPT_IP,
+		UPT_DT,
+		PROD_QTY,
+		GOOD_QTY,
+		DFCT_QTY,
+		SCRAP_QTY
+		FROM MES1.R_MES_WO_T
+		<where>
+			ITEM_CD = '${ITEM_CD}' AND WO_NO = '${WO_NO}'
+		</where>
+	</select>
+
+	<!-- 确定作业指示后插入生产投入表 -->
+	<insert id="insertProductionInput" parameterType="java.util.HashMap">
+		<selectKey resultType="long" keyProperty="ID" order="BEFORE">
+			SELECT OP_LOT_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT
+		INTO MES1.R_MES_OP_LOT_T
+		(
+		LOT_NO,
+		WO_NO,
+		FCT_CD,
+		WO_STATE,
+		PROD_TYPE,
+		LINE_CD,
+		SHIFT_CD,
+		MO_NO,
+		ROUT_CD,
+		OLD_ROUT_CD,
+		PRF_CD,
+		WC_CD,
+		ITEM_CD,
+		ITEM_NM,
+		ITEM_TYPE,
+		MODEL_CD,
+		MODEL_NM,
+		UOM,
+		MO,
+		USR_DFN_1,
+		USR_DFN_2,
+		USR_DFN_3,
+		USR_DFN_4,
+		USR_DFN_5,
+		CRT_ID,
+		CRT_IP,
+		CRT_DT,
+		INPUT_NUM,
+		ID,
+		BAR_CODE
+		)
+		VALUES(
+		'${LOT_NO}',
+		'${WO_NO}',
+		'${FCT_CD}',
+		'${WO_STATE}',
+		'${PROD_TYPE}',
+		'${LINE_CD}',
+		'${SHIFT_CD}',
+		'${MO_NO}',
+		'${ROUT_CD}',
+		'${OLD_ROUT_CD}',
+		'${PRF_CD}',
+		'${WC_CD}',
+		'${ITEM_CD}',
+		'${ITEM_NM}',
+		'${ITEM_TYPE}',
+		'${MODEL_CD}',
+		'${MODEL_NM}',
+		'${UOM}',
+		'${MO}',
+		'${USR_DFN_1}',
+		'${USR_DFN_2}',
+		'${USR_DFN_3}',
+		'${USR_DFN_4}',
+		'${USR_DFN_5}',
+		'${F_USE_CD}',
+		'${CRT_IP}',
+		SYSDATE,
+		'1',
+		'${ID}',
+	    '${BAR_CODE}'
+		)
+	</insert>
+
+	<!-- 更新作业指示表作业状态 -->
+	<update id="updateBarcodeJobInstructionStatus" parameterType="java.util.HashMap">
+		UPDATE MES1.R_MES_WO_T
+		<set>
+			<if test="WO_STATE!=null and WO_STATE!=''">
+				WO_STATE = '${WO_STATE}',
+			</if>
+			<if test="PROD_QTY!=null and PROD_QTY!=''">
+				PROD_QTY = PROD_QTY+'${PROD_QTY}',
+			</if>
+			<if test='IS_INPUT!="N"'>
+				INPUT_QTY =  NVL(INPUT_QTY,0) + 1,
+			</if>
+			<if test='IS_OUTPUT!="N"'>
+				PROD_QTY = NVL(PROD_QTY,0) + 1,
+			</if>
+			UPT_ID = '${F_USE_CD}',
+			UPT_IP = '${UPT_IP}',
+			UPT_DT = SYSDATE
+		</set>
+		<where>
+			WO_NO = '${WO_NO}'
+			AND MO_NO = '${MO_NO}'
+		</where>
+	</update>
+
+
+	<!-- 查询作业指示明细列 -->
+	<select id="queryJobInstructionDetails" parameterType="hashmap"
+		resultType="java.util.HashMap">
+		SELECT
+		T2.WO_NO,
+		T2.MO_NO,
+		T2.ITEM_CD,
+		MO_COUNT,
+		NVL(AO_COUNT,0) AS AO_COUNT,
+		T3.INPUT_NUM,
+		NVL(AO_COUNT/T3.INPUT_NUM,0)*100|| '%' AS COMPLATE_RATE,
+		NVL(T3.INPUT_NUM/T2.PLAN_WO_QTY,0)*100|| '%' AS INVESTMENT_RATE,
+		T2.PRF_CD,
+		(SELECT PRF_NM FROM MES1.R_MES_PRF_MT_T T WHERE T.PRF_CD = T2.PRF_CD) AS
+		PRF_NM,
+		T2.PROD_TYPE,
+		T2.PLAN_WO_QTY,
+		T2.LINE_CD,
+		NVL(T7.NO_PASS,0) AS NO_PASS,
+		(SELECT I.PD_LN_NM FROM IPLANT1.C_IPLANT_P5_T I WHERE I.PD_LN_CD =
+		T2.LINE_CD) AS LINE_NM,
+		T2.WO_STATE,
+		(SELECT DICT_IT_NM FROM IPLANT1.C_IPLANT_DD_T C WHERE C.DICT_IT = T2.WO_STATE
+		AND C.DICT_CD = 'MO001') AS WO_STATE_NM
+		FROM MES1.R_MES_WO_T T2
+		LEFT JOIN
+		(
+		SELECT
+		T1.WO_NO,
+		T1.MO_NO,
+		T1.ITEM_CD,
+		COUNT(T1.WO_NO) AS MO_COUNT,
+		SUM(T1.INPUT_NUM) AS INPUT_NUM
+		FROM MES1.R_MES_OP_LOT_T T1
+		GROUP BY
+		T1.WO_NO,
+		T1.MO_NO,
+		T1.ITEM_CD
+		) T3 ON T2.WO_NO = T3.WO_NO
+		LEFT JOIN
+		(
+		SELECT
+		T4.WO_NO,
+		T4.MO_NO,
+		COUNT(T4.WO_NO) AS AO_COUNT
+		FROM MES1.R_MES_ASSEMBLY_T T4
+		GROUP BY
+		T4.WO_NO,
+		T4.MO_NO
+		) T5 ON T2.WO_NO = T5.WO_NO
+		LEFT JOIN
+		(
+		SELECT
+		MO_NO,
+		WO_NO,
+		ITEM_CD,
+		COUNT(IPQC_RSLT) AS NO_PASS
+		FROM MES1.R_MES_IPQC_DTL_T WHERE IPQC_RSLT = 'fail'
+		GROUP BY
+		MO_NO,
+		WO_NO,
+		ITEM_CD
+		) T7 ON T2.WO_NO = T7.WO_NO
+		<where>
+			1=1
+			<if test="WO_NO!=null and WO_NO!='' ">
+				AND T2.WO_NO = '${WO_NO}'
+			</if>
+			ORDER BY CRT_DT DESC
+		</where>
+	</select>
+
+	<!-- 投入工位 START -->
+
+
+
+
+	<!-- IPQC工位 START -->
+	<!-- 查询IPQC抽检明细信息 -->
+	<select id="queryIpqcSamplingDetails" parameterType="hashmap"
+		resultType="java.util.HashMap">
+		SELECT
+		T2.WO_NO,
+		T2.MO_NO,
+		T2.ITEM_CD,
+		MO_COUNT,
+		NVL(AO_COUNT,0) AS AO_COUNT,
+		T3.INPUT_NUM,
+		NVL(AO_COUNT/T3.INPUT_NUM,0)*100|| '%' AS COMPLATE_RATE,
+		T2.PLAN_WO_QTY,
+		NVL(T3.INPUT_NUM/T2.PLAN_WO_QTY,0)*100|| '%' AS INVESTMENT_RATE,
+		T2.LINE_CD,
+		(SELECT I.PD_LN_NM FROM IPLANT1.C_IPLANT_P5_T I WHERE I.PD_LN_CD =
+		T2.LINE_CD) AS LINE_NM,
+		NVL(T7.NO_PASS,0) AS NO_PASS,
+		T2.WO_STATE,
+		(SELECT DICT_IT_NM FROM IPLANT1.C_IPLANT_DD_T C WHERE C.DICT_IT = T2.WO_STATE
+		AND C.DICT_CD = 'MO001') AS WO_STATE_NM
+		FROM MES1.R_MES_WO_T T2
+		LEFT
+		JOIN
+		(
+		SELECT
+		T1.WO_NO,
+		T1.MO_NO,
+		T1.ITEM_CD,
+		COUNT(T1.WO_NO) AS MO_COUNT,
+		SUM(T1.INPUT_NUM) AS INPUT_NUM
+		FROM MES1.R_MES_OP_LOT_T T1
+		GROUP BY
+		T1.WO_NO,
+		T1.MO_NO,
+		T1.ITEM_CD
+		) T3 ON T2.WO_NO = T3.WO_NO
+		LEFT JOIN
+		(
+		SELECT
+		T4.WO_NO,
+		T4.MO_NO,
+		COUNT(T4.WO_NO) AS AO_COUNT
+		FROM MES1.R_MES_ASSEMBLY_T T4
+		GROUP BY
+		T4.WO_NO,
+		T4.MO_NO
+		) T5
+		ON T2.WO_NO = T5.WO_NO
+		LEFT JOIN
+		(
+		SELECT
+		MO_NO,
+		WO_NO,
+		ITEM_CD,
+		COUNT(IPQC_RSLT) AS NO_PASS
+		FROM MES1.R_MES_IPQC_DTL_T WHERE IPQC_RSLT = 'fail'
+		GROUP BY
+		MO_NO,
+		WO_NO,
+		ITEM_CD
+		) T7 ON T2.WO_NO = T7.WO_NO
+		<where>
+			1=1
+			<if test="WO_NO!=null and WO_NO!='' ">
+				AND T2.WO_NO = '${WO_NO}'
+			</if>
+			ORDER BY CRT_DT DESC
+		</where>
+	</select>
+
+	<!-- 增加IPQC抽检信息 -->
+	<insert id="insertIpqcSampling" parameterType="java.util.HashMap">
+		INSERT INTO MES1.R_MES_IPQC_MST_T
+		(
+		FCT_CD,
+		WC_CD,
+		INSP_ID,
+		INSP_TYPE,
+		INSP_STATE,
+		INSP_CNT,
+		INSP_UNIT,
+		TOT_INSP_QTY,
+		INSP_RSLT,
+		INSP_USR,
+		CHK1_DT,
+		CHK1_USR_ID,
+		APR_FLAG,
+		APR_DT,
+		APR_USR_ID,
+		MO,
+		USR_DFN_1,
+		USR_DFN_2,
+		USR_DFN_3,
+		USR_DFN_4,
+		USR_DFN_5,
+		CRT_ID,
+		CRT_IP,
+		CRT_DT
+		)
+		VALUES
+		(
+		'${FCT_CD}',
+		'${WC_CD}',
+		'${INSP_ID}',
+		'${INSP_TYPE}',
+		'${INSP_STATE}',
+		'${INSP_CNT}',
+		'${INSP_UNIT}',
+		'${TOT_INSP_QTY}',
+		'${INSP_RSLT}',
+		'${F_USE_CD}',
+		 SYSDATE,
+		'${CHK1_USR_ID}',
+		'${APR_FLAG}',
+		 SYSDATE,
+		'${F_USE_CD}',
+		'${MO}',
+		'${USR_DFN_1}',
+		'${USR_DFN_2}',
+		'${USR_DFN_3}',
+		'${USR_DFN_4}',
+		'${USR_DFN_5}',
+		'${F_USE_CD}',
+		'${CRT_IP}',
+		SYSDATE
+		)
+	</insert>
+
+	<!-- 增加IPQC抽检明细信息 -->
+	<insert id="insertIpqcSamplingDetails" parameterType="java.util.HashMap">
+		INSERT INTO MES1.R_MES_IPQC_DTL_T
+		(
+		ID,
+		IPQC_ID,
+		INSP_TYPE,
+		INSP_STATE,
+		FCT_CD,
+		MO_NO,
+		IPQC_RSLT,
+		WO_NO,
+		WC_CD,
+		LINE_CD,
+		ITEM_CD,
+		ITEM_NM,
+		SPL_QTY,
+		GOOD_QTY,
+		DFCT_QTY,
+		SCRAP_QTY,
+		TOT_USE_QTY,
+		DFCT_ITEM_TYPE,
+		QC_RSN_DIST,
+		QC_DFCT_CD,
+		RSN_DPT_CD,
+		VENDR_CD,
+		RSN_PCO_NO,
+		RSN_MAT_CD,
+		IPQC_DT,
+		IPQC_USR_ID,
+		MO,
+		USR_DFN_1,
+		USR_DFN_2,
+		USR_DFN_3,
+		USR_DFN_4,
+		USR_DFN_5,
+		CRT_ID,
+		CRT_IP,
+		CRT_DT,
+		MAT_CD,
+		BAR_CODE,
+		ROUT_CD
+		)
+		VALUES
+		(
+		IPQC_SEQ.NEXTVAL,
+		'${IPQC_ID}',
+		'${INSP_TYPE}',
+		'${INSP_STATE}',
+		'${FCT_CD}',
+		'${MO_NO}',
+		'${IPQC_RSLT}',
+		'${WO_NO}',
+		'${WC_CD}',
+		'${LINE_CD}',
+		'${ITEM_CD}',
+		'${ITEM_NM}',
+		'${SPL_QTY}',
+		'${GOOD_QTY}',
+		'${DFCT_QTY}',
+		'${SCRAP_QTY}',
+		'${TOT_USE_QTY}',
+		'${DFCT_ITEM_TYPE}',
+		'${TEST_VALUE}',
+		'${QC_DFCT_CD}',
+		'${RSN_DPT_CD}',
+		'${VENDR_CD}',
+		'${RSN_PCO_NO}',
+		'${RSN_MAT_CD}',
+		SYSDATE,
+		'${F_USE_CD}',
+		'${MO}',
+		'${USR_DFN_1}',
+		'${USR_DFN_2}',
+		'${USR_DFN_3}',
+		'${USR_DFN_4}',
+		'${USR_DFN_5}',
+		'${F_USE_CD}',
+		'${CRT_IP}',
+		SYSDATE,
+		'${MAT_CD}',
+		'${BAR_CODE}',
+		'${ROUT_CD}'
+		)
+	</insert>
+
+	<!-- 验证SN是否已抽检过 -->
+	<select id="checkIpqcSampling" parameterType="hashmap"
+		resultType="java.util.HashMap">
+		SELECT
+		FCT_CD,
+		WC_CD,
+		INSP_ID,
+		INSP_TYPE
+		FROM MES1.R_MES_IPQC_MST_T
+		<where>
+			INSP_ID = '${INSP_ID}'
+		</where>
+	</select>
+
+
+	<!-- IPQC工位 END -->
+
+	<!-- 包装工位 START -->
+	<!-- 查询生产箱号表信息 -->
+	<select id="queryProductionOfNo" parameterType="hashmap"
+		resultType="java.util.HashMap">
+		SELECT
+		BOX_ID,
+		PLT_ID,
+		FCT_CD,
+		WC_CD,
+		(SELECT A.PL_NM FROM IPLANT1.C_IPLANT_P1_T A WHERE A.PL_CD = WC_CD) AS WC_NM,
+		BOX_STATE,
+		BOX_QTY,
+		MO,
+		USR_DFN_1,
+		USR_DFN_2,
+		USR_DFN_3,
+		USR_DFN_4,
+		USR_DFN_5,
+		CRT_ID,
+		CRT_IP,
+		CRT_DT,
+		UPT_ID,
+		UPT_IP,
+		UPT_DT
+		FROM MES1.R_MES_BOX_MST_T
+		<where>
+			1=1
+			<if test="BOX_ID!=null and BOX_ID!='' ">
+				AND BOX_ID = '${BOX_ID}'
+			</if>
+		</where>
+	</select>
+
+	<!-- 查询BOX_ID -->
+	<select id="queryBoxId" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT MAX(BOX_ID) AS BOX_ID FROM MES1.R_MES_BOX_MST_T
+	</select>
+
+	<!-- 增加生产箱号主表信息 -->
+	<insert id="insertProductionOfNo" parameterType="java.util.HashMap">
+		INSERT INTO
+		MES1.R_MES_BOX_MST_T
+		(
+		BOX_ID,
+		PLT_ID,
+		FCT_CD,
+		WC_CD,
+		BOX_STATE,
+		BOX_QTY,
+		ITEM_CD,
+		ITEM_NM,
+		MO,
+		USR_DFN_1,
+		USR_DFN_2,
+		USR_DFN_3,
+		USR_DFN_4,
+		USR_DFN_5,
+		CRT_ID,
+		CRT_IP,
+		CRT_DT
+		)
+		VALUES
+		(
+		'${BOX_ID}',
+		'${PLT_ID}',
+		'${FCT_CD}',
+		'${WC_CD}',
+		'2',
+		'${BOX_QTY}',
+		'${ITEM_CD}',
+		'${ITEM_NM}',
+		'${MO}',
+		'${USR_DFN_1}',
+		'${USR_DFN_2}',
+		'${USR_DFN_3}',
+		'${USR_DFN_4}',
+		'${USR_DFN_5}',
+		'${F_USE_CD}',
+		'${CRT_IP}',
+		SYSDATE
+		)
+	</insert>
+
+	<!-- 验证SN是否已装箱 -->
+	<select id="checkSnPackingBox" parameterType="hashmap"
+		resultType="java.util.HashMap">
+		SELECT
+			BOX_ID
+		FROM MES1.R_MES_BOX_DTL_T WHERE BAR_CODE = '${BAR_CODE}'
+	</select>
+
+	<!-- 手动关箱 批量增加箱子明细表信息 -->
+	<insert id="Closethebox" parameterType="java.util.HashMap" >
+		INSERT INTO MES1.R_MES_BOX_DTL_T
+		(
+		   SEQ,
+	       BOX_ID,
+	       LOT_NO,
+	       WO_NO,
+	       BAR_CODE,
+	       FCT_CD,
+	       WO_STATE,
+	       PROD_TYPE,
+	       LINE_CD,
+	       SHIFT_CD,
+	       MO_NO,
+	       ROUT_CD,
+	       OLD_ROUT_CD,
+	       PRF_CD,
+	       WC_CD,
+	       ITEM_CD,
+	       ITEM_NM,
+	       ITEM_TYPE,
+	       MODEL_CD,
+	       MODEL_NM,
+	       UOM,
+	       MO,
+	       USR_DFN_1,
+	       USR_DFN_2,
+	       USR_DFN_3,
+	       USR_DFN_4,
+	       USR_DFN_5,
+	       CRT_ID,
+	       CRT_IP,
+	       CRT_DT,
+	       BOX_STATE
+		)
+		VALUES
+		(
+		   MO_BOX_ID_SEQ.NEXTVAL,
+		   '${BOX_ID}',
+	       '${LOT_NO}',
+	       '${WO_NO}',
+	       '${BAR_CODE}',
+	       '${FCT_CD}',
+	       '${WO_STATE}',
+	       '${PROD_TYPE}',
+	       '${LINE_CD}',
+	       '${SHIFT_CD}',
+	       '${MO_NO}',
+	       '${ROUT_CD}',
+	       '${OLD_ROUT_CD}',
+	       '${PRF_CD}',
+	       '${WC_CD}',
+	       '${ITEM_CD}',
+	       '${ITEM_NM}',
+	       '${ITEM_TYPE}',
+	       '${MODEL_CD}',
+	       '${MODEL_NM}',
+	       '${UOM}',
+	       '${MO}',
+	       '${USR_DFN_1}',
+	       '${USR_DFN_2}',
+	       '${USR_DFN_3}',
+	       '${USR_DFN_4}',
+	       '${USR_DFN_5}',
+	       '${F_USE_CD}',
+	       '${CRT_IP}',
+	       SYSDATE,
+	       '${BOX_STATE}'
+		)
+	</insert>
+	<!-- 包装工位 END -->
+
+	<!-- OQC工位 START -->
+	<!-- 增加OQC抽检明细信息 -->
+	<insert id="insertOqcDetails" parameterType="java.util.List">
+		INSERT
+		INTO MES1.R_MES_OQC_DTL_T(
+		ID,
+		OQC_LOTID,
+		OQC_TYPE,
+		OQC_STATE,
+		FCT_CD,
+		WC_CD,
+		INSP_DESC,
+		ITEM_CD,
+		ITEM_NM,
+		WO_NO,
+		MO_NO,
+		TOT_QTY,
+		SAMP_QTY,
+		GOOD_QTY,
+		DFCT_QTY,
+		QC_RSN_DIST,
+		QC_DFCT_CD,
+		OQC_DT,
+		OQC_USR_ID,
+		OQC_RES,
+		CHK1_DT,
+		CHK1_USR_ID,
+		CHK2_DT,
+		CHK2_USR_ID,
+		APR_FLAG,
+		APR_DT,
+		APR_USR_ID,
+		MO,
+		USR_DFN_1,
+		USR_DFN_2,
+		USR_DFN_3,
+		USR_DFN_4,
+		USR_DFN_5,
+		CRT_ID,
+		CRT_IP,
+		CRT_DT,
+		BAR_CODE,
+		MAT_CD
+		) VALUES
+		(
+		OQC_SEQ.NEXTVAL,
+		'${OQC_LOTID}',
+		'${OQC_TYPE}',
+		'${OQC_STATE}',
+		'${FCT_CD}',
+		'${WC_CD}',
+		'${INSP_DESC}',
+		'${ITEM_CD}',
+		'${ITEM_NM}',
+		'${WO_NO}',
+		'${MO_NO}',
+		'${TOT_QTY}',
+		'${SAMP_QTY}',
+		'${GOOD_QTY}',
+		'${DFCT_QTY}',
+		'${QC_RSN_DIST}',
+		'${QC_DFCT_CD}',
+		SYSDATE,
+		'${F_USE_CD}',
+		'${OQC_RES}',
+		SYSDATE,
+		'${F_USE_CD}',
+		SYSDATE,
+		'${F_USE_CD}',
+		'${APR_FLAG}',
+		'${APR_DT}',
+		'${APR_USR_ID}',
+		'${MO}',
+		'${USR_DFN_1}',
+		'${USR_DFN_2}',
+		'${USR_DFN_3}',
+		'${USR_DFN_4}',
+		'${USR_DFN_5}',
+		'${F_USE_CD}',
+		'${CRT_IP}',
+		SYSDATE,
+		'${BAR_CODE}',
+		'${MAT_CD}'
+		)
+	</insert>
+
+	<!-- 增加OQC抽检信息 -->
+	<insert id="insertOqc" parameterType="java.util.List">
+		INSERT
+		INTO MES1.R_MES_OQC_MST_T(
+		FCT_CD,
+		WC_CD,
+		OQC_LOTID,
+		OQC_TYPE,
+		OQC_STATE,
+		OQC_UNIT,
+		TOT_QTY,
+		SAMP_QTY,
+		TOT_INSP_QTY,
+		INSP_RSLT,
+		OQC_USR,
+		CHK2_DT,
+		CHK2_USR_ID,
+		APR_FLAG,
+		APR_DT,
+		APR_USR_ID,
+		MO,
+		USR_DFN_1,
+		USR_DFN_2,
+		USR_DFN_3,
+		USR_DFN_4,
+		USR_DFN_5,
+		CRT_ID,
+		CRT_IP,
+		CRT_DT
+		)
+		VALUES
+		(
+		'${FCT_CD}',
+		'${WC_CD}',
+		'${OQC_LOTID}',
+		'${OQC_TYPE}',
+		'0',
+		'${OQC_UNIT}',
+		'${TOT_QTY}',
+		'${SAMP_QTY}',
+		'${TOT_INSP_QTY}',
+		'${INSP_RSLT}',
+		'${F_USE_CD}',
+		SYSDATE,
+		'${F_USE_CD}',
+		'${APR_FLAG}',
+		SYSDATE,
+		'${F_USE_CD}',
+		'${MO}',
+		'${USR_DFN_1}',
+		'${USR_DFN_2}',
+		'${USR_DFN_3}',
+		'${USR_DFN_4}',
+		'${USR_DFN_5}',
+		'${F_USE_CD}',
+		'${CRT_IP}',
+		SYSDATE
+		)
+	</insert>
+
+	<!-- 查询OQC抽检明细信息 -->
+	<select id="queryOqcDetails" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT 
+		    D.ID,
+		    D.OQC_LOTID,
+		    D.OQC_TYPE,
+		    M.OQC_STATE,
+		    D.FCT_CD,
+		    D.BAR_CODE,
+		    D.WC_CD,
+		    D.INSP_DESC,
+		    D.ITEM_CD,
+		    D.ITEM_NM,
+		    A.SAMP_LOT,
+		    A.SAMP_QTY,
+		    D.MO_NO,
+		    D.WO_NO,
+		    D.TOT_QTY,
+		    D.SAMP_QTY,
+		    D.GOOD_QTY,
+		    D.DFCT_QTY,
+		    D.QC_RSN_DIST,
+		    D.QC_DFCT_CD,
+		    TO_CHAR(D.OQC_DT, 'YYYY-MM-DD HH24:MI:SS') AS OQC_DT,
+		    D.OQC_USR_ID,
+		    D.OQC_RES,
+		    TO_CHAR(D.CHK1_DT, 'YYYY-MM-DD HH24:MI:SS') AS CHK1_DT,
+		    D.CHK1_USR_ID,
+		    TO_CHAR(D.CHK2_DT, 'YYYY-MM-DD HH24:MI:SS') AS CHK2_DT,
+		    D.CHK2_USR_ID,
+		    D.APR_FLAG,
+		    TO_CHAR(D.APR_DT, 'YYYY-MM-DD HH24:MI:SS') AS APR_DT,
+		    D.APR_USR_ID,
+		    D.MO,
+		    D.USR_DFN_1,
+		    D.USR_DFN_2,
+		    D.USR_DFN_3,
+		    D.USR_DFN_4,
+		    D.USR_DFN_5,
+		    D.CRT_ID,
+		    D.CRT_IP,
+		    TO_CHAR(D.CRT_DT, 'YYYY-MM-DD HH24:MI:SS') AS CRT_DT,
+		    D.UPT_ID,
+		    D.UPT_IP,
+		    TO_CHAR(D.UPT_DT, 'YYYY-MM-DD HH24:MI:SS') AS UPT_DT,
+		    D.MAT_CD
+		FROM MES1.R_MES_OQC_MST_T M
+		INNER JOIN MES1.R_MES_OQC_DTL_T D
+		ON M.OQC_LOTID = D.OQC_LOTID
+		LEFT JOIN MES1.R_MES_QC_MT_T A
+		ON D.ITEM_CD = A.SAMP_VAL
+		<where>
+			AND D.ITEM_CD = '${ITEM_CD}'
+			<if test="OQC_LOTID!=null and OQC_LOTID!=''">
+				AND M.OQC_LOTID='${OQC_LOTID}'
+			</if>
+		</where>
+		ORDER BY D.CRT_DT DESC
+	</select>
+
+	<!-- OQC工位 END -->
+
+	<!-- 栈板工位 START -->
+	<!-- 扫描箱号 -->
+	<select id="queryBoxPallet" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT
+	        DISTINCT
+	        T2.WO_NO,
+	        T2.MO_NO,
+	        T1.BOX_ID,
+	        DB.PLT_QTY,
+	        T2.FCT_CD,
+	        (SELECT FT_NM FROM IPLANT1.C_IPLANT_F1_T C WHERE C.FT_CD = T2.FCT_CD) AS FCT_NM,
+	        T2.ITEM_CD,
+	        DB.ITEM_NM,
+	        T2.PRF_CD,
+	        T2.WC_CD,
+	        (SELECT A.PL_NM FROM IPLANT1.C_IPLANT_P1_T A WHERE A.PL_CD = T2.WC_CD) AS WC_NM,
+	        T2.SHIFT_CD,
+	        T2.LINE_CD,
+	        (SELECT B.PD_LN_NM FROM IPLANT1.C_IPLANT_P5_T B WHERE B.PD_LN_CD =T2.LINE_CD) AS LINE_NM,
+	        T2.PROD_TYPE,
+	        T2.WO_STATE,
+	        DB.PLT_QTY,
+	        T2.CRT_ID
+	        FROM MES1.R_MES_BOX_MST_T T1
+	        LEFT JOIN MES1.R_MES_BOX_DTL_T T2
+	        ON
+	        T1.BOX_ID = T2.BOX_ID
+	        LEFT JOIN
+	        (
+	          SELECT
+	               T1.WO_NO,
+	               T2.ITEM_ATTR_VAL AS PLT_QTY,
+	               T1.ITEM_NM
+	          FROM MES1.R_MES_WO_T T1
+	          LEFT JOIN MES1.R_MES_ITEM_ATTR_VAL_T T2 ON T1.ITEM_CD = T2.ITEM_CD
+	          WHERE T2.ITEM_ATTR ='BOX_IN_PLT'
+	        )
+	        DB ON T2.WO_NO = DB.WO_NO
+		<where>1=1
+			<if test="BOX_ID!=null and BOX_ID!=''">
+				AND T1.BOX_ID = '${BOX_ID}'
+			</if>
+		</where>
+	</select>
+
+	<!-- 查询栈板信息 -->
+	<select id="queryPalletInformation" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT 
+		     SEQ,
+		     PLT_ID,
+		     BOX_ID,
+		     LOT_NO,
+		     WO_NO,
+		     BAR_CODE,
+		     FCT_CD,
+		     WO_STATE,
+		     PROD_TYPE,
+		     LINE_CD,
+		     (SELECT B.PD_LN_NM FROM IPLANT1.C_IPLANT_P5_T B WHERE B.PD_LN_CD =LINE_CD) AS LINE_NM,
+		     SHIFT_CD,
+		     MO_NO,
+		     ROUT_CD,
+		     OLD_ROUT_CD,
+		     PRF_CD,
+		     WC_CD,
+		     (SELECT A.PL_NM FROM IPLANT1.C_IPLANT_P1_T A WHERE A.PL_CD = WC_CD) AS WC_NM,
+		     ITEM_CD,
+		     ITEM_NM,
+		     ITEM_TYPE,
+		     MODEL_CD,
+		     MODEL_NM,
+		     UOM,
+		     MO,
+		     USR_DFN_1,
+		     USR_DFN_2,
+		     USR_DFN_3,
+		     USR_DFN_4,
+		     USR_DFN_5,
+		     CRT_ID,
+		     CRT_IP,
+		     TO_CHAR(CRT_DT,'YYYY-MM-DD HH24:MI:SS') AS CRT_DT,
+		     UPT_ID,
+		     UPT_IP,
+		     TO_CHAR(UPT_DT,'YYYY-MM-DD HH24:MI:SS') AS UPT_DT,
+		     PLT_STATE
+		FROM MES1.R_MES_PLT_DTL_T
+		<where>1=1
+		<if test="PLT_ID!=null and PLT_ID!=''">
+				AND PLT_ID = '${PLT_ID}'
+		</if>
+		<if test="BOX_ID!=null and BOX_ID!=''">
+				AND BOX_ID = '${BOX_ID}'
+		</if>
+
+		</where>
+	</select>
+	<!-- 增加栈板号信息 -->
+	<insert id="insertPalletInformation" parameterType="java.util.HashMap">
+		INSERT INTO MES1.R_MES_PLT_MST_T
+		(PLT_ID,
+		FCT_CD,
+		WC_CD,
+		PLT_STATE,
+		PLT_QTY,
+		ITEM_CD,
+		ITEM_NM,
+		MO,
+		USR_DFN_1,
+		USR_DFN_2,
+		USR_DFN_3,
+		USR_DFN_4,
+		USR_DFN_5,
+		CRT_ID,
+		CRT_IP,
+		CRT_DT
+		)
+		VALUES
+		(
+		'${PLT_ID}',
+		'${FCT_CD}',
+		'${WC_CD}',
+		'${PLT_STATE}',
+		'${PLT_QTY}',
+		'${ITEM_CD}',
+		'${ITEM_NM}',
+		'${MO}',
+		'${USR_DFN_1}',
+		'${USR_DFN_2}',
+		'${USR_DFN_3}',
+		'${USR_DFN_4}',
+		'${USR_DFN_5}',
+		'${F_USE_ID}',
+		'${CRT_IP}',
+		SYSDATE
+		)
+	</insert>
+
+	<!-- 批量新增栈板明细信息 -->
+	<insert id="insertBatchPalletInformation" parameterType="java.util.HashMap">
+		INSERT INTO R_MES_PLT_DTL_T
+		(
+		   SEQ,
+	       PLT_ID,
+	       BOX_ID,
+	       LOT_NO,
+	       WO_NO,
+	       BAR_CODE,
+	       FCT_CD,
+	       WO_STATE,
+	       PROD_TYPE,
+	       LINE_CD,
+	       SHIFT_CD,
+	       MO_NO,
+	       ROUT_CD,
+	       OLD_ROUT_CD,
+	       PRF_CD,
+	       WC_CD,
+	       ITEM_CD,
+	       ITEM_NM,
+	       ITEM_TYPE,
+	       MODEL_CD,
+	       MODEL_NM,
+	       UOM,
+	       MO,
+	       USR_DFN_1,
+	       USR_DFN_2,
+	       USR_DFN_3,
+	       USR_DFN_4,
+	       USR_DFN_5,
+	       CRT_ID,
+	       CRT_IP,
+	       CRT_DT,
+	       PLT_STATE
+		)
+		VALUES(
+			MO_PLT_ID_SEQ.NEXTVAL,
+		   '${PLT_ID}',
+	       '${BOX_ID}',
+	       '${LOT_NO}',
+	       '${WO_NO}',
+	       '${BAR_CODE}',
+	       '${FCT_CD}',
+	       '${WO_STATE}',
+	       '${PROD_TYPE}',
+	       '${LINE_CD}',
+	       '${SHIFT_CD}',
+	       '${MO_NO}',
+	       '${ROUT_CD}',
+	       '${OLD_ROUT_CD}',
+	       '${PRF_CD}',
+	       '${WC_CD}',
+	       '${ITEM_CD}',
+	       '${ITEM_NM}',
+	       '${ITEM_TYPE}',
+	       '${MODEL_CD}',
+	       '${MODEL_NM}',
+	       '${UOM}',
+	       '${MO}',
+	       '${USR_DFN_1}',
+	       '${USR_DFN_2}',
+	       '${USR_DFN_3}',
+	       '${USR_DFN_4}',
+	       '${USR_DFN_5}',
+	       '${F_USE_CD}',
+	       '${CRT_IP}',
+	       SYSDATE,
+	       '${PLT_STATE}'
+		)
+	</insert>
+
+	<!-- 查询PLT_ID -->
+	<select id="queryPltId" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT MAX(PLT_ID) AS PLT_ID FROM MES1.R_MES_PLT_MST_T
+	</select>
+
+
+	<!-- 修改箱子主表的PLT_ID -->
+	<update id="updateBoxPlt" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index"
+			separator=";">
+			UPDATE MES1.R_MES_BOX_MST_T
+			<set>
+				<if test="item.PLT_ID!=null and item.PLT_ID!=''">
+					PLT_ID = '${item.PLT_ID}'
+				</if>
+			</set>
+			<where>
+				AND BOX_ID = '${item.BOX_ID}'
+			</where>
+		</foreach>
+	</update>
+
+	<!-- 栈板工位 END -->
+
+	<!-- 装箱 -->
+	<select id="savaPacking" parameterType="hashmap" statementType="CALLABLE"
+		resultType="java.util.HashMap">
+		{call
+		MES1.R_MES_MO_MANGER_PACKAGE.R_MES_WO_BOX_P('${BAR_CODE_IN}',#{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=screenMonitorMap},#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String},
+		#{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},#{MESSAGE,jdbcType=VARCHAR,mode=OUT,javaType=String})}
+	</select>
+	<!-- 查询装箱记录 -->
+	<select id="queryPackingrecord" parameterType="hashmap"
+		resultType="java.util.HashMap">
+		SELECT
+		    SEQ,
+		    BOX_ID,
+		    LOT_NO,
+		    WO_NO,
+		    BAR_CODE,
+		    FCT_CD,
+		    BOX_STATE,
+		    WO_STATE,
+		    PROD_TYPE,
+		    LINE_CD,
+		    (SELECT I.PD_LN_NM FROM IPLANT1.C_IPLANT_P5_T I WHERE I.PD_LN_CD = LINE_CD)
+		    AS LINE_NM,
+		    SHIFT_CD,
+		    MO_NO,
+		    ROUT_CD,
+		    OLD_ROUT_CD,
+		    PRF_CD,
+		    WC_CD,
+		    ITEM_CD,
+		    ITEM_NM,
+		    ITEM_TYPE,
+		    MODEL_CD,
+		    MODEL_NM,
+		    UOM,
+		    MO,
+		    USR_DFN_1,
+		    USR_DFN_2,
+		    USR_DFN_3,
+		    USR_DFN_4,
+		    USR_DFN_5,
+		    CRT_ID,
+		    CRT_IP,
+		    CRT_DT,
+		    UPT_ID,
+		    UPT_IP,
+		    UPT_DT
+	    FROM MES1.R_MES_BOX_DTL_T
+		<where>
+			1=1
+			<if test="BOX_ID!=null and BOX_ID!='' ">
+				AND BOX_ID = '${BOX_ID}'
+			</if>
+		</where>
+	</select>
+
+	<!-- 装配工位 START -->
+	<!-- 装配信息查询 -->
+	<select id="queryAssemblyInformation" parameterType="hashmap"
+		resultType="java.util.HashMap">
+		<include refid="oraclePagingFileTop"></include>
+		ID,
+		MO_NO,
+		WO_NO,
+		FCT_CD,
+		BAR_CODE,
+		PRF_CD,
+		SCAN_ID,
+		MAT_CD,
+		UOM,
+		MAT_TYPE,
+		MAT_NM,
+		PRNT_MAT_CD,
+		PRNT_MAT_NM,
+		UNIT_QTY,
+		STD_QTY,
+		REDU_QTY,
+		MO,
+		USR_DFN_1,
+		USR_DFN_2,
+		USR_DFN_3,
+		USR_DFN_4,
+		USR_DFN_5,
+		CRT_ID,
+		CRT_IP,
+		CRT_DT,
+		UPT_ID,
+		UPT_IP,
+		UPT_DT
+		FROM MES1.R_MES_ASSEMBLY_T
+		<where>
+			AND WO_NO = '${WO_NO}'
+			AND MO_NO = '${MO_NO}'
+			AND BAR_CODE = '${BAR_CODE}'
+		</where>
+		<include refid="oraclePagingFileBottom"></include>
+	</select>
+	<!-- 装配信息新增 -->
+	<insert id="insertAssemblyInformation" parameterType="java.util.HashMap">
+		INSERT INTO MES1.R_MES_ASSEMBLY_T
+		(ID,
+		MO_NO,
+		WO_NO,
+		FCT_CD,
+		BAR_CODE,
+		PRF_CD,
+		SCAN_ID,
+		MAT_CD,
+		UOM,
+		MAT_TYPE,
+		MAT_NM,
+		PRNT_MAT_CD,
+		PRNT_MAT_NM,
+		UNIT_QTY,
+		STD_QTY,
+		REDU_QTY,
+		MO,
+		USR_DFN_1,
+		USR_DFN_2,
+		USR_DFN_3,
+		USR_DFN_4,
+		USR_DFN_5,
+		CRT_ID,
+		CRT_IP,
+		CRT_DT,
+		ROUT_CD
+		)
+		VALUES(
+		ASSEMBLY_T_SEQ.NEXTVAL,
+		'${MO_NO}',
+		'${WO_NO}',
+		'${FCT_CD}',
+		'${BAR_CODE}',
+		'${PRF_CD}',
+		'${F_USE_CD}',
+		'${MAT_CD}',
+		'${UOM}',
+		'${MAT_TYPE}',
+		'${MAT_NM}',
+		'${PRNT_MAT_CD}',
+		'${PRNT_MAT_NM}',
+		'${UNIT_QTY}',
+		'${STD_QTY}',
+		'${REDU_QTY}',
+		'${MO}',
+		'${USR_DFN_1}',
+		'${USR_DFN_2}',
+		'${USR_DFN_3}',
+		'${USR_DFN_4}',
+		'${USR_DFN_5}',
+		'${F_USE_CD}',
+		'${CRT_IP}',
+		SYSDATE,
+		'${ROUT_CD}'
+		)
+	</insert>
+	<!-- 装配信息修改 -->
+	<update id="updateAssemblyInformation" parameterType="java.util.List">
+		UPDATE R_MES_ASSEMBLY_T
+		<set>
+			<if test="item.MO_NO!=null and item.MO_NO!=''">
+				MO_NO = '${item.MO_NO}',
+			</if>
+			<if test="item.WO_NO!=null">
+				WO_NO = '${item.WO_NO}',
+			</if>
+			<if test="item.FCT_CD!=null and item.FCT_CD!=''">
+				FCT_CD = '${item.FCT_CD}',
+			</if>
+			<if test="item.BAR_CODE!=null">
+				BAR_CODE = '${item.BAR_CODE}',
+			</if>
+			<if test="item.PRF_CD!=null">
+				PRF_CD = '${item.PRF_CD}',
+			</if>
+			<if test="item.SCAN_ID!=null">
+				SCAN_ID = '${item.SCAN_ID}',
+			</if>
+			<if test="item.MAT_CD!=null and item.MAT_CD!=''">
+				MAT_CD = '${item.MAT_CD}',
+			</if>
+			<if test="item.UOM!=null">
+				UOM = '${item.UOM}',
+			</if>
+			<if test="item.MAT_TYPE!=null">
+				MAT_TYPE = '${item.MAT_TYPE}',
+			</if>
+			<if test="item.MAT_NM!=null and item.MAT_NM!=''">
+				MAT_NM = '${item.MAT_NM}',
+			</if>
+			<if test="item.PRNT_MAT_CD!=null">
+				PRNT_MAT_CD = '${item.PRNT_MAT_CD}',
+			</if>
+			<if test="item.PRNT_MAT_NM!=null">
+				PRNT_MAT_NM = '${item.PRNT_MAT_NM}',
+			</if>
+			<if test="item.UNIT_QTY!=null">
+				UNIT_QTY = '${item.UNIT_QTY}',
+			</if>
+			<if test="item.STD_QTY!=null">
+				STD_QTY = '${item.STD_QTY}',
+			</if>
+			<if test="item.REDU_QTY!=null">
+				REDU_QTY = '${item.REDU_QTY}',
+			</if>
+			<if test="item.MO!=null">
+				MO = '${item.MO}',
+			</if>
+			<if test="item.USR_DFN_1!=null">
+				USR_DFN_1 = '${item.USR_DFN_1}',
+			</if>
+			<if test="item.USR_DFN_2!=null">
+				USR_DFN_2 = '${item.USR_DFN_2}',
+			</if>
+			<if test="item.USR_DFN_3!=null">
+				USR_DFN_3 = '${item.USR_DFN_3}',
+			</if>
+			<if test="item.USR_DFN_4!=null">
+				USR_DFN_4 = '${item.USR_DFN_4}',
+			</if>
+			<if test="item.USR_DFN_5!=null">
+				USR_DFN_5 = '${item.USR_DFN_5}',
+			</if>
+			UPT_ID = '${F_USE_CD}',
+			<if test="item.UPT_IP!=null">
+				UPT_IP = '${item.UPT_IP}',
+			</if>
+			UPT_DT = SYSDATE
+		</set>
+		<where>
+			AND ID = '${item.ID}'
+		</where>
+	</update>
+	<!-- 装配信息删除 -->
+	<delete id="deleteAssemblyInformation" parameterType="hashmap">
+		DELETE R_MES_ASSEMBLY_T
+		WHERE ID = '${ID}'
+	</delete>
+	
+	<!-- 装配扫描部件条码信息  -->
+	<select id="queryAssemblyScanBarCode" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT 
+	     FCT_CD,
+	     WC_CD,
+	     WO_NO,
+	     MO_NO,
+	     PO_ROW_IDX,
+	     PRNT_MAT_CD,
+	     PRNT_MAT_NM,
+	     MAT_BAT_CD,
+	     MAT_CD,
+	     MAT_NM,
+	     MAT_TYPE,
+	     FR_WC_CD,
+	     FR_WHS_CD,
+	     FR_LOC_CD,
+	     TO_WHS_CD,
+	     TO_LOC_CD,
+	     CUST_CD,
+	     CUST_NM,
+	     UOM,
+	     UNIT_QTY,
+	     PLAN_QTY,
+	     REQ_QTY,
+	     REQ_PROC_QTY,
+	     MO,
+	     USR_DFN_1,
+	     USR_DFN_2,
+	     USR_DFN_3,
+	     USR_DFN_4,
+	     USR_DFN_5,
+	     CRT_ID,
+	     CRT_IP,
+	     CRT_DT,
+	     UPT_ID,
+	     UPT_IP,
+	     UPT_DT
+	FROM MES1.R_MES_REQ_MAT_T 
+	WHERE PRNT_MAT_CD = '${PRNT_MAT_CD}'
+	AND WO_NO = '${WO_NO}' 
+	AND MO_NO = '${MO_NO}'
+	</select>
+	<!-- 装配工位 END -->
+
+	<!-- 维修工位 START -->
+	<!-- 维修工位记录表查询 -->
+	<select id="queryRepairStation" parameterType="hashmap"
+		resultType="java.util.HashMap">
+		<include refid="oraclePagingFileTop"></include>
+		     ID,
+		     BAR_CODE,
+		     MO_NO,
+		     WO_NO,
+		     FCT_CD,
+		     PRF_CD,
+		     MT_FT_CD,
+		     MT_DEF_CD,
+		     MT_POST_CD,
+		     MT_FUN_CD,
+		     MT_CAUSE_CD,
+		     SEND_RP_USE,
+		     SEND_DT,
+		     MO,
+		     USR_DFN_1,
+		     USR_DFN_2,
+		     USR_DFN_3,
+		     USR_DFN_4,
+		     USR_DFN_5,
+		     CRT_ID,
+		     CRT_IP,
+		     CRT_DT,
+		     UPT_ID,
+		     UPT_IP,
+		     UPT_DT,
+		     MAT_CD
+		FROM MES1.R_MES_REPAIR_T
+		<where>
+			AND MAT_CD = '${MAT_CD}'
+			AND BAR_CODE='${BAR_CODE}'
+		</where>
+		<include refid="oraclePagingFileBottom"></include>
+	</select>
+	<!-- 维修工位记录表新增 -->
+	<insert id="insertRepairStation" useGeneratedKeys="true" parameterType="java.util.List">
+		<selectKey resultType="long" keyProperty="ID" order="BEFORE">
+			SELECT REPAIR_T_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO MES1.R_MES_REPAIR_T
+		  (ID,
+		   BAR_CODE,
+		   MO_NO,
+		   WO_NO,
+		   FCT_CD,
+		   PRF_CD,
+		   MT_FT_CD,
+		   MT_DEF_CD,
+		   MT_POST_CD,
+		   MT_FUN_CD,
+		   MT_CAUSE_CD,
+		   SEND_RP_USE,
+		   SEND_DT,
+		   MO,
+		   USR_DFN_1,
+		   USR_DFN_2,
+		   USR_DFN_3,
+		   USR_DFN_4,
+		   USR_DFN_5,
+		   CRT_ID,
+		   CRT_IP,
+		   CRT_DT,
+		   MT_RE_CD,
+		   MAT_CD
+		)(
+			<foreach collection="list" item="item" index="index" separator="union all">
+				 SELECT
+				   '${ID}',
+				   '${item.BAR_CODE}',
+				   '${item.MO_NO}',
+				   '${item.WO_NO}',
+				   '${item.FCT_CD}',
+				   '${item.PRF_CD}',
+				   '${item.MT_FT_CD}',
+				   '${item.MT_DEF_CD}',
+				   '${item.MT_POST_CD}',
+				   '${item.MT_FUN_CD}',
+				   '${item.MT_CAUSE_CD}',
+				   '${item.SEND_RP_USE}',
+				   SYSDATE,
+				   '${item.MO}',
+				   '${item.USR_DFN_1}',
+				   '${item.USR_DFN_2}',
+				   '${item.USR_DFN_3}',
+				   '${item.USR_DFN_4}',
+				   '${item.USR_DFN_5}',
+				   '${F_USE_CD}',
+				   '${item.CRT_IP}',
+				   SYSDATE,
+				   '${item.MT_RE_CD}',
+				   '${item.MAT_CD}'
+			 	FROM DUAL
+			</foreach>
+		)
+	</insert>
+	
+	<!-- 根据SN查询得到IPQC与OQC抽检数据 -->
+	<select id="querySnIpqcAndOqc" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT 
+		   T1.BAR_CODE,
+		   T1.WO_NO,
+		   T1.MO_NO,
+		   T1.FCT_CD,
+		   (SELECT FT_NM FROM IPLANT1.C_IPLANT_F1_T A WHERE A.FT_CD = T1.FCT_CD) AS FCT_NM,
+		   T1.WC_CD,
+		   (SELECT PL_NM FROM IPLANT1.C_IPLANT_P1_T C WHERE C.PL_CD = T1.WC_CD) AS WC_NM,
+		   T1.SHIFT_CD,
+		   (SELECT TG_NM FROM IPLANT1.C_IPLANT_S7_T B WHERE B.TG_CD = T1.SHIFT_CD) AS SHIFT_NM,
+		   T1.ITEM_CD,
+		   T1.ITEM_NM,
+		   T2.INSP_TYPE,
+		   T2.IPQC_RSLT,
+		   T2.QC_DFCT_CD,
+		   (SELECT MT_DEF_NM FROM MES1.R_MES_MT_DEF_DTL_T E WHERE E.MT_DEF_CD=T2.QC_DFCT_CD) AS QC_DFCT_NM,
+		   T2.MAT_CD,
+		   T2.CRT_ID,
+		   (SELECT EMP_NM FROM IPLANT1.C_IPLANT_E1_T B WHERE B.EMP_CD =(SELECT EMP_NO AS EMP_CD FROM IPLANT1.C_IPLANT_U1_T A WHERE A.USE_CD = T2.CRT_ID)) AS CRT_NM
+		FROM MES1.R_MES_MO_BC_T T1
+		INNER JOIN MES1.R_MES_IPQC_DTL_T T2 ON T1.BAR_CODE = T2.BAR_CODE WHERE T1.BAR_CODE = '${BAR_CODE}' AND T2.IPQC_RSLT ='fail' 
+		UNION ALL
+		SELECT 
+		   T1.BAR_CODE,
+		   T1.WO_NO,
+		   T1.MO_NO,
+		   T1.FCT_CD,
+		   (SELECT FT_NM FROM IPLANT1.C_IPLANT_F1_T A WHERE A.FT_CD = T1.FCT_CD) AS FCT_NM,
+		   T1.WC_CD,
+		   (SELECT PL_NM FROM IPLANT1.C_IPLANT_P1_T C WHERE C.PL_CD = T1.WC_CD) AS WC_NM,
+		   T1.SHIFT_CD,
+		   (SELECT TG_NM FROM IPLANT1.C_IPLANT_S7_T B WHERE B.TG_CD = T1.SHIFT_CD) AS SHIFT_NM,
+		   T1.ITEM_CD,
+		   T1.ITEM_NM,
+		   T3.OQC_TYPE,
+		   T3.OQC_RES,
+		   T3.QC_DFCT_CD,
+		   (SELECT MT_DEF_NM FROM MES1.R_MES_MT_DEF_DTL_T E WHERE E.MT_DEF_CD=T3.QC_DFCT_CD) AS QC_DFCT_NM,
+		   T3.MAT_CD,
+		   T3.CRT_ID,
+		   (SELECT EMP_NM FROM IPLANT1.C_IPLANT_E1_T C WHERE C.EMP_CD =(SELECT EMP_NO AS EMP_CD FROM IPLANT1.C_IPLANT_U1_T D WHERE D.USE_CD = T3.CRT_ID)) AS CRT_NM
+		FROM MES1.R_MES_MO_BC_T T1
+		INNER JOIN MES1.R_MES_OQC_DTL_T T3 ON T1.BAR_CODE = T3.BAR_CODE WHERE T1.BAR_CODE = '${BAR_CODE}' AND T3.OQC_RES ='fail'
+	</select>
+	<!-- 维修工位 END -->
+
+	<!-- IPQC与OQC抽检 FAIL时更新工单条码表BC_STATUS -->
+	<update id="updateSnIpqcAndOqcBcstatus" parameterType="java.util.HashMap">
+		UPDATE MES1.R_MES_MO_BC_T
+	    <set> 
+	       UPT_ID = '${F_USE_CD}',
+	       UPT_IP = '${UPT_IP}',
+	       UPT_DT = SYSDATE,
+	       BC_STATUS = '${BC_STATUS}'
+	    </set>
+	    <where>
+	    	AND BAR_CODE = '${BAR_CODE}'
+	    </where>
+	</update>
+
+	<!-- OQC抽检fail时更新OQC主表OQC_STATE为NG -->
+	<update id="updateOqcState" parameterType="java.util.HashMap">
+		UPDATE MES1.R_MES_OQC_MST_T
+	   <set> 
+	       OQC_STATE = 'NG',
+	       UPT_ID = '${F_USE_CD}',
+	       UPT_IP = '${UPT_IP}',
+	       UPT_DT = SYSDATE
+	   </set>
+	   <where>
+	   	   AND OQC_LOTID = '${OQC_LOTID}'
+	   </where>
+	</update>
+	
+	<!-- 验证维修时该SN是否可以完成操作 -->
+	<select id="CheckVerifyThatSnCanBeCompleted" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT 
+		   CASE 
+		     WHEN SUM(AA.EXISTS_YN) >0
+		        THEN 'Y'
+		     ELSE 'N'
+		   END AS EXISTS_YN
+		FROM
+		(
+		  SELECT 
+		       COUNT(*) AS EXISTS_YN
+		  FROM MES1.R_MES_MO_BC_T T1
+		  INNER JOIN MES1.R_MES_IPQC_DTL_T T2 ON T1.BAR_CODE = T2.BAR_CODE WHERE T1.BAR_CODE = '${BAR_CODE}' AND T2.IPQC_RSLT ='fail' 
+		  AND NOT EXISTS(   
+		      SELECT * FROM MES1.R_MES_REPAIR_T TT
+		      WHERE TT.BAR_CODE =T2.BAR_CODE 
+		      AND TT.MAT_CD   =T2.MAT_CD
+		  )
+		  UNION ALL
+		  SELECT 
+		      COUNT(*) AS EXISTS_YN
+		  FROM MES1.R_MES_MO_BC_T T1
+		  INNER JOIN MES1.R_MES_OQC_DTL_T T3 ON T1.BAR_CODE = T3.BAR_CODE WHERE T1.BAR_CODE = '${BAR_CODE}' AND T3.OQC_RES ='fail'
+		  AND NOT EXISTS(     
+		      SELECT * FROM MES1.R_MES_REPAIR_T TT
+		      WHERE TT.BAR_CODE =T3.BAR_CODE 
+		      AND TT.MAT_CD   =T3.MAT_CD
+		  )
+		) AA
+	</select>
+	
+	<!--更新生产投入表 rout_cd -->
+	<update id="updateProLotInfos" parameterType="java.util.HashMap">
+		UPDATE MES1.R_MES_OP_LOT_T
+	    <set> 
+	       ROUT_CD = '${ROUT_CD}'
+	    </set>
+		<where> 
+		   AND BAR_CODE = '${BAR_CODE}'
+		</where>
+	</update>
+	
+</mapper>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<engines>
+	<!-- 产品信息 -->
+	<!-- 查询产品类型-->
+	<engine engine_code="ItemGroupInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="ItemGroupInfo" >
+	</engine>
+	
+	<!-- 修改产品类型 -->
+	<engine engine_code="ItemGroupInfoUpdate" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="ItemGroupInfoUpdate" >
+	</engine>
+	
+	<!-- 新增产品类型 -->
+	<engine engine_code="ItemGroupInfoInsert" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="ItemGroupInfoInsert" >
+	</engine>
+	
+	<!-- 删除产品类型-->
+	<engine engine_code="ItemGroupInfoDelete" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="ItemGroupInfoDelete" >
+	</engine>
+	</engines>

@@ -1,0 +1,757 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ifss>
+
+	<!-- 拉式物料看板 -->
+	<ifs ifs_code="MES_R0001" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryPullMaterialKanban" biz_method="" serial_no="1" biz_name="queryPullMaterialKanban" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- AGV看板 -->
+	<ifs ifs_code="MES_R0002" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryAGVKanban" biz_method="" serial_no="1" biz_name="queryAGVKanban" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- AOI光学检测设备看板   START-->
+	<!-- AOI工单信息 -->
+	<ifs ifs_code="MES_R0003" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryAOIMoInfo" biz_method="" serial_no="1" biz_name="queryAOIMoInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- AOI次品示意图 -->
+	<ifs ifs_code="MES_R0004" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryAOISketchMap" biz_method="" serial_no="1" biz_name="queryAOISketchMap" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- AOI机器状态示意图 -->
+	<ifs ifs_code="MES_R0005" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryAOIMachineStateDiagram" biz_method="" serial_no="1" biz_name="queryAOIMachineStateDiagram" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- AOI设备综合状况 -->
+	<ifs ifs_code="MES_R0006" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryAOIEquipmentSituation" biz_method="" serial_no="1" biz_name="queryAOIEquipmentSituation" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- AOI光学检测设备看板   END-->
+	
+	<!-- SMT拉头看板    START -->
+	<!-- SMT产能达成状况 -->
+	<ifs ifs_code="MES_R0007" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="querySmtCapacityReach" biz_method="" serial_no="1" biz_name="querySmtCapacityReach" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- SMT工单生产信息 -->
+	<ifs ifs_code="MES_R0008" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="querySmtWorkProInfo" biz_method="" serial_no="1" biz_name="querySmtWorkProInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- SMT工单生产与计划信息 -->
+	<ifs ifs_code="MES_R0009" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="querySmtWorkProductionAndPlanning" biz_method="" serial_no="1" biz_name="querySmtWorkProductionAndPlanning" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- SMT工单设备监视 -->
+	<ifs ifs_code="MES_R0010" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="querySmtWorkEquipmentMonitoring" biz_method="" serial_no="1" biz_name="querySmtWorkEquipmentMonitoring" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- SMT拉头看板    END -->
+	
+	<!-- SPI锡膏检测设备看板   START -->
+	<!-- SPI工单信息 -->
+	<ifs ifs_code="MES_R0011" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="querySPIMoInfo" biz_method="" serial_no="1" biz_name="querySPIMoInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- SPI次品示意图 -->
+	<ifs ifs_code="MES_R0012" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="querySPISketchMap" biz_method="" serial_no="1" biz_name="querySPISketchMap" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- SPI机器状态示意图 -->
+	<ifs ifs_code="MES_R0013" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="querySPIMachineStateDiagram" biz_method="" serial_no="1" biz_name="querySPIMachineStateDiagram" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- SPI设备综合状况 -->
+	<ifs ifs_code="MES_R0014" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="querySPIEquipmentSituation" biz_method="" serial_no="1" biz_name="querySPIEquipmentSituation" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- SPI锡膏检测设备看板   END -->
+	
+	<!-- 半成品测试设备看板   START -->
+	<!-- SFPT工单信息 -->
+	<ifs ifs_code="MES_R0015" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="querySFPTMoInfo" biz_method="" serial_no="1" biz_name="querySFPTMoInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- SFPT次品示意图 -->
+	<ifs ifs_code="MES_R0016" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="querySFPTSketchMap" biz_method="" serial_no="1" biz_name="querySFPTSketchMap" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- SFPT机器状态示意图 -->
+	<ifs ifs_code="MES_R0017" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="querySFPTMachineStateDiagram" biz_method="" serial_no="1" biz_name="querySFPTMachineStateDiagram" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- SFPT设备综合状况 -->
+	<ifs ifs_code="MES_R0018" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="querySFPTEquipmentSituation" biz_method="" serial_no="1" biz_name="querySFPTEquipmentSituation" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 半成品测试设备看板   END -->
+	
+	
+	<!-- 波峰炉综合看板   START -->
+	<!-- WFSK工单信息 -->
+	<ifs ifs_code="MES_R0019" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryWFSKMoInfo" biz_method="" serial_no="1" biz_name="queryWFSKMoInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- WFSK次品示意图 -->
+	<ifs ifs_code="MES_R0020" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryWFSKSketchMap" biz_method="" serial_no="1" biz_name="queryWFSKSketchMap" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- WFSK机器状态示意图 -->
+	<ifs ifs_code="MES_R0021" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryWFSKMachineStateDiagram" biz_method="" serial_no="1" biz_name="queryWFSKMachineStateDiagram" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- WFSK设备综合状况 -->
+	<ifs ifs_code="MES_R0022" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryWFSKEquipmentSituation" biz_method="" serial_no="1" biz_name="queryWFSKEquipmentSituation" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 波峰炉综合看板   END -->
+	
+	
+	<!-- 成品测试设备   START -->
+	<!-- FPTE工单信息 -->
+	<ifs ifs_code="MES_R0023" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryFPTEMoInfo" biz_method="" serial_no="1" biz_name="queryFPTEMoInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- FPTE次品示意图 -->
+		<ifs ifs_code="MES_R0024" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryFPTESketchMap" biz_method="" serial_no="1" biz_name="queryFPTESketchMap" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!--FPTE机器状态示意图 -->
+		<ifs ifs_code="MES_R0025" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryFPTEMachineStateDiagram" biz_method="" serial_no="1" biz_name="queryFPTEMachineStateDiagram" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- FPTE设备综合状况 -->
+		<ifs ifs_code="MES_R0026" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryFPTEEquipmentSituation" biz_method="" serial_no="1" biz_name="queryFPTEEquipmentSituation" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 成品测试设备   END -->
+	
+	
+	<!-- 分板机看板  START -->
+	<!-- SBMK工单信息 -->
+	<ifs ifs_code="MES_R0027" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="querySBMKMoInfo" biz_method="" serial_no="1" biz_name="querySBMKMoInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- SBMK设备产能 -->
+	<ifs ifs_code="MES_R0028" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="querySBMKSketchMap" biz_method="" serial_no="1" biz_name="querySBMKSketchMap" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!--SBMK机器状态示意图 -->
+	<ifs ifs_code="MES_R0029" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="querySBMKMachineStateDiagram" biz_method="" serial_no="1" biz_name="querySBMKMachineStateDiagram" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- SBMK设备综合状况 -->
+	<ifs ifs_code="MES_R0030" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="querySBMKEquipmentSituation" biz_method="" serial_no="1" biz_name="querySBMKEquipmentSituation" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 分板机看板  END -->
+	
+	<!-- 缓存设备  START -->
+	<!-- CD工单信息 -->
+	<ifs ifs_code="MES_R0031" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryCDMoInfo" biz_method="" serial_no="1" biz_name="queryCDMoInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- CD缓存明细 -->
+	<ifs ifs_code="MES_R0032" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryCDSketchMap" biz_method="" serial_no="1" biz_name="queryCDSketchMap" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- CD机器状态示意图 -->
+	<ifs ifs_code="MES_R0033" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryCDMachineStateDiagram" biz_method="" serial_no="1" biz_name="queryCDMachineStateDiagram" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- CD设备综合状况 -->
+	<ifs ifs_code="MES_R0034" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryCDEquipmentSituation" biz_method="" serial_no="1" biz_name="queryCDEquipmentSituation" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 缓存设备   END -->
+	
+	
+	
+	<!-- 回流炉设备看板  START -->
+	<!-- ROEK工单信息 -->
+	<ifs ifs_code="MES_R0035" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryROEKMoInfo" biz_method="" serial_no="1" biz_name="queryROEKMoInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- ROEK参数监控 -->
+	<ifs ifs_code="MES_R0036" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryROEKSketchMap" biz_method="" serial_no="1" biz_name="queryROEKSketchMap" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- ROEK机器状态示意图 -->
+	<ifs ifs_code="MES_R0037" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryROEKMachineStateDiagram" biz_method="" serial_no="1" biz_name="queryROEKMachineStateDiagram" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- ROEK设备综合状况 -->
+	<ifs ifs_code="MES_R0038" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryROEKEquipmentSituation" biz_method="" serial_no="1" biz_name="queryROEKEquipmentSituation" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 回流炉设备看板   END -->
+	
+	
+	<!-- 生产拉头看板  START -->
+	<!-- 主信息 -->
+	<ifs ifs_code="MES_R0039" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryProductionPullHeader" biz_method="" serial_no="1" biz_name="queryProductionPullHeader" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 产能达成状况 -->
+	<ifs ifs_code="MES_R0040" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryCapacityReach" biz_method="" serial_no="1" biz_name="queryCapacityReach" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 拉线人员 -->
+	<ifs ifs_code="MES_R0074" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryLinecdHummer" biz_method="" serial_no="1" biz_name="queryLinecdHummer" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 生产拉头看板    END -->
+	
+	
+	<!-- 生产拉尾看板   START -->
+	<!-- PT产能达成状况 -->
+	<ifs ifs_code="MES_R0041" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryPTCapacityReach" biz_method="" serial_no="1" biz_name="queryPTCapacityReach" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- PT生产与计划信息 -->
+	<ifs ifs_code="MES_R0042" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryPTWorkProductionAndPlanning" biz_method="" serial_no="1" biz_name="queryPTWorkProductionAndPlanning" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- WIP状态 -->
+	<ifs ifs_code="MES_R0043" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryPTWipState" biz_method="" serial_no="1" biz_name="queryPTWipState" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 异常种类 -->
+	<ifs ifs_code="MES_R0044" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryPTAbnormalSpecies" biz_method="" serial_no="1" biz_name="queryPTAbnormalSpecies" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 生产拉尾看板   END -->
+	
+	
+	<!-- 生产综合看板  START -->
+	<!-- 表格显示信息 -->
+	<ifs ifs_code="MES_R0045" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryComprehensiveProduction" biz_method="" serial_no="1" biz_name="queryComprehensiveProduction" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 折线图信息 -->
+	<ifs ifs_code="MES_R0046" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryCPBrokenLineGraph" biz_method="" serial_no="1" biz_name="queryCPBrokenLineGraph" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 原材料利用率 -->
+	<ifs ifs_code="MES_R0047" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryUtilizationRateOfRawMaterials" biz_method="" serial_no="1" biz_name="queryUtilizationRateOfRawMaterials" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 缺陷排名 -->
+	<ifs ifs_code="MES_R0048" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryCPDefectRanking" biz_method="" serial_no="1" biz_name="queryCPDefectRanking" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 停机异常 -->
+	<ifs ifs_code="MES_R0049" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryCPAbnormalShutdown" biz_method="" serial_no="1" biz_name="queryCPAbnormalShutdown" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 生产综合看板  END -->
+	
+	
+	<!-- 松下贴片设备看板    START -->
+	<!-- 松下贴片工单信息 -->
+	<ifs ifs_code="MES_R0050" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryWoPanasonicPatch" biz_method="" serial_no="1" biz_name="queryWoPanasonicPatch" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 前五抛料率 -->
+	<ifs ifs_code="MES_R0051" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryFirstFiveThrowRate" biz_method="" serial_no="1" biz_name="queryFirstFiveThrowRate" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- PP机器状态示意图 -->
+	<ifs ifs_code="MES_R0052" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryPPachineStateDiagram" biz_method="" serial_no="1" biz_name="queryPPachineStateDiagram" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- PP设备综合状况 -->
+	<ifs ifs_code="MES_R0053" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryPPEquipmentSituation" biz_method="" serial_no="1" biz_name="queryPPEquipmentSituation" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 松下贴片设备看板    END -->
+	
+	
+	<!-- 贴标机看板    START -->
+	<!-- 贴标机看板 工单信息 -->
+	<ifs ifs_code="MES_R0054" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryLMWoPanasonicPatch" biz_method="" serial_no="1" biz_name="queryLMWoPanasonicPatch" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- LM设备产能 -->
+	<ifs ifs_code="MES_R0055" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryLMEquipmentCapacity" biz_method="" serial_no="1" biz_name="queryLMEquipmentCapacity" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- LM机器状态示意图 -->
+	<ifs ifs_code="MES_R0056" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryLMachineStateDiagram" biz_method="" serial_no="1" biz_name="queryLMachineStateDiagram" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- LM设备综合状况 -->
+	<ifs ifs_code="MES_R0057" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryLMEquipmentSituation" biz_method="" serial_no="1" biz_name="queryLMEquipmentSituation" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!--  贴标机看板      END -->
+	
+	
+	<!-- 印刷机看板    START -->
+	<!-- 印刷机看板 工单信息 -->
+	
+	<ifs ifs_code="MES_R0058" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryPrintMWoPanasonicPatch" biz_method="" serial_no="1" biz_name="queryPrintMWoPanasonicPatch" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- PrintM设备产能 -->
+	<ifs ifs_code="MES_R0059" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryPrintMEquipmentCapacity" biz_method="" serial_no="1" biz_name="queryPrintMEquipmentCapacity" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- PrintM机器状态示意图 -->
+	<ifs ifs_code="MES_R0060" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryPrintMachineStateDiagram" biz_method="" serial_no="1" biz_name="queryPrintMachineStateDiagram" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- PrintM设备综合状况 -->
+	<ifs ifs_code="MES_R0061" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryPrintMEquipmentSituation" biz_method="" serial_no="1" biz_name="queryPrintMEquipmentSituation" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!--  印刷机看板      END -->
+	
+	<!-- 自动包装设备看板    START -->
+	<!-- 自动包装设备   工单信息 -->
+	
+	<ifs ifs_code="MES_R0062" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryAutoPackWoPanasonicPatch" biz_method="" serial_no="1" biz_name="queryAutoPackWoPanasonicPatch" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- AutoPack设备产能 -->
+	
+	<ifs ifs_code="MES_R0063" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryAutoPackEquipmentCapacity" biz_method="" serial_no="1" biz_name="queryAutoPackEquipmentCapacity" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- AutoPack机器状态示意图 -->
+	
+	<ifs ifs_code="MES_R0064" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryAutoPackachineStateDiagram" biz_method="" serial_no="1" biz_name="queryAutoPackachineStateDiagram" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- AutoPack设备综合状况 -->
+	
+	<ifs ifs_code="MES_R0065" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryAutoPackEquipmentSituation" biz_method="" serial_no="1" biz_name="queryAutoPackEquipmentSituation" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 自动包装设备看板    END -->
+	
+	
+	<!-- 自动组装设备看板    START -->
+	<!-- 自动组装设备   工单信息 -->
+	<ifs ifs_code="MES_R0066" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryAutoAssemblyWoPanasonicPatch" biz_method="" serial_no="1" biz_name="queryAutoAssemblyWoPanasonicPatch" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- AutoAssembly设备产能 -->
+	<ifs ifs_code="MES_R0067" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryAutoAssemblyEquipmentCapacity" biz_method="" serial_no="1" biz_name="queryAutoAssemblyEquipmentCapacity" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- AutoAssembly机器状态示意图 -->
+	<ifs ifs_code="MES_R0068" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryAutoAssemblyachineStateDiagram" biz_method="" serial_no="1" biz_name="queryAutoAssemblyachineStateDiagram" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- AutoAssembly设备综合状况 -->
+	<ifs ifs_code="MES_R0069" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryAutoAssemblyEquipmentSituation" biz_method="" serial_no="1" biz_name="queryAutoAssemblyEquipmentSituation" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 自动组装设备看板    END -->
+	
+	<!-- 生产拉尾看板 WIP状态 -->
+	<ifs ifs_code="MES_R0070" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryWIPInfoSituation" biz_method="" serial_no="1" biz_name="queryWIPInfoSituation" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 车间整体看板   START -->
+	<!-- 工单完成情况 -->
+	<ifs ifs_code="MES_R0071" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryWorkingComplateInfo" biz_method="" serial_no="1" biz_name="queryWorkingComplateInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 计划达成率 -->
+	<ifs ifs_code="MES_R0072" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryPlannedCompletionRate" biz_method="" serial_no="1" biz_name="queryPlannedCompletionRate" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- SMT自动化产线工单看板 -->
+	<ifs ifs_code="MES_R0073" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="querySmtZidonLineWoKanBan" biz_method="" serial_no="1" biz_name="querySmtZidonLineWoKanBan" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 车间整体前五不良原因 -->
+	<ifs ifs_code="MES_R0075" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryFiveReason" biz_method="" serial_no="1" biz_name="queryFiveReason" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 停机异常 -->
+	<ifs ifs_code="MES_R0076" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryETStopAbnormal" biz_method="" serial_no="1" biz_name="queryETStopAbnormal" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 设备生产明细 -->
+	<ifs ifs_code="MES_R0077" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryEtProductDetailInfo" biz_method="" serial_no="1" biz_name="queryEtProductDetailInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 缓存明细 -->
+	<ifs ifs_code="MES_R0078" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryCacheDetailInfo" biz_method="" serial_no="1" biz_name="queryCacheDetailInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 车间整体看板   END -->
+	
+	<!-- 产线动态看板页面    START -->
+	<!-- UPH -->
+	<ifs ifs_code="MES_R0079" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryUPH" biz_method="" serial_no="1" biz_name="queryUPH" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 总装配数 -->
+	<ifs ifs_code="MES_R0080" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="querySumAssembling" biz_method="" serial_no="1" biz_name="querySumAssembling" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 加工中的个数 -->
+	<ifs ifs_code="MES_R0081" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryNumberOfProcesses" biz_method="" serial_no="1" biz_name="queryNumberOfProcesses" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 每台机器的生产数 -->
+	<ifs ifs_code="MES_R0082" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryNumberOfMachinesPerMachine" biz_method="" serial_no="1" biz_name="queryNumberOfMachinesPerMachine" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 获取机器的生产状态 -->
+	<ifs ifs_code="MES_R0083" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryMachineProductionStatus" biz_method="" serial_no="1" biz_name="queryMachineProductionStatus" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 每个工序生产产品所需要的时间  -->
+	<ifs ifs_code="MES_R0084" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryProductionTimePerProcess" biz_method="" serial_no="1" biz_name="queryProductionTimePerProcess" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 产品加工历史记录 -->
+	<ifs ifs_code="MES_R0085" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryProductProcessingHistory" biz_method="" serial_no="1" biz_name="queryProductProcessingHistory" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 良品率 -->
+	<ifs ifs_code="MES_R0086" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryGoodYield" biz_method="" serial_no="1" biz_name="queryGoodYield" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- SPI良品率 -->
+	<ifs ifs_code="MES_R0093" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="querySPIGoodYield" biz_method="" serial_no="1" biz_name="querySPIGoodYield" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- AOI良品率 -->
+	<ifs ifs_code="MES_R0094" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryAOIGoodYield" biz_method="" serial_no="1" biz_name="queryAOIGoodYield" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	
+	<!-- 产线OEE -->
+	<ifs ifs_code="MES_R0087" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryLineOEE" biz_method="" serial_no="1" biz_name="queryLineOEE" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 产线动态看板页面    END -->
+	
+	
+	
+	<!-- SN绑定关系报表查询 -->
+	<ifs ifs_code="MES_R0088" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="querySNBindingRelationship" biz_method="" serial_no="1" biz_name="querySNBindingRelationship" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 插件机查询 -->
+	<ifs ifs_code="MES_R0089" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryPluginMachineInfo" biz_method="" serial_no="1" biz_name="queryPluginMachineInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 生产日报表 -->
+	<ifs ifs_code="MES_R0090" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryDailyProductionReport" biz_method="" serial_no="1" biz_name="queryDailyProductionReport" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 生产进度 -->
+	<ifs ifs_code="MES_R0091" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryCentralMonitoringProductionSchedule" biz_method="" serial_no="1" biz_name="queryCentralMonitoringProductionSchedule" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- SN追溯报表查询-->
+	<ifs ifs_code="MES_R0092" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryRetrospectiveReportSN" biz_method="" serial_no="1" biz_name="queryRetrospectiveReportSN" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 查询工位生产SN信息  -->
+	<ifs ifs_code="MES_R0095" ifs_name="查询工位生产SN信息 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryCurrWipInfo" biz_method="" serial_no="1" biz_name="queryCurrWipInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<ifs ifs_code="MES_R0096" ifs_name="查询跑马灯数据通过机器代码" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryR_MES_ET_EXPCE_T" biz_method="" serial_no="1" biz_name="queryR_MES_ET_EXPCE_T" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- R_MES_PRO_LINE_TEST_ONE -->
+	<ifs ifs_code="MES_R0097" ifs_name="R_MES_PRO_LINE_TEST_ONE" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryTestOne" biz_method="" serial_no="1" biz_name="queryTestOne" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- R_MES_PRO_LINE_TEST_TWO -->
+	<ifs ifs_code="MES_R0098" ifs_name="R_MES_PRO_LINE_TEST_TWO" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryTestTwo" biz_method="" serial_no="1" biz_name="queryTestTwo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 烧录机电子生产情况  -->
+	<ifs ifs_code="MES_R0099" ifs_name="烧录机电子生产情况" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryBurnerElectron_Screen" biz_method="" serial_no="1" biz_name="queryBurnerElectron_Screen" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- ACF电子设备状态参数  -->
+	<ifs ifs_code="MES_R0100" ifs_name="ACF电子设备状态参数" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryACF_Screen" biz_method="" serial_no="1" biz_name="queryACF_Screen" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 校准测试机数据查询  -->
+	<ifs ifs_code="MES_R0101" ifs_name="校准测试机数据查询" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryTestReport" biz_method="" serial_no="1" biz_name="queryTestReport" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 设备工单生产信息  取实际生产数据 -->
+	<ifs ifs_code="MES_R0102" ifs_name="设备工单生产信息  取实际生产数据" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryMoProductInfo" biz_method="" serial_no="1" biz_name="queryMoProductInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	
+     <!-- 生产拉头看板报表信息-主信息 -->
+	<ifs ifs_code="MES_R0103" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryProductionPullHeaderInfo" biz_method="" serial_no="1" biz_name="queryProductionPullHeaderInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	
+    <!-- 生产拉头看板报表信息-产能达成状况 -->
+	<ifs ifs_code="MES_R0104" ifs_name="生产拉头看板报表信息-产能达成状况" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryCapacityReachInfo" biz_method="" serial_no="1" biz_name="queryCapacityReachInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+
+	<!-- 生产拉头 产线状态查询 -->
+	<ifs ifs_code="MES_R0105" ifs_name="生产拉头 产线状态查询" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryLineStauts" biz_method="" serial_no="1" biz_name="queryLineStauts" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+		<!--机械设备状态查询  -->
+	<ifs ifs_code="MES_R0106" ifs_name="机械设备状态查询  " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryEquipmentStauts" biz_method="" serial_no="1" biz_name="queryEquipmentStauts" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+		<!-- 机械设备工单信息 -->
+	<ifs ifs_code="MES_R0107" ifs_name="机械设备工单信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryEquipmentInfo" biz_method="" serial_no="1" biz_name="queryEquipmentInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 机械设备次品示意图 -->
+	<ifs ifs_code="MES_R0108" ifs_name="机械设备次品示意图" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryTest_etInfo" biz_method="" serial_no="1" biz_name="queryTest_etInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+</ifss>

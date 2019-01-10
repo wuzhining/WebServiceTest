@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<engines>
+    <!-- MES 返工管理  -->
+    
+    <!-- 维修职责-->
+    <!-- 查询维修职责 -->
+    <engine engine_code="search_MaintenanceDuties" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="search_MaintenanceDuties" >
+	</engine>
+    <!-- 新增维修职责 -->
+    <engine engine_code="add_MaintenanceDuties" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="add_MaintenanceDuties" >
+	</engine>
+    <!-- 修改维修职责 -->
+    <engine engine_code="update_MaintenanceDuties" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="update_MaintenanceDuties" >
+	</engine>
+    <!-- 删除维修职责 -->
+    <engine engine_code="delete_MaintenanceDuties" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="delete_MaintenanceDuties" >
+	</engine>
+	
+	<!-- 维修原因录入-->
+    <!-- 查询维修原因 -->
+    <engine engine_code="search_MaintenanceReason" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="search_MaintenanceReason" >
+	</engine>
+    <!-- 新增维修原因-->
+    <engine engine_code="add_MaintenanceReason" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="add_MaintenanceReason" >
+	</engine>
+    <!-- 修改维修原因-->
+    <engine engine_code="update_MaintenanceReason" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="update_MaintenanceReason" >
+	</engine>
+    <!-- 删除维修原因 -->
+    <engine engine_code="delete_MaintenanceReason" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="delete_MaintenanceReason" >
+	</engine>
+	
+	<!-- 查询维修原因主表父节点 -->
+	<engine engine_code="search_MaintenanceReasonFrameworkFather" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="search_MaintenanceReasonFrameworkFather" >
+	</engine>
+	<!-- 维修原因主表 架构查询-->
+	<engine engine_code="search_MaintenanceReasonFramework" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="search_MaintenanceReasonFramework" >
+	</engine>
+	<!-- 维修原因主表 架构新增-->
+	<engine engine_code="add_MaintenanceReasonFramework" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="add_MaintenanceReasonFramework" >
+	</engine>
+	<!-- 维修原因主表 架构修改-->
+	<engine engine_code="update_MaintenanceReasonFramework" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="update_MaintenanceReasonFramework" >
+	</engine>
+	<!-- 维修原因主表 架构删除-->
+	<engine engine_code="delete_MaintenanceReasonFramework" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="delete_MaintenanceReasonFramework" >
+	</engine>
+	
+	
+	<!-- 故障代码维护-->
+    <!-- 查询故障代码 -->
+    <engine engine_code="search_FaultCode" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="search_FaultCode" >
+	</engine>
+    <!-- 新增故障代码 -->
+    <engine engine_code="add_FaultCode" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="add_FaultCode" >
+	</engine>
+    <!-- 修改故障代码 -->
+    <engine engine_code="update_FaultCode" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="update_FaultCode" >
+	</engine>
+    <!-- 删除故障代码  -->
+    <engine engine_code="delete_FaultCode" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="delete_FaultCode" >
+	</engine>
+	<!-- 故障代码主表 架构查询-->
+	<engine engine_code="search_FaultCodeFramework" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="search_FaultCodeFramework" >
+	</engine>
+	<!-- 故障代码主表 架构新增-->
+	<engine engine_code="add_FaultCodeFramework" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="add_FaultCodeFramework" >
+	</engine>
+	<!-- 故障代码主表 架构修改-->
+	<engine engine_code="update_FaultCodeFramework" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="update_FaultCodeFramework" >
+	</engine>
+	<!-- 故障代码主表 架构删除-->
+	<engine engine_code="delete_FaultCodeFramework" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="delete_FaultCodeFramework" >
+	</engine>
+	
+	
+	<!-- 维修方法 -->
+	<!-- 查询维修方法树结构 -->
+	<engine engine_code="queryMaintenanceMethodsTree" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryMaintenanceMethodsTree" >
+	</engine>
+    <!-- 查询维修方法-->
+    <engine engine_code="queryMaintenanceMethodsMain" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryMaintenanceMethodsMain" >
+	</engine>
+    <!-- 新增维修方法 -->
+    <engine engine_code="insertMaintenanceMethodsMainY" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="insertMaintenanceMethodsMainY" >
+	</engine>
+    <!-- 修改维修方法 -->
+    <engine engine_code="updateMaintenanceMethodsMain" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="updateMaintenanceMethodsMain" >
+	</engine>
+    <!-- 删除维修方法 -->
+    <engine engine_code="deleteMaintenanceMethodsMain" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="deleteMaintenanceMethodsMain" >
+	</engine>
+	
+	<!-- 缺陷代码维护 -->
+	<!-- 查询缺陷代码树结构 -->
+	<engine engine_code="queryDefectcodeTree" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryDefectcodeTree" >
+	</engine>
+	<!-- 查询缺陷代码维护 -->
+	<engine engine_code="queryDefectcodeMain" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryDefectcodeMain" >
+	</engine>
+	<!-- 新增缺陷代码维护 -->
+	<engine engine_code="insertDefectcodeMain" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="insertDefectcodeMain" >
+	</engine>
+	<!-- 修改缺陷代码维护 -->
+	<engine engine_code="updateDefectcodeMain" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="updateDefectcodeMain" >
+	</engine>
+	<!-- 删除缺陷代码维护 -->
+	<engine engine_code="deleteDefectcodeMain" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="deleteDefectcodeMain" >
+	</engine>
+    
+    <!-- 维修方法明细 -->
+    <!-- 查询维修方法明细-->
+    <engine engine_code="queryMaintenanceMethods" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryMaintenanceMethods" >
+	</engine>
+    <!-- 新增维修方法明细 -->
+    <engine engine_code="insertMaintenanceMethods" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="insertMaintenanceMethods" >
+	</engine>
+    <!-- 修改维修方法明细 -->
+    <engine engine_code="updateMaintenanceMethods" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="updateMaintenanceMethods" >
+	</engine>
+    <!-- 删除维修方法明细 -->
+    <engine engine_code="deleteMaintenanceMethods" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="deleteMaintenanceMethods" >
+	</engine>
+	
+	<!-- 缺陷代码维护明细 -->
+	<!-- 查询缺陷代码维护明细 -->
+	<engine engine_code="queryDefectcode" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryDefectcode" >
+	</engine>
+	<!-- 新增缺陷代码维护明细 -->
+	<engine engine_code="insertDefectcode" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="insertDefectcode" >
+	</engine>
+	<!-- 修改缺陷代码维护明细 -->
+	<engine engine_code="updateDefectcode" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="updateDefectcode" >
+	</engine>
+	<!-- 删除缺陷代码维护明细 -->
+	<engine engine_code="deleteDefectcode" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="deleteDefectcode" >
+	</engine>
+</engines>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<link rel="stylesheet" type="text/css" href="../../../common/IplantCompent/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css" href="../../../common/IplantCompent/themes/icon.css">
+<link rel="stylesheet" type="text/css"	href="../../../common/IplantCompent/Demo/demo.css">
+<script src="../../../common/IplantCompent/jquery.min.js" type="text/javascript"></script>
+<script src="../../../common/IplantCompent/jquery.easyui.min.js" type="text/javascript"></script>
+<script src="../../../common/IplantCommon/DataRequest.js" type="text/javascript"></script>
+<script src="../../../common/IplantCommon/CommonUtil.js" type="text/javascript"></script>
+<script src="js/MoCommonSchedule.js" type="text/javascript"></script>
+<meta charset="utf-8" />
+<style type='text/css'>
+      .tdStyle
+      {
+           width:130px;
+      }
+</style>
+</head>
+<body style="padding: 0; margin: 0;">
+	 <div style="height: 100%; width: 100%" class="easyui-layout" fit="true">
+            <div region='north' id='tbsearch' style="width: auto; height: 30px;background: linear-gradient(rgb(255, 255, 255) 0px, rgba(149, 184, 231, 0.28) 100%);">
+              <table style="width: auto; height:100%;" cellspacing="0" border="0">
+                 <tr>
+                    <td>车间类别：</td>
+                    <td>
+                        <select id="workShopType" name="stationType" style="width: 200px;" class="easyui-combobox"></select>
+                    </td>
+	                <td>车间：</td>
+                    <td>
+                        <select id="workShop" name="searchStation" style="width: 200px;" class="easyui-combobox"></select>
+                    </td>
+                    <td>物料编号：</td>
+                    <td><select id="cmbMaterialData" name="cmbMaterialData" style="width: 280px;" class="easyui-combobox"></select></td>
+	                <td>计划日期：</td>
+	                <td>
+	                   <input id="planProdDate" name="postingdate" style="width: 150px;" class="easyui-datebox sasyui-calendar"/>
+	                </td>
+	                <td>
+	                   <a id="btnSearch1" href="#" class="easyui-linkbutton search" iconCls="icon-search" data-options="plain:true">查询</a>
+	                </td>
+                 </tr>
+              </table>
+            </div>
+            <div region='center'>
+          	   <div class="easyui-layout" fit="true"  >
+          	      <div region='center'>
+          	          <table  style="height: auto;max-height: 100%" id="workorder_tab" class='easyui-datagrid' rownumbers="true" ></table>
+          	      </div>
+          	      <div region='east' width="350px;" title='工单拉线安排'>
+          	        <input type='hidden' id='hdIndex' style='display:none'/>
+          	        <input type='hidden' id='hdLineName' style='display:none'/>
+          	        <input type='hidden' id='hdStationNo' style='display:none'/>
+          	        <table style="width: 330px; height:50%; margin-left:10px; margin-top:10px;" cellspacing="0" border="0" id='formTable'>
+          	           <tr>
+                          <td class='tdStyle'>工单号:</td>
+                          <td colspan='2'><input id="txtWorkOrder" name="postingdate" style="width: 200px;" class="easyui-textbox" readonly="readonly" disabled="disabled"/></td> 
+                       </tr>
+                       <tr>
+                          <td class='tdStyle'>物料编码:</td>
+                          <td colspan='2'><input id="txtMaterialCode" name="postingdate" style="width: 200px;" class="easyui-textbox" readonly="readonly" disabled="disabled"/></td> 
+                       </tr>
+                       <tr>
+                          <td class='tdStyle'>物料名称:</td>
+                          <td colspan='2'><input id="txtMaterialName" name="postingdate" style="width: 200px;" class="easyui-textbox" readonly="readonly" disabled="disabled"/></td> 
+                       </tr>
+                       <tr>
+                          <td class='tdStyle'>资源编码:</td>
+                          <td colspan='2'><input id="txtSourceCode" name="postingdate" style="width: 200px;" class="easyui-textbox"/></td> 
+                       </tr>
+                       <tr>
+                          <td class='tdStyle'>计划开始时间:</td>
+                          <td colspan='2'><input id="datePlanBeginTime" name="postingdate" style="width: 200px;" class="easyui-datebox sasyui-calendar"/></td>
+                       </tr>
+                       <tr>
+                          <td class='tdStyle'>计划工时:</td>
+                          <td colspan='2'><input id="txtPlanWorkHours" name="postingdate" style="width: 200px;" class="easyui-numberbox"/></td> 
+                       </tr>
+                       <tr>
+                          <td class='tdStyle'>班次:</td>
+                          <td colspan='2'> <select id="cmbBC" name="cmbBC" style="width: 200px;" class="easyui-combobox"></select></td> 
+                       </tr>
+                       <tr>
+                          <td class='tdStyle'>拉线:</td>
+                          <td colspan='2'><select id="cmbLine" name="cmbLine" style="width: 200px;" class="easyui-combobox"></select></td> 
+                       </tr>
+                       <tr id='trMould' style='display:none;'>
+                          <td class='tdStyle'>模具编号:</td>
+                          <td colspan='2'><select id="cmbMould" name="cmbMould" style="width: 200px;" class="easyui-combobox"></select></td> 
+                       </tr>
+                       <tr>
+                          <td colspan="3">
+                              <table style="width: 330px; height:50%;" cellspacing="0" border="0" id='formItemTable'>
+                                  <tbody></tbody>
+                              </table>
+                          </td>
+                       </tr>
+                       <tr>
+                          <td class='tdStyle'>P/O计划数量:</td>
+                          <td colspan='2'><input id="txtPlantCnt" name="postingdate" class="easyui-numberbox" style="width: 200px; text-align: left;" readonly="readonly" disabled="disabled"/></td> 
+                       </tr>
+                       <tr>
+                          <td class='tdStyle'>P/O剩余数量:</td>
+                          <td colspan='2'><input id="txtRemainCnt" name="postingdate" class="easyui-numberbox" style="width: 200px; text-align: left;" readonly="readonly" disabled="disabled"/></td> 
+                       </tr>
+                       <tr>
+                          <td class='tdStyle'>排产数量:</td>
+                          <td colspan='2'><input id="txtProdCnt" name="postingdate" class="easyui-numberbox" style="width: 200px; text-align: left;"/></td> 
+                       </tr>
+                       <tr align="right">
+                           <td align="right" colspan='3'>
+                                <a href="#" class="easyui-linkbutton delete" iconCls="icon-remove" id="btnClear" data-options="plain:true">清空</a>
+                                <a href="#" class="easyui-linkbutton save" iconCls="icon-save" id="btnSetWorkOrder" data-options="plain:true">保存</a>
+                           </td>
+                      </tr>
+                       
+                 </table>
+            </div>
+         </div>
+       </div>
+    </div>
+</body>
+</html>

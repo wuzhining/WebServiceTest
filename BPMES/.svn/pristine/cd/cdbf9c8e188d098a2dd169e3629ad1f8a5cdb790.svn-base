@@ -1,0 +1,2638 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="">
+
+  <!--====================================工序管理========================================-->
+  <!-- 查询工序定义信息 -->
+  <select id="queryProcessDefinition" parameterType="hashmap" resultType="java.util.HashMap">
+   <include refid="oraclePagingFileTop"></include>
+	   FCT_CD,
+	   (select FT_NM from IPLANT1.C_IPLANT_F1_T C WHERE C.FT_CD = FCT_CD) AS FCT_NM,
+	   PRF_CD,
+	   PRF_TY,
+	   (SELECT DICT_IT_NM FROM IPLANT1.C_IPLANT_DD_T A WHERE A.DICT_IT = PRF_TY) AS PRF_TYPE_NM,
+	   PRF_NAME,
+	   USE_YN,
+	   MO,
+	   USR_DFN_1,
+	   USR_DFN_2,
+	   USR_DFN_3,
+	   USR_DFN_4,
+	   USR_DFN_5,
+	   CRT_ID,
+	   (SELECT EMP_NM FROM IPLANT1.C_IPLANT_E1_T BB WHERE BB.EMP_CD =(SELECT EMP_NO AS EMP_CD FROM IPLANT1.C_IPLANT_U1_T AA WHERE AA.USE_CD = T1.CRT_ID)) AS CRT_NM,
+	   CRT_IP,
+	   TO_CHAR(CRT_DT, 'YYYY-MM-DD HH24:MI:SS') AS CRT_DT,
+	   UPT_ID,
+	   UPT_IP,
+	   TO_CHAR(UPT_DT, 'YYYY-MM-DD HH24:MI:SS') AS UPT_DT
+	FROM MES1.R_MES_PRF_DEF_T T1
+	<where>1=1
+		<if test="PRF_CD!=null and PRF_CD!='' ">
+			AND PRF_CD = '${PRF_CD}'
+		</if>
+		<if test="PRF_NAME!=null and PRF_NAME!=''">
+			AND PRF_NAME = '${PRF_NAME}'
+		</if>
+	</where>
+	ORDER BY PRF_CD DESC
+	<include refid="oraclePagingFileBottom"></include>
+  </select>
+  
+  <!-- 新增工序定义信息 -->
+  <insert id="insertProcessDefinition" parameterType="java.util.List">
+  	INSERT INTO MES1.R_MES_PRF_DEF_T
+	  (FCT_CD,
+	   PRF_CD,
+	   PRF_NAME,
+	   PRF_TY,
+	   USE_YN,
+	   MO,
+	   USR_DFN_1,
+	   USR_DFN_2,
+	   USR_DFN_3,
+	   USR_DFN_4,
+	   USR_DFN_5,
+	   CRT_ID,
+	   CRT_IP,
+	   CRT_DT)
+	  (
+	  <foreach collection="list" item="item" index="index" separator="union all">
+	     SELECT
+		   '${item.FCT_CD}',
+		   '${item.PRF_CD}',
+		   '${item.PRF_NAME}',
+		   '${item.PRF_TY}',
+		   '${item.USE_YN}',
+		   '${item.MO}',
+		   '${item.USR_DFN_1}',
+		   '${item.USR_DFN_2}',
+		   '${item.USR_DFN_3}',
+		   '${item.USR_DFN_4}',
+		   '${item.USR_DFN_5}',
+		   '${F_USE_CD}',
+		   '${item.CRT_IP}',
+		   SYSDATE
+	   FROM DUAL
+	   </foreach>
+	  )
+  </insert>
+  
+  <!-- 修改工序定义信息 -->
+  <update id="updateProcessDefinition" parameterType="java.util.List">
+  <foreach collection="list" item="item" index="index" separator=";">
+  	UPDATE MES1.R_MES_PRF_DEF_T
+	   <set> 
+	   	   <if test="item.FCT_CD!=null and item.FCT_CD!='' ">
+	   	   		FCT_CD = '${item.FCT_CD}',
+	   	   </if>
+	   	   <if test="item.PRF_CD!=null and item.PRF_CD!='' ">
+	       		PRF_CD = '${item.PRF_CD}',
+	       </if>
+	       <if test="item.PRF_NAME!=null and item.PRF_NAME!='' ">
+	       		PRF_NAME = '${item.PRF_NAME}',
+	       </if>
+	       <if test="item.PRF_TY!=null">
+	       		PRF_TY = '${item.PRF_TY}',
+	       </if>
+	       <if test="item.USE_YN!=null">
+	       		USE_YN = '${item.USE_YN}',
+	       </if>
+	       <if test="item.MO!=null">
+	       		MO = '${item.MO}',
+	       </if>
+	       <if test="item.USR_DFN_1!=null">
+	       		USR_DFN_1 = '${item.USR_DFN_1}',
+	       </if>
+	        <if test="item.USR_DFN_2!=null">
+	       		USR_DFN_2 = '${item.USR_DFN_2}',
+	       </if>
+	        <if test="item.USR_DFN_3!=null">
+	       		USR_DFN_3 = '${item.USR_DFN_3}',
+	       </if>
+	        <if test="item.USR_DFN_4!=null">
+	       		USR_DFN_4 = '${item.USR_DFN_4}',
+	       </if>
+	        <if test="item.USR_DFN_5!=null">
+	       		USR_DFN_5 = '${item.USR_DFN_5}',
+	       </if>
+	       UPT_ID = '${F_USE_CD}',
+	       <if test="item.UPT_IP!=null">
+	       		UPT_IP = '${item.UPT_IP}',
+	       </if>
+	       UPT_DT = SYSDATE
+	    </set>
+	 <where> 
+	      AND PRF_CD = '${item.PRF_CD}'
+	 </where>
+	 </foreach>
+  </update>
+  
+  <!-- 删除工序定义信息 -->
+  <delete id="deleteProcessDefinition" parameterType="hashmap">
+  	DELETE MES1.R_MES_PRF_DEF_T
+  	WHERE PRF_CD IN 
+  	<foreach item="item" collection="list" open="(" separator="," close=")">  
+       		#{item.PRF_CD}
+    </foreach>
+  </delete>
+  
+  <!-- 查询工序路线定义信息 -->
+  <select id="queryProcessRouteDefinition" parameterType="hashmap" resultType="java.util.HashMap">
+  <include refid="oraclePagingFileTop"></include>
+       FCT_CD,
+       (SELECT FT_NM from IPLANT1.C_IPLANT_F1_T C WHERE C.FT_CD = FCT_CD) AS FCT_NM,
+       ROUT_CD,
+       ROUT_NAME,
+       ROUT_TY,
+       (SELECT DICT_IT_NM FROM IPLANT1.C_IPLANT_DD_T A WHERE A.DICT_IT = ROUT_TY) AS ROUT_TYPE_NM,
+       RES_CD,
+       USE_YN,
+       MO,
+       IS_INPUT,
+       IS_OUTPUT,
+       IS_BIND,
+       IS_CARE_YN,
+       USR_DFN_1,
+       USR_DFN_2,
+       USR_DFN_3,
+       USR_DFN_4,
+       USR_DFN_5,
+       CRT_ID,
+       (SELECT EMP_NM FROM IPLANT1.C_IPLANT_E1_T BB WHERE BB.EMP_CD =(SELECT EMP_NO AS EMP_CD FROM IPLANT1.C_IPLANT_U1_T AA WHERE AA.USE_CD = T1.CRT_ID)) AS CRT_NM,
+       CRT_IP,
+       TO_CHAR(CRT_DT, 'YYYY-MM-DD HH24:MI:SS') AS CRT_DT,
+       UPT_ID,
+       UPT_IP,
+       TO_CHAR(UPT_DT, 'YYYY-MM-DD HH24:MI:SS') AS UPT_DT
+  	FROM MES1.R_MES_ROUTE_DEF_T T1
+  	<where>1=1
+  		<if test="ROUT_CD!=null and ROUT_CD!=''">
+  			AND ROUT_CD = '${ROUT_CD}'
+  		</if>
+  		<if test="ROUT_NAME!=null and ROUT_NAME!=''">
+  			AND ROUT_NAME = '${ROUT_NAME}'
+  		</if>
+  	</where>
+  	ORDER BY ROUT_CD DESC
+  <include refid="oraclePagingFileBottom"></include>
+  </select>
+  
+  <select id="queryProcessRouteDefinition_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+     SELECT
+       COUNT(*) AS ROWS_COUNT
+  	FROM MES1.R_MES_ROUTE_DEF_T
+  	<where>1=1
+  		<if test="ROUT_CD!=null and ROUT_CD!=''">
+  			AND ROUT_CD = '${ROUT_CD}'
+  		</if>
+  		<if test="ROUT_NAME!=null and ROUT_NAME!=''">
+  			AND ROUT_NAME = '${ROUT_NAME}'
+  		</if>
+  	</where>
+  </select>
+  
+  
+  
+  
+  <!-- 新增工序路线定义信息 -->
+  <insert id="insertProcessRouteDefinition" parameterType="java.util.List">
+  	INSERT INTO MES1.R_MES_ROUTE_DEF_T
+	  (FCT_CD,
+	   ROUT_CD,
+	   ROUT_NAME,
+	   ROUT_TY,
+	   RES_CD,
+	   USE_YN,
+	   MO,
+	   IS_INPUT,
+       IS_OUTPUT,
+       IS_BIND,
+       IS_CARE_YN,
+	   USR_DFN_1,
+	   USR_DFN_2,
+	   USR_DFN_3,
+	   USR_DFN_4,
+	   USR_DFN_5,
+	   CRT_ID,
+	   CRT_IP,
+	   CRT_DT)
+	  (
+	  <foreach collection="list" item="item" index="index" separator="union all">
+		  SELECT
+		   '${item.FCT_CD}',
+		   '${item.ROUT_CD}',
+		   '${item.ROUT_NAME}',
+		   '${item.ROUT_TY}',
+		   '${item.RES_CD}',
+		   '${item.USE_YN}',
+		   '${item.MO}',
+		   '${item.IS_INPUT}',
+		   '${item.IS_OUTPUT}',
+		   '${item.IS_BIND}',
+		   '${item.IS_CARE_YN}',
+		   '${item.USR_DFN_1}',
+		   '${item.USR_DFN_2}',
+		   '${item.USR_DFN_3}',
+		   '${item.USR_DFN_4}',
+		   '${item.USR_DFN_5}',
+		   '${F_USE_CD}',
+		   '${item.CRT_IP}',
+		   SYSDATE
+	    FROM DUAL
+	  </foreach>
+	  )
+  </insert>
+  <!-- 修改工序路线定义信息 -->
+  <update id="updateProcessRouteDefinition" parameterType="java.util.List">
+  <foreach collection="list" item="item" index="index" separator=";">
+  	UPDATE MES1.R_MES_ROUTE_DEF_T
+  		<set>
+  		   <if test="item.FCT_CD!=null and item.FCT_CD!=''">
+	   	   FCT_CD = '${item.FCT_CD}',
+	   	   </if>
+	   	   <if test="item.ROUT_CD!=null and item.ROUT_CD!=''">
+	       ROUT_CD = '${item.ROUT_CD}',
+	       </if>
+	       <if test="item.ROUT_NAME!=null and item.ROUT_NAME!=''">
+	       ROUT_NAME = '${item.ROUT_NAME}',
+	       </if>
+	       <if test="item.ROUT_TY!=null">
+	       ROUT_TY = '${item.ROUT_TY}',	
+	       </if>
+	       <if test="item.RES_CD!=null">
+	       RES_CD = '${item.RES_CD}',
+	       </if>
+	       <if test="item.USE_YN!=null">
+	       USE_YN = '${item.USE_YN}',
+	       </if>
+	       <if test="item.MO!=null">
+	       MO = '${item.MO}',
+	       </if>
+	       <if test="item.IS_INPUT!=null and item.IS_INPUT!=''">
+	       IS_INPUT = '${item.IS_INPUT}',
+	       </if>
+	       <if test="item.IS_OUTPUT!=null and item.IS_OUTPUT!=''">
+	       IS_OUTPUT = '${item.IS_OUTPUT}',
+	       </if>
+	       <if test="item.IS_BIND!=null and item.IS_BIND!=''">
+	       IS_BIND = '${item.IS_BIND}',
+	       </if>
+	       <if test="item.IS_CARE_YN!=null and item.IS_CARE_YN!=''">
+	       IS_CARE_YN ='${item.IS_CARE_YN}',
+	       </if>
+	       <if test="item.USR_DFN_1!=null">
+	       USR_DFN_1 = '${item.USR_DFN_1}',
+	       </if>
+	       <if test="item.USR_DFN_2!=null">
+	       USR_DFN_2 = '${item.USR_DFN_2}',
+	       </if>
+	       <if test="item.USR_DFN_3!=null">
+	       USR_DFN_3 = '${item.USR_DFN_3}',
+	       </if>
+	       <if test="item.USR_DFN_4!=null">
+	       USR_DFN_4 = '${item.USR_DFN_4}',
+	       </if>
+	       <if test="item.USR_DFN_5!=null">
+	       USR_DFN_5 = '${item.USR_DFN_5}',
+	       </if>
+	       UPT_ID = '${F_USE_CD}',
+	       <if test="item.CRT_IP!=null">
+	       		UPT_IP = '${item.CRT_IP}',
+	       </if>
+	       UPT_DT = SYSDATE
+	    </set> 
+	  <where>
+	   AND ROUT_CD = '${item.ROUT_CD}'
+	  </where>
+	 </foreach>
+  </update>
+  <!-- 删除工序路线定义信息 -->
+  <delete id="deleteProcessRouteDefinition" parameterType="hashmap">
+  	 DELETE MES1.R_MES_ROUTE_DEF_T
+	 WHERE ROUT_CD IN
+		 <foreach item="item" collection="list" open="(" separator="," close=")">  
+		 	#{item.ROUT_CD}
+		 </foreach>
+  </delete>
+  
+  
+  <!-- 查询工序路线流程配置信息 -->
+  <select id="queryProcessRouteConfiguration" parameterType="hashmap" resultType="java.util.HashMap">
+  <include refid="oraclePagingFileTop"></include>
+     T1.FCT_CD,
+     (SELECT FT_NM from IPLANT1.C_IPLANT_F1_T C WHERE C.FT_CD = T1.FCT_CD) AS FCT_NM,
+     T1.PRF_CD,
+     T2.PRF_NAME,
+     T1.FROM_ROUT_CD,
+     (SELECT ROUT_NAME FROM MES1.R_MES_ROUTE_DEF_T B WHERE B.ROUT_CD = T1.FROM_ROUT_CD) AS FROM_ROUT_NAME,
+     T1.TO_ROUT_CD,
+     (SELECT ROUT_NAME FROM MES1.R_MES_ROUTE_DEF_T D WHERE D.ROUT_CD = T1.TO_ROUT_CD) AS TO_ROUT_NAME,
+     T1.BRANCH_ROUT,
+     T1.CURRENT_VS,
+     T1.USE_YN,
+     T1.MO,
+     T1.IS_INPUT,
+     T1.IS_OUTPUT,
+     T1.IS_BIND,
+     T1.IS_CARE_YN,
+     T1.USR_DFN_1,
+     T1.USR_DFN_2,
+     T1.USR_DFN_3,
+     T1.USR_DFN_4,
+     T1.USR_DFN_5,
+     T1.ROUTE_CD,
+     T1.ROUTE_NAME,
+     T1.ORDER_CD,
+     T1.CRT_ID,
+     (SELECT EMP_NM FROM IPLANT1.C_IPLANT_E1_T BB WHERE BB.EMP_CD =(SELECT EMP_NO AS EMP_CD FROM IPLANT1.C_IPLANT_U1_T AA WHERE AA.USE_CD = T1.CRT_ID)) AS CRT_NM,
+     T1.CRT_IP,
+     TO_CHAR(T1.CRT_DT, 'YYYY-MM-DD HH24:MI:SS') AS CRT_DT,
+     T1.UPT_ID,
+     T1.UPT_IP,
+     T1.MAC_ADDRESS,
+     TO_CHAR(T1.UPT_DT, 'YYYY-MM-DD HH24:MI:SS') AS UPT_DT
+  FROM MES1.R_MES_PRF_CONF_T T1
+  LEFT JOIN MES1.R_MES_PRF_DEF_T T2 ON T1.PRF_CD = T2.PRF_CD	
+  <where>1=1
+  		<if test="PRF_CD!=null and PRF_CD!=''">
+  			AND T1.PRF_CD ='${PRF_CD}'
+  		</if>
+  		<if test="MAC_ADDRESS!=null and MAC_ADDRESS!=''">
+  			AND T1.MAC_ADDRESS ='${MAC_ADDRESS}'
+  		</if>
+  </where>
+    ORDER BY T1.ORDER_CD ASC
+  <include refid="oraclePagingFileBottom"></include>
+  </select>
+  
+  <!-- 新增工序路线流程配置信息 -->
+  <insert id="insertProcessRouteConfiguration" parameterType="java.util.List">
+  	INSERT INTO MES1.R_MES_PRF_CONF_T
+	  (FCT_CD,
+	   PRF_CD,
+	   FROM_ROUT_CD,
+	   TO_ROUT_CD,
+	   BRANCH_ROUT,
+	   CURRENT_VS,
+	   USE_YN,
+	   MO,
+	   IS_INPUT,
+	   IS_OUTPUT,
+	   IS_BIND,
+	   IS_CARE_YN,
+	   USR_DFN_1,
+	   USR_DFN_2,
+	   USR_DFN_3,
+	   USR_DFN_4,
+	   USR_DFN_5,
+	   ROUTE_CD,
+	   ROUTE_NAME,
+	   ORDER_CD,
+	   CRT_ID,
+	   CRT_IP,
+	   CRT_DT,
+	   MAC_ADDRESS
+	   )
+	  (
+	  <foreach collection="list" item="item" index="index" separator="union all">
+		  SELECT
+		   '${item.FCT_CD}',
+		   '${item.PRF_CD}',
+		   '${item.FROM_ROUT_CD}',
+		   '${item.TO_ROUT_CD}',
+		   '${item.BRANCH_ROUT}',
+		   '${item.CURRENT_VS}',
+		   '${item.USE_YN}',
+		   '${item.MO}',
+		   '${item.IS_INPUT}',
+		   '${item.IS_OUTPUT}',
+		   '${item.IS_BIND}',
+		   '${item.IS_CARE_YN}',
+		   '${item.USR_DFN_1}',
+		   '${item.USR_DFN_2}',
+		   '${item.USR_DFN_3}',
+		   '${item.USR_DFN_4}',
+		   '${item.USR_DFN_5}',
+		   '${item.ROUTE_CD}',
+		   '${item.ROUTE_NAME}',
+		   '${item.ORDER_CD}',
+		   '${F_USE_CD}',
+		   '${item.CRT_IP}',
+		   SYSDATE,
+		   '${item.MAC_ADDRESS}'
+	     FROM DUAL
+	  </foreach>
+	   )
+  </insert>
+  <!-- 修改工序路线流程配置信息 -->
+  <update id="updateProcessRouteConfiguration" parameterType="java.util.List">
+  <foreach collection="list" item="item" index="index" separator=";">
+  	UPDATE MES1.R_MES_PRF_CONF_T
+  		<set>
+  		  <if test="item.FCT_CD!=null and item.FCT_CD!='' ">
+	       FCT_CD = '${item.FCT_CD}',
+	       </if>
+	       <if test="item.PRF_CD!=null and item.PRF_CD!='' ">
+	       PRF_CD = '${item.PRF_CD}',
+	       </if>
+	       <if test="item.FROM_ROUT_CD!=null and item.FROM_ROUT_CD!='' ">
+	       FROM_ROUT_CD = '${item.FROM_ROUT_CD}',
+	       </if>
+	       <if test="item.TO_ROUT_CD!=null and item.TO_ROUT_CD!='' ">
+	       TO_ROUT_CD = '${item.TO_ROUT_CD}',
+	       </if>
+	       <if test="item.BRANCH_ROUT!=null">
+	       BRANCH_ROUT = '${item.BRANCH_ROUT}',
+	       </if>
+	       <if test="item.CURRENT_VS!=null and CURRENT_VS!=''">
+	       CURRENT_VS = '${item.CURRENT_VS}',	
+	       </if>
+	       <if test="item.USE_YN!=null">
+	       USE_YN = '${item.USE_YN}',
+	       </if>
+	       <if test="item.MO!=null">
+	       MO = '${item.MO}',
+	       </if>
+	       <if test="item.IS_INPUT!=null and item.IS_INPUT!=''">
+	       IS_INPUT = '${item.IS_INPUT}',
+	       </if>
+	       <if test="item.IS_OUTPUT!=null and item.IS_OUTPUT!=''">
+	       IS_OUTPUT = '${item.IS_OUTPUT}',
+	       </if>
+	       <if test="item.USR_DFN_1!=null">
+	       USR_DFN_1 = '${item.USR_DFN_1}',
+	       </if>
+	       <if test="item.USR_DFN_2!=null">
+	       USR_DFN_2 = '${item.USR_DFN_2}',
+	       </if>
+	      <if test="item.USR_DFN_3!=null">
+	       USR_DFN_3 = '${item.USR_DFN_3}',
+	       </if>
+	       <if test="item.USR_DFN_4!=null">
+	       USR_DFN_4 = '${item.USR_DFN_4}',
+	       </if>
+	       <if test="item.USR_DFN_5!=null">
+	       USR_DFN_5 = '${item.USR_DFN_5}',
+	       </if>
+	       UPT_ID = '${F_USE_CD}',
+	       <if test="item.UPT_IP!=null">
+	       UPT_IP = '${item.UPT_IP}',
+	       </if>
+	       UPT_DT = SYSDATE
+	  </set>
+	 <where> 
+	   AND PRF_CD = '${item.PRF_CD}'
+	   AND FROM_ROUT_CD = '${item.FROM_ROUT_CD}'
+	   AND TO_ROUT_CD = '${item.TO_ROUT_CD}'
+	 </where>
+	 </foreach>
+  </update>
+  <!-- 删除工序路线流程配置信息 -->
+  <delete id="deleteProcessRouteConfiguration" parameterType="java.util.HashMap">
+  	 DELETE MES1.R_MES_PRF_CONF_T A
+  	 WHERE A.PRF_CD='${PRF_CD}' AND A.ROUTE_CD='${ROUTE_CD}' AND A.ORDER_CD='${ORDER_CD}'
+	 <!--  WHERE EXISTS 
+	  ( 
+	   SELECT 1 FROM(
+	    <foreach collection="list" item="item" index="index" separator="union all">  
+	     SELECT B.* FROM MES1.R_MES_PRF_CONF_T B 
+	       WHERE 1=1 
+	       AND B.PRF_CD='${item.PRF_CD}' 
+	       AND B.ROUTE_CD='${item.ROUTE_CD}' 
+	       AND B.ROUTE_NAME='${item.ROUTE_NAME}'
+	       AND B.ORDER_CD='${item.ORDER_CD}'
+	    </foreach>
+	    )S WHERE  A.PRF_CD=S.PRF_CD AND A.ROUTE_CD = S.ROUTE_CD AND A.ROUTE_NAME=S.ROUTE_NAME AND A.ORDER_CD=S.ORDER_CD
+	  ) -->
+  </delete>
+  
+  
+  
+  
+  <!-- 查询产品工序路线流程配置  -->
+  <select id="queryProductProcessRouteConfiguration" parameterType="hashmap" resultType="java.util.HashMap">
+ 	<include refid="oraclePagingFileTop"></include>
+       T1.FCT_CD,
+       (SELECT FT_NM from IPLANT1.C_IPLANT_F1_T C WHERE C.FT_CD = T1.FCT_CD) AS FCT_NM,
+       T1.ITEM_CD,
+       T1.ITEM_NM,
+       T1.PRF_CD,
+       T2.PRF_NAME,
+       T1.FROM_ROUT_CD,
+       T1.TO_ROUT_CD,
+       T1.BRANCH_ROUT,
+       T1.CURRENT_VS,
+       T1.CAPACITY,
+       T1.USE_YN,
+       T1.MO,
+       T1.IS_INPUT,
+       T1.IS_OUTPUT,
+       T1.IS_BIND,
+       T1.IS_CARE_YN,
+       T1.USR_DFN_1,
+       T1.USR_DFN_2,
+       T1.USR_DFN_3,
+       T1.USR_DFN_4,
+       T1.USR_DFN_5,
+       T1.CRT_ID,
+       T1.VERSION,
+       T1.ITEM_CD_VERSION,
+       (SELECT EMP_NM FROM IPLANT1.C_IPLANT_E1_T BB WHERE BB.EMP_CD =(SELECT EMP_NO AS EMP_CD FROM IPLANT1.C_IPLANT_U1_T AA WHERE AA.USE_CD = T1.CRT_ID)) AS CRT_NM,
+       T1.CRT_IP,
+       TO_CHAR(T1.CRT_DT, 'YYYY-MM-DD HH24:MI:SS') AS CRT_DT,
+       T1.UPT_ID,
+       T1.UPT_IP,
+       TO_CHAR(T1.UPT_DT, 'YYYY-MM-DD HH24:MI:SS') AS UPT_DT,
+       T3.ROUT_SORT
+    FROM MES1.R_MES_PRODUCT_PRF_CONF_T T1
+    LEFT JOIN MES1.R_MES_PRF_DEF_T T2 ON T2.PRF_CD = T1.PRF_CD 
+    LEFT JOIN MES1.R_MES_ROUTE_DEF_T T3 ON T1.FROM_ROUT_CD = T3.ROUT_CD  
+    <where>1=1
+     	AND T1.USE_YN = '1'
+  		<if test="PRF_CD!=null and PRF_CD!=''">
+  			AND T1.PRF_CD ='${PRF_CD}'
+  		</if>
+  		<if test="VERSION!=null and VERSION!=''">
+  			AND T1.VERSION ='${VERSION}'
+  		</if>
+  		<if test="ITEM_CD!=null and ITEM_CD!=''">
+  			AND T1.ITEM_CD = '${ITEM_CD}'
+  		</if>
+  	</where>
+  	  ORDER BY T1.ITEM_CD,T3.ROUT_SORT DESC
+  <include refid="oraclePagingFileBottom"></include>
+  </select>
+  
+  <select id="queryProductProcessRouteConfiguration_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+     SELECT
+       COUNT(1) AS ROWS_COUNT
+    FROM MES1.R_MES_PRODUCT_PRF_CONF_T T1
+    LEFT JOIN MES1.R_MES_PRF_DEF_T T2 ON T2.PRF_CD = T1.PRF_CD   
+    <where>1=1
+  		<if test="PRF_CD!=null and PRF_CD!=''">
+  			AND T1.PRF_CD ='${PRF_CD}'
+  		</if>
+  		<if test="FROM_ROUT_CD!=null and FROM_ROUT_CD!=''">
+  			AND T1.FROM_ROUT_CD ='${FROM_ROUT_CD}'
+  		</if>
+  		<if test="TO_ROUT_CD!=null and TO_ROUT_CD!=''">
+  			AND T1.TO_ROUT_CD ='${TO_ROUT_CD}'
+  		</if>
+  		<if test="ITEM_CD!=null and ITEM_CD!=''">
+  			AND T1.ITEM_CD = '${ITEM_CD}'
+  		</if>
+  	</where>
+  	ORDER BY T1.CRT_DT DESC
+  </select>
+  
+  <!-- 新增产品工序路线流程配置  -->
+  <insert id="insertProductProcessRouteConfiguration" parameterType="java.util.List">
+  	INSERT INTO MES1.R_MES_PRODUCT_PRF_CONF_T
+	  (
+	   FCT_CD,
+	   ITEM_CD,
+	   ITEM_NM,
+	   PRF_CD,
+	   CAPACITY,
+	   USE_YN,
+	   MO,
+       VERSION,
+       ITEM_CD_VERSION,
+	   CRT_ID,
+	   CRT_DT
+	 )
+	  <foreach collection="list" item="item" index="index" separator="union all">
+	  	  SELECT
+	 	   '${item.FCT_CD}',
+		   '${item.ITEM_CD}',
+		   '${item.ITEM_NM}',
+		   '${item.PRF_CD}',
+		   '${item.CAPACITY}',
+		   '${item.USE_YN}',
+		   '${item.MO}',
+           '${item.VERSION}',
+		   '${item.ITEM_CD_VERSION}',
+		   '${F_USE_CD}',
+		   SYSDATE
+		 FROM DUAL
+	 </foreach>
+  </insert>
+  <!-- 修改产品工序路线流程配置  -->
+  <update id="updateProductProcessRouteConfiguration" parameterType="java.util.List">
+  <foreach collection="list" item="item" index="index" separator=";">
+  	UPDATE MES1.R_MES_PRODUCT_PRF_CONF_T
+    <set>
+    	  <if test="item.FCT_CD!=null and item.FCT_CD!=''">
+	       FCT_CD = '${item.FCT_CD}',
+	       </if>
+	       <if test="item.PRF_CD!=null and item.PRF_CD!=''">
+	       PRF_CD = '${item.PRF_CD}',
+	       </if>
+           <if test="item.USE_YN!=null">
+	       USE_YN = '${item.USE_YN}',
+	       </if>
+	       <if test="item.MO!=null">
+	       MO = '${item.MO}',
+	       </if>
+	       UPT_ID = '${F_USE_CD}',
+	       UPT_DT = SYSDATE
+    </set>   
+   <where>
+	   AND VERSION = '${item.VERSION}'
+	   AND ITEM_CD = '${item.ITEM_CD}'
+   </where>
+  </foreach>
+  </update>
+  <!-- 删除产品工序路线流程配置  -->
+  <delete id="deleteProductProcessRouteConfiguration" parameterType="hashmap">
+  	DELETE MES1.R_MES_PRODUCT_PRF_CONF_T A
+  	   WHERE A.PRF_CD ='${PRF_CD}' AND A.ITEM_CD='${ITEM_CD}' AND A.VERSION = '${VERSION}'
+	  <!--  WHERE EXISTS 
+	  ( 
+	   SELECT 1 FROM(
+	    <foreach collection="list" item="item" index="index" separator="union all">  
+	     SELECT B.* FROM MES1.R_MES_PRODUCT_PRF_CONF_T B 
+	       WHERE 1=1 
+	       AND B.PRF_CD='${item.PRF_CD}' 
+	       AND B.FROM_ROUT_CD='${item.FROM_ROUT_CD}' 
+	       AND B.TO_ROUT_CD='${item.TO_ROUT_CD}'
+	       AND B.ITEM_CD = '${item.ITEM_CD}'
+	       AND B.VERSION = '${item.VERSION}'
+	    </foreach>
+	    )S WHERE  
+	    A.PRF_CD=S.PRF_CD AND A.FROM_ROUT_CD = S.FROM_ROUT_CD 
+	    AND A.TO_ROUT_CD=S.TO_ROUT_CD AND A.ITEM_CD = S.ITEM_CD AND A.VERSION = S.VERSION
+	  ) -->
+  </delete>
+  
+  
+  <!-- 工序路线业务配置查询 -->
+  <select id="queryProcesRouteBusinessConfiguration" parameterType="hashmap" resultType="java.util.HashMap">
+	  <include refid="oraclePagingFileTop"></include>
+	  		 T1.FCT_CD,
+	  		 (SELECT FT_NM from IPLANT1.C_IPLANT_F1_T C WHERE C.FT_CD = T1.FCT_CD) AS FCT_NM,
+		     T1.MAC_ADDRESS,
+		     T1.IP_ADDRESS,
+		     T1.BUSI_CODE,
+		     T1.BUSI_NAME,
+		     T1.LINE_CD,
+		     (SELECT B.PD_LN_NM FROM IPLANT1.C_IPLANT_P5_T B WHERE B.PD_LN_CD =T1.LINE_CD) AS LINE_NM,
+		     T1.ROUT_CD,
+		     T2.ROUT_NAME,
+		     T1.ROUT_SORT,
+		     T1.ROUT_TY,
+		     T1.USE_YN,
+		     T1.MO,
+		     T1.USR_DFN_1,
+		     T1.USR_DFN_2,
+		     T1.USR_DFN_3,
+		     T1.USR_DFN_4,
+		     T1.USR_DFN_5,
+		     T1.CRT_ID,
+		     (SELECT EMP_NM FROM IPLANT1.C_IPLANT_E1_T BB WHERE BB.EMP_CD =(SELECT EMP_NO AS EMP_CD FROM IPLANT1.C_IPLANT_U1_T AA WHERE AA.USE_CD = T1.CRT_ID)) AS CRT_NM,
+		     T1.CRT_IP,
+		     TO_CHAR(T1.CRT_DT, 'YYYY-MM-DD HH24:MI:SS') AS CRT_DT,
+		     T1.UPT_ID,
+		     T1.UPT_IP,
+		     TO_CHAR(T1.UPT_DT, 'YYYY-MM-DD HH24:MI:SS') AS UPT_DT
+		FROM MES1.R_MES_PRF_BUSI_CONF_T  T1
+		LEFT JOIN MES1.R_MES_ROUTE_DEF_T T2  ON T1.ROUT_CD=T2.ROUT_CD
+		<where>1=1
+			<if test="BUSI_CODE!=null and BUSI_CODE!=''">
+				AND T1.BUSI_CODE = '${BUSI_CODE}'
+			</if>
+			<if test="ROUT_CD!=null and ROUT_CD!=''">
+				AND T1.ROUT_CD = '${ROUT_CD}'
+			</if>
+			<if test="IP_ADDRESS!=null and IP_ADDRESS!=''">
+				AND T1.IP_ADDRESS like '%${IP_ADDRESS}%'
+			</if>
+			<if test="MAC_ADDRESS!=null and MAC_ADDRESS!=''">
+				AND T1.MAC_ADDRESS like '%${MAC_ADDRESS}%'
+			</if>
+			<if test="LINE_CD!=null and LINE_CD!=''">
+				AND T1.LINE_CD ='${LINE_CD}'
+			</if>
+		</where>
+		ORDER BY ROUT_SORT DESC
+	  <include refid="oraclePagingFileBottom"></include>
+  </select>
+  
+  <select id="queryProcesRouteBusinessConfiguration_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+	    SELECT
+	       COUNT(1) AS ROWS_COUNT
+		FROM MES1.R_MES_PRF_BUSI_CONF_T  T1
+		LEFT JOIN MES1.R_MES_ROUTE_DEF_T T2  ON T1.ROUT_CD=T2.ROUT_CD
+		<where>1=1
+			<if test="BUSI_CODE!=null and BUSI_CODE!=''">
+				AND T1.BUSI_CODE = '${BUSI_CODE}'
+			</if>
+			<if test="ROUT_CD!=null and ROUT_CD!=''">
+				AND T1.ROUT_CD = '${ROUT_CD}'
+			</if>
+			<if test="IP_ADDRESS!=null and IP_ADDRESS!=''">
+				AND T1.IP_ADDRESS = '${IP_ADDRESS}'
+			</if>
+			<if test="MAC_ADDRESS!=null and MAC_ADDRESS!=''">
+				AND T1.MAC_ADDRESS = '${MAC_ADDRESS}'
+			</if>
+			<if test="LINE_CD!=null and LINE_CD!=''">
+				AND T1.LINE_CD ='${LINE_CD}'
+			</if>
+		</where>
+		ORDER BY ROUT_SORT DESC
+  </select>
+  
+  
+  
+  <!-- 工序路线业务配置新增 -->
+  <insert id="insertProcesRouteBusinessConfiguration" parameterType="java.util.List">
+  	INSERT INTO MES1.R_MES_PRF_BUSI_CONF_T
+	  (
+	   FCT_CD,
+	   MAC_ADDRESS,
+	   IP_ADDRESS,
+	   BUSI_CODE,
+	   BUSI_NAME,
+	   LINE_CD,
+	   ROUT_CD,
+	   ROUT_SORT,
+	   ROUT_TY,
+	   USE_YN,
+	   MO,
+	   USR_DFN_1,
+	   USR_DFN_2,
+	   USR_DFN_3,
+	   USR_DFN_4,
+	   USR_DFN_5,
+	   CRT_ID,
+	   CRT_IP,
+	   CRT_DT
+	  )
+	  (
+	  <foreach collection="list" item="item" index="index" separator="union all">
+	  	  SELECT
+	 	   '${item.FCT_CD}',
+		   '${item.MAC_ADDRESS}',
+		   '${item.IP_ADDRESS}',
+		   '${item.BUSI_CODE}',
+		   '${item.BUSI_NAME}',
+		   '${item.LINE_CD}',
+		   '${item.ROUT_CD}',
+		   '${item.ROUT_SORT}',
+		   '${item.ROUT_TY}',
+		   '${item.USE_YN}',
+		   '${item.MO}',
+		   '${item.USR_DFN_1}',
+		   '${item.USR_DFN_2}',
+		   '${item.USR_DFN_3}',
+		   '${item.USR_DFN_4}',
+		   '${item.USR_DFN_5}',
+		   '${F_USE_CD}',
+		   '${item.CRT_IP}',
+		   SYSDATE
+		 FROM DUAL
+	 </foreach>
+	)
+  </insert>
+  <!-- 工序路线业务配置修改 -->
+  <update id="updateProcesRouteBusinessConfiguration" parameterType="java.util.List">
+  <foreach collection="list" item="item" index="index" separator=";">
+	  UPDATE MES1.R_MES_PRF_BUSI_CONF_T
+		<set>
+		   <if test="item.FCT_CD!=null and item.FCT_CD!=''">  
+	       		FCT_CD = '${item.FCT_CD}',
+	       </if>
+	       <if test="item.MAC_ADDRESS!=null">  
+	       		MAC_ADDRESS = '${item.MAC_ADDRESS}',
+	       </if>
+	       <if test="item.IP_ADDRESS!=null">  
+		       IP_ADDRESS = '${item.IP_ADDRESS}',
+		   </if>
+	       <if test="item.BUSI_CODE!=null and item.BUSI_CODE!=''">  
+	       		BUSI_CODE = '${item.BUSI_CODE}',
+	       </if>
+	       <if test="item.BUSI_NAME!=null">  
+	       		BUSI_NAME = '${item.BUSI_NAME}',
+	       </if>
+	       <if test="item.LINE_CD!=null and item.LINE_CD!=''">
+	       		LINE_CD = '${item.LINE_CD}',
+	       </if>
+	       <if test="item.ROUT_CD!=null and item.ROUT_CD!=''">  
+	       		ROUT_CD = '${item.ROUT_CD}',
+	       </if>
+	       <if test="item.ROUT_SORT!=null">  
+	       		ROUT_SORT = '${item.ROUT_SORT}',
+	       </if>
+	       <if test="item.ROUT_TY!=null">  
+	       		ROUT_TY = '${item.ROUT_TY}',
+	       </if>
+	       <if test="item.USE_YN!=null">  
+	       		USE_YN = '${item.USE_YN}',
+	       </if>
+	       <if test="item.MO!=null">  
+	       		MO = '${item.MO}',
+	       </if>
+	       <if test="item.USR_DFN_1!=null">  
+	       		USR_DFN_1 = '${item.USR_DFN_1}',
+	       </if>
+	       <if test="item.USR_DFN_2!=null">  
+	       		USR_DFN_2 = '${item.USR_DFN_2}',
+	       </if>
+	       <if test="item.USR_DFN_3!=null">  
+	       		USR_DFN_3 = '${item.USR_DFN_3}',
+	       </if>
+	       <if test="item.USR_DFN_4!=null">  
+	       		USR_DFN_4 = '${item.USR_DFN_4}',
+	       </if>
+	       <if test="item.USR_DFN_5!=null">  
+	       		USR_DFN_5 = '${item.USR_DFN_5}',
+	       </if>
+	       UPT_ID = '${F_USE_CD}',
+	       UPT_IP = '${item.UPT_IP}',
+	       UPT_DT = SYSDATE
+	   </set>
+	   <where>
+		   AND MAC_ADDRESS = '${item.MAC_ADDRESS}'
+	   </where>
+	</foreach>
+  </update>
+  <!-- 工序路线业务配置删除 -->
+  <delete id="deleteProcesRouteBusinessConfiguration" parameterType="hashmap">
+  	DELETE MES1.R_MES_PRF_BUSI_CONF_T
+	 WHERE MAC_ADDRESS IN
+	    <foreach item="item" collection="list" open="(" separator="," close=")">  
+		 	#{item.MAC_ADDRESS}
+		 </foreach>
+  </delete>
+  
+  
+  <!-- 工序业务配置业务代码查询 -->
+  <select id="queryProcessC" parameterType="hashmap" resultType="java.util.HashMap">
+	 SELECT 
+	     ROWNUM AS RN,
+	     MN_CD,
+	     MN_NM
+	FROM iplant1.C_IPLANT_M1_T M
+	LEFT JOIN iplant1.C_IPLANT_DD_T D
+	  ON D.DICT_IT = M.SYS_BEL
+	WHERE M.SYS_BEL = 's3'
+	AND M.MN_LEVL = 'lvl3'
+	AND M.MN_MD = 'MES0601'
+	OR M.MN_CD = 'MES03004'
+	ORDER BY M.CRT_DT DESC
+  </select>
+  
+  
+  <!-- 查询当前SN所在ROUTE -->
+  <select id="queryPreSnRoute" parameterType="hashmap" resultType="java.util.HashMap">
+  	SELECT 
+  		FCT_CD,
+        WC_CD,
+        BAR_CODE,
+        WO_NO,
+        MO_NO,
+        ITEM_CD,
+        ITEM_NM,
+        PRF_CD,
+        PREV_ROUT_CD,
+        CURR_ROUT_CD,
+        NEXT_ROUT_CD
+  	FROM MES1.R_MES_WIP_T 
+  	WHERE BAR_CODE = '${BAR_CODE}'
+  </select>
+  
+  
+  
+  
+  
+  <!-- 查询工序类型 -->
+  <select id="queryPrfInfo" parameterType="hashmap" resultType="java.util.HashMap">
+  	SELECT DICT_IT,DICT_IT_NM FROM IPLANT1.C_IPLANT_DD_T t WHERE DICT_CD = 'GXS01'
+  </select>
+  
+  <!-- 查询路线类型 -->
+  <select id="queryRouteInfo" parameterType="hashmap" resultType="java.util.HashMap">
+  	SELECT DICT_IT,DICT_IT_NM FROM IPLANT1.C_IPLANT_DD_T t WHERE DICT_CD = 'LXS01'
+  </select>
+  
+  <!-- 查询模板类型 -->
+  <select id="queryTempInfo" parameterType="hashmap" resultType="java.util.HashMap">
+  	SELECT DICT_IT,DICT_IT_NM FROM IPLANT1.C_IPLANT_DD_T t WHERE DICT_CD = 'MOS01'
+  </select>
+  
+  <!-- 查询方法类型 -->
+  <select id="queryFunInfo" parameterType="hashmap" resultType="java.util.HashMap">
+  	SELECT DICT_IT,DICT_IT_NM FROM IPLANT1.C_IPLANT_DD_T t WHERE DICT_CD = 'FUN01'
+  </select>
+  
+  <!--====================================模板管理========================================-->
+  <!-- 查询模板定义信息 -->
+  <select id="queryTemplateDefinition" parameterType="hashmap" resultType="java.util.HashMap">
+  <include refid="oraclePagingFileTop"></include>
+ 	  FCT_CD,
+ 	  (SELECT FT_NM from IPLANT1.C_IPLANT_F1_T C WHERE C.FT_CD = FCT_CD) AS FCT_NM,
+      TEMP_CODE,
+      TEMP_NAME,
+      TEMP_TY,
+      (SELECT DICT_IT_NM FROM IPLANT1.C_IPLANT_DD_T A WHERE A.DICT_IT = TEMP_TY) AS TEMP_TYPE_NM,
+      USE_YN,
+      MO,
+      USR_DFN_1,
+      USR_DFN_2,
+      USR_DFN_3,
+      USR_DFN_4,
+      USR_DFN_5,
+      CRT_ID,
+      (SELECT EMP_NM FROM IPLANT1.C_IPLANT_E1_T BB WHERE BB.EMP_CD =(SELECT EMP_NO AS EMP_CD FROM IPLANT1.C_IPLANT_U1_T AA WHERE AA.USE_CD = T1.CRT_ID)) AS CRT_NM,
+      CRT_IP,
+      TO_CHAR(CRT_DT, 'YYYY-MM-DD HH24:MI:SS') AS CRT_DT,
+      UPT_ID,
+      UPT_IP,
+      TO_CHAR(UPT_DT, 'YYYY-MM-DD HH24:MI:SS') AS UPT_DT
+  FROM MES1.R_MES_TEMP_DEF_T T1
+ <where>1=1
+ 	<if test="TEMP_CODE!=null and TEMP_CODE!=''">
+ 	   AND TEMP_CODE = '${TEMP_CODE}'
+ 	</if>
+ 	<if test="TEMP_NAME!=null and TEMP_NAME!=''">
+ 	   AND TEMP_NAME = '${TEMP_NAME}'
+ 	</if>
+ </where>
+ ORDER BY CRT_DT DESC
+  <include refid="oraclePagingFileBottom"></include>
+  </select>
+  <!-- 新增模板定义信息 -->
+  <insert id="insertTemplateDefinition" parameterType="java.util.List">
+  	INSERT INTO MES1.R_MES_TEMP_DEF_T
+	  (FCT_CD,
+	   TEMP_CODE,
+	   TEMP_NAME,
+	   TEMP_TY,
+	   USE_YN,
+	   MO,
+	   USR_DFN_1,
+	   USR_DFN_2,
+	   USR_DFN_3,
+	   USR_DFN_4,
+	   USR_DFN_5,
+	   CRT_ID,
+	   CRT_IP,
+	   CRT_DT)
+	  (
+	   <foreach collection="list" item="item" index="index" separator="union all">
+		  SELECT
+		   '${item.FCT_CD}',
+		   '${item.TEMP_CODE}',
+		   '${item.TEMP_NAME}',
+		   '${item.TEMP_TY}',
+		   '${item.USE_YN}',
+		   '${item.MO}',
+		   '${item.USR_DFN_1}',
+		   '${item.USR_DFN_2}',
+		   '${item.USR_DFN_3}',
+		   '${item.USR_DFN_4}',
+		   '${item.USR_DFN_5}',
+		   '${F_USE_CD}',
+		   '${item.CRT_IP}',
+		   SYSDATE
+	    FROM DUAL
+	   </foreach>
+	  )
+  </insert>
+  <!-- 修改模板定义信息 -->
+  <update id="updateTemplateDefinition" parameterType="java.util.List">
+  <foreach collection="list" item="item" index="index" separator=";">
+  	UPDATE MES1.R_MES_TEMP_DEF_T
+  	<set>
+  	   <if test="item.FCT_CD!=null and item.FCT_CD!=''">
+       FCT_CD = '${item.FCT_CD}',
+       </if>
+       <if test="item.TEMP_CODE!=null and item.TEMP_CODE!=''">
+       TEMP_CODE = '${item.TEMP_CODE}',
+       </if>
+       <if test="item.TEMP_NAME!=null and item.TEMP_NAME!=''">
+       TEMP_NAME = '${item.TEMP_NAME}',
+       </if>
+       <if test="item.TEMP_TY!=null">
+       TEMP_TY ='${item.TEMP_TY}',	
+       </if>
+       <if test="item.USE_YN!=null">
+       USE_YN = '${item.USE_YN}',
+       </if>
+       <if test="item.MO!=null">
+       MO = '${item.MO}',
+       </if>
+       <if test="item.USR_DFN_1!=null">
+       USR_DFN_1 = '${item.USR_DFN_1}',
+       </if>
+       <if test="item.USR_DFN_2!=null">
+       USR_DFN_2 = '${item.USR_DFN_2}',
+       </if>
+        <if test="item.USR_DFN_3!=null">
+       USR_DFN_3 = '${item.USR_DFN_3}',
+       </if>
+        <if test="item.USR_DFN_4!=null">
+       USR_DFN_4 = '${item.USR_DFN_4}',
+       </if>
+        <if test="item.USR_DFN_5!=null">
+       USR_DFN_5 = '${item.USR_DFN_5}',
+       </if>
+       UPT_ID = '${F_USE_CD}',
+       <if test="item.UPT_IP!=null">
+       UPT_IP = '${item.UPT_IP}',
+       </if>
+       UPT_DT = SYSDATE
+   </set>
+ <where> 
+   AND TEMP_CODE = '${item.TEMP_CODE}'
+  </where>	
+  </foreach>
+  </update>
+  <!-- 删除模板定义信息 -->
+  <delete id="deleteTemplateDefinition" parameterType="hashmap">
+  	DELETE MES1.R_MES_TEMP_DEF_T
+	 WHERE TEMP_CODE IN
+	 <foreach item="item" collection="list" open="(" separator="," close=")">  
+		#{item.TEMP_CODE}
+    </foreach>
+  </delete>
+  
+  <!-- 查询模板方法定义信息 -->
+  <select id="queryTemplateMethodDefinition" parameterType="hashmap" resultType="java.util.HashMap">
+  <include refid="oraclePagingFileTop"></include>
+  	   FCT_CD,
+  	   (SELECT FT_NM from IPLANT1.C_IPLANT_F1_T C WHERE C.FT_CD = FCT_CD) AS FCT_NM,
+       FUN_CODE,
+       FUN_NAME,
+       FUN_TY,
+       (SELECT DICT_IT_NM FROM IPLANT1.C_IPLANT_DD_T A WHERE A.DICT_IT = FUN_TY) AS FUN_TYPE_NM,
+       CLASS_NAME,
+       USE_YN,
+       MO,
+       USR_DFN_1,
+       USR_DFN_2,
+       USR_DFN_3,
+       USR_DFN_4,
+       USR_DFN_5,
+       CRT_ID,
+       (SELECT EMP_NM FROM IPLANT1.C_IPLANT_E1_T BB WHERE BB.EMP_CD =(SELECT EMP_NO AS EMP_CD FROM IPLANT1.C_IPLANT_U1_T AA WHERE AA.USE_CD = T1.CRT_ID)) AS CRT_NM,
+       CRT_IP,
+       TO_CHAR(CRT_DT, 'YYYY-MM-DD HH24:MI:SS') AS CRT_DT,
+       UPT_ID,
+       UPT_IP,
+       TO_CHAR(UPT_DT, 'YYYY-MM-DD HH24:MI:SS') AS UPT_DT
+  FROM MES1.R_MES_FUN_DEF_T T1
+  <where>1=1
+  	<if test="FUN_CODE!=null and FUN_CODE!=''">
+  		AND FUN_CODE = '${FUN_CODE}'
+  	</if>
+  	<if test="FUN_NAME!=null and FUN_NAME!=''">
+  		AND FUN_NAME = '${FUN_NAME}'
+  	</if>
+  </where>
+  ORDER BY CRT_DT DESC
+  <include refid="oraclePagingFileBottom"></include>
+  </select>
+  <!-- 新增模板方法定义信息 -->
+  <insert id="insertTemplateMethodDefinition" parameterType="java.util.List">
+	  INSERT INTO MES1.R_MES_FUN_DEF_T
+	  (FCT_CD,
+	   FUN_CODE,
+	   FUN_NAME,
+	   FUN_TY,
+	   CLASS_NAME,
+	   USE_YN,
+	   MO,
+	   USR_DFN_1,
+	   USR_DFN_2,
+	   USR_DFN_3,
+	   USR_DFN_4,
+	   USR_DFN_5,
+	   CRT_ID,
+	   CRT_IP,
+	   CRT_DT)
+	  (
+	  <foreach collection="list" item="item" index="index" separator="union all">
+		  SELECT
+		   '${item.FCT_CD}',
+		   '${item.FUN_CODE}',
+		   '${item.FUN_NAME}',
+		   '${item.FUN_TY}',
+		   '${item.CLASS_NAME}',
+		   '${item.USE_YN}',
+		   '${item.MO}',
+		   '${item.USR_DFN_1}',
+		   '${item.USR_DFN_2}',
+		   '${item.USR_DFN_3}',
+		   '${item.USR_DFN_4}',
+		   '${item.USR_DFN_5}',
+		   '${F_USE_CD}',
+		   '${item.CRT_IP}',
+		   SYSDATE
+	     FROM DUAL
+	   </foreach>
+	   )
+	  
+  </insert>
+  <!-- 修改模板方法定义信息 -->
+  <update id="updateTemplateMethodDefinition" parameterType="java.util.List">
+  <foreach collection="list" item="item" index="index" separator=";">
+	  UPDATE MES1.R_MES_FUN_DEF_T
+	  <set>
+	  	   <if test="item.FCT_CD!=null and item.FCT_CD!=''">
+	       FCT_CD = '${item.FCT_CD}',
+	       </if>
+	       <if test="item.FUN_CODE!=null and item.FUN_CODE!=''">
+	       FUN_CODE = '${item.FUN_CODE}',
+	       </if>
+	       <if test="item.FUN_NAME!=null and item.FUN_NAME!=''">
+	       FUN_NAME = '${item.FUN_NAME}',
+	       </if>
+	       <if test="item.FUN_TY!=null">
+	       FUN_TY = '${item.FUN_TY}',
+	       </if>
+	       <if test="item.CLASS_NAME!=null and item.CLASS_NAME!=''">
+	       CLASS_NAME = '${item.CLASS_NAME}',
+	       </if>
+	       <if test="item.USE_YN!=null">
+	       USE_YN = '${item.USE_YN}',
+	       </if>
+	       <if test="item.MO!=null">
+	       MO = '${item.MO}',
+	       </if>
+	       <if test="item.USR_DFN_1!=null">
+	       USR_DFN_1 = '${item.USR_DFN_1}',
+	       </if>
+	       <if test="item.USR_DFN_2!=null">
+	       USR_DFN_2 = '${item.USR_DFN_2}',
+	       </if>
+	        <if test="item.USR_DFN_3!=null">
+	       USR_DFN_3 = '${item.USR_DFN_3}',
+	       </if>
+	        <if test="item.USR_DFN_4!=null">
+	       USR_DFN_4 = '${item.USR_DFN_4}',
+	       </if>
+	        <if test="item.USR_DFN_5!=null">
+	       USR_DFN_5 = '${item.USR_DFN_5}',
+	       </if>
+	       UPT_ID = '${F_USE_CD}',
+	       <if test="item.UPT_IP!=null">
+	       UPT_IP = '${item.UPT_IP}',
+	       </if>
+	       UPT_DT = SYSDATE
+	 </set>
+	 <where> 
+	   AND FUN_CODE = '${item.FUN_CODE}'
+	  </where>
+	</foreach>
+  </update>
+  
+  <!-- 删除模板方法定义信息 -->
+  <delete id="deleteTemplateMethodDefinition" parameterType="hashmap">
+	  DELETE MES1.R_MES_FUN_DEF_T
+	 	WHERE FUN_CODE IN 
+	 	<foreach item="item" collection="list" open="(" separator="," close=")">  
+			#{item.FUN_CODE}
+       </foreach>
+  </delete>
+  
+  <!-- 模板方法配置与模板方法关联查询-->
+  <select id="queryTemplateMethodConfiguration" parameterType="hashmap" resultType="java.util.HashMap">
+  	  SELECT
+	     T1.FCT_CD,
+	     (SELECT FT_NM from IPLANT1.C_IPLANT_F1_T C WHERE C.FT_CD = T1.FCT_CD) AS FCT_NM,
+	     T1.TEMP_CODE,
+	     T3.TEMP_NAME,
+	     T1.FUN_CODE,
+	     T2.FUN_NAME,
+	     T1.EXCU_SEQU,
+	     T2.CLASS_NAME,
+	     T1.USE_YN,
+	     T1.MO,
+	     T1.USR_DFN_1,
+	     T1.USR_DFN_2,
+	     T1.USR_DFN_3,
+	     T1.USR_DFN_4,
+	     T1.USR_DFN_5,
+	     T1.CRT_ID,
+	     (SELECT EMP_NM FROM IPLANT1.C_IPLANT_E1_T BB WHERE BB.EMP_CD =(SELECT EMP_NO AS EMP_CD FROM IPLANT1.C_IPLANT_U1_T AA WHERE AA.USE_CD = T1.CRT_ID)) AS CRT_NM,
+	     T1.CRT_IP,
+	     TO_CHAR(T1.CRT_DT, 'YYYY-MM-DD HH24:MI:SS') AS CRT_DT,
+	     T1.UPT_ID,
+	     T1.UPT_IP,
+	     TO_CHAR(T1.UPT_DT, 'YYYY-MM-DD HH24:MI:SS') AS UPT_DT
+	  FROM MES1.R_MES_TEMP_FUN_CONF_T T1
+	  LEFT JOIN MES1.R_MES_FUN_DEF_T T2 ON T1.FUN_CODE = T2.FUN_CODE
+	  LEFT JOIN MES1.R_MES_TEMP_DEF_T T3 ON T1.TEMP_CODE = T3.TEMP_CODE
+	  <where>1=1
+		  <if test="TEMP_CODE!=null and TEMP_CODE!=''">
+	    		AND T1.TEMP_CODE = '${TEMP_CODE}'
+	   	  </if>
+	   	  <if test="FUN_CODE!=null and FUN_CODE!=''">
+	   			AND T1.FUN_CODE = '${FUN_CODE}'
+	   	  </if>
+   	  </where>
+	  ORDER BY T1.CRT_DT DESC
+  </select>
+  <!-- 查询模板方法配置信息 -->
+  <select id="queryTempMethodAndDefinition" parameterType="hashmap" resultType="java.util.HashMap">
+  <include refid="oraclePagingFileTop"></include>
+  	   FCT_CD,
+  	   (SELECT FT_NM from IPLANT1.C_IPLANT_F1_T C WHERE C.FT_CD = FCT_CD) AS FCT_NM,
+       TEMP_CODE,
+       FUN_CODE,
+       EXCU_SEQU,
+       USE_YN,
+       MO,
+       USR_DFN_1,
+       USR_DFN_2,
+       USR_DFN_3,
+       USR_DFN_4,
+       USR_DFN_5,
+       CRT_ID,
+       (SELECT EMP_NM FROM IPLANT1.C_IPLANT_E1_T BB WHERE BB.EMP_CD =(SELECT EMP_NO AS EMP_CD FROM IPLANT1.C_IPLANT_U1_T AA WHERE AA.USE_CD = T1.CRT_ID)) AS CRT_NM,
+       CRT_IP,
+       TO_CHAR(CRT_DT, 'YYYY-MM-DD HH24:MI:SS') AS CRT_DT,
+       UPT_ID,
+       UPT_IP,
+       TO_CHAR(UPT_DT, 'YYYY-MM-DD HH24:MI:SS') AS UPT_DT
+    FROM MES1.R_MES_TEMP_FUN_CONF_T T1
+    <where>1=1
+    	<if test="TEMP_CODE!=null and TEMP_CODE!=''">
+    		AND TEMP_CODE = '${TEMP_CODE}'
+    	</if>
+    	<if test="FUN_CODE!=null and FUN_CODE!=''">
+    		AND FUN_CODE = '${FUN_CODE}'
+    	</if>
+    </where>
+    
+  <include refid="oraclePagingFileBottom"></include>
+  </select>
+  <!-- 新增模板方法配置信息 -->
+  <insert id="insertTemplateMethodConfiguration" parameterType="java.util.List">
+  	INSERT INTO MES1.R_MES_TEMP_FUN_CONF_T
+	  (FCT_CD,
+	   TEMP_CODE,
+	   FUN_CODE,
+	   EXCU_SEQU,
+	   USE_YN,
+	   MO,
+	   USR_DFN_1,
+	   USR_DFN_2,
+	   USR_DFN_3,
+	   USR_DFN_4,
+	   USR_DFN_5,
+	   CRT_ID,
+	   CRT_IP,
+	   CRT_DT)
+	  (
+	  <foreach collection="list" item="item" index="index" separator="union all">
+		  SELECT
+		   '${item.FCT_CD}',
+		   '${item.TEMP_CODE}',
+		   '${item.FUN_CODE}',
+		   '${item.EXCU_SEQU}',
+		   '${item.USE_YN}',
+		   '${item.MO}',
+		   '${item.USR_DFN_1}',
+		   '${item.USR_DFN_2}',
+		   '${item.USR_DFN_3}',
+		   '${item.USR_DFN_4}',
+		   '${item.USR_DFN_5}',
+		   '${F_USE_CD}',
+		   '${item.CRT_IP}',
+		   SYSDATE
+	   FROM DUAL
+	   </foreach>
+	   )
+  </insert>
+  <!-- 修改模板方法配置信息 -->
+  <update id="updateTemplateMethodConfiguration" parameterType="java.util.List">
+  <foreach collection="list" item="item" index="index" separator=";">
+	  UPDATE MES1.R_MES_TEMP_FUN_CONF_T
+	  	<set>
+	  	   <if test="item.FCT_CD!=null and item.FCT_CD!=''">
+	       FCT_CD = '${item.FCT_CD}',
+	       </if>
+	       <if test="item.TEMP_CODE!=null and item.TEMP_CODE!=''">
+	       TEMP_CODE = '${item.TEMP_CODE}',
+	       </if>
+	       <if test="item.FUN_CODE!=null and item.FUN_CODE!=''">
+	       FUN_CODE = '${item.FUN_CODE}',
+	       </if>
+	       <if test="item.EXCU_SEQU!=null and item.EXCU_SEQU!=''">
+	       EXCU_SEQU = '${item.EXCU_SEQU}',
+	       </if>
+	       <if test="item.USE_YN!=null">
+	       USE_YN = '${item.USE_YN}',
+	       </if>
+	       <if test="item.MO!=null">
+	       MO = '${item.MO}',
+	       </if>
+	       <if test="item.USR_DFN_1!=null">
+	       USR_DFN_1 = '${item.USR_DFN_1}',
+	       </if>
+	       <if test="item.USR_DFN_2!=null">
+	       USR_DFN_2 = '${item.USR_DFN_2}',
+	       </if>
+	        <if test="item.USR_DFN_3!=null">
+	       USR_DFN_3 = '${item.USR_DFN_3}',
+	       </if>
+	        <if test="item.USR_DFN_4!=null">
+	       USR_DFN_4 = '${item.USR_DFN_4}',
+	       </if>
+	        <if test="item.USR_DFN_5!=null">
+	       USR_DFN_5 = '${item.USR_DFN_5}',
+	       </if>
+	       UPT_ID = '${F_USE_CD}',
+	       <if test="item.UPT_IP!=null">
+	       UPT_IP = '${item.UPT_IP}',
+	       </if>
+	       UPT_DT = SYSDATE
+	  </set>
+	 <where> 
+	   AND TEMP_CODE = '${item.TEMP_CODE}'
+	   AND FUN_CODE = '${item.FUN_CODE}'
+	   AND EXCU_SEQU = '${item.EXCU_SEQU}'
+	 </where>
+	</foreach>
+  </update>
+  <!-- 删除模板方法配置信息 -->
+  <delete id="deleteTemplateMethodConfiguration" parameterType="hashmap">
+  	DELETE MES1.R_MES_TEMP_FUN_CONF_T
+	 WHERE FCT_CD = '${FCT_CD}'
+	   AND TEMP_CODE = '${TEMP_CODE}'
+	   AND FUN_CODE = '${FUN_CODE}'
+	   AND EXCU_SEQU = '${EXCU_SEQU}'
+  </delete>
+  
+  
+  
+  <!-- 查询模版方法运行记录表 -->
+  <select id="queryTemplateMethodRunLog" parameterType="hashmap" resultType="java.util.HashMap">
+  <include refid="oraclePagingFileTop"></include>
+	     SEQ,
+	     FCT_CD,
+	     BAR_CODE,
+	     BIZ_CODE,
+	     TEMP_CODE,
+	     FUN_CODE,
+	     HANDLE_STATUS,
+	     EXCU_SEQU,
+	     USE_YN,
+	     ERROR_CODE,
+	     ERROR_NM,
+	     MO,
+	     USR_DFN_1,
+	     USR_DFN_2,
+	     USR_DFN_3,
+	     USR_DFN_4,
+	     USR_DFN_5,
+	     CRT_ID,
+	     (SELECT EMP_NM FROM IPLANT1.C_IPLANT_E1_T BB WHERE BB.EMP_CD =(SELECT EMP_NO AS EMP_CD FROM IPLANT1.C_IPLANT_U1_T AA WHERE AA.USE_CD = T1.CRT_ID)) AS CRT_NM,
+	     CRT_IP,
+	     CRT_DT,
+	     UPT_ID,
+	     UPT_IP,
+	     UPT_DT
+	FROM MES1.R_MES_TEMP_FUN_DETAIL_T T1
+	<where>1=1
+		 <if test="FCT_CD!=null and FCT_CD!=''">
+		 AND FCT_CD = '${FCT_CD}'
+		 </if>
+		 <if test="BIZ_CODE!=null and BIZ_CODE!=''">
+	 	 AND BIZ_CODE = '${BIZ_CODE}'
+	 	 </if>
+	 	 <if test="BAR_CODE!=null and BAR_CODE!=''">
+	 	 AND BAR_CODE = '${BAR_CODE}'
+	 	 </if>
+	 	 <if test="TEMP_CODE!=null and TEMP_CODE!=''">
+	 	 AND TEMP_CODE = '${TEMP_CODE}'
+	 	 </if>
+	 	 <if test="FUN_CODE!=null and FUN_CODE!=''">
+	 	 AND FUN_CODE ='${FUN_CODE}'
+	 	 </if>
+	 	 <if test="EXCU_SEQU!=null and EXCU_SEQU!=''">
+	 	 AND EXCU_SEQU='${EXCU_SEQU}'	
+	 	 </if>
+	 	 <if test="HANDLE_STATUS!=null and HANDLE_STATUS!=''">
+	 	 AND HANDLE_STATUS='${HANDLE_STATUS}'
+	 	 </if>
+	</where>
+  <include refid="oraclePagingFileBottom"></include>
+  </select>
+  
+  <!-- 新增模版方法运行记录表 -->
+  <insert id="insertTemplateMethodRunLog" parameterType="java.util.List">
+	INSERT INTO MES1.R_MES_TEMP_FUN_DETAIL_T
+	  (SEQ,
+	   FCT_CD,
+	   BAR_CODE,
+	   BIZ_CODE,
+	   TEMP_CODE,
+	   FUN_CODE,
+	   HANDLE_STATUS,
+	   EXCU_SEQU,
+	   USE_YN,
+	   ERROR_CODE,
+	   ERROR_NM,
+	   MO,
+	   USR_DFN_1,
+	   USR_DFN_2,
+	   USR_DFN_3,
+	   USR_DFN_4,
+	   USR_DFN_5,
+	   CRT_ID,
+	   CRT_IP,
+	   CRT_DT
+	   )
+	    SELECT
+	    	TEMP_FUN_DETAIL_SEQ.NEXTVAL,
+		    FCT_CD,
+		   '${BAR_CODE}',
+		   '${BIZ_CODE}',
+		   '${TEMP_CODE}',
+		   '${FUN_CODE}',
+		   '0',
+		    EXCU_SEQU,
+		    USE_YN,
+		   '${ERROR_CODE}',
+		   '${ERROR_NM}',
+		    MO,
+		   USR_DFN_1,
+		   USR_DFN_2,
+		   USR_DFN_3,
+		   USR_DFN_4,
+		   USR_DFN_5,
+		   CRT_ID,
+		   CRT_IP,
+		   SYSDATE
+		FROM MES1.R_MES_TEMP_FUN_CONF_T
+		WHERE
+		TEMP_CODE ='${TEMP_CODE}' 
+		AND FUN_CODE='${FUN_CODE}' 
+		AND FCT_CD='${FCT_CD}' AND USE_YN='1'
+	</insert>
+  <!-- 修改模版方法运行记录表 -->
+  <update id="updateTemplateMethodRunLog" parameterType="java.util.HashMap">
+	 <!-- <foreach collection="list" item="item" index="index" separator=";"> -->
+	 	UPDATE MES1.R_MES_TEMP_FUN_DETAIL_T
+ 		<set>
+ 		   <if test="FCT_CD!=null and FCT_CD!=''">
+	       FCT_CD = '${FCT_CD}',
+	       </if>
+	       <if test="BAR_CODE!=null">
+	       BAR_CODE = '${BAR_CODE}',
+	       </if>
+	       <if test="BAR_CODE!=null">
+	       BIZ_CODE = '${BIZ_CODE}',
+	       </if>
+	       <if test="TEMP_CODE!=null and TEMP_CODE!=''">
+	       TEMP_CODE = '${TEMP_CODE}',
+	       </if>
+	       <if test="FUN_CODE!=null and FUN_CODE!=''">
+	       FUN_CODE = '${FUN_CODE}',
+	       </if>
+	       <if test="HANDLE_STATUS!=null">
+	       HANDLE_STATUS = '${HANDLE_STATUS}',
+	       </if>
+	       <if test="EXCU_SEQU!=null and EXCU_SEQU!=''">
+	       EXCU_SEQU = '${EXCU_SEQU}',
+	       </if>
+	       <if test="USE_YN!=null">
+	       USE_YN = '${USE_YN}',
+	       </if>
+	       <if test="ERROR_CODE!=null">
+	       ERROR_CODE = '${ERROR_CODE}',
+	       </if>
+	       <if test="ERROR_NM!=null">
+	       ERROR_NM = '${ERROR_NM}',
+	       </if>
+	       <if test="MO!=null">
+	       MO = '${MO}',
+	       </if>
+	       <if test="USR_DFN_1!=null">
+	       USR_DFN_1 = '${USR_DFN_1}',
+	       </if>
+	       <if test="USR_DFN_2!=null">
+	       USR_DFN_2 = '${USR_DFN_2}',
+	       </if>
+	        <if test="USR_DFN_3!=null">
+	       USR_DFN_3 = '${USR_DFN_3}',
+	       </if>
+	        <if test="USR_DFN_4!=null">
+	       USR_DFN_4 = '${USR_DFN_4}',
+	       </if>
+	        <if test="USR_DFN_5!=null">
+	       USR_DFN_5 = '${USR_DFN_5}',
+	       </if>
+	       UPT_ID = '${F_USE_CD}',
+	       <if test="UPT_IP!=null">
+	       UPT_IP = '${UPT_IP}',
+	       </if>
+	       UPT_DT = SYSDATE
+      </set>
+	 <where>
+	 	 AND FCT_CD = '${FCT_CD}'
+	 	 AND BIZ_CODE = '${BIZ_CODE}'
+	 	 AND BAR_CODE = '${BAR_CODE}'
+	 	 AND TEMP_CODE = '${TEMP_CODE}'
+	 	 AND FUN_CODE ='${FUN_CODE}'
+	 	 <if test="EXCU_SEQU!=null and EXCU_SEQU!=''">
+	 	 AND EXCU_SEQU = '${EXCU_SEQU}'
+	 	 </if>
+	 	 <if test="HANDLE_STATUS!=null and HANDLE_STATUS!=''">
+	 	 AND HANDLE_STATUS = '${HANDLE_STATUS}'
+	 	 </if>
+	 </where>
+	<!-- </foreach> -->
+  </update>
+  <!-- 删除模版方法运行记录表 -->
+  <delete id="deleteTemplateMethodRunLog" parameterType="hashmap">
+  		DELETE MES1.R_MES_TEMP_FUN_DETAIL_T
+ 			WHERE SEQ = '${SEQ}'
+  </delete>
+  
+  
+  
+  <!-- 作业指示物料申请明细查询 -->
+  <select id="queryJobInstructionApplication" parameterType="hashmap" resultType="java.util.HashMap">
+  <include refid="oraclePagingFileTop"></include>
+	     T1.FCT_CD,
+	       (SELECT FT_NM FROM IPLANT1.C_IPLANT_F1_T C WHERE C.FT_CD = T1.FCT_CD) AS FCT_NM,
+	       T1.WC_CD,
+	       T1.WO_NO,
+	       T1.MO_NO,
+	       T1.PO_ROW_IDX,
+	       T1.PRNT_MAT_CD,
+	       T1.PRNT_MAT_NM,
+	       T1.MAT_BAT_CD,
+	       T1.MAT_CD,
+	       NVL(TT.PSN_QTY,0) AS MAT_STOCK_QTY,
+	       T1.MAT_NM,
+	       T1.MAT_TYPE,
+	       T1.FR_WC_CD,
+	       T1.FR_WHS_CD,
+	       T1.FR_LOC_CD,
+	       T1.TO_WHS_CD,
+	       T1.TO_LOC_CD,
+	       T1.CUST_CD,
+	       T1.CUST_NM,
+	       T1.UOM,
+	       (SELECT DICT_IT_NM FROM IPLANT1.C_IPLANT_DD_T D WHERE T1.UOM = D.DICT_IT) AS UOM_NM,
+	       T1.UNIT_QTY,
+	       NVL(T1.PLAN_QTY,0) AS PLAN_QTY,
+	       NVL(T1.REQ_QTY,0) AS REQ_QTY,
+	       NVL(T1.REQ_PROC_QTY,0) AS REQ_PROC_QTY,
+	       NVL(T1.REQ_QTY-REQ_PROC_QTY,0) AS DAI_PROC_QTY,
+	       T1.MO,
+	       T1.CRT_ID,
+	       (SELECT EMP_NM FROM IPLANT1.C_IPLANT_E1_T BB WHERE BB.EMP_CD =(SELECT EMP_NO AS EMP_CD FROM IPLANT1.C_IPLANT_U1_T AA WHERE AA.USE_CD = T1.CRT_ID)) AS CRT_NM,
+	       T1.CRT_IP,
+	       TO_CHAR(T1.CRT_DT, 'YYYY-MM-DD HH24:MI:SS') AS CRT_DT,
+	       T1.UPT_ID,
+	       T1.UPT_IP,
+	       TO_CHAR(T1.UPT_DT, 'YYYY-MM-DD HH24:MI:SS') AS UPT_DT
+	  FROM MES1.R_MES_REQ_MAT_T T1
+	  LEFT JOIN(
+	     SELECT 
+	      MO_NO,
+	      WO_NO,
+	      ITEM_CD,
+	      MAT_CD, 
+	      SUM(PSN_QTY)  AS PSN_QTY
+	    FROM MES1.R_MES_MAT_STOCK_T WHERE WO_NO = '${WO_NO}'
+	    GROUP BY
+	    MO_NO,
+	    WO_NO,
+	    ITEM_CD,
+	    MAT_CD
+	  ) TT ON TT.MO_NO= T1.MO_NO AND TT.WO_NO= T1.WO_NO AND TT.MAT_CD = T1.MAT_CD AND TT.ITEM_CD= T1.PRNT_MAT_CD
+	<where>
+		AND T1.WO_NO = '${WO_NO}'
+	</where>
+  <include refid="oraclePagingFileBottom"></include>
+  </select>
+  
+   <select id="queryJobInstructionApplication_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+      SELECT 
+           COUNT(*) AS ROWS_COUNT 
+      FROM MES1.R_MES_REQ_MAT_T T1
+      LEFT JOIN(
+	     SELECT 
+	      MO_NO,
+	      WO_NO,
+	      ITEM_CD,
+	      MAT_CD, 
+	      SUM(PSN_QTY) AS PSN_QTY
+	    FROM MES1.R_MES_MAT_STOCK_T WHERE WO_NO = '${WO_NO}'
+	    GROUP BY
+	    MO_NO,
+	    WO_NO,
+	    ITEM_CD,
+	    MAT_CD
+	  ) TT ON TT.MO_NO= T1.MO_NO AND TT.WO_NO= T1.WO_NO AND TT.MAT_CD = T1.MAT_CD AND TT.ITEM_CD= T1.PRNT_MAT_CD
+	<where>
+		AND T1.WO_NO = '${WO_NO}'
+	</where>
+   </select>
+  
+  
+  <!-- 作业指示物料申请明细新增 -->
+  <insert id="insertJobInstructionApplication" parameterType="java.util.HashMap">
+	  INSERT INTO MES1.R_MES_REQ_MAT_T
+	  (FCT_CD,
+	   WC_CD,
+	   WO_NO,
+	   MO_NO,
+	   PO_ROW_IDX,
+	   PRNT_MAT_CD,
+	   PRNT_MAT_NM,
+	   MAT_BAT_CD,
+	   MAT_CD,
+	   MAT_NM,
+	   MAT_TYPE,
+	   FR_WC_CD,
+	   FR_WHS_CD,
+	   FR_LOC_CD,
+	   TO_WHS_CD,
+	   TO_LOC_CD,
+	   CUST_CD,
+	   CUST_NM,
+	   UOM,
+	   UNIT_QTY,
+	   PLAN_QTY,
+	   REQ_QTY,
+	   REQ_PROC_QTY,
+	   MO,
+	   USR_DFN_1,
+	   USR_DFN_2,
+	   USR_DFN_3,
+	   USR_DFN_4,
+	   USR_DFN_5,
+	   CRT_ID,
+	   CRT_IP,
+	   CRT_DT)
+	  (
+	  <foreach collection="list" item="item" index="index" separator="union all">
+	    SELECT
+		   '${item.FCT_CD}',
+		   '${item.WC_CD}',
+		   '${item.WO_NO}',
+		   '${item.MO_NO}',
+		   '${item.PO_ROW_IDX}',
+		   '${item.PRNT_MAT_CD}',
+		   '${item.PRNT_MAT_NM}',
+		   '${item.MAT_BAT_CD}',
+		   '${item.MAT_CD}',
+		   '${item.MAT_NM}',
+		   '${item.MAT_TYPE}',
+		   '${item.FR_WC_CD}',
+		   '${item.FR_WHS_CD}',
+		   '${item.FR_LOC_CD}',
+		   '${item.TO_WHS_CD}',
+		   '${item.TO_LOC_CD}',
+		   '${item.CUST_CD}',
+		   '${item.CUST_NM}',
+		   '${item.UOM}',
+		   '${item.UNIT_QTY}',
+		   '${item.PLAN_QTY}',
+		   '${item.REQ_QTY}',
+		   '${item.REQ_PROC_QTY}',
+		   '${item.MO}',
+		   '${item.USR_DFN_1}',
+		   '${item.USR_DFN_2}',
+		   '${item.USR_DFN_3}',
+		   '${item.USR_DFN_4}',
+		   '${item.USR_DFN_5}',
+		   '${F_USE_CD}',
+		   '${item.CRT_IP}',
+		   SYSDATE
+	   FROM DUAL
+	   </foreach>
+	   )
+  </insert>
+  
+  
+  
+  <!-- 工单工序路线配置查询 -->
+  <select id="queryWorkOrderRouting" parameterType="hashmap" resultType="java.util.HashMap">
+  <include refid="oraclePagingFileTop"></include>
+     FCT_CD,
+     WC_CD,
+     MO_NO,
+     ITEM_CD,
+     ITEM_NM,
+     PRF_CD,
+     FROM_ROUT_CD,
+     TO_ROUT_CD,
+     BRANCH_ROUT,
+     CAPACITY,
+     USE_YN,
+     MO,
+     IS_INPUT,
+     IS_OUTPUT,
+     USR_DFN_1,
+     USR_DFN_2,
+     USR_DFN_3,
+     USR_DFN_4,
+     USR_DFN_5,
+     CRT_ID,
+     (SELECT EMP_NM FROM IPLANT1.C_IPLANT_E1_T BB WHERE BB.EMP_CD =(SELECT EMP_NO AS EMP_CD FROM IPLANT1.C_IPLANT_U1_T AA WHERE AA.USE_CD = T1.CRT_ID)) AS CRT_NM,
+     CRT_IP,
+     CRT_DT,
+     UPT_ID,
+     UPT_IP,
+     UPT_DT
+  FROM MES1.R_MES_MO_PRF_CONF_T T1
+  <include refid="oraclePagingFileBottom"></include>
+  </select>
+  
+  <!-- 工单工序路线配置新增 -->
+  <insert id="insertWorkOrderRouting" parameterType="java.util.HashMap">
+	  INSERT INTO MES1.R_MES_MO_PRF_CONF_T
+	  (FCT_CD,
+	   WC_CD,
+	   MO_NO,
+	   ITEM_CD,
+	   ITEM_NM,
+	   PRF_CD,
+	   FROM_ROUT_CD,
+	   TO_ROUT_CD,
+	   BRANCH_ROUT,
+	   CAPACITY,
+	   USE_YN,
+	   MO,
+	   IS_INPUT,
+       IS_OUTPUT,
+	   USR_DFN_1,
+	   USR_DFN_2,
+	   USR_DFN_3,
+	   USR_DFN_4,
+	   USR_DFN_5,
+	   CRT_ID,
+	   CRT_IP,
+	   CRT_DT)
+	VALUES
+	  ('${FCT_CD}',
+	   '${WC_CD}',
+	   '${MO_NO}',
+	   '${ITEM_CD}',
+	   '${ITEM_NM}',
+	   '${FROM_ROUT_CD}',
+	   '${FROM_ROUT_CD}',
+	   '${TO_ROUT_CD}',
+	   '${BRANCH_ROUT}',
+	   '${CAPACITY}',
+	   '${USE_YN}',
+	   '${MO}',
+	   '${IS_INPUT}',
+	   '${IS_OUTPUT}',
+	   '${USR_DFN_1}',
+	   '${USR_DFN_2}',
+	   '${USR_DFN_3}',
+	   '${USR_DFN_4}',
+	   '${USR_DFN_5}',
+	   '${F_USE_CD}',
+	   '${CRT_IP}',
+	   SYSDATE)
+  </insert>
+  
+  <!-- 工单工序路线配置修改 -->
+  <update id="updateWorkOrderRouting" parameterType="java.util.HashMap">
+	  UPDATE MES1.R_MES_MO_PRF_CONF_T
+	   	 <set>
+	   	   <if test="FCT_CD!=null and FCT_CD!='' ">
+	       FCT_CD = '${FCT_CD}',
+	       </if>
+	       <if test="WC_CD!=null">
+	       WC_CD = '${WC_CD}',
+	       </if>
+	       <if test="MO_NO!=null and MO_NO!='' ">
+	       MO_NO = '${MO_NO}',
+	       </if>
+	       <if test="ITEM_CD!=null and ITEM_CD!='' ">
+	       ITEM_CD = '${ITEM_CD}',
+	       </if>
+	       <if test="ITEM_NM!=null">
+	       ITEM_NM = '${ITEM_NM}',
+	       </if>
+	       <if test="PRF_CD!=null and PRF_CD!='' ">
+	       PRF_CD = '${PRF_CD}',
+	       </if>
+	       <if test="FROM_ROUT_CD!=null and FROM_ROUT_CD!='' ">
+	       FROM_ROUT_CD = '${FROM_ROUT_CD}',
+	       </if>
+	       <if test="TO_ROUT_CD!=null and TO_ROUT_CD!='' ">
+	       TO_ROUT_CD = '${TO_ROUT_CD}',
+	       </if>
+	       <if test="BRANCH_ROUT!=null">
+	       BRANCH_ROUT = '${BRANCH_ROUT}',
+	       </if>
+	       <if test="CAPACITY!=null">
+	       CAPACITY = '${CAPACITY}',
+	       </if>
+	       <if test="USE_YN!=null">
+	       USE_YN = '${USE_YN}',
+	       </if>
+	       <if test="MO!=null">
+	       MO = '${MO}',
+	       </if>
+	       <if test="USR_DFN_1!=null">
+	       USR_DFN_1 = '${USR_DFN_1}',
+	       </if>
+	       <if test="USR_DFN_2!=null">
+	       USR_DFN_2 = '${USR_DFN_2}',
+	       </if>
+	        <if test="USR_DFN_3!=null">
+	       USR_DFN_3 = '${USR_DFN_3}',
+	       </if>
+	        <if test="USR_DFN_4!=null">
+	       USR_DFN_4 = '${USR_DFN_4}',
+	       </if>
+	        <if test="USR_DFN_5!=null">
+	       USR_DFN_5 = '${USR_DFN_5}',
+	       </if>
+	       UPT_ID = '${F_USE_CD}',
+	       <if test="UPT_IP!=null">
+	       UPT_IP = '${UPT_IP}',
+	       </if>
+	       UPT_DT = SYSDATE
+	    </set>   
+		<where>	 
+		   AND PRF_CD = '${PRF_CD}'
+		   AND FROM_ROUT_CD = '${FROM_ROUT_CD}'
+		   AND TO_ROUT_CD = '${TO_ROUT_CD}'
+	   </where>
+  </update>
+  
+  <!-- 工单工序路线配置删除 -->
+  <delete id="deleteWorkOrderRouting" parameterType="hashmap">
+  DELETE MES1.R_MES_MO_PRF_CONF_T
+	 WHERE PRF_CD = '${PRF_CD}'
+	   AND FROM_ROUT_CD = '${FROM_ROUT_CD}'
+	   AND TO_ROUT_CD = '${TO_ROUT_CD}'
+  </delete>
+  
+  <!-- 查询工单的工序路线信息 -->
+   <select id="queryMoRout"  parameterType="hashmap" resultType="java.util.HashMap">
+         SELECT FROM_ROUT_CD AS PREV_ROUT_CD,
+       TO_ROUT_CD AS CURR_ROUT_CD,
+       (SELECT TO_ROUT_CD
+          FROM MES1.R_MES_MO_PRF_CONF_T
+         WHERE FROM_ROUT_CD = (SELECT TO_ROUT_CD
+                                 FROM MES1.R_MES_MO_PRF_CONF_T
+                                WHERE FROM_ROUT_CD = '${ROUT_CD}'
+                                   AND MO_NO = '${MO_NO}'
+                                  AND BRANCH_ROUT = '${BRANCH_ROUT}'
+                                  )
+           AND MO_NO = '${MO_NO}'
+           AND BRANCH_ROUT = '${BRANCH_ROUT}'
+           
+           ) AS NEXT_ROUT_CD,
+           
+       NVL((
+       SELECT MAX(FROM_ROUT_CD) AS FROM_ROUT_CD
+           FROM MES1.R_MES_MO_PRF_CONF_T
+          WHERE TO_ROUT_CD = '${ROUT_CD}'
+             AND MO_NO = '${MO_NO}'
+            AND BRANCH_ROUT = '${BRANCH_ROUT}'
+       
+       ),'1')   AS FROM_ROUT_CD,
+       NVL(IS_OUTPUT,'N')   AS IS_OUTPUT,
+       NVL(IS_INPUT,'N')    AS IS_INPUT,
+       NVL(IS_BIND,'N')     AS IS_BIND,
+       NVL(IS_CARE_YN,'N')  AS IS_CARE_YN
+    FROM MES1.R_MES_MO_PRF_CONF_T
+     WHERE FROM_ROUT_CD ='${ROUT_CD}'
+          AND MO_NO = '${MO_NO}'
+          AND BRANCH_ROUT = '${BRANCH_ROUT}'
+   </select>
+  
+  <!-- 生产制成管控表查询 -->
+  <select id="queryProductionControl" parameterType="hashmap" resultType="java.util.HashMap">
+  	<include refid="oraclePagingFileTop"></include>
+	      T1.FCT_CD,
+	       (SELECT FT_NM FROM IPLANT1.C_IPLANT_F1_T C WHERE C.FT_CD = T1.FCT_CD) AS FCT_NM,
+	       T1.WC_CD,
+	       (SELECT A.PL_NM FROM IPLANT1.C_IPLANT_P1_T A WHERE A.PL_CD = T1.WC_CD) AS WC_NM,
+	       T1.BAR_CODE,
+	       T2.SN_NO,
+	       T1.WO_NO,
+	       T1.MO_NO,
+	       T1.ITEM_CD,
+	       T1.ITEM_NM,
+	       T1.PRF_CD,
+	       T1.PREV_ROUT_CD,
+	       (SELECT ROUT_NAME FROM MES1.R_MES_ROUTE_DEF_T DE WHERE DE.ROUT_CD = T1.PREV_ROUT_CD) AS PREV_ROUT_NM,
+	       T1.CURR_ROUT_CD,
+	       (SELECT ROUT_NAME FROM MES1.R_MES_ROUTE_DEF_T DE WHERE DE.ROUT_CD = T1.CURR_ROUT_CD) AS CURR_ROUT_NM,
+	       T1.NEXT_ROUT_CD,
+	       (SELECT ROUT_NAME FROM MES1.R_MES_ROUTE_DEF_T DE WHERE DE.ROUT_CD = T1.NEXT_ROUT_CD) AS NEXT_ROUT_NM,
+	       T1.MO,
+	       T1.USR_DFN_1,
+	       T1.USR_DFN_2,
+	       T1.USR_DFN_3,
+	       T1.USR_DFN_4,
+	       T1.USR_DFN_5,
+	       T1.CRT_ID,
+	       (SELECT EMP_NM FROM IPLANT1.C_IPLANT_E1_T BB WHERE BB.EMP_CD =(SELECT EMP_NO AS EMP_CD FROM IPLANT1.C_IPLANT_U1_T AA WHERE AA.USE_CD = T1.CRT_ID)) AS CRT_NM,
+	       T1.CRT_IP,
+	       TO_CHAR(T1.CRT_DT,'YYYY-MM-DD HH24:MI:SS') AS CRT_DT,
+	       T1.UPT_ID,
+	       T1.UPT_IP,
+	       TO_CHAR(T1.UPT_DT,'YYYY-MM-DD HH24:MI:SS') AS UPT_DT
+	  FROM (SELECT * FROM MES1.R_MES_WIP_T ORDER BY CRT_DT DESC) T1
+	  LEFT JOIN R_MES_MO_BC_T T2
+	  ON T1.BAR_CODE = T2.BAR_CODE
+	<where>
+		<if test="BAR_CODE!=null and BAR_CODE!=''">
+		 AND T1.BAR_CODE IN (SELECT BAR_CODE FROM MES1.R_MES_MO_BC_T WHERE SN_NO='${BAR_CODE}') 
+		</if>
+	</where>
+  	<include refid="oraclePagingFileBottom"></include>
+  </select>
+  <select id="queryProductionControl_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+	SELECT    
+	     COUNT(1) AS ROWS_COUNT
+	FROM MES1.R_MES_WIP_T T1  
+	LEFT JOIN R_MES_MO_BC_T T2
+	ON T1.BAR_CODE = T2.BAR_CODE
+	<where>
+		<if test="BAR_CODE!=null and BAR_CODE!=''">
+		 AND T1.BAR_CODE IN (SELECT BAR_CODE FROM MES1.R_MES_MO_BC_T WHERE SN_NO='${BAR_CODE}') 
+		</if>
+	</where>
+  </select>
+  
+  <!-- 生产制成管控表新增 -->
+  <insert id="insertProductionControl" parameterType="java.util.HashMap">
+	  INSERT INTO MES1.R_MES_WIP_T
+	  (FCT_CD,
+	   WC_CD,
+	   BAR_CODE,
+	   WO_NO,
+	   MO_NO,
+	   ITEM_CD,
+	   ITEM_NM,
+	   PRF_CD,
+	   PREV_ROUT_CD,
+	   CURR_ROUT_CD,
+	   NEXT_ROUT_CD,
+	   MO,
+	   USR_DFN_1,
+	   USR_DFN_2,
+	   USR_DFN_3,
+	   USR_DFN_4,
+	   USR_DFN_5,
+	   CRT_ID,
+	   CRT_IP,
+	   CRT_DT,
+	   SN_NO
+	   )
+	VALUES
+	  ('${FCT_CD}',
+	   '${WC_CD}',
+	   '${BAR_CODE}',
+	   '${WO_NO}',
+	   '${MO_NO}',
+	   '${ITEM_CD}',
+	   '${ITEM_NM}',
+	   '${PRF_CD}',
+	   '${PREV_ROUT_CD}',
+	   '${CURR_ROUT_CD}',
+	   '${NEXT_ROUT_CD}',
+	   '${MO}',
+	   '${USR_DFN_1}',
+	   '${USR_DFN_2}',
+	   '${USR_DFN_3}',
+	   '${USR_DFN_4}',
+	   '${USR_DFN_5}',
+	   '${F_USE_CD}',
+	   '${CRT_IP}',
+	    SYSDATE,
+	   '${SN_NO}'
+	   )
+  </insert>
+  <!-- 生产制成管控表修改 -->
+  <update id="updateProductionControl" parameterType="java.util.HashMap">
+	  UPDATE MES1.R_MES_WIP_T
+	  	<set>
+	  	   <if test="FCT_CD!=null and FCT_CD!=''">
+	       FCT_CD = '${FCT_CD}',
+	       </if>
+	       <if test="WC_CD!=null">
+	       WC_CD = '${WC_CD}',
+	       </if>
+	       <if test="BAR_CODE!=null">
+	       BAR_CODE = '${BAR_CODE}',
+	       </if>
+	       <if test="WO_NO!=null">
+	       WO_NO = '${WO_NO}',
+	       </if>
+	       <if test="MO_NO!=null and MO_NO!=''">
+	       MO_NO = '${MO_NO}',
+	       </if>
+	       <if test="ITEM_CD!=null and ITEM_CD!=''">
+	       ITEM_CD = '${ITEM_CD}',
+	       </if>
+	       <if test="ITEM_NM!=null">
+	       ITEM_NM = '${ITEM_NM}',
+	       </if>
+	       <if test="PRF_CD!=null and PRF_CD!=''">
+	       PRF_CD = '${PRF_CD}',
+	       </if>
+	       <if test="PREV_ROUT_CD!=null">
+	       PREV_ROUT_CD = '${PREV_ROUT_CD}',
+	       </if>
+	       <if test="CURR_ROUT_CD!=null and CURR_ROUT_CD!=''">
+	       CURR_ROUT_CD = '${CURR_ROUT_CD}',
+	       </if>
+	       <if test="NEXT_ROUT_CD!=null and NEXT_ROUT_CD!=''">
+	       NEXT_ROUT_CD = '${NEXT_ROUT_CD}',
+	       </if>
+	       <if test="MO!=null">
+	       MO = '${MO}',
+	       </if>
+	       <if test="USR_DFN_1!=null">
+	       USR_DFN_1 = '${USR_DFN_1}',
+	       </if>
+	       <if test="USR_DFN_2!=null">
+	       USR_DFN_2 = '${USR_DFN_2}',
+	       </if>
+	        <if test="USR_DFN_3!=null">
+	       USR_DFN_3 = '${USR_DFN_3}',
+	       </if>
+	        <if test="USR_DFN_4!=null">
+	       USR_DFN_4 = '${USR_DFN_4}',
+	       </if>
+	        <if test="USR_DFN_5!=null">
+	       USR_DFN_5 = '${USR_DFN_5}',
+	       </if>
+	       UPT_ID = '${F_USE_CD}',
+	       <if test="UPT_IP!=null">
+	       UPT_IP = '${UPT_IP}',
+	       </if>
+	       UPT_DT = SYSDATE
+	  </set>
+	  <where>
+	   AND BAR_CODE = '${BAR_CODE}'
+	 </where>
+  </update>
+  <!-- 生产制成管控表删除 -->
+  <delete id="deleteProductionControl" parameterType="hashmap">
+  	DELETE MES1.R_MES_WIP_T
+	 WHERE
+	   AND MO_NO = '${MO_NO}'
+	   AND ITEM_CD = '${ITEM_CD}'
+	   AND PRF_CD = '${PRF_CD}'
+	   AND CURR_ROUT_CD = '${CURR_ROUT_CD}'
+	   AND NEXT_ROUT_CD = '${NEXT_ROUT_CD}'
+  </delete>
+  
+  
+  
+  <!-- 生产制成管控明细表查询 -->
+  <select id="queryProductionControlDetailed" parameterType="hashmap" resultType="java.util.HashMap">
+  <include refid="oraclePagingFileTop"></include>
+	     HIS_ID,
+	     FCT_CD,
+	     (SELECT FT_NM FROM IPLANT1.C_IPLANT_F1_T C WHERE C.FT_CD = FCT_CD) AS FCT_NM,
+	     BAR_CODE,
+	     WC_CD,
+	     WO_NO,
+	     MO_NO,
+	     ITEM_CD,
+	     ITEM_NM,
+	     PRF_CD,
+	     PREV_ROUT_CD,
+	     (SELECT ROUT_NAME FROM MES1.R_MES_ROUTE_DEF_T DE WHERE DE.ROUT_CD = PREV_ROUT_CD) AS PREV_ROUT_NM,
+	     CURR_ROUT_CD,
+	     (SELECT ROUT_NAME FROM MES1.R_MES_ROUTE_DEF_T DE WHERE DE.ROUT_CD = CURR_ROUT_CD) AS CURR_ROUT_NM,
+	     NEXT_ROUT_CD,
+	     (SELECT ROUT_NAME FROM MES1.R_MES_ROUTE_DEF_T DE WHERE DE.ROUT_CD = NEXT_ROUT_CD) AS NEXT_ROUT_NM,
+	     MO,
+	     USR_DFN_1,
+	     USR_DFN_2,
+	     USR_DFN_3,
+	     USR_DFN_4,
+	     USR_DFN_5,
+	     CRT_ID,
+	     (SELECT EMP_NM FROM IPLANT1.C_IPLANT_E1_T BB WHERE BB.EMP_CD =(SELECT EMP_NO AS EMP_CD FROM IPLANT1.C_IPLANT_U1_T AA WHERE AA.USE_CD = T1.CRT_ID)) AS CRT_NM,
+	     CRT_IP,
+	     TO_CHAR(CRT_DT,'YYYY-MM-DD HH24:MI:SS') AS CRT_DT,
+	     UPT_ID,
+	     UPT_IP,
+	     TO_CHAR(UPT_DT,'YYYY-MM-DD HH24:MI:SS') AS UPT_DT
+	FROM MES1.R_MES_WIP_DETAIL_T T1
+	WHERE BAR_CODE IN (SELECT BAR_CODE FROM MES1.R_MES_MO_BC_T WHERE SN_NO='${BAR_CODE}') 
+	ORDER BY T1.CRT_DT DESC
+  <include refid="oraclePagingFileBottom"></include>
+  </select>
+  
+  <select id="queryProductionControlDetailed_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+	 SELECT
+	     COUNT(1) AS ROWS_COUNT
+	FROM MES1.R_MES_WIP_DETAIL_T T1
+	WHERE BAR_CODE IN (SELECT BAR_CODE FROM MES1.R_MES_MO_BC_T WHERE SN_NO='${BAR_CODE}') 
+  </select>
+  
+  
+  <!-- 生产制成管控明细表新增 -->
+  <insert id="insertProductionControlDetailed" parameterType="java.util.HashMap">
+  	  INSERT INTO MES1.R_MES_WIP_DETAIL_T
+	  (HIS_ID,
+	   FCT_CD,
+	   BAR_CODE,
+	   WC_CD,
+	   WO_NO,
+	   MO_NO,
+	   ITEM_CD,
+	   ITEM_NM,
+	   PRF_CD,
+	   PREV_ROUT_CD,
+	   CURR_ROUT_CD,
+	   NEXT_ROUT_CD,
+	   MO,
+	   USR_DFN_1,
+	   USR_DFN_2,
+	   USR_DFN_3,
+	   USR_DFN_4,
+	   USR_DFN_5,
+	   CRT_ID,
+	   CRT_IP,
+	   CRT_DT,
+	   SN_NO
+	   )
+	VALUES
+	  (WIP_DETAIL_SEQ.NEXTVAL,
+	   '${FCT_CD}',
+	   '${BAR_CODE}',
+	   '${WC_CD}',
+	   '${WO_NO}',
+	   '${MO_NO}',
+	   '${ITEM_CD}',
+	   '${ITEM_NM}',
+	   '${PRF_CD}',
+	   '${PREV_ROUT_CD}',
+	   '${CURR_ROUT_CD}',
+	   '${NEXT_ROUT_CD}',
+	   '${MO}',
+	   '${USR_DFN_1}',
+	   '${USR_DFN_2}',
+	   '${USR_DFN_3}',
+	   '${USR_DFN_4}',
+	   '${USR_DFN_5}',
+	   '${F_USE_CD}',
+	   '${CRT_IP}',
+	    SYSDATE,
+	   '${SN_NO}'
+	   )
+  </insert>
+  <!-- 生产制成管控明细表修改 -->
+  <update id="updateProductionControlDetailed" parameterType="java.util.HashMap">
+  UPDATE MES1.R_MES_WIP_DETAIL_T
+    <set>
+       <if test="FCT_CD!=null and FCT_CD!='' ">
+       FCT_CD = '${FCT_CD}',
+       </if>
+       <if test="BAR_CODE!=null">
+       BAR_CODE = '${BAR_CODE}',
+       </if>
+       <if test="WC_CD!=null">
+       WC_CD = '${WC_CD}',
+       </if>
+       <if test="WO_NO!=null">
+       WO_NO = '${WO_NO}',
+       </if>
+       <if test="MO_NO!=null and MO_NO!='' ">
+       MO_NO = '${MO_NO}',
+       </if>
+       <if test="ITEM_CD!=null and ITEM_CD!='' ">
+       ITEM_CD = '${ITEM_CD}',
+       </if>
+       ITEM_NM = '${ITEM_NM}',
+       <if test="PRF_CD!=null and PRF_CD!='' ">
+       PRF_CD = '${PRF_CD}',
+       </if>
+       <if test="PREV_ROUT_CD!=null">
+       PREV_ROUT_CD = '${PREV_ROUT_CD}',
+       </if>
+       <if test="CURR_ROUT_CD!=null and CURR_ROUT_CD!='' ">
+       CURR_ROUT_CD = '${CURR_ROUT_CD}',
+       </if>
+       <if test="NEXT_ROUT_CD!=null and NEXT_ROUT_CD!='' ">
+       NEXT_ROUT_CD = '${NEXT_ROUT_CD}',
+       </if>
+       <if test="MO!=null">
+       MO = '${MO}',
+       </if>
+       <if test="USR_DFN_1!=null">
+       USR_DFN_1 = '${USR_DFN_1}',
+       </if>
+       <if test="USR_DFN_2!=null">
+       USR_DFN_2 = '${USR_DFN_2}',
+       </if>
+        <if test="USR_DFN_3!=null">
+       USR_DFN_3 = '${USR_DFN_3}',
+       </if>
+        <if test="USR_DFN_4!=null">
+       USR_DFN_4 = '${USR_DFN_4}',
+       </if>
+        <if test="USR_DFN_5!=null">
+       USR_DFN_5 = '${USR_DFN_5}',
+       </if>
+       UPT_ID = '${F_USE_CD}',
+       <if test="UPT_IP!=null">
+       UPT_IP = '${UPT_IP}',
+       </if>
+       UPT_DT = SYSDATE
+   </set>
+  <where> 
+      HIS_ID = '${HIS_ID}'
+  </where>
+  </update>
+  <!-- 生产制成管控明细表删除 -->
+  <delete id="deleteProductionControlDetailed" parameterType="hashmap">
+	  DELETE MES1.R_MES_WIP_DETAIL_T
+	 	WHERE HIS_ID = '${HIS_ID}'
+  </delete>
+  
+  <!-- OQC条码扫描 -->
+  <select id="OQCScanBarCode"  parameterType="hashmap" resultType="java.util.HashMap">
+     
+  SELECT     A.FCT_CD,
+             A.BAR_CODE,
+             A.MO_NO,
+             A.WO_NO,
+             A.ITEM_CD,
+             B.ITEM_NM,
+             A.QTY
+            FROM
+            ( 
+            SELECT 
+             FCT_CD,
+             BAR_CODE,
+             MO_NO,
+             WO_NO,
+             ITEM_CD,
+             1            AS QTY
+             FROM MES1.R_MES_MO_BC_T
+             WHERE BAR_CODE ='${BAR_CODE}'
+             
+             UNION 
+             
+             SELECT 
+              T1.FCT_CD,
+              T1.BOX_ID  AS BAR_CODE,
+              T2.MO_NO,
+              T2.WO_NO,
+              T2.ITEM_CD,
+              T1.BOX_QTY   AS QTY
+              FROM MES1.R_MES_BOX_MST_T  T1
+              JOIN (
+              SELECT  BOX_ID,
+              MO_NO,
+              WO_NO,
+              ITEM_CD,
+              ITEM_NM
+              FROM
+              MES1.R_MES_BOX_DTL_T  
+              GROUP BY
+                BOX_ID,
+                MO_NO,
+                WO_NO,
+                ITEM_CD,
+                ITEM_NM
+              )  T2 ON T1.BOX_ID = T2.BOX_ID
+              WHERE T1.BOX_ID ='${BAR_CODE}'
+              
+              UNION 
+              
+             SELECT 
+              T1.FCT_CD,
+              T1.PLT_ID    AS BAR_CODE,
+              T2.MO_NO,
+              T2.WO_NO,
+              T2.ITEM_CD,
+              T1.PLT_QTY   AS QTY
+              FROM MES1.R_MES_PLT_MST_T  T1
+              JOIN (
+              SELECT  
+              PLT_ID,
+              MO_NO,
+              WO_NO,
+              ITEM_CD,
+              ITEM_NM
+              FROM
+              MES1.R_MES_PLT_DTL_T
+              GROUP BY
+              PLT_ID,
+              MO_NO,
+              WO_NO,
+              ITEM_CD,
+              ITEM_NM
+              )  T2 ON T1.PLT_ID = T2.PLT_ID
+              WHERE T1.PLT_ID ='${BAR_CODE}' 
+              
+            ) A JOIN MES1.R_MES_ITEM_T  B  ON  A.ITEM_CD = B.ITEM_CD 
+                 AND A.FCT_CD = B.FCT_CD
+  
+  </select>
+  
+  <!-- OQC抽检计划表 -->
+  <select id="queryOQC_LOTIDBOx" parameterType="hashmap" resultType="java.util.HashMap">
+               SELECT
+					OQC_LOTID,
+					BAR_CODE,
+					ITEM_CD,
+					ITEM_NM,
+					QTY,
+					MO_NO,
+					WO_NO,
+					CHECK_YN,
+					MO,
+					USR_DFN_1,
+					USR_DFN_2,
+					USR_DFN_3,
+					USR_DFN_4,
+					USR_DFN_5,
+					CRT_ID,
+					(SELECT EMP_NM FROM IPLANT1.C_IPLANT_E1_T BB WHERE BB.EMP_CD =(SELECT EMP_NO AS EMP_CD FROM IPLANT1.C_IPLANT_U1_T AA WHERE AA.USE_CD = T1.CRT_ID)) AS CRT_NM,
+					CRT_IP,
+					CRT_DT,
+					UPT_ID,
+					UPT_IP,
+					UPT_DT
+		        FROM MES1.R_MES_OQC_BC_T T1
+		        <where>1=1
+		           <if test="OQC_LOTID!=null and OQC_LOTID!='' ">
+			        AND OQC_LOTID =#{OQC_LOTID}
+			       </if>
+			       <if test="BAR_CODE!=null and BAR_CODE!='' ">
+			       AND BAR_CODE = '${BAR_CODE}',
+			       </if>
+		        </where> 
+  </select>
+  
+   <insert id="insertOQC_LOTIDBOXInfo" parameterType="hashmap">
+   			
+   			INSERT INTO MES1.R_MES_OQC_BC_T
+   			(
+   			    OQC_LOTID,
+				BAR_CODE,
+				ITEM_CD,
+				ITEM_NM,
+				QTY,
+				MO_NO,
+				WO_NO,
+				CHECK_YN,
+				MO,
+				USR_DFN_1,
+				USR_DFN_2,
+				USR_DFN_3,
+				USR_DFN_4,
+				USR_DFN_5,
+				CRT_ID,
+				CRT_IP,
+				CRT_DT
+   			)
+   		(
+          <foreach collection="list" item="item" index="index" separator="union all">
+               SELECT
+	            '${item.OQC_LOTID}',
+				'${item.BAR_CODE}',
+				'${item.ITEM_CD}',
+				'${item.ITEM_NM}',
+				'${item.QTY}',
+				'${item.MO_NO}',
+				'${item.WO_NO}',
+				'${item.CHECK_YN}',
+				'${item.MO}',
+				'${item.USR_DFN_1}',
+				'${item.USR_DFN_2}',
+				'${item.USR_DFN_3}',
+				'${item.USR_DFN_4}',
+				'${item.USR_DFN_5}',
+				'${F_USE_CD}',
+				'',
+				SYSDATE
+	            FROM DUAL
+     
+       </foreach>
+	    )
+   	
+   
+   
+   </insert>
+   
+   <!-- OQC检查信息查询 -->
+   <select id="queryOQCInfo" parameterType="hashmap" resultType="java.util.HashMap">
+          
+			 SELECT 
+			  T1.FCT_CD,
+			  T1.WC_CD,
+			  T1.OQC_LOTID,
+			  T1.OQC_TYPE,
+			  T1.OQC_STATE,
+			  T1.OQC_UNIT,
+			  T1.TOT_QTY,
+			  T1.SAMP_QTY,
+			  T1.TOT_INSP_QTY,
+			  T1.INSP_RSLT,
+			  T1.OQC_USR,
+			  T2.BAR_CODE,
+			  T2.ITEM_CD,
+			  T2.ITEM_NM,
+			  T2.QTY,
+			  T2.MO_NO,
+			  T2.WO_NO,
+			  T2.CHECK_YN,
+			  T2.MO
+			 FROM MES1.R_MES_OQC_MST_T  T1
+			 JOIN MES1.R_MES_OQC_BC_T   T2 ON T1.OQC_LOTID =T2.OQC_LOTID
+			 WHERE T2.BAR_CODE = '${BAR_CODE}'
+   </select>
+   
+   <!-- 拉线对应设备信息表 -->
+    <!-- 查询拉线设备维护信息 -->
+    <select id="queryET_LINE_INFO" parameterType="hashmap" resultType="java.util.HashMap">
+	  SELECT 
+	       T1.FCT_CD,
+	       T1.LINE_CD,
+	       T2.PD_LN_NM,
+	       T1.ET_CD,
+	       T3.ET_NM,
+	       T1.USE_YN,
+	       T1.MO,
+	       T1.USR_DFN_1,
+	       T1.USR_DFN_2,
+	       T1.USR_DFN_3,
+	       T1.USR_DFN_4,
+	       T1.USR_DFN_5,
+	       T1.CRT_ID,
+	       (SELECT EMP_NM FROM IPLANT1.C_IPLANT_E1_T BB WHERE BB.EMP_CD =(SELECT EMP_NO AS EMP_CD FROM IPLANT1.C_IPLANT_U1_T AA WHERE AA.USE_CD = T1.CRT_ID)) AS CRT_NM,
+	       T1.CRT_IP,
+	       TO_CHAR(T1.CRT_DT, 'YYYY-MM-DD HH24:MI:SS') AS CRT_DT
+	   FROM  MES1.R_MES_ET_LINE_T T1
+	   JOIN IPLANT1.C_IPLANT_P5_T T2 ON T1.LINE_CD = T2.PD_LN_CD
+	   JOIN IPLANT1.C_IPLANT_E2_T T3 ON T1.ET_CD   = T3.ET_CD 
+       <where> 1=1
+           <if test="FCT_CD!=null and FCT_CD!='' ">
+		       AND T1.FCT_CD = '${FCT_CD}'
+		    </if>
+		     <if test="LINE_CD!=null and LINE_CD!='' ">
+		       AND T1.LINE_CD = '${LINE_CD}'
+		    </if>
+		     <if test="ET_CD!=null and ET_CD!='' ">
+		       AND T1.ET_CD = '${ET_CD}'
+		    </if>
+       </where>
+    </select>
+    
+    <!-- 插入拉线设备维护信息 -->
+    <insert id="insertET_LINE_INFO" parameterType="java.util.List" >
+       INSERT INTO MES1.R_MES_ET_LINE_T
+       (
+		FCT_CD,
+		LINE_CD,
+		ET_CD,
+		USE_YN,
+		MO,
+		USR_DFN_1,
+		USR_DFN_2,
+		USR_DFN_3,
+		USR_DFN_4,
+		USR_DFN_5,
+		CRT_ID,
+		CRT_IP,
+		CRT_DT
+       )
+       (
+          <foreach collection="list" item="item" index="index" separator="union all">
+               SELECT
+                '${item.FCT_CD}',
+				'${item.LINE_CD}',
+				'${item.ET_CD}',
+				'${item.USE_YN}',
+				'${item.MO}',
+				'${item.USR_DFN_1}',
+				'${item.USR_DFN_2}',
+				'${item.USR_DFN_3}',
+				'${item.USR_DFN_4}',
+				'${item.USR_DFN_5}',
+				'${F_USE_CD}',
+				'${item.CRT_IP}',
+               	SYSDATE
+	            FROM DUAL
+       </foreach>
+	    )
+    
+    </insert>
+    
+    <!-- 删除拉线设备维护信息 -->
+    <delete id="deleteET_LINE_INFO" parameterType="hashmap" >
+         DELETE FROM MES1.R_MES_ET_LINE_T
+          WHERE FCT_CD = '${FCT_CD}' 
+          AND  LINE_CD= '${LINE_CD}'
+          AND ET_CD  = '${ET_CD}'
+    </delete>
+    
+    <!-- 物料申请更新 -->
+    <update id="updateGetMaterialRequestInfo" parameterType="java.util.HashMap" >
+	    <foreach collection="list" item="item" index="index" open="begin" close=";end;" separator=";">
+	    	UPDATE MES1.R_MES_REQ_MAT_T
+	       <set> 
+	           <if test="item.REQ_QTY!=null and item.REQ_QTY!=''">
+	           		REQ_QTY = '${item.REQ_QTY}',
+	           </if>
+	           <if test="item.REQ_PROC_QTY!=null and item.REQ_PROC_QTY!=''">
+	           		REQ_PROC_QTY = '${item.REQ_PROC_QTY}',
+	           </if>
+	           UPT_ID = '${F_USE_CD}',
+	           UPT_IP = '${UPT_IP}',
+	           UPT_DT = SYSDATE
+	       </set>
+	       <where>
+	       	   MO_NO = '${item.MO_NO}'
+		       AND WO_NO = '${item.WO_NO}'
+		       AND MAT_CD = '${item.MAT_CD}'
+	       </where>
+    	</foreach>
+    </update>
+    
+    <!-- 物料申请新增 -->
+    <insert id="insertGetMaterialRequestInfo" parameterType="java.util.HashMap" >
+    	INSERT INTO MES1.R_MES_REQ_MAT_T
+	     (FCT_CD,
+	      WC_CD,
+	      WO_NO,
+	      MO_NO,
+	      PO_ROW_IDX,
+	      PRNT_MAT_CD,
+	      PRNT_MAT_NM,
+	      MAT_BAT_CD,
+	      MAT_CD,
+	      MAT_NM,
+	      MAT_TYPE,
+	      FR_WC_CD,
+	      FR_WHS_CD,
+	      FR_LOC_CD,
+	      TO_WHS_CD,
+	      TO_LOC_CD,
+	      CUST_CD,
+	      CUST_NM,
+	      UOM,
+	      UNIT_QTY,
+	      PLAN_QTY,
+	      REQ_QTY,
+	      REQ_PROC_QTY,
+	      MO,
+	      USR_DFN_1,
+	      USR_DFN_2,
+	      USR_DFN_3,
+	      USR_DFN_4,
+	      USR_DFN_5,
+	      CRT_ID,
+	      CRT_IP,
+	      CRT_DT
+	      )
+	   VALUES
+	     (
+	      '${FCT_CD}',
+	      '${WC_CD}',
+	      '${WO_NO}',
+	      '${MO_NO}',
+	      PO_MAT_SEQ.NEXTVAL,
+	      '${PRNT_MAT_CD}',
+	      '${PRNT_MAT_NM}',
+	      '${MAT_BAT_CD}',
+	      '${MAT_CD}',
+	      '${MAT_NM}',
+	      '${MAT_TYPE}',
+	      '${FR_WC_CD}',
+	      '${FR_WHS_CD}',
+	      '${FR_LOC_CD}',
+	      '${TO_WHS_CD}',
+	      '${TO_LOC_CD}',
+	      '${CUST_CD}',
+	      '${CUST_NM}',
+	      '${UOM}',
+	      '${UNIT_QTY}',
+	      '${PLAN_QTY}',
+	      '${REQ_QTY}',
+	      '${REQ_PROC_QTY}',
+	      '${MO}',
+	      '${USR_DFN_1}',
+	      '${USR_DFN_2}',
+	      '${USR_DFN_3}',
+	      '${USR_DFN_4}',
+	      '${USR_DFN_5}',
+	      '${F_USE_CD}',
+	      '${CRT_IP}',
+	      SYSDATE
+	      )
+    </insert>
+</mapper>

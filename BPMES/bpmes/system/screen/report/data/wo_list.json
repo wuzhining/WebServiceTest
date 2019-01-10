@@ -1,0 +1,60 @@
+{
+    "RESPONSE": [
+        {
+            "RESPONSE_DATA": [
+                {
+                    "bad_cnt": 3,
+                    "finished_wo_cnt": 1200,
+                    "plan_end_time": "2017-4-11 09:00",
+                    "plan_start_time": "2017-4-11 08:00",
+                    "schedule_cnt": 3500,
+                    "wo_Item_Name": "手机外壳",
+                    "wo_Item_No": "1258656",
+                    "wo_line": "L1",
+                    "wo_no": "MO125892",
+                    "wo_station": "AOI",
+                    "wo_status": "正在生产"
+                },
+                {
+                    "bad_cnt": 300,
+                    "finished_wo_cnt": 1000,
+                    "plan_end_time": "2017-4-15 08:00",
+                    "plan_start_time": "2017-4-12 09:00",
+                    "schedule_cnt": 5000,
+                    "wo_Item_Name": "橡胶",
+                    "wo_Item_No": "365981",
+                    "wo_line": "L2",
+                    "wo_no": "SPI125892258",
+                    "wo_station": "SPI",
+                    "wo_status": "待生产"
+                },
+                {
+                    "bad_cnt": 3600,
+                    "finished_wo_cnt": 2500,
+                    "plan_end_time": "2017-4-14 12:00",
+                    "plan_start_time": "2017-4-11 10:00",
+                    "schedule_cnt": 10000,
+                    "wo_Item_Name": "螺丝",
+                    "wo_Item_No": "326651",
+                    "wo_line": "L3",
+                    "wo_no": "FQC2015258",
+                    "wo_station": "FQC",
+                    "wo_status": "待生产"
+                },
+                {
+                    "bad_cnt": 0,
+                    "finished_wo_cnt": 100,
+                    "plan_end_time": "2017-4-16 10:00",
+                    "plan_start_time": "2017-4-11 10:00",
+                    "schedule_cnt": 1580,
+                    "wo_Item_Name": "烤炉",
+                    "wo_Item_No": "36985214",
+                    "wo_line": "L4",
+                    "wo_no": "Ray2016041401",
+                    "wo_station": "X-RAY",
+                    "wo_status": "待生产"
+                }
+            ]
+        }
+    ]
+}

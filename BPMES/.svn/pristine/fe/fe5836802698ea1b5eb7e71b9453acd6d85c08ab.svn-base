@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<engines>
+
+	<!-- SMT车间生产信息看板 -->
+	<engine engine_code="queryAllSMTKanban" engine_name="组装线信息" engine_type="4" page_mode="3" engine_cate="1" attr1="queryAllSMTKanban" >
+	</engine>
+	
+	
+	<!-- SMT车间生产汇总-->
+	<engine engine_code="sumSMTKanban" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="sumSMTKanban" >
+	</engine>
+	
+	<!-- 每条SMT生产效率圆柱视图 -->
+	<engine engine_code="yuazhuSMTKanban" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="yuazhuSMTKanban" >
+	</engine>
+	<!-- 不良明细统计 -->
+	<engine engine_code="NGSMTKanban" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="NGSMTKanban" >
+	</engine>
+	
+
+
+	
+	
+</engines>

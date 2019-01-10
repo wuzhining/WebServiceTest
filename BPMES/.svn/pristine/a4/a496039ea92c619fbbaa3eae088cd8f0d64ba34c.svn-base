@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>样机试用</title>
+<script type="text/javascript">
+	
+</script>
+<link rel="stylesheet" type="text/css"
+	href="../../../common/IplantCompent/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css"
+	href="../../../common/IplantCompent/themes/icon.css">
+<link rel="stylesheet" type="text/css"
+	href="../../../common/IplantCompent/Demo/demo.css">
+<script src="../../../common/IplantCompent/jquery.min.js"
+	type="text/javascript"></script>
+<script src="../../../common/IplantCompent/jquery.easyui.min.js"
+	type="text/javascript"></script>
+<script src="../../../common/IplantCommon/DataRequest.js"
+	type="text/javascript"></script>
+<script src="../../../common/IplantCommon/CommonUtil.js"
+	type="text/javascript"></script>
+<script src="js/prototypeTest.js" type="text/javascript"></script>
+<meta charset="utf-8" />
+<script type="text/javascript">
+//     	 $(function(){
+//     		$("input",$("#txtTESTNUM").next("span")).blur(function(){
+//     			var txtTESTNUM = $('#txtTESTNUM').val();
+//     			existTest(txtTESTNUM);
+// 			});
+//     	}) 
+    </script>
+</head>
+<body style="padding: 0; margin: 0; position: relative;">
+	<div style="height: 100%; width: 100%;" class="easyui-layout"
+		fit='true'>
+		<div region="center" style="width: 100%" class="easyui-layout"
+			title="样机试用">
+			<div region='north' id="tb" style="width: 30%; height: 45px;">
+				<div
+					style="float: left; height: 45px; width: 100%;">
+					<table border="0">
+						<tr style="height: 30px;">
+							<td>样机编号：<input id="serNUMBER" name="serNUMBER"style="width: 150px;" class="easyui-textbox"data-options="validType:['specialTextCharacter']" /> 
+							              样机名称：<input id="serNAME" name="serNAME"style="width: 150px;" class="easyui-textbox"data-options="validType:['specialTextCharacter']" />							               
+							               需求编号：<select id="serREQUEST" name="serREQUEST"style="width: 150px;" class="easyui-combobox" editable='false'></select>      
+								<a href="#" class="easyui-linkbutton" iconCls="icon-search" id="btnSearch" data-options="plain:true">查询</a>
+								<a id="btnAdd" href="#" class="easyui-linkbutton add" iconCls="icon-add" data-options="plain:true">添加</a>
+                                <a id="btnDelete" href="#" class="easyui-linkbutton delete" iconCls="icon-remove" data-options="plain:true">删除</a>
+    	                        <a id="btnUpdate" href="#" class="easyui-linkbutton update" iconCls="icon-edit" data-options="plain:true">修改</a>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<table region='center' style="height: auto; max-height: 100%"
+				id="RequestTest_tab" class='easyui-datagrid' toolbar="#tb"
+				rownumbers="true"></table>
+		</div>
+	</div>
+
+	<div id="enditTab" class="easyui-dialog"
+		style="width: 600px; height: 350px;" closed="true"
+		data-options="modal: true,
+				buttons: [{
+					text:'保存',
+					iconCls:'icon-ok',
+					handler:function(){
+						savaStation();
+					}
+				},{
+					text:'取消',
+					iconCls:'icon-no',
+					handler:function(){
+						setDataNull();
+						$('#enditTab').dialog('close');
+					}
+				}]">
+		<form id="fmWorkShopArea" action="/iTaurus/iPlant_ImgUpload" method="post"
+			enctype="multipart/form-data" style="padding: 10px 20px 10px 40px;"
+			target="ifm">
+			<table border="0">
+				<tr style="height: 35px; float: left;">
+					<td >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;样机编号：</td>
+					<td><input id="txtTESTNUM" name="TESTNUM" style="width: 150px;"
+						class="easyui-textbox"
+						data-options="validType:['specialTextCharacter'],required:true,missingMessage:'该选项为必填信息'" />
+						<input id="txtID" name="ID" style="width: 10px;" type='text'
+						hidden='true' /></td>
+					<td style="color: red">*</td>
+					<td>&nbsp;&nbsp;&nbsp;&nbsp;样机名称：</td>
+					<td><input id="txtTESTNAME" name="TESTNAME" style="width: 150px;"
+						class="easyui-textbox"
+						data-options="validType:['specialCharacter'],required:true,missingMessage:'该选项为必填信息'" />
+					</td>
+					<td style="color: red">*</td>
+				</tr>				
+				<tr style="height: 35px; float: left;">
+					<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;需求编号：</td>
+					<td><select id="txtREQUESTNUM" name="REQUESTNUM"
+						style="width: 150px;" class="easyui-combobox" editable='false'
+						data-options="required:true,missingMessage:'该选项为必填信息'"></select></td>
+					<td style="color: red">*</td>
+					<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;项目名：</td>
+					<td><input id="txtPROJECTNAME" name="PROJECTNAME" style="width: 150px;"
+						class="easyui-textbox"
+						data-options="validType:['specialCharacter']" editable='false'/>
+					</td>
+					<td></td>
+				</tr>
+				<tr style="height: 35px; float: left;">
+					<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;需求数量：</td>
+					<td><input id="txtREQUESTSL" name="REQUESTSL" style="width: 150px;"
+						class="easyui-textbox"
+						data-options="validType:['specialTextCharacter']" editable='false' />
+					</td>
+					<td></td>
+					<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;供应商：</td>
+					<td><input id="txtSUPPLIER" name="SUPPLIER"
+						style="width: 150px;" class="easyui-textbox"
+						data-options="validType:['specialCharacter']" editable='false' />
+					</td>	
+					<td></td>				
+				</tr>
+				<tr style="height: 35px; float: left;">
+					<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;试用地点：</td>
+					<td><input id="txtSYDD" name="SYDD" style="width: 150px;"
+						class="easyui-textbox" /></td>
+						<td></td>
+					<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;样机状态：</td>
+					<td><select id="txtYJZT" name="YJZT"
+						style="width: 150px;" class="easyui-combobox" editable='false'>
+							<option value='0'>通过</option>
+							<option value='1'>不通过</option>							
+					</select></td>
+					<td></td>
+				</tr>
+				<tr style="height: 40px; float: left;">
+					<td>是否批量采购：</td>
+					<td align="left">                      
+                      <td colspan="2"><input id="txtSFCG1" name="SFCG"
+						class="" type="radio" value="Y" />是&nbsp;&nbsp; <input
+						id="txtSFCG2" name="SFCG" class="" type="radio"
+						value="N" />否</td>
+                       </td>
+						<td></td>			
+					<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;计划上线时间：</td>
+					<td><input id="txtPLANDATE" name="PLANDATE" editable='false'
+						style="width: 150px;" class="easyui-datebox"/></td>
+						<td></td>
+				</tr>
+				<tr style="height: 40px; float: left;">
+					<td>附件：</td>
+					<td >
+						<div class='divFile' style='width: 200px;'>
+							<a href="javascript:;" class="a-upload"><input
+								name="txtFJ" id="txtFJ" type="file" onchange="showPic()" />浏览...</a><span
+								id='showFileName' class='divspan' style='width: 120px;'></span>
+						</div> 
+						<input name="FILE_BELONG" id="FILE_BELONG" size="40" type="hidden" />
+						<input name="FILE_CLS" id="FILE_CLS" size="40" type="hidden" /> <input
+						name="FILE_TYPE" id="FILE_TYPE" size="40" type="hidden" /> <input
+						name="importType" id="importType" size="40" value='0'
+						type="hidden" />
+						<img id="imgPicture" src=""  style="width:50PX ;border:1px solid #99D3F5;display:none" height="100PX "   />
+					</td>	
+					<td>样机规格型号：</td>
+					<td><input id="txtSIZE" name="SIZE" style="width: 150px;"
+						class="easyui-textbox" /></td>
+						<td></td>				
+				</tr>				
+			</table>
+		</form>
+	</div>
+	<iframe id='ifm' name='ifm' style="display: none" />
+</body>
+
+</html>

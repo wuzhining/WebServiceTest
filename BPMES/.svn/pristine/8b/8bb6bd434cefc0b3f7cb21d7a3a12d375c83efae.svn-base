@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>标签管理信息</title>
+<link rel="stylesheet" type="text/css"
+	href="../../../common/IplantCompent/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css"
+	href="../../../common/IplantCompent/themes/icon.css">
+<link rel="stylesheet" type="text/css"
+	href="../../../common/IplantCompent/Demo/demo.css">
+<script src="../../../common/IplantCompent/jquery.min.js"
+	type="text/javascript"></script>
+<script src="../../../common/IplantCompent/jquery.easyui.min.js"
+	type="text/javascript"></script>
+<script src="../../../common/IplantCommon/DataRequest.js"
+	type="text/javascript"></script>
+<script src="../../../common/IplantCommon/CommonUtil.js"
+	type="text/javascript"></script>
+<script src="js/barcodeRule.js" type="text/javascript"></script>
+<script type="text/javascript">
+	
+</script>
+<meta charset="utf-8" />
+</head>
+<body style="padding: 0; margin: 0;">
+	<div style="height: 100%; width: 100%" class="easyui-layout" fit="true">
+		<!-- 内部局 -->
+			<div data-options="region:'west',split:true" title="条码列表"
+				style="width: 300px;">
+				<!-- 树形菜单 -->
+				<ul id="tre" class="easyui-tree"></ul>
+			</div>
+			<div data-options="region:'center',title:'条码设计详情',iconCls:'icon-ok'">
+		<div region='north' id="tb" style="width: auto; height: 30px; background: linear-gradient(rgb(255, 255, 255) 0px, rgba(149, 184, 231, 0.28) 100%);">
+                <table style="width: auto; height:100%;" cellspacing="0" border="0">
+                    <tr>
+                      <td>                     
+<!--                          <a href="#" class="easyui-linkbutton save" iconCls="icon-save" id="btnSave" data-options="plain:true">保存</a>                         -->
+                         <span id='showMessageInfo' class='divspan' style='width:300px;'></span>
+                      </td>
+                    </tr>
+               </table>
+            </div>
+	  <form id="fmBurDialog" method="post">
+         	<div style="width:630px;height:210px;border:1px solid rgb(221,221,221);padding-top:15px">
+         		<div style="height:20px;width:65px;margin-top:-10px;margin-left:30px;background:#fff"><span id="Type" style="font-size:12px;font-family:宋体;font-weight:bold;">条码类型</span></div>
+	            <table border="0" style="margin-left:25px">
+	                 <tr style="height: 35px;">
+	                    <td>编码方式：</td>
+	                    <td>
+	                        <input id="codingMode" name="postingdate" style="width: 200px;" class="easyui-combobox"  required="required" data-options="missingMessage:'该选项为必填信息'" editable="false" readonly="readonly"/>
+	                    </td>
+	                    <td colspan="2" hidden="ture">
+	                         <input id="code" name="postingdate" style="width: 200px;" class="easyui-textbox"  editable="false"/>
+	                    </td>
+	                </tr>
+	                <tr style="height: 35px;">
+	                    <td>前缀一：</td>
+	                    <td>
+	                        <input id="prefixFirst" name="postingdate" style="width: 200px;" class="easyui-combobox" required="required" data-options="missingMessage:'该选项为必填信息'" editable="false" readonly="readonly"/>
+	                    </td>
+	                    <td>长度：</td>
+	                    <td>
+	                        <input id="prefixFirst_length" name="postingdate" style="width: 70px;" class="easyui-textbox" required="required" data-options="missingMessage:'该选项为必填信息'" editable="false" />
+	                        <input id="prefixFirst_display" name="postingdate" style="width: 100px;" class="easyui-textbox" required="required" data-options="missingMessage:'该选项为必填信息'" editable="false"/>
+	                    </td>
+	                </tr>
+	                <tr style="height: 35px;">
+	                     <td>前缀二：</td>
+	                    <td>
+	                        <input id="prefixSecond" name="postingdate" style="width: 200px;" class="easyui-combobox" required="required" data-options="missingMessage:'该选项为必填信息'" editable="false" readonly="readonly"/>
+	                    </td>
+	                    <td>长度：</td>
+	                    <td>
+	                        <input id="prefixSecond_length" name="postingdate" style="width: 70px;" class="easyui-textbox" required="required" data-options="missingMessage:'该选项为必填信息'" editable="false"/>
+	                        <input id="prefixSecond_display" name="postingdate" style="width: 100px;" class="easyui-combobox" required="required" data-options="missingMessage:'该选项为必填信息'" editable="false" readonly="readonly"/>
+	                    </td>
+	                </tr>
+	                <tr style="height: 35px; ">
+	                     <td>前缀三：</td>
+	                    <td>
+	                        <input id="prefixthird" name="postingdate" style="width: 200px;" class="easyui-combobox" required="required" data-options="missingMessage:'该选项为必填信息'" editable="false" readonly="readonly"/>
+	                    </td>
+	                    <td>长度：</td>
+	                    <td>
+	                        <input id="prefixthird_length" name="postingdate" style="width: 70px;" class="easyui-textbox" required="required" data-options="missingMessage:'该选项为必填信息'" editable="false"/>
+	                        <input id="prefixthird_display" name="postingdate" style="width: 100px;" class="easyui-textbox" required="required" data-options="missingMessage:'该选项为必填信息'" editable="false"/>
+	                    </td>
+	                </tr>
+	                <tr style="height: 35px;">
+	                    <td>长度：</td>
+	                    <td>
+	                        <input id="codingLength" name="postingdate" style="width: 200px;" class="easyui-textbox"  editable="false"/>
+	                    </td>
+	                    <td>起始值：</td>
+	                    <td>
+	                        <input id="initialValue" name="postingdate" style="width: 100px;" class="easyui-numberbox" editable="false"/>
+	                    </td>
+	                </tr>
+	            </table>
+            </div>
+            <div style="width:630px;height:80px;border:1px solid rgb(221,221,221);padding-top:15px;margin-top:30px;">
+            <div style="height:20px;width:55px;margin-top:-24px;margin-left:30px;background:#fff">条码预览</div>
+				<table border="0" style="margin-left:25px">
+				     <tr style="height: 35px; ">
+	                    <td>编号：</td>
+	                    <td>
+	                        <input id="coding_1" name="postingdate" style="width: 100px;" class="easyui-textbox"  editable="false"/>
+	                    </td>
+	                    <td>+</td>
+	                    <td>
+	                        <input id="coding_2" name="postingdate" style="width: 100px;" class="easyui-textbox"  editable="false"/>
+	                    </td>
+	                    <td>+</td>
+	                    <td>
+	                        <input id="coding_3" name="postingdate" style="width: 100px;" class="easyui-textbox"  editable="false"/>
+	                    </td>
+	                    <td>+</td>
+	                    <td>
+	                        <input id="coding_4" name="postingdate" style="width: 100px;" class="easyui-textbox"  editable="false"/>
+	                    </td>
+	                </tr>
+	                <tr style="height: 35px;">
+	                    <td>示例：</td>
+	                    <td colspan="5">
+	                        <input id="codingExample" name="postingdate" style="width: 250px;" class="easyui-textbox" editable="false"/>
+	                    </td>
+	                </tr>
+				
+				</table>
+			</div>
+        </form>
+	</div>
+	</div>
+</body>
+</html>

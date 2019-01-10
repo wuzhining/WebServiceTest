@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<podiums>
+	<podium  podium_code="userLogin" podium_name="获取用户的数据权限" podium_class="com.iPlant.mes.Biz.UserInfopodium" podium_method="acceptance" attr1="" attr2=""/>
+	<!--  <podium  podium_code="insertAlarmSingleCondition" podium_name="新增报警配置单条件表" podium_class="com.iPlant.mes.biz.alarm.Alarm" podium_method="execute" attr1="" attr2=""/> -->
+	<podium  podium_code="deleteTeamInfoDetail" podium_name="报警班组删除" podium_class="com.iPlant.mes.biz.alarm.Alarm" podium_method="deleteAlarmTeam" attr1="" attr2=""/>
+	<podium  podium_code="deleteAlarmSingleCondition" podium_name="删除报警配置单条件表" podium_class="com.iPlant.mes.biz.alarm.Alarm" podium_method="deleteAlarmPeiZhi" attr1="" attr2=""/>
+	<podium  podium_code="deleteAlarmDoubleCondition" podium_name="删除报警配置双条件表" podium_class="com.iPlant.mes.biz.alarm.Alarm" podium_method="deleteAlarmPeiZhi2" attr1="" attr2=""/>
+<!-- 	<podium  podium_code="updateFrequencyPair" podium_name="修改报警配置班次配对表" podium_class="com.iPlant.mes.biz.alarm.Alarm" podium_method="updateAlarmFrequencyPair" attr1="" attr2=""/> -->
+<!-- 	<podium  podium_code="updateMachinePair" podium_name="修改报警配置机器配对表" podium_class="com.iPlant.mes.biz.alarm.Alarm" podium_method="updateAlarmMachine" attr1="" attr2=""/> -->
+<!-- 	<podium  podium_code="updateTeamInfoDetail" podium_name="修改班组信息明细" podium_class="com.iPlant.mes.biz.alarm.Alarm" podium_method="updateBCCodeEMP" attr1="" attr2=""/> -->
+</podiums>
+ 

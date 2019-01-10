@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<engines>
+	<!-- 检验定义模块 -->
+	<!-- 查询检验类型列表 -->
+	<engine engine_code="QueryInspectionType" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="QueryInspectionType" >
+	</engine>
+	
+	<!-- 修改检验类型列表 -->
+	<engine engine_code="InspectionTypeInfoUpdate" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="InspectionTypeInfoUpdate" >
+	</engine>
+	
+	<!-- 新增检验类型列表 -->
+	<engine engine_code="InspectionTypeInfoInsert" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="InspectionTypeInfoInsert" >
+	</engine>
+	
+	<!-- 删除检验类型列表-->
+	<engine engine_code="InspectionTypeInfoDelete" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="InspectionTypeInfoDelete" >
+	</engine>
+	
+	<!-- 查询检查项清单-->
+	<engine engine_code="queryInspectionItem" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryInspectionItem" >
+	</engine>
+	<!-- 修改检查项清单-->
+	<engine engine_code="updateInspectionItem" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateInspectionItem" >
+	</engine>
+	<!-- 新增检查项清单-->
+	<engine engine_code="insertInspectionItem" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertInspectionItem" >
+	</engine>
+	<!-- 删除检查项清单-->
+	<engine engine_code="deleteInspectionItem" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteInspectionItem" >
+	</engine>
+	
+	<!-- 查询检查项清单明细-->
+	<engine engine_code="queryInspectionItemDetail" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryInspectionItemDetail" >
+	</engine>
+	<!-- 修改检查项清单明细-->
+	<engine engine_code="updateInspectionItemDetail" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateInspectionItemDetail" >
+	</engine>
+	<!-- 新增检查项清单明细-->
+	<engine engine_code="insertInspectionItemDetail" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertInspectionItemDetail" >
+	</engine>
+	<!-- 删除检查项清单明细-->
+	<engine engine_code="deleteInspectionItemDetail" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteInspectionItemDetail" >
+	</engine>
+	
+	<!-- 检验定义 -->
+	<!-- 查询检验模板清单 -->
+	<engine engine_code="QueryQualityTemplate" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="QueryQualityTemplate" >
+	</engine>
+	<!-- 查询检验模板清单 序列 -->
+	<engine engine_code="QueryQualityTemplateSeq" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="QueryQualityTemplateSeq" >
+	</engine>
+	<!-- 查询检验模板清单 多表 -->
+	<engine engine_code="QueryQualityTemplateD" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="QueryQualityTemplateD" >
+	</engine>
+	
+	<!-- 修改检验模板清单 -->
+	<engine engine_code="QualityTemplateUpdate" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="QualityTemplateUpdate" >
+	</engine>
+	
+	<!-- 新增检验模板清单 -->
+	<engine engine_code="QualityTemplateInsert" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="QualityTemplateInsert" >
+	</engine>
+	
+	<!-- 新增到中间表-->
+	<engine engine_code="QualityTemplateInsertZ" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="QualityTemplateInsertZ" >
+	</engine>
+	
+	<!-- 删除中间表-->
+	<engine engine_code="QualityTemplateDeleteZ" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="QualityTemplateDeleteZ" >
+	</engine>
+	<!-- 删除检验模板清单 -->
+	<engine engine_code="QualityTemplateDelete" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="QualityTemplateDelete" >
+	</engine>
+   <!-- =====================================模块关联列表模块========================================================== -->
+	<!-- 新增模块关联列表信息 -->
+	<engine engine_code="INSERT_WMS_INSPECTIONTEMPLATEITEM" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="INSERT_WMS_INSPECTIONTEMPLATEITEM" >
+	</engine>
+	
+	<!--查询模块关联列表信息 -->
+	<engine engine_code="select_WMS_INSPECTIONTEMPLATEITEM" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="select_WMS_INSPECTIONTEMPLATEITEM" >
+	</engine>
+	 <!-- =====================================QHold管理========================================================== -->
+	<!--查询物料详情信息  -->
+	<engine engine_code="Qualityqms_HoldMaterial" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="Qualityqms_HoldMaterial" >
+	</engine>
+	<!--查询QHold详情信息  -->
+	<engine engine_code="Qualityqms_HoldHistory" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="Qualityqms_HoldHistory" >
+	</engine>
+	<!--新增物料详情信息  -->
+	<engine engine_code="Insertqms_HoldMaterial" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="Insertqms_HoldMaterial" >
+	</engine>
+	<!--新增QHold详情信息  -->
+	<engine engine_code="Insertqms_HoldHistory" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="Insertqms_HoldHistory" >
+	</engine>
+	<!--修改QHold详情信息  -->
+	<engine engine_code="Updateqms_HoldHistory" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="Updateqms_HoldHistory" >
+	</engine>
+</engines>

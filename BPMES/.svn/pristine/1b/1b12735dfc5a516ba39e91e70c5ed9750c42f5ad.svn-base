@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<podiums>
+	<!-- 查询货位树结构信息 -->
+	<podium podium_code="PositionMenuInfoQuery"    podium_name="查询货位树结构信息" podium_class="com.iPlant.mes.common.WmsPositionTree" podium_method="execute" attr1="" attr2=""/>
+	<!-- 查询储区树结构信息 -->
+	<podium podium_code="StoreMenuInfoQuery"    podium_name="查询储区树结构信息" podium_class="com.iPlant.mes.common.WmsStoreTree" podium_method="execute" attr1="" attr2=""/>
+	<!-- 查询货架树结构信息 -->
+	<podium podium_code="ShelfMenuInfoQuery"    podium_name="查询货架树结构信息" podium_class="com.iPlant.mes.common.WmsShelfTree" podium_method="execute" attr1="" attr2=""/>
+	<!-- 批量更新计量单位信息 -->
+	<podium podium_code="unitInfoUpdate"    podium_name="批量更新计量单位信息" podium_class="com.iPlant.mes.biz.wms.WmsUnit" podium_method="execute" attr1="" attr2=""/>	
+	<!-- 新增订单主表 -->
+	<podium podium_code="OrderInfoMainInsert" podium_name="新增订单主表 " podium_class="com.iPlant.mes.biz.wms.OrderManage" podium_method="execute" attr1="" attr2=""/>
+	<!-- 新增订单详情表 -->
+	<podium podium_code="IndentInfoInsert" podium_name="新增订单详情表" podium_class="com.iPlant.mes.biz.wms.OrderManage" podium_method="addOrderDetailInfo" attr1="" attr2=""/>
+	<!-- 删除订单主表 详情表 -->
+	<podium podium_code="IndentInfoDelete"    podium_name="删除订单主表 详情表" podium_class="com.iPlant.mes.biz.wms.OrderManage" podium_method="deleteOrderInfo" attr1="" attr2=""/>
+	<!-- 查询条码树结构信息 -->
+	<podium podium_code="queryBarcodeRuleTree"    podium_name="查询条码树结构信息" podium_class="com.iPlant.mes.common.WmsBarcodeTree" podium_method="execute" attr1="" attr2=""/>
+	<!-- 新增货架信息 -->
+	<podium podium_code="GoodsShelfInfoInsert"    podium_name="新增货架信息" podium_class="com.iPlant.mes.biz.wms.WMSshelf" podium_method="execute" attr1="" attr2=""/>
+	<!-- MSR入库调用 -->
+	<podium podium_code="CheckinByMSR" podium_name="MSR入库调用" podium_class="com.iPlant.mes.biz.wms.WmsOfMsr" podium_method="execute" attr1="" attr2=""/>
+	<!-- MSR出库调用 -->
+	<podium podium_code="CheckOutByMSR" podium_name="MSR出库调用" podium_class="com.iPlant.mes.biz.wms.WmsOfMsr" podium_method="checkOut" attr1="" attr2=""/>
+	
+</podiums>
+ 

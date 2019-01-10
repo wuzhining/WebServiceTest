@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ifss>
+	<!-- 获取工厂-->
+	<ifs ifs_code="PX0000001" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="getFactoryInfo" biz_method="" serial_no="1" biz_name="getFactoryInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 获取工序类型-->
+	<ifs ifs_code="PX0000002" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="getProcessType" biz_method="" serial_no="1" biz_name="getProcessType" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 获取工序编码-->
+	<ifs ifs_code="PX0000003" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="getProcessNo" biz_method="" serial_no="1" biz_name="getProcessNo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 获取物料信息-->
+	<ifs ifs_code="PX0000004" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="getmaterialInfo" biz_method="" serial_no="1" biz_name="getmaterialInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 工序BOM装配物料明细增加 -->
+	<ifs ifs_code="PX0000005" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertBomMaterialDetails" biz_method="" serial_no="1" biz_name="insertBomMaterialDetails" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 工序BOM装配物料明细查询 -->
+	<ifs ifs_code="PX0000006" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryBomMaterialDetails" biz_method="" serial_no="1" biz_name="queryBomMaterialDetails" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	  <!-- 工序BOM装配物料明细修改 -->
+	<ifs ifs_code="PX0000007" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateBomMaterialDetails" biz_method="" serial_no="1" biz_name="updateBomMaterialDetails" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 工序BOM装配物料明细删除 -->
+    
+    <ifs ifs_code="PX0000008" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteBomMaterialDetails" biz_method="" serial_no="1" biz_name="deleteBomMaterialDetails" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+ </ifss>

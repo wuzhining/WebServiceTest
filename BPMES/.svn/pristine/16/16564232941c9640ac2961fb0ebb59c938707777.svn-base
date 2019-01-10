@@ -1,0 +1,876 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ifss>
+    <!-- A8 手机APP --> 
+    <!-- A8.1 机器状态-->
+    <!-- 机器状态汇总-->
+	<ifs ifs_code="H000001" ifs_name="机器状态汇总" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryMachineInfo" biz_method="" serial_no="1" biz_name="queryMachineInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 查询机器状态列表-->
+	<ifs ifs_code="H000002" ifs_name="查询机器状态列表" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryMachineList" biz_method="" serial_no="1" biz_name="queryMachineList" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 查询机器状态详情 -->
+	<ifs ifs_code="H000003" ifs_name="查询机器状态详情 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryMachineDtlInfo" biz_method="" serial_no="1" biz_name="queryMachineDtlInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 查询停机类型-->
+	<ifs ifs_code="H000004" ifs_name="查询停机类型" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryMachineStatusInfo" biz_method="" serial_no="1" biz_name="queryMachineStatusInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- A8.2   工单监视-->
+	<!-- 工单汇总-->
+	<ifs ifs_code="H000005" ifs_name="工单汇总" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryOrderSumMonitorList" biz_method="" serial_no="1" biz_name="queryOrderSumMonitorList" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 工单列表-->
+	<ifs ifs_code="H000006" ifs_name="工单列表" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryOrderMonitorList" biz_method="" serial_no="1" biz_name="queryOrderMonitorList" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 派工单详情-->
+	<ifs ifs_code="H000007" ifs_name="派工单详情" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryOrderMonitorMONOList" biz_method="" serial_no="1" biz_name="queryOrderMonitorMONOList" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- A8.3  次品数录入-->
+	<!-- 查询次品原因-->
+	<ifs ifs_code="H000008" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryIMReasonName" biz_method="" serial_no="1" biz_name="queryIMReasonName" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 查询次品数录入信息 -->
+	<ifs ifs_code="H000009" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryBadInfo" biz_method="queryBadInfo" serial_no="1" biz_name="" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 录入次品数-->
+	<ifs ifs_code="H000010" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertBadNum" biz_method="insertBadNum" serial_no="1" biz_name="" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- A8.4   报警-->
+	<!-- 查询报警信息列表      查询所有推送状态的报警信息      更新报警信息-->
+	<ifs ifs_code="H000011" ifs_name="查询报警信息列表" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryAlarmList" biz_method="" serial_no="1" biz_name="queryAlarmList" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<ifs ifs_code="H000012" ifs_name="查询所有推送状态的报警信息 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="alarmPushList" biz_method="" serial_no="1" biz_name="alarmPushList" biz_type="3" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<ifs ifs_code="H000013" ifs_name="更新报警信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateAlarmaProcess" biz_method="" serial_no="1" biz_name="updateAlarmaProcess" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- A8.5   设备维修保养-->
+	<!-- 查询设备维修明细(关联)-->
+	<ifs ifs_code="H000014" ifs_name="查询设备维修明细" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryDeviceRepairDetailgl" biz_method="" serial_no="1" biz_name="queryDeviceRepairDetailgl" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 设备维修录入-->
+	<ifs ifs_code="H000015" ifs_name="设备维修录入" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertDeviceRepair" biz_method="" serial_no="1" biz_name="insertDeviceRepair" biz_type="3" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 查询设备保养明细(关联) -->
+	<ifs ifs_code="H000016" ifs_name="查询设备保养明细(关联)" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryDeviceMaintainDetailgl" biz_method="" serial_no="1" biz_name="queryDeviceMaintainDetailgl" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 设备保养录入-->
+	<ifs ifs_code="H000017" ifs_name="设备保养录入" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertDeviceMaintain" biz_method="" serial_no="1" biz_name="insertDeviceMaintain" biz_type="3" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 设备保养查询 -->
+	<ifs ifs_code="H000092" ifs_name="设备保养查询" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryDeviceMaintain" biz_method="" serial_no="1" biz_name="queryDeviceMaintain" biz_type="3" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 设备维护查询 -->
+	<ifs ifs_code="H000093" ifs_name="设备维护查询" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryDeviceRepair" biz_method="" serial_no="1" biz_name="queryDeviceRepair" biz_type="3" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- A8.6  模具维修保养-->
+	<!-- 查询模具维修明细-->
+	<ifs ifs_code="H000018" ifs_name="查询模具维修明细" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryMouldRepairDetail" biz_method="" serial_no="1" biz_name="queryMouldRepairDetail" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 模具维修录入-->
+	<ifs ifs_code="H000019" ifs_name="模具维修录入" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertMouldRepair" biz_method="" serial_no="1" biz_name="insertMouldRepair" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 查询模具保养明细-->
+	<ifs ifs_code="H000020" ifs_name="查询模具保养明细" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryMouldMaintainDetail" biz_method="" serial_no="1" biz_name="queryMouldMaintainDetail" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 模具保养录入 -->
+	<ifs ifs_code="H000021" ifs_name="模具保养录入" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertMouldMaintain" biz_method="" serial_no="1" biz_name="insertMouldMaintain" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- A8.7  上下机打卡-->
+	<!-- 上下机打卡-->
+	<ifs ifs_code="H000022" ifs_name="上下机打卡" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryDutyCardList" biz_method="" serial_no="1" biz_name="queryDutyCardList" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- A8.8  停机打卡-->
+	<!-- 停机刷卡-->
+	<ifs ifs_code="H000023" ifs_name="停机刷卡列表" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryStopCardList" biz_method="" serial_no="1" biz_name="queryStopCardList" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- A8.9  生产日报表-->
+	<!-- 生产日报汇总-->
+	<ifs ifs_code="H000024" ifs_name="生产日报汇总" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryProductiSailyReportSumList" biz_method="" serial_no="1" biz_name="queryProductiSailyReportSumList" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 生产日报详情-->
+	<ifs ifs_code="H000025" ifs_name="生产日报详情" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryPsrMachineNo" biz_method="" serial_no="1" biz_name="queryPsrMachineNo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 查询工作中心-->
+	<ifs ifs_code="H000026" ifs_name="查询工作中心" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryPsrWsCode" biz_method="" serial_no="1" biz_name="queryPsrWsCode" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	
+	<!-- A8.10   次品报表-->
+	<!-- 次品报表汇总-->
+	<ifs ifs_code="H000027" ifs_name="次品报表汇总 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="querySumBad" biz_method="" serial_no="1" biz_name="querySumBad" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 次品报表列表-->
+	<ifs ifs_code="H000028" ifs_name="次品报表列表" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryBadList" biz_method="" serial_no="1" biz_name="queryBadList" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 次品报表详情-->
+	<ifs ifs_code="H000029" ifs_name="次品报表明细" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryBadDetail" biz_method="" serial_no="1" biz_name="queryBadDetail" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+
+	<!-- A8.11   设备OEE-->
+	<!-- OEE汇总-->
+	<ifs ifs_code="H000030" ifs_name="OEE汇总" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryCountMetricsList" biz_method="" serial_no="1" biz_name="queryCountMetricsList" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- OEE列表 -->
+	<ifs ifs_code="H000031" ifs_name="OEE列表 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryOEEMetricsList" biz_method="" serial_no="1" biz_name="queryOEEMetricsList" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- A8.12  修改密码-->
+    <!-- 修改密码 -->
+	<ifs ifs_code="H000032" ifs_name="修改密码 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updatePassword" biz_method="" serial_no="1" biz_name="updatePassword" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- A8.13   版本更新-->
+	<!-- 查询版本信息表 -->
+	<ifs ifs_code="H000033" ifs_name="查询版本信息表" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryVersionManage" biz_method="" serial_no="1" biz_name="queryVersionManage" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 新增版本信息表 -->
+	<ifs ifs_code="H000034" ifs_name="新增版本信息表 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertVersionManage" biz_method="" serial_no="1" biz_name="insertVersionManage" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 更新版本信息表 -->
+	<ifs ifs_code="H000035" ifs_name="更新版本信息表 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateVersionCode" biz_method="" serial_no="1" biz_name="updateVersionCode" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>	
+	<!-- 查询历史版本信息表 -->
+	<ifs ifs_code="H000036" ifs_name="查询历史版本信息表" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryVersionManageList" biz_method="" serial_no="1" biz_name="queryVersionManageList" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 新增历史版本信息表 -->
+	<ifs ifs_code="H000037" ifs_name="新增历史版本信息表 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertVersionManageList" biz_method="" serial_no="1" biz_name="insertVersionManageList" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- A8.14   次品柱状图-->
+	<!-- 查询次品柱状图 -->
+	<ifs ifs_code="H000038" ifs_name="查询次品柱状图 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryDefectiveHistogram" biz_method="" serial_no="1" biz_name="queryDefectiveHistogram" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 查询产品编号（级联：日期）-->
+	<ifs ifs_code="H000039" ifs_name="查询产品编号" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryProductNo" biz_method="" serial_no="1" biz_name="queryProductNo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 查询工单号（级联：产品编号,日期）-->
+	<ifs ifs_code="H000040" ifs_name="查询工单号" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryTZ_MONO" biz_method="" serial_no="1" biz_name="queryTZ_MONO" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 查询机台 （级联：产品编号,日期,工单号）-->
+	<ifs ifs_code="H000041" ifs_name="查询机台" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryMachineNo" biz_method="" serial_no="1" biz_name="queryMachineNo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- A8.15   停机柱状图-->
+	<!-- 查询停机柱状图 -->
+	<ifs ifs_code="H000042" ifs_name="查询停机柱状图 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryDowntimeHistogramList" biz_method="" serial_no="1" biz_name="queryDowntimeHistogramList" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- A8.16   备件管理-->
+	<!-- 备件一览表 -->
+	<ifs ifs_code="H000043" ifs_name="备件一览表 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="querySpareParts" biz_method="" serial_no="1" biz_name="querySpareParts" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 领用明细 -->
+	<ifs ifs_code="H000044" ifs_name="领用明细 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryUsingDetail" biz_method="" serial_no="1" biz_name="queryUsingDetail" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 报损明细 -->
+	<ifs ifs_code="H000045" ifs_name="报损明细 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryReportLoss" biz_method="" serial_no="1" biz_name="queryReportLoss" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 备件登记新增 -->
+	<ifs ifs_code="H000046" ifs_name="备件登记 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertSpRegistration" biz_method="" serial_no="1" biz_name="insertSpRegistration" biz_type="3" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 备件领用新增 -->
+	<ifs ifs_code="H000047" ifs_name="备件领用 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertSpUsing" biz_method="" serial_no="1" biz_name="insertSpUsing" biz_type="3" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 备件退还新增 -->
+	<ifs ifs_code="H000048" ifs_name="备件退还 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertSpRefund" biz_method="" serial_no="1" biz_name="insertSpRefund" biz_type="3" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 备件报损新增-->
+	<ifs ifs_code="H000049" ifs_name="备件报损 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertSpReport" biz_method="" serial_no="1" biz_name="insertSpReport" biz_type="3" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 设备维修删除 -->
+	<ifs ifs_code="H000050" ifs_name="设备维修删除 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteDeviceRepair" biz_method="" serial_no="1" biz_name="deleteDeviceRepair" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 设备维修修改 -->
+	<ifs ifs_code="H000051" ifs_name="设备维修删除 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateDeviceRepair" biz_method="" serial_no="1" biz_name="updateDeviceRepair" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 设备保养删除 -->
+	<ifs ifs_code="H000052" ifs_name="设备保养删除 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteDeviceMaintain" biz_method="" serial_no="1" biz_name="deleteDeviceMaintain" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 设备保养修改 -->
+	<ifs ifs_code="H000053" ifs_name="设备保养修改" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateDeviceMaintain" biz_method="" serial_no="1" biz_name="updateDeviceMaintain" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 不良信息记录主表 -->
+	<!-- 查询不良信息记录主表 -->
+	<ifs ifs_code="H000054" ifs_name="查询不良信息记录主表" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryBadRecord" biz_method="" serial_no="1" biz_name="queryBadRecord" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 新增不良信息记录主表  -->
+	<ifs ifs_code="H000055" ifs_name="新增不良信息记录主表" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertBadRecord" biz_method="" serial_no="1" biz_name="insertBadRecord" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 删除不良信息记录主表  -->
+	<ifs ifs_code="H000056" ifs_name="删除不良信息记录主表" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteBadRecord" biz_method="" serial_no="1" biz_name="deleteBadRecord" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 修改不良信息记录主表  -->
+	<ifs ifs_code="H000057" ifs_name="修改不良信息记录主表" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateBadRecord" biz_method="" serial_no="1" biz_name="updateBadRecord" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 不良信息记录明细表 -->
+	<!-- 查询不良信息记录明细表  -->
+	<ifs ifs_code="H000058" ifs_name="查询不良信息记录明细表" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryBadRecordDetail" biz_method="" serial_no="1" biz_name="queryBadRecordDetail" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 新增不良信息记录明细表   -->
+	<ifs ifs_code="H000059" ifs_name="新增不良信息记录明细表" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertBadRecordDetail" biz_method="" serial_no="1" biz_name="insertBadRecordDetail" biz_type="3" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 删除不良信息记录明细表   -->
+	<ifs ifs_code="H000060" ifs_name="删除不良信息记录明细表" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteBadRecordDetail" biz_method="" serial_no="1" biz_name="deleteBadRecordDetail" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 修改不良信息记录明细表   -->
+	<ifs ifs_code="H000061" ifs_name="修改不良信息记录明细表" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateBadRecordDetail" biz_method="" serial_no="1" biz_name="updateBadRecordDetail" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 班次信息表 -->
+	<!-- 查询班次信息表 -->
+	<ifs ifs_code="H000062" ifs_name="查询班次信息表 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryBCCode" biz_method="" serial_no="1" biz_name="queryBCCode" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 新增班次信息表    -->
+	<ifs ifs_code="H000063" ifs_name="新增班次信息表 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertBCCode" biz_method="" serial_no="1" biz_name="insertBCCode" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 删除班次信息表    -->
+	<ifs ifs_code="H000064" ifs_name="删除班次信息表 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteBCCode" biz_method="" serial_no="1" biz_name="deleteBCCode" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 修改班次信息表    -->
+	<ifs ifs_code="H000065" ifs_name="修改班次信息表 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateBCCode" biz_method="" serial_no="1" biz_name="updateBCCode" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>	
+	</ifs>
+    
+    <!-- 备件退还查询 -->
+    <ifs ifs_code="H000066" ifs_name="备件退还查询 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="querySpRefund" biz_method="" serial_no="1" biz_name="querySpRefund" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>	
+	</ifs>
+	<!-- 备件退还删除 -->
+	<ifs ifs_code="H000067" ifs_name="备件退还删除" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteSpRefund" biz_method="" serial_no="1" biz_name="deleteSpRefund" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>	
+	</ifs>
+	<!-- 备件退还修改 -->
+	<ifs ifs_code="H000068" ifs_name="备件退还修改" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateSpRefund" biz_method="" serial_no="1" biz_name="updateSpRefund" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>	
+	</ifs>
+	
+	<!-- 备件报损查询-->
+	<ifs ifs_code="H000069" ifs_name="备件报损查询 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="querySpReport" biz_method="" serial_no="1" biz_name="querySpReport" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>	
+	</ifs>
+	<!-- 备件报损删除-->
+	<ifs ifs_code="H000070" ifs_name="备件报损删除" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteSpReport" biz_method="" serial_no="1" biz_name="deleteSpReport" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>	
+	</ifs>
+	<!-- 备件报损修改-->
+	<ifs ifs_code="H000071" ifs_name="备件报损修改 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateSpReport" biz_method="" serial_no="1" biz_name="updateSpReport" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>	
+	</ifs>
+	<!-- 备件登记查询-->
+	<ifs ifs_code="H000072" ifs_name="备件登记查询 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="querySpRegistration" biz_method="" serial_no="1" biz_name="querySpRegistration" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>	
+	</ifs>
+	<!-- 备件登记删除-->
+	<ifs ifs_code="H000073" ifs_name="备件登记删除 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteSpRegistration" biz_method="" serial_no="1" biz_name="deleteSpRegistration" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>	
+	</ifs>
+	<!-- 备件登记修改-->
+	<ifs ifs_code="H000074" ifs_name="备件登记修改" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateSpRegistration" biz_method="" serial_no="1" biz_name="updateSpRegistration" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>	
+	</ifs>
+	<!-- 备件领用查询-->
+	<ifs ifs_code="H000075" ifs_name="备件领用查询 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="querySpUsing" biz_method="" serial_no="1" biz_name="querySpUsing" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>	
+	</ifs>
+	<!-- 备件领用删除-->
+	<ifs ifs_code="H000076" ifs_name="备件领用删除 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteSpUsing" biz_method="" serial_no="1" biz_name="deleteSpUsing" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>		
+	</ifs>
+	<!-- 备件领用修改-->
+	<ifs ifs_code="H000077" ifs_name="备件领用修改 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateSpUsing" biz_method="" serial_no="1" biz_name="updateSpUsing" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>		
+	</ifs>
+
+	
+	<!-- 删除版本信息 -->
+	<ifs ifs_code="H000078" ifs_name="删除版本信息 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteVersionInfo" biz_method="" serial_no="1" biz_name="deleteVersionInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>		
+	</ifs>
+
+
+	
+	<!-- 查询不良信息类别数量 -->
+	<ifs ifs_code="H000078" ifs_name="查询不良信息类别数量 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryBadRecordDetailGl" biz_method="" serial_no="1" biz_name="queryBadRecordDetailGl" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>		
+	</ifs>
+	
+	<!-- 查询不良信息记录主表(无关联) -->
+	<ifs ifs_code="H000079" ifs_name="查询不良信息记录主表(无关联) " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryBadRecordMain" biz_method="" serial_no="1" biz_name="queryBadRecordMain" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>		
+	</ifs>
+	
+	<!-- 查询不良信息记录新增  -->
+	<ifs ifs_code="H000080" ifs_name="查询不良信息记录新增 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryBadRecordDetailInsert" biz_method="" serial_no="1" biz_name="queryBadRecordDetailInsert" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>		
+	</ifs>
+	
+	<!-- 备件主表查询-->
+	<ifs ifs_code="H000081" ifs_name="备件主表查询 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="querySpareMain" biz_method="" serial_no="1" biz_name="querySpareMain" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>	
+	</ifs>
+	<!-- 备件主表新增-->
+	<ifs ifs_code="H000082" ifs_name="备件主表新增 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertSpareMain" biz_method="" serial_no="1" biz_name="insertSpareMain" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>	
+	</ifs>
+	<!-- 备件主表删除-->
+	<ifs ifs_code="H000083" ifs_name="备件主表删除" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteSpareMain" biz_method="" serial_no="1" biz_name="deleteSpareMain" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>	
+	</ifs>
+	<!-- 备件主表修改-->
+	<ifs ifs_code="H000084" ifs_name="备件主表修改 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateSpareMain" biz_method="" serial_no="1" biz_name="updateSpareMain" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>	
+	</ifs>
+	
+	<!-- 更新报警信息发送状态-->
+	<ifs ifs_code="H000085" ifs_name="更新报警信息发送状态 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateAlarmPushStatus" biz_method="" serial_no="1" biz_name="updateAlarmPushStatus" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>	
+	</ifs>
+		
+	
+	<!-- 备件信息新增-->
+	<ifs ifs_code="H000086" ifs_name="备件信息新增 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertSpareInfo" biz_method="" serial_no="1" biz_name="insertSpareInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>	
+	</ifs>
+	<!-- 备件信息删除-->
+	<ifs ifs_code="H000087" ifs_name="备件信息删除" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteSpareInfo" biz_method="" serial_no="1" biz_name="deleteSpareInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>	
+	</ifs>
+	<!-- 备件信息修改-->
+	<ifs ifs_code="H000088" ifs_name="备件信息修改 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateSpareInfo" biz_method="" serial_no="1" biz_name="updateSpareInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>	
+	</ifs>
+	<!-- 备件信息查询-->
+	<ifs ifs_code="H000089" ifs_name="备件信息查询 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="querySpareInfo" biz_method="" serial_no="1" biz_name="querySpareInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>	
+	</ifs>
+
+    <!-- 查询不良信息补录数据-->
+	<ifs ifs_code="H000090" ifs_name="查询不良信息补录数据 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryBadRecordStatus" biz_method="" serial_no="1" biz_name="queryBadRecordStatus" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>	
+	</ifs>	
+	
+	<!-- 查询次单数据-->
+	<ifs ifs_code="H000091" ifs_name="查询次单数据 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="querySimple" biz_method="" serial_no="1" biz_name="querySimple" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>	
+	</ifs>
+	
+	<!--备件库位信息表查询-->
+	<ifs ifs_code="H000102" ifs_name="备件库位信息表查询 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="querySpareStockPositionInfo" biz_method="" serial_no="1" biz_name="querySpareStockPositionInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>	
+	</ifs>
+	<!-- 备件库位信息表新增-->
+	<ifs ifs_code="H000103" ifs_name="备件库位信息表新增" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertSpareStockPositionInfo" biz_method="" serial_no="1" biz_name="insertSpareStockPositionInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>	
+	</ifs>
+	<!-- 备件库位信息表删除-->
+	<ifs ifs_code="H000104" ifs_name="备件库位信息表删除 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteSpareStockPositionInfo" biz_method="" serial_no="1" biz_name="deleteSpareStockPositionInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>	
+	</ifs>
+	<!-- 备件库位信息表修改-->
+	<ifs ifs_code="H000105" ifs_name="备件库位信息表修改" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateSpareStockPositionInfo" biz_method="" serial_no="1" biz_name="updateSpareStockPositionInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>	
+	</ifs>
+	
+	<!-- 备件领用总数 -->
+	<ifs ifs_code="H000096" ifs_name="备件领用总数" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="querySimpleSum" biz_method="" serial_no="1" biz_name="querySimpleSum" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>	
+	</ifs>
+	
+	<!-- 备件主表总数量 -->
+	<ifs ifs_code="H000097" ifs_name="备件主表总数量 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="querySpareMainSUM" biz_method="" serial_no="1" biz_name="querySpareMainSUM" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>	
+	</ifs>
+	
+	<!-- 更新备件主表总数 -->
+	<ifs ifs_code="H000098" ifs_name="更新备件主表总数" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateSpareMainRT_NUM" biz_method="" serial_no="1" biz_name="updateSpareMainRT_NUM" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>	
+	</ifs>
+	
+	<!-- 设备保养查询 -->
+	<ifs ifs_code="H000100" ifs_name="设备保养查询" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryDeviceMaintain" biz_method="" serial_no="1" biz_name="queryDeviceMaintain" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 设备维护查询 -->
+	<ifs ifs_code="H000101" ifs_name="设备维护查询" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryDeviceRepair" biz_method="" serial_no="1" biz_name="queryDeviceRepair" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 更新备件主表总数量(领用，报损) -->
+	<ifs ifs_code="H000106" ifs_name="更新备件主表总数" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateSpareMainRT2_NUM" biz_method="" serial_no="1" biz_name="updateSpareMainRT2_NUM" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>	
+	</ifs>
+	
+	<!-- 查询退还日期-领用日期是否大于日期限制 -->
+	<ifs ifs_code="H000107" ifs_name="查询退还日期-领用日期是否大于日期限制" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryReturnDate" biz_method="" serial_no="1" biz_name="queryReturnDate" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>	
+	</ifs>
+	
+	<!-- 备件领用单号查询 -->
+	<ifs ifs_code="H000108" ifs_name="查询退还日期-领用日期是否大于日期限制" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryRU_CD" biz_method="" serial_no="1" biz_name="queryRU_CD" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>	
+	</ifs>
+	
+	<!-- 查询一天的总次品率 -->
+	<ifs ifs_code="H000109" ifs_name="查询一天的总次品率" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryDefectiveRate" biz_method="" serial_no="1" biz_name="queryDefectiveRate" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>	
+	</ifs>
+	
+	<!-- 查询设备检点主表 -->
+	<ifs ifs_code="H000110" ifs_name="查询设备检点主表" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryDeviceCheck" biz_method="" serial_no="1" biz_name="queryDeviceCheck" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>	
+	</ifs>	
+	<!-- 新增设备点检主表 -->
+	<ifs ifs_code="H000111" ifs_name="新增设备检点主表" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertDeviceCheck" biz_method="" serial_no="1" biz_name="insertDeviceCheck" biz_type="3" biz_cate="1" attr1="" />
+		</Bizes>	
+	</ifs>	
+	<!-- 修改设备点检主表 -->
+	<ifs ifs_code="H000112" ifs_name="修改设备检点主表" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateDeviceCheck" biz_method="" serial_no="1" biz_name="updateDeviceCheck" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>	
+	</ifs>	
+	<!-- 删除设备点检主表 -->
+	<ifs ifs_code="H000113" ifs_name="修改设备检点主表" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteDeviceCheck" biz_method="" serial_no="1" biz_name="deleteDeviceCheck" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>	
+	</ifs>
+	
+	
+	<!-- 查询设备检点信息 -->
+	<ifs ifs_code="H000114" ifs_name="查询设备检点信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryDeviceCheckInfo" biz_method="" serial_no="1" biz_name="queryDeviceCheckInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>	
+	</ifs>	
+	<!-- 新增设备点检信息 -->
+	<ifs ifs_code="H000115" ifs_name="新增设备检点信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertDeviceCheckInfo" biz_method="" serial_no="1" biz_name="insertDeviceCheckInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>	
+	</ifs>	
+	<!-- 修改设备点检信息 -->
+	<ifs ifs_code="H000116" ifs_name="修改设备检点信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateDeviceCheckInfo" biz_method="" serial_no="1" biz_name="updateDeviceCheckInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>	
+	</ifs>	
+	<!-- 删除设备点检信息 -->
+	<ifs ifs_code="H000117" ifs_name="修改设备检点信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteDeviceCheckInfo" biz_method="" serial_no="1" biz_name="deleteDeviceCheckInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>	
+	</ifs>
+	
+	
+	<!-- 查询设备检点明细 -->
+	<ifs ifs_code="H000118" ifs_name="查询设备检点明细" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryDeviceCheckDetail" biz_method="" serial_no="1" biz_name="queryDeviceCheckDetail" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>	
+	</ifs>	
+	<!-- 新增设备点检明细 -->
+	<ifs ifs_code="H000119" ifs_name="新增设备检点明细" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertDeviceCheckDetail" biz_method="" serial_no="1" biz_name="insertDeviceCheckDetail" biz_type="3" biz_cate="1" attr1="" />
+		</Bizes>	
+	</ifs>	
+	<!-- 修改设备点检明细 -->
+	<ifs ifs_code="H000120" ifs_name="修改设备检点明细" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateDeviceCheckDetail" biz_method="" serial_no="1" biz_name="updateDeviceCheckDetail" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>	
+	</ifs>	
+	<!-- 删除设备点检明细 -->
+	<ifs ifs_code="H000121" ifs_name="修改设备检点明细" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteDeviceCheckDetail" biz_method="" serial_no="1" biz_name="deleteDeviceCheckDetail" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>	
+	</ifs>
+	
+	<!-- 查询设备点检单据编号 -->
+	<ifs ifs_code="H000122" ifs_name="查询设备点检单据编号" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryTT_CD" biz_method="" serial_no="1" biz_name="queryTT_CD" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>	
+	</ifs>
+	
+	<!-- 设备点检关联表查询 -->	
+	<ifs ifs_code="H000123" ifs_name="设备点检关联表查询" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryDeviceCheckGl" biz_method="" serial_no="1" biz_name="queryDeviceCheckGl" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>	
+	</ifs>
+	
+	<!-- 查询设备类别 -->	
+	<ifs ifs_code="H000124" ifs_name="查询设备类别" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryDeviceType" biz_method="" serial_no="1" biz_name="queryDeviceType" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>	
+	</ifs>
+	
+	<!-- 设备点检信息关联表查询 -->
+	<ifs ifs_code="H000125" ifs_name="设备点检信息关联表查询" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryDeviceInfoGl" biz_method="" serial_no="1" biz_name="queryDeviceInfoGl" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>	
+	</ifs>
+	
+	<!-- 查询备件编号 -->
+	<ifs ifs_code="H000126" ifs_name="查询备件编号 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="querySP_CD" biz_method="" serial_no="1" biz_name="querySP_CD" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>	
+	</ifs>
+
+	<!-- OEE日报 -->
+	<ifs ifs_code="H000130" ifs_name="OEE" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryProdRpDailyToday" biz_method="" serial_no="1" biz_name="queryProdRpDailyToday" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>	
+	</ifs>
+	
+	<!-- OEE日报 -->
+	<ifs ifs_code="H000131" ifs_name="OEE" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryCountMetricsMechineToday" biz_method="" serial_no="1" biz_name="queryCountMetricsMechineToday" biz_type="3" biz_cate="1" attr1="" />
+		</Bizes>	
+	</ifs>
+	
+	<!-- OEE日报 -->
+	<ifs ifs_code="H000132" ifs_name="OEE" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryCountMetricsProductToday" biz_method="" serial_no="1" biz_name="queryCountMetricsProductToday" biz_type="3" biz_cate="1" attr1="" />
+		</Bizes>	
+	</ifs>
+	
+	<!-- OEE设备 -->
+	<ifs ifs_code="H000128" ifs_name="OEE设备" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryCountMetricsMechine" biz_method="" serial_no="1" biz_name="queryCountMetricsMechine" biz_type="3" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- OEE产品 -->
+	<ifs ifs_code="H000129" ifs_name="OEE产品" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryCountMetricsProduct" biz_method="" serial_no="1" biz_name="queryCountMetricsProduct" biz_type="3" biz_cate="1" attr1="" />
+		</Bizes>	
+	</ifs>
+
+    <!-- 查询主单数据-->
+	<ifs ifs_code="H000127" ifs_name="查询主单数据 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryMainStatus" biz_method="" serial_no="1" biz_name="queryMainStatus" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>	
+	</ifs>
+
+	<!-- 停机刷卡数据更新接口-->
+	<ifs ifs_code="H000133" ifs_name="开始停机刷卡" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertStopCardInfoccTest" biz_method="" serial_no="1" biz_name="insertStopCardInfoccTest" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>	
+	
+	<!-- 查询设备点检与保养预警 -->
+	<ifs ifs_code="H000134" ifs_name="查询设备点检与保养预警" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryEuipmentCheck" biz_method="" serial_no="1" biz_name="queryEuipmentCheck" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>	
+</ifss>

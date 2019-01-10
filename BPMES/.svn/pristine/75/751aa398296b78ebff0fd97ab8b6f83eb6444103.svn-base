@@ -1,0 +1,162 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <title>70寸监控中心-成品仓库看板</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="../../../common/IplantCompent/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="../../../common/IplantCompent/themes/icon.css">
+	<link rel="stylesheet" type="text/css" href="../../../common/IplantCompent/Demo/demo.css">
+	<script src="../../../common/IplantCompent/jquery.min.js" type="text/javascript"></script>
+	<script src="../../../common/IplantCompent/jquery.easyui.min.js" type="text/javascript"></script>
+	<script src="../../../business/IplantMobile/js/DataRequest.js" type="text/javascript"></script>
+	<script src="../../../common/IplantCommon/CommonUtil.js" type="text/javascript"></script>
+    <script src="highcharts/code/highcharts.js"></script>
+	<script src="highcharts/code/highcharts-3d.js"></script>
+	<script src="highcharts/code/modules/exporting.js"></script>
+	<script src="highcharts/code/themes/dark-unica.js"></script>
+    <script src="js/70inches_monitoringCenter_Warehouse.js"></script>
+    <style>
+  	.panel-body {
+  		border-color: #393A4C;
+	}
+	.panel-title {
+    	font-size: 4px;
+   	 	height: 6px;
+    	line-height: 6px;
+	}
+	table{
+		width:98%;
+		height:23%;
+		margin-top:5px;
+		margin-left:1%;
+	}
+	table tr td{
+		/* border:1px solid yellow; */
+		text-align: center;
+		width:8.3%;
+	}
+	table tr td div{
+		border:1px solid #CD7F32;
+		width:8px;
+		height:4px;
+		background:#FFFFFF;
+		margin:0 auto
+	}
+  	</style>
+  </head>
+  <body style="margin:0px;padding:0px;" class="easyui-layout">
+  		<div data-options="region:'north'" style="height:40%;background:#BFC8D1;">	
+  			<div style="height:18px;background:#1172C9;overflow : hidden;text-align:center">
+  				<span style="font-size:10px;font-family:宋体;font-weight: bold;color:#FFFFFF;line-height:10px">成品仓库</span>
+  			</div>
+  			<div id="myImg" style="width: 80%;height: 85%;float:left"></div>
+  			<div style="width: 20%;height: 85%;float:left">
+  				<div style="width:50%;height:49%;position:relative">
+  					<div style="width:8px;height:4px;background:#FFFFFF;float:left;position: absolute;top:50%;"></div>
+  					<div style="float:left;color:#0A86DC;font-size:10px;position: absolute;left: 40%;top:43%;">空闲</div>
+  				</div>
+  				<div style="width:50%;height:49%;position:relative">
+  					<div style="width:8px;height:4px;background:#DD5044;float:left;position: absolute;top:50%;"></div>
+  					<div style="float:left;color:#0A86DC;font-size:10px;position: absolute;left: 40%;top:43%;">占用</div>
+  				</div>
+  			</div>
+  		</div>   
+  		
+    	<div data-options="region:'center'" style="background:#BFC8D1;overflow : hidden;" > 
+    		<table id='goodsShelf_a' cellspacing="0" cellpadding="0">
+    			<tr style= 'font-size:6px;color:#0A86DC'>
+    				<td></td><td></td><td></td><td></td><td>1位</td><td>2位</td><td>3位</td><td>4位</td><td>5位</td><td>6位</td><td>7位</td><td>8位</td>
+    			</tr>
+    			<tr name = 'A'>
+    				<td></td><td></td><td></td><td></td><td><div></div></td><td><div></div></td><td><div></div></td><td><div></div></td><td><div></div></td><td><div></div></td>
+    				<td><div></div></td><td><div></div></td>
+    			</tr>
+    			<tr name = 'A'>
+    				<td></td><td></td><td></td><td></td><td><div></div></td><td><div></div></td><td><div></div></td><td><div></div></td><td><div></div></td><td><div></div></td>
+    				<td><div></div></td><td><div></div></td>
+    			</tr>
+    			<tr name = 'A'>
+    				<td></td><td></td><td></td><td></td><td><div></div></td><td><div></div></td><td><div></div></td><td><div></div></td><td><div></div></td><td><div></div></td>
+    				<td><div></div></td><td><div></div></td>
+    			</tr>
+    			<tr name = 'A'>
+    				<td></td><td></td><td></td><td></td><td><div></div></td><td><div></div></td><td><div></div></td><td><div></div></td><td><div></div></td><td><div></div></td>
+    				<td><div></div></td><td><div></div></td>
+    			</tr>
+    		</table>  
+    		<table id='goodsShelf_b' cellspacing="0" cellpadding="0" style="margin-top:0px">
+    			<tr style= 'font-size:6px;color:#0A86DC'>
+    				<td></td><td></td><td></td><td>1位</td><td>2位</td><td>3位</td><td>4位</td><td>5位</td><td>6位</td><td>7位</td><td>8位</td><td>9位</td>
+    			</tr>
+    			<tr name = 'B'>
+    				<td></td><td></td><td></td>
+    				<td><div></div></td><td><div></div></td><td><div></div></td><td><div></div></td><td><div></div></td><td><div></div></td>
+    				<td><div></div></td><td><div></div></td><td><div></div></td>
+    			</tr>
+    			<tr name = 'B'>
+    				<td></td><td></td><td></td>
+    				<td><div></div></td><td><div></div></td><td><div></div></td><td><div></div></td><td><div></div></td><td><div></div></td>
+    				<td><div></div></td><td><div></div></td><td><div></div></td>
+    			</tr>
+    			<tr name = 'B'>
+    				<td></td><td></td><td></td>
+    				<td><div></div></td><td><div></div></td><td><div></div></td><td><div></div></td><td><div></div></td><td><div></div></td>
+    				<td><div></div></td><td><div></div></td><td><div></div></td>
+    			</tr>
+    			<tr name = 'B'>
+    				<td></td><td></td><td></td>
+    				<td><div></div></td><td><div></div></td><td><div></div></td><td><div></div></td><td><div></div></td><td><div></div></td>
+    				<td><div></div></td><td><div></div></td><td><div></div></td>
+    			</tr>
+    		</table>
+    		<table id='goodsShelf_c' cellspacing="0" cellpadding="0" style="margin-top:0px">
+    			<tr style= 'font-size:6px;color:#0A86DC'>
+    				<td></td><td></td><td></td><td>1位</td><td>2位</td><td>3位</td><td>4位</td><td>5位</td><td>6位</td><td>7位</td><td>8位</td><td>9位</td>
+    			</tr>
+    			<tr name = 'C'>
+    				<td></td><td></td><td></td>
+    				<td><div></div></td><td><div></div></td><td><div></div></td><td><div></div></td><td><div></div></td><td><div></div></td>
+    				<td><div></div></td><td><div></div></td><td><div></div></td>
+    			</tr>
+    			<tr name = 'C'>
+    				<td></td><td></td><td></td>
+    				<td><div></div></td><td><div></div></td><td><div></div></td><td><div></div></td><td><div></div></td><td><div></div></td>
+    				<td><div></div></td><td><div></div></td><td><div></div></td>
+    			</tr>
+    			<tr name = 'C'>
+    				<td></td><td></td><td></td>
+    				<td><div></div></td><td><div></div></td><td><div></div></td><td><div></div></td><td><div></div></td><td><div></div></td>
+    				<td><div></div></td><td><div></div></td><td><div></div></td>
+    			</tr>
+    			<tr name = 'C'>
+    				<td></td><td></td><td></td>
+    				<td><div></div></td><td><div></div></td><td><div></div></td><td><div></div></td><td><div></div></td><td><div></div></td>
+    				<td><div></div></td><td><div></div></td><td><div></div></td>
+    			</tr>
+    		</table>
+    		<table id='goodsShelf_d' cellspacing="0" cellpadding="0" style="margin-top:0px">
+    			<tr style= 'font-size:6px;color:#0A86DC'>
+    				<td>1位</td><td>2位</td><td>3位</td><td>4位</td><td>5位</td><td>6位</td><td>7位</td><td>8位</td><td>9位</td><td>10位</td>
+    				<td>11位</td><td>12位</td>
+    			</tr>
+    			<tr name = 'D'>
+    				<td><div></div></td><td><div></div></td><td><div></div></td><td><div></div></td><td><div></div></td><td><div></div></td>
+    				<td><div></div></td><td><div></div></td><td><div></div></td><td><div></div></td><td><div></div></td><td><div></div></td>
+    			</tr>
+    			<tr name = 'D'>
+    				<td><div></div></td><td><div></div></td><td><div></div></td><td><div></div></td><td><div></div></td><td><div></div></td>
+    				<td><div></div></td><td><div></div></td><td><div></div></td><td><div></div></td><td><div></div></td><td><div></div></td>
+    			</tr>
+    			<tr name = 'D'>
+    				<td><div></div></td><td><div></div></td><td><div></div></td><td><div></div></td><td><div></div></td><td><div></div></td>
+    				<td><div></div></td><td><div></div></td><td><div></div></td><td><div></div></td><td><div></div></td><td><div></div></td>
+    			</tr>
+    			<tr name = 'D'>
+    				<td><div></div></td><td><div></div></td><td><div></div></td><td><div></div></td><td><div></div></td><td><div></div></td>
+    				<td><div></div></td><td><div></div></td><td><div></div></td><td><div></div></td><td><div></div></td><td><div></div></td>
+    			</tr>
+    		</table> 
+    	</div> 
+    	
+  </body>
+</html>

@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ifss>
+
+	<!-- 成品入库配置列表模块 -->
+	<!-- 新增仓库信息 -->
+	<ifs ifs_code="WMS_DC001" ifs_name="新增仓库信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="productWarehouseInfoInsert" biz_method="" serial_no="1" biz_name="productWarehouseInfoInsert" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs> 
+	
+	
+		<!-- 查询成品仓库配置信息 -->
+	<ifs ifs_code="WMS_DC002" ifs_name="查询成品仓库配置信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryProductWarehouseInfo" biz_method="" serial_no="1" biz_name="queryProductWarehouseInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs> 
+	
+	<!-- 修改成品仓库配置信息 -->
+	<ifs ifs_code="WMS_DC003" ifs_name="修改成品仓库配置信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="UpdateWareHouseInfo" biz_method="" serial_no="1" biz_name="UpdateWareHouseInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs> 
+	
+	<!-- 删除成品仓库配置信息 -->
+	<ifs ifs_code="WMS_DC004" ifs_name="删除成品仓库配置信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="DeleteWareHouseInfo" biz_method="" serial_no="1" biz_name="DeleteWareHouseInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs> 
+	
+	<!-- ============================================================================================================================================================== -->
+		
+	<!-- 出货方式模块 -->
+	<!-- 新增出货方式信息 -->
+	<ifs ifs_code="WMS_DC005" ifs_name="新增出货方式信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deliveryModeInfoInsert" biz_method="" serial_no="1" biz_name="deliveryModeInfoInsert" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs> 
+	
+	<!-- 查询出货方式信息 -->
+	<ifs ifs_code="WMS_DC006" ifs_name="查询出货方式信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryDeliveryModeInfo" biz_method="" serial_no="1" biz_name="queryDeliveryModeInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs> 
+	
+	<!-- 修改出货方式信息 -->
+	<ifs ifs_code="WMS_DC007" ifs_name="修改出货方式信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="UpdateDeliveryModeInfo" biz_method="" serial_no="1" biz_name="UpdateDeliveryModeInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs> 
+	
+	<!-- 删除出货方式信息 -->
+	<ifs ifs_code="WMS_DC008" ifs_name="删除出货方式信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="DeleteDeliveryModeInfo" biz_method="" serial_no="1" biz_name="DeleteDeliveryModeInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs> 
+
+
+	<!-- ============================================================================================================================================================== -->	
+	<!-- 紧急物料配置清单模块 -->
+	
+	<!-- 新增紧急物料配置清单信息 -->
+	<ifs ifs_code="WMS_DC009" ifs_name="新增紧急物料配置清单信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="InsertEmergencyMaterial" biz_method="" serial_no="1" biz_name="InsertEmergencyMaterial" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs> 
+	
+	<!-- 查询紧急物料配置清单信息 -->
+	<ifs ifs_code="WMS_DC010" ifs_name="查询紧急物料配置清单信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="QueryEmergencyMaterial" biz_method="" serial_no="1" biz_name="QueryEmergencyMaterial" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs> 
+	
+	<!-- 修改紧急物料配置清单信息 -->
+	<ifs ifs_code="WMS_DC011" ifs_name="修改紧急物料配置清单信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="UpdateEmergencyMaterial" biz_method="" serial_no="1" biz_name="UpdateEmergencyMaterial" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs> 
+	
+	<!-- 删除紧急物料配置清单信息 -->
+	<ifs ifs_code="WMS_DC012" ifs_name="删除紧急物料配置清单信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="DeleteEmergencyMaterial" biz_method="" serial_no="1" biz_name="DeleteEmergencyMaterial" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs> 
+	
+	
+    	<!-- 查询紧急物料配置清单信息 -->
+	<ifs ifs_code="WMS_DC013" ifs_name="查询紧急物料配置清单信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryEmergencyMaterial_checkRepeat" biz_method="" serial_no="1" biz_name="queryEmergencyMaterial_checkRepeat" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs> 
+	
+	
+<!-- ============================================================================================================================================================== -->	
+	<!-- 交易类型清单信息模块 -->
+	
+	<!-- 新增交易类型清单信息 -->
+	<ifs ifs_code="WMS_DC014" ifs_name="新增交易类型清单信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="InsertTransactionTypeList" biz_method="" serial_no="1" biz_name="InsertTransactionTypeList" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs> 
+	
+	<!-- 查询交易类型清单信息 -->
+	<ifs ifs_code="WMS_DC015" ifs_name="查询交易类型清单信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="QueryTransactionTypeList" biz_method="" serial_no="1" biz_name="QueryTransactionTypeList" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs> 
+	
+	<!-- 修改交易类型清单信息 -->
+	<ifs ifs_code="WMS_DC016" ifs_name="修改交易类型清单信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="UpdateTransactionTypeList" biz_method="" serial_no="1" biz_name="UpdateTransactionTypeList" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs> 
+	
+	<!-- 删除交易类型清单信息 -->
+	<ifs ifs_code="WMS_DC017" ifs_name="删除交易类型清单信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="DeleteTransactionTypeList" biz_method="" serial_no="1" biz_name="DeleteTransactionTypeList" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs> 
+	
+	
+    	<!-- 查询交易类型清单信息校验重复数据 -->
+	<ifs ifs_code="WMS_DC018" ifs_name="查询交易类型清单信息校验重复数据" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryTransactionTypeList_checkRepeat" biz_method="" serial_no="1" biz_name="queryTransactionTypeList_checkRepeat" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs> 
+	
+		
+<!-- ============================================================================================================================================================== -->	
+	<!-- 仓库配置列表信息模块 -->
+	
+	<!-- 新增仓库配置列表信息 -->
+	<ifs ifs_code="WMS_DC019" ifs_name="新增仓库配置列表信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="InsertWarehouseConfiglist" biz_method="" serial_no="1" biz_name="InsertWarehouseConfiglist" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs> 
+	
+		<!-- 查询仓库配置列表信息 -->
+	<ifs ifs_code="WMS_DC020" ifs_name="查询仓库配置列表信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="QueryWarehouseConfiglist" biz_method="" serial_no="1" biz_name="QueryWarehouseConfiglist" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs> 
+	
+		<!-- 修改仓库配置列表信息 -->
+	<ifs ifs_code="WMS_DC021" ifs_name="修改仓库配置列表信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="UpdateWarehouseConfiglist" biz_method="" serial_no="1" biz_name="UpdateWarehouseConfiglist" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs> 
+	
+     <!-- 删除仓库配置列表信息 -->
+	<ifs ifs_code="WMS_DC022" ifs_name="删除仓库配置列表信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="DeleteWarehouseConfiglist" biz_method="" serial_no="1" biz_name="DeleteWarehouseConfiglist" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs> 
+	
+		<!-- 查询仓库配置列表信息校验重复数据 -->
+	<ifs ifs_code="WMS_DC023" ifs_name="查询仓库配置列表信息校验重复数据 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryWarehouseConfiglist_checkRepeat" biz_method="" serial_no="1" biz_name="queryWarehouseConfiglist_checkRepeat" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs> 
+	
+	
+	<!-- ============================================================================================================================================================== -->	
+	<!-- IQC检验配置列表模块 -->
+	
+     <!-- 新增IQC检验配置列表信息 -->
+	<ifs ifs_code="WMS_DC024" ifs_name="新增IQC检验配置列表信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="InsertIQCcheckConfiglist" biz_method="" serial_no="1" biz_name="InsertIQCcheckConfiglist" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs> 
+	
+		<!-- 查询IQC检验配置列表信息 -->
+	<ifs ifs_code="WMS_DC025" ifs_name="查询IQC检验配置列表信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="QueryIQCcheckConfiglist" biz_method="" serial_no="1" biz_name="QueryIQCcheckConfiglist" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs> 
+	
+	<!-- 修改IQC检验配置列表信息 -->
+	<ifs ifs_code="WMS_DC026" ifs_name="修改IQC检验配置列表信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="UpdateIQCcheckConfiglist" biz_method="" serial_no="1" biz_name="UpdateIQCcheckConfiglist" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs> 
+	
+     <!-- 删除IQC检验配置列表信息 -->
+	<ifs ifs_code="WMS_DC027" ifs_name="删除IQC检验配置列表信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="DeleteIQCcheckConfiglist" biz_method="" serial_no="1" biz_name="DeleteIQCcheckConfiglist" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs> 
+	
+	<!-- 查询IQC检验配置列表校验重复数据 -->
+	<ifs ifs_code="WMS_DC028" ifs_name="查询IQC检验配置列表校验重复数据 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryIQCcheckConfiglist_checkRepeat" biz_method="" serial_no="1" biz_name="queryIQCcheckConfiglist_checkRepeat" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs> 
+	
+	
+<!-- ============================================================================================================================================================== -->	
+ <!-- 供应商配置列表模块 -->
+	
+     <!-- 新增供应商配置列表信息 -->
+	<ifs ifs_code="WMS_DC029" ifs_name="新增供应商配置列表信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="InsertMaterialSupplierConfig" biz_method="" serial_no="1" biz_name="InsertMaterialSupplierConfig" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs> 
+	
+		<!-- 查询供应商配置列表信息 -->
+	<ifs ifs_code="WMS_DC030" ifs_name="查询供应商配置列表信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="QueryMaterialSupplierConfig" biz_method="" serial_no="1" biz_name="QueryMaterialSupplierConfig" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs> 
+	
+	<!-- 修改IQC检验配置列表信息 -->
+	<ifs ifs_code="WMS_DC031" ifs_name="修改供应商配置列表信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="UpdateMaterialSupplierConfig" biz_method="" serial_no="1" biz_name="UpdateMaterialSupplierConfig" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs> 
+	
+       <!-- 删除供应商配置列表信息 -->
+	<ifs ifs_code="WMS_DC032" ifs_name="删除供应商配置列表信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="DeleteMaterialSupplierConfig" biz_method="" serial_no="1" biz_name="DeleteMaterialSupplierConfig" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs> 
+	
+   <!-- 查询供应商配置列表校验重复数据 -->
+	<ifs ifs_code="WMS_DC033" ifs_name="查询供应商配置列表校验重复数据  " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="QueryMaterialSupplierConfig_checkRepeat" biz_method="" serial_no="1" biz_name="QueryMaterialSupplierConfig_checkRepeat" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs> 
+	
+	
+
+</ifss>

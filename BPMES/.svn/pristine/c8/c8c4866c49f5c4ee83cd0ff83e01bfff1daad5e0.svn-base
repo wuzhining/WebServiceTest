@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<engines>
+    <!-- 1 物料类型维护-->
+    <!-- 查询物料类型维护 -->
+	<engine engine_code="search_MaterialTypeMaintenance" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="search_MaterialTypeMaintenance" >
+	</engine>
+    <!-- 新增物料类型维护 -->
+	<engine engine_code="add_MaterialTypeMaintenance" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="add_MaterialTypeMaintenance" >
+	</engine>
+	<!-- 修改物料类型维护 -->
+	<engine engine_code="update_MaterialTypeMaintenance" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="update_MaterialTypeMaintenance" >
+	</engine>
+	<!-- 删除物料类型维护-->
+	<engine engine_code="delete_MaterialTypeMaintenance" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="delete_MaterialTypeMaintenance" >
+	</engine>
+	<!-- 物料类型维护查看已分配物料-->
+	<engine engine_code="MaterialTypeMaintenance_OKM" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="MaterialTypeMaintenance_OKM" >
+	</engine>
+	<!-- 物料类型维护导入-->
+	<engine engine_code="ExeclImportMaterialTypeMaintenance" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="ExeclImportMaterialTypeMaintenance" >
+	</engine>
+	<!-- 物料类型维护导出-->
+	<engine engine_code="ExeclExportMaterialTypeMaintenance" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="ExeclImportMaterialTypeMaintenance" >
+	</engine>
+	<!-- 物料类型维护 物料组属性查询-->
+	<engine engine_code="search_MaterialProperties" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="search_MaterialProperties" >
+	</engine>
+	<!-- 物料类型维护 物料组属性增加-->
+	<engine engine_code="insert_MaterialProperties" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insert_MaterialProperties" >
+	</engine>
+	<!-- 物料类型维护 物料组属性修改-->
+	<engine engine_code="update_MaterialProperties" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="update_MaterialProperties" >
+	</engine>
+	<!-- 物料类型维护 物料组属性删除-->
+	<engine engine_code="delete_MaterialProperties" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="delete_MaterialProperties" >
+	</engine>
+	
+	<!-- 物料类型维护 物料组属性设置-->
+	<!-- 物料类型维护 物料组属性设置查询-->
+	<engine engine_code="search_MaterialPropertiesSetting" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="search_MaterialPropertiesSetting" >
+	</engine>
+	<!-- 物料类型维护 物料组属性设置增加-->
+	<engine engine_code="add_MaterialPropertiesSetting" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="add_MaterialPropertiesSetting" >
+	</engine>
+	<!-- 物料类型维护 物料组属性设置修改-->
+	<engine engine_code="update_MaterialPropertiesSetting" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="update_MaterialPropertiesSetting" >
+	</engine>
+	<!-- 物料类型维护 物料组属性设置删除-->
+	<engine engine_code="delete_MaterialPropertiesSetting" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="delete_MaterialPropertiesSetting" >
+	</engine>
+
+	<!--================================= 物料维护 ==================================-->
+	<!-- =============物料信息================ -->
+	<!-- 查询物料信息 -->
+	<engine engine_code="queryMaterial" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryMaterial" >
+	</engine>
+	<engine engine_code="queryMaterialNotPage" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryMaterialNotPage" >
+	</engine>	
+	<!-- 新增物料信息 -->
+	<engine engine_code="insertMaterial" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="insertMaterial" >
+	</engine>	
+	<!-- 修改物料信息 -->
+	<engine engine_code="materialUpdate" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="materialUpdate" >
+	</engine>
+	<!-- 修改产品图片保存路径 -->
+	<engine engine_code="materialPhotoPathUpdate" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="materialPhotoPathUpdate" >
+	</engine>
+   	<!-- 删除物料信息 -->
+	<engine engine_code="deleteMaterial" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="deleteMaterial" >
+	</engine>	
+	<!-- 查询物料仓库 -->
+	<engine engine_code="queryMaterialWHS" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="queryMaterialWHS" >
+	</engine>
+	<!-- 导入物料信息 -->
+	<engine engine_code="ImportMaterial" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="ImportMaterial" >
+	</engine>
+	<!-- 导出物料信息 -->
+	<engine engine_code="exportMaterial" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="exportMaterial" >
+	</engine>
+	<!-- 下载物料信息 -->
+	<engine engine_code="downloadMaterial" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="downloadMaterial" >
+	</engine>
+	<!-- =============物料属性================ -->
+	<!-- 查询物料属性 -->
+	<engine engine_code="queryMaterialProperty" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryMaterialProperty" >
+	</engine>	
+	<!-- 新增物料属性 -->
+	<engine engine_code="insertMaterialProperty" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="insertMaterialProperty" >
+	</engine>	
+	<!-- 修改物料属性 -->
+	<engine engine_code="updateMaterialProperty" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="updateMaterialProperty" >
+	</engine>
+   	<!-- 删除物料属性 -->
+	<engine engine_code="deleteMaterialProperty" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="deleteMaterialProperty" >
+	</engine>
+	<!-- ============物料属性值================= -->
+	<!-- 查询物料属性值  -->
+	<engine engine_code="queryMaterialPropertyValue" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryMaterialPropertyValue" >
+	</engine>	
+	<!-- 新增物料属性值  -->
+	<engine engine_code="insertMaterialPropertyValue" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="insertMaterialPropertyValue" >
+	</engine>	
+	<!-- 修改物料属性值  -->
+	<engine engine_code="updateMaterialPropertyValue" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="updateMaterialPropertyValue" >
+	</engine>
+   	<!-- 删除物料属性值  -->
+	<engine engine_code="deleteMaterialPropertyValue" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="deleteMaterialPropertyValue" >
+	</engine>
+	<!-- ============MSD设置================= -->
+	<!-- 查询MSD设置  -->
+	<engine engine_code="queryMSDSettings" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryMSDSettings" >
+	</engine>	
+	<!-- 新增MSD设置  -->
+	<engine engine_code="insertMSDSettings" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="insertMSDSettings" >
+	</engine>	
+	<!-- 修改MSD设置  -->
+	<engine engine_code="updateMSDSettings" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="updateMSDSettings" >
+	</engine>
+   	<!-- 删除MSD设置  -->
+	<engine engine_code="deleteMSDSettings" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="deleteMSDSettings" >
+	</engine>
+	<!-- ===========替代料设置================== -->
+	<!-- 查询替代料设置  -->
+	<engine engine_code="querySubstituteMaterialSettings" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querySubstituteMaterialSettings" >
+	</engine>	
+	<!-- 新增替代料设置  -->
+	<engine engine_code="insertSubstituteMaterialSettings" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="insertSubstituteMaterialSettings" >
+	</engine>	
+	<!-- 修改替代料设置  -->
+	<engine engine_code="updateSubstituteMaterialSettings" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="updateSubstituteMaterialSettings" >
+	</engine>
+   	<!-- 删除替代料设置  -->
+	<engine engine_code="deleteSubstituteMaterialSettings" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="deleteSubstituteMaterialSettings" >
+	</engine>
+	<!-- ============物料位置================= -->
+	<!-- 查询物料位置  -->
+	<engine engine_code="queryMaterialPosition" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryMaterialPosition" >
+	</engine>	
+	<!-- 新增物料位置  -->
+	<engine engine_code="insertMaterialPosition" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="insertMaterialPosition" >
+	</engine>	
+	<!-- 修改物料位置 -->
+	<engine engine_code="updateMaterialPosition" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="updateMaterialPosition" >
+	</engine>
+   	<!-- 删除物料位置 -->
+	<engine engine_code="deleteMaterialPosition" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="deleteMaterialPosition" >
+	</engine>
+	
+	<!-- 2  工序BOM-->
+    <!-- 查询工序BOM -->
+	<engine engine_code="search_ProcessBom" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="search_ProcessBom" >
+	</engine>
+	<!-- 分组查询工序BOM -->
+	<engine engine_code="search_ProcessBomGroup" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="search_ProcessBomGroup" >
+	</engine>
+    <!-- 新增工序BOM-->
+	<engine engine_code="add_ProcessBom" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="add_ProcessBom" >
+	</engine>
+	<!-- 修改工序BOM -->
+	<engine engine_code="update_ProcessBom" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="update_ProcessBom" >
+	</engine>
+	<!-- 删除工序BOM-->
+	<engine engine_code="delete_ProcessBom" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="delete_ProcessBom" >
+	</engine>
+	
+	
+	<!-- 工序BOM装配物料明细查询 -->
+	<engine engine_code="queryBomAssemblyMaterialDetails" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryBomAssemblyMaterialDetails" >
+	</engine>
+	<!-- 工序BOM装配物料明细增加 -->
+	<engine engine_code="insertBomAssemblyMaterialDetails" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertBomAssemblyMaterialDetails" >
+	</engine>
+	<!-- 工序BOM装配物料明细修改 -->
+	<engine engine_code="updateBomAssemblyMaterialDetails" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateBomAssemblyMaterialDetails" >
+	</engine>
+	<!-- 工序BOM装配物料明细删除 -->
+	<engine engine_code="deleteBomAssemblyMaterialDetails" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteBomAssemblyMaterialDetails" >
+	</engine>
+	
+	
+	<!--3  产品BOM-->
+    <!-- 查询产品BOM -->
+	<engine engine_code="search_ProdBom" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="search_ProdBom" >
+	</engine>
+    <!-- 新增产品BOM-->
+	<engine engine_code="add_ProdBom" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="add_ProdBom" >
+	</engine>
+	<!-- 修改产品BOM -->
+	<engine engine_code="update_ProdBom" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="update_ProdBom" >
+	</engine>
+	<!-- 删除产品BOM-->
+	<engine engine_code="delete_ProdBom" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="delete_ProdBom" >
+	</engine>
+	<!-- 查询产品BOM树结构-->
+	<engine engine_code="search_ProdBomTree" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="search_ProdBomTree" >
+	</engine>
+	<!-- 查询产品BOM树结构-->
+	<engine engine_code="add_ProdBomExeclImport" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="add_ProdBomExeclImport" >
+	</engine>
+	<!-- 查询产品BOM父节点下拉框-->
+	<engine engine_code="queryProdBomCombox" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="queryProdBomCombox" >
+	</engine>
+	
+	<!-- 根据BOM编码返回BOM版本-->
+	<engine engine_code="queryBomCdIsVersion" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="queryBomCdIsVersion" >
+	</engine>
+	
+	<!-- 查询所有的BOM编码-->
+	<engine engine_code="queryAllBomCd" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="queryAllBomCd" >
+	</engine>
+	
+	<!-- 组装BOM -->
+    <!-- 组装BOM查询 -->
+	<engine engine_code="queryAssembleBom" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryAssembleBom" >
+	</engine>
+	
+	<!-- 组装BOM修改 -->
+	<engine engine_code="updateAssembleBom" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateAssembleBom" >
+	</engine>
+	
+	<!-- 组装BOM新增 -->
+	<engine engine_code="insertAssembleBom" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertAssembleBom" >
+	</engine>
+	
+	<!-- 组装BOM删除 -->
+	<engine engine_code="deleteAssembleBom" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteAssembleBom" >
+	</engine>
+	
+	<!--物料信息数据绑定下拉框-->
+	<engine engine_code="MAT_COMBOBOX_DATA" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="MAT_COMBOBOX_DATA"></engine>
+	
+</engines>

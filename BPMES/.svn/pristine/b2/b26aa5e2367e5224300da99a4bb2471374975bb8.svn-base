@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<podiums>
+	<podium  podium_code="userLogin" podium_name="获取用户的数据权限" podium_class="com.iPlant.mes.Biz.UserInfopodium" podium_method="acceptance" attr1="" attr2=""/>
+	
+</podiums>
+ 

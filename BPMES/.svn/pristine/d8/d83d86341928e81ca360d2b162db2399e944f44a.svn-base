@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="">
+<!-- 查询设备保养计划 -->
+	<select id="queryEquipmentMaintenancePlan" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+	select * from mes1.TPM_EQUIPMENT_PM_PLAN
+	</select> 
+	
+<!-- 新增设备保养计划 -->
+	<insert id="addEquipmentMaintenancePlan" parameterType="java.util.HashMap" >
+	INSERT INTO 
+			MES1.TPM_EQUIPMENT_PM_PLAN
+				(
+				   	PLAN_NAME, 
+					PLAN_NO, 
+					PM_WAY, 
+					CYCLE_TYPE, 
+					CYCLE_INTERVAL, 
+					SUPERVISOR, 
+					WARNING_WAY, 
+					WARNING_INTERVAL, 
+					ALARM_ADVANCE, 
+					ISUSE, 
+					PM_DETAIL, 
+					PERCENT_OF_USE, 
+					WARNING_SENDEE, 
+					CREATE_USER, 
+					CREATE_DATE
+				)
+				values
+				(
+				   '${planName}',
+			       to_char(SYSDATE,'yyyyMMddhh24miss'),
+			       '${pmWay}',
+			       '${cycleType}',
+			       '${cycleInterval}',
+			       '${supervisor}',
+			       '${warningWay}',
+			       '${warningInterval}',
+			       '${alarmAdvance}',
+			       '${isUse}',
+			       '${pmDetail}',
+			       '${percentOfUse}',
+			       '${warningSendee}',
+			       '${createUser}',
+			        SYSDATE
+				<!-- <foreach collection="list" item="item" index="index" separator="union all">
+				SELECT
+			    FROM DUAL
+			    </foreach> -->
+				)
+	</insert> 
+<!-- 修改设备保养计划 -->
+	<update id="updateEquipmentMaintenancePlan" parameterType="java.util.HashMap" >
+	update mes1.TPM_EQUIPMENT_PM_PLAN
+	<set>
+		PLAN_NAME='${planName}',
+		PM_WAY='${pmWay}',
+		CYCLE_TYPE='${cycleType}',
+		CYCLE_INTERVAL=${cycleInterval},
+		SUPERVISOR='${supervisor}',
+		WARNING_WAY='${warningWay}',
+		WARNING_INTERVAL=${warningInterval},
+		ALARM_ADVANCE=${alarmAdvance},
+		ISUSE='${isUse}',
+		PM_DETAIL='${pmDetail}',
+		WARNING_SENDEE='${warningSendee}',
+		CREATE_USER='${createUser}',
+		CREATE_DATE=SYSDATE
+	</set>
+	WHERE PLAN_NO='${planNo}'
+	</update>
+	<!-- <select id="updateEquipmentMaintenancePlan" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+	select * from mes1.TPM_EQUIPMENT_PM_PLAN
+	</select>  --> 
+<!-- 删除设备保养计划 -->
+	<!-- <delete id="deleteEquipmentMaintenancePlan" parameterType="java.util.HashMap" >
+	</delete> --> 
+	<select id="deleteEquipmentMaintenancePlan" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+	select * from mes1.TPM_EQUIPMENT_PM_PLAN
+	</select> 
+</mapper>

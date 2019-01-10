@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<engines>
+	<!-- A3 生产计划 -->
+	<!-- A3.1 工单管理 -->
+    <!-- 查询工单信息 -->
+    <engine engine_code="queryOdInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryOdInfo" >
+	</engine>
+	<!-- 查询工单信息（关联查询） -->
+	 <engine engine_code="queryOdInfogl" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryOdInfogl" >
+	</engine>
+	<!-- 查询派工单号下拉框 -->
+	 <engine engine_code="queryOdInfogls" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryOdInfogls" >
+	</engine>
+	<!-- 新增工单信息 -->
+	<engine engine_code="insertOdInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertOdInfo" >
+	</engine>
+	<!-- 删除工单信息 -->
+	<engine engine_code="deleteOdInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteOdInfo" >
+	</engine>
+	<!-- 修改工单信息 -->
+	<engine engine_code="updateOdInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateOdInfo" >
+	</engine>
+	<!-- 根据派工单修改工单状态 -->
+	<engine engine_code="updateOdInfoDo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateOdInfoDo" >
+	</engine>
+	<!-- 审核 -->
+	<engine engine_code="auditOdInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="auditOdInfo" >
+	</engine>
+	<!-- 导入生产工单 -->
+	<engine engine_code="importOdInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="importOdInfo" >
+	</engine>
+	
+	<!-- A3.2 派工管理  -->
+	<!-- 查询派工信息-->
+	<engine engine_code="queryWdInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryWdInfo" >
+	</engine>
+	<!-- 新增派工信息 -->
+	<engine engine_code="insertWdInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertWdInfo" >
+	</engine>
+	<!-- 删除派工信息 -->
+	<engine engine_code="deleteWdInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteWdInfo" >
+	</engine>
+	<!-- 修改派工信息 -->
+	<engine engine_code="updateWdInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateWdInfo" >
+	</engine>
+	<!-- 获取派工时间 -->
+	<engine engine_code="getApprovalTime" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="getApprovalTime" >
+	</engine>
+	<!-- 派工单号生成规则 -->
+	<engine engine_code="orderRules" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="orderRules" >
+	</engine>
+	
+	<!-- A3.3 生产数据  -->
+	<!-- 查询生产数据 -->
+	<engine engine_code="queryProdData" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryProdData" >
+	</engine>
+	<!-- 新增生产数据 -->
+	<engine engine_code="insertProdData" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertProdData" >
+	</engine>
+	<!-- 删除生产数据 -->
+	<engine engine_code="deleteProdData" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteProdData" >
+	</engine>
+	<!-- 修改生产数据 -->
+	<engine engine_code="updateProdData" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateProdData" >
+	</engine>
+	
+	<!-- 查询已审核派工单是否开始生产 -->
+	<engine engine_code="queryCheckOd" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryCheckOd" >
+	</engine>
+	
+	<!-- 工单审核 -->
+	<engine engine_code="updateOdInfoCheck" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateOdInfoCheck" >
+	</engine>
+    
+    
+    <!-- 调拨申请信息  -->
+	<!-- 查询调拨申请信息 -->
+	<engine engine_code="queryApply" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryApply" >
+	</engine>
+	<!-- 新增调拨申请信息 -->
+	<engine engine_code="insertApply" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertApply" >
+	</engine>
+	<!-- 删除调拨申请信息 -->
+	<engine engine_code="deleteApply" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteApply" >
+	</engine>
+	<!-- 修改调拨申请信息 -->
+	<engine engine_code="updateApply" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateApply" >
+	</engine>
+	<!-- 生成调拨申请单号 -->
+	<engine engine_code="Applyid" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="Applyid" >
+	</engine>
+</engines>

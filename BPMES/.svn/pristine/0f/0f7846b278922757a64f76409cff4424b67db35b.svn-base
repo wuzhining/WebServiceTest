@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<engines>
+	<!-- A.2 基础资料管理 -->
+    <!-- A2.1.1 客户信息 -->
+    <!-- 查询客户 -->
+	<engine engine_code="queryCustomer" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryCustomer" >
+	</engine>
+	<!-- 新增客户 -->
+	<engine engine_code="insertCustomer" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertCustomer" >
+	</engine>
+	<!-- 删除客户 -->
+	<engine engine_code="deleteCustomer" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteCustomer" >
+	</engine>
+	<!-- 修改客户 -->
+	<engine engine_code="updateCustomer" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateCustomer" >
+	</engine>
+	<!-- 查询没有用户名的员工集合(就是在用户表里面没有数据)-->
+	<engine engine_code="queryEmpInfoNotRegister" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryEmpInfoNotRegister" >
+	</engine>
+	<!-- 查询有用户名的员工集合(就是在用户表里面有数据) -->
+	<engine engine_code="queryEmpInfoRegistered" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryEmpInfoRegistered" >
+	</engine>
+	
+	<!-- A2.1.2 供应商信息 -->
+	<!-- 查询供应商 -->
+	<engine engine_code="querySupplier" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querySupplier" >
+	</engine>
+	<!-- 新增供应商 -->
+	<engine engine_code="insertSupplier" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertSupplier" >
+	</engine>
+    <!-- 删除供应商 -->
+	<engine engine_code="deleteSupplier" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteSupplier" >
+	</engine>	
+	<!-- 修改供应商 -->
+	<engine engine_code="updateSupplier" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateSupplier" >
+	</engine>
+	
+	<!-- A2.1.3 物料基本信息 -->
+	<!-- 查询物料   新增物料   修改物料  删除物料 
+	<engine engine_code="queryMaterial" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryMaterial" ></engine>
+	<engine engine_code="insertMaterial" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertMaterial" ></engine>
+	<engine engine_code="deleteMaterial" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteMaterial" ></engine>	
+	<engine engine_code="updateMaterial" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateMaterial" ></engine>-->
+	
+	<!-- A2.1.4 基本单位 -->
+	<!-- 查询基本单元 -->
+	<engine engine_code="queryBasicUnit" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryBasicUnit" >
+	</engine>
+	<!-- 新增基本单元 -->
+	<engine engine_code="insertBasicUnit" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertBasicUnit" >
+	</engine>
+    <!-- 删除基本单元 -->
+	<engine engine_code="deleteBasicUnit" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteBasicUnit" >
+	</engine>	
+	<!-- 修改基本单元 -->
+	<engine engine_code="updateBasicUnit" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateBasicUnit" >
+	</engine>
+	
+	<!-- A2.1.5  班次信息 -->
+ 	<!-- 查询班次 -->
+ 	<engine engine_code="queryClasses" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryClasses" >
+	</engine>
+	<!-- 新增班次 -->
+	<engine engine_code="insertClasses" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertClasses" >
+	</engine>
+    <!-- 删除班次 -->
+	<engine engine_code="deleteClasses" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteClasses" >
+	</engine>	
+	<!-- 修改班次 -->
+	<engine engine_code="updateClasses" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateClasses" >
+	</engine>
+	
+	<!-- A2.1.6 工厂信息 -->
+    <!-- 查询工厂 -->
+ 	<engine engine_code="queryFactory" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryFactory" >
+	</engine>
+	<!-- 新增工厂 -->
+	<engine engine_code="insertFactory" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertFactory" >
+	</engine>
+    <!-- 删除工厂 -->
+	<engine engine_code="deleteFactory" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteFactory" >
+	</engine>	
+	<!-- 修改工厂 -->
+	<engine engine_code="updateFactory" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateFactory" >
+	</engine>
+	
+	<!-- A2.1.7  车间信息 -->
+	<!-- 查询车间 -->
+	<engine engine_code="queryWorkShop" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryWorkShop" >
+	</engine>
+	<!-- 新增车间 -->
+	<engine engine_code="insertWorkShop" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertWorkShop" >
+	</engine>
+    <!-- 删除车间 -->
+	<engine engine_code="deleteWorkShop" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteWorkShop" >
+	</engine>	
+	<!-- 修改车间 -->
+	<engine engine_code="updateWorkShop" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateWorkShop" >
+	</engine>
+	
+	<!-- A2.1.8 设备信息 -->
+	<!-- 查询设备 -->
+	<engine engine_code="queryDevice" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryDevice" >
+	</engine>
+	<!-- 新增设备 -->
+	<engine engine_code="insertDevice" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertDevice" >
+	</engine>
+    <!-- 删除设备 -->
+	<engine engine_code="deleteDevice" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteDevice" >
+	</engine>	
+	<!-- 修改设备 -->
+	<engine engine_code="updateDevice" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateDevice" >
+	</engine>
+	
+	<!-- A2.1.10  不良信息 -->
+	<!-- 查询不良信息 -->
+	<engine engine_code="queryBad" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryBad" >
+	</engine>
+	<!-- 新增不良信息 -->
+	<engine engine_code="insertBad" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertBad" >
+	</engine>
+    <!-- 删除不良信息 -->
+	<engine engine_code="deleteBad" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteBad" >
+	</engine>	
+	<!-- 修改不良信息 -->
+	<engine engine_code="updateBad" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateBad" >
+	</engine>
+	
+	<!-- A2.2.11  维修知识库管理 -->
+	<!-- 查询维修知识库-->
+	<engine engine_code="queryMaintain" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryMaintain" >
+	</engine>
+	<!-- 新增维修知识库 -->
+	<engine engine_code="insertMaintain" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertMaintain" >
+	</engine>
+    <!-- 删除维修知识库 -->
+	<engine engine_code="deleteMaintain" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteMaintain" >
+	</engine>	
+	<!-- 修改维修知识库 -->
+	<engine engine_code="updateMaintain" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateMaintain" >
+	</engine>
+
+	<!-- A2.1.13  公司信息 -->
+	<!-- 查询公司 -->
+	<engine engine_code="queryCompany" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryCompany" >
+	</engine>
+	<!-- 新增公司-->
+	<engine engine_code="insertCompany" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertCompany" >
+	</engine>
+    <!-- 删除公司 -->
+	<engine engine_code="deleteCompany" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteCompany" >
+	</engine>	
+	<!-- 修改公司 -->
+	<engine engine_code="updateCompany" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateCompany" >
+	</engine>
+	
+	<!-- A2.1.14  车间区域信息 -->
+	<!-- 查询车间区域 -->
+	<engine engine_code="queryWorkShopArea" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryWorkShopArea" >
+	</engine>
+	<!-- 新增车间区域-->
+	<engine engine_code="insertWorkShopArea" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertWorkShopArea" >
+	</engine>
+    <!-- 删除车间区域 -->
+	<engine engine_code="deleteWorkShopArea" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteWorkShopArea" >
+	</engine>	
+	<!-- 修改车间区域 -->
+	<engine engine_code="updateWorkShopArea" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateWorkShopArea" >
+	</engine>
+	
+	<!-- A2.1.15  客户信息 -->
+	<!-- 查询客户信息（关联表）-->
+	<engine engine_code="queryCustomerS" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryCustomerS" >
+	</engine>
+	
+	<!-- 查询供应商信息（关联表）-->
+	<engine engine_code="querySupplierS" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querySupplierS" >
+	</engine>
+	
+	<!-- 查询物料信息（关联表）-->
+	<engine engine_code="queryMaterialS" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryMaterialS" >
+	</engine>
+	
+	<!-- 设备状态表新增 -->
+	<engine engine_code="insertDeviceType" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertDeviceType" >
+	</engine>
+	
+	<!-- 查询字典项编码 -->
+	<engine engine_code="queryDICT_IT" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryDICT_IT" >
+	</engine>
+	
+	<!-- 查询物料编码 -->
+	<engine engine_code="queryPT_CD" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryPT_CD" >
+	</engine>
+	
+	<!-- A2.1.16  国家信息 -->
+	<!-- 查询国家 -->
+	<engine engine_code="queryNational" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryNational" >
+	</engine>
+	<!-- 新增国家-->
+	<engine engine_code="insertNational" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertNational" >
+	</engine>
+    <!-- 删除国家-->
+	<engine engine_code="deleteNational" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteNational" >
+	</engine>	
+	<!-- 修改国家 -->
+	<engine engine_code="updateNational" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateNational" >
+	</engine>
+	
+	<!-- A2.1.17  城市信息 -->
+	<!-- 查询城市 -->
+	<engine engine_code="queryCity" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryCity" >
+	</engine>
+	<!-- 新增城市-->
+	<engine engine_code="insertCity" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertCity" >
+	</engine>
+    <!-- 删除城市-->
+	<engine engine_code="deleteCity" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteCity" >
+	</engine>	
+	<!-- 修改城市-->
+	<engine engine_code="updateCity" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateCity" >
+	</engine>
+	
+	<!-- A2.1.18  逻辑工厂信息 -->
+	<!-- 查询逻辑工厂 -->
+	<engine engine_code="queryLogicFactory" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryLogicFactory" >
+	</engine>
+	<!-- 新增逻辑工厂-->
+	<engine engine_code="insertLogicFactory" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertLogicFactory" >
+	</engine>
+    <!-- 删除逻辑工厂-->
+	<engine engine_code="deletelogicFactory" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deletelogicFactory" >
+	</engine>	
+	<!-- 修改逻辑工厂-->
+	<engine engine_code="updateLogicFactory" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateLogicFactory" >
+	</engine>
+	
+	<!-- A2.1.19  系统规则信息 -->
+	<!-- 查询系统规则 -->
+	<engine engine_code="querySysRule"  engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querySysRule" >
+	</engine>
+	<!-- 新增系统规则-->
+	<engine engine_code="insertSysRule" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertSysRule" >
+	</engine>
+    <!-- 删除系统规则-->
+	<engine engine_code="deleteSysRule" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteSysRule" >
+	</engine>	
+	<!-- 修改系统规则-->
+	<engine engine_code="updateSysRule" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateSysRule" >
+	</engine>
+	
+	<!-- A2.1.20  系统规则 树状结构信息 -->
+	<!-- 查询系统规则 树状结构-->
+	<engine engine_code="querySysRuleTree"  engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querySysRuleTree" >
+	</engine>
+	<!-- 添加系统规则 树状结构-->
+	<engine engine_code="insertSysRuleTree"  engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertSysRuleTree" >
+	</engine>
+	<!-- 删除系统规则 树状结构-->
+	<engine engine_code="deleteSysRuleTree"  engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteSysRuleTree" >
+	</engine>
+	<!-- 修改系统规则 树状结构-->
+	<engine engine_code="updateSysRuleTree"  engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateSysRuleTree" >
+	</engine>
+	
+	<!-- A2.1.21  查询生产线维护信息 -->
+	<!-- 查询生产线维护-->
+	<engine engine_code="queryProductionLineMaintenance"  engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryProductionLineMaintenance" >
+	</engine>
+	<!-- 添加生产线维护-->
+	<engine engine_code="insertProductionLineMaintenance"  engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertProductionLineMaintenance" >
+	</engine>
+	<!-- 删除生产线维护-->
+	<engine engine_code="deleteProductionLineMaintenance"  engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteProductionLineMaintenance" >
+	</engine>
+	<!-- 修改生产线维护-->
+	<engine engine_code="updateProductionLineMaintenance"  engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateProductionLineMaintenance" >
+	</engine>
+	
+	<!-- A2.1.22  查询班组维护信息  -->
+	<!-- 查询班组维护 -->
+	<engine engine_code="queryClassGrounp"  engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryClassGrounp" >
+	</engine>
+	<!-- 添加班组维护 -->
+	<engine engine_code="insertClassGrounp"  engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertClassGrounp" >
+	</engine>
+	<!-- 删除班组维护 -->
+	<engine engine_code="deleteClassGrounp"  engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteClassGrounp" >
+	</engine>
+	<!-- 修改班组维护 -->
+	<engine engine_code="updateClassGrounp"  engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateClassGrounp" >
+	</engine>
+	
+	<!-- A2.1.23  查询产线日历信息  -->
+	<!-- 查询产线日历 -->
+	<engine engine_code="queryProLineCalendar"  engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryProLineCalendar" >
+	</engine>
+	<!-- 添加产线日历 -->
+	<engine engine_code="insertProLineCalendar"  engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertProLineCalendar" >
+	</engine>
+	<!-- 删除产线日历 -->
+	<engine engine_code="deleteProLineCalendar"  engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteProLineCalendar" >
+	</engine>
+	<!-- 修改产线日历 -->
+	<engine engine_code="updateProLineCalendar"  engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateProLineCalendar" >
+	</engine>
+	
+	<!-- A2.1.24  查询产线日历信息  -->
+	<!-- 查询时间段维护 -->
+	<engine engine_code="queryTimeSlot"  engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryTimeSlot" >
+	</engine>
+	<!-- 添加时间段维护 -->
+	<engine engine_code="insertTimeSlot"  engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertTimeSlot" >
+	</engine>
+	<!-- 删除时间段维护 -->
+	<engine engine_code="deleteTimeSlot"  engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteTimeSlot" >
+	</engine>
+	<!-- 修改时间段维护 -->
+	<engine engine_code="updateTimeSlot"  engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateTimeSlot" >
+	</engine>
+	
+	<!-- A2.1.25  查询车间日历信息  -->
+	<!-- 查询车间日历 -->
+	<engine engine_code="queryWorkshopCalendar"  engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryWorkshopCalendar" >
+	</engine>
+	<!-- 添加车间日历 -->
+	<engine engine_code="insertWorkshopCalendar"  engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertWorkshopCalendar" >
+	</engine>
+	<!-- 删除车间日历 -->
+	<engine engine_code="deleteWorkshopCalendar"  engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteWorkshopCalendar" >
+	</engine>
+	<!-- 修改车间日历 -->
+	<engine engine_code="updateWorkshopCalendar"  engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateWorkshopCalendar" >
+	</engine>
+	
+	<!-- A2.1.25  查询班制维护信息  -->
+	<!-- 查询班制维护 -->
+	<engine engine_code="queryClassMaintenance"  engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryClassMaintenance" >
+	</engine>
+	<!-- 添加班制维护 -->
+	<engine engine_code="insertClassMaintenance"  engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertClassMaintenance" >
+	</engine>
+	<!-- 删除班制维护 -->
+	<engine engine_code="deleteClassMaintenance"  engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteClassMaintenance" >
+	</engine>
+	<!-- 修改班制维护 -->
+	<engine engine_code="updateClassMaintenance"  engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateClassMaintenance" >
+	</engine>
+	
+	<!-- A2.1.26  查询条码规则维护信息  -->
+	<!-- 查询条码规则维护 -->
+	<engine engine_code="queryBarRule"  engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryBarRule" >
+	</engine>
+	<!-- 添加条码规则维护 -->
+	<engine engine_code="insertBarRule"  engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertBarRule" >
+	</engine>
+	<!-- 删除条码规则维护 -->
+	<engine engine_code="deleteBarRule"  engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteBarRule" >
+	</engine>
+	<!-- 修改条码规则维护 -->
+	<engine engine_code="updateBarRule"  engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateBarRule" >
+	</engine>
+	
+	<!-- A2.1.27  查询条码规则设置  -->
+	<!-- 查询条码规则设置 -->
+	<engine engine_code="queryBarRuleSet"  engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryBarRuleSet" >
+	</engine>
+	<!-- 添加条码规则设置 -->
+	<engine engine_code="insertBarRuleSet"  engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertBarRuleSet" >
+	</engine>
+	<!-- 删除条码规则设置 -->
+	<engine engine_code="deleteBarRuleSet"  engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteBarRuleSet" >
+	</engine>
+	<!-- 删除条码规则设置 -->
+	<engine engine_code="updateBarRuleSet"  engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateBarRuleSet" >
+	</engine>
+	
+	<!-- A2.1.28 查询条码规则种类信息  -->
+	<!-- 查询条码规则种类维护 -->
+	<engine engine_code="queryBarRuleType"  engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryBarRuleType" >
+	</engine>
+	<!-- 添加条码规则种类维护 -->
+	<engine engine_code="insertBarRuleType"  engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertBarRuleType" >
+	</engine>
+	<!-- 删除条码规则种类维护 -->
+	<engine engine_code="deleteBarRuleType"  engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteBarRuleType" >
+	</engine>
+	<!-- 修改条码规则种类维护 -->
+	<engine engine_code="updateBarRuleType"  engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateBarRuleType" ></engine>
+	<engine engine_code="barCodePrinter"  engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="barCodePrinter" ></engine>
+	<engine engine_code="barCodePrinterList"  engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="barCodePrinterList" ></engine>
+</engines>

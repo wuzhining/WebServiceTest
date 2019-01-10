@@ -1,0 +1,619 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ifss>
+	<!-- A.2 基础资料管理 -->
+	<!-- A2.1.1 仓库类别信息 -->
+	<!-- 查询仓库类别 -->
+	<ifs ifs_code="WMS_B000001" ifs_name="查询客户" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="" biz_method="" serial_no="1" biz_name="" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs> 
+    
+	<!-- 查询托盘信息 -->
+	<ifs ifs_code="WMS_B000002" ifs_name="托盘信息查询" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="TrayInfoQuery" biz_method="" serial_no="1" biz_name="TrayInfoQuery" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>	
+	
+	<!-- 新增托盘信息 -->
+	<ifs ifs_code="WMS_B000003" ifs_name="新增托盘信息 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="TrayInfoInsert" biz_method="" serial_no="1" biz_name="TrayInfoInsert" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 修改托盘信息 -->
+	<ifs ifs_code="WMS_B000004" ifs_name="修改托盘信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="TrayInfoUpdate" biz_method="" serial_no="1" biz_name="TrayInfoUpdate" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 删除托盘信息 -->
+	<ifs ifs_code="WMS_B000005" ifs_name="删除托盘信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="TrayInfoDelete" biz_method="" serial_no="1" biz_name="TrayInfoDelete" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>	
+	
+	<!-- 查询仓库信息 -->
+	<ifs ifs_code="WMS_B000006" ifs_name="查询仓库信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="WarehouseInfoQuery" biz_method="" serial_no="1" biz_name="WarehouseInfoQuery" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs> 
+	
+	<!-- 新增仓库信息 -->
+	<ifs ifs_code="WMS_B000007" ifs_name="新增仓库信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="WarehouseInfoInsert" biz_method="" serial_no="1" biz_name="WarehouseInfoInsert" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 修改仓库信息 -->
+	<ifs ifs_code="WMS_B000008" ifs_name="修改仓库信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="WarehouseInfoUpdate" biz_method="" serial_no="1" biz_name="WarehouseInfoUpdate" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 删除仓库信息 -->
+	<ifs ifs_code="WMS_B000009" ifs_name="删除仓库信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="WarehouseInfoDelete" biz_method="" serial_no="1" biz_name="WarehouseInfoDelete" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 查询计量单位信息 -->
+	<ifs ifs_code="WMS_B000010" ifs_name="查询计量单位信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryWMSUnitInfo" biz_method="" serial_no="1" biz_name="queryWMSUnitInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 删除计量单位信息 -->
+	<ifs ifs_code="WMS_B000011" ifs_name="删除计量单位信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="unitInfoDelete" biz_method="" serial_no="1" biz_name="unitInfoDelete" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 修改计量单位信息 -->
+	<ifs ifs_code="WMS_B000012" ifs_name="修改计量单位信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="unitInfoUpdate" biz_method="" serial_no="1" biz_name="unitInfoUpdate" biz_type="3" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 新增计量单位信息 -->
+	<ifs ifs_code="WMS_B000013" ifs_name="新增计量单位信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="unitInfoInsert" biz_method="" serial_no="1" biz_name="unitInfoInsert" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 查询仓库类别 -->
+	<ifs ifs_code="WMS_B000014" ifs_name="查询仓库类别" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="WarehouseTypeInfo" biz_method="" serial_no="1" biz_name="WarehouseTypeInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 修改仓库类别 -->
+	<ifs ifs_code="WMS_B000015" ifs_name="修改仓库类别" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="WarehouseTypeInfoUpdate" biz_method="" serial_no="1" biz_name="WarehouseTypeInfoUpdate" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 新增仓库类别 -->
+	<ifs ifs_code="WMS_B000016" ifs_name="新增仓库类别" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="WarehouseTypeInfoInsert" biz_method="" serial_no="1" biz_name="WarehouseTypeInfoInsert" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 删除仓库类别 -->
+	<ifs ifs_code="WMS_B000017" ifs_name="删除仓库类别" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="WarehouseTypeInfoDelete" biz_method="" serial_no="1" biz_name="WarehouseTypeInfoDelete" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 查询货架信息 -->
+	<ifs ifs_code="WMS_B000018" ifs_name="查询货架信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="GoodsShelfInfoQuery" biz_method="" serial_no="1" biz_name="GoodsShelfInfoQuery" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs> 
+	<!-- 删除货架信息 -->
+	<ifs ifs_code="WMS_B000019" ifs_name="删除货架信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="GoodsShelfInfoDelete" biz_method="" serial_no="1" biz_name="GoodsShelfInfoDelete" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 查询储区信息 -->
+	<ifs ifs_code="WMS_B00020" ifs_name="查询储区信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="StorageInfoQuery" biz_method="" serial_no="1" biz_name="StorageInfoQuery" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>  
+	
+	<!-- 查询货位的树形结构 -->
+	<ifs ifs_code="WMS_B00021" ifs_name="查询货位的树形结构 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="PositionMenuInfoQuery" biz_method="" serial_no="1" biz_name="PositionMenuInfoQuery" biz_type="3" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 修改货架信息 -->
+	<ifs ifs_code="WMS_B00022" ifs_name="修改货架" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="GoodsShelfInfoUpdate" biz_method="" serial_no="1" biz_name="GoodsShelfInfoUpdate" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs> 
+	<!-- 删除储区信息 -->
+	<ifs ifs_code="WMS_B00023" ifs_name="删除货架数据" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="StorageInfoInfoDelete" biz_method="" serial_no="1" biz_name="StorageInfoInfoDelete" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs> 
+	<!-- 新增储区信息 -->
+	<ifs ifs_code="WMS_B00024" ifs_name="新增储区信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="StorageInfoInsert" biz_method="" serial_no="1" biz_name="StorageInfoInsert" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs> 
+	<!-- 修改储区信息 -->
+	<ifs ifs_code="WMS_B00025" ifs_name="修改储区" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="StorageInfoInfoUpdate" biz_method="" serial_no="1" biz_name="StorageInfoInfoUpdate" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 查询储区树形结构信息 -->
+	<ifs ifs_code="WMS_B00026" ifs_name="查询储区树形结构信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="StoreMenuInfoQuery" biz_method="" serial_no="1" biz_name="StoreMenuInfoQuery" biz_type="3" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 查询货架树形结构信息 -->
+	<ifs ifs_code="WMS_B00027" ifs_name="查询货架树形结构信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="ShelfMenuInfoQuery" biz_method="" serial_no="1" biz_name="ShelfMenuInfoQuery" biz_type="3" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 查询货架的货位信息 -->
+	<ifs ifs_code="WMS_B00028" ifs_name="查询货架的货位信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryShelfPositionInfo" biz_method="" serial_no="1" biz_name="queryShelfPositionInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 新增货架信息 -->
+	<ifs ifs_code="WMS_B00029" ifs_name="新增货架信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="GoodsShelfInfoInsert" biz_method="" serial_no="1" biz_name="GoodsShelfInfoInsert" biz_type="3" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 下拉框使用仓库数据 -->
+	<ifs ifs_code="WMS_B00030" ifs_name="下拉框使用仓库数据" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="ComboBoxWarehouseInfoQuery" biz_method="" serial_no="1" biz_name="ComboBoxWarehouseInfoQuery" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 下拉框查询出储区信息-->
+	<ifs ifs_code="WMS_B00031" ifs_name="下拉框查询出储区信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="ComboBoxStorageInfoQuery" biz_method="" serial_no="1" biz_name="ComboBoxStorageInfoQuery" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 查询表单模板数据 -->
+	<ifs ifs_code="WMS_B00032" ifs_name="查询表单模板数据" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="FormTemplateInfoQuery" biz_method="" serial_no="1" biz_name="FormTemplateInfoQuery" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs> 
+	
+	<!-- 抽样方案 -->
+	<!-- 查询 抽样标准信息-->
+	<ifs ifs_code="WMS_B00033" ifs_name="查询抽样标准信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="querySampleStandInfo" biz_method="" serial_no="1" biz_name="querySampleStandInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 查询抽样方法信息-->
+	<ifs ifs_code="WMS_B00034" ifs_name="查询抽样方法信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="querySamplePlanInfo" biz_method="" serial_no="1" biz_name="querySamplePlanInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 新增抽样方法信息-->
+	<ifs ifs_code="WMS_B00035" ifs_name="新增抽样方法信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="InsertSamplePlanInfo" biz_method="" serial_no="1" biz_name="InsertSamplePlanInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 修改抽样方法信息-->
+	<ifs ifs_code="WMS_B00036" ifs_name="修改抽样方法信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="UpdateSamplePlanInfo" biz_method="" serial_no="1" biz_name="UpdateSamplePlanInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 删除抽样方法信息-->
+	<ifs ifs_code="WMS_B00037" ifs_name="删除抽样方法信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="DeleteSamplePlanInfo" biz_method="" serial_no="1" biz_name="DeleteSamplePlanInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 标签管理 -->
+	<!-- 查询标签管理信息-->
+	<ifs ifs_code="WMS_B00038" ifs_name="查询标签管理信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryBarcodeRule" biz_method="" serial_no="1" biz_name="queryBarcodeRule" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>	
+	<!-- 新增标签管理信息-->
+	<ifs ifs_code="WMS_B00039" ifs_name="新增标签管理信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertBarcodeRule" biz_method="" serial_no="1" biz_name="insertBarcodeRule" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 修改标签管理信息-->
+	<ifs ifs_code="WMS_B00040" ifs_name="修改标签管理信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateBarcodeRule" biz_method="" serial_no="1" biz_name="updateBarcodeRule" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 删除标签管理信息-->
+	<ifs ifs_code="WMS_B00041" ifs_name="删除标签管理信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteBarcodeRule" biz_method="" serial_no="1" biz_name="deleteBarcodeRule" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 标签管理树形结构-->
+	<ifs ifs_code="WMS_B00042" ifs_name="标签管理树形结构" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryBarcodeRuleTree" biz_method="" serial_no="1" biz_name="queryBarcodeRuleTree" biz_type="3" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 初始化货位数据-->
+	<ifs ifs_code="WMS_B00043" ifs_name="初始化货位数据" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="initShelfPosition" biz_method="" serial_no="1" biz_name="initShelfPosition" biz_type="3" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 物料分类管理 -->
+	<!-- 查询物料分类管理标准 -->
+	<ifs ifs_code="WMS_B00044" ifs_name="查询物料分类管理标准" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="querymateriaDivideStand" biz_method="" serial_no="1" biz_name="querymateriaDivideStand" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>	
+	<!-- 查询物料分类管理 -->
+	<ifs ifs_code="WMS_B00045" ifs_name="查询物料分类管理" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="querymateriaDivideManage" biz_method="" serial_no="1" biz_name="querymateriaDivideManage" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>	
+	<!-- 新增物料分类管理 -->
+	<ifs ifs_code="WMS_B00046" ifs_name="新增物料分类管理" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="InsertmateriaDivideManage" biz_method="" serial_no="1" biz_name="InsertmateriaDivideManage" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>	
+	<!-- 修改物料分类管理 -->
+	<ifs ifs_code="WMS_B00047" ifs_name="修改物料分类管理" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="UpdatemateriaDivideManage" biz_method="" serial_no="1" biz_name="UpdatemateriaDivideManage" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>	
+	<!-- 删除物料分类管理 -->
+	<ifs ifs_code="WMS_B00048" ifs_name="删除物料分类管理" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="DeletemateriaDivideManage" biz_method="" serial_no="1" biz_name="DeletemateriaDivideManage" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>	
+	
+	<!-- 查询货位信息表的货架引用-->
+	<ifs ifs_code="WMS_B00049" ifs_name="查询货位信息表的货架引用" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="querySelftMarites" biz_method="" serial_no="1" biz_name="querySelftMarites" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>	
+	
+	<!-- 查询货架编号-->
+	<ifs ifs_code="WMS_B00050" ifs_name="查询货架编号" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryShelfID" biz_method="" serial_no="1" biz_name="queryShelfID" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>	
+	
+	<!-- 查询仓库类别编号-->
+	<ifs ifs_code="WMS_B00051" ifs_name="查询仓库类别编号" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="querywarehouseTypeID" biz_method="" serial_no="1" biz_name="querywarehouseTypeID" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>	
+	
+	<!-- 查询仓库编号-->
+	<ifs ifs_code="WMS_B00052" ifs_name="查询仓库编号" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="querywarehouseID" biz_method="" serial_no="1" biz_name="querywarehouseID" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>	
+	
+	<!-- 查询生成物料分类编号-->
+	<ifs ifs_code="WMS_B00053" ifs_name="查询生成物料分类编号" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryCreatmateriaID" biz_method="" serial_no="1" biz_name="queryCreatmateriaID" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>	
+	
+	<!-- 查询生成抽样编号-->
+	<ifs ifs_code="WMS_B00054" ifs_name="查询生成抽样编号" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryCreateSampleID" biz_method="" serial_no="1" biz_name="queryCreateSampleID" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 查询生成托盘编号-->
+	<ifs ifs_code="WMS_B00055" ifs_name="查询生成托盘编号" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="CreatTRAY_ID" biz_method="" serial_no="1" biz_name="CreatTRAY_ID" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 查询仓库唯一码和RFID关联表信息-->
+	<ifs ifs_code="WMS_B00056" ifs_name="查询仓库唯一码和RFID关联表信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryWareHouseRfid" biz_method="" serial_no="1" biz_name="queryWareHouseRfid" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 新增仓库唯一码和RFID关联表信息-->
+	<ifs ifs_code="WMS_B00057" ifs_name="新增仓库唯一码和RFID关联表信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="InsertWareHouseRfid" biz_method="" serial_no="1" biz_name="InsertWareHouseRfid" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 修改仓库唯一码和RFID关联表信息-->
+	<ifs ifs_code="WMS_B00058" ifs_name="修改仓库唯一码和RFID关联表信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="UpdateWareHouseRfid" biz_method="" serial_no="1" biz_name="UpdateWareHouseRfid" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 删除仓库唯一码和RFID关联表信息-->
+	<ifs ifs_code="WMS_B00059" ifs_name="删除仓库唯一码和RFID关联表信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="DeleteWareHouseRfid" biz_method="" serial_no="1" biz_name="DeleteWareHouseRfid" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 查询生成RFID表ID-->
+	<ifs ifs_code="WMS_B00060" ifs_name="查询生成RFID表ID" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="CreatRFID_ID" biz_method="" serial_no="1" biz_name="CreatRFID_ID" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 查询仓储出入库中间表信息-->
+	<ifs ifs_code="WMS_B00061" ifs_name="查询仓储出入库中间表信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryWMSWCSlink" biz_method="" serial_no="1" biz_name="queryWMSWCSlink" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 新增仓储出入库中间表信息-->
+	<ifs ifs_code="WMS_B00062" ifs_name="新增仓储出入库中间表信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="InsertWMSWCSlink" biz_method="" serial_no="1" biz_name="InsertWMSWCSlink" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 修改仓储出入库中间表信息息-->
+	<ifs ifs_code="WMS_B00063" ifs_name="修改仓储出入库中间表信息息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="UpdateWMSWCSlink" biz_method="" serial_no="1" biz_name="UpdateWMSWCSlink" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 删除仓储出入库中间表信息-->
+	<ifs ifs_code="WMS_B00064" ifs_name="删除仓储出入库中间表信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="DeleteWMSWCSlink" biz_method="" serial_no="1" biz_name="DeleteWMSWCSlink" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 查询生成仓储出入库中间表信息ID-->
+	<ifs ifs_code="WMS_B00065" ifs_name="查询生成仓储出入库中间表信息ID" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="CreatWMSWCSlink_ID" biz_method="" serial_no="1" biz_name="CreatWMSWCSlink_ID" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 查询货位信息-->
+	<ifs ifs_code="WMS_B00066" ifs_name="查询货位信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="CXHW" biz_method="" serial_no="1" biz_name="CXHW" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 查询仓库库存-->
+	<ifs ifs_code="WMS_B00067" ifs_name="查询仓库库存" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryWarehouseStock" biz_method="" serial_no="1" biz_name="queryWarehouseStock" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 查询仓库库存汇总-->
+	<ifs ifs_code="WMS_B00068" ifs_name="查询仓库库存汇总" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="querySumWarehouseStock" biz_method="" serial_no="1" biz_name="querySumWarehouseStock" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 查询条码追溯记录-->
+	<ifs ifs_code="WMS_B00069" ifs_name="查询条码追溯记录" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryBARCODEZS" biz_method="" serial_no="1" biz_name="queryBARCODEZS" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 查询MES工单领料-->
+	<ifs ifs_code="WMS_B00070" ifs_name="查询MES工单领料" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryMESMOll" biz_method="" serial_no="1" biz_name="queryMESMOll" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 查询MES工单生产-->
+	<ifs ifs_code="WMS_B00071" ifs_name="查询MES工单生产" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryMESMOProduct" biz_method="" serial_no="1" biz_name="queryMESMOProduct" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 查询MES工单完工-->
+	<ifs ifs_code="WMS_B00072" ifs_name="查询MES工单完工" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryMESMOfinish" biz_method="" serial_no="1" biz_name="queryMESMOfinish" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 查询成品仓信息-->
+	<ifs ifs_code="WMS_B00073" ifs_name="查询成品仓信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryProductWarehouse" biz_method="" serial_no="1" biz_name="queryProductWarehouse" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!--查询成品仓出入库中间表信息-->
+	<ifs ifs_code="WMS_B00074" ifs_name="查询成品仓出入库中间表信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryCPProduct" biz_method="" serial_no="1" biz_name="queryCPProduct" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 新增仓储出入库中间表信息-->
+	<ifs ifs_code="WMS_B00075" ifs_name="新增仓储出入库中间表信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="InsertCPProduct" biz_method="" serial_no="1" biz_name="InsertCPProduct" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 修改仓储出入库中间表信息息-->
+	<ifs ifs_code="WMS_B00076" ifs_name="查询成品仓信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="UpdateCPProduct" biz_method="" serial_no="1" biz_name="UpdateCPProduct" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 删除仓储出入库中间表信息-->
+	<ifs ifs_code="WMS_B00077" ifs_name="删除仓储出入库中间表信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="DeleteCPProduct" biz_method="" serial_no="1" biz_name="DeleteCPProduct" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 更新库位信息表-->
+	<ifs ifs_code="WMS_B00078" ifs_name="更新库位信息表" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="UpdatePOSINFO" biz_method="" serial_no="1" biz_name="UpdatePOSINFO" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 查询成品仓操作信息-->
+	<ifs ifs_code="WMS_B00079" ifs_name="查询成品仓操作信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryProductlinkInfo" biz_method="" serial_no="1" biz_name="queryProductlinkInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 查询成品仓已完成操作信息-->
+	<ifs ifs_code="WMS_B00080" ifs_name="查询成品仓已完成操作信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryProductlinkInfoFinish" biz_method="" serial_no="1" biz_name="queryProductlinkInfoFinish" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!--查询包装箱列表信息-->
+	<ifs ifs_code="WMS_B00081" ifs_name="查询包装箱列表信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryContainer" biz_method="" serial_no="1" biz_name="queryContainer" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 新增包装箱列表信息-->
+	<ifs ifs_code="WMS_B00082" ifs_name="新增包装箱列表信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="InsertContainer" biz_method="" serial_no="1" biz_name="InsertContainer" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 修改包装箱列表信息息-->
+	<ifs ifs_code="WMS_B00083" ifs_name="修改包装列表信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="UpdateContainer" biz_method="" serial_no="1" biz_name="UpdateContainer" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 删除包装箱列表信息-->
+	<ifs ifs_code="WMS_B00084" ifs_name="删除包装列表信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="DeleteContainer" biz_method="" serial_no="1" biz_name="DeleteContainer" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 获得包装箱id-->
+	<ifs ifs_code="WMS_B00085" ifs_name="获得包装箱id" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="GetidContainer" biz_method="" serial_no="1" biz_name="GetidContainer" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!--查询包装箱标签信息-->
+	<ifs ifs_code="WMS_B00086" ifs_name="查询包装箱标签信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryContdoc" biz_method="" serial_no="1" biz_name="queryContdoc" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 新增包装箱标签信息-->
+	<ifs ifs_code="WMS_B00087" ifs_name="新增包装箱标签信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="InsertContdoc" biz_method="" serial_no="1" biz_name="InsertContdoc" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 修改包装箱标签信息-->
+	<ifs ifs_code="WMS_B00088" ifs_name="修改包装标签信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="UpdateContdoc" biz_method="" serial_no="1" biz_name="UpdateContdoc" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 删除包装箱标签信息-->
+	<ifs ifs_code="WMS_B00089" ifs_name="删除包装标签信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="DeleteContdoc" biz_method="" serial_no="1" biz_name="DeleteContdoc" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 获得包装箱标签id-->
+	<ifs ifs_code="WMS_B00090" ifs_name="获得包装箱标签id" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="GetidContdoc" biz_method="" serial_no="1" biz_name="GetidContdoc" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!--查询包装箱内容信息-->
+	<ifs ifs_code="WMS_B00091" ifs_name="查询包装箱内容信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryContlev" biz_method="" serial_no="1" biz_name="queryContlev" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 新增包装箱内容信息-->
+	<ifs ifs_code="WMS_B00092" ifs_name="新增包装箱内容信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="InsertContlev" biz_method="" serial_no="1" biz_name="InsertContlev" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 修改包装箱内容信息-->
+	<ifs ifs_code="WMS_B00093" ifs_name="修改包装内容信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="UpdateContlev" biz_method="" serial_no="1" biz_name="UpdateContlev" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 删除包装箱内容信息-->
+	<ifs ifs_code="WMS_B00094" ifs_name="删除包装内容信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="DeleteContlev" biz_method="" serial_no="1" biz_name="DeleteContlev" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 获得包装箱内容id-->
+	<ifs ifs_code="WMS_B00095" ifs_name="获得包装箱内容id" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="GetidContlev" biz_method="" serial_no="1" biz_name="GetidContlev" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+</ifss>

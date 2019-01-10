@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<podiums>
+	<podium  podium_code="userLogin" podium_name="获取用户的数据权限" podium_class="com.iPlant.mes.Biz.UserInfopodium" podium_method="acceptance" attr1="" attr2=""/>
+	<!-- 系统规则树结构 -->
+	<podium podium_code="querySysRuleTree" podium_name="查询系统规则树结构 " podium_class="com.iPlant.mes.common.TreeNode" podium_method="sysRuleExecute" attr1="" attr2=""/>
+	<podium podium_code="barCodePrinter" podium_name="条码打印 " podium_class="com.iPlant.mes.common.ZplPrinter" podium_method="execute" attr1="" attr2=""/>
+	<podium podium_code="barCodePrinterList" podium_name="条码打印 " podium_class="com.iPlant.mes.common.ZplPrinter" podium_method="printerList" attr1="" attr2=""/>
+<!--  	<podium podium_code="insertDevice" podium_name="新增设备" podium_class="com.iPlant.mes.biz.basis.BasisInfoManage" podium_method="insertMachine" attr1="" attr2=""/>  -->
+</podiums>
+ 

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<engines>
+	<!-- A4. 报表管理 -->
+	<!-- A4.1 生产日报 -->
+	<!-- 查询生产日报 -->
+	<engine engine_code="queryProdDaily" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryProdDaily" >
+	</engine>
+	<!-- 导出生产日报 -->
+	<engine engine_code="exportProdDaily" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="exportProdDaily" >
+	</engine>
+	<!-- 设置生产日报 -->
+	<engine engine_code="updateProdDaily" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateProdDaily" >
+	</engine>
+	
+	<!-- A4.2 次品报表 -->
+	<!-- 查询次品报表 -->
+	<engine engine_code="queryBadDaily" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryBadDaily" >
+	</engine>
+	<!-- 查询次品报表列表 -->
+	<engine engine_code="queryBadDailyList" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryBadDailyList" >
+	</engine>
+	
+	<!-- A4.3 计划达成率 -->
+	<!-- 查询计划达成率 -->
+	<engine engine_code="queryPlanYieldRate" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryPlanYieldRate" >
+	</engine>
+	<!-- 导出计划达成率 -->
+	<engine engine_code="exportPlanYieldRate" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="exportPlanYieldRate" >
+	</engine>
+	
+	<!-- A4.4 设备OEE -->
+	<!-- 查询设备OEE -->
+	<engine engine_code="queryFacilityOEE" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryFacilityOEE" >
+	</engine>
+	<!-- 导出设备OEE -->
+	<engine engine_code="exportFacilityOEE" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="exportFacilityOEE" >
+	</engine>
+	
+	<!-- A4.5 机器监视 -->
+	<!-- 查询机器监视 -->
+	<engine engine_code="queryMachineMonitor" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryMachineMonitor" >
+	</engine>
+	<!-- 导出机器监视 -->
+	<engine engine_code="exportMachineMonitor" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="exportMachineMonitor" >
+	</engine>
+	
+	<!-- A4.6 停机报表 -->
+	<!-- 查询停机报表 -->
+	<engine engine_code="queryStopReport" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryStopReport" >
+	</engine>
+	<!-- 查询停机报表明细 -->
+	<engine engine_code="queryStopReportDetail" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryStopReportDetail" >
+	</engine>
+	<!-- 导出停机报表  -->
+	<engine engine_code="exportStopReport" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="exportStopReport" >
+	</engine>
+	
+	<!-- A4.7 工单监视 -->
+	<!-- 查询工单监视  -->
+	<engine engine_code="queryOdMonitor" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryOdMonitor" >
+	</engine>
+	<!-- 导出工单监视  -->
+	<engine engine_code="exportOrderMonitor" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="exportOrderMonitor" >
+	</engine>
+	
+	<!-- A4.8 设备保养 
+	<engine engine_code="queryDeviceMaintain" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryDeviceMaintain" >
+	</engine>-->
+	
+	<!-- A4.9 设备维修 
+	<engine engine_code="queryDeviceRepair" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryDeviceRepair" >
+	</engine>-->
+	
+	<!-- A4.10 备件记录 -->
+	<engine engine_code="querySpRecord" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querySpRecord" >
+	</engine>
+	
+	<!-- A4.11  设备点检报表 -->
+	<engine engine_code="queryEquipmentInspectionReport" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryEquipmentInspectionReport" >
+	</engine>
+	<!-- 设备点检报表明细  -->
+	<engine engine_code="queryEquipmentInspectionReportDetail" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryEquipmentInspectionReportDetail" >
+	</engine>
+	
+	<!-- 查询设备 -->
+	<engine engine_code="queryEquipment" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryEquipment" >
+	</engine>
+	
+	<!-- 次品报表列表  -->
+	<engine engine_code="queryBrReportList" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryBrReportList" >
+	</engine>
+	
+	<!-- 次品报表列表详情 -->
+	<engine engine_code="queryBrReportListDetail" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryBrReportListDetail" >
+	</engine>
+	
+	
+</engines>   

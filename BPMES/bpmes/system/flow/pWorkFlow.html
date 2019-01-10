@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>流程列表</title>
+    <link rel="stylesheet" type="text/css" href="../../common/IplantCompent/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../../common/IplantCompent/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="../../common/IplantCompent/Demo/demo.css">
+    <script src="../../common/IplantCompent/jquery.min.js" type="text/javascript"></script>
+    <script src="../../common/IplantCompent/jquery.easyui.min.js" type="text/javascript"></script>
+    <script src="../../common/IplantCommon/DataRequest.js" type="text/javascript"></script>
+    <script src="../../common/IplantCommon/CommonUtil.js" type="text/javascript"></script>
+    <script src="js/pWorkFlow.js" type="text/javascript"></script>
+    <script type="text/javascript"></script>
+</head>
+<body style="padding: 0;margin: 0;">
+	<div style="height:100%;width:100%;" class="easyui-layout" fit='true'>
+            <div region="center" style="width:100%" style="border:0">
+            <div region='north' id='tb' style="width: auto; height: 30px;background: linear-gradient(rgb(255, 255, 255) 0px, rgba(149, 184, 231, 0.28) 100%);">
+                <table>
+	                <tr >
+	                	<td><!-- 所属类型：<select id="queryFunType" name="queryFunType" style="width:150px;" class="easyui-combobox" editable='false'></select>
+	                   		<span id='labelBarInfo'>名称 ：</span><input id="barNameTxt" name="barNameTxt" style="width: 150px;" class="easyui-textbox" />
+	                   		<span id='labelMoInfo'>工单号：</span><input id="moNoTxt" name="barNameTxt" style="width: 150px;" class="easyui-textbox" />
+	                    	<a href="#" class="easyui-linkbutton search" iconCls="icon-search" id="btnSearch" data-options="plain:true">查询</a>	
+	                    	<a href="#" class="easyui-linkbutton add" iconCls="icon-add" id="btnAdd" data-options="plain:true" >添加</a>	
+	                    	<a href="#" class="easyui-linkbutton edit" iconCls="icon-edit" id="btnEdit" data-options="plain:true">修改</a>	
+	                    	<a href="#" class="easyui-linkbutton more" iconCls="icon-more" id="btnDeploy" data-options="plain:true">部署</a>	
+	                    	<a href="#" class="easyui-linkbutton more" iconCls="icon-more" id="btnExport" data-options="plain:true">导出</a>	
+	                    	<a href="#" class="easyui-linkbutton delete" iconCls="icon-remove" id="btnDel" data-options="plain:true">删除</a>	 -->
+	                    	<span id='showMessageInfo' class='divspan' style='width:300px;'></span>
+	                    </td>
+	                </tr>
+                </table>
+            </div>
+            <table region='center' style="height: auto;max-height: 100%" id="pWorkFlow_tab" class='easyui-datagrid' toolbar="#tb" rownumbers="true"></table>
+    		</div>
+	</div>
+</body>
+
+</html>

@@ -1,0 +1,12 @@
+
+init:
+
+compile:
+     [echo] 编译class
+    [javac] F:\I-PLANT\Source_Code\BP业务\Trunk\i-PlantBP\build.xml:30: warning: 'includeantruntime' was not set, defaulting to build.sysclasspath=last; set to false for repeatable builds
+
+jar:
+      [jar] Building jar: F:\I-PLANT\Source_Code\BP业务\Trunk\i-PlantBP\target\i-PlantBP-1.0.0-BP.jar
+
+BUILD SUCCESSFUL
+Total time: 0 seconds

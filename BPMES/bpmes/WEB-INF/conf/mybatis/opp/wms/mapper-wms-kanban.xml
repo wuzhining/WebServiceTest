@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="">
+
+	<!-- A.1 看板类型维护 -->		
+    <!-- 查询MES工单完工-->
+	<select id="TypeSelect" parameterType="hashmap" resultType="java.util.HashMap"> 
+	    select 
+	    	TYPE_ID,
+	    	NUMBE, 
+	    	K1.TYPE_CHINA,
+	    	K1.TYPE_ENGLISH, 
+	    	TO_CHAR(CRT_DT,'YYYY-MM-DD HH24:MI:SS') AS CREATE_DATE,
+            CRT_ID,
+            TO_CHAR(UPT_DT,'YYYY-MM-DD HH24:MI:SS') AS UPDATE_DATE,
+            UPT_ID	    
+	    from wms1.WMS_KANBAN_TYPE K1	
+	    <where>
+			1=1
+			<if test="CONFIGURATION_NAME !=null and CONFIGURATION_NAME !='' "> 
+ 		    <choose>
+		    	<when test='CK=="true"'>
+		           AND UPPER(TYPE_CHINA) = UPPER('${CONFIGURATION_NAME}')
+	    		</when>
+	    		<otherwise>
+	    		   AND UPPER(TYPE_CHINA) like UPPER('%' || #{CONFIGURATION_NAME} || '%')        	 
+	    		</otherwise>
+			</choose>
+			</if>
+			
+		</where>
+		ORDER BY CRT_DT DESC 
+	</select>
+	
+	<insert id="TypeInsert" parameterType="java.util.List">
+		insert into 
+		wms1.WMS_KANBAN_TYPE
+		(
+			TYPE_ID,
+			NUMBE,
+			TYPE_CHINA,
+			TYPE_ENGLISH,
+			CRT_ID,
+			CRT_DT
+		) 
+		values
+		(
+			${ID},
+			'${NUMBE}',
+			'${CONFIGURATION_NAME}',
+			'${CONFIGURATION_DESC}',
+			'${F_USE_CD}',
+			SYSDATE
+		)
+	</insert>
+	
+	<!-- 删除看板类型 -->
+	<delete id="TypeDelete" parameterType="hashmap">
+		delete from wms1.WMS_KANBAN_TYPE 
+		where TYPE_ID IN 
+		<foreach item="item" collection="list" open="(" separator="," close=")"> 
+			 #{item.TYPE_ID}
+      	</foreach>
+	</delete>
+	
+	<update id="TypeUpdate" parameterType="java.util.HashMap">
+		update wms1.WMS_KANBAN_TYPE 
+		<set>
+			NUMBE = '${NUMBE}',
+			TYPE_CHINA = '${CONFIGURATION_NAME}',
+			TYPE_ENGLISH = '${CONFIGURATION_DESC}',
+			UPT_ID = '${F_USE_CD}',
+			UPT_DT = SYSDATE
+		</set>
+		<where>
+			TYPE_ID = '${ID}'
+		</where>
+	</update>
+	
+	<select id="TypeSelectId" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT wms1.KANBAN_ID_SEQ.NEXTVAL AS NUMBE FROM DUAL
+	</select>
+	
+	<!-- A.2 看板维护 -->		
+    <!-- 查询看板维护信息-->
+	<select id="MaintainSelect" parameterType="hashmap" resultType="java.util.HashMap"> 
+	    select k1.*,
+	    TO_CHAR(K1.CRT_DT,'YYYY-MM-DD HH24:MI:SS') as CREATE_DATE,
+	    TO_CHAR(K1.UPT_DT,'YYYY-MM-DD HH24:MI:SS') as UPDATE_DATE,
+	    k2.type_china ||'('||k2.TYPE_ENGLISH ||')' as typeId
+	    from wms1.wms_kanban_maintain k1 
+	    left join wms1.wms_kanban_type k2 on k1.type_id = k2.TYPE_ID
+	    <where>
+	    	1=1 
+	    	<if test="CONFIGURATION_NAME != null and CONFIGURATION_NAME != ''">
+	    		<choose>
+	    			<when test='CK=="true"'>
+	    				and UPPER(china_name) = UPPER('${CONFIGURATION_NAME}') 
+	    			</when>
+	    			<otherwise>
+	    				and UPPER(china_name) like UPPER('%' || #{CONFIGURATION_NAME} || '%') 
+	    			</otherwise>
+	    		</choose>
+	    	</if>
+	    	<if test="kanbanType != null and kanbanType != '' ">
+	    		and k1.TYPE_ID = '${kanbanType}'
+	    	</if>
+	    </where> 
+	    
+	</select>
+	
+	<insert id="MaintainInsert" parameterType="java.util.List">
+		insert into wms1.wms_kanban_maintain
+		(
+	       MAINTAIN_ID,
+	       TYPE_ID,
+	       ENGLISH_NAME,
+	       CHINA_NAME,
+	       NUMBE,
+	       DESCRIBE,
+	       ICON_URL,
+	       CRT_ID,
+		   CRT_DT
+		) 
+		values
+		(
+			${ID},
+		   '${TYPE_ID}', 
+		   '${ENGLISH_NAME}',
+		   '${CHINA_NAME}',
+		   '${NUMBE}',
+		   '${DESCRIBE}',
+		   '${ICON_URL}',
+		   '${F_USE_CD}',
+		    SYSDATE
+		)
+	</insert>
+	
+	<!-- 删除看板类型 -->
+	<delete id="MaintainDelete" parameterType="hashmap">
+		delete from wms1.wms_kanban_maintain  
+		where MAINTAIN_ID in 
+		<foreach item="item" collection="list" open="(" separator="," close=")">
+			'${item.MAINTAIN_ID}'
+		</foreach>
+	</delete>
+	
+	<update id="MaintainUpdate" parameterType="java.util.HashMap">
+		update wms1.wms_kanban_maintain 
+		<set>
+	       TYPE_ID = '${TYPE_ID}',
+	       ENGLISH_NAME = '${ENGLISH_NAME}',
+	       CHINA_NAME = '${CHINA_NAME}',
+	       NUMBE = '${NUMBE}',
+	       DESCRIBE = '${DESCRIBE}',
+	       ICON_URL = '${ICON_URL}',
+	       UPT_ID = '${F_USE_CD}',
+		   UPT_DT = SYSDATE
+		</set>
+		<where>
+		   MAINTAIN_ID = '${ID}'	
+		</where>
+	</update>
+	
+	<select id="MaintainSelectId" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT wms1.KANBANMAINTAIN_ID_SEQ.NEXTVAL AS NUMBE FROM DUAL 
+	</select>
+	
+	
+	<!-- A.3 新增自定义布局 -->
+	<insert id="ContainTypeInsert" parameterType="java.util.List">
+		insert into wms1.WMS_KANBAN_CONTAINERTYPE
+		(
+	       CONTAINERTYPE_ID,
+	       LAYOUTTYPE,
+	       RAWCODE,
+	       REMARK,
+	       CRT_ID,
+		   CRT_DT
+		) 
+		values
+		(
+			${ID},
+		   '${CNAME}', 
+		   '${HCODE}',
+		   '${CREMARK}',
+		   '${F_USE_CD}',
+		    SYSDATE
+		)
+	</insert>
+	
+	<!-- A.4容器维护 -->		
+    <!-- 查询看板维护信息-->
+	<select id="ContainerSelect" parameterType="hashmap" resultType="java.util.HashMap"> 
+	    select c1.*,
+	    TO_CHAR(c1.CRT_DT,'YYYY-MM-DD HH24:MI:SS') as CRT_DT,
+	    TO_CHAR(c1.UPT_DT,'YYYY-MM-DD HH24:MI:SS') as UPT_DT,
+	    c2.layouttype 
+      	from wms1.WMS_KANBAN_CONTAINER c1 
+      	left join wms1.wms_kanban_containertype c2 on c1.containertype_id = c2.containertype_id 
+      	<where>
+      		1=1 
+      		<if test="CONTAINER_NAME != null and CONTAINER_NAME != ''">
+	      		<choose>
+	      			<when test="CK == 'true'">
+	      				and CONTAINER_NAME = '${CONTAINER_NAME}' 
+	      			</when>
+	      			<otherwise>
+	      				and CONTAINER_NAME like '%'|| #{CONTAINER_NAME} ||'%'
+	      			</otherwise>
+	      		</choose>
+      		</if>
+      	</where>     
+	</select>
+	
+	<insert id="ContainerInsert" parameterType="java.util.List">
+		
+	</insert>
+	
+	<!-- 删除看板类型 -->
+	<delete id="ContainerDelete" parameterType="hashmap">
+		
+	</delete>
+	
+	<update id="ContainerUpdate" parameterType="java.util.HashMap">
+		
+	</update>
+</mapper>

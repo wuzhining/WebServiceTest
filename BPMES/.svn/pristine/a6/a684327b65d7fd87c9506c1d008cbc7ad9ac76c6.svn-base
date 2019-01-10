@@ -1,0 +1,416 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<engines>
+	<!-- A8 手机APP -->
+    <!-- A8.1 机器状态-->
+    <!-- 机器状态汇总-->
+	<engine engine_code="queryMachineInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryMachineInfo" >
+	</engine>
+    <!-- 查询机器状态列表-->
+	<engine engine_code="queryMachineList" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryMachineList" >
+	</engine>
+	<!-- 查询机器状态详情 -->
+	<engine engine_code="queryMachineDtlInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryMachineDtlInfo" >
+	</engine>
+	<!-- 查询停机类型-->
+	<engine engine_code="queryMachineStatusInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryMachineStatusInfo" >
+	</engine>
+	
+	<!-- A8.2   工单监视-->
+	<!-- 工单汇总-->
+	<engine engine_code="queryOrderSumMonitorList" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryOrderSumMonitorList" >
+	</engine>
+	<!-- 工单列表-->
+	<engine engine_code="queryOrderMonitorList" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryOrderMonitorList" >
+	</engine>
+	<!-- 派工单详情-->
+	<engine engine_code="queryOrderMonitorMONOList" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryOrderMonitorMONOList" >
+	</engine>
+	
+	<!-- A8.3  次品数录入-->
+	<!-- 查询次品原因-->
+	<engine engine_code="queryIMReasonName" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryIMReasonName" >
+	</engine>
+	<!-- 查询次品录入信息-->
+	<engine engine_code="queryBadInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryBadInfo" >
+	</engine>
+	<!-- 录入次品数-->
+	<engine engine_code="insertBadNum" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertBadNum" >
+	</engine>
+		
+	<!-- A8.4   报警-->
+	<!-- 查询报警信息列表-->
+	<engine engine_code="queryAlarmList" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryAlarmList" >
+	</engine>
+	<!-- 查询所有推送状态的报警信息-->
+	<engine engine_code="alarmPushList" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="alarmPushList" >
+	</engine>
+	<!-- 更新报警信息-->
+	<engine engine_code="updateAlarmaProcess" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateAlarmaProcess" >
+	</engine>
+	<!-- 更新报警信息发送状态 -->
+	<engine engine_code="updateAlarmPushStatus" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateAlarmPushStatus" >
+	</engine>
+	
+	<!-- A8.5   设备维修保养-->
+	<!-- 查询设备维修（关联） -->
+	<engine engine_code="queryDeviceRepairDetailgl" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryDeviceRepairDetailgl" >
+	</engine>
+	<!-- 设备维修录入-->
+	<engine engine_code="insertDeviceRepair" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertDeviceRepair" >
+	</engine>
+	<!-- 设备维修删除 -->
+	<engine engine_code="deleteDeviceRepair" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteDeviceRepair" >
+	</engine>
+	<!-- 设备维修修改 -->
+	<engine engine_code="updateDeviceRepair" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateDeviceRepair" >
+	</engine>
+	
+
+	<!-- 查询设备保养明细关联-->
+	<engine engine_code="queryDeviceMaintainDetailgl" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryDeviceMaintainDetailgl" >
+	</engine>
+	<!-- 设备保养录入-->
+	<engine engine_code="insertDeviceMaintain" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertDeviceMaintain" >
+	</engine>
+	<!-- 设备保养删除 -->
+	<engine engine_code="deleteDeviceMaintain" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteDeviceMaintain" >
+	</engine>
+	<!-- 设备保养修改 -->
+	<engine engine_code="updateDeviceMaintain" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateDeviceMaintain" >
+	</engine>
+	<!-- 设备保养查询 -->
+	<engine engine_code="queryDeviceMaintain" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryDeviceMaintain" >
+	</engine>
+	<!-- 设备维护查询 -->
+	<engine engine_code="queryDeviceRepair" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryDeviceRepair" >
+	</engine>
+	
+	<!-- A8.6  模具保养-->
+	<!-- 查询模具维修明细-->
+	<engine engine_code="queryMouldRepairDetail" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryMouldRepairDetail" >
+	</engine>
+	<!-- 查询模具 明细关联 -->
+	<engine engine_code="queryMouldRepairDetailgl" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryMouldRepairDetailgl" >
+	</engine>
+	<!-- 模具维修录入 -->
+	<engine engine_code="insertMouldRepair" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertMouldRepair" >
+	</engine>
+	<!-- 查询模具保养明细-->
+	<engine engine_code="queryMouldMaintainDetail" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryMouldMaintainDetail" >
+	</engine>
+	<!-- 模具保养录入 -->
+	<engine engine_code="insertMouldMaintain" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertMouldMaintain" >
+	</engine>
+	
+	<!-- A8.7  上下机打卡-->
+	<!-- 上下机打卡-->
+	<engine engine_code="queryDutyCardList" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryDutyCardList" >
+	</engine>
+	
+	<!-- A8.8  停机打卡-->
+	<!-- 停机刷卡-->
+	<engine engine_code="queryStopCardList" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryStopCardList" >
+	</engine>
+	
+	<!-- A8.9  日报表-->
+	<!-- 日报汇总-->
+	<engine engine_code="queryProductiSailyReportSumList" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryProductiSailyReportSumList" >
+	</engine>
+	<!-- 日报详情-->
+	<engine engine_code="queryPsrMachineNo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryPsrMachineNo" >
+	</engine>
+	<!-- 查询工作中心-->
+	<engine engine_code="queryPsrWsCode" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryPsrWsCode" >
+	</engine>
+	
+	<!-- A8.10  次品报表-->
+	<!-- 次品报表汇总-->
+	<engine engine_code="querySumBad" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querySumBad" >
+	</engine>
+	<!-- 次品报表列表-->
+	<engine engine_code="queryBadList" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryBadList" >
+	</engine>
+	<!-- 次品报表明细-->
+	<engine engine_code="queryBadDetail" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryBadDetail" >
+	</engine>
+		
+	<!-- A8.11  设备OEE-->
+	<!-- OEE汇总-->
+	<engine engine_code="queryCountMetricsList" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryCountMetricsList" ></engine>
+	<engine engine_code="queryProdRpDailyToday" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryProdRpDailyToday" ></engine>
+	<engine engine_code="queryCountMetricsProduct" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryCountMetricsProduct" ></engine>
+	<engine engine_code="queryCountMetricsMechine" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryCountMetricsMechine" ></engine>
+	<engine engine_code="queryCountMetricsMechineToday" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryCountMetricsMechineToday" ></engine>
+	<engine engine_code="queryCountMetricsProductToday" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryCountMetricsProductToday" ></engine>
+	<!-- OEE列表 -->
+	<engine engine_code="queryOEEMetricsList" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryOEEMetricsList" >
+	</engine>
+	
+	<!-- A8.12  修改密码-->
+    <!-- 修改密码 -->
+	<engine engine_code="updatePassword" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updatePassword" >
+	</engine>
+		
+	<!-- A8.13   版本管理-->
+	<!-- 查询版本信息表 -->
+	<engine engine_code="queryVersionManage" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryVersionManage" >
+	</engine>
+	<!-- 新增版本信息表 -->
+	<engine engine_code="insertVersionManage" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="insertVersionManage" >
+	</engine>
+	<!-- 更新版本信息表 -->
+	<engine engine_code="updateVersionCode" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="updateVersionCode" >
+	</engine>
+	<!-- 删除版本信息表 -->
+	<engine engine_code="deleteVersionInfo" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="deleteVersionInfo" >
+	</engine>
+	<!-- 查询历史版本信息表 -->
+	<engine engine_code="queryVersionManageList" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryVersionManageList" >
+	</engine>
+	<!-- 新增历史版本信息表 -->
+	<engine engine_code="insertVersionManageList" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="insertVersionManageList" >
+	</engine>
+	
+	<!-- A8.14  次品柱状图-->
+	<!-- 查询次品柱状图 -->
+	<engine engine_code="queryDefectiveHistogram" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryDefectiveHistogram" >
+	</engine>
+	<!-- 查询产品编号（级联：日期）-->
+	<engine engine_code="queryProductNo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryProductNo" >
+	</engine>
+	<!-- 查询工单号（级联：产品编号,日期）-->
+	<engine engine_code="queryTZ_MONO" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryTZ_MONO" >
+	</engine>
+	<!-- 查询机台 （级联：产品编号,日期,工单号）-->
+	<engine engine_code="queryMachineNo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryMachineNo" >
+	</engine>
+	
+	<!-- A8.15  停机柱状图-->
+	<!-- 查询停机柱状图 -->
+	<engine engine_code="queryDowntimeHistogramList" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryDowntimeHistogramList" >
+	</engine>
+	
+	<!-- A8.16   备件管理-->
+	<!-- 备件一览表 -->
+	<engine engine_code="querySpareParts" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querySpareParts" >
+	</engine>
+	<!-- 领用明细 -->
+	<engine engine_code="queryUsingDetail" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryUsingDetail" >
+	</engine>
+	<!-- 报损明细 -->
+	<engine engine_code="queryReportLoss" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryReportLoss" >
+	</engine>
+	<!-- 备件登记新增 -->
+	<engine engine_code="insertSpRegistration" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertSpRegistration" >
+	</engine>
+	<!-- 备件登记查询 -->
+	<engine engine_code="querySpRegistration" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querySpRegistration" >
+	</engine>
+	<!-- 备件登记删除 -->
+	<engine engine_code="deleteSpRegistration" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteSpRegistration" >
+	</engine>
+	<!-- 备件登记修改 -->
+	<engine engine_code="updateSpRegistration" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateSpRegistration" >
+	</engine>
+	<!-- 备件领用新增 -->
+	<engine engine_code="insertSpUsing" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertSpUsing" >
+	</engine>
+	<!-- 备件领用查询 -->
+	<engine engine_code="querySpUsing" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querySpUsing" >
+	</engine>
+	<!-- 备件领用删除 -->
+	<engine engine_code="deleteSpUsing" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteSpUsing" >
+	</engine>
+	<!-- 备件领用修改 -->
+	<engine engine_code="updateSpUsing" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateSpUsing" >
+	</engine>
+	
+	<!-- 备件退还查询 -->
+	<engine engine_code="querySpRefund" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querySpRefund" >
+	</engine>
+	<!-- 备件退还新增 -->
+	<engine engine_code="insertSpRefund" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="insertSpRefund" >
+	</engine>
+	<!-- 备件退还删除 -->
+	<engine engine_code="deleteSpRefund" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="deleteSpRefund" >
+	</engine>
+	<!-- 备件退还修改 -->
+	<engine engine_code="updateSpRefund" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="updateSpRefund" >
+	</engine>
+	
+	<!-- 备件报损查询-->
+	<engine engine_code="querySpReport" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querySpReport" >
+	</engine>
+	<!-- 备件报损新增 -->
+	<engine engine_code="insertSpReport" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="insertSpReport" >
+	</engine>
+	<!-- 备件报损删除 -->
+	<engine engine_code="deleteSpReport" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="deleteSpReport" >
+	</engine>
+	<!-- 备件报损修改 -->
+	<engine engine_code="updateSpReport" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="updateSpReport" >
+	</engine>
+	
+	<!-- 备件主表查询-->
+	<engine engine_code="querySpareMain" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querySpareMain" >
+	</engine>
+	<!-- 备件主表新增 -->
+	<engine engine_code="insertSpareMain" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="insertSpareMain" >
+	</engine>
+	<!-- 备件主表删除 -->
+	<engine engine_code="deleteSpareMain" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="deleteSpareMain" >
+	</engine>
+	<!-- 备件主表修改 -->
+	<engine engine_code="updateSpareMain" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="updateSpareMain" >
+	</engine>
+	
+	<!-- 备件信息查询-->
+	<engine engine_code="querySpareInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querySpareInfo" >
+	</engine>
+	<!-- 备件信息新增 -->
+	<engine engine_code="insertSpareInfo" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="insertSpareInfo" >
+	</engine>
+	<!-- 备件信息删除 -->
+	<engine engine_code="deleteSpareInfo" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="deleteSpareInfo" >
+	</engine>
+	<!-- 备件信息修改 -->
+	<engine engine_code="updateSpareInfo" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="updateSpareInfo" >
+	</engine>
+	
+	<!-- 备件库位信息表查询-->
+	<engine engine_code="querySpareStockPositionInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querySpareStockPositionInfo" >
+	</engine>
+	<!-- 备件库位信息表新增 -->
+	<engine engine_code="insertSpareStockPositionInfo" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="insertSpareStockPositionInfo" >
+	</engine>
+	<!-- 备件库位信息表删除 -->
+	<engine engine_code="deleteSpareStockPositionInfo" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="deleteSpareStockPositionInfo" >
+	</engine>
+	<!-- 备件库位信息表修改 -->
+	<engine engine_code="updateSpareStockPositionInfo" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="updateSpareStockPositionInfo" >
+	</engine>
+	
+	
+	<!--不良信息记录主表 -->
+	<!-- 查询不良信息记录（无关联）-->
+	<engine engine_code="queryBadRecordMain" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="queryBadRecordMain" >
+	</engine>
+	<!-- 查询不良信息记录-->
+	<engine engine_code="queryBadRecord" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="queryBadRecord" >
+	</engine>
+	<!-- 新增不良信息记录主表 -->
+	<engine engine_code="insertBadRecord" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="insertBadRecord" >
+	</engine>
+	<!-- 删除不良信息记录主表 -->
+	<engine engine_code="deleteBadRecord" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="deleteBadRecord" >
+	</engine>
+	<!-- 修改不良信息记录主表 -->
+	<engine engine_code="updateBadRecord" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="updateBadRecord" >
+	</engine>	
+	
+	<!-- 不良信息记录明细表 -->
+	<!-- 查询不良信息记录新增-->
+	<engine engine_code="queryBadRecordDetailInsert" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryBadRecordDetailInsert" >
+	</engine>
+	<!-- 查询不良信息补录数据-->
+	<engine engine_code="queryBadRecordStatus" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="queryBadRecordStatus" >
+	</engine>
+	<!-- 查询不良信息记录明细表-->
+	<engine engine_code="queryBadRecordDetail" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="queryBadRecordDetail" >
+	</engine>
+	<!-- 查询不良信息类别数量-->
+	<engine engine_code="queryBadRecordDetailGl" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="queryBadRecordDetailGl" >
+	</engine>
+	<!-- 新增不良信息记录明细表 -->
+	<engine engine_code="insertBadRecordDetail" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="insertBadRecordDetail" ></engine>
+	<!-- 删除不良信息记录明细表 -->
+	<engine engine_code="deleteBadRecordDetail" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="deleteBadRecordDetail" ></engine>
+	<!-- 修改不良信息记录明细表 -->
+	<engine engine_code="updateBadRecordDetail" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="updateBadRecordDetail" ></engine>	
+	
+	<!-- 班次信息表 -->
+	<!-- 查询班次信息表 -->
+	<engine engine_code="queryBCCode" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="queryBCCode" ></engine>
+	<!-- 新增班次信息表 -->
+	<engine engine_code="insertBCCode" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="insertBCCode" ></engine>
+	<!-- 删除班次信息表 -->
+	<engine engine_code="deleteBCCode" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="deleteBCCode" ></engine>
+	<!-- 修改班次信息表 -->
+	<engine engine_code="updateBCCode" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="updateBCCode" ></engine>	
+	<!-- 增加不良主表信息记录明细表 -->
+	<engine engine_code="updateBadRecordNum" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="updateBadRecordNum" ></engine>
+	<!-- 增加工单不良数量 -->
+	<engine engine_code="updateProductRecordNum" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="updateProductRecordNum" ></engine>	
+	<!-- 查询次单数据 -->
+	<engine engine_code="querySimple" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="querySimple" ></engine>	
+	<!-- 查询主单数据 -->
+	<engine engine_code="queryMainStatus" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryMainStatus" >
+	</engine>
+	
+	<!-- 备件领用总数 -->
+	<engine engine_code="querySimpleSum" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="querySimpleSum" ></engine>
+	<!-- 备件主表总数量 -->
+	<engine engine_code="querySpareMainSUM" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="querySpareMainSUM" ></engine>	
+	<!-- 更新备件主表总数(登记，退还) -->
+	<engine engine_code="updateSpareMainRT_NUM" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="updateSpareMainRT_NUM" ></engine>	
+	<!-- 更新备件主表总数(领用，报损) -->
+	<engine engine_code="updateSpareMainRT2_NUM" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="updateSpareMainRT2_NUM" ></engine>	
+	<!-- 更新备件领用表退还数量 -->
+	<engine engine_code="updateSpareMainRT3_NUM" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="updateSpareMainRT3_NUM" ></engine>	
+	<!-- 查询退还日期-领用日期是否大于日期限制 -->
+	<engine engine_code="queryReturnDate" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="queryReturnDate" ></engine>
+	<!-- 备件领用单号查询 -->
+	<engine engine_code="queryRU_CD" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="queryRU_CD" ></engine>	
+	<!-- 查询一天的总次品率 -->
+	<engine engine_code="queryDefectiveRate" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="queryDefectiveRate" ></engine>	
+	<!-- 更新备件领用表领用数量 -->
+	<engine engine_code="updateSpareMainRT4_NUM" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="updateSpareMainRT4_NUM" ></engine>
+	<!-- 查询设备检点主表 -->
+	<engine engine_code="queryDeviceCheck" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryDeviceCheck" ></engine>
+    <!-- 新增设备检点主表 -->
+	<engine engine_code="insertDeviceCheck" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertDeviceCheck" ></engine>
+	<!-- 修改设备检点主表 -->
+	<engine engine_code="updateDeviceCheck" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateDeviceCheck" ></engine>
+	<!-- 删除设备检点主表 -->
+	<engine engine_code="deleteDeviceCheck" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteDeviceCheck" ></engine>
+	<!-- 查询设备检点信息 -->
+	<!-- 查询设备检点信息 -->
+	<engine engine_code="queryDeviceCheckInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryDeviceCheckInfo" ></engine>
+    <!-- 新增设备检点信息 -->
+	<engine engine_code="insertDeviceCheckInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertDeviceCheckInfo" ></engine>
+	<!-- 修改设备检点信息 -->
+	<engine engine_code="updateDeviceCheckInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateDeviceCheckInfo" ></engine>
+	<!-- 删除设备检点信息 -->
+	<engine engine_code="deleteDeviceCheckInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteDeviceCheckInfo" ></engine>
+	<!-- 查询设备检点明细 -->
+	<!-- 查询设备检点明细 -->
+	<engine engine_code="queryDeviceCheckDetail" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryDeviceCheckDetail" ></engine>
+    <!-- 新增设备检点明细 -->
+	<engine engine_code="insertDeviceCheckDetail" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertDeviceCheckDetail" ></engine>
+	<!-- 修改设备检点明细 -->
+	<engine engine_code="updateDeviceCheckDetail" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateDeviceCheckDetail" ></engine>
+	<!-- 删除设备检点明细 -->
+	<engine engine_code="deleteDeviceCheckDetail" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteDeviceCheckDetail" ></engine>
+	<!-- 查询设备点检单据编号 -->
+	<engine engine_code="queryTT_CD" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryTT_CD" ></engine>
+	<!-- 设备点检关联表查询 -->
+	<engine engine_code="queryDeviceCheckGl" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryDeviceCheckGl" ></engine>
+	<!-- 查询设备类别 -->	
+	<engine engine_code="queryDeviceType" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryDeviceType" ></engine>
+	<!-- 设备点检信息关联表查询 -->
+	<engine engine_code="queryDeviceInfoGl" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryDeviceInfoGl" ></engine>
+	<!-- 查询备件编号 -->
+	<engine engine_code="querySP_CD" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querySP_CD" ></engine>
+	
+	<!-- 查询OEE报表 -->
+	<engine engine_code="queryOeeProd" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryOeeProd" >
+	</engine>
+	
+	<!-- 停机刷卡数据更新接口-->
+	<engine engine_code="insertStopCardInfoccTest" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="insertStopCardInfoccTest" >
+	</engine>
+	
+	<!-- 查询设备点检与保养预警-->
+	<engine engine_code="queryEuipmentCheck" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="queryEuipmentCheck" >
+	</engine>
+</engines>

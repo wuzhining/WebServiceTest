@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="">
+
+	<!-- 德富莱产品信息模块 -->
+	<!-- 查询产品类型 -->
+	<select id="ItemGroupInfo" parameterType="hashmap"
+		resultType="java.util.HashMap">
+		<include refid="oraclePagingFileTop"></include>
+		IT1.GROUPNAME,IT1.GROUPDESC from wms1.wms_itemgroup IT1
+		<where>
+		1=1 and IsActive = 1
+		</where>
+		ORDER BY CREATE_DATE DESC
+		<include refid="oraclePagingFileBottom"></include>
+	</select>
+
+	<!-- 查询出产品类型的总数据量 -->
+<!-- 	<select id="WarehouseTypeInfo_COUNT" parameterType="hashmap" -->
+<!-- 		resultType="java.util.HashMap"> -->
+<!-- 		SELECT  -->
+<!-- 		   count(1) AS ROWS_COUNT  -->
+<!-- 		FROM WMS1.WMS_WAREHOUSE_TYPE T1 -->
+<!-- 		LEFT JOIN ( -->
+<!--        		SELECT -->
+<!-- 			T2.USE_CD, -->
+<!-- 			T3.EMP_NM  -->
+<!-- 			FROM iplant1.C_IPLANT_U1_T T2 -->
+<!-- 			LEFT JOIN iplant1.C_IPLANT_E1_T T3 ON T2.EMP_NO = T3.EMP_CD -->
+<!--        	) T4 ON T1.CREATER_ID=T4.USE_CD -->
+<!--        	LEFT JOIN ( -->
+<!--        		SELECT -->
+<!-- 			T5.USE_CD, -->
+<!-- 			T6.EMP_NM  -->
+<!-- 			FROM iplant1.C_IPLANT_U1_T T5 -->
+<!-- 			LEFT JOIN iplant1.C_IPLANT_E1_T T6 ON T5.EMP_NO = T6.EMP_CD -->
+<!--        	) T7 ON T1.UPDATER_ID=T7.USE_CD -->
+<!-- 		<where> -->
+<!-- 			1=1 -->
+<!-- 			<if test="WAREHOUSE_TYPE_ID!=null and WAREHOUSE_TYPE_ID!=''"> -->
+<!-- 				and WAREHOUSE_TYPE_ID LIKE '%${WAREHOUSE_TYPE_ID}%' -->
+<!-- 			</if> -->
+<!-- 			<if test="WAREHOUSE_TYPE_NAME!=null and WAREHOUSE_TYPE_NAME!=''"> -->
+<!-- 				and WAREHOUSE_TYPE_NAME LIKE '%${WAREHOUSE_TYPE_NAME}%' -->
+<!-- 			</if> -->
+<!-- 			<if test="ENABLE!=null and ENABLE!=''"> -->
+<!-- 				and ENABLE ='${ENABLE}' -->
+<!-- 			</if> -->
+<!-- 		</where> -->
+<!-- 	</select> -->
+
+	<!-- 修改产品类型 -->
+	<update id="ItemGroupInfoUpdate" parameterType="java.util.HashMap">		
+			update wms1.wms_itemgroup
+			<set>
+				<if test="GROUPNAME!=null  ">
+					GROUPNAME='${GROUPNAME}',
+				</if>
+				<if test="GROUPDESC=null ">
+					GROUPDESC='${GROUPDESC}',
+				</if>
+				<if test="F_USE_CD!=null">
+					UPDATER_ID='${F_USE_CD}',
+				</if>
+				UPDATE_DATE= SYSDATE
+			</set>
+			<where>
+				ItemGroupId='${ItemGroupId}'
+			</where>		
+	</update>
+
+	<!-- 新增产品类型 -->
+	<insert id="ItemGroupInfoInsert" parameterType="hashmap">
+		insert into wms1.wms_itemgroup
+		(
+		GroupName,
+		GroupDesc,
+		CREATER_ID,
+		CREATE_DATE,
+		IsActive
+		)
+     VALUES
+		(		
+			'${GroupName}',
+			'${GroupDesc}',
+			'${NOTE}',
+			'${F_USE_CD}',
+			SYSDATE,
+			1
+		)
+	</insert>
+
+	<!-- 删除产品类型 -->
+	<delete id="ItemGroupInfoDelete" parameterType="hashmap">
+
+		delete wms1.wms_itemgroup
+		<where>
+			ItemGroupId='${ItemGroupId}'
+		</where>
+	</delete>
+</mapper>

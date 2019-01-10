@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<engines>
+ 
+	   <!-- 1 工单条码-->
+    <!-- 查询工单条码-->
+	<engine engine_code="queryMoBC" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryMoBC" >
+	</engine>
+	<engine engine_code="queryOneMoBCInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryOneMoBCInfo" >
+	</engine>
+    <!-- 新增工单条码 -->
+	<engine engine_code="insertMoBC" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="insertMoBC" >
+	</engine>
+	<!-- 修改工单条码-->
+	<engine engine_code="updateMoBC" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="updateMoBC" >
+	</engine>
+	<!-- 删除工单条码-->
+	<engine engine_code="deleteMoBC" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="deleteMoBC" >
+	</engine>
+	
+	 <!-- 2 物料条码-->
+    <!-- 查询物料条码-->
+	<engine engine_code="queryItemBC" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryItemBC" >
+	</engine>
+    <!-- 新增物料条码 -->
+	<engine engine_code="insertItemBC" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="insertItemBC" >
+	</engine>
+	<!-- 修改物料条码-->
+	<engine engine_code="updateItemBC" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="updateItemBC" >
+	</engine>
+	<!-- 删除物料条码-->
+	<engine engine_code="deleteItemBC" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="deleteItemBC" >
+	</engine>
+	
+	<!-- 3 原材料条码-->
+    <!-- 查询原材料条码-->
+	<engine engine_code="queryMatBC" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryMatBC" >
+	</engine>
+    <!-- 新增原材料条码 -->
+	<engine engine_code="insertMatBC" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="insertMatBC" >
+	</engine>
+	<!-- 修改原材料条码-->
+	<engine engine_code="updateMatBC" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="updateMatBC" >
+	</engine>
+	<!-- 删除原材料条码-->
+	<engine engine_code="deleteMatBC" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="deleteMatBC" >
+	</engine>
+	
+	<!-- 图片保存浏览 -->
+    <!-- 查询图片保存路径 -->
+	<engine engine_code="fileSavePathQuery" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="fileSavePathQuery" >
+	</engine>
+	<!-- 新增图片保存路径 -->
+	<engine engine_code="fileSavePathInsert" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="fileSavePathInsert" >
+	</engine>
+	<!-- 删除图片保存路径-->
+	<engine engine_code="fileSavePathDelete" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="fileSavePathDelete" >
+	</engine>
+	<!-- 修改图片保存路径 -->
+	<engine engine_code="fileSavePathUpdate" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="fileSavePathUpdate" >
+	</engine>
+	
+	<engine engine_code="querySN_NO" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="querySN_NO" >
+	</engine>
+	
+	<engine engine_code="queryBox_ID" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="queryBox_ID" >
+	</engine>
+	
+	<engine engine_code="queryPLT_ID" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="queryPLT_ID" >
+	</engine>
+	
+	<!-- 查询托盘RFID绑定 -->
+	<engine engine_code="queryTrayInformationMaintenance" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryTrayInformationMaintenance" >
+	</engine>
+	<!-- 新增托盘RFID绑定 -->
+	<engine engine_code="insertTrayInformationMaintenance" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertTrayInformationMaintenance" >
+	</engine>
+	<!-- 修改托盘RFID绑定 -->
+	<engine engine_code="updateTrayInformationMaintenance" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateTrayInformationMaintenance" >
+	</engine>
+	<!-- 刪除托盘RFID绑定 -->
+	<engine engine_code="deleteTrayInformationMaintenance" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteTrayInformationMaintenance" >
+	</engine>
+	
+	<!-- <版本管理> -->
+	<engine engine_code="queryVersionInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryVersionInfo" >
+	</engine>
+	
+	<!-- 获取服务器时间 -->
+	<engine engine_code="queryGetTime" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryGetTime" >
+	</engine>
+	
+	<!-- 生成条码 -->
+	<engine engine_code="queryGetCode" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryGetCode" >
+	</engine>
+	
+	<!-- 载具管理-->
+	<!-- 查询载具信息-->
+	<engine engine_code="query_R_MES_CARE_T_Info" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="query_R_MES_CARE_T_Info" >
+	</engine>
+	
+	  <!-- 批量插入载具信息-->
+	<engine engine_code="insert_R_MES_CARE_T_Info" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insert_R_MES_CARE_T_Info" >
+	</engine>
+	
+
+	
+	  <!-- 批量删除载具信息 -->
+	<engine engine_code="delete_R_MES_CARE_T_Info" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="delete_R_MES_CARE_T_Info" >
+	</engine>
+	
+	<!-- 批量修改载具信息-->
+	<engine engine_code="update_R_MES_CARE_T_Info" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="update_R_MES_CARE_T_Info" >
+	</engine>
+	
+	
+	
+	<!-- 系统参数配置   查询-->
+	<engine engine_code="querySystemParameterConfiguration" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querySystemParameterConfiguration" >
+	</engine>
+	
+	<!-- 系统参数配置   修改-->
+	<engine engine_code="updateSystemParameterConfiguration" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateSystemParameterConfiguration" >
+	</engine>
+	
+	<!-- 系统参数配置   新增-->
+	<engine engine_code="insertSystemParameterConfiguration" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertSystemParameterConfiguration" >
+	</engine>
+	
+	<!-- 系统参数配置   删除-->
+	<engine engine_code="deleteSystemParameterConfiguration" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteSystemParameterConfiguration" >
+	</engine>
+	
+	
+    <!-- 载具绑定    START-->
+	<!-- 载具绑定 主  查询-->
+	<engine engine_code="queryCarrierBinding" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryCarrierBinding" >
+	</engine>
+	
+	<!-- 载具绑定 主  新增-->
+	<engine engine_code="insertCarrierBinding" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertCarrierBinding" >
+	</engine>
+	
+	<!-- 载具绑定 主  修改-->
+	<engine engine_code="updateCarrierBinding" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateCarrierBinding" >
+	</engine>
+	
+	<!-- 载具绑定 主  删除-->
+	<engine engine_code="deleteCarrierBinding" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteCarrierBinding" >
+	</engine>
+	
+	
+	<!-- 载具绑定 明细  查询-->
+	<engine engine_code="queryCarrierBindingDetailed" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryCarrierBindingDetailed" >
+	</engine>
+	
+	<!-- 载具绑定 明细  新增-->
+	<engine engine_code="insertCarrierBindingDetailed" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertCarrierBindingDetailed" >
+	</engine>
+	<!-- 载具绑定查询    END-->
+	
+	
+    <!-- 批量插入载具信息打印明细-->
+	<engine engine_code="insert_R_MES_CarrierCode_prin_T_Info" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insert_R_MES_CarrierCode_prin_T_Info" >
+	</engine>
+	
+  <!--查询载具打印信息 -->
+	<engine engine_code="query_R_MES_CarrierCode_prin_T" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="query_R_MES_CarrierCode_prin_T" >
+	</engine>
+	
+	<!-- 验证产线是否存在主单 -->
+	<engine engine_code="VerifyLineCheckProductMo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="VerifyLineCheckProductMo" >
+	</engine>
+	
+	
+	 <!-- 载具信息详细查询 -->
+	<engine engine_code="query_R_MES_CARRIERCODE_PRIN_T_Info" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="query_R_MES_CARRIERCODE_PRIN_T_Info" >
+	</engine>
+</engines>

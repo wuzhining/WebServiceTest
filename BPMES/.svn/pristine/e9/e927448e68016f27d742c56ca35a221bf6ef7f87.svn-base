@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="">
+    <!-- A1 系统管理 -->
+    <!-- A1.2 基础数据导入 -->
+    <select id="BasicDataImport" parameterType="hashmap" resultType="java.util.HashMap"> 
+	</select>
+	
+	<!-- A1.3  基础数据导入出-->
+	<select id="BasicDataExport" parameterType="hashmap" resultType="java.util.HashMap"> 
+	</select>
+	
+	<!-- A1.4 采集器端口配置 -->
+	<!-- 查询采集器 -->
+	<select id="queryCollector" parameterType="hashmap" resultType="java.util.HashMap"> 
+			<include refid="oraclePagingFileTop"></include>	
+	    			ST_CD,
+					ST_NM,
+					DICT_IT,
+					IP_ADR,
+					USE_YN,
+					ST_SORT,
+					KB_RM,
+					CRT_ID,
+					CRT_DT,
+					CRT_IP,
+					UPT_ID,
+					UPT_DT,
+					UPT_IP
+	    		FROM iplant1.C_IPLANT_C5_T
+	    		<where> 1=1
+	    			<if test="ST_CD!=null and ST_CD!='' ">
+	    				AND ST_CD='${ST_CD}'	
+	    			</if>
+	    			<if test="ST_NM!=null and ST_NM!='' ">
+	    				AND ST_NM='${ST_NM}'	
+	    			</if>
+	    			<if test="DICT_IT!=null and DICT_IT!='' ">
+	    				AND DICT_IT='${DICT_IT}'	
+	    			</if>
+	    		</where>
+	    		<include refid="oraclePagingFileBottom"></include> 	
+	</select>
+	<!-- 查询采集器分页总数 -->
+	<select id="queryCollect_COUNT" parameterType="hashmap" resultType="java.util.HashMap" >
+	   		SELECT COUNT(1) ROWS_COUNT FROM iplant1.C_IPLANT_C5_T
+	    	<where> 1=1
+	    		<if test="ST_CD!=null and ST_CD!='' ">
+	    			AND ST_CD='${ST_CD}'	
+	    		</if>
+	    		<if test="ST_NM!=null and ST_NM!='' ">
+	    			AND ST_NM='${ST_NM}'	
+	    		</if>
+	    		<if test="DICT_IT!=null and DICT_IT!='' ">
+	    			AND DICT_IT='${DICT_IT}'	
+	    		</if>
+	    	</where>
+	     </select>	
+	<!-- 新增采集器 -->
+	<insert id="insertCollector" parameterType="hashmap" > 
+			INSERT INTO 
+	     		 	iplant1.C_IPLANT_C5_T
+	     		 		(
+	     		 		 ST_CD,
+						 ST_NM,
+						 DICT_IT,
+						 IP_ADR,
+						 USE_YN,
+						 ST_SORT,
+						 KB_RM,
+						 CRT_ID,
+						 CRT_DT,
+						 CRT_IP
+	     		 		)
+	     		 	 VALUES
+	     		 	 	(
+	     		 	 	 '${ST_CD}',
+						 '${ST_NM}',
+						 '${DICT_IT}',
+						 '${IP_ADR}',
+						 '${USE_YN}',
+						 '${ST_SORT}',
+						 '${KB_RM}',
+						 '${F_USE_CD}',
+						 SYSDATE, 
+						 '${CRT_IP}'	
+	     		 	 	 )	
+	</insert>
+	<!-- 删除采集器 -->
+	<delete id="deleteCollector" parameterType="hashmap" > 
+			DELETE iplant1.C_IPLANT_C5_T
+	     		 	 <where>
+	     		 	 	ST_CD='${ST_CD}'
+	     		 	 </where>	
+	</delete>
+	<!-- 修改采集器 -->
+	<update id="updateCollector" parameterType="hashmap" > 
+			UPDATE iplant1.C_IPLANT_C5_T
+	     		 	<set>
+	     		 	   <if test="ST_NM!=null and ST_NM!='' ">
+	     		 	   	    ST_NM='${ST_NM}',
+	     		 	   </if>
+	     		 	   <if test="DICT_IT!=null and DICT_IT!='' ">
+	     		 	   	    DICT_IT='${DICT_IT}',
+	     		 	   </if>
+	     		 	   <if test="IP_ADR!=null and IP_ADR!='' ">
+	     		 	   	    IP_ADR='${IP_ADR}',
+	     		 	   </if>
+	     		 	   <if test="USE_YN!=null and USE_YN!='' ">
+	     		 	   	    USE_YN='${USE_YN}',
+	     		 	   </if>
+	     		 	   <if test="ST_SORT!=null and ST_SORT!='' ">
+	     		 	   	    ST_SORT='${ST_SORT}',
+	     		 	   </if>
+	     		 	   <if test="KB_RM!=null and KB_RM!='' ">
+	     		 	   	    KB_RM='${KB_RM}',
+	     		 	   </if>
+	     		 	   	   UPT_ID='${F_USE_CD}', 			        	        			        
+                           UPT_DT=SYSDATE, 
+                           UPT_IP='${UPT_IP}'  
+	     		 	</set>
+	     		 	<where>
+	     		 		ST_CD='${ST_CD}'
+	     		 	</where>
+	</update>
+</mapper>

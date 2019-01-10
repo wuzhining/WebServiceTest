@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<podiums>
+
+	<podium  podium_code="userLogin" podium_name="获取用户的数据权限" podium_class="com.iPlant.mes.biz.UserInfopodium" podium_method="acceptance" attr1="" attr2=""/>
+	
+	<podium  podium_code="insertOdInfo" podium_name="工单信息批量插入" podium_class="com.iPlant.mes.biz.workOrderManage.WorkOrderManage" podium_method="execute" attr1="" attr2=""/>
+	
+	<podium  podium_code="deleteOdInfo" podium_name="工单信息删除" podium_class="com.iPlant.mes.biz.workOrderManage.WorkOrderManage" podium_method="executeDelete" attr1="" attr2=""/>
+</podiums>
+ 

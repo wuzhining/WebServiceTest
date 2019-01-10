@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../../../common/IplantCompent/themes/default/easyui.css">
+		<link rel="stylesheet" type="text/css" href="../../../common/IplantCompent/themes/icon.css">
+		<link rel="stylesheet" type="text/css" href="../../../common/IplantCompent/Demo/demo.css">
+		<script src="../../../common/IplantCompent/jquery.min.js" type="text/javascript"></script>
+		<script src="../../../common/IplantCompent/jquery.easyui.min.js" type="text/javascript"></script>
+		<script src="../../../common/IplantCommon/DataRequest.js" type="text/javascript"></script>
+		<script src="../../../common/IplantCommon/CommonUtil.js" type="text/javascript"></script>
+		<script src="../../../common/IplantCommon/OutPutExcel.js" type="text/javascript"></script>
+		<script src="js/moBarCodePrint.js" type="text/javascript" charset="UTF-8"></script>
+		<meta charset="utf-8" />
+	</head>
+
+	<body style="padding: 0;margin: 0;">
+		<div style="height:100%;width:100%" class="easyui-layout" fit="true">
+			<div region='north' id="tb" style="width: auto; height: 30px;background: linear-gradient(rgb(255, 255, 255) 0px, rgba(149, 184, 231, 0.28) 100%);">
+				<table style="width: auto; height:100%;" cellspacing="0" border="0">
+					<tr>
+						<td>
+<!-- 							<a id="btnAdd" href="#" class="easyui-linkbutton add" iconCls="icon-add" data-options="plain:true" >新增</a> -->
+                      		<a id="btnSave" href="#" class="easyui-linkbutton save" iconCls="icon-save" data-options="plain:true" >保存</a>
+							<a href="#" class="easyui-linkbutton" iconCls="icon-print" id="btnExprt" data-options="plain:true">导出</a>
+							<span id='showMessageInfo' class='divspan' style='width:300px;'></span>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div region="center" style="width:100%" style="border:0">
+				<div region='north' id='tbsearch' style="width: auto; height: 60px;background: linear-gradient(rgb(255, 255, 255) 0px, rgba(149, 184, 231, 0.28) 100%);">
+					<table>
+						<tr>
+							<td>车间：</td>
+							<td>
+								<input id="WC_CD" name="postingdate" editable="false" style="width: 200px;" class="easyui-combobox" />
+							</td>
+							<!-- 
+							<td>生产线：</td>
+							<td>
+								<input id="LINE_CD" name="postingdate" style="width: 200px;" class="easyui-textbox" />
+							</td> -->
+							<!-- <td>机型：</td>
+							<td>
+								<input id="MODEL_NM" name="postingdate" style="width: 200px;" class="easyui-textbox" />
+							</td> -->
+						
+							<td>物料编码：</td>
+							<td>
+								<input id="ITEM_CD" name="postingdate" style="width: 200px;" class="easyui-textbox" />
+							</td>
+					  </tr>
+					  <tr>
+							<td>工单号：</td>
+							<td>
+								<input id="MO_NO" name="postingdate" style="width: 200px;" class="easyui-textbox" />
+							</td>
+							
+							<td>作业指示号：</td>
+							<td>
+								<input id="WO_NO" name="postingdate" style="width: 200px;" class="easyui-textbox" />
+							</td>
+							<!-- <td>计划开始时间：</td>
+							<td>
+								<input id="PLAN_STRT_DT" name="postingdate" style="width: 200px;" class="easyui-datetimebox" />
+							</td>
+							
+							<td>计划结束时间：</td>
+							<td>
+								<input id="PLAN_END_DT" name="postingdate" style="width: 200px;" class="easyui-datetimebox" />
+							</td> -->
+							<td>
+								<a href="#" class="easyui-linkbutton" iconCls="icon-search" id="btnSearch" data-options="plain:true">查询</a>
+							</td>
+						</tr>
+					</table>
+				</div>
+				<table region='center' style="height: auto;max-height: 100%" id="moBarCodePrint_tab" class='easyui-datagrid' toolbar="#tbsearch" rownumbers="true" ></table>
+			</div>
+		</div>
+		
+		<!-- 打印预览页面 -->
+		<!-- <div id="PrintPreview_openDiv" class="easyui-dialog" style="width: 600px;height: 270px;" closed="true"> -->
+		<div id="PrintPreview_openDiv" class="easyui-dialog " style="width: 640px;height: 340px;" closed="true" data-options="modal: true,
+				buttons: [{
+					text:'保存',
+					iconCls:'icon-ok',
+                    handler:function(){
+						saveMesSNcode();
+						}
+				},{
+					text:'取消',
+					iconCls:'icon-no',
+					handler:function(){
+                    	$('#PrintPreview_openDiv').dialog('close');	
+					}
+				}]">
+			<div region='north' id='tbsearch'
+					style="width: auto; height: 90px;">
+					<table style="border-collapse:separate;border-spacing:10px;margin-top:10px">
+						<tr>
+							<td>生产线：</td>
+							<td><input id="txtLINE_CD" name="postingdate" style="width: 160px;" class="easyui-textbox" readonly="readonly" disabled="disabled"/></td>
+							<td>作业指示号：</td>
+							<td><input id="txtWO_NO" name="postingdate" style="width: 160px;" class="easyui-textbox" readonly="readonly" disabled="disabled"/></td>
+						</tr>
+						<tr>
+							<td>工单号：</td>
+							<td><input id="txtMO_NO" name="postingdate" style="width: 160px;" class="easyui-textbox" readonly="readonly" disabled="disabled"/></td>
+							<td>物料编码：</td>
+							<td><input id="txtITEM_CD" name="postingdate" style="width: 160px;" class="easyui-textbox" readonly="readonly" disabled="disabled"/></td>
+						</tr>
+						<tr>
+							<td>物料名称：</td>
+							<td colspan="2"><input id="txtITEM_NM" name="postingdate" style="width: 160px;" class="easyui-textbox" readonly="readonly" disabled="disabled"/></td>
+						</tr>
+						<tr>
+							<td>作业指示计划数量：</td>
+							<td><input id="txtPLAN_WO_QTY" name="postingdate" style="width: 160px;" class="easyui-textbox" readonly="readonly" disabled="disabled"/></td>
+							<td>已打印数量：</td>
+							<td><input id="txtPTY_QTY" name="postingdate" style="width: 160px;" class="easyui-textbox" readonly="readonly" disabled="disabled"/></td>
+						</tr>
+						<tr>
+							<td>打印人：</td>
+							<td><input id="txtCRT_ID" name="postingdate" style="width: 160px;" class="easyui-textbox" readonly="readonly" disabled="disabled"/></td>
+							<td>上次打印时间：</td>
+							<td><input id="txtLAST_PRINT_TIME" name="postingdate" style="width: 160px;" class="easyui-textbox" readonly="readonly" disabled="disabled"/></td>
+						</tr>
+						<tr>
+							<td>本次打印数量：</td>
+							<td><input id="txtCurrentCount" name="postingdate" style="width: 160px;" class="easyui-numberbox" /></td>
+							<td>最后条码流水：</td>
+							<td><input id="txtLAST_BAR_CODE" name="postingdate" style="width: 160px;" class="easyui-textbox" readonly="readonly" disabled="disabled"/></td>
+						</tr>
+					</table>
+				</div>
+		</div>
+		
+		<!-- 弹出当前流水号打印 -->
+		<div id="Print_openSerialNumber" class="easyui-dialog" style="width: 530px;height: 600px;" closed="true">
+			
+			
+		</div>
+	</body>
+
+</html>

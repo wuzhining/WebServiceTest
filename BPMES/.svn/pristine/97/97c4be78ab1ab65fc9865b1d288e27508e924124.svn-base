@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		 <link rel="stylesheet" type="text/css" href="../../../common/IplantCompent/themes/default/easyui.css">
+	    <link rel="stylesheet" type="text/css" href="../../../common/IplantCompent/themes/icon.css">
+	    <link rel="stylesheet" type="text/css" href="../../../common/IplantCompent/Demo/demo.css">
+	    <link rel="stylesheet" type="text/css" href="../BasicDataType/css/data.css"> 
+	    <script src="../../../common/IplantCompent/jquery.min.js" type="text/javascript"></script>
+	    <script src="../../../common/IplantCompent/jquery.easyui.min.js" type="text/javascript"></script>
+	    <script src="../../../common/IplantCommon/DataRequest.js" type="text/javascript"></script>
+		<script src="../../../common/IplantCommon/CommonUtil.js" type="text/javascript"></script>
+		<script src="../js/SynAndMapping.js" type="text/javascript"></script>
+	</head>
+	<body style="padding: 0; margin: 0;">
+		<div style="height:100%;width:100%" class="easyui-layout" fit="true">
+	        <div region='north' id="tb" style="width: auto; height: 30px;background: linear-gradient(rgb(255, 255, 255) 0px, rgba(149, 184, 231, 0.28) 100%);">
+				<table style="width: auto; height:100%;" cellspacing="0" border="0">
+					<tr>
+						<td>
+	                  		<a id="btnAdd" href="#" class="easyui-linkbutton add" iconCls="icon-add" data-options="plain:true" >新增</a>
+	                        <a id="btnDelete" href="#" class="easyui-linkbutton delete" iconCls="icon-remove" data-options="plain:true">删除</a>
+	                        <a id="btnUpdate" href="#" class="easyui-linkbutton update" iconCls="icon-edit" data-options="plain:true" >修改</a>
+	                  	</td>
+	                </tr>
+	           </table>
+	        </div>
+	    	<div region="center" style="width:100%" style="border:0">
+	           	<div region='north' id='tbsearch' style="width: auto; height: 30px;background: linear-gradient(rgb(255, 255, 255) 0px, rgba(149, 184, 231, 0.28) 100%);">
+					<table>
+		            	<tr >
+		                 	<td>同步名称：</td>
+		                    <td>
+		                        <input id="queryDICT_NM" name="postingdate" style="width: 150px;" class="easyui-textbox" />
+		                    </td>
+		                      
+		                    <td>
+		                       <a href="#" class="easyui-linkbutton" iconCls="icon-search" id="btnSearch" data-options="plain:true">查询</a>	
+		                       <a href="#" class="easyui-linkbutton" iconCls="icon-reset" id="btnResets" data-options="plain:true">重置</a>
+		                    </td>
+		                </tr>
+	                </table>
+	             </div>
+	            <!-- <table region='center' style="height: auto;max-height: 100%" id="publiccode_tab" class='easyui-datagrid' toolbar="#tbsearch" rownumbers="true" ></table> -->
+	            
+	 	    <table id="tt" class="easyui-datagrid"  style="height: auto;max-height: 100%"  iconCls="icon-save" rownumbers="true" pagination="true" singleSelect="true" fitColumns="true">
+				<thead>
+					<tr>
+						<th field="itemid" width="200" align="center">同步描述</th>
+						<th field="productid" width="200" align="center">开始同步时间</th>
+						<th field="listprice" width="200" align="center">自动同步频率(分钟)</th>
+						<th field="unitcost" width="200" align="center">结果</th>
+						<th field="attr1" width="250" align="center">数据字段映射详细</th>
+					</tr>
+				</thead>
+				
+				 <tr>
+	                <td>生产订单</td>
+	                <td>2018/7/23 14:59:34</td>
+	                <td>50</td>
+	                <td>成功</td>
+	                <td><img href='javascript:void(0)' class='easyui-linkbutton' onclick='openDialogFrame(3)'  src='../../../common/IplantCompent/themes/default/images/Folder.png'/></td>
+	            </tr>
+	            <tr>
+	                <td>生产物料</td>
+	                <td>2018/3/23 08:59:34</td>
+	                <td>10</td>
+	                <td>成功</td>
+	                <td><img href='javascript:void(0)' class='easyui-linkbutton' onclick='openDialogFrame(3)'  src='../../../common/IplantCompent/themes/default/images/Folder.png'/></td>
+	            </tr>
+	             <tr>
+	                <td>采购订单</td>
+	                <td>2018/3/20 18:59:34</td>
+	                <td>30</td>
+	                <td>成功</td>
+	                <td><img href='javascript:void(0)' class='easyui-linkbutton' onclick='openDialogFrame(3)'  src='../../../common/IplantCompent/themes/default/images/Folder.png'/></td>
+	            </tr>
+	            <tr>
+	                <td>供应商信息</td>
+	                <td>2018/3/20 12:33:34</td>
+	                <td>120</td>
+	                <td>成功</td>
+	                <td><img href='javascript:void(0)' class='easyui-linkbutton' onclick='openDialogFrame(3)'  src='../../../common/IplantCompent/themes/default/images/Folder.png'/></td>
+	            </tr>
+	            
+	            <tr>
+	                <td>BOM</td>
+	                <td>2018/7/23 14:59:34</td>
+	                <td>90</td>
+	                <td>成功</td>
+	                <td><img href='javascript:void(0)' class='easyui-linkbutton' onclick='openDialogFrame(3)'  src='../../../common/IplantCompent/themes/default/images/Folder.png'/></td>
+	            </tr>
+	            <tr>
+	                <td>生品物料</td>
+	                <td>2018/3/23 08:59:34</td>
+	                <td>10</td>
+	                <td>成功</td>
+	                <td><img href='javascript:void(0)' class='easyui-linkbutton' onclick='openDialogFrame(3)'  src='../../../common/IplantCompent/themes/default/images/Folder.png'/></td>
+	            </tr>
+	             <tr>
+	                <td>銷售出庫单</td>
+	                <td>2018/3/20 18:59:34</td>
+	                <td>36</td>
+	                <td>成功</td>
+	                <td><img href='javascript:void(0)' class='easyui-linkbutton' onclick='openDialogFrame(3)'  src='../../../common/IplantCompent/themes/default/images/Folder.png'/></td>
+	            </tr>
+	            <tr>
+	                <td>工單領料單</td>
+	                <td>2018/3/20 12:33:34</td>
+	                <td>170</td>
+	                <td>成功</td>
+	                <td><img href='javascript:void(0)' class='easyui-linkbutton' onclick='openDialogFrame(3)'  src='../../../common/IplantCompent/themes/default/images/Folder.png'/></td>
+	            </tr>
+	            
+			</table>
+
+	            
+	       </div>
+	    </div>
+	
+	<!-- 字典详细设置 -->
+		<div id="editTabPosition" class="easyui-dialog" style="width: 1000px;height: 640px;" closed="true" >
+		<div style="padding:10px;">
+				<div id="Positiontitle" style="padding-left:280px;font-weight:bold; font-size:16px" ></div>
+				<div region='north' id='tbsearch' style="width: auto; height: 30px;background: linear-gradient(rgb(255, 255, 255) 0px, rgba(149, 184, 231, 0.28) 100%);">
+					<table style="width: auto; height:100%;" cellspacing="0" border="0">
+		                    <tr>
+		                      <td>
+		                         <a href="#" class="easyui-linkbutton add" iconCls="icon-add" id="btnPositionAdd" data-options="plain:true">添加</a>
+	                        	 <a href="#" class="easyui-linkbutton save" iconCls="icon-save" id="btnPositionSave" data-options="plain:true">保存</a>
+	                        	 <a href="#" class="easyui-linkbutton delete" iconCls="icon-remove" id="btnPositionDelete" data-options="plain:true">删除</a>
+		                         <span id='showPositionInfo' class='divspan' style='width:300px;'></span>
+		                      </td>
+		                    </tr>
+		            </table>
+		        </div>
+					<!-- <table region='center' id="materialPosition_tab" style="height: 480px;max-height: 510px" class='easyui-datagrid' rownumbers="true"></table> -->
+					
+					<div id="enditTab" class="easyui-dialog" style="width: 1050px; height: 800px;" closed="true" data-options="modal: true,
+										buttons: [{
+									    id:'btnsave',
+										text:'保存',
+										iconCls:'icon-ok',
+										handler:function(){
+											
+										}
+									},{
+									    id:'btncancle',
+										text:'取消',
+										iconCls:'icon-no',
+										handler:function(){
+											setDataNull();
+					                    $('#enditTab').dialog('close');	
+										}
+									}]">
+									
+									
+				<form id="fmcustomtype" method="post" style="padding: 10px 20px 10px 40px;">
+							<table  border=0>
+							  <tr> 
+							   <td>
+								  <table id="myMtable" cellspacing="0" cellpadding="5" border="1" bordercolor="#0099CC"   cellspacing="0" cellpadding="5" border="1" bordercolor="#0099CC"   style="border-collapse: collapse;height:700px;">
+								  
+								   <tr style="height: 35px;">
+										<td  align="center" colspan="2">所属模块：
+											<select id="txtDictTp1" name="postingdate" style="width: 200px;" class="easyui-combobox" editable='false'>
+								                        <option value=''>MES部门信息</option>					
+														<option value='Y'>MES人员信息</option>										
+											</select>
+										</td>
+								 </tr>
+				
+									  <tr style="height:5px;">
+										<td colspan="2" ><input type='button' value='增加一行' onclick='McloneTR()'/></td>
+									 </tr>
+									 
+									<tr id="Mtr" align="center" valign="top" >
+										<td>字段：
+									        <select class="Msel1" name="postingdate" style="width: 160px;" class="easyui-combobox" editable='false'>
+									            <option>M_id</option>
+									            <option>M_NAME</option>
+									            <option>M_Code</option>
+									        </select>				       
+										</td>
+										<td>数据类型：
+									        <select class="Msel2" name="postingdate" style="width: 100px;" class="easyui-combobox" editable='false'>
+									            <option>varchar2</option>
+									            <option>nvarchar2</option>
+									            <option>number</option>
+									            <option>binary_double</option>
+									            <option>date</option>
+									            <option>binary_float</option>
+									        </select>
+									        <input type='button' value='删除' class='btn btn-danger' onclick="deleteRowM(this)">				       
+										</td>
+										
+									</tr>
+									
+									
+										<tr id="Mtr" align="center" valign="top" >
+										<td>字段：
+									        <select class="Msel1" name="postingdate" style="width: 160px;" class="easyui-combobox" editable='false'>
+									            <option>M_id</option>
+									            <option>M_NAME</option>
+									            <option>M_Code</option>
+									        </select>				       
+										</td>
+										<td>数据类型：
+									        <select class="Msel2" name="postingdate" style="width: 100px;" class="easyui-combobox" editable='false'>
+									            <option>varchar2</option>
+									            <option>nvarchar2</option>
+									            <option>number</option>
+									            <option>binary_double</option>
+									            <option>date</option>
+									            <option>binary_float</option>
+									        </select>
+									        <input type='button' value='删除' class='btn btn-danger' onclick="deleteRowM(this)">				       
+										</td>
+										
+									</tr>
+									
+										<tr id="Mtr" align="center" valign="top" >
+										<td>字段：
+									        <select class="Msel1" name="postingdate" style="width: 160px;" class="easyui-combobox" editable='false'>
+									            <option>M_id</option>
+									            <option>M_NAME</option>
+									            <option>M_Code</option>
+									        </select>				       
+										</td>
+										<td>数据类型：
+									        <select class="Msel2" name="postingdate" style="width: 100px;" class="easyui-combobox" editable='false'>
+									            <option>varchar2</option>
+									            <option>nvarchar2</option>
+									            <option>number</option>
+									            <option>binary_double</option>
+									            <option>date</option>
+									            <option>binary_float</option>
+									        </select>
+									        <input type='button' value='删除' class='btn btn-danger' onclick="deleteRowM(this)">				       
+										</td>
+									
+									</tr>
+									
+									
+								<tr id="Mtr" align="center" valign="top" >
+										<td>字段：
+									        <select class="Msel1" name="postingdate" style="width: 160px;" class="easyui-combobox" editable='false'>
+									            <option>M_id</option>
+									            <option>M_NAME</option>
+									            <option>M_Code</option>
+									        </select>				       
+										</td>
+										<td>数据类型：
+									        <select class="Msel2" name="postingdate" style="width: 100px;" class="easyui-combobox" editable='false'>
+									            <option>varchar2</option>
+									            <option>nvarchar2</option>
+									            <option>number</option>
+									            <option>binary_double</option>
+									            <option>date</option>
+									            <option>binary_float</option>
+									        </select>
+									        <input type='button' value='删除' class='btn btn-danger' onclick="deleteRowM(this)">				       
+										</td>
+										
+									</tr>
+									
+									
+									<tr id="Mtr" align="center" valign="top" >
+										<td>字段：
+									        <select class="Msel1" name="postingdate" style="width: 160px;" class="easyui-combobox" editable='false'>
+									            <option>M_id</option>
+									            <option>M_NAME</option>
+									            <option>M_Code</option>
+									        </select>				       
+										</td>
+										<td>数据类型：
+									        <select class="Msel2" name="postingdate" style="width: 100px;" class="easyui-combobox" editable='false'>
+									            <option>varchar2</option>
+									            <option>nvarchar2</option>
+									            <option>number</option>
+									            <option>binary_double</option>
+									            <option>date</option>
+									            <option>binary_float</option>
+									        </select>
+									        <input type='button' value='删除' class='btn btn-danger' onclick="deleteRowM(this)">				       
+										</td>
+										
+									</tr>
+									
+									
+										<tr id="Mtr" align="center" valign="top" >
+										<td>字段：
+									        <select class="Msel1" name="postingdate" style="width: 160px;" class="easyui-combobox" editable='false'>
+									            <option>M_id</option>
+									            <option>M_NAME</option>
+									            <option>M_Code</option>
+									        </select>				       
+										</td>
+										<td>数据类型：
+									        <select class="Msel2" name="postingdate" style="width: 100px;" class="easyui-combobox" editable='false'>
+									            <option>varchar2</option>
+									            <option>nvarchar2</option>
+									            <option>number</option>
+									            <option>binary_double</option>
+									            <option>date</option>
+									            <option>binary_float</option>
+									        </select>
+									        <input type='button' value='删除' class='btn btn-danger' onclick="deleteRowM(this)">				       
+										</td>
+										
+									</tr>
+									
+									
+									<tr id="Mtr" align="center" valign="top" >
+										<td>字段：
+									        <select class="Msel1" name="postingdate" style="width: 160px;" class="easyui-combobox" editable='false'>
+									            <option>M_id</option>
+									            <option>M_NAME</option>
+									            <option>M_Code</option>
+									        </select>				       
+										</td>
+										<td>数据类型：
+									        <select class="Msel2" name="postingdate" style="width: 100px;" class="easyui-combobox" editable='false'>
+									            <option>varchar2</option>
+									            <option>nvarchar2</option>
+									            <option>number</option>
+									            <option>binary_double</option>
+									            <option>date</option>
+									            <option>binary_float</option>
+									        </select>
+									        <input type='button' value='删除' class='btn btn-danger' onclick="deleteRowM(this)">				       
+										</td>
+										
+									</tr>
+									
+									
+									<tr id="Mtr" align="center" valign="top" >
+										<td>字段：
+									        <select class="Msel1" name="postingdate" style="width: 160px;" class="easyui-combobox" editable='false'>
+									            <option>M_id</option>
+									            <option>M_NAME</option>
+									            <option>M_Code</option>
+									        </select>				       
+										</td>
+										<td>数据类型：
+									        <select class="Msel2" name="postingdate" style="width: 100px;" class="easyui-combobox" editable='false'>
+									            <option>varchar2</option>
+									            <option>nvarchar2</option>
+									            <option>number</option>
+									            <option>binary_double</option>
+									            <option>date</option>
+									            <option>binary_float</option>
+									        </select>
+									        <input type='button' value='删除' class='btn btn-danger' onclick="deleteRowM(this)">				       
+										</td>
+										
+									</tr>
+									
+									
+										<tr id="Mtr" align="center" valign="top" >
+										<td>字段：
+									        <select class="Msel1" name="postingdate" style="width: 160px;" class="easyui-combobox" editable='false'>
+									            <option>M_id</option>
+									            <option>M_NAME</option>
+									            <option>M_Code</option>
+									        </select>				       
+										</td>
+										<td>数据类型：
+									        <select class="Msel2" name="postingdate" style="width: 100px;" class="easyui-combobox" editable='false'>
+									            <option>varchar2</option>
+									            <option>nvarchar2</option>
+									            <option>number</option>
+									            <option>binary_double</option>
+									            <option>date</option>
+									            <option>binary_float</option>
+									        </select>
+									        <input type='button' value='删除' class='btn btn-danger' onclick="deleteRowM(this)">				       
+										</td>
+										
+									</tr>
+									
+									
+									
+									<tr id="Mtr" align="center" valign="top" >
+										<td>字段：
+									        <select class="Msel1" name="postingdate" style="width: 160px;" class="easyui-combobox" editable='false'>
+									            <option>M_id</option>
+									            <option>M_NAME</option>
+									            <option>M_Code</option>
+									        </select>				       
+										</td>
+										<td>数据类型：
+									        <select class="Msel2" name="postingdate" style="width: 100px;" class="easyui-combobox" editable='false'>
+									            <option>varchar2</option>
+									            <option>nvarchar2</option>
+									            <option>number</option>
+									            <option>binary_double</option>
+									            <option>date</option>
+									            <option>binary_float</option>
+									        </select>
+									        <input type='button' value='删除' class='btn btn-danger' onclick="deleteRowM(this)">				       
+										</td>
+										
+									</tr>
+									
+				
+								</table>
+							</td>
+							
+								
+							 <td>  <!-- cellspacing="0" cellpadding="5" border="1" bordercolor="#0099CC" -->
+								<table id="myEtable" cellspacing="0" cellpadding="5" border="1" bordercolor="#0099CC"  style="border-collapse: collapse;margin-left:50px;height:700px;">
+								
+								   <tr style="height:1px;">
+										
+										<td align="center" colspan="2">所属模块：
+										  <select id="txtDictTp1" name="postingdate" style="width: 200px;" class="easyui-combobox" editable='false'>
+													<option value=''>ERP部门信息</option>					
+													<option value='Y'>ERP人员信息</option>	
+										  </select>
+										</td>
+										
+									</tr>
+				
+									  <tr style="height: 35px;">
+										<td colspan="2"><input type='button' value='增加一行' onclick='EcloneTR()'/></td>
+									  </tr>
+									 
+									<tr id="Etr" align="center" valign="top" >
+										<td>字段:
+									        <select class="Esel1" name="postingdate" style="width: 160px;" class="easyui-combobox" editable='false'>
+									            <option>E_id</option>
+									            <option>E_NAME</option>
+									            <option>M_Code</option>
+									        </select> 
+										</td>
+				
+										<td>数据类型:
+									        <select class="Esel2" name="postingdate" style="width: 100px;" class="easyui-combobox" editable='false'>
+									            <option>varchar2</option>
+									            <option>nvarchar2</option>
+									            <option>number</option>
+									            <option>binary_double</option>
+									            <option>date</option>
+									            <option>binary_float</option>
+									        </select>
+									        <input type='button' value='删除' class='btn btn-danger' onclick="deleteRowE(this)"> 
+										</td>
+										
+									</tr>
+									
+									<tr id="Etr" align="center" valign="top" >
+										<td>字段:
+									        <select class="Esel1" name="postingdate" style="width: 160px;" class="easyui-combobox" editable='false'>
+									            <option>E_id</option>
+									            <option>E_NAME</option>
+									            <option>M_Code</option>
+									        </select> 
+										</td>
+				
+										<td>数据类型:
+									        <select class="Esel2" name="postingdate" style="width: 100px;" class="easyui-combobox" editable='false'>
+									            <option>varchar2</option>
+									            <option>nvarchar2</option>
+									            <option>number</option>
+									            <option>binary_double</option>
+									            <option>date</option>
+									            <option>binary_float</option>
+									        </select>
+									        <input type='button' value='删除' class='btn btn-danger' onclick="deleteRowE(this)"> 
+										</td>
+										
+									</tr>
+									
+									<tr id="Etr" align="center" valign="top" >
+										<td>字段:
+									        <select class="Esel1" name="postingdate" style="width: 160px;" class="easyui-combobox" editable='false'>
+									            <option>E_id</option>
+									            <option>E_NAME</option>
+									            <option>M_Code</option>
+									        </select> 
+										</td>
+				
+										<td>数据类型:
+									        <select class="Esel2" name="postingdate" style="width: 100px;" class="easyui-combobox" editable='false'>
+									            <option>varchar2</option>
+									            <option>nvarchar2</option>
+									            <option>number</option>
+									            <option>binary_double</option>
+									            <option>date</option>
+									            <option>binary_float</option>
+									        </select>
+									        <input type='button' value='删除' class='btn btn-danger' onclick="deleteRowE(this)"> 
+										</td>
+										
+									</tr>
+									
+									<tr id="Etr" align="center" valign="top" >
+										<td>字段:
+									        <select class="Esel1" name="postingdate" style="width: 160px;" class="easyui-combobox" editable='false'>
+									            <option>E_id</option>
+									            <option>E_NAME</option>
+									            <option>M_Code</option>
+									        </select> 
+										</td>
+				
+										<td>数据类型:
+									        <select class="Esel2" name="postingdate" style="width: 100px;" class="easyui-combobox" editable='false'>
+									            <option>varchar2</option>
+									            <option>nvarchar2</option>
+									            <option>number</option>
+									            <option>binary_double</option>
+									            <option>date</option>
+									            <option>binary_float</option>
+									        </select>
+									        <input type='button' value='删除' class='btn btn-danger' onclick="deleteRowE(this)"> 
+										</td>
+										
+									</tr>
+									
+									<tr id="Etr" align="center" valign="top" >
+										<td>字段:
+									        <select class="Esel1" name="postingdate" style="width: 160px;" class="easyui-combobox" editable='false'>
+									            <option>E_id</option>
+									            <option>E_NAME</option>
+									            <option>M_Code</option>
+									        </select> 
+										</td>
+				
+										<td>数据类型:
+									        <select class="Esel2" name="postingdate" style="width: 100px;" class="easyui-combobox" editable='false'>
+									            <option>varchar2</option>
+									            <option>nvarchar2</option>
+									            <option>number</option>
+									            <option>binary_double</option>
+									            <option>date</option>
+									            <option>binary_float</option>
+									        </select>
+									        <input type='button' value='删除' class='btn btn-danger' onclick="deleteRowE(this)"> 
+										</td>
+										
+									</tr>
+									
+									<tr id="Etr" align="center" valign="top" >
+										<td>字段:
+									        <select class="Esel1" name="postingdate" style="width: 160px;" class="easyui-combobox" editable='false'>
+									            <option>E_id</option>
+									            <option>E_NAME</option>
+									            <option>M_Code</option>
+									        </select> 
+										</td>
+				
+										<td>数据类型:
+									        <select class="Esel2" name="postingdate" style="width: 100px;" class="easyui-combobox" editable='false'>
+									            <option>varchar2</option>
+									            <option>nvarchar2</option>
+									            <option>number</option>
+									            <option>binary_double</option>
+									            <option>date</option>
+									            <option>binary_float</option>
+									        </select> 
+									        <input type='button' value='删除' class='btn btn-danger' onclick="deleteRowE(this)">
+										</td>
+										
+									</tr>
+									
+									<tr id="Etr" align="center" valign="top" >
+										<td>字段:
+									        <select class="Esel1" name="postingdate" style="width: 160px;" class="easyui-combobox" editable='false'>
+									            <option>E_id</option>
+									            <option>E_NAME</option>
+									            <option>M_Code</option>
+									        </select> 
+										</td>
+				
+										<td>数据类型:
+									        <select class="Esel2" name="postingdate" style="width: 100px;" class="easyui-combobox" editable='false'>
+									            <option>varchar2</option>
+									            <option>nvarchar2</option>
+									            <option>number</option>
+									            <option>binary_double</option>
+									            <option>date</option>
+									            <option>binary_float</option>
+									        </select>
+									        <input type='button' value='删除' class='btn btn-danger' onclick="deleteRowE(this)"> 
+										</td>
+										
+									</tr>
+									
+									<tr id="Etr" align="center" valign="top" >
+										<td>字段:
+									        <select class="Esel1" name="postingdate" style="width: 160px;" class="easyui-combobox" editable='false'>
+									            <option>E_id</option>
+									            <option>E_NAME</option>
+									            <option>M_Code</option>
+									        </select> 
+										</td>
+				
+										<td>数据类型:
+									        <select class="Esel2" name="postingdate" style="width: 100px;" class="easyui-combobox" editable='false'>
+									            <option>varchar2</option>
+									            <option>nvarchar2</option>
+									            <option>number</option>
+									            <option>binary_double</option>
+									            <option>date</option>
+									            <option>binary_float</option>
+									        </select>
+									        <input type='button' value='删除' class='btn btn-danger' onclick="deleteRowE(this)"> 
+										</td>
+										
+									</tr>
+									
+									<tr id="Etr" align="center" valign="top" >
+										<td>字段:
+									        <select class="Esel1" name="postingdate" style="width: 160px;" class="easyui-combobox" editable='false'>
+									            <option>E_id</option>
+									            <option>E_NAME</option>
+									            <option>M_Code</option>
+									        </select> 
+										</td>
+				
+										<td>数据类型:
+									        <select class="Esel2" name="postingdate" style="width: 100px;" class="easyui-combobox" editable='false'>
+									            <option>varchar2</option>
+									            <option>nvarchar2</option>
+									            <option>number</option>
+									            <option>binary_double</option>
+									            <option>date</option>
+									            <option>binary_float</option>
+									        </select>
+									        <input type='button' value='删除' class='btn btn-danger' onclick="deleteRowE(this)"> 
+										</td>
+										
+									</tr>
+									
+									<tr id="Etr" align="center" valign="top" >
+										<td>字段:
+									        <select class="Esel1" name="postingdate" style="width: 160px;" class="easyui-combobox" editable='false'>
+									            <option>E_id</option>
+									            <option>E_NAME</option>
+									            <option>M_Code</option>
+									        </select> 
+										</td>
+				
+										<td>数据类型:
+									        <select class="Esel2" name="postingdate" style="width: 100px;" class="easyui-combobox" editable='false'>
+									            <option>varchar2</option>
+									            <option>nvarchar2</option>
+									            <option>number</option>
+									            <option>binary_double</option>
+									            <option>date</option>
+									            <option>binary_float</option>
+									        </select>
+									        <input type='button' value='删除' class='btn btn-danger' onclick="deleteRowE(this)"> 
+										</td>
+										
+									</tr>
+									
+								</table>
+							  </td>
+							</tr>
+						 </table>
+						 
+						 
+						 
+						 
+						<div id="enditTab1" class="easyui-dialog" style="width: 400px; height: 300px;" closed="true" data-options="modal: true,
+								buttons: [{
+								    id:'btnsave1',
+									text:'保存',
+									iconCls:'icon-ok',
+									handler:function(){
+										
+									}
+								},{
+								    id:'btncancle',
+									text:'取消',
+									iconCls:'icon-no',
+									handler:function(){
+										setDataNull();
+				                    $('#enditTab1').dialog('close');	
+									}
+								}]">
+						<!-- <form id="fmcustomtype" method="post" style="padding: 10px 20px 10px 40px;"> -->
+							<table border="0">
+								<tr style="height: 35px;">
+									<td>同步描述：</td>
+									<td><input id="txtDictCode" style="width: 200px;" class="easyui-textbox" required="required" data-options="validType:['specialTextCharacter'],required:true,missingMessage:'该选项为必填信息'"/></td>
+									<td style="color: red">*</td>
+								</tr>
+								<tr style="height: 35px;">
+									<td>自动同步频率(分钟)：</td>
+									<td><input id="txtDictName" style="width: 200px;" class="easyui-textbox" required="required" data-options="missingMessage:'该选项为必填信息'" />分钟</td>
+									<td style="color: red">*</td>
+								</tr>
+
+							</table>
+			
+					   </div>
+ 		
+					  </form>
+				</div>
+	
+			</div>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<engines>
+	<!-- 1.1 数据字典管理 -->
+	<!-- 查询数据字典信息 -->
+	<engine engine_code="queryService" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryService" >
+	</engine>
+	<!-- 新增 -->
+	<engine engine_code="insertService" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertService" >
+	</engine>
+
+	<!-- 修改 -->
+	<engine engine_code="updateService" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateService" >
+	</engine>
+	
+	<!-- 删除 -->
+	<engine engine_code="deleteService" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteService" >
+	</engine>
+</engines>

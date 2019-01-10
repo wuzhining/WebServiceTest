@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ifss>
+    <!-- A6 大屏幕监视 -->
+    <!-- A6.1 设备监视-->
+	<ifs ifs_code="J000001" ifs_name="设备监视" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryEquipent" biz_method="" serial_no="1" biz_name="queryEquipent" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- A6.2   工单监视-->
+	<ifs ifs_code="J000002" ifs_name="工单监视" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryOrderMonitor" biz_method="" serial_no="1" biz_name="queryOrderMonitor" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- A6.3   报警监视-->
+	<ifs ifs_code="J000003" ifs_name="报警监视" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryAlarm" biz_method="" serial_no="1" biz_name="queryAlarm" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- A6.4 OEE综合分析-->
+	<ifs ifs_code="J000004" ifs_name="OEE综合分析" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryOee" biz_method="" serial_no="1" biz_name="queryOee" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- A6.5   停机柱状图-->
+	<ifs ifs_code="J000005" ifs_name="停机柱状图" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryDowntimeHistogram" biz_method="" serial_no="1" biz_name="queryDowntimeHistogram" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- A6.6   质量雷达-->
+	<ifs ifs_code="J000006" ifs_name="质量雷达" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryQualityRadar" biz_method="" serial_no="1" biz_name="queryQualityRadar" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- A6.1 设备监视-->
+	<ifs ifs_code="J000007" ifs_name="设备监视统计" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryEquipentTotal" biz_method="" serial_no="1" biz_name="queryEquipentTotal" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- A6.1 设备监视-->
+	<ifs ifs_code="J000008" ifs_name="设备监视统计列表" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryEquipentMachineList" biz_method="" serial_no="1" biz_name="queryEquipentMachineList" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+</ifss>

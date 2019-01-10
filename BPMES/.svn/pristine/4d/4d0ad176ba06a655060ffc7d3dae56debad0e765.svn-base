@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ifss>
+	<!-- A.2 德富莱仓库模块 -->
+	<!-- 查找来料入库信息 -->
+	<ifs ifs_code="WMS_BP00001" ifs_name="查找来料入库信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryBPMateriaChechIn" biz_method="" serial_no="1" biz_name="queryBPMateriaChechIn" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 新增来料入库 -->
+	<ifs ifs_code="WMS_BP00002" ifs_name="新增来料入库" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertBPMateriaChechIn" biz_method="" serial_no="1" biz_name="insertBPMateriaChechIn" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 更新来料入库 -->
+	<ifs ifs_code="WMS_BP00003" ifs_name="更新来料入库" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateBPMateriaChechIn" biz_method="" serial_no="1" biz_name="updateBPMateriaChechIn" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 删除来料入库 -->
+	<ifs ifs_code="WMS_BP00004" ifs_name="更新来料入库" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteBPMateriaChechIn" biz_method="" serial_no="1" biz_name="deleteBPMateriaChechIn" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 查找来料入库单详情 -->
+	<ifs ifs_code="WMS_BP00005" ifs_name="查找来料入库单详情" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryBPMateriaChechInDetail" biz_method="" serial_no="1" biz_name="queryBPMateriaChechInDetail" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 新增来料单与物料关联信息 -->
+	<ifs ifs_code="WMS_BP00006" ifs_name="新增来料单与物料关联信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertMateriaRelation" biz_method="" serial_no="1" biz_name="insertMateriaRelation" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 删除来料单与物料关联信息 -->
+	<ifs ifs_code="WMS_BP00007" ifs_name="删除来料单与物料关联信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteMateriaRelation" biz_method="" serial_no="1" biz_name="deleteMateriaRelation" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 查询物料信息 -->
+	<ifs ifs_code="WMS_BP00008" ifs_name="查询物料信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryBPMateriaInfo" biz_method="" serial_no="1" biz_name="queryBPMateriaInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 查询物料打包信息 -->
+	<ifs ifs_code="WMS_BP00009" ifs_name="查询物料打包信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryBPMateriaPack" biz_method="" serial_no="1" biz_name="queryBPMateriaPack" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 插入物料打包信息 -->
+	<ifs ifs_code="WMS_BP00011" ifs_name="插入物料打包信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertBPMateriaPack" biz_method="" serial_no="1" biz_name="insertBPMateriaPack" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 删除物料打包信息 -->
+	<ifs ifs_code="WMS_BP00012" ifs_name="删除物料打包信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteBPMateriaPack" biz_method="" serial_no="1" biz_name="deleteBPMateriaPack" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+		
+	<!-- 根据物料号生成条码数据 -->
+	<ifs ifs_code="WMS_BP00013" ifs_name="根据物料号生成条码数据" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="generateMeteriaPackageBarcode" biz_method="" serial_no="1" biz_name="generateMeteriaPackageBarcode" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 物料包扫描入库 -->
+	<ifs ifs_code="WMS_BP00014" ifs_name="物料包扫描入库" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="materiaPackagePDACheckIn" biz_method="" serial_no="1" biz_name="materiaPackagePDACheckIn" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 添加来料与物料关联信息存储过程添加  -->
+	<ifs ifs_code="WMS_BP00015" ifs_name="添加来料与物料关联信息存储过程添加" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="addMateriaRelationByProc" biz_method="" serial_no="1" biz_name="addMateriaRelationByProc" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 添加物料打包数据存储过程添加   -->
+	<ifs ifs_code="WMS_BP00016" ifs_name="添加物料打包数据存储过程添加" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="addMateriaPackageByProc" biz_method="" serial_no="1" biz_name="addMateriaPackageByProc" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 查询出检测数据   -->
+	<ifs ifs_code="WMS_BP00017" ifs_name="查询出检测数据" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryPack" biz_method="" serial_no="1" biz_name="queryPack" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 修改检测数据   -->
+	<ifs ifs_code="WMS_BP00018" ifs_name="修改检测数据" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updatePack" biz_method="" serial_no="1" biz_name="updatePack" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 修改检测数据 打包关系表-->
+	<ifs ifs_code="WMS_BP00019" ifs_name="修改检测数据打包关系表" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updaterelation" biz_method="" serial_no="1" biz_name="updaterelation" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 删除物料关联数据存储过程  参数DELETE_TABLE 1 是删除来料录入表及其关联数据 2是删除来料与物料关联关系表级物料打包表   -->
+	<ifs ifs_code="WMS_BP00020" ifs_name="删除物料关联数据存储过程" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="materiaPackageInfoDeleted" biz_method="" serial_no="1" biz_name="materiaPackageInfoDeleted" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 查找补打条码数据   -->
+	<ifs ifs_code="WMS_BP00021" ifs_name="查找补打条码数据" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryPrintedBarcode" biz_method="" serial_no="1" biz_name="queryPrintedBarcode" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 添加物料包出库拆包的数据存储过程添加    -->
+	<ifs ifs_code="WMS_BP00022" ifs_name="添加物料包出库拆包的数据存储过程添加" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="materiaUnpackingByProc" biz_method="" serial_no="1" biz_name="materiaUnpackingByProc" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	
+	<!-- 成品仓agv调度出入库查询    -->
+	<ifs ifs_code="WMS_BP00023" ifs_name="成品仓agv调度出入库查询" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="agvProductSearch" biz_method="" serial_no="1" biz_name="agvProductSearch" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 成品仓agv调度出入库更新    -->
+	<ifs ifs_code="WMS_BP00024" ifs_name="成品仓agv调度出入库更新" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="agvProductUpdate" biz_method="" serial_no="1" biz_name="agvProductUpdate" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 立库堆垛机状态    -->
+	<ifs ifs_code="WMS_BP00025" ifs_name="立库堆垛机状态" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="wmsComMstatusInsert" biz_method="" serial_no="1" biz_name="wmsComMstatusInsert" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 立库堆垛机状态    -->
+	<ifs ifs_code="WMS_BP00026" ifs_name="立库堆垛机状态" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="wmsComMstatusSearch" biz_method="" serial_no="1" biz_name="wmsComMstatusSearch" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 成品仓库位初始化    -->
+	<ifs ifs_code="WMS_BP00027" ifs_name="成品仓库位初始化" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="wmsComProductSearch" biz_method="" serial_no="1" biz_name="wmsComProductSearch" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 成品仓入库演示    -->
+	<ifs ifs_code="WMS_BP00028" ifs_name="成品仓入库演示 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="wmsComProductShowin" biz_method="" serial_no="1" biz_name="wmsComProductShowin" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 成品仓出库演示    -->
+	<ifs ifs_code="WMS_BP00029" ifs_name="成品仓出库演示" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="wmsComProductShowout" biz_method="" serial_no="1" biz_name="wmsComProductShowout" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+</ifss>

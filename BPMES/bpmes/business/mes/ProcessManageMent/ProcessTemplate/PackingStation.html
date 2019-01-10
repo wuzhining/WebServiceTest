@@ -1,0 +1,108 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>包装工位03</title>
+		<link rel="stylesheet" type="text/css" href="../../../../common/IplantCompent/themes/default/easyui.css">
+		<link rel="stylesheet" type="text/css" href="../../../../common/IplantCompent/themes/icon.css">
+		<link rel="stylesheet" type="text/css" href="../../../../common/IplantCompent/Demo/demo.css">
+		<script src="../../../../common/IplantCompent/jquery.min.js" type="text/javascript"></script>
+		<script src="../../../../common/IplantCompent/jquery.easyui.min.js" type="text/javascript"></script>
+		<script src="../../../../common/IplantCommon/DataRequest.js" type="text/javascript"></script>
+		<script src="../../../../common/IplantCommon/CommonUtil.js" type="text/javascript"></script>
+		<script src="js/PackingStation.js" type="text/javascript"></script>
+		<meta charset="utf-8" />
+	</head>
+
+	<body style="padding: 0; margin: 0;">
+		<div style="height:100%;width:100%" class="easyui-layout" fit="true">
+			<div region="north" style="width:100%;height:249px" style="border:0">
+				<div style="margin-top:10px;width:801px;height:25px;background-color:#ECF2FB;border:1px solid #95B8E7; border-bottom:none;line-height: 25px;border-top-left-radius:8px;border-top-right-radius:8px;">
+ 					<span><strong style="color:#2F8CFE;float:left">产品包装信息</strong></span>
+ 					<span id='showMessageInfo' class='divspan' style='width:300px;float:left;margin-left:20px'></span>
+		 		</div>
+	 			<form id="fmStation" method="post" style="height:112px;">
+					<div style="width:800px;border:2px solid #ECECEC">
+						<table border="0" cellspacing="5" cellpadding="0" style="height: auto;border-collapse:separate;border-spacing:10px;">
+							<tr>
+								<td style="width:17%;text-align:right;background-color:#F3F3EF;">作业指示编码:</td>
+								<td style="width: 20%;">
+									<input id="WO_NO" name="postingdate" class="easyui-textbox" disabled="disabled" />
+								</td>
+								<td style="width:14%;text-align:right;background-color:#F3F3EF;">工单编码:</td>
+								<td style="width: 20%;">
+									<input id="workOrder" class="easyui-textbox" disabled="disabled" />
+								</td>
+								<td style="width:14%;text-align:right;background-color:#F3F3EF;">物料编码:</td>
+								<td style="width: 20%;">
+									<input id="MaterialCode" class="easyui-textbox" disabled="disabled" />
+								</td>
+							</tr>
+							<tr>	
+								<td style="text-align:right;background-color:#F3F3EF;">计划量:</td>
+								<td>
+									<input id="PlanProductCount" class="easyui-textbox" disabled="disabled" />
+								</td>
+								<td style="text-align:right;background-color:#F3F3EF;">产出数:</td>
+								<td>
+									<input id="Output" class="easyui-textbox" disabled="disabled" />
+								</td>
+								<td style="text-align:right;background-color:#F3F3EF;">不合格数:</td>
+								<td>
+									<input id="Unqualifiednumber" class="easyui-textbox" disabled="disabled" />
+								</td>
+							</tr>
+							<tr>	
+								<td style="text-align:right;background-color:#F3F3EF;">包装数容量:</td>
+								<td>
+									<input id="packagingnumber" name="postingdate" class="easyui-textbox" disabled="disabled" />
+								</td>
+								<td style="text-align:right;background-color:#F3F3EF;">产线名称:</td>
+								<td>
+									<input id="Line_NM" class="easyui-textbox" disabled="disabled" />
+								</td>
+							</tr>
+						</table>
+					</div>
+				</form>
+				
+				<div style="width:325px;height:85px;margin-top:10px;border:2px solid #ECECEC"> 	
+					<table border="0" cellspacing="4" cellpadding="0" style="border-collapse:separate;border-spacing:10px;">
+						<tr>
+							<td style="width:31%;text-align:right;background-color:#F3F3EF;">扫描SN：</td>
+							<td style="width:69%">
+								<input id="search_ENTERSN"class="easyui-textbox"/>
+							</td>
+						</tr>
+						<tr>
+							<td style="text-align:right;background-color:#F3F3EF"><input type="checkbox" style="width:13px;height:13px;margin-top:5px;" id='checkOne' />是否尾箱</td>
+							<td style="text-align:center;width:80px;"><div id="closeBox" class="easyui-linkbutton">关箱</div></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			
+			<div region = "center">
+				<div style="clear:both;margin-top:10px;width:100%;height:25px;background-color:#ECF2FB;border:1px solid #95B8E7; border-bottom:none;line-height: 25px;border-top-left-radius:8px;border-top-right-radius:8px;">
+    					<span style="float:left"><strong style="color:#2F8CFE;">已扫描明细表</strong></span>
+   		 		</div>
+				<table style="height: auto;max-height: 40%" id="Scanned_tab" class='easyui-datagrid' rownumbers="true" >
+           		</table>
+           	
+				<div style="clear:both;margin-top:10px;width:100%;height:25px;background-color:#ECF2FB;border:1px solid #95B8E7; border-bottom:none;line-height: 25px;border-top-left-radius:8px;border-top-right-radius:8px;">
+    					<span><strong style="color:#2F8CFE;">工位产能明细表</strong></span>
+   		 		</div>
+				<table style="height: auto;max-height: 49%" id="PackingStation_tab" class='easyui-datagrid' rownumbers="true">
+           		</table>
+           	</div>
+		</div>
+		   <!-- 箱号弹框 -->  
+	    <div id="ListCarton" class="easyui-dialog" style="width: 400px;height: 300px;" closed="true" >
+			<div style="padding:10px;">
+				<table region='center' id="comeboxnumber" style="height: 280px;max-height: 300px" class='easyui-datagrid' rownumbers="true"></table>
+			</div>
+		</div>
+		
+	</body>
+</html>
+			

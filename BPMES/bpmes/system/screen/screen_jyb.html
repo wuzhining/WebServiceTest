@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>大屏幕监视</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <script src="js/jquery-1.11.2.min.js"></script>
+	<script src="js/jquery.dialogBox.js"></script>
+	<script src="js/jquery.cookie.js"></script>
+    <script src="js/echarts.min.js"></script>
+    <script src="js/screen_jyb.js"></script>
+    <script src="scripts/TimeObjectUtil.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/jquery.dialogbox.css">
+  </head>
+  <body style="margin:0px;padding:0px;">
+  	  <input type="button" id="btn-auto-close" style="display: none;"/>
+  	  <div id="auto-close-dialogBox"></div>
+  	  <input type="button" id="btn-type" style="display: none;"/>
+	  <div id="type-dialogBox"></div>
+      <div style="height: 99%;width: 100%;  background-color: #FFF; overflow: hidden;margin:0px;">
+		<div style="height: 100%;width: 100%;  background-color: #FFF">
+	      	<div style="width: 100%; height: 33%;">
+		      	<table>
+		      		<tr>
+						<td width="10%"><p><span>线号</span></p></td>
+						<td width="10%"><p><span id="dataJyb0"></span></p></td>
+                        <td width="10%"><p><span>目标</span></p></td>
+                        <td width="15%"><p><span id="dataJyb1"></span></p></td>
+                        <td width="8%"><p><span id="dataJyb2"></span></p></td>
+						<td rowspan="6" style="width: 45%;"><img src="" id="imgProduct" /></td>
+					</tr>
+					<tr>
+						<td><p><span>日期</span></p></td>
+						<td><p><span id="dataJyb3"></span></p></td>
+                        <td><p><span>完成数量</span></p></td>
+                        <td colspan="2"><p><span id="dataJyb4"></span></p></td>
+					</tr>
+					<tr>
+						<td><p><span>时间</span></p></td>
+						<td><p><span id="dataJyb5"></span></p></td>
+                        <td><p><span>效率</span></p></td>
+                        <td colspan="2"><p><span id="dataJyb6" style="font-weight: bold; font-style: normal; text-align: left; font-size: 16px; color: RGB(229,191,18);line-height:0px;"></span></p></td>
+					</tr>
+					<tr>
+						<td><p><span>系列</span></p></td>
+						<td><p><span id="dataJyb7"></span></p></td>
+                        <td rowspan="2"><p><span>工单</span></p></td>
+                        <td><p><span>计划数量</span></p></td>
+                        <td><p><span id="dataJyb8"></span></p></td>
+					</tr>
+					<tr>
+						<td><p><span>型号</span></p></td>
+						<td><p><span id="dataJyb9"></span></p></td>
+                        <td><p><span>累计完成数量</span></p></td>
+                        <td><p><span id="dataJyb10"></span></p></td>
+					</tr>
+					<tr>
+						<td><p><span>人数</span></p></td>
+						<td><p><span id="dataJyb11"></span></p></td>
+                        <td><p><span>未完成数量</span></p></td>
+                        <td colspan="2"><p><span id="dataJyb12" style="font-weight: bold; font-style: normal; text-align: left; font-size: 16px; color: RGB(229,191,18);line-height:0px;"></span></p></td>
+					</tr>
+		      	</table>
+	        </div>
+            <div id="container" style="width:100%;height:35%;margin:0">
+            </div>
+            <div style="width: 100%;height: 10%;">
+            <table>
+                <tr style="border: 0px;margin: 0px;padding: 0px;">
+                    <td width="20%"><p><span>生产状态</span></p></td>
+                    <td width="20%" style="background-color: #37B42A;" id="tdNormal">
+                        <div><p><span>正常 </span></p></div>
+                        <div><img alt="正常" src="img/green-normal.png" id="imgNormal"></div>
+                    </td>
+                    <td width="20%" style=" background-color: #E5BF12;" id="tbAbnormal">
+                        <div><p><span>异常 </span></p></div>
+                        <div><img alt="异常" src="img/yellow-abnormal.png" id="imgAbnormal"></div>
+                    </td>
+                    <td width="20%" style=" background-color: #E44e13;" id="tdStop">
+                        <div><p><span>停机 </span></p></div>
+                        <div><img alt="停机" src="img/red-stop.png" id="imgStop"></div>
+                    </td>
+                    <td width="20%" style=" background-color: #E5BF12;" id="tdChangeLine">
+                        <div><p><span>换线 </span></p></div>
+                        <div><p><span id="dataJyb13"></span></p></div>
+                    </td>
+                </tr>
+            </table>
+          </div>
+	        <div style="width: 100%;height: 6%;">
+	      	    <table>
+	      		<tr>
+	      			<td width="25%" style="border-top: 0px;border-bottom: 0px;margin: 0px;padding: 0px;"><p><span>生产担当科文</span></p></td>
+	      			<td width="25%" style="border-top: 0px;border-bottom: 0px;margin: 0px;padding: 0px;"><p><span>QC担当</span></p></td>
+	      			<td width="25%" style="border-top: 0px;border-bottom: 0px;margin: 0px;padding: 0px;"><p><span>PE跟拉担当</span></p></td>
+	      			<td width="25%" style="border-top: 0px;border-bottom: 0px;margin: 0px;padding: 0px;"><p><span>现场负责主管</span></p></td>
+	      		</tr>
+	      	    </table>
+	        </div>
+	        <div style="width: 100%;height: 18%;">
+	      	    <table>
+	      		<tr>
+	      			<td width="25%" style="border-top: 0px;margin: 0px;padding: 0px;">
+	      				<table style="border: 0px;margin: 0px;padding: 0px;">
+	      					<tr style="border: 0px;margin: 0px;padding: 0px;">
+	      						<td style="border-left: 0px;border-top: 0px;margin: 0px;padding: 0px;width: 30%;"><p><span>姓名</span></p></td>
+	      						<td style="border-top: 0px;margin: 0px;padding: 0px;width: 30%;"><p><span id="person0_name"></span></p></td>
+	      						<td style="border-top: 0px;margin: 0px;padding: 0px;" rowspan="3" align="center" valign="middle"><img id="productDeptPhoto" style="width: 100px;height: 150px;"/></td>
+	      					</tr>
+	      					<tr style="border: 0px;margin: 0px;padding: 0px;">
+	      						<td style="border-left: 0px;margin: 0px;padding: 0px;"><p><span>工号</span></p></td>
+	      						<td><p><span id="person0_code"></span></p></td>
+	      					</tr>
+	      					<tr style="border: 0px;margin: 0px;padding: 0px;">
+	      						<td style="border-left: 0px;margin: 0px;padding: 0px;"><p><span>手机</span></p></td>
+	      						<td><p><span id="person0_phone"></span></p></td>
+	      					</tr>
+	      				</table>
+	      			</td>
+	      			<td width="25%" style="border-top: 0px;margin: 0px;padding: 0px;">
+	      				<table style="border: 0px;margin: 0px;padding: 0px;">
+	      					<tr style="border: 0px;margin: 0px;padding: 0px;">
+	      						<td style="border-left: 0px;border-top: 0px;margin: 0px;padding: 0px;width: 30%;"><p><span>姓名</span></p></td>
+	      						<td style="border-top: 0px;margin: 0px;padding: 0px;width: 30%;"><p><span id="person1_name"></span></p></td>
+	      						<td style="border-top: 0px;margin: 0px;padding: 0px;" rowspan="3" align="center" valign="middle"><img id="qcDeptPhoto" style="width: 100px;height: 150px;"/></td>
+	      					</tr>
+	      					<tr style="border: 0px;margin: 0px;padding: 0px;">
+	      						<td style="border-left: 0px;margin: 0px;padding: 0px;"><p><span>工号</span></p></td>
+	      						<td><p><span id="person1_code"></span></p></td>
+	      					</tr>
+	      					<tr style="border: 0px;margin: 0px;padding: 0px;">
+	      						<td style="border-left: 0px;margin: 0px;padding: 0px;"><p><span>手机</span></p></td>
+	      						<td><p><span id="person1_phone"></span></p></td>
+	      					</tr>
+	      				</table>
+	      			</td>
+	      			<td width="25%" style="border-top: 0px;margin: 0px;padding: 0px;">
+	      				<table style="border: 0px;margin: 0px;padding: 0px;">
+	      					<tr style="border: 0px;margin: 0px;padding: 0px;">
+	      						<td style="border-left: 0px;border-top: 0px;margin: 0px;padding: 0px;width: 30%;"><p><span>姓名</span></p></td>
+	      						<td style="border-top: 0px;margin: 0px;padding: 0px;width: 30%;"><p><span id="person2_name"></span></p></td>
+	      						<td style="border-top: 0px;margin: 0px;padding: 0px;" rowspan="3" align="center" valign="middle"><img id="peDeptPhoto" style="width: 100px;height: 150px;"/></td>
+	      					</tr>
+	      					<tr style="border: 0px;margin: 0px;padding: 0px;">
+	      						<td style="border-left: 0px;margin: 0px;padding: 0px;"><p><span>工号</span></p></td>
+	      						<td><p><span id="person2_code"></span></p></td>
+	      					</tr>
+	      					<tr style="border: 0px;margin: 0px;padding: 0px;">
+	      						<td style="border-left: 0px;margin: 0px;padding: 0px;"><p><span>手机</span></p></td>
+	      						<td><p><span id="person2_phone"></span></p></td>
+	      					</tr>
+	      				</table>
+	      			</td>
+	      			<td width="25%" style="border-top: 0px;margin: 0px;padding: 0px;">
+	      				<table style="border: 0px;margin: 0px;padding: 0px;">
+	      					<tr style="border: 0px;margin: 0px;padding: 0px;">
+	      						<td style="border-left: 0px;border-top: 0px;margin: 0px;padding: 0px;width: 30%;"><p><span>姓名</span></p></td>
+	      						<td style="border-top: 0px;margin: 0px;padding: 0px;width: 30%;"><p><span id="person3_name"></span></p></td>
+	      						<td style="border-top: 0px;margin: 0px;padding: 0px;" rowspan="3" align="center" valign="middle"><img id="bossPhoto" style="width: 100px;height: 150px;"/></td>
+	      					</tr>
+	      					<tr style="border: 0px;margin: 0px;padding: 0px;">
+	      						<td style="border-left: 0px;margin: 0px;padding: 0px;"><p><span>工号</span></p></td>
+	      						<td><p><span id="person3_code"></span></p></td>
+	      					</tr>
+	      					<tr style="border: 0px;margin: 0px;padding: 0px;">
+	      						<td style="border-left: 0px;margin: 0px;padding: 0px;"><p><span>手机</span></p></td>
+	      						<td><p><span id="person3_phone"></span></p></td>
+	      					</tr>
+	      				</table>
+	      			</td>
+	      		</tr>
+	      	    </table>
+	        </div>
+	    </div>
+      </div>
+  </body>
+    <style type="text/css">
+        table {
+            border-right: 1px solid #95B8E7;
+            border-bottom: 1px solid #95B8E7;
+            border-collapse:collapse;
+            width: 100%;
+            height: 90%; 
+        }
+        table tr {
+            text-align: center;
+            height:45px;
+            vertical-align: middle;
+        }
+        table tr td {
+            text-align: center;
+            border-left: 1px solid #95B8E7;
+            border-top: 1px solid #95B8E7;
+            vertical-align: middle;
+        }
+        *{
+            padding: 0;
+        }
+        html{
+            height: 100%;
+        }
+        body {
+            height: 100%;
+        }
+        p {
+            border:0;
+            height: 0px;
+            line-height: 50%;
+            text-align: center;
+            /*background-color: rgba(0,0,0,0.5); IE9、标准浏览器、IE6和部分IE7内核的浏览器(如QQ浏览器)会读懂 */
+        }
+        p span {
+            font-family: "微软雅黑","宋体";
+            font-weight: normal;
+            color: #000000;
+            text-align: center;
+            padding-bottom: 1px;
+        }
+        @media \0screen\,screen\9 {/* 只支持IE6、7、8 */
+            p {
+                background-color:#000000;
+                filter:Alpha(opacity=50);
+                position:static; /* IE6、7、8只能设置position:static(默认属性) ，否则会导致子元素继承Alpha值 */
+                *zoom:1; /* 激活IE6、7的haslayout属性，让它读懂Alpha */
+            }
+            p span {
+                position: relative;/* 设置子元素为相对定位，可让子元素不继承Alpha值 */
+            }  
+        }
+        xinmu {
+        }
+    </style>
+</html>

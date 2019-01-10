@@ -1,0 +1,86 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!--utilfunc(start)-->
+<link rel="stylesheet" type="text/css" href="utilfunc/css/reset.css">
+<link rel="stylesheet" type="text/css" href="utilfunc/css/utilfunc.css">
+<script type="text/javascript" src="utilfunc/js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="utilfunc/js/jquery.popui.js"></script>
+<script type="text/javascript" src="utilfunc/js/utilfunc.js"></script>
+<script type="text/javascript" src="utilfunc/js/utilfunc-ui.js"></script>
+<!--utilfunc(end)-->
+    <script src="../../common/IplantCompent/jquery.easyui.min.js" type="text/javascript"></script>
+    <script src="../../common/IplantCommon/DataRequest.js" type="text/javascript"></script>
+    <script src="../../common/IplantCommon/CommonUtil.js" type="text/javascript"></script>
+    <script src="../../common/UICompent/locale/easyui-lang-zh_CN.js" type="text/javascript" ></script>  
+<!--plugin(start)-->
+<script type="text/javascript" src="plugin/jquery-ui-1.11.2.min.js"></script>
+<script type="text/javascript" src="plugin/jquery.jsPlumb-1.7.2-min.js"></script>
+<!--plugin(end)-->
+
+<!--topo(start)-->
+<link rel="stylesheet" type="text/css" href="css/topo.css">
+<script type="text/javascript" src="js/topo.js"></script>
+<!--topo(end)-->
+<SCRIPT LANGUAGE="JavaScript">
+
+</SCRIPT>
+<style type="text/css">
+#lefticon
+{
+border: medium double rgb(250,0,255)
+}
+#hide{
+	padding:15px 0 15px 15px;
+	background:#666;
+/* 	border-radius:3px; */
+    height:20px;
+	color:#fff;
+	font:18px "微软雅黑";
+	line-height:20px;
+ 	cursor:pointer; 
+}
+</style>
+<title>dtopo</title>
+</head>
+
+<body class="topobody">
+<div class="topocon">
+    <div class="topoleft">
+    	<div class="companylogo"><a href="#nogo"><img src="" alt="" /></a></div>
+<!--     	<div class="companylogo"><a href="#nogo"><img src="images/logo.gif" alt="" /></a></div> -->
+		<div class="hide01" id="hide" name='box'>事件</div>
+	        <div class="lefticon" id="lefticon01" style="display:none" >
+	       		 <div class="iconitems" id="start" icontype="uiscreen"><img src="images/little-icon/firework.gif" alt="" /><span>开始</span></div>
+	            <div class="iconitems" id="end" icontype="uiscreen"><img src="images/little-icon/firework.gif" alt="" /><span>结束</span></div>
+	        </div>
+        
+    </div>
+    <div class="toporight">
+        <div class="funcbtn">
+            <ul id="linewrap">
+                <li>
+                    <span class="focus"><img src="images/line10.png" alt="Pass" /><em>Pass</em><i></i></span>
+                    <span><img src="images/line11.png" alt="Fail" /><em>Fail</em><i></i></span>
+                </li>
+            </ul>
+            <div class="morebtn">
+            	<a id="saveTopoBtn"><img src="images/icon0.gif" alt="保存" /><font>保存</font></a>
+                <a id="viewTopoBtn"><img src="images/icon0.gif" alt="预览" /><font>预览</font></a>
+<!--                 <a id="delTopoBtn"><img src="images/icon0.gif" alt="清空屏幕" /><font>清空屏幕</font></a> -->
+                <!--<a><img src="images/icon1.gif" alt="导出" /><font>导出</font></a>-->
+            </div>
+        </div>
+        <div class="topocontent" id="topocontent">
+        </div>
+    </div>
+</div>
+<div class="rightkeypop" id="rightkeyPop">
+	<span class="ReName" id="ReName">重命名</span>
+    <span class="delele" id="delEle">删除元素</span>
+</div>
+<div class="loading_pop" id="loadingPop"><img src="images/loading.gif" width="500" height="500" alt="loading......"></div>
+<div id="num"></div>
+</body>
+</html>

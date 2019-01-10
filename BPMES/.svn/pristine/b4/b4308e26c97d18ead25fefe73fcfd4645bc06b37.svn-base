@@ -1,0 +1,49 @@
+{
+    "RESPONSE": [
+        {
+            "RESPONSE_DATA": [
+                {
+                    "machine_no": "A01",
+                    "plan_qty": 1200,
+                    "finished_qty": 200,
+                    "finished_rate": 15
+                },
+                {
+                    
+                    "machine_no": "A02",
+                    "plan_qty": 200,
+                    "finished_qty": 100,
+                    "finished_rate": 50
+                },
+                {
+                    
+                    "machine_no": "A03",
+                    "plan_qty": 6000,
+                    "finished_qty": 2000,
+                    "finished_rate": 33
+                },
+                {
+                    
+                    "machine_no": "A04",
+                    "plan_qty": 5000,
+                    "finished_qty": 2500,
+                    "finished_rate": 50
+                },
+                {
+                    
+                    "machine_no": "A05",
+                    "plan_qty": 6000,
+                    "finished_qty": 3000,
+                    "finished_rate": 50
+                },
+                {
+                   
+                    "machine_no": "A06",
+                    "plan_qty": 1500,
+                    "finished_qty": 500,
+                    "finished_rate": 33
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<engines>
+	
+	<!-- 流程运行表操作 -->
+	<!-- 增加流程运行信息-->
+	<engine engine_code="busiDataInsert" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="busiDataInsert" >
+	</engine>
+	<!-- 删除流程运行信息-->
+	<engine engine_code="busiDataDelete" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="busiDataDelete" >
+	</engine>
+	<!-- 修改流程运行信息-->
+	<engine engine_code="busiDataUpdate" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="busiDataUpdate" >
+	</engine>
+	<!-- 查询流程运行信息-->
+	<engine engine_code="busiDataQueryByBusiSeq" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="busiDataQueryByBusiSeq" >
+	</engine>
+	
+	<!-- 查询流程运行-->
+	<engine engine_code="busiDataQuery" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="busiDataQuery" >
+	</engine>
+	
+	<!-- 流程节点表操作 -->
+	<!-- 增加流程节点信息-->
+	<engine engine_code="busiNodeInsert" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="busiNodeInsert" >
+	</engine>
+	<!-- 删除流程节点信息-->
+	<engine engine_code="delNodeInsert" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="delNodeInsert" >
+	</engine>
+	<!-- 修改流程节点信息-->
+	<engine engine_code="busiNodeUpdate" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="busiNodeUpdate" >
+	</engine>
+	<!-- 查询流程节点信息-->
+	<engine engine_code="busiNodeSelectJudge" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="busiNodeSelectJudge" >
+	</engine>
+	
+	<!-- 查询当前节点信息  -->
+	<engine engine_code="taskQuery" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="taskQuery" >
+	</engine>
+	<engine engine_code="taskQueryByOp" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="taskQueryByOp" >
+	</engine>
+	
+	
+	<!-- 查询流程定义信息 -->
+	<engine engine_code="busiDefQuery" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="busiDefQuery" >
+	</engine>
+	<!-- 增加流程定义信息 -->
+	<engine engine_code="busiDefInsert" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="busiDefInsert" >
+	</engine>
+	<!-- 修改流程定义信息 -->
+	<engine engine_code="busiDefUpdate" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="busiDefUpdate" >
+	</engine>
+	<!-- 删除流程定义信息 -->
+	<engine engine_code="busiDefDelete" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="busiDefDelete" >
+	</engine>
+	<engine engine_code="busiDefExist" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="busiDefExist" >
+	</engine>
+	
+</engines>

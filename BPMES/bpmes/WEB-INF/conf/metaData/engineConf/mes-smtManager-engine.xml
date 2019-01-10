@@ -1,0 +1,432 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<engines>
+ 
+	<!--====================================SMT管理========================================-->
+    <!-- 查询SMT站位信息 -->  
+	<engine engine_code="querySmtStationInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querySmtStationInfo" >
+	</engine>
+	 <!-- 新增SMT站位信息 -->  
+	<engine engine_code="insertSmtStationInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertSmtStationInfo" >
+	</engine>
+	 <!-- 修改SMT站位信息 -->  
+	<engine engine_code="updateSmtStationInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateSmtStationInfo" >
+	</engine>
+	 <!-- 删除SMT站位信息 -->  
+	<engine engine_code="deleteSmtStationInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteSmtStationInfo" >
+	</engine>
+	
+	<!-- 查询SMT站位明细表信息 -->  
+	<engine engine_code="querySmtStationDetailedInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querySmtStationDetailedInfo" >
+	</engine>
+	<!-- 新增SMT站位明细表信息 -->  
+	<engine engine_code="insertSmtStationDetailedInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertSmtStationDetailedInfo" >
+	</engine>
+	<!-- 修改SMT站位明细表信息 -->  
+	<engine engine_code="updateSmtStationDetailedInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateSmtStationDetailedInfo" >
+	</engine>
+	<!-- 删除SMT站位明细表信息 -->  
+	<engine engine_code="deleteSmtStationDetailedInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteSmtStationDetailedInfo" >
+	</engine>
+	
+	
+	<!-- 查询飞达信息维护 -->
+	<engine engine_code="queryFeederInformationMaintenance" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryFeederInformationMaintenance" >
+	</engine>
+	<!-- 新增飞达信息维护 -->
+	<engine engine_code="insertFeederInformationMaintenance" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertFeederInformationMaintenance" >
+	</engine>
+	<!-- 修改飞达信息维护 -->
+	<engine engine_code="updateFeederInformationMaintenance" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateFeederInformationMaintenance" >
+	</engine>
+	<!-- 刪除飞达信息维护 -->
+	<engine engine_code="deleteFeederInformationMaintenance" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteFeederInformationMaintenance" >
+	</engine>
+	
+	<!-- 飞达绑定关系维护查询-->
+	<engine engine_code="queryFeederBindingRelationship" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryFeederBindingRelationship" >
+	</engine>
+	<!-- 飞达绑定关系维护新增-->
+	<engine engine_code="insertFeederBindingRelationship" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertFeederBindingRelationship" >
+	</engine>
+	<!-- 飞达绑定关系维护修改-->
+	<engine engine_code="updateFeederBindingRelationship" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateFeederBindingRelationship" >
+	</engine>
+	<!-- 飞达绑定关系维护删除-->
+	<engine engine_code="deleteFeederBindingRelationship" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteFeederBindingRelationship" >
+	</engine>
+	
+	
+	<!-- 钢网信息维护查询-->
+	<engine engine_code="queryNetworkInformationMaintenance" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryNetworkInformationMaintenance" >
+	</engine>
+	<!-- 钢网信息维护新增-->
+	<engine engine_code="insertNetworkInformationMaintenance" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertNetworkInformationMaintenance" >
+	</engine>
+	<!-- 钢网信息维护修改-->
+	<engine engine_code="updateNetworkInformationMaintenance" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateNetworkInformationMaintenance" >
+	</engine>
+	<!-- 钢网信息维护删除-->
+	<engine engine_code="deleteNetworkInformationMaintenance" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteNetworkInformationMaintenance" >
+	</engine>
+	
+	<!-- 钢网产品维护查询-->
+	<engine engine_code="querySteelNetProductMaintenance" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querySteelNetProductMaintenance" >
+	</engine>
+	<!-- 钢网产品维护新增-->
+	<engine engine_code="insertSteelNetProductMaintenance" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertSteelNetProductMaintenance" >
+	</engine>
+	<!-- 钢网产品维护修改-->
+	<engine engine_code="updateSteelNetProductMaintenance" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateSteelNetProductMaintenance" >
+	</engine>
+	<!-- 钢网产品维护删除-->
+	<engine engine_code="deleteSteelNetProductMaintenance" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteSteelNetProductMaintenance" >
+	</engine>
+	
+	<!-- 查询飞达状态信息-->
+	<engine engine_code="queryFeederState" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryFeederState" >
+	</engine>
+	<!-- 查询钢网状态信息-->
+	<engine engine_code="querySteelNetState" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querySteelNetState" >
+	</engine>
+	
+	<!-- 飞达绑定记录表查询 -->
+	<engine engine_code="queryFeederBindingRecord" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryFeederBindingRecord" >
+	</engine>
+	<!-- 飞达绑定记录表新增 -->
+	<engine engine_code="insertFeederBindingRecord" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertFeederBindingRecord" >
+	</engine>
+	
+	<!-- SMT上料表查询 -->
+	<engine engine_code="querySmtFeedingTable" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querySmtFeedingTable" >
+	</engine>
+	<!-- SMT上料表新增 -->
+	<engine engine_code="insertSmtFeedingTable" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertSmtFeedingTable" >
+	</engine>
+	<!-- SMT上料表修改 -->
+	<engine engine_code="updateSmtFeedingTable" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateSmtFeedingTable" >
+	</engine>
+	<!-- SMT上料表删除 -->
+	<engine engine_code="deleteSmtFeedingTable" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteSmtFeedingTable" >
+	</engine>
+	
+	<!-- SMT上料记录表查询 -->
+	<engine engine_code="querySmtFeedingRecordTable" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querySmtFeedingRecordTable" >
+	</engine>
+	<!-- SMT上料记录表新增 -->
+	<engine engine_code="insertSmtFeedingRecordTable" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertSmtFeedingRecordTable" >
+	</engine>
+	<!-- SMT上料记录表修改 -->
+	<engine engine_code="updateSmtFeedingRecordTable" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateSmtFeedingRecordTable" >
+	</engine>
+	<!-- SMT上料记录表删除 -->
+	<engine engine_code="deleteSmtFeedingRecordTable" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteSmtFeedingRecordTable" >
+	</engine>
+	
+	<!-- SMT叫料表查询 -->
+	<engine engine_code="querySmtMaterial" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querySmtMaterial" >
+	</engine>
+	<!-- SMT叫料表修改 -->
+	<engine engine_code="updateSmtMaterial" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateSmtMaterial" >
+	</engine>
+	
+	
+	
+	<!-- 叫料预警参数设置查询 -->
+	<engine engine_code="queryCallAlarmParameterSetting" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryCallAlarmParameterSetting" >
+	</engine>
+	<!-- 叫料预警参数设置新增 -->
+	<engine engine_code="insertCallAlarmParameterSetting" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertCallAlarmParameterSetting" >
+	</engine>
+	<!-- 叫料预警参数设置修改 -->
+	<engine engine_code="updateCallAlarmParameterSetting" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateCallAlarmParameterSetting" >
+	</engine>
+	<!-- 叫料预警参数设置删除 -->
+	<engine engine_code="deleteCallAlarmParameterSetting" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteCallAlarmParameterSetting" >
+	</engine>
+	
+	<!-- 钢网产品验证记录查询 -->
+	<engine engine_code="querySteelNetProductVerificationRecord" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querySteelNetProductVerificationRecord" >
+	</engine>
+	<!-- 钢网产品验证记录新增 -->
+	<engine engine_code="insertSteelNetProductVerificationRecord" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertSteelNetProductVerificationRecord" >
+	</engine>
+	<!-- 钢网产品验证记录修改 -->
+	<engine engine_code="updateSteelNetProductVerificationRecord" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateSteelNetProductVerificationRecord" >
+	</engine>
+	<!-- 钢网产品验证记录删除 -->
+	<engine engine_code="deleteSteelNetProductVerificationRecord" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteSteelNetProductVerificationRecord" >
+	</engine>
+	
+	  <!-- SMT转产退料 -->
+	<engine engine_code="R_ME_ST_RETURN_MAT_P" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="R_ME_ST_RETURN_MAT_P" >
+	</engine>
+	  <!-- SMT批量退料，单个退料 -->
+	<engine engine_code="R_MES_RTN_MAT_P" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="R_MES_RTN_MAT_P" >
+	</engine>
+	 <!-- SMT解绑站位 -->
+	<engine engine_code="R_STACK_CD_P" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="R_STACK_CD_P" >
+	</engine>
+	
+	<!-- 生产退料表查询-->
+	<engine engine_code="queryProductionReturnTable" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryProductionReturnTable" >
+	</engine>
+	<!-- 生产退料表新增-->
+	<engine engine_code="insertProductionReturnTable" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertProductionReturnTable" >
+	</engine>
+	<!-- 生产退料表修改-->
+	<engine engine_code="updateProductionReturnTable" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateProductionReturnTable" >
+	</engine>
+	<!-- 生产退料表删除-->
+	<engine engine_code="deleteProductionReturnTable" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteProductionReturnTable" >
+	</engine>
+	
+	<!-- SMT库存操作历史记录表查询 -->
+	<engine engine_code="queryInventoryOperationHistory" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryInventoryOperationHistory" >
+	</engine>
+	<!-- SMT库存操作历史记录表新增 -->
+	<engine engine_code="insertInventoryOperationHistory" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertInventoryOperationHistory" >
+	</engine>
+	<!-- SMT库存操作历史记录表修改 -->
+	<engine engine_code="updateInventoryOperationHistory" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateInventoryOperationHistory" >
+	</engine>
+	<!-- SMT库存操作历史记录表删除 -->
+	<engine engine_code="deleteInventoryOperationHistory" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteInventoryOperationHistory" >
+	</engine>
+	
+	<!-- SMT物料使用记录表查询 -->
+	<engine engine_code="queryMaterialUsageRecordSheet" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryMaterialUsageRecordSheet" >
+	</engine>
+	<!-- SMT物料使用记录表新增 -->
+	<engine engine_code="insertMaterialUsageRecordSheet" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertMaterialUsageRecordSheet" >
+	</engine>
+	<!-- SMT物料使用记录表修改 -->
+	<engine engine_code="updateMaterialUsageRecordSheet" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateMaterialUsageRecordSheet" >
+	</engine>
+	<!-- SMT物料使用记录表删除 -->
+	<engine engine_code="deleteMaterialUsageRecordSheet" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteMaterialUsageRecordSheet" >
+	</engine>
+	
+	<!-- SMT接收料库存查询  -->
+	<engine engine_code="querySmtReceivingStock" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querySmtReceivingStock" >
+	</engine>
+	<!-- SMT接收料库存新增  -->
+	<engine engine_code="insertSmtReceivingStock" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertSmtReceivingStock" >
+	</engine>
+	<!-- SMT接收料库存修改  -->
+	<engine engine_code="updateSmtReceivingStock" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateSmtReceivingStock" >
+	</engine>
+	<!-- SMT接收料库存删除  -->
+	<engine engine_code="deleteSmtReceivingStock" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteSmtReceivingStock" >
+	</engine>
+	
+	   <!--更新工单条码绑定 -->
+	<engine engine_code="updateSNBinding" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateSNBinding" >
+	</engine>
+	
+	     <!-- 插入工单条码绑定信息 -->
+	<engine engine_code="insertSNBinding" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertSNBinding" >
+	</engine>
+	
+	  <!-- 删除工单条码关系绑定 -->
+	<engine engine_code="deleteSNBinding" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteSNBinding" >
+	</engine>
+	
+	  <!-- 工单条码关系 绑定查询 -->
+	<engine engine_code="querySNBinding" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querySNBinding" >
+	</engine>
+	<engine engine_code="querySNBindingBySN" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querySNBindingBySN" >
+	</engine>
+	
+	<engine engine_code="insertSNBindingHis" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertSNBindingHis" >
+	</engine>
+	 <!-- 查询作业指示号对应的拼板数量 -->
+	<engine engine_code="queryPANEL_QTYByWO_MO" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryPANEL_QTYByWO_MO" >
+	</engine>
+	
+	<!-- 生成绑定关系号码 -->
+	<engine engine_code="queryBIND_NO" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryBIND_NO" >
+	</engine>
+	<!--  SMT接料-->
+	<engine engine_code="updateSmtFeedingJieLiao" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateSmtFeedingJieLiao" >
+	</engine>
+	
+	<!-- 库存历史记录表操作上料Feeding -->
+	<engine engine_code="insertMatHistoryFeeding" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertMatHistoryFeeding" >
+	</engine>
+	<!-- 库存历史记录表操作退料Feed -->
+	<engine engine_code="insertMatHistoryFeed" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertMatHistoryFeed" >
+	</engine>
+	
+	<!-- AGV 查询 -->
+	<engine engine_code="queryAGVs" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryAGVs" >
+	</engine>
+	<!-- AGV 新增 -->
+	<engine engine_code="insertAGVs" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertAGVs" >
+	</engine>
+	<!-- AGV 修改 -->
+	<engine engine_code="updateAGVs" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateAGVs" >
+	</engine>
+	<!-- AGV 删除 -->
+	<engine engine_code="deleteAGVs" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteAGVs" >
+	</engine>
+	
+	<!-- AGV运行路线表 查询 -->
+	<engine engine_code="queryAGVRuns" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryAGVRuns" >
+	</engine>
+	<!-- AGV运行路线表  新增 -->
+	<engine engine_code="insertAGVRuns" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertAGVRuns" >
+	</engine>
+	<!-- AGV运行路线表  修改 -->
+	<engine engine_code="updateAGVRuns" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateAGVRuns" >
+	</engine>
+	<!-- AGV运行路线表  删除 -->
+	<engine engine_code="deleteAGVRuns" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteAGVRuns" >
+	</engine>
+	
+	
+	<!-- AGV状态 查询-->
+	<engine engine_code="queryAgvState" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryAgvState" >
+	</engine>
+	<!-- AGV状态 新增-->
+	<engine engine_code="insertAgvState" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertAgvState" >
+	</engine>
+	<!-- AGV状态 修改-->
+	<engine engine_code="updateAgvState" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateAgvState" >
+	</engine>
+	
+	
+	<!-- 设备栈位对应 查询 -->
+	<engine engine_code="queryDeviceStackBit" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryDeviceStackBit" >
+	</engine>
+	<!-- 设备栈位对应  新增 -->
+	<engine engine_code="insertDeviceStackBit" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertDeviceStackBit" >
+	</engine>
+	<!-- 设备栈位对应  修改 -->
+	<engine engine_code="updateDeviceStackBit" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateDeviceStackBit" >
+	</engine>
+	<!-- 设备栈位对应  删除 -->
+	<engine engine_code="deleteDeviceStackBit" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteDeviceStackBit" >
+	</engine>
+	
+	<!-- 作业指示释放验证栈位明细维护是否全部是该BOM下的料 -->
+	<engine engine_code="queryCheckIsPosit" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryCheckIsPosit">
+	</engine>
+	
+	<!-- 设备OEE新增 -->
+	<engine engine_code="insertOeeNewInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertOeeNewInfo">
+	</engine>
+	
+	<!-- H_MES_RHSG_MST_T 新增 -->
+	<engine engine_code="insertRhsgMstInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertRhsgMstInfo">
+	</engine>
+	
+	<!-- H_MES_RHSG_DTL_T 新增 -->
+	<engine engine_code="insertRhsgDtlInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertRhsgDtlInfo">
+	</engine>
+	
+	<!-- 通过机器编码查询工单信息 -->
+	<engine engine_code="queryWO_NObyET_CD" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryWO_NObyET_CD">
+	</engine>
+	
+	<!--查询未完成上料的物料 -->
+	<engine engine_code="queryETNotfeedingmaterial" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryETNotfeedingmaterial">
+	</engine>
+
+	<!--拆分时生成物料唯一码 -->
+	<engine engine_code="queryMaterialNniqueCode" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryMaterialNniqueCode">
+	</engine>
+	
+     <!-- 批量插入自动化组装明细表 -->
+	<engine engine_code="insert_R_MES_AUTO_ASS_T_Info" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insert_R_MES_AUTO_ASS_T_Info">
+	</engine>
+	
+	<!-- 批量插入自动化组装参数记录表 -->
+	<engine engine_code="insert_R_MES_AUTO_ASS_PARM_T_Info" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insert_R_MES_AUTO_ASS_PARM_T_Info">
+	</engine>
+	
+	
+	<!-- 工位未扫描到SN时-->
+	<engine engine_code="queryNotBar" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryNotBar">
+	</engine>
+	
+	<!-- 初始化加载工单SN追溯信息-->
+	<engine engine_code="queryInitializeLoad" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryInitializeLoad">
+	</engine>
+	
+	<!-- SMT-->
+	<engine engine_code="queryGetMaterial" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryGetMaterial">
+	</engine>
+	
+	<!-- 存储过程 工位移动-->
+	<engine engine_code="queryStoredPprocedureStationMovement" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryStoredPprocedureStationMovement">
+	</engine>
+	
+	<!-- 工位解绑 -->
+	<engine engine_code="deleteStationRelease" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteStationRelease">
+	</engine>
+	
+	<!-- R_MES_AUTO_TEST_T-->
+	<engine engine_code="insertR_MES_AUTO_TEST_T" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertR_MES_AUTO_TEST_T">
+	</engine>
+	
+	<!-- 查询agv运行路线-->
+	<engine engine_code="queryAgvroad" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryAgvroad">
+	</engine>
+	
+	<!-- SMT栈位维护 审核 -->
+	<engine engine_code="SMT_STACK_EXAMINE" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="SMT_STACK_EXAMINE">
+	</engine>
+	
+	<!-- SMT栈位物料维护 材料下拉框 -->
+	<engine engine_code="querySmtStackMatCommobox" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querySmtStackMatCommobox">
+	</engine>
+	
+	<!-- 通过栈位查询得到该栈位区域还有几个料没上 -->
+	<engine engine_code="R_STACK_TABLE_P" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="R_STACK_TABLE_P">
+	</engine>
+	
+	<!-- 组装段上料验证 -->
+	<engine engine_code="assy_checkmat" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="assy_checkmat">
+	</engine>
+	
+	<!-- 组装投料 -->
+	<engine engine_code="assy_feeding_mat" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="assy_feeding_mat">
+	</engine>
+	<!-- 判断飞达是否绑定 -->
+	<engine engine_code="checkFeedIfBangding" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="checkFeedIfBangding">
+	</engine>
+	
+	<!-- 验证栈位是否绑定物料、飞达 -->
+	<engine engine_code="R_STACK_CHECK_P" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="R_STACK_CHECK_P">
+	</engine>
+	
+	<!-- 辅料管理 -->
+	<!-- 查询辅料信息 -->
+	<engine engine_code="SELECTACLIST" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="SELECTACLIST">
+	</engine>
+	<!-- 删除辅料信息 -->
+	<engine engine_code="deleteACLIST" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteACLIST">
+	</engine>
+	<!-- 新增辅料信息 -->
+	<engine engine_code="insertACLIST" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertACLIST">
+	</engine>
+	<!-- 修改辅料信息 -->
+	<engine engine_code="updateACLIST" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateACLIST">
+	</engine>
+	
+	
+	
+	<!-- 查询辅料类别信息 -->
+	<engine engine_code="SECLETACM" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="SECLETACM">
+	</engine>
+	<!-- 删除辅料类别信息 -->
+	<engine engine_code="deleteACM" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteACM">
+	</engine>
+	<!-- 新增辅料类别信息 -->
+	<engine engine_code="insertACM" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertACM">
+	</engine>
+	<!-- 修改辅料类别信息 -->
+	<engine engine_code="updateACM" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateACM">
+	</engine>
+	
+</engines>

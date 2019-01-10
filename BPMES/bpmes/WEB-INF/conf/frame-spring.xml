@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
+
+	<import resource="classpath:META-INF/config/spring/frame-core.xml" />
+	<!-- 属性文件读入 -->
+	<bean id="propertyConfigurer"
+		class="com.iPlant.frame.config.CustomizedPropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>WEB-INF/conf/config.properties</value>
+				<value>WEB-INF/conf/system.properties</value>
+				<value>WEB-INF/conf/ds.properties</value>
+				<value>WEB-INF/conf/redis.properties</value>
+				<value>WEB-INF/conf/mail.properties</value>
+				<value>WEB-INF/conf/rabbit.properties</value>
+			</list>
+		</property>
+		<property name="ignoreUnresolvablePlaceholders" value="true" />
+		<property name="decryptKey" value="" />
+	</bean>
+ 
+</beans>

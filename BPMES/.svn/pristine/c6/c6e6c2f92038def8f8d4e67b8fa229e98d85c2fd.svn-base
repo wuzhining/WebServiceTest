@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<engines>
+	<!-- A9   设备管理-->
+    <!-- A9.1 设备操作明细信息-->
+    <!-- 查询设备操作未结束信息-->
+	<engine engine_code="queryEquipmentNoStop" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="queryEquipmentNoStop" >
+	</engine>
+    <!-- 查询设备操作上下机信息-->
+	<engine engine_code="queryEquipmentOpMachine" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="queryEquipmentOpMachine" >
+	</engine>
+    <!-- 查询设备操作明细信息-->
+	<engine engine_code="queryEquipmentOp" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="queryEquipmentOp" >
+	</engine>
+    <!-- 新增设备操作明细信息 -->
+	<engine engine_code="insertEquipmentOp" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="insertEquipmentOp" >
+	</engine>
+	<!-- 修改设备操作明细信息-->
+	<engine engine_code="updateEquipmentOp" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="updateEquipmentOp" >
+	</engine>
+	<!-- 更新下机-->
+	<engine engine_code="updateEquipmentEndOp" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="updateEquipmentEndOp" >
+	</engine>
+	<!-- 删除设备操作明细信息-->
+	<engine engine_code="deleteEquipmentOp" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="deleteEquipmentOp" >
+	</engine>
+	
+	<!-- A9.2  设备状态-->
+	<!-- 查询设备状态信息 -->
+	<engine engine_code="queryEquipmentStatus" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="queryEquipmentStatus" >
+	</engine>
+	<!-- 新增设备状态信息 -->
+	<engine engine_code="insertEquipmentStatus" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="insertEquipmentStatus" >
+	</engine>
+	<!-- 修改设备状态信息--> 
+	<engine engine_code="updateEquipmentStatus" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="updateEquipmentStatus" >
+	</engine>
+	 <!-- 删除设备状态信息-->
+	<engine engine_code="deleteEquipmentStatus" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="deleteEquipmentStatus" >
+	</engine>
+	
+	<!-- A9.3  设备状态明细信息-->
+	<!-- 查询设备状态明细信息 -->
+	<engine engine_code="queryEquipmentStatusDetail" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="queryEquipmentStatusDetail" >
+	</engine>
+	<!-- 新增设备状态明细信息 -->
+	<engine engine_code="insertEquipmentStatusDetail" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="insertEquipmentStatusDetail" >
+	</engine>
+	<!-- 修改设备状态明细信息-->
+	<engine engine_code="updateEquipmentStatusDetail" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="updateEquipmentStatusDetail" >
+	</engine>
+	<!-- 删除设备状态明细信息-->
+	<engine engine_code="deleteEquipmentStatusDetail" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="deleteEquipmentStatusDetail" >
+	</engine>
+	
+	<!-- 操作信息表-->
+	<!-- 查询操作信息表 -->
+	<engine engine_code="queryOperationInfo" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="queryOperationInfo" >
+	</engine>
+	<!-- 新增操作信息表 -->
+	<engine engine_code="insertOperationInfo" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="insertOperationInfo" >
+	</engine>
+	<!-- 修改操作信息表-->
+	<engine engine_code="updateOperationInfo" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="updateOperationInfo" >
+	</engine>
+	<!-- 删除操作信息表-->
+	<engine engine_code="deleteOperationInfo" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="deleteOperationInfo" >
+	</engine>
+	 <!-- 停机刷卡数据更新接口-->
+	<engine engine_code="insertStopCardInfo" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="insertStopCardInfo" >
+	</engine>
+	
+	<!-- 设备停机操作明细表-->
+	<!-- 查询设备停机操作明细表 -->
+	<engine engine_code="queryEquipmentStopStatus" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryEquipmentStopStatus" >
+	</engine>
+	<!-- 新增设备停机操作明细表 -->
+	<engine engine_code="insertEquipmentStopStatus" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertEquipmentStopStatus" >
+	</engine>
+	<!-- 修改设备停机操作明细表-->
+	<engine engine_code="updateEquipmentStopStatus" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateEquipmentStopStatus" >
+	</engine>
+	<!-- 删除设备停机操作明细表-->
+	<engine engine_code="deleteEquipmentStopStatus" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteEquipmentStopStatus" >
+	</engine>
+	
+	<!-- 设备维修运行主表-->
+	<!-- 查询设备维修运行主表 -->
+	<engine engine_code="queryEquipmentWx" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryEquipmentWx" >
+	</engine>
+	<!-- 新增设备维修运行主表 -->
+	<engine engine_code="insertEquipmentWx" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertEquipmentWx" >
+	</engine>
+	<!-- 修改设备维修运行主表-->
+	<engine engine_code="updateEquipmentWx" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateEquipmentWx" >
+	</engine>
+	<!-- 删除设备维修运行主表-->
+	<engine engine_code="deleteEquipmentWx" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteEquipmentWx" >
+	</engine>
+	
+	<!-- 设备维修单号生成-->
+	<engine engine_code="createRepairNum" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="createRepairNum" >
+	</engine>
+	<!-- 设备需求单号生成-->
+	<engine engine_code="createDemandNum" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="createDemandNum" >
+	</engine>
+	
+	<!-- 维修项目等级档-->
+	<!-- 查询维修项目等级档 -->
+	<engine engine_code="queryEquipmentLev" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryEquipmentLev" >
+	</engine>
+	<!-- 新增维修项目等级档 -->
+	<engine engine_code="insertEquipmentLev" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertEquipmentLev" >
+	</engine>
+	<!-- 修改维修项目等级档-->
+	<engine engine_code="updateEquipmentLev" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateEquipmentLev" >
+	</engine>
+	<!-- 删除维修项目等级档-->
+	<engine engine_code="deleteEquipmentLev" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteEquipmentLev" >
+	</engine>
+	<!-- 查询维修项目等级档id -->
+	<engine engine_code="quipmentLevid" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="quipmentLevid" >
+	</engine>
+	
+	<!-- 样机试用-->
+	<!-- 查询样机试用信息 -->
+	<engine engine_code="queryEquipTest" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryEquipTest" >
+	</engine>
+	<!-- 新增样机试用信息 -->
+	<engine engine_code="insertEquipTest" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertEquipTest" >
+	</engine>
+	<!-- 修改样机试用信息-->
+	<engine engine_code="updateEquipTest" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateEquipTest" >
+	</engine>
+	<!-- 删除样机试用信息-->
+	<engine engine_code="deleteEquipTest" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteEquipTest" >
+	</engine>
+	
+	
+	<!-- 设备上线-->
+	<!-- 查询设备上线信息 -->
+	<engine engine_code="queryEquipOnline" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryEquipOnline" >
+	</engine>
+	<!-- 新增设备上线信息 -->
+	<engine engine_code="insertEquipOnline" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertEquipOnline" >
+	</engine>
+	<!-- 修改设备上线信息-->
+	<engine engine_code="updateEquipOnline" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateEquipOnline" >
+	</engine>
+	<!-- 删除设备上线信息-->
+	<engine engine_code="deleteEquipOnline" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteEquipOnline" >
+	</engine>
+	
+	<!-- 查询设备上线明细信息 -->
+	<engine engine_code="queryEquipOnlineMx" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryEquipOnlineMx" >
+	</engine>
+	<!-- 新增设备上线明细信息 -->
+	<engine engine_code="insertEquipOnlineMx" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertEquipOnlineMx" >
+	</engine>
+	<!-- 修改设备上线明细信息-->
+	<engine engine_code="updateEquipOnlineMx" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateEquipOnlineMx" >
+	</engine>
+	<!-- 删除设备上线明细信息-->
+	<engine engine_code="deleteEquipOnlineMx" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteEquipOnlineMx" >
+	</engine>
+	
+	<!-- 档案类别 -->
+	<!-- 查询档案类别信息 -->
+	<engine engine_code="queryFileType" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryFileType" >
+	</engine>
+	<!-- 新增档案类别信息 -->
+	<engine engine_code="insertFileType" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertFileType" >
+	</engine>
+	<!-- 修改档案类别信息 -->
+	<engine engine_code="updateFileType" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateFileType" >
+	</engine>
+	<!-- 删除档案类别信息 -->
+	<engine engine_code="deleteFileType" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteFileType" >
+	</engine>
+	<!-- 生成维修项目等级档id -->
+	<engine engine_code="fileTypeid" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="fileTypeid" >
+	</engine>
+	
+	<!-- 设备需求-->
+	<!-- 查询设备需求信息 -->
+	<engine engine_code="queryEquipRequire" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryEquipRequire" >
+	</engine>
+	<!-- 新增设备需求信息 -->
+	<engine engine_code="insertEquipRequire" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertEquipRequire" >
+	</engine>
+	<!-- 修改设备需求信息-->
+	<engine engine_code="updateEquipRequire" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateEquipRequire" >
+	</engine>
+	<!-- 删除设备需求信息-->
+	<engine engine_code="deleteEquipRequire" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteEquipRequire" >
+	</engine>
+	<!-- 审核设备需求信息-->
+	<engine engine_code="setEquipRequire" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="setEquipRequire" >
+	</engine>
+	<!--模具信息-->
+	<!-- 查询模具信息 -->
+	<engine engine_code="queryMouldInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryMouldInfo" >
+	</engine>
+	<!-- 新增模具信息 -->
+	<engine engine_code="insertMouldInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertMouldInfo" >
+	</engine>
+	<!-- 修改模具信息-->
+	<engine engine_code="updateMouldInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateMouldInfo" >
+	</engine>
+	<!-- 删除模具信息-->
+	<engine engine_code="deleteMouldInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteMouldInfo" >
+	</engine>
+	<!--查询物料信息 -->
+	<engine engine_code="queryMaterialInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryMaterialInfo" >
+	</engine>
+	<!-- 查询模具与产品映射关系明细信息 -->
+	<engine engine_code="queryMouldDetail" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryMouldDetail" >
+	</engine>
+	<!-- 删除模具与产品映射关系明细信息-->
+	<engine engine_code="deleteMouldDetailInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteMouldDetailInfo" >
+	</engine>
+	<!-- 插入模具与产品映射关系明细信息-->
+	<engine engine_code="insertMouldDetailInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertMouldDetailInfo" >
+	</engine>
+	
+	<!-- 设备档案 -->
+	<!-- 查询设备档案信息 -->
+	<engine engine_code="queryEquipmentFile" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryEquipmentFile" >
+	</engine>
+	<!-- 新增设备档案信息 -->
+	<engine engine_code="insertEquipmentFile" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertEquipmentFile" >
+	</engine>
+	<!-- 修改设备档案信息 -->
+	<engine engine_code="updateEquipmentFile" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateEquipmentFile" >
+	</engine>
+	<!-- 删除设备档案信息 -->
+	<engine engine_code="deleteEquipmentFile" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteEquipmentFile" >
+	</engine>
+	<!-- 物料档案 -->
+	<!-- 查询物料编码 -->
+	<engine engine_code="queryMatterCode" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryMatterCode" >
+	</engine>
+	<!-- 查询物料档案信息 -->
+	<engine engine_code="queryMatterFile" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryMatterFile" >
+	</engine>
+	<!-- 新增物料档案信息 -->
+	<engine engine_code="insertMatterFile" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertMatterFile" >
+	</engine>
+	<!-- 修改物料档案信息 -->
+	<engine engine_code="updateMatterFile" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateMatterFile" >
+	</engine>
+	<!-- 删除物料档案信息 -->
+	<engine engine_code="deleteMatterFile" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteMatterFile" >
+	</engine>
+	
+	<!-- 查询设备状态信息 -->
+	<engine engine_code="queryState" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryState" >
+	</engine>
+	<!-- 新增设备状态信息 -->
+	<engine engine_code="insertState" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertState" >
+	</engine>
+	<!-- 修改设备状态信息 -->
+	<engine engine_code="updateState" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateState" >
+	</engine>
+	<!-- 删除设备状态信息 -->
+	<engine engine_code="deleteState" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteState" >
+	</engine>
+	
+	<!-- 查询设备状态记录信息 -->
+	<engine engine_code="queryStateRecord" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryStateRecord" >
+	</engine>
+	<!-- 新增设备状态记录信息 -->
+	<engine engine_code="insertStateRecord" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertStateRecord" >
+	</engine>
+	<!-- 修改设备状态记录信息 -->
+	<engine engine_code="updateStateRecord" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateStateRecord" >
+	</engine>
+	<!-- 删除设备状态记录信息 -->
+	<engine engine_code="deleteStateRecord" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteStateRecord" >
+	</engine>
+	<!--查询可用的模具 -->
+	<engine engine_code="queryUseMould" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryUseMould" >
+	</engine>
+	<!-- 查询采集设备信息 -->
+	<engine engine_code="queryDeviceCollect" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryDeviceCollect" >
+	</engine>
+	<!-- 新增采集设备信息 -->
+	<engine engine_code="insertDeviceCollect" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertDeviceCollect" >
+	</engine>
+	<!-- 修改采集设备信息 -->
+	<engine engine_code="updateDeviceCollect" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateDeviceCollect" >
+	</engine>
+	<!-- 删除采集设备信息 -->
+	<engine engine_code="deleteDeviceCollect" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteDeviceCollect" >
+	</engine>
+	
+	<!-- 查询模具状态信息 -->
+	<engine engine_code="queryDieState" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryDieState" >
+	</engine>
+	<!-- 查询模具状态历史信息 -->
+	<engine engine_code="queryDieStatehs" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryDieStatehs" >
+	</engine>
+	<!-- 更新设备上线信息 -->
+	<engine engine_code="updateDeviceOnline" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateDeviceOnline" >
+	</engine>
+	
+	<!-- 设备下线-->
+	<!-- 查询设备下线信息 -->
+	<engine engine_code="queryEquipOffline" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryEquipOffline" >
+	</engine>
+	<!-- 新增设备下线信息 -->
+	<engine engine_code="insertEquipOffline" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertEquipOffline" >
+	</engine>
+	<!-- 修改设备下线信息-->
+	<engine engine_code="updateEquipOffline" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateEquipOffline" >
+	</engine>
+	<!-- 删除设备下线信息-->
+	<engine engine_code="deleteEquipOffline" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteEquipOffline" >
+	</engine>
+	
+	<!-- 查询设备下线明细信息 -->
+	<engine engine_code="queryEquipOfflineMx" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryEquipOfflineMx" >
+	</engine>
+	<!-- 新增设备下线明细信息 -->
+	<engine engine_code="insertEquipOfflineMx" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertEquipOfflineMx" >
+	</engine>
+	<!-- 修改设备下线明细信息-->
+	<engine engine_code="updateEquipOfflineMx" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateEquipOfflineMx" >
+	</engine>
+	<!-- 删除设备下线明细信息-->
+	<engine engine_code="deleteEquipOfflineMx" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteEquipOfflineMx" >
+	</engine>
+	
+	<!-- 设备数据采集 -->
+	<engine engine_code="updateMachineDropData" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateMachineDropData" >
+	</engine>
+</engines>

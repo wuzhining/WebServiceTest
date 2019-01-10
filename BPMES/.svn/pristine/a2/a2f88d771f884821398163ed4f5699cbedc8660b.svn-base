@@ -1,0 +1,400 @@
+
+(function() {
+	function application() {	
+		function CurentTime()
+	    { 
+	        var now = new Date();
+	        
+	        var year = now.getFullYear();       //年
+	        var month = now.getMonth() + 1;     //月
+	        var day = now.getDate();            //日
+	        
+	        var hh = now.getHours();            //时
+	        var mm = now.getMinutes();          //分
+	        var ss = now.getSeconds();           //秒
+	        
+	        var clock = year + "-";
+	        
+	        if(month < 10)
+	            clock += "0";
+	        
+	        clock += month + "-";
+	        
+	        if(day < 10)
+	            clock += "0";
+	            
+	        clock += day + " ";
+	        
+	        if(hh < 10)
+	            clock += "0";
+	            
+	        clock += hh + ":";
+	        if (mm < 10) clock += '0'; 
+	        clock += mm + ":"; 
+	         
+	        if (ss < 10) clock += '0'; 
+	        clock += ss; 
+	        return(clock); 
+	}
+
+					
+		//初始化表格
+		initGridData = function() {
+			    var dgrid = $('#productWConf_tab').datagrid('options');
+				if(!dgrid) return;
+				var reqData = {
+					IFS: 'WMS_QC0001',
+					pageIndex: 1,
+					pageSize: dgrid.pageSize
+				}
+				reqGridData('/iPlant_ajax', 'productWConf_tab', reqData);
+				
+			},
+			bindGridData = function(reqData, jsonData) {
+				var gridList = {
+					name: 'productWConf_tab',
+					dataType: 'json',
+					singleSelect:false,
+					columns: [
+						[
+							{
+							field : 'ck',
+							checkbox : true
+						},{
+								field: 'INSPECTIONTYPEID',
+								title: 'id',
+								width: 200,
+								hidden:true,
+								align: 'center',
+								formatter: function (value) {
+					           	if(value != null)
+                                return "<span title='" + value + "'>" + value + "</span>";}
+							},{
+								field : 'INSPECTIONTYPENAME',
+								title : '检验类型名称',
+								width : 200,
+								align: 'center',
+								formatter: function (value) {
+						           	if(value != null)
+	                                return "<span title='" + value + "'>" + value + "</span>";}
+							},{
+								field: 'SYSTEMTYPE',
+								title: 'QC类型',
+								width: 120,
+								align: 'center',formatter: function (value) {
+									if(value != null){
+										if(value==1){
+						           			return "<span title='" + 'IQC' + "'>" + 'IQC' + "</span>";
+						           		}else if(value==2){
+						           			return "<span title='" + 'IPQC' + "'>" + 'IPQC' + "</span>";
+					           			}else if(value==3){
+						           			return "<span title='" + 'PQC' + "'>" + 'PQC' + "</span>";
+						           		}else if(value==4){
+						           			return "<span title='" + 'FQC' + "'>" + 'FQC' + "</span>";
+					           			}else if(value==5){
+						           			return "<span title='" + 'OQC' + "'>" + 'OQC' + "</span>";
+						           		}
+								}
+									}
+							},{
+								field : 'DESCRIPTION',
+								title : '描述',
+								width : 200,
+								align: 'center',
+								formatter: function (value) {
+						           	if(value != null)
+	                                return "<span title='" + value + "'>" + value + "</span>";}
+							},{
+								field : 'STATUS',
+								title : '状态',
+								width : 100,
+								align: 'center',formatter: function (value) {
+									if(value != null){
+										if(value==1){
+						           			return "<span title='" + '启用' + "'>" + '启用' + "</span>";
+						           		}else if(value==0){
+						           			return "<span title='" + '禁用' + "'>" + '禁用' + "</span>";
+					           			}
+										}
+									}
+							},{
+								field: 'CREATER_NAME',
+								title: '创建人',
+								width: 100,
+								align: 'center',formatter: function (value) {
+					           	if(value != null)
+                return "<span title='" + value + "'>" + value + "</span>";}
+							}, {
+								field: 'CREATE_DATE',
+								title: '创建时间',
+								width: 200,
+								align: 'center',formatter: function (value) {
+					           	if(value != null)
+                return "<span title='" + value + "'>" + value + "</span>";}								
+							},
+							  {
+								field: 'UPDATER_NAME',
+								title: '修改人',
+								width: 100,
+								align: 'center',formatter: function (value) {
+					           	if(value != null)
+                return "<span title='" + value + "'>" + value + "</span>";}
+							}, {
+								field: 'UPDATE_DATE',
+								title: '修改时间',
+								width: 200,
+								align: 'center',formatter: function (value) {
+					           	if(value != null)
+                return "<span title='" + value + "'>" + value + "</span>";}
+								}
+						]
+					],
+					onDblClickRow: function(index,row){
+						var checkedRows = $('#productWConf_tab').datagrid('getSelected');
+						if(checkedRows){
+				    	 CompanyOpttype=1;
+				    	 $("#enditTab").dialog("open").dialog('setTitle', '修改检查类型信息');
+				    	 checkFun();
+						 $('#ddlSystemType').combobox('setValue', row.SYSTEMTYPE==null?'':row.SYSTEMTYPE);
+						 $('#ddlStatus').combobox('setValue', row.STATUS==null?'':row.STATUS);
+						 $('#txtInspectionTypeName').textbox('setValue', row.INSPECTIONTYPENAME==null?'':row.INSPECTIONTYPENAME);
+						 $('#txtDescription').textbox('setValue', row.DESCRIPTION==null?'':row.DESCRIPTION);
+						 $('#txtid').textbox('setValue', row.INSPECTIONTYPEID==null?'':row.INSPECTIONTYPEID);
+//						 ong_id = row.CONFIG_ID;
+						 checkedRow=1;
+					    }else{
+							$.messager.alert("提示", '请选中行再进行修改');
+							return false;
+					    }
+						 
+						 
+				     }
+				}
+				initGridView(reqData, gridList);
+				$('#productWConf_tab').datagrid('loadData', jsonData);
+			}
+			checkFun = function (){
+				var qx = getUpdateRight();
+				if(qx=="Y"){ 	
+			    	 $('#saveID').show();
+			    	 $('#cancleID').show();
+				}else{
+					CompanyOpttype=2;
+			    	 $('#saveID').hide();
+				}
+				 
+			}
+			
+			/* 添加商品移动信息 */
+			addStation = function() {
+	        	CompanyOpttype = 0;
+	        	checkFun();
+				$("#enditTab").dialog("open").dialog('setTitle', '检测类型信息添加');
+				setDataNull();
+			}
+			
+			
+			setDataNull = function () {
+				$('#fmStation').form("clear");
+				$('#ddlStatus').combobox('setValue','1');
+	          };
+
+		getDataBySearch = function(){
+				var dgrid = $('#productWConf_tab').datagrid('options');
+				if(!dgrid) return;
+				var cxtxtInspectionTypeName = $('#cxtxtInspectionTypeName').val();
+				var reqData = {
+					INSPECTIONTYPENAME: cxtxtInspectionTypeName,
+					SYSTEMTYPE:$('#cxddlSystemType').combobox('getValue'),
+					IFS: 'WMS_QC0001',
+					pageIndex: 1,
+					pageSize: dgrid.pageSize
+				};
+				reqGridData('/iPlant_ajax', 'productWConf_tab',reqData);
+			};
+		/* 修改检测类型信息 */			
+		updateStation = function() {
+			var checkedItems = $('#productWConf_tab').datagrid('getSelections');
+			var moveIds = [];
+			var num = 0;
+			$.each(checkedItems, function(index, item) {
+				moveIds.push(item.moveid);
+				num++;
+			});
+			if(num != 1) {
+				$.messager.alert('提示', '请选择一条数据进行修改');
+				return false;
+			}
+			var row = $("#productWConf_tab").datagrid("getSelected");
+			if(row) {				
+				$("#searchCondition").dialog("close");
+				 $("#enditTab").dialog("open").dialog('setTitle', '修改检查类型信息');
+				 $('#ddlSystemType').combobox('setValue', row.SYSTEMTYPE==null?'':row.SYSTEMTYPE);
+				 $('#ddlStatus').combobox('setValue', row.STATUS==null?'':row.STATUS);
+				 $('#txtInspectionTypeName').textbox('setValue', row.INSPECTIONTYPENAME==null?'':row.INSPECTIONTYPENAME);
+				 $('#txtDescription').textbox('setValue', row.DESCRIPTION==null?'':row.DESCRIPTION);
+				 $('#txtid').textbox('setValue', row.INSPECTIONTYPEID==null?'':row.INSPECTIONTYPEID);
+				CompanyOpttype = 1;	
+				checkedRow = 0;
+
+			}
+			checkFun();
+		}
+
+
+        deleteStation = function () {
+    		var checkedItems =  $('#productWConf_tab').datagrid('getSelections');
+            if (checkedItems.length==0) {
+                $.messager.alert('提示', '请选择一条数据进行删除');
+                return;
+            }
+            /*确认提示框*/
+            var delCnt=0,arrUpdate = new Array();
+            $.messager.confirm('确认框', '您确定要删除您所选择的数据吗?', function (r) {
+            	if(r==true){
+               		var tmp='';
+               		 $.each(checkedItems, function (index, item) {
+               				arrUpdate.push({INSPECTIONTYPEID:item.INSPECTIONTYPEID});
+                     });
+               		 
+               		 if(arrUpdate.length>0){
+         	          /*批量删除*/
+                         var ajaxUpdate = {
+                             url: '/iPlant_ajax',
+                             dataType: 'JSON',
+                             data: {
+                                 list: arrUpdate,
+                                 IFS: 'WMS_QC0004'
+                             },
+                             successCallBack: function (data) {
+	                       	 		$.messager.alert('提示', '删除成功!','',function(){
+	                          	      initGridData();
+	                               });
+                             },
+                             errorCallBack: function (data) {
+                                 $.messager.alert('提示', '删除失败!');
+                                 return;
+                             }
+                         };
+                         iplantAjaxRequest(ajaxUpdate);
+               	}
+            	}
+            });      
+    	},
+        
+        
+        dataArr={},
+        
+		//置空查询输入框
+		setQueryNull=function() {
+			$('#cxtxtInspectionTypeName').textbox('setValue',"");
+			$('#cxddlSystemType').combobox('setValue','');
+		},
+       
+       
+        /*验证修改内容是否重复*/
+        saveUpdateValidate = function() {
+			var checkedItems = $('#productWConf_tab').datagrid('getSelections');
+			row = checkedItems[0];
+				if ($('#txtInspectionTypeName').textbox('getValue') != (row.INSPECTIONTYPENAME==null?'':row.INSPECTIONTYPENAME)
+					|| $('#txtDescription').textbox('getValue') != (row.DESCRIPTION==null?'':row.DESCRIPTION)) {
+					return true;
+				} else {
+					return false;
+				}
+			};
+		
+		
+		savaStation = function() {			
+			var IFServerNo = '';
+			var reqData = [];
+		    if(CompanyOpttype == 0) {
+				IFServerNo = 'WMS_QC0003';
+			} else if(CompanyOpttype == 1) {
+				IFServerNo = 'WMS_QC0002';
+				var checkedItems = $('#productWConf_tab').datagrid('getSelections');
+				row = checkedItems[0];
+			} else {
+				IFServerNo = 'WMS_QC0001';
+			}
+
+			var susMsg = '',
+				errorMsg = '';
+			if(CompanyOpttype == 0) {
+				susMsg = '添加成功';
+				errorMsg = '添加失败,请联系管理员';
+			} else {
+				susMsg = '更新成功';
+				errorMsg = '更新失败,请联系管理员';
+			}
+			if(!checkForm()) return;
+			
+			var ajaxParam = {
+				url: '/iPlant_ajax',
+				dataType: 'JSON',
+				data: {
+					INSPECTIONTYPEID:$("#txtid").val(), 
+					INSPECTIONTYPENAME: $("#txtInspectionTypeName").val(),
+					DESCRIPTION: $("#txtDescription").val(),
+					STATUS:$("#ddlStatus").combobox('getValue'),
+					INSPECTIONRULEIDLIST:-1,
+					GENERATENUMBERTYPEID:-1,
+					SYSTEMTYPE:$("#ddlSystemType").combobox('getValue'),
+					IFS: IFServerNo
+				},
+				successCallBack: function(data) {
+					var susMsg=getReturnMsg(data);
+                	$.messager.alert("提示",susMsg,"",function(){
+            			reqGridData('/iPlant_ajax','productWConf_tab',{IFS:'WMS_QC0001'});
+            			$('#enditTab').dialog('close');
+            			initGridData();
+            		});
+				},
+			    errorCallBack: function() {
+					$.messager.alert('提示', errorMsg);
+				}
+					
+			};
+			iplantAjaxRequest(ajaxParam);
+			
+		}
+		
+			
+	};
+	application.prototype = {
+		init: function() {
+			$(function() {			
+				var CompanyOpttype; //0：新增   1:编辑  
+				var checkedRow;
+				initGridData();	
+		         
+				$('#btnResets').click(function(){
+		            setQueryNull();
+		        });
+				$('#btnSearch').click(function() {
+					getDataBySearch();
+				});				
+				$('.add').click(function() {
+					addStation();
+				});
+				$('#btnUpdate').click(function() {										
+					updateStation();
+				});
+				$('.save').click(function() {
+					savaStation();
+				});
+				$('#btnDelete').click(function(){
+	                deleteStation();
+	            });
+				$('.close').click(function() {
+					$('#enditTab').dialog('close');
+				});
+				$('.panel-tool-close').click(function() {
+					setDataNull();
+				});
+			});
+		}
+	}
+	var fcfo = new application();
+	fcfo.init();
+})();

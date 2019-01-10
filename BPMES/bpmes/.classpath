@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/i-Plant-1.0.0-coreFrame.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/i-PlantBP-1.0.0-BP.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/i-PlantBP-Import.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/i-PlantIMES-1.0.0-IMES.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/TestProject.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/PrinterService.jar"/>
+	<classpathentry kind="output" path="build"/>
+</classpath>

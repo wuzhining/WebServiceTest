@@ -1,0 +1,546 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="">
+	    <!-- A6  标签管理 -->
+	    <!-- A6.1 标签种类信息-->	  
+<!-- 	    <select id="queryLabelTypeComb" parameterType="hashmap" resultType="java.util.HashMap"> 
+	    	SELECT LB_TY,LB_TY_DES FROM iplant1.C_IPLANT_L5_T ORDER BY CRT_DT DESC 		
+	    </select>  -->
+	    <!-- 查询标签种类信息 1-->
+	    <select id="queryLabelTypeInfo" parameterType="hashmap" resultType="java.util.HashMap"> 
+	    	<include refid="oraclePagingFileTop"></include> 
+				CD,LB_TY,LB_TY_DES, CRT_ID, TO_CHAR(CRT_DT,'YYYY-MM-DD HH24:MI:SS') AS CRT_DT, TO_CHAR(UP_DT,'YYYY-MM-DD HH24:MI:SS') AS UP_DT, REMARK FROM iplant1.C_IPLANT_L5_T 
+	    	   <where> 1=1
+	            	<if test="LB_TY!=null and LB_TY!='' "> AND LB_TY LIKE '%${LB_TY}%'</if>
+	           </where> ORDER BY CRT_DT DESC 
+	        <include refid="oraclePagingFileBottom"></include>	    			
+	    </select>
+	    
+	    <!-- 查询标签种类分页总数-->
+		<select id="queryLabelTypeInfo_COUNT" parameterType="hashmap" resultType="java.util.HashMap"> 
+		        SELECT COUNT(1) AS ROWS_COUNT FROM iplant1.C_IPLANT_L5_T 
+	            <where> 1=1
+	            	<if test="CD!=null and CD!='' "> AND CD='${CD}'</if>
+	            	<if test="LB_TY_DES!=null and LB_TY_DES!='' "> AND LB_TY_DES='${LB_TY_DES}'</if>
+	            	<if test="LB_TY!=null and LB_TY!='' "> AND LB_TY LIKE '%${LB_TY}%'</if>
+	            </where>
+	    </select> 
+		<!-- 批量新增标签种类信息 -->
+		<insert id="insertLabelTypeInfo" parameterType="java.util.List">
+			INSERT INTO iplant1.C_IPLANT_L5_T (CD, LB_TY, LB_TY_DES, CRT_ID, CRT_DT, REMARK)
+			 	(<foreach collection="list" item="item" index="index" separator="union all">
+					SELECT '${item.CD}','${item.LB_TY}','${item.LB_TY_DES}','${F_USE_CD}',SYSDATE,'${item.REMARK}' FROM DUAL
+				</foreach>)
+		</insert> 
+		<!-- 批量修改标签种类信息-->
+		<update id="updateLabelTypeInfo" parameterType="java.util.List">
+			<foreach collection="list" item="item" index="index" open="begin" close=";end;" separator=";">
+				UPDATE iplant1.C_IPLANT_L5_T
+					<set>
+						<if test="item.LB_TY!=null and item.LB_TY!='' "> LB_TY='${item.LB_TY}',</if>
+						<if test="item.LB_TY_DES!=null and item.LB_TY_DES!='' "> LB_TY_DES='${item.LB_TY_DES}',</if>
+						<if test="item.REMARK!=null and item.REMARK!='' "> REMARK='${item.REMARK}',</if>
+						UP_DT=SYSDATE 
+					</set>
+				<where>CD='${item.CD}'</where>
+			</foreach>
+		</update>
+		<!-- 删除标签种类信息 -->
+		<delete id="deleteLabelTypeInfo" parameterType="hashmap">
+			DELETE iplant1.C_IPLANT_L5_T <where> CD='${CD}'</where>
+		</delete>
+		
+		<!-- A6.2 标签设置信息-->
+		<!-- 查询标签设置信息 1-->
+	    <select id="queryLabelSetInfo" parameterType="hashmap" resultType="java.util.HashMap"> 
+	    	<include refid="oraclePagingFileTop"></include>
+				L3.CD,L3.LB_NM,L3.LB_DES,L3.LB_KD,L3.LB_TY,L5.LB_TY_DES,L3.TT_PA,L3.RS_PA,L3.OUT_TY,L3.OTHER FROM iplant1.C_IPLANT_L3_T L3
+       				LEFT JOIN iplant1.C_IPLANT_L5_T L5 ON L5.LB_TY = L3.LB_TY
+	    	   		<where> 1=1
+ 	            		<if test="LB_NM!=null and LB_NM!='' "> AND L3.LB_NM LIKE '%${LB_NM}%'</if>  
+	            		<if test="LB_TY_DES!=null and LB_TY_DES!='' "> AND L5.LB_TY_DES LIKE '%${LB_TY_DES}%'</if> 
+	           	</where> ORDER BY CD DESC 
+	        <include refid="oraclePagingFileBottom"></include>	    			
+	    </select>
+	    
+	   	<!-- 查询标签设置分页总数-->
+		<select id="queryLabelSetInfo_COUNT" parameterType="hashmap" resultType="java.util.HashMap"> 
+			SELECT COUNT(1) AS ROWS_COUNT FROM iplant1.C_IPLANT_L3_T
+	            <where> 1=1 
+	            	<if test="LB_NM!=null and LB_NM!='' "> AND LB_NM LIKE '%${LB_NM}%'</if>
+	            	<if test="LB_TY!=null and LB_TY!='' ">  AND LB_TY LIKE '%${LB_TY}%'</if>
+	            </where>
+	    </select> 
+		<!-- 新增标签设置信息 -->
+		<insert id="insertLabelSetInfo" parameterType="java.util.List">
+			INSERT INTO iplant1.C_IPLANT_L3_T (CD,LB_NM,LB_DES,LB_KD,LB_TY,TT_PA,RS_PA,OUT_TY,OTHER)
+				(<foreach collection="list" item="item" index="index" separator="union all">
+					SELECT '${item.CD}','${item.LB_NM}','${item.LB_DES}','${item.LB_KD}','${item.LB_TY}','${item.TT_PA}','${item.RS_PA}','${item.OUT_TY}','${item.OTHER}' FROM DUAL
+			</foreach>)
+		</insert> 
+		<!-- 修改标签设置信息-->
+		<update id="updateLabelSetInfo" parameterType="java.util.List">
+			<foreach collection="list" item="item" index="index" separator=";">
+				UPDATE iplant1.C_IPLANT_L3_T
+					<set>
+						<if test="item.LB_TY!=null and item.LB_TY!='' "> LB_TY='${item.LB_TY}',</if>
+						<if test="item.LB_NM!=null and item.LB_NM!=''"> LB_NM='${item.LB_NM}',</if>
+						<if test="item.LB_DES!=null"> LB_DES='${item.LB_DES}',</if> 
+						<if test="item.LB_KD!=null"> LB_KD='${item.LB_KD}',</if> 
+						<if test="item.TT_PA!=null"> TT_PA='${item.TT_PA}',</if> 
+						<if test="item.RS_PA!=null"> RS_PA='${item.RS_PA}',</if>
+						<if test="item.OUT_TY!=null"> OUT_TY='${item.OUT_TY}',</if>
+						OTHER='${item.OTHER}' 
+					</set>
+				<where> CD='${item.CD}'</where>
+			</foreach>
+		</update>
+		<!-- 删除标签设置信息 -->
+		<delete id="deleteLabelSetInfo" parameterType="java.util.List">
+			DELETE iplant1.C_IPLANT_L3_T
+				<where>CD='${CD}'</where>
+		</delete>
+		
+		<!-- A6.3 标签变量信息-->
+		<!-- 查询标签变量信息 1-->
+	    <select id="queryLabelVariateInfo" parameterType="hashmap" resultType="java.util.HashMap"> 
+	    	<include refid="oraclePagingFileTop"></include>
+				CD, VB_NM, VB_DES, VB_TY, CRT_ID, TO_CHAR(CRT_DT,'YYYY-MM-DD HH24:MI:SS') AS CRT_DT	FROM iplant1.C_IPLANT_L4_T
+	    	   		<where> 1=1
+	            		<if test="CD!=null and CD!='' "> AND CD='${CD}'</if>
+	            		<if test="VB_NM!=null and VB_NM!='' "> AND VB_NM LIKE '%${VB_NM}%'</if>
+	            		<if test="VB_DES!=null and VB_DES!=''"> VB_DES='${VB_DES}'</if> 
+	           		</where> ORDER BY CRT_DT DESC
+	        <include refid="oraclePagingFileBottom"></include>	    			
+	    </select>
+	    
+	    <!-- 查询标签变量分页总数-->
+		<select id="queryLabelVariateInfo_COUNT" parameterType="hashmap" resultType="java.util.HashMap"> 
+		        SELECT COUNT(1) AS ROWS_COUNT FROM iplant1.C_IPLANT_L4_T
+	            <where> 1=1
+	            	<if test="CD!=null and CD!='' "> AND CD='${CD}'</if>
+	            	<if test="VB_NM!=null and VB_NM!='' "> AND VB_NM LIKE '%${VB_NM}%'</if>
+	            </where>
+	    </select>
+		<!-- 新增标签变量信息 -->
+		<insert id="insertLabelVariateInfo" parameterType="java.util.List">
+			INSERT INTO iplant1.C_IPLANT_L4_T ( CD, VB_NM, VB_DES, VB_TY, CRT_ID, CRT_DT)
+				(<foreach collection="list" item="item" index="index" separator="union all">
+					SELECT '${item.CD}','${item.VB_NM}','${item.VB_DES}','${item.VB_TY}','${F_USE_CD}',SYSDATE FROM DUAL
+			</foreach>)
+		</insert> 
+		<!-- 修改标签变量信息-->
+		<update id="updateLabelVariateInfo" parameterType="java.util.List">
+			<foreach collection="list" item="item" index="index" separator=";">
+				UPDATE iplant1.C_IPLANT_L4_T
+					<set>
+						<if test="item.VB_NM!=null and item.VB_NM!=''"> VB_NM='${item.VB_NM}',</if>
+						<if test="item.VB_TY!=null and item.VB_TY!=''">VB_TY='${item.VB_TY}', </if> 
+						VB_DES='${item.VB_DES}'
+					</set>
+				<where> CD='${item.CD}' </where>
+			</foreach>
+		</update>
+		<!-- 删除标签变量信息 -->
+		<delete id="deleteLabelVariateInfo" parameterType="java.util.List">
+			DELETE iplant1.C_IPLANT_L4_T <where> CD='${CD}' </where>
+		</delete>
+		
+		<!-- A6.4 标签变量关联信息-->
+		<!-- 查询标签变量关联信息 1-->
+	    <select id="queryLabelVariateRelevanceInfo" parameterType="hashmap" resultType="java.util.HashMap"> 
+	    	<include refid="oraclePagingFileTop"></include>
+				L6.CD, L6.LB_NM, L6.LB_KD, L6.LB_TY,L5.LB_TY_DES, L6.VB_UN, L6.CRT_ID, TO_CHAR(L6.CRT_DT,'YYYY-MM-DD HH24:MI:SS') AS CRT_DT, L6.REMARK FROM iplant1.C_IPLANT_L6_T L6
+       				LEFT JOIN iplant1.C_IPLANT_L5_T L5 ON L5.LB_TY = L6.LB_TY 
+	    	   		<where> 1=1
+	    	   			<if test="CD!=null and CD!='' "> AND CD='${CD}'</if>
+	    	   			<if test="LB_NM!=null and LB_NM!='' "> AND L6.LB_NM LIKE '%${LB_NM}%'</if> 
+	            		<if test="LB_TY_DES!=null and LB_TY_DES!='' "> AND L5.LB_TY_DES LIKE '%${LB_TY_DES}%'</if><!-- 标签种类查询 -->
+	           		</where> ORDER BY CRT_DT DESC
+	        <include refid="oraclePagingFileBottom"></include>	    			
+	    </select>
+	    
+	<!-- 查询标签变量关联分页总数-->
+	<select id="queryLabelVariateRelevanceInfo_COUNT" parameterType="hashmap" resultType="java.util.HashMap"> 
+		SELECT COUNT(1) AS ROWS_COUNT FROM iplant1.C_IPLANT_L6_T
+	  		<where> 1=1
+				<if test="CUS_CD!=null and CUS_CD!='' "> AND CUS_CD = '${CUS_CD}' </if>
+	           	<if test="CUS_NM!=null and CUS_NM!='' "> AND CUS_NM LIKE '%${CUS_NM}%' </if>
+	        	<if test="DICT_IT!=null and DICT_IT!='' "> AND DICT_IT='${DICT_IT}' </if>
+	      	</where>
+	</select> 
+	<!-- 新增标签变量关联信息 -->
+	<insert id="insertLabelVariateRelevanceInfo" parameterType="java.util.List">
+		INSERT INTO iplant1.C_IPLANT_L6_T (CD,LB_NM,LB_KD,LB_TY,VB_UN,CRT_ID,CRT_DT, REMARK )
+			(<foreach collection="list" item="item" index="index" separator="union all">
+				SELECT '${item.CD}','${item.LB_NM}','${item.LB_KD}','${item.LB_TY}','${item.VB_UN}','${F_USE_CD}',SYSDATE ,'${item.REMARK}' FROM DUAL
+			</foreach>)
+	</insert>	
+	<!-- 修改标签变量关联信息-->
+	<update id="updateLabelVariateRelevanceInfo" parameterType="java.util.HashMap">
+		<foreach collection="list" item="item" index="index" separator=";">
+			UPDATE iplant1.C_IPLANT_L6_T
+				<set>
+					<if test="item.LB_NM!=null and item.LB_NM!=''">LB_NM='${item.LB_NM}',</if>
+					<if test="item.LB_KD!=null and item.LB_KD!=''">LB_KD='${item.LB_KD}',</if>
+					<if test="item.LB_TY!=null and item.LB_TY!=''">LB_TY='${item.LB_TY}',</if>
+					<if test="item.VB_UN!=null">VB_UN='${item.VB_UN}',</if> 
+					<if test="item.VB_TY!=null">VB_TY='${item.VB_TY}',</if> 
+					REMARK='${item.REMARK}'
+				</set>
+				<where>CD='${item.CD}'</where>
+				</foreach>
+		</update>
+		<!-- 删除标签变量关联信息 -->
+		<delete id="deleteLabelVariateRelevanceInfo" parameterType="java.util.List">
+			DELETE iplant1.C_IPLANT_L6_T <where> CD='${CD}' </where>
+		</delete>
+		
+		<!-- A6.5 标签预览信息-->
+		<!-- 查询标签预览信息 1-->
+	    <select id="queryLabelPreviewInfo" parameterType="hashmap" resultType="java.util.HashMap"> 
+	    	<include refid="oraclePagingFileTop"></include>
+				L7.CD, L7.PT_CD, L7.MO_CD, L7.LB_TY, L5.LB_TY_DES, L7.LB_NM, L7.PRE_PNT, L7.OK_UR, TO_CHAR( L7.OK_DT,'YYYY-MM-DD HH24:MI:SS') AS OK_DT FROM iplant1.C_IPLANT_L7_T L7
+ 				LEFT JOIN iplant1.C_IPLANT_L5_T L5 ON L5.LB_TY = L7.LB_TY 	
+ 				<where> 1=1
+	            		<if test="PT_CD!=null and PT_CD!='' "> AND L7.PT_CD LIKE '%${PT_CD}%' </if>
+ 	            		<if test="MO_CD!=null and MO_CD!='' "> AND L7.MO_CD LIKE '%${MO_CD}%' </if> 
+	            		<if test="LB_TY_DES!=null and LB_TY_DES!='' "> AND L5.LB_TY_DES LIKE '%${LB_TY_DES}%' </if>
+ 	            		<if test="LB_NM!=null and LB_NM!='' "> AND L7.LB_NM LIKE '%${LB_NM}%' </if> 
+	            	</where> ORDER BY OK_DT DESC 
+	        <include refid="oraclePagingFileBottom"></include>	    			
+	    </select>
+	    
+	   	<!-- 查询标签预览分页总数-->
+		<select id="queryLabelPreviewInfo_COUNT" parameterType="hashmap" resultType="java.util.HashMap"> 
+		        SELECT COUNT(1) AS ROWS_COUNT FROM iplant1.C_IPLANT_L7_T
+	            <where> 1=1
+	            	<if test="PT_CD!=null and PT_CD!='' ">
+	            		AND PT_CD LIKE '${PT_CD}'
+	            	</if>
+	            	<if test="MO_CD!=null and MO_CD!=''">
+	            	    AND MO_CD LIKE '%${MO_CD}%'
+	            	</if> 
+	            	<if test="LB_KD!=null and LB_KD!='' ">
+	            		AND LB_TY LIKE '%${LB_TY}%'
+	            	</if>
+ 	            	<if test="LB_NM!=null and LB_NM!='' ">
+	            	    AND LB_NM LIKE '%${LB_NM}%'
+	            	</if> 
+	            </where>
+	    </select> 
+		<!-- 新增标签预览信息 -->
+		<insert id="insertLabelPreviewInfo" parameterType="java.util.List">
+			INSERT INTO iplant1.C_IPLANT_L7_T ( CD,PT_CD,MO_CD,LB_TY,LB_NM,PRE_PNT,OK_UR,OK_DT )
+			(<foreach collection="list" item="item" index="index" separator="union all">
+				SELECT '${item.CD}','${item.PT_CD}','${item.MO_CD}','${item.LB_TY}','${item.LB_NM}','${item.PRE_PNT}','${item.OK_UR}',SYSDATE FROM DUAL 
+			</foreach>)
+		</insert> 
+		<!-- 修改标签预览信息-->
+		<update id="updateLabelPreviewInfo" parameterType="java.util.List">
+			<foreach collection="list" item="item" index="index" separator=";">
+				UPDATE iplant1.C_IPLANT_L7_T
+					<set>
+						<if test="item.PT_CD!=null and item.PT_CD!=''">
+							PT_CD='${item.PT_CD}',
+						</if>
+						<if test="item.MO_CD!=null and item.MO_CD!='' ">
+							MO_CD='${item.MO_CD}',
+						</if> 
+						<if test="item.LB_KD!=null and item.LB_KD!=''">
+							LB_TY='${item.LB_TY}',
+						</if> 
+							OK_DT=SYSDATE
+					</set>
+				<where>
+					CD='${item.CD}'
+				</where>
+			</foreach>
+		</update>
+		<!-- 删除标签预览信息 -->
+		<delete id="deleteLabelPreviewInfo" parameterType="java.util.List">
+			DELETE iplant1.C_IPLANT_L7_T
+			<where>
+				CD='${CD}'
+			</where>
+		</delete>
+		
+		<!-- A6.6 作业组逻辑信息-->
+		<!-- 查询作业组逻辑信息 1-->
+	    <select id="queryTaskTeamLogicInfo" parameterType="hashmap" resultType="java.util.HashMap"> 
+	    	<include refid="oraclePagingFileTop"></include>
+				CD, WORK_GRO_CD, WORK_GRO_DES, REMARK, CRT_ID, TO_CHAR(CRT_DT,'YYYY-MM-DD HH24:MI:SS') AS CRT_DT 
+				FROM iplant1.C_IPLANT_W1_T 
+	    	   	<where> 1=1
+	            	<if test="CD!=null and CD!='' "> AND CD = '${CD}' </if>
+ 	            	<if test="WORK_GRO_CD!=null and WORK_GRO_CD!='' "> AND WORK_GRO_CD LIKE '%${WORK_GRO_CD}%' </if> 
+	            	<if test="WORK_GRO_DES!=null and WORK_GRO_DES!='' "> AND WORK_GRO_DES = '${WORK_GRO_DES}' </if>
+	            </where> ORDER BY CRT_DT DESC 
+	        <include refid="oraclePagingFileBottom"></include>	
+	    </select>
+	    
+	   	<!-- 查询作业组逻辑分页总数-->
+		<select id="queryTaskTeamLogicInfo_COUNT" parameterType="hashmap" resultType="java.util.HashMap"> 
+		        SELECT COUNT(1) AS ROWS_COUNT FROM iplant1.C_IPLANT_W1_T 
+	            <where> 1=1
+	            	<if test="CD !=null and CD !='' "> AND CD = '${CD}' </if> 
+	            	<if test="WORK_GRO_CD !=null and WORK_GRO_CD !='' "> AND WORK_GRO_CD LIKE '%${WORK_GRO_CD}%' </if> 
+	            </where>
+	    </select> 
+		<!-- 新增作业组逻辑信息 --> 
+		<insert id="insertTaskTeamLogicInfo" parameterType="java.util.List">
+			INSERT INTO iplant1.C_IPLANT_W1_T ( CD, WORK_GRO_CD, WORK_GRO_DES, CRT_ID, CRT_DT, REMARK )
+			(<foreach collection="list" item="item" index="index" separator="union all">
+				SELECT '${item.CD}','${item.WORK_GRO_CD}','${item.WORK_GRO_DES}','${F_USE_CD}',SYSDATE,'${item.REMARK}' FROM DUAL 
+			</foreach>)
+		</insert> 
+		<!-- 修改作业组逻辑信息-->
+		<update id="updateTaskTeamLogicInfo" parameterType="java.util.List">
+			<foreach collection="list" item="item" index="index" separator=";">
+				UPDATE iplant1.C_IPLANT_W1_T
+					<set>
+						<if test="item.WORK_GRO_CD!=null and item.WORK_GRO_CD!=''">
+							WORK_GRO_CD='${item.WORK_GRO_CD}',
+						</if>
+						<if test="item.WORK_DES!=null and item.WORK_DES!=''">
+							WORK_DES='${item.WORK_DES}',
+						</if> 
+							REMARK='${item.REMARK}'
+					</set>
+				<where>
+					CD='${item.CD}'
+				</where>
+			</foreach>
+		</update>
+		<!-- 删除作业组逻辑信息 -->
+		<delete id="deleteTaskTeamLogicInfo" parameterType="java.util.List">
+			DELETE iplant1.C_IPLANT_W1_T
+			<where>
+				CD='${CD}'
+			</where>
+		</delete>
+		
+		<!-- A6.7 作业维护信息-->
+		<!-- 查询作业维护信息 1-->
+	    <select id="queryTaskVindicateInfo" parameterType="hashmap" resultType="java.util.HashMap"> 
+	    	<include refid="oraclePagingFileTop"></include>
+				<!-- W1.WORK_GRO_CD,W1.WORK_GRO_NM,W.CD, W.WORK_CD, W.WORK_NM, W.WORK_DES, W.REMARK, W.STATUS, W.CRT_ID, TO_CHAR(W.CRT_DT,'YYYY-MM-DD HH24:MI:SS') AS CRT_DT
+ 					FROM ( SELECT  W2.WORK_DES, W2.REMARK, W2.STATUS, W2.CRT_ID, W2.CRT_DT,
+          				WW.WORK_GRO_CD,W2.CD, W2.WORK_CD, W2.WORK_NM 
+                			FROM iplant1.C_IPLANT_W2_T W2
+                			LEFT JOIN iplant1.C_IPLANT_WW_T WW ON WW.WORK_CD = W2.WORK_CD ) W 
+				 				LEFT JOIN iplant1.C_IPLANT_W1_T W1 ON W.WORK_GRO_CD = W1.WORK_GRO_CD -->
+<!--           		W2.CD, W2.WORK_CD, W2.WORK_NM, W2.WORK_DES, W2.REMARK, W2.STATUS, W2.CRT_ID, TO_CHAR(W2.CRT_DT,'YYYY-MM-DD HH24:MI:SS') AS CRT_DT,
+          		WW.WORK_GRO_CD 
+                FROM iplant1.C_IPLANT_W2_T W2
+                LEFT JOIN iplant1.C_IPLANT_WW_T WW ON WW.WORK_CD = W2.WORK_CD -->
+			 	CD, WORK_CD, WORK_NM, WORK_DES, REMARK, STATUS, CRT_ID, TO_CHAR(CRT_DT,'YYYY-MM-DD HH24:MI:SS') AS CRT_DT 
+				FROM iplant1.C_IPLANT_W2_T 
+	    	   		<where> 1=1
+	            		<if test="CD!=null and CD!='' "> AND CD = '${CD}' </if>
+ 	            		<!-- <if test="WORK_GRO_NM !=null and WORK_GRO_NM !='' "> AND W1.WORK_GRO_NM LIKE '%${WORK_GRO_NM}%' </if>  -->
+	            		<if test="WORK_NM!=null and WORK_NM!='' "> AND WORK_NM LIKE '%${WORK_NM}%' </if>
+	            	</where> ORDER BY CRT_DT DESC 
+	        <include refid="oraclePagingFileBottom"></include>	    			
+	    </select> 
+	    
+ 	   	<!--  查询作业维护分页总数 -->
+		<select id="queryTaskVindicateInfo_COUNT" parameterType="hashmap" resultType="java.util.HashMap"> 
+		        SELECT COUNT(1) AS ROWS_COUNT FROM iplant1.C_IPLANT_W2_T
+	            <where> 1=1
+	            	<if test="CD!=null and CD!='' "> AND CD = '${CD}' </if>
+	            	<if test="WORK_CD!=null and WORK_CD!='' "> AND WORK_CD LIKE '%${WORK_CD}%' </if> 
+	            </where>
+	    </select>  
+	    <!-- 查询作业维护分页总数 -->
+<!-- 	    <select id="queryTaskVindicateInfo_COUNT" parameterType="hashmap" resultType="java.util.HashMap"> 
+		        SELECT COUNT(1) AS ROWS_COUNT FROM ( SELECT  W2.WORK_DES, W2.STATUS, W2.CRT_ID, W2.CRT_DT,
+          				WW.WORK_GRO_CD,W2.CD, W2.WORK_CD, W2.WORK_NM 
+                			FROM iplant1.C_IPLANT_W2_T W2
+                			LEFT JOIN iplant1.C_IPLANT_WW_T WW ON WW.WORK_CD = W2.WORK_CD ) W 
+				 				LEFT JOIN iplant1.C_IPLANT_W1_T W1 ON W.WORK_GRO_CD = W1.WORK_GRO_CD
+	            <where> 1=1
+	            	<if test="CD!=null and CD!='' "> AND CD = '${CD}' </if>
+	            	<if test="WORK_GRO_NM !=null and WORK_GRO_NM !='' "> AND W1.WORK_GRO_NM LIKE '%${WORK_GRO_NM}%' </if> 
+	            	<if test="WORK_NM!=null and WORK_NM!='' "> AND WORK_NM LIKE '%${WORK_NM}%' </if>
+	            </where>
+	    </select> -->
+	    
+		<!-- 新增作业维护信息 -->
+		<insert id="insertTaskVindicateInfo" parameterType="java.util.List">
+			INSERT INTO iplant1.C_IPLANT_W2_T ( CD, WORK_CD, WORK_NM, WORK_DES, CRT_ID, CRT_DT, REMARK, STATUS )
+			(<foreach collection="list" item="item" index="index" separator="union all">
+				SELECT '${item.CD}','${item.WORK_CD}','${item.WORK_NM}','${item.WORK_DES}','${F_USE_CD}',SYSDATE,'${item.REMARK}','${item.STATUS}' FROM DUAL 
+			</foreach>)
+		</insert>  
+		<!-- 修改作业维护信息-->
+		<update id="updateTaskVindicateInfo" parameterType="java.util.List">
+			<foreach collection="list" item="item" index="index" separator=";">
+				UPDATE iplant1.C_IPLANT_W2_T
+					<set>
+						<if test="item.WORK_CD!=null and item.WORK_CD!=''">
+							WORK_CD='${item.WORK_CD}',
+						</if>
+						<if test="item.WORK_NM!=null and item.WORK_NM!='' ">
+							WORK_NM='${item.WORK_NM}',
+						</if> 
+						<if test="item.WORK_DES!=null and item.WORK_DES!=''">
+							WORK_DES='${item.WORK_DES}',
+						</if> 
+							REMARK='${item.REMARK}',
+							STATUS='${item.STATUS}'
+					</set>
+				<where>
+					CD='${item.CD}'
+				</where>
+			</foreach>
+		</update>
+		<!-- 删除作业维护信息 -->
+		<delete id="deleteTaskVindicateInfo" parameterType="java.util.List">
+			DELETE iplant1.C_IPLANT_W2_T
+			<where>
+				CD='${CD}'
+			</where>
+		</delete>
+		
+		<!-- A6.8 作业组与作业关系表信息-->
+		<!-- 查询作业组与作业关系表信息 1-->
+	    <select id="queryTeamAndTaskInfo" parameterType="hashmap" resultType="java.util.HashMap"> 
+	    	<include refid="oraclePagingFileTop"></include>
+				WW.CD, WW.WORK_CD, W2.WORK_NM, WW.WORK_GRO_CD,W1.WORK_GRO_NM FROM iplant1.C_IPLANT_WW_T WW 
+	       		LEFT JOIN iplant1.C_IPLANT_W1_T W1 ON WW.WORK_GRO_CD = W1.WORK_GRO_CD 
+	       		LEFT JOIN iplant1.C_IPLANT_W2_T W2 ON W2.WORK_CD = WW.WORK_CD 
+	    	   	<where> 1=1
+	            	<if test="WORK_GRO_CD !=null and WORK_GRO_CD !='' "> AND WW.WORK_GRO_CD = '${WORK_GRO_CD}' </if>
+	            </where> 
+	        <include refid="oraclePagingFileBottom"></include>	    			
+	    </select> 
+		<!-- 新增作业组与作业关系信息 -->
+		<insert id="insertTeamAndTaskInfo" parameterType="java.util.HashMap">
+			INSERT INTO iplant1.C_IPLANT_WW_T ( CD, WORK_CD, WORK_GRO_CD )
+			(<foreach collection="list" item="item" index="index" separator="union all">
+				SELECT '${item.CD}','${item.WORK_CD}','${item.WORK_GRO_CD}' FROM DUAL 
+			</foreach>) 
+		</insert>  
+		<!-- 删除作业组与作业关系信息 -->
+		<delete id="deleteTeamAndTaskInfo" parameterType="java.util.HashMap">
+			DELETE iplant1.C_IPLANT_WW_T
+			<where>
+				WORK_GRO_CD='${WORK_GRO_CD}'
+			</where>
+		</delete>
+		
+		<!-- A6.9 作业资源关系表信息-->
+		<!-- 查询作业资源关系表信息 1-->
+	    <select id="queryTaskResourcesInfo" parameterType="hashmap" resultType="java.util.HashMap"> 
+	    	<include refid="oraclePagingFileTop"></include>
+				CD, WORK_CD, PN_CD, PL_CD, WK_PRO_CD, WK_STA_CD FROM iplant1.C_IPLANT_WR_T 
+	    	   		<where> 1=1
+	            		<if test="CD!=null and CD!='' "> AND CD = '${CD}' </if>
+	            	</where> ORDER BY CD DESC 
+	        <include refid="oraclePagingFileBottom"></include>	    			
+	    </select> 
+	    
+	   	<!-- 查询作业资源关系表分页总数-->
+		<select id="queryTaskResourcesInfo_COUNT" parameterType="hashmap" resultType="java.util.HashMap"> 
+		        SELECT COUNT(1) AS ROWS_COUNT FROM iplant1.C_IPLANT_WR_T
+	            <where> 1=1
+	            	<if test="CD!=null and CD!='' "> AND CD = '${CD}' </if>
+	            </where>
+	    </select> 
+		<!-- 新增作业资源关系 -->
+		<insert id="insertTaskResourcesInfo" parameterType="java.util.List">
+			INSERT INTO iplant1.C_IPLANT_WR_T ( CD, WORK_CD, PN_CD, PL_CD, WK_PRO_CD, WK_STA_CD )
+			(<foreach collection="list" item="item" index="index" separator="union all">
+				SELECT '${item.CD}','${item.WORK_CD}','${item.PN_CD}','${item.PL_CD}','${item.WK_PRO_CD}','${item.WK_STA_CD}' FROM DUAL 
+			</foreach>)
+		</insert>  
+		<!-- 修改作业资源关系 --> 
+		<update id="updateTaskResourcesInfo" parameterType="java.util.List">
+			<foreach collection="list" item="item" index="index" separator=";">
+				UPDATE iplant1.C_IPLANT_WR_T
+					<set>
+						<if test="item.WORK_CD!=null and item.WORK_CD!=''">
+							WORK_CD='${item.WORK_CD}',
+						</if>
+						<if test="item.WORK_NM!=null and item.WORK_NM!='' ">
+							WORK_NM='${item.WORK_NM}',
+						</if> 
+						<if test="item.WORK_DES!=null and item.WORK_DES!=''">
+							WORK_DES='${item.WORK_DES}',
+						</if> 
+							REMARK='${item.REMARK}',
+							STATUS='${item.STATUS}'
+					</set>
+				<where>
+					CD='${item.CD}'
+				</where>
+			</foreach>
+		</update>
+		<!-- 删除作业资源关系 -->
+		<delete id="deleteTaskResourcesInfo" parameterType="java.util.List">
+			DELETE iplant1.C_IPLANT_WR_T
+			<where>
+				CD='${CD}'
+			</where>
+		</delete>
+		
+		<!-- A7.0  作业组资源关系表信息-->
+		<!-- 查询作业组资源关系表信息 1-->
+<!-- 	    <select id="queryTaskTeamResourcesInfo" parameterType="hashmap" resultType="java.util.HashMap"> 
+	    	<include refid="oraclePagingFileTop"></include>
+				CD, WORK_CD, PN_CD, PL_CD, WK_PRO_CD, WK_STA_CD FROM iplant1.C_IPLANT_GR_T 
+	    	   		<where> 1=1
+	            		<if test="CD!=null and CD!='' "> AND CD = '${CD}' </if>
+ 	            		<if test="WORK_CD!=null and WORK_CD!='' "> AND WORK_CD LIKE '%${WORK_CD}%' </if> 
+	            		<if test="WORK_NM!=null and WORK_NM!='' "> AND WORK_NM LIKE '%${WORK_NM}%' </if>
+	            	</where> ORDER BY CRT_DT DESC 
+	        <include refid="oraclePagingFileBottom"></include>	    			
+	    </select> 
+	    
+	   	查询作业组资源关系表分页总数
+		<select id="queryTaskTeamResourcesInfo_COUNT" parameterType="hashmap" resultType="java.util.HashMap"> 
+		        SELECT COUNT(1) AS ROWS_COUNT FROM iplant1.C_IPLANT_GR_T
+	            <where> 1=1
+	            	<if test="CD!=null and CD!='' "> AND CD = '${CD}' </if>
+	            </where>
+	    </select>  -->
+		<!-- 新增作业组资源关系 -->
+		<insert id="insertTaskTeamResourcesInfo" parameterType="java.util.List">
+			INSERT INTO iplant1.C_IPLANT_WR_T ( CD, WORK_GRO_CD, PN_CD, PL_CD, WK_PRO_CD, WK_STA_CD )
+			(<foreach collection="list" item="item" index="index" separator="union all">
+				SELECT '${item.CD}','${item.WORK_GRO_CD}','${item.PN_CD}','${item.PL_CD}','${item.WK_PRO_CD}','${item.WK_STA_CD}' FROM DUAL 
+			</foreach>)
+		</insert>  
+		<!-- 修改作业组资源关系-->
+		<update id="updateTaskTeamResourcesInfo" parameterType="java.util.List">
+			<foreach collection="list" item="item" index="index" separator=";">
+				UPDATE iplant1.C_IPLANT_GR_T
+					<set>
+						<if test="item.CD !=null and item.CD !=''">
+							CD='${item.CD}',
+						</if>
+						<if test="item.WORK_GRO_CD !=null and item.WORK_GRO_CD !='' ">
+							WORK_GRO_CD='${item.WORK_GRO_CD}',
+						</if> 
+						<if test="item.PN_CD !=null and item.PN_CD !=''">
+							PN_CD='${item.PN_CD}',
+						</if> 
+							PL_CD='${item.PL_CD}',
+							WK_PRO_CD='${item.WK_PRO_CD}',
+							WK_STA_CD='${item.WK_STA_CD}'
+					</set>
+				<where>
+					CD='${item.CD}'
+				</where>
+			</foreach>
+		</update>
+		<!-- 删除作业组资源关系 -->
+		<delete id="deleteTaskTeamResourcesInfo" parameterType="java.util.List">
+			DELETE iplant1.C_IPLANT_GR_T
+			<where>
+				CD='${CD}'
+			</where>
+		</delete>
+			
+</mapper>

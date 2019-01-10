@@ -1,0 +1,13 @@
+{
+    "RESPONSE": [
+        {
+            "RESPONSE_DATA": [
+                {
+                    "normal_bg_color": "#66CC66",
+                    "abnormal_bg_color":"#CCCCCC",
+                    "stop_bg_color":"#CCCCCC"
+                }
+            ]
+        }
+    ]
+}

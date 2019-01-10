@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ifss>
+	<ifs ifs_code="MES_SD000011" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryScadaDip" biz_method="" serial_no="1" biz_name="queryScadaDip" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<ifs ifs_code="MES_SD000012" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryScadaDipCellsTotal" biz_method="" serial_no="1" biz_name="queryScadaDipCellsTotal" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<ifs ifs_code="MES_SD000013" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryScadaDipMaterialTotal" biz_method="" serial_no="1" biz_name="queryScadaDipMaterialTotal" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+</ifss>

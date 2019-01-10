@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="">
+     <!-- 新增SPC项目列表信息 -->
+	<insert id="INSERT_MES_SPCPROJECTLIST" parameterType="hashmap">
+		INSERT INTO MES1.R_SPCPROJECTLIST_T
+	     (    
+			  SPCPROJECT_ID   ,
+			  SPCPROJECT_NAME ,
+			  SPCPROJECT_DESC ,
+			  SPCPROJECT_TYPE ,
+			  SAMPLE_NUMBER   ,
+			  GROUP_NUMBER    ,
+			  DECIMAL_DIGITS  ,
+			  DISPLAY_CP      ,
+			  DISPLAY_CPK     ,
+			  DISPLAY_PP      ,
+			  DISPLAY_PPK     ,
+			  NGDEFECT_GROUP  ,
+			  NG_DEFECT_A     ,
+			  NG_DEFECT_B     ,
+			  NG_DEFECT_C     ,
+			  NG_DEFECT_D     ,
+			  NG_DEFECT_E     ,
+			  CONTROL_LINE    ,
+			  GAUGE_LINE      ,
+			  EARLY_WARNING_C ,
+			  EW_FORMAT_C     ,
+			  EARLY_WARNING_D ,
+			  EW_FORMAT_D     ,
+			  EARLY_WARNING_E ,
+			  EW_FORMAT_E     ,
+			  CRT_ID          ,
+			  CRT_DT                  
+          
+		)
+		SELECT
+		       ${ID} ,
+			  '${SPCPROJECT_NAME}' ,
+			  '${SPCPROJECT_DESC}' ,
+			  '${SPCPROJECT_TYPE}' ,
+			  '${SAMPLE_NUMBER}'   ,
+			  '${GROUP_NUMBER}'    ,
+			  '${DECIMAL_DIGITS}'  ,
+			  '${DISPLAY_CP}'      ,
+			  '${DISPLAY_CPK}'     ,
+			  '${DISPLAY_PP}'      ,
+			  '${DISPLAY_PPK}'     ,
+			  '${NGDEFECT_GROUP}'  ,
+			  '${NG_DEFECT_A}'     ,
+			  '${NG_DEFECT_B}'     ,
+			  '${NG_DEFECT_C}'     ,
+			  '${NG_DEFECT_D}'     ,
+			  '${NG_DEFECT_E}'     ,
+			  '${CONTROL_LINE}'    ,
+			  '${GAUGE_LINE}'      ,
+			  '${EARLY_WARNING_C}' ,
+			  '${EW_FORMAT_C}'     ,
+			  '${EARLY_WARNING_D}' ,
+			  '${EW_FORMAT_D}'     ,
+			  '${EARLY_WARNING_E}' ,
+			  '${EW_FORMAT_E}'     ,
+			  '${F_USE_CD}',
+			   SYSDATE
+			FROM DUAL 
+	</insert>
+   <!--查询SPC项目列表信息 -->
+	<select id="select_MES_SPCPROJECTLIST" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT 		
+			  SPCPROJECT_ID   ,
+			  SPCPROJECT_NAME ,
+			  SPCPROJECT_DESC ,
+			  SPCPROJECT_TYPE ,
+			  SAMPLE_NUMBER   ,
+			  GROUP_NUMBER    ,
+			  DECIMAL_DIGITS  ,
+			  DISPLAY_CP      ,
+			  DISPLAY_CPK     ,
+			  DISPLAY_PP      ,
+			  DISPLAY_PPK     ,
+			  NGDEFECT_GROUP  ,
+			  NG_DEFECT_A     ,
+			  NG_DEFECT_B     ,
+			  NG_DEFECT_C     ,
+			  NG_DEFECT_D     ,
+			  NG_DEFECT_E     ,
+			  CONTROL_LINE    ,
+			  GAUGE_LINE      ,
+			  EARLY_WARNING_C ,
+			  EW_FORMAT_C     ,
+			  EARLY_WARNING_D ,
+			  EW_FORMAT_D     ,
+			  EARLY_WARNING_E ,
+			  EW_FORMAT_E     ,
+			  CRT_ID          ,
+			  TO_CHAR(CRT_DT,'YYYY-MM-DD HH24:MI:SS') CREATE_DATE,
+			  UPT_ID          ,
+			  TO_CHAR(UPT_DT,'YYYY-MM-DD HH24:MI:SS') UPDATE_DATE    
+           FROM MES1.R_SPCPROJECTLIST_T
+		
+		<where>
+			1=1
+			<if test="SPCPROJECT_NAME !=null and SPCPROJECT_NAME !=''">
+				and SPCPROJECT_NAME like '%${SPCPROJECT_NAME}%' 
+			</if>
+		</where>
+		
+	</select>
+	
+	
+	<!-- 修改检验模板清单 -->
+	<update id="update_MES_SPCPROJECTLIST" parameterType="java.util.HashMap">		
+		update MES1.R_SPCPROJECTLIST_T
+		<set>
+	     	<if test="SPCPROJECT_NAME!=null and SPCPROJECT_NAME!=''">
+	     		SPCPROJECT_NAME='${SPCPROJECT_NAME}',
+	     	</if>
+	     	
+	     	<if test="SPCPROJECT_DESC!=null and SPCPROJECT_DESC!=''">
+	     		SPCPROJECT_DESC='${SPCPROJECT_DESC}',
+	     	</if>
+	     	
+	     	<if test="SPCPROJECT_TYPE!=null and SPCPROJECT_TYPE!=''">
+	     		SPCPROJECT_TYPE='${SPCPROJECT_TYPE}',
+	     	</if>
+	     	
+	     	<if test="SAMPLE_NUMBER!=null and SAMPLE_NUMBER!=''">
+	     		SAMPLE_NUMBER='${SAMPLE_NUMBER}',
+	     	</if>
+	     	
+	     	<if test="GROUP_NUMBER!=null and GROUP_NUMBER!=''">
+	     		GROUP_NUMBER='${GROUP_NUMBER}',
+	     	</if>
+	     	
+	     	<if test="DECIMAL_DIGITS!=null and DECIMAL_DIGITS!=''">
+	     		DECIMAL_DIGITS='${DECIMAL_DIGITS}',
+	     	</if>
+	     		DISPLAY_CP='${DISPLAY_CP}',
+	     		DISPLAY_CPK='${DISPLAY_CPK}',
+	     		DISPLAY_PP='${DISPLAY_PP}',
+	     		DISPLAY_PPK='${DISPLAY_PPK}',
+	     	<if test="NGDEFECT_GROUP!=null and NGDEFECT_GROUP!=''">
+	     		NGDEFECT_GROUP='${NGDEFECT_GROUP}',
+	     	</if>
+	     	
+	     	<if test="NG_DEFECT_A!=null and NG_DEFECT_A!=''">
+	     		NG_DEFECT_A='${NG_DEFECT_A}',
+	     	</if>
+	     	
+	     	<if test="NG_DEFECT_B!=null and NG_DEFECT_B!=''">
+	     		NG_DEFECT_B='${NG_DEFECT_B}',
+	     	</if>
+	     	
+	        <if test="NG_DEFECT_C!=null and NG_DEFECT_C!=''">
+	     		NG_DEFECT_C='${NG_DEFECT_C}',
+	     	</if>
+	     	
+	     	<if test="NG_DEFECT_D!=null and NG_DEFECT_D!=''">
+	     		NG_DEFECT_D='${NG_DEFECT_D}',
+	     	</if>
+	     	
+	     	<if test="NG_DEFECT_E!=null and NG_DEFECT_E!=''">
+	     		NG_DEFECT_E='${NG_DEFECT_E}',
+	     	</if>	    	     	
+	     		CONTROL_LINE='${CONTROL_LINE}',	
+	     		GAUGE_LINE='${GAUGE_LINE}',
+	     		EARLY_WARNING_C='${EARLY_WARNING_C}',
+	     	
+	     	<if test="EW_FORMAT_C!=null and EW_FORMAT_C!=''">
+	     		EW_FORMAT_C='${EW_FORMAT_C}',
+	     	</if>
+	     		EARLY_WARNING_D='${EARLY_WARNING_D}',    	
+	     	<if test="EW_FORMAT_D!=null and EW_FORMAT_D!=''">
+	     		EW_FORMAT_D='${EW_FORMAT_D}',
+	     	</if>	
+	     		EARLY_WARNING_E='${EARLY_WARNING_E}',
+	     	
+	     	<if test="EW_FORMAT_E!=null and EW_FORMAT_E!=''">
+	     		EW_FORMAT_E='${EW_FORMAT_E}',
+	     	</if>
+			UPT_ID = '${F_USE_CD}',
+			UPT_DT = SYSDATE
+		</set>
+		<where>
+			SPCPROJECT_ID = ${ID}
+		</where>	
+	</update>
+	
+	 <!--删除SPC项目列表信息 -->
+	<delete id="delete_MES_SPCPROJECTLIST" parameterType="java.util.HashMap">
+		DELETE MES1.R_SPCPROJECTLIST_T
+		WHERE SPCPROJECT_ID IN
+		<foreach item="item" collection="list" open="(" separator="," close=")"> 
+        #{item.SPCPROJECT_ID}
+      </foreach>
+	</delete>
+	
+	
+	
+	
+	<!-- 新增SPC任务列表信息 -->
+	<insert id="INSERT_MES_SPCTASKLIST" parameterType="hashmap">
+		INSERT INTO MES1.WMS_SPCTASKLIST
+	     (    
+			  SPCTASKLISTID   ,
+			  PROJECTNAME ,
+			  TASKNAME ,
+			  TASKNUMBER ,
+			  WORKPROCEDURE   ,
+			  YN    ,
+			  INTERVALTIME  ,
+			  LINE      ,
+			  USL     ,
+			  LSL      ,
+			  MO     ,
+			  CRT_ID          ,
+			  CRT_DT                  
+          
+		)
+		SELECT
+		        MES1.SPCTASKLISTID.Nextval,
+			  '${PROJECTNAME}' ,
+			  '${TASKNAME}' ,
+			  '${TASKNUMBER}' ,
+			  '${WORKPROCEDURE}'   ,
+			  '${YN}'    ,
+			  '${INTERVALTIME}'  ,
+			  '${LINE}'      ,
+			  '${USL}'     ,
+			  '${LSL}'      ,
+			  '${MO}'     ,
+			  '${F_USE_CD}',
+			   SYSDATE
+			FROM DUAL 
+	</insert>
+   <!--查询SPC任务列表信息 -->
+	<select id="select_MES_SPCTASKLIST" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT 		
+			  SPCTASKLISTID   ,
+			  PROJECTNAME ,
+			  TASKNAME ,
+			  TASKNUMBER ,
+			  WORKPROCEDURE   ,
+			  YN    ,
+			  INTERVALTIME  ,
+			  LINE      ,
+			  USL     ,
+			  LSL      ,
+			  MO     ,
+			  CRT_ID          ,
+			  TO_CHAR(CRT_DT,'YYYY-MM-DD HH24:MI:SS') CREATE_DATE,
+			  UPT_ID          ,
+			  TO_CHAR(UPT_DT,'YYYY-MM-DD HH24:MI:SS') UPDATE_DATE    
+           FROM MES1.WMS_SPCTASKLIST
+		<where>
+			1=1
+			<if test="PROJECTNAME !=null and PROJECTNAME !=''">
+				and PROJECTNAME like '%${PROJECTNAME}%' 
+			</if>
+			<if test="TASKNAME !=null and TASKNAME !=''">
+				and TASKNAME like '%${TASKNAME}%' 
+			</if>
+		</where>
+		
+	</select>
+	
+	
+	<!-- 修改SPC任务列表 -->
+	<update id="update_MES_SPCTASKLIST" parameterType="java.util.HashMap">		
+		update MES1.WMS_SPCTASKLIST
+		<set>
+	     	<if test="PROJECTNAME !=null and PROJECTNAME !=''">
+	     		PROJECTNAME='${PROJECTNAME}',
+	     	</if>
+	     	
+	     	<if test="TASKNAME  !=null and TASKNAME !=''">
+	     		TASKNAME='${TASKNAME}',
+	     	</if>
+	     	
+	     	<if test="TASKNUMBER !=null and TASKNUMBER !=''">
+	     		TASKNUMBER='${TASKNUMBER}',
+	     	</if>
+	     	
+	     	<if test="WORKPROCEDURE !=null and WORKPROCEDURE !=''">
+	     		WORKPROCEDURE='${WORKPROCEDURE}',
+	     	</if>
+	     	
+	     	<if test="YN !=null and YN !=''">
+	     		YN='${YN}',
+	     	</if>
+	     	
+	     	<if test="INTERVALTIME !=null and INTERVALTIME !=''">
+	     		INTERVALTIME='${INTERVALTIME}',
+	     	</if>
+	     	<if test="LINE !=null and LINE !=''">
+	     		LINE='${LINE}',
+	     	</if>
+	     	
+	     	<if test="USL !=null and USL !=''">
+	     		USL='${USL}',
+	     	</if>
+	     	
+	     	<if test="LSL !=null and LSL !=''">
+	     		LSL='${LSL}',
+	     	</if>
+	     	
+	        <if test="MO !=null and MO !=''">
+	     		MO='${MO}',
+	     	</if>
+			UPT_ID = '${F_USE_CD}',
+			UPT_DT = SYSDATE
+		</set>
+		<where>
+			SPCTASKLISTID = ${SPCTASKLISTID}
+		</where>	
+	</update>
+	
+	 <!--删除SPC任务列表信息 -->
+	<delete id="delete_MES_SPCTASKLIST" parameterType="java.util.HashMap">
+		DELETE MES1.WMS_SPCTASKLIST
+		WHERE SPCTASKLISTID IN
+		<foreach item="item" collection="list" open="(" separator="," close=")"> 
+        #{item.SPCTASKLISTID}
+      </foreach>
+	</delete>
+</mapper>

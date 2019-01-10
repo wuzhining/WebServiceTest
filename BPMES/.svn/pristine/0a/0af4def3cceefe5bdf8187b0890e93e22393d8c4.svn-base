@@ -1,0 +1,191 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<engines>
+
+	<engine engine_code="saveMoBomAndReqMat" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="saveMoBomAndReqMat" >
+	</engine>
+	
+	<engine engine_code="scaneMatYn" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="scaneMatYn" >
+	</engine>
+	<engine engine_code="APPScreenMonitor" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="APPScreenMonitor" >
+	</engine>
+	
+	<engine engine_code="ScreenMonitorTOT" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="ScreenMonitorTOT" >
+	</engine>
+	
+	<engine engine_code="APPScanningassembly" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="APPScanningassembly" >
+	</engine>	
+	<engine engine_code="APPpicking" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="APPpicking" >
+	</engine>
+	<engine engine_code="APPTest" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="APPTest" >
+	</engine>
+	<!-- ===============新物料信息================= -->
+	<!-- 查询新物料信息 -->
+	<engine engine_code="queryNewMaterial" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryNewMaterial" >
+	</engine>	
+	<!-- 查询新物料类型 -->
+	<engine engine_code="queryNewMaterialType" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryNewMaterialType" >
+	</engine>
+	<!-- 查询新物料单位 -->
+	<engine engine_code="queryNewMaterialUnit" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryNewMaterialUnit" >
+	</engine>
+	<!-- 新物料验证编码条形码 -->
+	<engine engine_code="newMaterialValidate" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="newMaterialValidate" >
+	</engine>	
+	<!-- 新增新物料信息 -->
+	<engine engine_code="insertNewMaterial" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="insertNewMaterial" >
+	</engine>	
+	<!-- 修改新物料信息 -->
+	<engine engine_code="materialNewUpdate" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="materialNewUpdate" >
+	</engine>
+   	<!-- 删除新物料信息 -->
+	<engine engine_code="deleteNewMaterial" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="deleteNewMaterial" >
+	</engine>	
+	
+    <!-- 物料申请明细表 -->
+	<!-- 物料申请明细表查询 -->
+	<engine engine_code="queryMaterialApplicationDetail" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryMaterialApplicationDetail" >
+	</engine>
+    <!-- 物料申请明细表新增 -->
+	<engine engine_code="insertMaterialApplicationDetail" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="insertMaterialApplicationDetail" >
+	</engine>
+	<!-- 物料申请明细表修改-->
+	<engine engine_code="updateMaterialApplicationDetail" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="updateMaterialApplicationDetail" >
+	</engine>
+	<!-- 物料申请明细表删除-->
+	<engine engine_code="deleteMaterialApplicationDetail" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="deleteMaterialApplicationDetail" >
+	</engine>
+	
+	<!--物料申请明细表与新物料信息关联查询  -->
+	<engine engine_code="searchMaterialDetailRelationNewMaterial" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="searchMaterialDetailRelationNewMaterial" >
+	</engine>
+	
+	
+	<!-- 测试工序结果判断表 -->
+	<!-- 测试工序结果判断表查询 -->
+	<engine engine_code="queryTestProcedureResult" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryTestProcedureResult" >
+	</engine>
+	<!-- 测试工序结果判断表新增 -->
+	<engine engine_code="insertTestProcedureResult" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="insertTestProcedureResult" >
+	</engine>
+	<!-- 测试工序结果判断表修改 -->
+	<engine engine_code="updateTestProcedureResult" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="updateTestProcedureResult" >
+	</engine>
+	<!-- 测试工序结果判断表删除 -->
+	<engine engine_code="deleteTestProcedureResult" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="deleteTestProcedureResult" >
+	</engine>
+	
+	<!-- 工单物料扫描信息表 -->
+	<!-- 查询工单扫描信息 -->
+	<engine engine_code="queryWorkorderScanning" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryWorkorderScanning" >
+	</engine>
+	<!-- 新增工单扫描信息 -->
+	<engine engine_code="insertWorkorderScanning" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertWorkorderScanning" >
+	</engine>
+	<!-- 修改工单扫描信息 -->
+	<engine engine_code="updateWorkorderScanning" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateWorkorderScanning" >
+	</engine>
+	<!-- 批量新增工单扫描信息 -->
+	<engine engine_code="insertWorkorderScanningS" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertWorkorderScanningS" >
+	</engine>
+	<!-- 批量修改工单扫描信息 -->
+	<engine engine_code="updateWorkorderScanningS" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateWorkorderScanningS" >
+	</engine>
+	<!-- 删除工单扫描信息 -->
+	<engine engine_code="deleteWorkorderScanning" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteWorkorderScanning" >
+	</engine>
+	
+	<!-- 工艺信息维护 -->
+	<!-- 查询工艺信息维护 -->
+	<engine engine_code="queryProcessinformationmaintenance" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryProcessinformationmaintenance" >
+	</engine>
+	<!-- 新增工艺信息维护 -->
+	<engine engine_code="insertProcessinformationmaintenance" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertProcessinformationmaintenance" >
+	</engine>
+	<!-- 修改工艺信息维护 -->
+	<engine engine_code="updateProcessinformationmaintenance" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateProcessinformationmaintenance" >
+	</engine>
+	<!-- 删除工艺信息维护 -->
+	<engine engine_code="deleteProcessinformationmaintenance" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteProcessinformationmaintenance" >
+	</engine>
+	
+	<!-- 工单对应的设备编码 -->
+	<!-- 查询工单对应的设备编码 -->
+	<engine engine_code="queryWorkorderToDevicecode" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryWorkorderToDevicecode" >
+	</engine>
+	<!-- 新增工单对应的设备编码 -->
+	<engine engine_code="insertWorkorderToDevicecode" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertWorkorderToDevicecode" >
+	</engine>
+	<!-- 修改工单对应的设备编码 -->
+	<engine engine_code="updateWorkorderToDevicecode" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateWorkorderToDevicecode" >
+	</engine>
+	<!-- 删除工单对应的设备编码 -->
+	<engine engine_code="deleteWorkorderToDevicecode" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteWorkorderToDevicecode" >
+	</engine>
+	<engine engine_code="queryProcessinformationmaintenanceassembling" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryProcessinformationmaintenanceassembling" >
+	</engine>
+	<!-- 异型插件机制造模块看板 -->
+	<engine engine_code="querySpecialPlug-inMachineManufacturingModuleBoard" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querySpecialPlug-inMachineManufacturingModuleBoard" >
+	</engine>
+	<!-- 异型插件机模块用量看板 -->
+	<engine engine_code="querySpecialPluginMachineModuleConsumption" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querySpecialPluginMachineModuleConsumption" >
+	</engine>
+	<!-- 异型插件机生产工单看板 -->
+	<engine engine_code="queryProductionorderKanban" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryProductionorderKanban" >
+	</engine>
+
+	<!-- PDA pcb条码跟包装批次号绑定 -->
+	<engine engine_code="InserSNBATCH_P" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="InserSNBATCH_P" >
+	</engine>
+	
+     <!-- PDA 载具绑定产品条码新增-->
+	<engine engine_code="InserCareSnBind_P" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="InserCareSnBind_P" >
+	</engine>
+	
+	  <!-- PDA 载具与sn号绑定 -->
+	<engine engine_code="R_SN_STATION_P" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="R_SN_STATION_P" >
+	</engine>
+	
+	
+	<!-- PDA 无载具绑定产品过站 -->
+	<engine engine_code="R_SN_STATION_NO_CARE_P" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="R_SN_STATION_NO_CARE_P" >
+	</engine>
+	
+	 <!-- PDA按工单号和线别查出产品对应的工序路线  -->
+	<engine engine_code="queryProcedureRoute" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryProcedureRoute" >
+	</engine>
+	
+	<!-- PDA pcb已扫描过的批次号  -->
+	<engine engine_code="queryScanBatchNumber" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryScanBatchNumber" >
+	</engine>
+		
+	 <!-- PDA 载具与产品解除绑定  -->
+	<engine engine_code="DeleteCareSnUntie_P" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="DeleteCareSnUntie_P" >
+	</engine>
+	
+	<!-- PDA 组装过站和条码绑定  -->
+	<engine engine_code="R_SN_ZZ_STATION_P" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="R_SN_ZZ_STATION_P" >
+	</engine>
+	
+	<!-- PDA 周装箱与SN条码绑定  -->
+	<engine engine_code="R_MES_BOX_SN_BIND_INSERT_P" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="R_MES_BOX_SN_BIND_INSERT_P" >
+	</engine>
+	
+    <!-- PDA DIP段过站和条码绑定  -->
+	<engine engine_code="R_SN_PID_STATION_P" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="R_SN_PID_STATION_P" >
+	</engine>
+	
+	
+	<!--获取产品条码SN与机器数据绑定AOI -->
+	<engine engine_code="MACHINE_AOI_SN_BIND" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="MACHINE_AOI_SN_BIND" >
+	</engine>
+	
+	
+	 <!--获取产品条码SN与机器数据绑定AOI -->
+	<engine engine_code="MACHINE_SPI_SN_BIND" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="MACHINE_SPI_SN_BIND" >
+	</engine>
+	
+     <!--获取产品条码SN与机器数据绑定YX -->
+	<engine engine_code="MACHINE_YX_SN_BIND" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="MACHINE_YX_SN_BIND" >
+	</engine>
+	
+</engines>

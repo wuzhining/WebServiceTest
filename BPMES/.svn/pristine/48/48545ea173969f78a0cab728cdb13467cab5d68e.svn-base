@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<engines>
+<!-- 查询设备保养计划-->
+	<engine engine_code="queryEquipmentMaintenancePlan" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="queryEquipmentMaintenancePlan" >
+	</engine>
+<!-- 新增设备保养计划 -->
+	<engine engine_code="addEquipmentMaintenancePlan" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="addEquipmentMaintenancePlan" >
+	</engine>
+<!-- 修改设备保养计划 -->
+	<engine engine_code="updateEquipmentMaintenancePlan" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="updateEquipmentMaintenancePlan" >
+	</engine>
+<!-- 删除设备保养计划 -->
+	<engine engine_code="deleteEquipmentMaintenancePlan" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="deleteEquipmentMaintenancePlan" >
+	</engine>
+</engines>

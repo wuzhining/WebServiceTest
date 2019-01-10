@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="">
+    <!-- A5 明细查询 -->
+    <!-- A5.1	刷卡数据-->
+    <!-- 刷卡数据查询 -->  
+	    <select id="queryCard" parameterType="hashmap" resultType="java.util.HashMap">
+	            <include refid="oraclePagingFileTop"></include>
+	                FF.*     
+	                  FROM 
+	                   (
+	                 SELECT
+	                   T1.ET_CD,
+	                   T2.ET_NM,
+	                   T2.PL_CD,
+	                   T1.DO_CD,
+	                   CASE
+	                     WHEN T1.STP_YN ='1' THEN '停机类型'
+	                     WHEN T1.STP_YN ='0' THEN '非停机类型'
+	                     ELSE '计划停机'
+	                   END AS STP_YN,
+	                   T1.CL_NM,
+ 	                   TPM1.MINUTETODAY(NVL (T1.CL_WT,0)) AS CL_WT , 	                   	                    
+	                   TO_CHAR(T1.CL_BGN_DATE,'YYYY-MM-DD HH24:MI:SS') AS CL_BGN_DATE,
+	                   T1.BGN_EMP,
+	                   TO_CHAR(T1.CL_END_DATE,'YYYY-MM-DD HH24:MI:SS') AS CL_END_DATE,
+	                   T1.END_EMP,
+                       T4.EMP_NM AS EMP_BGN_NM,
+                       T6.EMP_NM AS EMP_END_NM   
+                FROM TPM2.H_TPM_C1_T T1
+                LEFT JOIN iplant1.C_IPLANT_E2_T T2 ON T1.ET_CD=T2.ET_CD                                
+                LEFT JOIN iplant1.C_IPLANT_E1_T T4 ON T1.BGN_EMP=T4.EMP_CD
+                LEFT JOIN iplant1.C_IPLANT_E1_T T6 ON T1.END_EMP=T6.EMP_CD                
+	            <where>
+	    		      1=1
+	    			<if test="CL_NM !=null and CL_NM !='' ">
+	    				AND T1.CL_NM='${CL_NM}'	
+	    			</if>
+	    			<if test="ET_CD !=null and ET_CD !='' ">
+	    				AND T1.ET_CD='${ET_CD}'	
+	    			</if>
+	    			<if test="DO_CD !=null and DO_CD !='' ">
+	    				AND T1.DO_CD='${DO_CD}'	
+	    			</if>
+	    			<if test="PL_CD !=null and PL_CD !='' ">
+	    				AND T2.PL_CD='${PL_CD}'	
+	    			</if>
+	    			<if test="BGN_EMP !=null and BGN_EMP !='' ">
+	    				AND T1.BGN_EMP LIKE '%${BGN_EMP}%'	
+	    			</if>
+	    			<if test="END_EMP !=null and END_EMP !='' ">
+	    				AND T1.END_EMP ='%${END_EMP}%'	
+	    			</if>
+	    			<if test="CL_BGN_DATE !=null and CL_BGN_DATE !='' ">
+	    				AND T1.CL_BGN_DATE >=TO_DATE('${CL_BGN_DATE}','YYYY-MM-DD HH24:MI:SS')
+	    			</if> 
+	    			<if test="CL_END_DATE !=null and CL_END_DATE !='' ">
+	    				AND T1.CL_END_DATE &lt;=TO_DATE('${CL_END_DATE}','YYYY-MM-DD HH24:MI:SS')
+	    			</if> 
+ 	    			    ORDER BY T1.CL_BGN_DATE DESC 
+	    	    </where>
+	    	    )FF
+	    	 <include refid="oraclePagingFileBottom"></include> 	    	           
+	    </select>
+	<!-- 查询刷卡数据分页总数 -->
+	    <select id="queryCard_COUNT" parameterType="hashmap" resultType="java.util.HashMap" >
+	            SELECT 
+	               COUNT(1) AS ROWS_COUNT
+                FROM TPM2.H_TPM_C1_T T1
+                LEFT JOIN iplant1.C_IPLANT_E2_T T2 ON T1.ET_CD=T2.ET_CD                                
+                LEFT JOIN iplant1.C_IPLANT_E1_T T4 ON T1.BGN_EMP=T4.EMP_CD
+                LEFT JOIN iplant1.C_IPLANT_E1_T T6 ON T1.END_EMP=T6.EMP_CD    
+	            <where>
+	    		      1=1
+	    			<if test="CL_NM !=null and CL_NM !='' ">
+	    				AND T1.CL_NM='${CL_NM}'	
+	    			</if>
+	    			<if test="ET_CD !=null and ET_CD !='' ">
+	    				AND T1.ET_CD='${ET_CD}'	
+	    			</if>
+	    			<if test="DO_CD !=null and DO_CD !='' ">
+	    				AND T1.DO_CD='${DO_CD}'	
+	    			</if>
+	    			<if test="PL_CD !=null and PL_CD !='' ">
+	    				AND T2.PL_CD='${PL_CD}'	
+	    			</if>
+	    			<if test="BGN_EMP !=null and BGN_EMP !='' ">
+	    				AND T1.BGN_EMP LIKE '%${BGN_EMP}%'	
+	    			</if>
+	    			<if test="END_EMP !=null and END_EMP !='' ">
+	    				AND T1.END_EMP ='%${END_EMP}%'	
+	    			</if>
+	    			<if test="CL_BGN_DATE !=null and CL_BGN_DATE !='' ">
+	    				AND T1.CL_BGN_DATE >=TO_DATE('${CL_BGN_DATE}','YYYY-MM-DD HH24:MI:SS')
+	    			</if> 
+	    			<if test="CL_END_DATE !=null and CL_END_DATE !='' ">
+	    				AND T1.CL_END_DATE &lt;=TO_DATE('${CL_END_DATE}','YYYY-MM-DD HH24:MI:SS')
+	    			</if> 
+ 	    			    ORDER BY T1.CL_BGN_DATE DESC 
+	    	    </where>
+	    </select>
+	<!-- A5.2	生产记录-->
+    <!-- 生产记录查询 -->
+	    <select id="queryProductionRecords" parameterType="hashmap" resultType="java.util.HashMap" >
+	            <include refid="oraclePagingFileTop"></include>
+                      FF.*
+                        FROM
+                         (
+                         SELECT   
+                           T1.DO_CD,
+		                   T1.ET_CD,
+		                   T3.ET_NM,
+		                   T3.PL_CD,
+		                   T1.MO_CD,
+		                   T1.PT_CD,
+		                   T2.PT_NM,
+		                   T4.PD_TT_NUM,
+		                   T1.TP1,
+		                   T1.TP2,		                   
+		                   TO_CHAR(T1.PD_BGN_CL,'YYYY-MM-DD HH24:MI:SS') AS PD_BGN_CL,		                   
+		                   TO_CHAR(T1.PD_END_CL,'YYYY-MM-DD HH24:MI:SS') AS PD_END_CL,
+		                   T1.PD_CL,
+		                   T1.PD_NT,
+		                   TO_CHAR(T1.CRT_DT,'YYYY-MM-DD HH24:MI:SS') AS CRT_DT
+		                 FROM TPM2.H_TPM_D2_T T1
+		                 LEFT JOIN TPM1.R_TPM_D1_T T2 ON T1.MO_CD=T2.MO_CD
+		                                             AND T1.DO_CD=T2.DO_CD
+		                                             AND T1.ET_CD=T2.ET_CD
+		                                             AND T1.PT_CD=T2.PT_CD
+		                 LEFT JOIN iplant1.C_IPLANT_E2_T T3 ON T1.ET_CD=T3.ET_CD
+		                 LEFT JOIN TPM1.R_TPM_D2_T T4 ON T1.MO_CD=T4.MO_CD
+		                                             AND T1.DO_CD=T4.DO_CD
+		                                             AND T1.ET_CD=T4.ET_CD
+		                                             AND T1.PT_CD=T4.PT_CD
+                 <where>
+	    		      1=1	    		
+	    			<if test="ET_CD !=null and ET_CD !='' ">
+	    				AND T1.ET_CD = '${ET_CD}'	
+	    			</if>
+	    			<if test="DO_CD !=null and DO_CD !='' ">
+	    				AND T1.DO_CD='${DO_CD}'	
+	    			</if>
+	    			<if test="PL_CD !=null and PL_CD !='' ">
+	    				AND T3.PL_CD='${PL_CD}'	
+	    			</if>	    			
+	    			<if test="PD_BGN_CL !=null and PD_BGN_CL !='' ">
+	    				AND T1.PD_BGN_CL >=TO_DATE('${PD_BGN_CL}','YYYY-MM-DD HH24:MI:SS')
+	    			</if> 
+	    			<if test="PD_END_CL !=null and PD_END_CL !='' ">
+	    				AND T1.PD_END_CL &lt;=TO_DATE('${PD_END_CL}','YYYY-MM-DD HH24:MI:SS')
+	    			</if>  	    			    			    			 
+	    		</where>
+	    		        <!-- ORDER BY T1.PD_BGN_CL DESC  -->	
+	    		)FF	    		      		       
+	    	<include refid="oraclePagingFileBottom"></include>  	    	             
+	    </select>
+	<!-- 查询生产记录分页总数 -->
+	    <select id="queryProductionRecords_COUNT" parameterType="hashmap" resultType="java.util.HashMap" >
+	            SELECT COUNT(1) AS ROWS_COUNT
+                 FROM TPM2.H_TPM_D2_T T1
+		                 LEFT JOIN TPM1.R_TPM_D1_T T2 ON T1.MO_CD=T2.MO_CD
+		                                             AND T1.DO_CD=T2.DO_CD
+		                                             AND T1.ET_CD=T2.ET_CD
+		                                             AND T1.PT_CD=T2.PT_CD
+		                 LEFT JOIN iplant1.C_IPLANT_E2_T T3 ON T1.ET_CD=T3.ET_CD
+		                 LEFT JOIN TPM1.R_TPM_D2_T T4 ON T1.MO_CD=T4.MO_CD
+		                                             AND T1.DO_CD=T4.DO_CD
+		                                             AND T1.ET_CD=T4.ET_CD
+		                                             AND T1.PT_CD=T4.PT_CD
+                 <where>
+	    		         1=1	    		
+	    			<if test="ET_CD !=null and ET_CD !='' ">
+	    				AND T1.ET_CD = '${ET_CD}'	
+	    			</if>
+	    			<if test="DO_CD !=null and DO_CD !='' ">
+	    				AND T1.DO_CD='${DO_CD}'	
+	    			</if>
+	    			<if test="PL_CD !=null and PL_CD !='' ">
+	    				AND T3.PL_CD='${PL_CD}'	
+	    			</if>	    			
+	    			<if test="PD_BGN_CL !=null and PD_BGN_CL !='' ">
+	    				AND T1.PD_BGN_CL >=TO_DATE('${PD_BGN_CL}','YYYY-MM-DD HH24:MI:SS')
+	    			</if> 
+	    			<if test="PD_END_CL !=null and PD_END_CL !='' ">
+	    				AND T1.PD_END_CL &lt;=TO_DATE('${PD_END_CL}','YYYY-MM-DD HH24:MI:SS')
+	    			</if>  
+	    			    <!-- ORDER BY T1.PD_BGN_CL DESC   -->		    			    			
+	    		</where> 	    		 
+	    </select>
+	    
+	<!-- A5.3	次品记录-->
+    <!-- 次品记录查询 -->  
+	    <select id="queryDefective" parameterType="hashmap" resultType="java.util.HashMap">
+	           <include refid="oraclePagingFileTop"></include>		    			      				              
+				        FF.*
+				         FROM
+				          (
+				         SELECT 
+					          T1.DO_CD,
+					          T1.MO_CD,
+					          T1.PT_CD,
+					          T4.PT_NM,
+					          T2.PL_CD,
+					          T1.ET_CD,
+					          T2.ET_NM,
+					          T1.BR_CD,
+					          T1.BR_NM,
+					          T4.DO_NUM,
+					          T3.PD_TT_NUM,
+					          T1.BR_NUM,
+					          TO_CHAR(T1.CL_DT,'YYYY-MM-DD HH24:MI:SS') AS CL_DT,				          
+					          CASE
+					              WHEN
+					              ((TRUNC( (TRUNC(T1.BR_NUM,3)  /TRUNC(T3.PD_TT_NUM,3)), 3) )*100 ||'%') LIKE '.%' 
+					              THEN '0'||((TRUNC( (TRUNC(T1.BR_NUM,3)  /TRUNC(T3.PD_TT_NUM,3)), 3) )*100 ||'%') 
+					              ELSE ((TRUNC( (TRUNC(T1.BR_NUM,3)  /TRUNC(T3.PD_TT_NUM,3)), 3) )*100 ||'%') 
+					          END                     AS BADFINISHRATE
+				          FROM TPM2.H_TPM_B1_T T1
+				          LEFT JOIN iplant1.C_IPLANT_E2_T T2 ON T1.ET_CD=T2.ET_CD
+				          LEFT JOIN TPM1.R_TPM_D2_T T3  ON T1.DO_CD=T3.DO_CD
+				                                       AND T1.MO_CD=T3.MO_CD
+				                                       AND T1.ET_CD=T3.ET_CD
+				                                       AND T1.PT_CD=T3.PT_CD
+                          LEFT JOIN TPM1.R_TPM_D1_T T4  ON T1.DO_CD=T4.DO_CD
+				                                       AND T1.MO_CD=T4.MO_CD
+				                                       AND T1.ET_CD=T4.ET_CD
+				                                       AND T1.PT_CD=T4.PT_CD
+		    		<where>
+	    		      1=1	
+	    		      AND T1.BR_NUM !=0   		
+	    			<if test="ET_CD !=null and ET_CD !='' ">
+	    				AND T1.ET_CD = '${ET_CD}'	
+	    			</if>
+	    			<if test="BR_NM !=null and BR_NM !='' ">
+	    				AND T1.BR_NM = '${BR_NM}'	
+	    			</if>
+	    			<if test="DO_CD !=null and DO_CD !='' ">
+	    				AND T1.DO_CD='${DO_CD}'	
+	    			</if>
+	    			<if test="PL_CD !=null and PL_CD !='' ">
+	    				AND T2.PL_CD='${PL_CD}'	
+	    			</if>	    			
+	    			<if test="StartDate !=null and StartDate !='' ">
+	    				AND T1.CL_DT >= TO_DATE('${StartDate}','YYYY-MM-DD HH24:MI:SS')	                  
+	    			</if> 
+	    			<if test="EndDate !=null and EndDate !='' ">
+	    				AND T1.CL_DT &lt;= TO_DATE('${EndDate}','YYYY-MM-DD HH24:MI:SS')	                  
+	    			</if>		    			         			    			
+	    		</where>  
+	    		   ORDER BY T1.CL_DT DESC   
+	    		)FF    
+	    		<include refid="oraclePagingFileBottom"></include> 	
+	    </select> 
+	 <!-- 查询次品记录分页总数 -->
+	    <select id="queryDefective_COUNT" parameterType="hashmap" resultType="java.util.HashMap" >
+	            SELECT 
+	               COUNT(1) AS ROWS_COUNT
+				          FROM TPM2.H_TPM_B1_T T1
+				          LEFT JOIN iplant1.C_IPLANT_E2_T T2 ON T1.ET_CD=T2.ET_CD
+				          LEFT JOIN TPM1.R_TPM_D2_T T3  ON T1.DO_CD=T3.DO_CD
+				                                       AND T1.MO_CD=T3.MO_CD
+				                                       AND T1.ET_CD=T3.ET_CD
+				                                       AND T1.PT_CD=T3.PT_CD
+                          LEFT JOIN TPM1.R_TPM_D1_T T4  ON T1.DO_CD=T4.DO_CD
+				                                       AND T1.MO_CD=T4.MO_CD
+				                                       AND T1.ET_CD=T4.ET_CD
+				                                       AND T1.PT_CD=T4.PT_CD
+			    	<where>
+		    		      1=1	
+		    		      AND T1.BR_NUM !=0     		
+		    			<if test="ET_CD !=null and ET_CD !='' ">
+		    				AND T1.ET_CD = '${ET_CD}'	
+		    			</if>
+		    			<if test="DO_CD !=null and DO_CD !='' ">
+		    				AND T1.DO_CD='${DO_CD}'	
+		    			</if>
+		    			<if test="PL_CD !=null and PL_CD !='' ">
+		    				AND T2.PL_CD='${PL_CD}'	
+		    			</if>	    			
+		    			<if test="StartDate !=null and StartDate !='' ">
+	    				    AND T1.CL_DT >= TO_DATE('${StartDate}','YYYY-MM-DD HH24:MI:SS')	                  
+	    			    </if> 
+	    			    <if test="EndDate !=null and EndDate !='' ">
+	    				    AND T1.CL_DT &lt;= TO_DATE('${EndDate}','YYYY-MM-DD HH24:MI:SS')	                  
+	    			    </if>
+	    			        ORDER BY T1.CL_DT DESC 	        			    			
+		    		 </where>         
+	    </select> 	
+	           
+</mapper>

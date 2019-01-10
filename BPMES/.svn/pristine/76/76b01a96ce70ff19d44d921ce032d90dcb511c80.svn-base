@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>大屏幕监视</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <style>  
+	#ltop  
+	{  
+	    width:50%;  
+	    height:500px;  
+	    background:#FFF;  
+	    float:left;  
+	}  
+	  
+	#rtop  
+	{  
+	    width:50%;  
+	    height:500px;  
+	    background:#FFF;  
+	    float:right;  
+	}  
+	  
+	#lbottom  
+	{  
+	    width:50%;  
+	    height:500px;  
+	    background:#FFF;  
+	    float:left;  
+	    clear:left;  
+	}  
+	  
+	#rbottom  
+	{  
+	    width:50%;  
+	    height:500px;  
+	    background:#FFF;  
+	    float:right;  
+	}  
+	</style>  
+  </head>
+  <body style="margin:0px;width:100%;height:100%;border:0px;overflow: hidden;padding:0;">
+  	<div id="ltop"><iframe src="screen_smt.html" style="height:500px;width:100%"></iframe></div>  
+    <div id="rtop"><iframe src="screen_jyb.html" style="height:500px;width:100%"></iframe></div>  
+    <div id="lbottom"><iframe src="screen_wo.html" style="height:500px;width:100%"></iframe></div>  
+    <div id="rbottom"><iframe src="screen_map.html" style="height:500px;width:100%"></iframe></div>
+  </body>
+</html>

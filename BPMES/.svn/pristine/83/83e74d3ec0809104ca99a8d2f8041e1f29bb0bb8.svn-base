@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ifss>
+
+    <!-- 统一流程处理入口 传入对应的ACT_TYPE的值执行不同接口任务-->
+	<ifs ifs_code="ACT0000" ifs_name="统一流程处理入口 " ifs_type="1" ifs_cate="200" attr1="">
+	</ifs>
+
+    <!-- 认领任务 -->
+	<ifs ifs_code="ACT0001" ifs_name="认领任务" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="claimTask" biz_method="" serial_no="1" biz_name="claimTask" biz_type="3" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 获取表单配置 -->
+	<ifs ifs_code="ACT0002" ifs_name="获取表单配置 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="getFormKey" biz_method="" serial_no="1" biz_name="getFormKey" biz_type="3" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 驳回待办任务 -->
+	<ifs ifs_code="ACT0003" ifs_name="驳回待办任务" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="rejectTask" biz_method="" serial_no="1" biz_name="rejectTask" biz_type="3" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 提交任务 -->
+	<ifs ifs_code="ACT0004" ifs_name="提交任务" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="completeTask" biz_method="" serial_no="1" biz_name="completeTask" biz_type="3" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!--业务作废  -->
+	<ifs ifs_code="ACT0005" ifs_name="业务作废 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteBusiData" biz_method="" serial_no="1" biz_name="deleteBusiData" biz_type="3" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!--挂起业务  -->
+	<ifs ifs_code="ACT0006" ifs_name="挂起业务 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="suspendBiz" biz_method="" serial_no="1" biz_name="suspendBiz" biz_type="3" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 判断是否可以受理 -->
+	<ifs ifs_code="ACT0007" ifs_name="判断是否可以受理 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="allowAcceptance" biz_method="" serial_no="1" biz_name="allowAcceptance" biz_type="3" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+<!-- 	发起流程  -->
+	<ifs ifs_code="ACT0008" ifs_name="发起流程"
+		ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="startProcessInstance"
+				biz_method="" serial_no="1" biz_name=""
+				biz_type="3" biz_cate="1" attr1="" />
+			<ifs_biz biz_code="saveOrUpdateBusiData"
+				biz_method="" serial_no="1" biz_name=""
+				biz_type="3" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	
+	<ifs ifs_code="ACT0009" ifs_name="提交任务并更新业务数据状态"
+		ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="completeTask"
+				biz_method="" serial_no="1" biz_name=""
+				biz_type="3" biz_cate="1" attr1="" />
+			<ifs_biz biz_code="saveOrUpdateBusiData"
+				biz_method="" serial_no="1" biz_name=""
+				biz_type="3" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	
+	<ifs ifs_code="ACT0010" ifs_name="查询当前节点信息"
+		ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="" result_position="1">
+		<Bizes>
+			<ifs_biz biz_code="taskQuery"
+				biz_method="" serial_no="1" biz_name=""
+				biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	
+	<ifs ifs_code="ACT0011" ifs_name="查询经办信息"
+		ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="busiNodeSelect"
+				biz_method="" serial_no="1" biz_name=""
+				biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	
+	<ifs ifs_code="ACT0012" ifs_name="查询当前业务数据"
+		ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="busiDataQuery"
+				biz_method="" serial_no="1" biz_name=""
+				biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<ifs ifs_code="ACT0013" ifs_name="新增当前业务数据"
+		ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="busiDataInsert"
+				biz_method="" serial_no="1" biz_name=""
+				biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<ifs ifs_code="ACT0014" ifs_name="更新当前业务数据"
+		ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="busiDataUpdate"
+				biz_method="" serial_no="1" biz_name=""
+				biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<ifs ifs_code="ACT0015" ifs_name="删除当前业务数据"
+		ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="busiDataDelete"
+				biz_method="" serial_no="1" biz_name=""
+				biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	
+	
+	<!-- 查询流程定义信息 -->
+	<ifs ifs_code="ACT0016" ifs_name="查询流程定义信息"
+		ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="busiDefQuery"
+				biz_method="" serial_no="1" biz_name=""
+				biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 增加流程定义信息 -->
+	<ifs ifs_code="ACT0017" ifs_name="增加流程定义信息"
+		ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="busiDefInsert"
+				biz_method="" serial_no="1" biz_name=""
+				biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 修改流程定义信息 -->
+	<ifs ifs_code="ACT0018" ifs_name="修改流程定义信息 "
+		ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="busiDefUpdate"
+				biz_method="" serial_no="1" biz_name=""
+				biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 删除流程定义信息 -->
+	<ifs ifs_code="ACT0019" ifs_name="删除流程定义信息"
+		ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="busiDefDelete"
+				biz_method="" serial_no="1" biz_name=""
+				biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 删除流程定义信息 -->
+	<ifs ifs_code="ACT0020" ifs_name="流程定义信息是否存在"
+		ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="busiDefExist" biz_method="" serial_no="1" biz_name="" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	</ifss>

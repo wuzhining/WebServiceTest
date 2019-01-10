@@ -1,0 +1,1380 @@
+<html>
+<head>
+
+<title>WEB表单设计器</title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="author" content="leipi.org">
+<link href="../webform/css/bootstrap.css" rel="stylesheet" type="text/css">
+<!--[if lte IE 6]>
+    <link rel="stylesheet" type="text/css" href="../webform/css/bootstrap-ie6.css">
+    <![endif]-->
+<!--[if lte IE 7]>
+    <link rel="stylesheet" type="text/css" href="../webform/css/ie.css">
+    <![endif]-->
+<link href="../webform/css/site.css" rel="stylesheet" type="text/css">
+<script type="text/javascript">
+</script>
+
+<!-- 气泡提示 
+    <link rel="stylesheet" href="../webform/css/grumble.min.css">
+	-->
+
+<link href="../webform/css/ueditor.css" type="text/css" rel="stylesheet">
+<style id="edui-customize-button_leipi-style">
+.edui-default  .edui-for-button_leipi .edui-icon {
+	background-position: -401px -40px;
+}
+</style>
+<style id="edui-customize-button_template-style">
+.edui-default  .edui-for-button_template .edui-icon {
+	background-position: -339px -40px;
+}
+</style>
+<style id="edui-customize-button_preview-style">
+.edui-default  .edui-for-button_preview .edui-icon {
+	background-position: -420px -19px;
+}
+</style>
+<style id="edui-customize-button_save-style">
+.edui-default  .edui-for-button_save .edui-icon {
+	background-position: -481px -20px;
+}
+</style>
+<script src="../webform/js/uieditor/codemirror/codemirror.js" type="text/javascript" defer="defer"></script>
+<link rel="stylesheet" type="text/css" href="../webform/js/uieditor/codemirror/codemirror.css">
+<script src="../webform/js/uieditor/third-party/zeroclipboard/ZeroClipboard.js" type="text/javascript" defer="defer"></script>
+<script src="../../common/IplantCompent/jquery.min.js"
+	type="text/javascript"></script>
+<script type="text/javascript">
+$(function(){
+	function getSearchParameter() {debugger;
+		var theRequest = new Object();
+		theRequest.get = function(name) {
+			var value = this[name];
+			if (value == null) {
+				return;
+			}
+			if (value.length < 1) {
+				return;
+			}
+			return value[0];
+		};
+		var url = location.search;
+		if (url == null || url == '') {
+			return theRequest;
+		}
+		if (url.indexOf("?") == -1) {
+			return theRequest;
+		}
+		var str = url.substr(1);
+		var strs = str.split("&");
+		for (var i = 0; i < strs.length; i++) {
+			var entry = strs[i].split("=");
+			if (entry.length != 2) {
+				continue;
+			}
+			var name = decodeURIComponent(entry[0]);
+			var value = decodeURIComponent(entry[1]);
+			var values = theRequest[name];
+			if (values == null) {
+				values = new Array();
+				theRequest[name] = values;
+			}
+			values[values.length++] = value;
+		}
+		return theRequest;
+	}
+	var param =getSearchParameter();
+	var formName=$("#formname").val();
+	 formName=param.name;
+})
+
+</script>
+</head>
+<body>
+
+
+	<div class="container">
+		<form method="post" id="saveform" name="saveform" action="../webform/preview.jsp" target="_blank">
+			<!--预览也要用 用来解析表单-->
+			<input type="hidden" name="fields" id="fields" value="0">
+			<!--要提交到服务器的-->
+			<input type="hidden" name="type" id="leipi_type" value="save">
+			<input type="hidden" name="formid" id="formid" />
+			<input type="hidden" name="formname" id="formname"/>
+			<textarea name="parse_form" id="leipi_parse_form" style="display: none;"></textarea>
+
+
+			<div class="row">
+				<script type="text/javascript">
+					/*表单设计器首页 960*60 创建于 2015-01-07*/
+					var cpro_id = "u1896600";
+				</script>
+			</div>
+
+			
+
+			<div class="alert">
+				<button type="button" class="close" data-dismiss="alert">×</button>
+				<strong>提醒：</strong>单选框和复选框，如：
+				<code>{|-</code>
+				选项
+				<code>-|}</code>
+				两边边界是防止误删除控件，程序会把它们替换为空，请不要手动删除！
+			</div>
+
+			<div class="row">
+
+				<div class="span2">
+					<ul class="nav nav-list">
+						<li class="nav-header">控件</li>
+						<li><a href="javascript:void(0);"
+							onclick="leipiFormDesign.exec('text');" class="btn btn-link">文本框</a></li>
+						<li><a href="javascript:void(0);"
+							onclick="leipiFormDesign.exec('textarea');" class="btn btn-link">多行文本</a></li>
+						<li><a href="javascript:void(0);"
+							onclick="leipiFormDesign.exec('select');" class="btn btn-link">下拉菜单</a></li>
+						<li><a href="javascript:void(0);"
+							onclick="leipiFormDesign.exec('radios');" class="btn btn-link">单选框</a></li>
+						<li><a href="javascript:void(0);"
+							onclick="leipiFormDesign.exec('checkboxs');" class="btn btn-link">复选框</a></li>
+						<li><a href="javascript:void(0);"
+							onclick="leipiFormDesign.exec('macros');" class="btn btn-link">宏控件</a></li>
+						<li><a href="javascript:void(0);"
+							onclick="leipiFormDesign.exec('progressbar');"
+							class="btn btn-link">进度条</a></li>
+						<li><a href="javascript:void(0);"
+							onclick="leipiFormDesign.exec('qrcode');" class="btn btn-link">二维码</a></li>
+						<li><a href="javascript:void(0);"
+							onclick="leipiFormDesign.exec('listctrl');" class="btn btn-link">列表控件</a></li>
+						<li><a href="javascript:void(0);"
+							onclick="leipiFormDesign.exec('more');" class="btn btn-link">一起参与...</a></li>
+
+					</ul>
+
+				</div>
+
+				<div class="span10">
+
+					<div id="myFormDesign" class="edui-default" style="width: 100%;">
+						<div id="edui10" class="edui-editor  edui-default"
+							style="width: 100%; z-index: 999;">
+							<div id="edui10_toolbarbox"
+								class="edui-editor-toolbarbox edui-default">
+								<div id="edui10_toolbarboxouter"
+									class="edui-editor-toolbarboxouter edui-default">
+									<div class="edui-editor-toolbarboxinner edui-default">
+										<div id="edui11" class="edui-toolbar   edui-default"
+											onselectstart="return false;"
+											onmousedown="return $EDITORUI[&quot;edui11&quot;]._onMouseDown(event, this);"
+											style="user-select: none;">
+											<div id="edui12"
+												class="edui-box edui-button edui-for-fullscreen edui-default">
+												<div id="edui12_state"
+													onmousedown="$EDITORUI[&quot;edui12&quot;].Stateful_onMouseDown(event, this);"
+													onmouseup="$EDITORUI[&quot;edui12&quot;].Stateful_onMouseUp(event, this);"
+													onmouseover="$EDITORUI[&quot;edui12&quot;].Stateful_onMouseOver(event, this);"
+													onmouseout="$EDITORUI[&quot;edui12&quot;].Stateful_onMouseOut(event, this);"
+													class="edui-default">
+													<div class="edui-button-wrap edui-default">
+														<div id="edui12_body" unselectable="on" title="全屏"
+															class="edui-button-body edui-default"
+															onmousedown="return $EDITORUI[&quot;edui12&quot;]._onMouseDown(event, this);"
+															onclick="return $EDITORUI[&quot;edui12&quot;]._onClick(event, this);">
+															<div class="edui-box edui-icon edui-default"></div>
+															<div class="edui-box edui-label edui-default"></div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div id="edui13"
+												class="edui-box edui-button edui-for-source edui-default">
+												<div id="edui13_state"
+													onmousedown="$EDITORUI[&quot;edui13&quot;].Stateful_onMouseDown(event, this);"
+													onmouseup="$EDITORUI[&quot;edui13&quot;].Stateful_onMouseUp(event, this);"
+													onmouseover="$EDITORUI[&quot;edui13&quot;].Stateful_onMouseOver(event, this);"
+													onmouseout="$EDITORUI[&quot;edui13&quot;].Stateful_onMouseOut(event, this);"
+													class="edui-default">
+													<div class="edui-button-wrap edui-default">
+														<div id="edui13_body" unselectable="on" title="源代码"
+															class="edui-button-body edui-default"
+															onmousedown="return $EDITORUI[&quot;edui13&quot;]._onMouseDown(event, this);"
+															onclick="return $EDITORUI[&quot;edui13&quot;]._onClick(event, this);">
+															<div class="edui-box edui-icon edui-default"></div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div id="edui14"
+												class="edui-box edui-separator  edui-default"></div>
+											<div id="edui15"
+												class="edui-box edui-button edui-for-undo edui-default">
+												<div id="edui15_state"
+													onmousedown="$EDITORUI[&quot;edui15&quot;].Stateful_onMouseDown(event, this);"
+													onmouseup="$EDITORUI[&quot;edui15&quot;].Stateful_onMouseUp(event, this);"
+													onmouseover="$EDITORUI[&quot;edui15&quot;].Stateful_onMouseOver(event, this);"
+													onmouseout="$EDITORUI[&quot;edui15&quot;].Stateful_onMouseOut(event, this);"
+													class="edui-default">
+													<div class="edui-button-wrap edui-default">
+														<div id="edui15_body" unselectable="on" title="撤销"
+															class="edui-button-body edui-default"
+															onmousedown="return $EDITORUI[&quot;edui15&quot;]._onMouseDown(event, this);"
+															onclick="return $EDITORUI[&quot;edui15&quot;]._onClick(event, this);">
+															<div class="edui-box edui-icon edui-default"></div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div id="edui16"
+												class="edui-box edui-button edui-for-redo edui-default">
+												<div id="edui16_state"
+													onmousedown="$EDITORUI[&quot;edui16&quot;].Stateful_onMouseDown(event, this);"
+													onmouseup="$EDITORUI[&quot;edui16&quot;].Stateful_onMouseUp(event, this);"
+													onmouseover="$EDITORUI[&quot;edui16&quot;].Stateful_onMouseOver(event, this);"
+													onmouseout="$EDITORUI[&quot;edui16&quot;].Stateful_onMouseOut(event, this);"
+													class="edui-default">
+													<div class="edui-button-wrap edui-default">
+														<div id="edui16_body" unselectable="on" title="重做"
+															class="edui-button-body edui-default"
+															onmousedown="return $EDITORUI[&quot;edui16&quot;]._onMouseDown(event, this);"
+															onclick="return $EDITORUI[&quot;edui16&quot;]._onClick(event, this);">
+															<div class="edui-box edui-icon edui-default"></div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div id="edui17"
+												class="edui-box edui-separator  edui-default"></div>
+											<div id="edui18"
+												class="edui-box edui-button edui-for-bold edui-default">
+												<div id="edui18_state"
+													onmousedown="$EDITORUI[&quot;edui18&quot;].Stateful_onMouseDown(event, this);"
+													onmouseup="$EDITORUI[&quot;edui18&quot;].Stateful_onMouseUp(event, this);"
+													onmouseover="$EDITORUI[&quot;edui18&quot;].Stateful_onMouseOver(event, this);"
+													onmouseout="$EDITORUI[&quot;edui18&quot;].Stateful_onMouseOut(event, this);"
+													class="edui-default">
+													<div class="edui-button-wrap edui-default">
+														<div id="edui18_body" unselectable="on" title="加粗"
+															class="edui-button-body edui-default"
+															onmousedown="return $EDITORUI[&quot;edui18&quot;]._onMouseDown(event, this);"
+															onclick="return $EDITORUI[&quot;edui18&quot;]._onClick(event, this);">
+															<div class="edui-box edui-icon edui-default"></div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div id="edui19"
+												class="edui-box edui-button edui-for-italic edui-default">
+												<div id="edui19_state"
+													onmousedown="$EDITORUI[&quot;edui19&quot;].Stateful_onMouseDown(event, this);"
+													onmouseup="$EDITORUI[&quot;edui19&quot;].Stateful_onMouseUp(event, this);"
+													onmouseover="$EDITORUI[&quot;edui19&quot;].Stateful_onMouseOver(event, this);"
+													onmouseout="$EDITORUI[&quot;edui19&quot;].Stateful_onMouseOut(event, this);"
+													class="edui-default">
+													<div class="edui-button-wrap edui-default">
+														<div id="edui19_body" unselectable="on" title="斜体"
+															class="edui-button-body edui-default"
+															onmousedown="return $EDITORUI[&quot;edui19&quot;]._onMouseDown(event, this);"
+															onclick="return $EDITORUI[&quot;edui19&quot;]._onClick(event, this);">
+															<div class="edui-box edui-icon edui-default"></div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div id="edui20"
+												class="edui-box edui-button edui-for-underline edui-default">
+												<div id="edui20_state"
+													onmousedown="$EDITORUI[&quot;edui20&quot;].Stateful_onMouseDown(event, this);"
+													onmouseup="$EDITORUI[&quot;edui20&quot;].Stateful_onMouseUp(event, this);"
+													onmouseover="$EDITORUI[&quot;edui20&quot;].Stateful_onMouseOver(event, this);"
+													onmouseout="$EDITORUI[&quot;edui20&quot;].Stateful_onMouseOut(event, this);"
+													class="edui-default">
+													<div class="edui-button-wrap edui-default">
+														<div id="edui20_body" unselectable="on" title="下划线"
+															class="edui-button-body edui-default"
+															onmousedown="return $EDITORUI[&quot;edui20&quot;]._onMouseDown(event, this);"
+															onclick="return $EDITORUI[&quot;edui20&quot;]._onClick(event, this);">
+															<div class="edui-box edui-icon edui-default"></div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div id="edui21"
+												class="edui-box edui-button edui-for-fontborder edui-default">
+												<div id="edui21_state"
+													onmousedown="$EDITORUI[&quot;edui21&quot;].Stateful_onMouseDown(event, this);"
+													onmouseup="$EDITORUI[&quot;edui21&quot;].Stateful_onMouseUp(event, this);"
+													onmouseover="$EDITORUI[&quot;edui21&quot;].Stateful_onMouseOver(event, this);"
+													onmouseout="$EDITORUI[&quot;edui21&quot;].Stateful_onMouseOut(event, this);"
+													class="edui-default">
+													<div class="edui-button-wrap edui-default">
+														<div id="edui21_body" unselectable="on" title="字符边框"
+															class="edui-button-body edui-default"
+															onmousedown="return $EDITORUI[&quot;edui21&quot;]._onMouseDown(event, this);"
+															onclick="return $EDITORUI[&quot;edui21&quot;]._onClick(event, this);">
+															<div class="edui-box edui-icon edui-default"></div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div id="edui22"
+												class="edui-box edui-button edui-for-strikethrough edui-default">
+												<div id="edui22_state"
+													onmousedown="$EDITORUI[&quot;edui22&quot;].Stateful_onMouseDown(event, this);"
+													onmouseup="$EDITORUI[&quot;edui22&quot;].Stateful_onMouseUp(event, this);"
+													onmouseover="$EDITORUI[&quot;edui22&quot;].Stateful_onMouseOver(event, this);"
+													onmouseout="$EDITORUI[&quot;edui22&quot;].Stateful_onMouseOut(event, this);"
+													class="edui-default">
+													<div class="edui-button-wrap edui-default">
+														<div id="edui22_body" unselectable="on" title="删除线"
+															class="edui-button-body edui-default"
+															onmousedown="return $EDITORUI[&quot;edui22&quot;]._onMouseDown(event, this);"
+															onclick="return $EDITORUI[&quot;edui22&quot;]._onClick(event, this);">
+															<div class="edui-box edui-icon edui-default"></div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div id="edui23"
+												class="edui-box edui-button edui-for-removeformat edui-default">
+												<div id="edui23_state"
+													onmousedown="$EDITORUI[&quot;edui23&quot;].Stateful_onMouseDown(event, this);"
+													onmouseup="$EDITORUI[&quot;edui23&quot;].Stateful_onMouseUp(event, this);"
+													onmouseover="$EDITORUI[&quot;edui23&quot;].Stateful_onMouseOver(event, this);"
+													onmouseout="$EDITORUI[&quot;edui23&quot;].Stateful_onMouseOut(event, this);"
+													class="edui-default">
+													<div class="edui-button-wrap edui-default">
+														<div id="edui23_body" unselectable="on" title="清除格式"
+															class="edui-button-body edui-default"
+															onmousedown="return $EDITORUI[&quot;edui23&quot;]._onMouseDown(event, this);"
+															onclick="return $EDITORUI[&quot;edui23&quot;]._onClick(event, this);">
+															<div class="edui-box edui-icon edui-default"></div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div id="edui24"
+												class="edui-box edui-separator  edui-default"></div>
+											<div id="edui25"
+												class="edui-box edui-splitbutton edui-for-forecolor edui-default edui-colorbutton">
+												<div title="字体颜色" id="edui25_state"
+													onmousedown="$EDITORUI[&quot;edui25&quot;].Stateful_onMouseDown(event, this);"
+													onmouseup="$EDITORUI[&quot;edui25&quot;].Stateful_onMouseUp(event, this);"
+													onmouseover="$EDITORUI[&quot;edui25&quot;].Stateful_onMouseOver(event, this);"
+													onmouseout="$EDITORUI[&quot;edui25&quot;].Stateful_onMouseOut(event, this);"
+													class="edui-default">
+													<div class="edui-splitbutton-body edui-default">
+														<div id="edui25_button_body"
+															class="edui-box edui-button-body edui-default"
+															onclick="$EDITORUI[&quot;edui25&quot;]._onButtonClick(event, this);">
+															<div class="edui-box edui-icon edui-default"></div>
+															<div id="edui25_colorlump" class="edui-colorlump"></div>
+														</div>
+														<div class="edui-box edui-splitborder edui-default"></div>
+														<div class="edui-box edui-arrow edui-default"
+															onclick="$EDITORUI[&quot;edui25&quot;]._onArrowClick();"></div>
+													</div>
+												</div>
+											</div>
+											<div id="edui28"
+												class="edui-box edui-splitbutton edui-for-backcolor edui-default edui-colorbutton">
+												<div title="背景色" id="edui28_state"
+													onmousedown="$EDITORUI[&quot;edui28&quot;].Stateful_onMouseDown(event, this);"
+													onmouseup="$EDITORUI[&quot;edui28&quot;].Stateful_onMouseUp(event, this);"
+													onmouseover="$EDITORUI[&quot;edui28&quot;].Stateful_onMouseOver(event, this);"
+													onmouseout="$EDITORUI[&quot;edui28&quot;].Stateful_onMouseOut(event, this);"
+													class="edui-default">
+													<div class="edui-splitbutton-body edui-default">
+														<div id="edui28_button_body"
+															class="edui-box edui-button-body edui-default"
+															onclick="$EDITORUI[&quot;edui28&quot;]._onButtonClick(event, this);">
+															<div class="edui-box edui-icon edui-default"></div>
+															<div id="edui28_colorlump" class="edui-colorlump"></div>
+														</div>
+														<div class="edui-box edui-splitborder edui-default"></div>
+														<div class="edui-box edui-arrow edui-default"
+															onclick="$EDITORUI[&quot;edui28&quot;]._onArrowClick();"></div>
+													</div>
+												</div>
+											</div>
+											<div id="edui31"
+												class="edui-box edui-menubutton edui-for-insertorderedlist edui-default">
+												<div title="有序列表" id="edui31_state"
+													onmousedown="$EDITORUI[&quot;edui31&quot;].Stateful_onMouseDown(event, this);"
+													onmouseup="$EDITORUI[&quot;edui31&quot;].Stateful_onMouseUp(event, this);"
+													onmouseover="$EDITORUI[&quot;edui31&quot;].Stateful_onMouseOver(event, this);"
+													onmouseout="$EDITORUI[&quot;edui31&quot;].Stateful_onMouseOut(event, this);"
+													class="edui-default">
+													<div class="edui-menubutton-body edui-default">
+														<div id="edui31_button_body"
+															class="edui-box edui-button-body edui-default"
+															onclick="$EDITORUI[&quot;edui31&quot;]._onButtonClick(event, this);">
+															<div class="edui-box edui-icon edui-default"></div>
+														</div>
+														<div class="edui-box edui-splitborder edui-default"></div>
+														<div class="edui-box edui-arrow edui-default"
+															onclick="$EDITORUI[&quot;edui31&quot;]._onArrowClick();"></div>
+													</div>
+												</div>
+											</div>
+											<div id="edui44"
+												class="edui-box edui-menubutton edui-for-insertunorderedlist edui-default">
+												<div title="无序列表" id="edui44_state"
+													onmousedown="$EDITORUI[&quot;edui44&quot;].Stateful_onMouseDown(event, this);"
+													onmouseup="$EDITORUI[&quot;edui44&quot;].Stateful_onMouseUp(event, this);"
+													onmouseover="$EDITORUI[&quot;edui44&quot;].Stateful_onMouseOver(event, this);"
+													onmouseout="$EDITORUI[&quot;edui44&quot;].Stateful_onMouseOut(event, this);"
+													class="edui-default">
+													<div class="edui-menubutton-body edui-default">
+														<div id="edui44_button_body"
+															class="edui-box edui-button-body edui-default"
+															onclick="$EDITORUI[&quot;edui44&quot;]._onButtonClick(event, this);">
+															<div class="edui-box edui-icon edui-default"></div>
+														</div>
+														<div class="edui-box edui-splitborder edui-default"></div>
+														<div class="edui-box edui-arrow edui-default"
+															onclick="$EDITORUI[&quot;edui44&quot;]._onArrowClick();"></div>
+													</div>
+												</div>
+											</div>
+											<div id="edui51"
+												class="edui-box edui-separator  edui-default"></div>
+											<div id="edui52"
+												class="edui-box edui-combox edui-for-fontfamily edui-default">
+												<div title="字体" id="edui52_state"
+													onmousedown="$EDITORUI[&quot;edui52&quot;].Stateful_onMouseDown(event, this);"
+													onmouseup="$EDITORUI[&quot;edui52&quot;].Stateful_onMouseUp(event, this);"
+													onmouseover="$EDITORUI[&quot;edui52&quot;].Stateful_onMouseOver(event, this);"
+													onmouseout="$EDITORUI[&quot;edui52&quot;].Stateful_onMouseOut(event, this);"
+													class="edui-default">
+													<div class="edui-combox-body edui-default">
+														<div id="edui52_button_body"
+															class="edui-box edui-button-body edui-default"
+															onclick="$EDITORUI[&quot;edui52&quot;]._onButtonClick(event, this);">字体</div>
+														<div class="edui-box edui-splitborder edui-default"></div>
+														<div class="edui-box edui-arrow edui-default"
+															onclick="$EDITORUI[&quot;edui52&quot;]._onArrowClick();"></div>
+													</div>
+												</div>
+											</div>
+											<div id="edui65"
+												class="edui-box edui-combox edui-for-fontsize edui-default">
+												<div title="字号" id="edui65_state"
+													onmousedown="$EDITORUI[&quot;edui65&quot;].Stateful_onMouseDown(event, this);"
+													onmouseup="$EDITORUI[&quot;edui65&quot;].Stateful_onMouseUp(event, this);"
+													onmouseover="$EDITORUI[&quot;edui65&quot;].Stateful_onMouseOver(event, this);"
+													onmouseout="$EDITORUI[&quot;edui65&quot;].Stateful_onMouseOut(event, this);"
+													class="edui-default">
+													<div class="edui-combox-body edui-default">
+														<div id="edui65_button_body"
+															class="edui-box edui-button-body edui-default"
+															onclick="$EDITORUI[&quot;edui65&quot;]._onButtonClick(event, this);">字号</div>
+														<div class="edui-box edui-splitborder edui-default"></div>
+														<div class="edui-box edui-arrow edui-default"
+															onclick="$EDITORUI[&quot;edui65&quot;]._onArrowClick();"></div>
+													</div>
+												</div>
+											</div>
+											<div id="edui76"
+												class="edui-box edui-separator  edui-default"></div>
+											<div id="edui77"
+												class="edui-box edui-button edui-for-indent edui-default">
+												<div id="edui77_state"
+													onmousedown="$EDITORUI[&quot;edui77&quot;].Stateful_onMouseDown(event, this);"
+													onmouseup="$EDITORUI[&quot;edui77&quot;].Stateful_onMouseUp(event, this);"
+													onmouseover="$EDITORUI[&quot;edui77&quot;].Stateful_onMouseOver(event, this);"
+													onmouseout="$EDITORUI[&quot;edui77&quot;].Stateful_onMouseOut(event, this);"
+													class="edui-default">
+													<div class="edui-button-wrap edui-default">
+														<div id="edui77_body" unselectable="on" title="首行缩进"
+															class="edui-button-body edui-default"
+															onmousedown="return $EDITORUI[&quot;edui77&quot;]._onMouseDown(event, this);"
+															onclick="return $EDITORUI[&quot;edui77&quot;]._onClick(event, this);">
+															<div class="edui-box edui-icon edui-default"></div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div id="edui78"
+												class="edui-box edui-separator  edui-default"></div>
+											<div id="edui79"
+												class="edui-box edui-button edui-for-justifyleft edui-default">
+												<div id="edui79_state"
+													onmousedown="$EDITORUI[&quot;edui79&quot;].Stateful_onMouseDown(event, this);"
+													onmouseup="$EDITORUI[&quot;edui79&quot;].Stateful_onMouseUp(event, this);"
+													onmouseover="$EDITORUI[&quot;edui79&quot;].Stateful_onMouseOver(event, this);"
+													onmouseout="$EDITORUI[&quot;edui79&quot;].Stateful_onMouseOut(event, this);"
+													class="edui-default">
+													<div class="edui-button-wrap edui-default">
+														<div id="edui79_body" unselectable="on" title="居左对齐"
+															class="edui-button-body edui-default"
+															onmousedown="return $EDITORUI[&quot;edui79&quot;]._onMouseDown(event, this);"
+															onclick="return $EDITORUI[&quot;edui79&quot;]._onClick(event, this);">
+															<div class="edui-box edui-icon edui-default"></div>
+															<div class="edui-box edui-label edui-default"></div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div id="edui80"
+												class="edui-box edui-button edui-for-justifycenter edui-default">
+												<div id="edui80_state"
+													onmousedown="$EDITORUI[&quot;edui80&quot;].Stateful_onMouseDown(event, this);"
+													onmouseup="$EDITORUI[&quot;edui80&quot;].Stateful_onMouseUp(event, this);"
+													onmouseover="$EDITORUI[&quot;edui80&quot;].Stateful_onMouseOver(event, this);"
+													onmouseout="$EDITORUI[&quot;edui80&quot;].Stateful_onMouseOut(event, this);"
+													class="edui-default">
+													<div class="edui-button-wrap edui-default">
+														<div id="edui80_body" unselectable="on" title="居中对齐"
+															class="edui-button-body edui-default"
+															onmousedown="return $EDITORUI[&quot;edui80&quot;]._onMouseDown(event, this);"
+															onclick="return $EDITORUI[&quot;edui80&quot;]._onClick(event, this);">
+															<div class="edui-box edui-icon edui-default"></div>
+															<div class="edui-box edui-label edui-default"></div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div id="edui81"
+												class="edui-box edui-button edui-for-justifyright edui-default">
+												<div id="edui81_state"
+													onmousedown="$EDITORUI[&quot;edui81&quot;].Stateful_onMouseDown(event, this);"
+													onmouseup="$EDITORUI[&quot;edui81&quot;].Stateful_onMouseUp(event, this);"
+													onmouseover="$EDITORUI[&quot;edui81&quot;].Stateful_onMouseOver(event, this);"
+													onmouseout="$EDITORUI[&quot;edui81&quot;].Stateful_onMouseOut(event, this);"
+													class="edui-default">
+													<div class="edui-button-wrap edui-default">
+														<div id="edui81_body" unselectable="on" title="居右对齐"
+															class="edui-button-body edui-default"
+															onmousedown="return $EDITORUI[&quot;edui81&quot;]._onMouseDown(event, this);"
+															onclick="return $EDITORUI[&quot;edui81&quot;]._onClick(event, this);">
+															<div class="edui-box edui-icon edui-default"></div>
+															<div class="edui-box edui-label edui-default"></div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div id="edui82"
+												class="edui-box edui-button edui-for-justifyjustify edui-default">
+												<div id="edui82_state"
+													onmousedown="$EDITORUI[&quot;edui82&quot;].Stateful_onMouseDown(event, this);"
+													onmouseup="$EDITORUI[&quot;edui82&quot;].Stateful_onMouseUp(event, this);"
+													onmouseover="$EDITORUI[&quot;edui82&quot;].Stateful_onMouseOver(event, this);"
+													onmouseout="$EDITORUI[&quot;edui82&quot;].Stateful_onMouseOut(event, this);"
+													class="edui-default">
+													<div class="edui-button-wrap edui-default">
+														<div id="edui82_body" unselectable="on" title="两端对齐"
+															class="edui-button-body edui-default"
+															onmousedown="return $EDITORUI[&quot;edui82&quot;]._onMouseDown(event, this);"
+															onclick="return $EDITORUI[&quot;edui82&quot;]._onClick(event, this);">
+															<div class="edui-box edui-icon edui-default"></div>
+															<div class="edui-box edui-label edui-default"></div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div id="edui83"
+												class="edui-box edui-separator  edui-default"></div>
+											<div id="edui90"
+												class="edui-box edui-button edui-for-link edui-default">
+												<div id="edui90_state"
+													onmousedown="$EDITORUI[&quot;edui90&quot;].Stateful_onMouseDown(event, this);"
+													onmouseup="$EDITORUI[&quot;edui90&quot;].Stateful_onMouseUp(event, this);"
+													onmouseover="$EDITORUI[&quot;edui90&quot;].Stateful_onMouseOver(event, this);"
+													onmouseout="$EDITORUI[&quot;edui90&quot;].Stateful_onMouseOut(event, this);"
+													class="edui-default">
+													<div class="edui-button-wrap edui-default">
+														<div id="edui90_body" unselectable="on" title="超链接"
+															class="edui-button-body edui-default"
+															onmousedown="return $EDITORUI[&quot;edui90&quot;]._onMouseDown(event, this);"
+															onclick="return $EDITORUI[&quot;edui90&quot;]._onClick(event, this);">
+															<div class="edui-box edui-icon edui-default"></div>
+															<div class="edui-box edui-label edui-default"></div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div id="edui91"
+												class="edui-box edui-button edui-for-unlink edui-default">
+												<div id="edui91_state"
+													onmousedown="$EDITORUI[&quot;edui91&quot;].Stateful_onMouseDown(event, this);"
+													onmouseup="$EDITORUI[&quot;edui91&quot;].Stateful_onMouseUp(event, this);"
+													onmouseover="$EDITORUI[&quot;edui91&quot;].Stateful_onMouseOver(event, this);"
+													onmouseout="$EDITORUI[&quot;edui91&quot;].Stateful_onMouseOut(event, this);"
+													class="edui-default">
+													<div class="edui-button-wrap edui-default">
+														<div id="edui91_body" unselectable="on" title="取消链接"
+															class="edui-button-body edui-default"
+															onmousedown="return $EDITORUI[&quot;edui91&quot;]._onMouseDown(event, this);"
+															onclick="return $EDITORUI[&quot;edui91&quot;]._onClick(event, this);">
+															<div class="edui-box edui-icon edui-default"></div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div id="edui92"
+												class="edui-box edui-separator  edui-default"></div>
+											<div id="edui93"
+												class="edui-box edui-button edui-for-horizontal edui-default">
+												<div id="edui93_state"
+													onmousedown="$EDITORUI[&quot;edui93&quot;].Stateful_onMouseDown(event, this);"
+													onmouseup="$EDITORUI[&quot;edui93&quot;].Stateful_onMouseUp(event, this);"
+													onmouseover="$EDITORUI[&quot;edui93&quot;].Stateful_onMouseOver(event, this);"
+													onmouseout="$EDITORUI[&quot;edui93&quot;].Stateful_onMouseOut(event, this);"
+													class="edui-default">
+													<div class="edui-button-wrap edui-default">
+														<div id="edui93_body" unselectable="on" title="分隔线"
+															class="edui-button-body edui-default"
+															onmousedown="return $EDITORUI[&quot;edui93&quot;]._onMouseDown(event, this);"
+															onclick="return $EDITORUI[&quot;edui93&quot;]._onClick(event, this);">
+															<div class="edui-box edui-icon edui-default"></div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div id="edui96"
+												class="edui-box edui-button edui-for-spechars edui-default">
+												<div id="edui96_state"
+													onmousedown="$EDITORUI[&quot;edui96&quot;].Stateful_onMouseDown(event, this);"
+													onmouseup="$EDITORUI[&quot;edui96&quot;].Stateful_onMouseUp(event, this);"
+													onmouseover="$EDITORUI[&quot;edui96&quot;].Stateful_onMouseOver(event, this);"
+													onmouseout="$EDITORUI[&quot;edui96&quot;].Stateful_onMouseOut(event, this);"
+													class="edui-default">
+													<div class="edui-button-wrap edui-default">
+														<div id="edui96_body" unselectable="on" title="特殊字符"
+															class="edui-button-body edui-default"
+															onmousedown="return $EDITORUI[&quot;edui96&quot;]._onMouseDown(event, this);"
+															onclick="return $EDITORUI[&quot;edui96&quot;]._onClick(event, this);">
+															<div class="edui-box edui-icon edui-default"></div>
+															<div class="edui-box edui-label edui-default"></div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div id="edui101"
+												class="edui-box edui-button edui-for-wordimage edui-default">
+												<div id="edui101_state"
+													onmousedown="$EDITORUI[&quot;edui101&quot;].Stateful_onMouseDown(event, this);"
+													onmouseup="$EDITORUI[&quot;edui101&quot;].Stateful_onMouseUp(event, this);"
+													onmouseover="$EDITORUI[&quot;edui101&quot;].Stateful_onMouseOver(event, this);"
+													onmouseout="$EDITORUI[&quot;edui101&quot;].Stateful_onMouseOut(event, this);"
+													class="edui-default">
+													<div class="edui-button-wrap edui-default">
+														<div id="edui101_body" unselectable="on" title="图片转存"
+															class="edui-button-body edui-default"
+															onmousedown="return $EDITORUI[&quot;edui101&quot;]._onMouseDown(event, this);"
+															onclick="return $EDITORUI[&quot;edui101&quot;]._onClick(event, this);">
+															<div class="edui-box edui-icon edui-default"></div>
+															<div class="edui-box edui-label edui-default"></div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div id="edui102"
+												class="edui-box edui-separator  edui-default"></div>
+											<div id="edui103"
+												class="edui-box edui-splitbutton edui-for-inserttable edui-default">
+												<div title="插入表格" id="edui103_state"
+													onmousedown="$EDITORUI[&quot;edui103&quot;].Stateful_onMouseDown(event, this);"
+													onmouseup="$EDITORUI[&quot;edui103&quot;].Stateful_onMouseUp(event, this);"
+													onmouseover="$EDITORUI[&quot;edui103&quot;].Stateful_onMouseOver(event, this);"
+													onmouseout="$EDITORUI[&quot;edui103&quot;].Stateful_onMouseOut(event, this);"
+													class="edui-default">
+													<div class="edui-splitbutton-body edui-default">
+														<div id="edui103_button_body"
+															class="edui-box edui-button-body edui-default"
+															onclick="$EDITORUI[&quot;edui103&quot;]._onButtonClick(event, this);">
+															<div class="edui-box edui-icon edui-default"></div>
+														</div>
+														<div class="edui-box edui-splitborder edui-default"></div>
+														<div class="edui-box edui-arrow edui-default"
+															onclick="$EDITORUI[&quot;edui103&quot;]._onArrowClick();"></div>
+													</div>
+												</div>
+											</div>
+											<div id="edui106"
+												class="edui-box edui-button edui-for-deletetable edui-default">
+												<div id="edui106_state"
+													onmousedown="$EDITORUI[&quot;edui106&quot;].Stateful_onMouseDown(event, this);"
+													onmouseup="$EDITORUI[&quot;edui106&quot;].Stateful_onMouseUp(event, this);"
+													onmouseover="$EDITORUI[&quot;edui106&quot;].Stateful_onMouseOver(event, this);"
+													onmouseout="$EDITORUI[&quot;edui106&quot;].Stateful_onMouseOut(event, this);"
+													class="edui-default">
+													<div class="edui-button-wrap edui-default">
+														<div id="edui106_body" unselectable="on" title="删除表格"
+															class="edui-button-body edui-default"
+															onmousedown="return $EDITORUI[&quot;edui106&quot;]._onMouseDown(event, this);"
+															onclick="return $EDITORUI[&quot;edui106&quot;]._onClick(event, this);">
+															<div class="edui-box edui-icon edui-default"></div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div id="edui107"
+												class="edui-box edui-button edui-for-mergecells edui-default">
+												<div id="edui107_state"
+													onmousedown="$EDITORUI[&quot;edui107&quot;].Stateful_onMouseDown(event, this);"
+													onmouseup="$EDITORUI[&quot;edui107&quot;].Stateful_onMouseUp(event, this);"
+													onmouseover="$EDITORUI[&quot;edui107&quot;].Stateful_onMouseOver(event, this);"
+													onmouseout="$EDITORUI[&quot;edui107&quot;].Stateful_onMouseOut(event, this);"
+													class="edui-default">
+													<div class="edui-button-wrap edui-default">
+														<div id="edui107_body" unselectable="on" title="合并多个单元格"
+															class="edui-button-body edui-default"
+															onmousedown="return $EDITORUI[&quot;edui107&quot;]._onMouseDown(event, this);"
+															onclick="return $EDITORUI[&quot;edui107&quot;]._onClick(event, this);">
+															<div class="edui-box edui-icon edui-default"></div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div id="edui108"
+												class="edui-box edui-button edui-for-splittocells edui-default">
+												<div id="edui108_state"
+													onmousedown="$EDITORUI[&quot;edui108&quot;].Stateful_onMouseDown(event, this);"
+													onmouseup="$EDITORUI[&quot;edui108&quot;].Stateful_onMouseUp(event, this);"
+													onmouseover="$EDITORUI[&quot;edui108&quot;].Stateful_onMouseOver(event, this);"
+													onmouseout="$EDITORUI[&quot;edui108&quot;].Stateful_onMouseOut(event, this);"
+													class="edui-default">
+													<div class="edui-button-wrap edui-default">
+														<div id="edui108_body" unselectable="on" title="完全拆分单元格"
+															class="edui-button-body edui-default"
+															onmousedown="return $EDITORUI[&quot;edui108&quot;]._onMouseDown(event, this);"
+															onclick="return $EDITORUI[&quot;edui108&quot;]._onClick(event, this);">
+															<div class="edui-box edui-icon edui-default"></div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div id="edui109"
+												class="edui-box edui-button edui-for-button_leipi edui-default">
+												<div id="edui109_state"
+													onmousedown="$EDITORUI[&quot;edui109&quot;].Stateful_onMouseDown(event, this);"
+													onmouseup="$EDITORUI[&quot;edui109&quot;].Stateful_onMouseUp(event, this);"
+													onmouseover="$EDITORUI[&quot;edui109&quot;].Stateful_onMouseOver(event, this);"
+													onmouseout="$EDITORUI[&quot;edui109&quot;].Stateful_onMouseOut(event, this);"
+													class="edui-default">
+													<div class="edui-button-wrap edui-default">
+														<div id="edui109_body" unselectable="on" title="表单设计器"
+															class="edui-button-body edui-default"
+															onmousedown="return $EDITORUI[&quot;edui109&quot;]._onMouseDown(event, this);"
+															onclick="return $EDITORUI[&quot;edui109&quot;]._onClick(event, this);">
+															<div class="edui-box edui-icon edui-default"></div>
+															<div class="edui-box edui-label edui-default"></div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div id="edui110"
+												class="edui-box edui-button edui-for-button_template edui-default">
+												<div id="edui110_state"
+													onmousedown="$EDITORUI[&quot;edui110&quot;].Stateful_onMouseDown(event, this);"
+													onmouseup="$EDITORUI[&quot;edui110&quot;].Stateful_onMouseUp(event, this);"
+													onmouseover="$EDITORUI[&quot;edui110&quot;].Stateful_onMouseOver(event, this);"
+													onmouseout="$EDITORUI[&quot;edui110&quot;].Stateful_onMouseOut(event, this);"
+													class="edui-default">
+													<div class="edui-button-wrap edui-default">
+														<div id="edui110_body" unselectable="on" title="表单模板"
+															class="edui-button-body edui-default"
+															onmousedown="return $EDITORUI[&quot;edui110&quot;]._onMouseDown(event, this);"
+															onclick="return $EDITORUI[&quot;edui110&quot;]._onClick(event, this);">
+															<div class="edui-box edui-icon edui-default"></div>
+															<div class="edui-box edui-label edui-default"></div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div id="edui111"
+												class="edui-box edui-button edui-for-button_preview edui-default">
+												<div id="edui111_state"
+													onmousedown="$EDITORUI[&quot;edui111&quot;].Stateful_onMouseDown(event, this);"
+													onmouseup="$EDITORUI[&quot;edui111&quot;].Stateful_onMouseUp(event, this);"
+													onmouseover="$EDITORUI[&quot;edui111&quot;].Stateful_onMouseOver(event, this);"
+													onmouseout="$EDITORUI[&quot;edui111&quot;].Stateful_onMouseOut(event, this);"
+													class="edui-default">
+													<div class="edui-button-wrap edui-default">
+														<div id="edui111_body" unselectable="on" title="预览"
+															class="edui-button-body edui-default"
+															onmousedown="return $EDITORUI[&quot;edui111&quot;]._onMouseDown(event, this);"
+															onclick="return $EDITORUI[&quot;edui111&quot;]._onClick(event, this);">
+															<div class="edui-box edui-icon edui-default"></div>
+															<div class="edui-box edui-label edui-default"></div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div id="edui112"
+												class="edui-box edui-button edui-for-button_save edui-default">
+												<div id="edui112_state"
+													onmousedown="$EDITORUI[&quot;edui112&quot;].Stateful_onMouseDown(event, this);"
+													onmouseup="$EDITORUI[&quot;edui112&quot;].Stateful_onMouseUp(event, this);"
+													onmouseover="$EDITORUI[&quot;edui112&quot;].Stateful_onMouseOver(event, this);"
+													onmouseout="$EDITORUI[&quot;edui112&quot;].Stateful_onMouseOut(event, this);"
+													class="edui-default">
+													<div class="edui-button-wrap edui-default">
+														<div id="edui112_body" unselectable="on" title="保存表单"
+															class="edui-button-body edui-default"
+															onmousedown="return $EDITORUI[&quot;edui112&quot;]._onMouseDown(event, this);"
+															onclick="return $EDITORUI[&quot;edui112&quot;]._onClick(event, this);">
+															<div class="edui-box edui-icon edui-default"></div>
+															<div class="edui-box edui-label edui-default"></div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div id="edui10_toolbarmsg"
+									class="edui-editor-toolbarmsg edui-default"
+									style="display: none;">
+									<div id="edui10_upload_dialog"
+										class="edui-editor-toolbarmsg-upload edui-default"
+										onclick="$EDITORUI[&quot;edui10&quot;].showWordImageDialog();">点击上传</div>
+									<div class="edui-editor-toolbarmsg-close edui-default"
+										onclick="$EDITORUI[&quot;edui10&quot;].hideToolbarMsg();">x</div>
+									<div id="edui10_toolbarmsg_label"
+										class="edui-editor-toolbarmsg-label edui-default"></div>
+									<div style="height: 0; overflow: hidden; clear: both;"
+										class="edui-default"></div>
+								</div>
+							</div>
+							<div id="edui10_iframeholder"
+								class="edui-editor-iframeholder edui-default"
+								style="width: 100%; height: 372px; z-index: 999; overflow: hidden;">
+								<iframe id="ueditor_0" width="100%" height="100%"
+									frameborder="0"
+									src="javascript:void(function(){document.open();document.write(&quot;<!DOCTYPE html><html xmlns='http://www.w3.org/1999/xhtml' class='view' ><head><style type='text/css'>.view{padding:0;word-wrap:break-word;cursor:text;height:90%;}
+body{margin:8px;font-family:sans-serif;font-size:16px;}p{margin:5px 0;}</style></head><body class='view' ></body><script type='text/javascript'  id='_initialScript'>setTimeout(function(){editor = window.parent.UE.instants['ueditorInstant0'];editor._setup(document);},0);var _tmpScript = document.getElementById('_initialScript');_tmpScript.parentNode.removeChild(_tmpScript);</script></html>&quot;);document.close();}())"></iframe>
+							</div>
+							<div id="edui10_bottombar"
+								class="edui-editor-bottomContainer edui-default">
+								<table class="edui-default">
+									<tbody class="edui-default">
+										<tr class="edui-default">
+											<td id="edui10_elementpath"
+												class="edui-editor-bottombar edui-default"
+												style="display: none;"></td>
+											<td id="edui10_wordcount"
+												class="edui-editor-wordcount edui-default"
+												style="display: none;"></td>
+											<td id="edui10_scale" class="edui-editor-scale edui-default"
+												style="display: none;"><div
+													class="edui-editor-icon edui-default"></div></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<div id="edui10_scalelayer" class="edui-default"></div>
+						</div>
+					</div>
+				</div>
+
+
+
+			</div>
+			<!--end row-->
+
+			<textarea name="design_content" id="ueditor_textarea_design_content" style="display: none;"></textarea>
+		</form>
+
+
+
+
+
+	</div>
+	<!--end container-->
+
+
+
+
+
+	<div class="bs-footer" role="contentinfo" id="bs-footer">
+		<div class="container">
+			
+		</div>
+	</div>
+
+
+	<script type="text/javascript" charset="utf-8" src="../webform/js/jquery-1.7.2.min.js"></script>
+	<!-- 气泡
+<script type="text/javascript" charset="utf-8" src="../webform/js/jquery.grumble.min.js"></script>
+ -->
+	<script type="text/javascript" charset="utf-8" src="../webform/js/uieditor/ueditor.config.js"></script>
+	<script type="text/javascript" charset="utf-8" src="../webform/js/uieditor/ueditor.all.js"> </script>
+	<script type="text/javascript" charset="utf-8" src="../webform/js/uieditor/lang/zh-cn/zh-cn.js"></script>
+	<script type="text/javascript" charset="utf-8" src="../webform/js/uieditor/formdesign/formdesign.v4.js"></script>
+
+
+
+	<!-- script start-->
+	<script type="text/javascript">
+	
+var leipiEditor = UE.getEditor('myFormDesign',{
+            //allowDivTransToP: false,//阻止转换div 为p
+            toolleipi:true,//是否显示，设计器的 toolbars
+            textarea: 'design_content',   
+            //这里可以选择自己需要的工具按钮名称,此处仅选择如下五个
+           toolbars:[[
+            'fullscreen', 'source', '|', 'undo', 'redo', '|','bold', 'italic', 'underline', 'fontborder', 'strikethrough',  'removeformat', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist','|', 'fontfamily', 'fontsize', '|', 'indent', '|', 'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|',  'link', 'unlink',  '|',  'horizontal',  'spechars',  'wordimage', '|', 'inserttable', 'deletetable',  'mergecells',  'splittocells']],
+            //focus时自动清空初始化时的内容
+            //autoClearinitialContent:true,
+            //关闭字数统计
+            wordCount:false,
+            //关闭elementPath
+            elementPathEnabled:false,
+            //默认的编辑区域高度
+            initialFrameHeight:300
+            //,iframeCssUrl:"/Public/css/bootstrap/css/bootstrap.css" //引入自身 css使编辑器兼容你网站css
+            //更多其他参数，请参考ueditor.config.js中的配置项
+        });
+
+ var leipiFormDesign = {
+    /*执行控件*/
+    exec : function (method) {
+        leipiEditor.execCommand(method);
+    },
+    /*
+        Javascript 解析表单
+        template 表单设计器里的Html内容
+        fields 字段总数
+    */
+    parse_form:function(template,fields)
+    {
+        //正则  radios|checkboxs|select 匹配的边界 |--|  因为当使用 {} 时js报错
+        var preg =  /(\|-<span(((?!<span).)*leipiplugins=\"(radios|checkboxs|select)\".*?)>(.*?)<\/span>-\||<(img|input|textarea|select).*?(<\/select>|<\/textarea>|\/>))/gi,preg_attr =/(\w+)=\"(.?|.+?)\"/gi,preg_group =/<input.*?\/>/gi;
+        if(!fields) fields = 0;
+
+        var template_parse = template,template_data = new Array(),add_fields=new Object(),checkboxs=0;
+
+        var pno = 0;
+        template.replace(preg, function(plugin,p1,p2,p3,p4,p5,p6){
+            var parse_attr = new Array(),attr_arr_all = new Object(),name = '', select_dot = '' , is_new=false;
+            var p0 = plugin;
+            var tag = p6 ? p6 : p4;
+            //alert(tag + " \n- t1 - "+p1 +" \n-2- " +p2+" \n-3- " +p3+" \n-4- " +p4+" \n-5- " +p5+" \n-6- " +p6);
+
+            if(tag == 'radios' || tag == 'checkboxs')
+            {
+                plugin = p2;
+            }else if(tag == 'select')
+            {
+                plugin = plugin.replace('|-','');
+                plugin = plugin.replace('-|','');
+            }
+            plugin.replace(preg_attr, function(str0,attr,val) {
+                    if(attr=='name')
+                    {
+                        if(val=='leipiNewField')
+                        {
+                            is_new=true;
+                            fields++;
+                            val = 'data_'+fields;
+                        }
+                        name = val;
+                    }
+                    
+                    if(tag=='select' && attr=='value')
+                    {
+                        if(!attr_arr_all[attr]) attr_arr_all[attr] = '';
+                        attr_arr_all[attr] += select_dot + val;
+                        select_dot = ',';
+                    }else
+                    {
+                        attr_arr_all[attr] = val;
+                    }
+                    var oField = new Object();
+                    oField[attr] = val;
+                    parse_attr.push(oField);
+            }) 
+            /*alert(JSON.stringify(parse_attr));return;*/
+             if(tag =='checkboxs') /*复选组  多个字段 */
+             {
+                plugin = p0;
+                plugin = plugin.replace('|-','');
+                plugin = plugin.replace('-|','');
+                var name = 'checkboxs_'+checkboxs;
+                attr_arr_all['parse_name'] = name;
+                attr_arr_all['name'] = '';
+                attr_arr_all['value'] = '';
+                
+                attr_arr_all['content'] = '<span leipiplugins="checkboxs"  title="'+attr_arr_all['title']+'">';
+                var dot_name ='', dot_value = '';
+                p5.replace(preg_group, function(parse_group) {
+                    var is_new=false,option = new Object();
+                    parse_group.replace(preg_attr, function(str0,k,val) {
+                        if(k=='name')
+                        {
+                            if(val=='leipiNewField')
+                            {
+                                is_new=true;
+                                fields++;
+                                val = 'data_'+fields;
+                            }
+
+                            attr_arr_all['name'] += dot_name + val;
+                            dot_name = ',';
+
+                        }
+                        else if(k=='value')
+                        {
+                            attr_arr_all['value'] += dot_value + val;
+                            dot_value = ',';
+
+                        }
+                        option[k] = val;    
+                    });
+                    
+                    if(!attr_arr_all['options']) attr_arr_all['options'] = new Array();
+                    attr_arr_all['options'].push(option);
+					
+                    //if(!option['checked']) option['checked'] = '';
+                    var checked = option['checked'] !=undefined ? 'checked="checked"' : '';
+                    attr_arr_all['content'] +='<input type="checkbox" name="'+option['name']+'" value="'+option['value']+'"  '+checked+'/>'+option['value']+'&nbsp;';
+
+                    if(is_new)
+                    {
+                        var arr = new Object();
+                        arr['name'] = option['name'];
+                        arr['leipiplugins'] = attr_arr_all['leipiplugins'];
+                        add_fields[option['name']] = arr;
+
+                    }
+
+                });
+                attr_arr_all['content'] += '</span>';
+
+                //parse
+                template = template.replace(plugin,attr_arr_all['content']);
+                template_parse = template_parse.replace(plugin,'{'+name+'}');
+                template_parse = template_parse.replace('{|-','');
+                template_parse = template_parse.replace('-|}','');
+                template_data[pno] = attr_arr_all;
+                checkboxs++;
+
+             }else if(name)
+            {
+                if(tag =='radios') /*单选组  一个字段*/
+                {
+                    plugin = p0;
+                    plugin = plugin.replace('|-','');
+                    plugin = plugin.replace('-|','');
+                    attr_arr_all['value'] = '';
+                    attr_arr_all['content'] = '<span leipiplugins="radios" name="'+attr_arr_all['name']+'" title="'+attr_arr_all['title']+'">';
+                    var dot='';
+                    p5.replace(preg_group, function(parse_group) {
+                        var option = new Object();
+                        parse_group.replace(preg_attr, function(str0,k,val) {
+                            if(k=='value')
+                            {
+                                attr_arr_all['value'] += dot + val;
+                                dot = ',';
+                            }
+                            option[k] = val;    
+                        });
+                        option['name'] = attr_arr_all['name'];
+                        if(!attr_arr_all['options']) attr_arr_all['options'] = new Array();
+                        attr_arr_all['options'].push(option);
+                        //if(!option['checked']) option['checked'] = '';
+                        var checked = option['checked'] !=undefined ? 'checked="checked"' : '';
+                        attr_arr_all['content'] +='<input type="radio" name="'+attr_arr_all['name']+'" value="'+option['value']+'"  '+checked+'/>'+option['value']+'&nbsp;';
+
+                    });
+                    attr_arr_all['content'] += '</span>';
+
+                }else
+                {
+                    attr_arr_all['content'] = is_new ? plugin.replace(/leipiNewField/,name) : plugin;
+                }
+                //attr_arr_all['itemid'] = fields;
+                //attr_arr_all['tag'] = tag;
+                template = template.replace(plugin,attr_arr_all['content']);
+                template_parse = template_parse.replace(plugin,'{'+name+'}');
+                template_parse = template_parse.replace('{|-','');
+                template_parse = template_parse.replace('-|}','');
+                if(is_new)
+                {
+                    var arr = new Object();
+                    arr['name'] = name;
+                    arr['leipiplugins'] = attr_arr_all['leipiplugins'];
+                    add_fields[arr['name']] = arr;
+                }
+                template_data[pno] = attr_arr_all;
+
+               
+            }
+            pno++;
+        })
+        var parse_form = new Object({
+            'fields':fields,//总字段数
+            'template':template,//完整html
+            'parse':template_parse,//控件替换为{data_1}的html
+            'data':template_data,//控件属性
+            'add_fields':add_fields//新增控件
+        });
+        return JSON.stringify(parse_form);
+    },
+    /*type  =  save 保存设计 versions 保存版本  close关闭 */
+    fnCheckForm : function ( type ) {
+        if(leipiEditor.queryCommandState( 'source' ))
+            leipiEditor.execCommand('source');//切换到编辑模式才提交，否则有bug
+            
+        if(leipiEditor.hasContents()){
+            leipiEditor.sync();/*同步内容*/
+            
+           // alert("你点击了保存,这里可以异步提交....");
+            //return false;
+            
+            var type_value='',formid=0,fields=$("#fields").val(),formeditor='';
+
+            if( typeof type!=='undefined' ){
+                type_value = type;
+            }
+            //获取表单设计器里的内容
+            formeditor=leipiEditor.getContent();
+            //解析表单设计器控件
+            var parse_form = this.parse_form(formeditor,fields);
+            //alert(parse_form);
+            var formObject = eval('('+parse_form+')');
+            
+//             $("#leipi_type").val(type_value);
+//             $("#leipi_parse_form").val(parse_form);
+            
+//             $("#saveform").attr("target","_blank");
+//             $("#saveform").attr("action","../../htmlParser");
+//             $("#saveform").submit();
+			$.ajax({
+    			url:'../../htmlParser',
+    		    type: 'POST',
+                contentType: "application/x-www-form-urlencoded; charset=utf-8",
+    		    data:{'template':formObject.template,'formData':JSON.stringify(formObject.data)},
+    		    success:function(data){
+    		    	
+    		   },
+               errorCallBack:function(e){
+            	   var dd='fef';
+               }
+    		});
+
+             /*//异步提交数据
+             $.ajax({
+                type: 'POST',
+                url : '/index/parse.html',
+                //dataType : 'json',
+                data : {'type' : type_value,'formid':formid,'parse_form':parse_form},
+                success : function(data){
+                    if(confirm('查看js解析后，提交到服务器的数据，请临时允许弹窗'))
+                    {
+                        win_parse=window.open('','','width=800,height=600');
+                        //这里临时查看，所以替换一下，实际情况下不需要替换  
+                        data  = data.replace(/<\/+textarea/,'&lt;textarea');
+                        win_parse.document.write('<textarea style="width:100%;height:100%">'+data+'</textarea>');
+                        win_parse.focus();
+                    }
+                    
+                    /*
+                  if(data.success==1){
+                      alert('保存成功');
+                      $('#submitbtn').button('reset');
+                  }else{
+                      alert('保存失败！');
+                  }* /
+                }
+            });*/
+            
+        } else {
+            alert('表单内容不能为空！')
+            $('#submitbtn').button('reset');
+            return false;
+        }
+    } ,
+    /*预览表单*/
+    fnReview : function (){
+        if(leipiEditor.queryCommandState( 'source' ))
+            leipiEditor.execCommand('source');/*切换到编辑模式才提交，否则部分浏览器有bug*/
+            
+        if(leipiEditor.hasContents()){
+            //leipiEditor.sync();       /*同步内容*/
+            
+            /*设计form的target 然后提交至一个新的窗口进行预览*/
+            //document.saveform.target="mywin";
+            //window.open('','mywin',"menubar=0,toolbar=0,status=0,resizable=1,left=0,top=0,scrollbars=1,width=" +(screen.availWidth-10) + ",height=" + (screen.availHeight-50) + "\"");
+			
+            //document.saveform.action="/webform/preview.html";
+            //document.saveform.submit(); //提交表单
+            
+            var temp = document.createElement("form");
+            temp.action = "../webform/preview.jsp";        
+            temp.method = "post";        
+            temp.style.display = "none";
+            temp.target = "mywin";
+        	var textarea = document.createElement("textarea");
+            textarea.name = "design_content";
+            textarea.value = leipiEditor.getContent();
+            textarea.style.display = "none";
+            temp.appendChild(textarea);
+            document.body.appendChild(temp);
+            window.open('','mywin',"menubar=0,toolbar=0,status=0,resizable=1,left=0,top=0,scrollbars=1,width=" +(screen.availWidth-10) + ",height=" + (screen.availHeight-50) + "\"");
+            temp.submit();
+        } else {
+            alert('表单内容不能为空！');
+            return false;
+        }
+    }
+};
+
+/*
+$('#tools_iconv').grumble({
+    text: '新功能', 
+    angle: 340, 
+    distance: 10, 
+    showAfter: 100
+    //,hideAfter: 1000
+});*/
+
+</script>
+	<div id="edui_fixedlayer" class="edui-default"
+		style="position: fixed; left: 0px; top: 0px; width: 0px; height: 0px;">
+		<div id="edui1" class="edui-popup  edui-bubble edui-default"
+			onmousedown="return false;" style="display: none;">
+			<div id="edui1_body" class="edui-popup-body edui-default">
+				<iframe
+					style="position: absolute; z-index: -1; left: 0; top: 0; background-color: transparent;"
+					frameborder="0" width="100%" height="100%" src="about:blank"
+					class="edui-default"></iframe>
+				<div class="edui-shadow edui-default"></div>
+				<div id="edui1_content" class="edui-popup-content edui-default">
+				</div>
+			</div>
+		</div>
+		<div id="edui2" class="edui-popup  edui-bubble edui-default"
+			onmousedown="return false;" style="display: none;">
+			<div id="edui2_body" class="edui-popup-body edui-default">
+				<iframe
+					style="position: absolute; z-index: -1; left: 0; top: 0; background-color: transparent;"
+					frameborder="0" width="100%" height="100%" src="about:blank"
+					class="edui-default"></iframe>
+				<div class="edui-shadow edui-default"></div>
+				<div id="edui2_content" class="edui-popup-content edui-default">
+				</div>
+			</div>
+		</div>
+		<div id="edui3" class="edui-popup  edui-bubble edui-default"
+			onmousedown="return false;" style="display: none;">
+			<div id="edui3_body" class="edui-popup-body edui-default">
+				<iframe
+					style="position: absolute; z-index: -1; left: 0; top: 0; background-color: transparent;"
+					frameborder="0" width="100%" height="100%" src="about:blank"
+					class="edui-default"></iframe>
+				<div class="edui-shadow edui-default"></div>
+				<div id="edui3_content" class="edui-popup-content edui-default">
+				</div>
+			</div>
+		</div>
+		<div id="edui4" class="edui-popup  edui-bubble edui-default"
+			onmousedown="return false;" style="display: none;">
+			<div id="edui4_body" class="edui-popup-body edui-default">
+				<iframe
+					style="position: absolute; z-index: -1; left: 0; top: 0; background-color: transparent;"
+					frameborder="0" width="100%" height="100%" src="about:blank"
+					class="edui-default"></iframe>
+				<div class="edui-shadow edui-default"></div>
+				<div id="edui4_content" class="edui-popup-content edui-default">
+				</div>
+			</div>
+		</div>
+		<div id="edui5" class="edui-popup  edui-bubble edui-default"
+			onmousedown="return false;" style="display: none;">
+			<div id="edui5_body" class="edui-popup-body edui-default">
+				<iframe
+					style="position: absolute; z-index: -1; left: 0; top: 0; background-color: transparent;"
+					frameborder="0" width="100%" height="100%" src="about:blank"
+					class="edui-default"></iframe>
+				<div class="edui-shadow edui-default"></div>
+				<div id="edui5_content" class="edui-popup-content edui-default">
+				</div>
+			</div>
+		</div>
+		<div id="edui6" class="edui-popup  edui-bubble edui-default"
+			onmousedown="return false;" style="display: none;">
+			<div id="edui6_body" class="edui-popup-body edui-default">
+				<iframe
+					style="position: absolute; z-index: -1; left: 0; top: 0; background-color: transparent;"
+					frameborder="0" width="100%" height="100%" src="about:blank"
+					class="edui-default"></iframe>
+				<div class="edui-shadow edui-default"></div>
+				<div id="edui6_content" class="edui-popup-content edui-default">
+				</div>
+			</div>
+		</div>
+		<div id="edui7" class="edui-popup  edui-bubble edui-default"
+			onmousedown="return false;" style="display: none;">
+			<div id="edui7_body" class="edui-popup-body edui-default">
+				<iframe
+					style="position: absolute; z-index: -1; left: 0; top: 0; background-color: transparent;"
+					frameborder="0" width="100%" height="100%" src="about:blank"
+					class="edui-default"></iframe>
+				<div class="edui-shadow edui-default"></div>
+				<div id="edui7_content" class="edui-popup-content edui-default">
+				</div>
+			</div>
+		</div>
+		<div id="edui8" class="edui-popup  edui-bubble edui-default"
+			onmousedown="return false;" style="display: none;">
+			<div id="edui8_body" class="edui-popup-body edui-default">
+				<iframe
+					style="position: absolute; z-index: -1; left: 0; top: 0; background-color: transparent;"
+					frameborder="0" width="100%" height="100%" src="about:blank"
+					class="edui-default"></iframe>
+				<div class="edui-shadow edui-default"></div>
+				<div id="edui8_content" class="edui-popup-content edui-default">
+				</div>
+			</div>
+		</div>
+		<div id="edui9" class="edui-popup  edui-bubble edui-default"
+			onmousedown="return false;" style="display: none;">
+			<div id="edui9_body" class="edui-popup-body edui-default">
+				<iframe
+					style="position: absolute; z-index: -1; left: 0; top: 0; background-color: transparent;"
+					frameborder="0" width="100%" height="100%" src="about:blank"
+					class="edui-default"></iframe>
+				<div class="edui-shadow edui-default"></div>
+				<div id="edui9_content" class="edui-popup-content edui-default">
+				</div>
+			</div>
+		</div>
+		<div id="edui113" class="edui-popup  edui-bubble edui-default"
+			onmousedown="return false;" style="display: none;">
+			<div id="edui113_body" class="edui-popup-body edui-default">
+				<iframe
+					style="position: absolute; z-index: -1; left: 0; top: 0; background-color: transparent;"
+					frameborder="0" width="100%" height="100%" src="about:blank"
+					class="edui-default"></iframe>
+				<div class="edui-shadow edui-default"></div>
+				<div id="edui113_content" class="edui-popup-content edui-default">
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- script end -->
+
+
+	<div id="global-zeroclipboard-html-bridge"
+		class="global-zeroclipboard-container"
+		style="position: absolute; left: 0px; top: -9999px; width: 1px; height: 1px; z-index: 999999999;">
+		<object id="global-zeroclipboard-flash-bridge"
+			name="global-zeroclipboard-flash-bridge" width="100%" height="100%"
+			type="application/x-shockwave-flash"
+			data="http://localhost:8080/wf/webform/js/uieditor/third-party/zeroclipboard/ZeroClipboard.swf">
+			<param name="allowScriptAccess" value="sameDomain">
+			<param name="allowNetworking" value="all">
+			<param name="menu" value="false">
+			<param name="wmode" value="transparent">
+			<param name="flashvars" value="trustedOrigins=wf">
+		</object>
+	</div>
+</body>
+</html>

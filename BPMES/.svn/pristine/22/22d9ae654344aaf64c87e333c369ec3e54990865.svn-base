@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
+    <title>供应商配置列表</title>
+    <link rel="stylesheet" type="text/css" href="../../../common/IplantCompent/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../../../common/IplantCompent/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="../../../common/IplantCompent/Demo/demo.css">
+    <script src="../../../common/IplantCompent/jquery.min.js" type="text/javascript"></script>
+    <script src="../../../common/IplantCompent/jquery.easyui.min.js" type="text/javascript"></script>
+    <script src="../../../common/IplantCommon/DataRequest.js" type="text/javascript"></script>
+    <script src="../../../common/IplantCommon/CommonUtil.js" type="text/javascript"></script>
+    <script src="js/MaterialSupplierConfig.js" type="text/javascript"></script>
+    <script src="../../../common/UICompent/locale/easyui-lang-zh_CN.js" type="text/javascript" ></script>
+    <meta charset="utf-8" />
+    <script type="text/javascript">
+		    function doSearch(){
+		    	addMaterial()
+		    	getMaterialDataBySearch();
+		    };
+		    function searchVendorCode(){
+		    	addVendorCode();
+		    	getVendorCodeBySearch();
+		    }
+
+    </script>  
+</head>
+<body style="padding: 0;margin: 0;">
+	<div style="height:100%;width:100%" class="easyui-layout" fit="true">
+        <div region='north' id="tb" style="width: auto; height: 30px;background: linear-gradient(rgb(255, 255, 255) 0px, rgba(149, 184, 231, 0.28) 100%);">
+               <table style="width: auto; height:100%;" cellspacing="0" border="0">
+                    <tr>
+                      <td>
+                      		<a id="btnAdd" href="#" class="easyui-linkbutton add" iconCls="icon-add" data-options="plain:true" >添加</a>
+                            <a id="btnUpdate" href="#" class="easyui-linkbutton update" iconCls="icon-edit" data-options="plain:true" >修改</a>
+                            <a id="btnDelete" href="#" class="easyui-linkbutton delete" iconCls="icon-remove" data-options="plain:true">删除</a>
+                            <a id="btnhelp"  href="#" class="easyui-linkbutton help" iconCls="icon-help"  data-options="plain:true" >帮助</a>
+                      </td>
+                    </tr>
+               </table>
+            </div>
+    	<div region="center" style="width:100%" style="border:0">
+           <div region='north' id='tbsearch' style="width: auto; height: 30px;background: linear-gradient(rgb(255, 255, 255) 0px, rgba(149, 184, 231, 0.28) 100%);">
+                <table>
+	                <tr >
+	                    <td>供应商编码：</td>
+	                    <td>
+	                       <input id="QVendorCode" name="postingdate" style="width: 200px;" class="easyui-textbox"/>
+	                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+	                    </td>
+	                    
+	                     <td>物料编码：</td>
+	                    <td>
+	                       <input id="QMaterialCoding" name="postingdate" style="width: 200px;" class="easyui-textbox"/>
+	                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+	                    </td>
+                 
+	                    <td>
+	                       <a href="#" class="easyui-linkbutton" iconCls="icon-search" id="btnSearch" data-options="plain:true">查询</a>	
+	                       <a href="#" class="easyui-linkbutton" iconCls="icon-reset" id="btnResets" data-options="plain:true">重置</a>
+	                    </td>
+	                    
+	                    
+	                </tr>
+                </table> 
+             </div>
+            <table region='center' style="height: auto;max-height: 100%" id="MaterialSuppConfig_tab" class='easyui-datagrid' toolbar="#tbsearch" rownumbers="true" ></table>
+            </div>
+      </div>
+
+    <div id="enditTab" class="easyui-dialog" style="width: 650px;height: 400px;" closed="true" align="center" data-options="modal: true,
+				buttons: [{
+					text:'保存',
+					iconCls:'icon-ok',
+					handler:function(){
+						savaStation();
+						
+					}
+				},{
+					text:'取消',
+					iconCls:'icon-no',
+					handler:function(){
+						setDataNull();
+						$('#enditTab').dialog('close');	
+					}
+				},{
+                    text:'帮助',
+                    iconCls:'icon-help',
+                    id:'save3',
+                    handler:function(){
+                       printConfig(); 
+                    }
+                }]">
+        <form id="fmStation" method="post" style="padding:30px 20px 10px 25px;">
+            <table border="0" id="Tbl">
+               
+                
+                 <tr style="height: 35px;">
+                    <td align="right">供应商：</td>         
+	                    <td>   
+	                     <input id="VendorCode" editable="false" name="VendorCode" style="width: 200px;" class="easyui-searchbox"  required="required" data-options="prompt:'请点击选择',missingMessage:'该选项为必填信息',searcher:searchVendorCode"/><span style="color: red ">*</span>
+	                    </td>
+                </tr>
+                
+                
+                 <tr style="height: 35px;">
+                    <td align="right">物料编码：</td>         
+	                    <td>
+	                     <input id="txtMaterialCode" editable="false" name="txtMaterialCode" style="width: 200px;" class="easyui-searchbox"  required="required" data-options="prompt:'请点击选择',missingMessage:'该选项为必填信息',searcher:doSearch"/><span style="color: red ">*</span>
+	                       <!-- <input id="MaterialCoding"  name="postingdate" style="width: 200px;" class="easyui-textbox" required="required" data-options="missingMessage:'该选项为必填信息'" /> -->	                       
+	                    </td>
+                </tr> 
+                
+
+
+                <tr style="height: 35px;">
+              	  <td align="right">打印方式：</td>
+                   <td>
+                       <select id="PrintType" name="postingdate" style="width: 100px;panelHeight:'auto'" class="easyui-combobox" editable='false'>
+                       </select>
+                   </td>
+                </tr>
+                
+                <tr style="height: 35px;">
+                    <td align="right">备注：</td>
+                    <td>
+                        <textarea id="remarks" name="remarks" style="height:66px;" rows="3" cols="30" class="easyui-textarea"   required="required" data-options="missingMessage:'该选项为必填信息'" ></textarea>
+                    </td>
+                  <!--   <td style="color: red ">*</td> -->
+                </tr>
+                
+                <tr style="height: 35px;">
+                    <td colspan="3"><span id='showSaveInfo' class='divspan' style='width:260px;'></span></td>
+                </tr>     
+
+                               
+            </table>
+        </form>
+    </div>
+    
+    
+    
+    
+    
+    
+    <!-- 弹框按钮组 -->
+    <div id="enditTab-buttons">
+		<a href="#" onclick="javascript:$('#enditTab').dialog('close')"><img src="../../../common/RootImages/cancel.png" style="width:80px;height:28px;vertical-align:middle;"/></a>
+		&nbsp;&nbsp;<a href="#" onclick="javascript:saveWorkOrder();"><img src="../../../common/RootImages/save-ok.png" style="width:80px;height:28px;vertical-align:middle;"/></a>
+	</div>
+    <!-- 物料详情选择框 -->
+	<div id="addMaterialDetails" class="easyui-dialog" style="width: 703px;height: 535px;" align="center" data-options="modal:'true',closed:'true',buttons:'#addMaterialDetails-buttons'">
+	      <form id="searchMaterialForm">
+	         <table style="height:15%;width:700px;align:center;padding-top: 20px;">
+	         	<tr>
+	               <td style="height:30px;padding-left:20px;">物料编码：
+	               		<input id="materialCode" style="width:160px;height:30px;" class="easyui-textbox"/>
+	               </td>
+	               <td>物料名称：
+	               		<input id="materialName" style="width:160px;height:30px;" class="easyui-textbox"/>
+	               </td>
+                   <td>
+                   &nbsp;
+                      <a href="#" class="easyui-linkbutton" iconCls="icon-search" id="btnSearch1" data-options="plain:true" onclick="javascript:getMaterialDataBySearch();">查询</a>	
+                      &nbsp; <a href="#" class="easyui-linkbutton" iconCls="icon-reset" id="btnResets2" data-options="plain:true">重置</a>
+                   </td>               
+	               <td>
+	                   <div id="showMaterialDiv"><span id="showMaterial" style="margin: 0;padding: 0;vertical-align:3px;width:250px; "></span></div>
+	               </td>
+	           </tr>
+	       	 </table>
+	       </form>
+       <div style="height:85%;max-height: 85%;padding-left:20px;padding-right:20px;">
+       		<table id="materialDetails_tab" class='easyui-datagrid' rownumbers="true"></table>
+       </div>
+    </div>
+    <!-- 弹框按钮组 -->
+	<div id="addMaterialDetails-buttons" style="padding-right:20px;padding-bottom:20px;">
+		<a href="#" onclick="javascript:$('#addMaterialDetails').dialog('close')"><img src="../../../common/RootImages/cancel.png" style="width:80px;height:28px;vertical-align:middle;"/></a>
+		&nbsp;&nbsp;<a href="#" onclick="javascript:assignment();"><img src="../../../common/RootImages/next_step.png" style="width:80px;height:28px;vertical-align:middle;"/></a>
+	</div>
+	
+	<!-- 供应商信息选择框 -->
+	<div id="VendorCodeDetails" class="easyui-dialog" style="width: 780px;height: 635px;" align="center" data-options="modal:'true',closed:'true',buttons:'#VendorCodeDetails-buttons'">
+	      <form id="searchVendorCodeForm">
+	         <table style="height:15%;width:750px;align:center;padding-top: 20px;">
+	         	<tr>
+
+                   <td>供应商名称:
+                      <input id="searchVendorName" name="postingdate" style="width: 120px;" class="easyui-textbox"/>
+                   </td>
+                   
+                   <td>供应商编码:
+                      <input id="searchVendorCode" name="postingdate" style="width: 120px;" class="easyui-textbox"/>
+                   </td>
+           
+	               <td>
+                      <a href="#" class="easyui-linkbutton" iconCls="icon-search" id="btnSearch1" data-options="plain:true" onclick="javascript:getVendorCodeBySearch();">查询</a>	
+                      &nbsp; <a href="#" class="easyui-linkbutton" iconCls="icon-reset" id="btnResets3" data-options="plain:true">重置</a>
+                   </td>   
+
+	               
+	               <td>
+	                   <div id="showMaster"><span id="showVendor" style="margin: 0;padding: 0;vertical-align:3px;width:250px; "></span></div>
+	               </td>
+	           </tr>
+	       	 </table>
+	       </form>
+       <div style="height:85%;max-height: 85%;padding-left:20px;padding-right:20px;">
+       		<table id="VendorCodeDetails_tab" class='easyui-datagrid' rownumbers="true"></table>
+       </div>
+    </div>
+    <!-- 弹框按钮组 -->
+	<div id="VendorCodeDetails-buttons" style="padding-left:20px;padding-bottom:20px;">
+		<a href="#" onclick="javascript:$('#VendorCodeDetails').dialog('close')"><img src="../../../common/RootImages/cancel.png" style="width:80px;height:28px;vertical-align:middle;"/></a>
+		&nbsp;&nbsp;<a href="#" onclick="javascript:selectVendorCode();"><img src="../../../common/RootImages/next_step.png" style="width:80px;height:28px;vertical-align:middle;"/></a>
+	</div>  
+    
+                                                                     
+</body>
+</html>

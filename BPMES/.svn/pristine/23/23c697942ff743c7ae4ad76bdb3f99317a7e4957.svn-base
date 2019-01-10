@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="">       
+		<!-- 1.1 数据字典管理 -->		
+<!-- 查询设备列表信息 -->
+	<select id="queryEquipmentq" parameterType="hashmap" resultType="java.util.HashMap">
+		  <include refid="oraclePagingFileTop"></include>
+		   ET_CD,ET_NM,ET_UT,DICT_IT,ROUT_CD,to_char(CRT_DT,'yyyy-mm-dd') CRT_DT,ET_MT,ET_TT from iplant1.C_IPLANT_E2_T  
+		  <where>1=1
+		  	<if test="type!='' and type!=null and flag!='true'">and DICT_IT like '%${type}%'</if>
+		  	<if test="code!='' and code!=null and flag!='true'">and ET_CD like '%${code}%'</if>
+		  	<if test="name!='' and name!=null and flag!='true'">and ET_NM like '%${name}%'</if>
+		  <!-- 全字匹配 -->
+		  <if test="type!='' and type!=null and flag=='true'">and DICT_IT = '${type}'</if>
+		  <if test="code!='' and code!=null and flag=='true'">and ET_CD = '${code}'</if>
+		  <if test="name!='' and name!=null and flag=='true'">and ET_NM = '${name}'</if>
+		  </where>
+		   <include refid="oraclePagingFileBottom"></include> 
+	</select>
+	
+	<select id="queryEquipmentq_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+	SELECT COUNT(1) ROWS_COUNT from iplant1.C_IPLANT_E2_T  
+		  <where>1=1
+		  	<if test="type!='' and type!=null and flag!='true'">and DICT_IT like '%${type}%'</if>
+		  	<if test="code!='' and code!=null and flag!='true'">and ET_CD like '%${code}%'</if>
+		  	<if test="name!='' and name!=null and flag!='true'">and ET_NM like '%${name}%'</if>
+		  <!-- 全字匹配 -->
+		  <if test="type!='' and type!=null and flag=='true'">and DICT_IT = '${type}'</if>
+		  <if test="code!='' and code!=null and flag=='true'">and ET_CD = '${code}'</if>
+		  <if test="name!='' and name!=null and flag=='true'">and ET_NM = '${name}'</if>
+		  </where>
+		  
+	</select>
+	
+	<!-- 新增设备保养 -->
+	<insert id="insertEquipmentIT" parameterType="hashmap">
+		insert into TPM2.H_TPM_M1_T(MT_CD,KB_IU,KB_NM,KB_SC,DICT_IT_NM_01,KB_PD,DICT_IT_NM_02,MT_ST)
+		values('${MT_CD}','${KB_IU}','${KB_NM}','${KB_SC}','${DICT_IT_NM_01}','${KB_PD}','${DICT_IT_NM_02}','${MT_ST}')
+	</insert>
+	
+	   <!-- 删除设备保养--> 
+	    <delete id="deleteEquipmentIT" parameterType="hashmap">
+	            DELETE TPM2.H_TPM_M1_T
+	             	where
+	             		MT_CD IN
+	             	<foreach collection="list"  index="index" item="item" open="(" separator="," close=")"  >
+       					#{item.MT_CD}
+      				</foreach>
+	    </delete>  
+	    <!-- 修改设备保养 -->
+	    <update id="updateEquipmentq" parameterType="hashmap">
+	    	update TPM2.H_TPM_M1_T
+	    	<set>
+	    		<if test="DICT_IT_NM_01!=null and DICT_IT_NM_01!= ''">DICT_IT_NM_01='${DICT_IT_NM_01}',</if>
+	    		<if test="KB_NM!=null and KB_NM!= ''">KB_NM='${KB_NM}',</if>
+	    		<if test="KB_IU!=null and KB_IU!= ''">KB_IU='${KB_IU}',</if>
+	    		<if test="KB_SC!=null and KB_SC!= ''">KB_SC='${KB_SC}',</if>
+	    		<if test="KB_PD!=null and KB_PD!= ''">KB_PD='${KB_PD}',</if>
+	    		<if test="DICT_IT_NM_02!=null and DICT_IT_NM_02!= ''">DICT_IT_NM_02='${DICT_IT_NM_02}',</if>
+	    		<if test="MT_ST!=null and MT_ST!= ''">MT_ST='${MT_ST}'</if>
+	    	</set>
+	    	where MT_CD='${MT_CD}'
+	    </update>
+	    
+	    
+	    
+	    <select id="queryY1110" parameterType="hashmap" resultType="java.util.HashMap">
+	    	select DISTINCT DICT_IT_NM_02 from tpm2.h_tpm_m1_t
+	    </select>
+ </mapper>

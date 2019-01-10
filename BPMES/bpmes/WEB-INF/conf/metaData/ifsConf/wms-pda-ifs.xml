@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ifss>
+	<!-- A.2 仓库PDA模块 -->
+	<!-- 通过订单号或者唯一码编号查询物料数据 -->
+	<ifs ifs_code="WMS_M00001" ifs_name="通过订单号或者唯一码编号查询物料数据" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryMateriaByOrderIdOrBarcode" biz_method="" serial_no="1" biz_name="queryMateriaByOrderIdOrBarcode" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 更新唯一码对应的物料状态信息为待质检状态-->
+	<ifs ifs_code="WMS_M00002" ifs_name="更新唯一码对应的物料状态信息为待质检状态" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateMateriaStatusNeedCheck" biz_method="" serial_no="1" biz_name="updateMateriaStatusNeedCheck" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 通过唯一码查询待质检物料清单-->
+	<ifs ifs_code="WMS_M00003" ifs_name="通过唯一码查询待质检物料清单" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryNeedCheckingMateriaListByBarcode" biz_method="" serial_no="1" biz_name="queryNeedCheckingMateriaListByBarcode" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 通过唯一码确定物料质检是否通过-->
+	<ifs ifs_code="WMS_M00004" ifs_name="通过唯一码确定物料质检是否通过" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateIQCStatusByBarcode" biz_method="" serial_no="1" biz_name="updateIQCStatusByBarcode" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- PDA入库 -->
+	<ifs ifs_code="WMS_M00005" ifs_name="通过唯一码确定物料质检是否通过" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="materiaCheckinByBarcode" biz_method="" serial_no="1" biz_name="materiaCheckinByBarcode" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- JIT备料查询JIT类型工单 -->
+	<ifs ifs_code="WMS_M00006" ifs_name="JIT备料查询JIT类型工单" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="chooseJITTypeWorkOrder" biz_method="" serial_no="1" biz_name="chooseJITTypeWorkOrder" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- JIT备料通过工单号查询须备料信息 -->
+	<ifs ifs_code="WMS_M00007" ifs_name="JIT备料通过工单号查询须备料信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="chooseJITNeedMateriaByWorkOrder" biz_method="" serial_no="1" biz_name="chooseJITNeedMateriaByWorkOrder" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- JIT备料分析 -->
+	<ifs ifs_code="WMS_M00008" ifs_name="JIT备料分析" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="wms_jit_prepare" biz_method="" serial_no="1" biz_name="wms_jit_prepare" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- JIT物料拆包 -->
+	<ifs ifs_code="WMS_M00009" ifs_name="JIT物料拆包" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="wms_jit_unpack" biz_method="" serial_no="1" biz_name="wms_jit_unpack" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- JIT备料出库 -->
+	<ifs ifs_code="WMS_M00010" ifs_name="JIT备料出库" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="wms_jit_checkout" biz_method="" serial_no="1" biz_name="wms_jit_checkout" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 工单备料查询 -->
+	<ifs ifs_code="WMS_M00011" ifs_name="工单备料查询" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="chooseNormalTypeWorkOrder" biz_method="" serial_no="1" biz_name="chooseNormalTypeWorkOrder" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 工单备料通过工单号查询须备料信息 -->
+	<ifs ifs_code="WMS_M00012" ifs_name="工单备料通过工单号查询须备料信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="chooseNormalNeedMateriaByWorkOrder" biz_method="" serial_no="1" biz_name="chooseNormalNeedMateriaByWorkOrder" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 工单备料分析 -->
+	<ifs ifs_code="WMS_M00013" ifs_name="工单备料分析" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="wms_normal_prepare" biz_method="" serial_no="1" biz_name="wms_jit_prepare" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 工单物料拆包 -->
+	<ifs ifs_code="WMS_M00014" ifs_name="工单物料拆包" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="wms_normal_unpack" biz_method="" serial_no="1" biz_name="wms_jit_unpack" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 工单备料出库 -->
+	<ifs ifs_code="WMS_M00015" ifs_name="工单备料出库" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="wms_normal_checkout" biz_method="" serial_no="1" biz_name="wms_jit_checkout" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 选择箱单 -->
+	<ifs ifs_code="WMS_M00016" ifs_name="选择箱单" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="chooseBoxOrder" biz_method="" serial_no="1" biz_name="chooseBoxOrder" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 选择箱单详情 -->
+	<ifs ifs_code="WMS_M00017" ifs_name="选择箱单详情" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="chooseBoxDetailOrder" biz_method="" serial_no="1" biz_name="chooseBoxDetailOrder" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- PDA成品入库 -->
+	<ifs ifs_code="WMS_M00018" ifs_name="PDA成品入库" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="mm_product_checkin" biz_method="" serial_no="1" biz_name="mm_product_checkin" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- PDA成品出库 -->
+	<ifs ifs_code="WMS_M00019" ifs_name="PDA成品出库" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="mm_product_checkout" biz_method="" serial_no="1" biz_name="mm_product_checkout" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 选择待出库的箱单详情 -->
+	<ifs ifs_code="WMS_M00020" ifs_name="选择待出库的箱单详情" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="chooseCheckOutBoxDetailOrder" biz_method="" serial_no="1" biz_name="chooseCheckOutBoxDetailOrder" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- PDA库位看板报表 -->
+	<ifs ifs_code="WMS_M00021" ifs_name="PDA库位看板报表" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="WMSPositionBoard" biz_method="" serial_no="1" biz_name="WMSPositionBoard" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- PDA库位状态看板 -->
+	<ifs ifs_code="WMS_M00022" ifs_name="PDA库位状态看板" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="WMSPositionStatusBoard" biz_method="" serial_no="1" biz_name="WMSPositionStatusBoard" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- PDA退料 -->
+	<ifs ifs_code="WMS_M00023" ifs_name="PDA退料" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="mm_return_materia" biz_method="" serial_no="1" biz_name="mm_return_materia" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 平库发料 -->
+	<ifs ifs_code="WMS_M00024" ifs_name="平库发料" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="wms_normal_checkout1" biz_method="" serial_no="1" biz_name="wms_normal_checkout1" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 立库演示发料 -->
+	<ifs ifs_code="WMS_M00025" ifs_name="立库演示发料" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="wms_show_checkout" biz_method="" serial_no="1" biz_name="wms_show_checkout" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 查询须料信息 -->
+	<ifs ifs_code="WMS_M00026" ifs_name="查询备料信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="wms_show_search" biz_method="" serial_no="1" biz_name="wms_show_search" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 立库PDA入库验证   -->
+	<ifs ifs_code="WMS_M00027" ifs_name="立库PDA入库验证" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="wms_enter_validate" biz_method="" serial_no="1" biz_name="wms_enter_validate" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 成品仓初始化列表   -->
+	<ifs ifs_code="WMS_M00028" ifs_name="成品仓初始化列表" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="wms_rows_List" biz_method="" serial_no="1" biz_name="wms_rows_List" biz_type="3" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<ifs ifs_code="WMS_M00100" ifs_name="成品仓初始化列表" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="wms_columns_List" biz_method="" serial_no="1" biz_name="wms_columns_List" biz_type="3" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<ifs ifs_code="WMS_M00101" ifs_name="成品仓初始化列表" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="wms_shelf_List" biz_method="" serial_no="1" biz_name="wms_shelf_List" biz_type="3" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 立库入库操作  -->
+	<ifs ifs_code="WMS_M00030" ifs_name="立库入库操作" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="wms_materia_checkin" biz_method="" serial_no="1" biz_name="wms_materia_checkin" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 工单备料分析下架  -->
+	<ifs ifs_code="WMS_M00031" ifs_name="工单备料分析下架" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="wms_out_prepare" biz_method="" serial_no="1" biz_name="wms_out_prepare" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 工单备料出库  -->
+	<ifs ifs_code="WMS_M00032" ifs_name="工单备料出库" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="wms_materia_checkout" biz_method="" serial_no="1" biz_name="wms_materia_checkout" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+    <!-- 返料上架  -->
+	<ifs ifs_code="WMS_M00033" ifs_name="返料上架" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="wmsMateriaReturn" biz_method="" serial_no="1" biz_name="wmsMateriaReturn" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+    <!-- 立库rfid是否占用验证 -->
+	<ifs ifs_code="WMS_M00034" ifs_name="立库rfid是否占用验证" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="wmsPositionCheckRfid" biz_method="" serial_no="1" biz_name="wmsPositionCheckRfid" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- MSR入库调用接口 -->
+	<ifs ifs_code="WMS_M00035" ifs_name="MSR入库时调用" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="CheckinByMSR" biz_method="" serial_no="1" biz_name="CheckinByMSR" biz_type="3" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- MSR出库调用接口 -->
+	<ifs ifs_code="WMS_M00036" ifs_name="MSR出库时调用" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="CheckOutByMSR" biz_method="" serial_no="1" biz_name="CheckOutByMSR" biz_type="3" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+</ifss>

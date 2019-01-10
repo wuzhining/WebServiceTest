@@ -1,0 +1,443 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ifss>
+
+	<!-- 工序管理     START -->
+	<!-- 查询工序定义信息 -->
+	<ifs ifs_code="GX00001" ifs_name="查询工序定义信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryProcessDefinition" biz_method="" serial_no="1" biz_name="queryProcessDefinition" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    <!-- 新增工序定义信息 -->
+	<ifs ifs_code="GX00002" ifs_name="新增工序定义信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertProcessDefinition" biz_method="" serial_no="1" biz_name="insertProcessDefinition" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- 修改工序定义信息 -->
+	<ifs ifs_code="GX00003" ifs_name="修改工序定义信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateProcessDefinition" biz_method="" serial_no="1" biz_name="updateProcessDefinition" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- 删除工序定义信息 -->
+	<ifs ifs_code="GX00004" ifs_name="删除工序定义信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteProcessDefinition" biz_method="" serial_no="1" biz_name="deleteProcessDefinition" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    
+    <!-- 查询工序路线定义信息 -->
+    <ifs ifs_code="GX00011" ifs_name="查询工序路线定义信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryProcessRouteDefinition" biz_method="" serial_no="1" biz_name="queryProcessRouteDefinition" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- 新增工序路线定义信息 -->
+    <ifs ifs_code="GX00012" ifs_name="新增工序路线定义信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertProcessRouteDefinition" biz_method="" serial_no="1" biz_name="insertProcessRouteDefinition" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- 修改工序路线定义信息 -->
+    <ifs ifs_code="GX00013" ifs_name="修改工序路线定义信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateProcessRouteDefinition" biz_method="" serial_no="1" biz_name="updateProcessRouteDefinition" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- 删除工序路线定义信息 -->
+    <ifs ifs_code="GX00014" ifs_name="删除工序路线定义信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteProcessRouteDefinition" biz_method="" serial_no="1" biz_name="deleteProcessRouteDefinition" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    <!-- 查询工序路线流程配置信息 -->
+    <ifs ifs_code="GX00021" ifs_name="查询工序路线流程配置信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryProcessRouteConfiguration" biz_method="" serial_no="1" biz_name="queryProcessRouteConfiguration" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- 新增工序路线流程配置信息 -->
+    <ifs ifs_code="GX00022" ifs_name="新增工序路线流程配置信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertProcessRouteConfiguration" biz_method="" serial_no="1" biz_name="insertProcessRouteConfiguration" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- 修改工序路线流程配置信息 -->
+    <ifs ifs_code="GX00023" ifs_name="修改工序路线流程配置信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateProcessRouteConfiguration" biz_method="" serial_no="1" biz_name="updateProcessRouteConfiguration" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- 删除工序路线流程配置信息 -->
+    <ifs ifs_code="GX00024" ifs_name="删除工序路线流程配置信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteProcessRouteConfiguration" biz_method="" serial_no="1" biz_name="deleteProcessRouteConfiguration" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    <!-- 查询产品工序路线流程配置 -->
+    <ifs ifs_code="GX00061" ifs_name="查询产品工序路线流程配置" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryProductProcessRouteConfiguration" biz_method="" serial_no="1" biz_name="queryProductProcessRouteConfiguration" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- 新增产品工序路线流程配置 -->
+    <ifs ifs_code="GX00062" ifs_name="新增产品工序路线流程配置" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertProductProcessRouteConfiguration" biz_method="" serial_no="1" biz_name="insertProductProcessRouteConfiguration" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- 修改产品工序路线流程配置 -->
+    <ifs ifs_code="GX00063" ifs_name="修改产品工序路线流程配置" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateProductProcessRouteConfiguration" biz_method="" serial_no="1" biz_name="updateProductProcessRouteConfiguration" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- 删除产品工序路线流程配置 -->
+    <ifs ifs_code="GX00064" ifs_name="删除产品工序路线流程配置" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteProductProcessRouteConfiguration" biz_method="" serial_no="1" biz_name="deleteProductProcessRouteConfiguration" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    <!-- 查询工序类型 -->
+    <ifs ifs_code="GX00071" ifs_name="查询工序类型" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryPrfInfo" biz_method="" serial_no="1" biz_name="queryPrfInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- 查询路线类型 -->
+    <ifs ifs_code="GX00072" ifs_name="查询路线类型" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryRouteInfo" biz_method="" serial_no="1" biz_name="queryRouteInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- 查询模板类型 -->
+    <ifs ifs_code="GX00073" ifs_name="查询模板类型" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryTempInfo" biz_method="" serial_no="1" biz_name="queryTempInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- 查询方法类型 -->
+    <ifs ifs_code="GX00074" ifs_name="查询方法类型" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryFunInfo" biz_method="" serial_no="1" biz_name="queryFunInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    
+    <!-- 工序路线业务配置查询 -->
+    <ifs ifs_code="GX00075" ifs_name="工序路线业务配置查询" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryProcesRouteBusinessConfiguration" biz_method="" serial_no="1" biz_name="queryProcesRouteBusinessConfiguration" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- 工序路线业务配置新增 -->
+    <ifs ifs_code="GX00076" ifs_name="工序路线业务配置新增 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertProcesRouteBusinessConfiguration" biz_method="" serial_no="1" biz_name="insertProcesRouteBusinessConfiguration" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- 工序路线业务配置修改-->
+    <ifs ifs_code="GX00077" ifs_name="工序路线业务配置修改 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateProcesRouteBusinessConfiguration" biz_method="" serial_no="1" biz_name="updateProcesRouteBusinessConfiguration" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- 工序路线业务配置删除-->
+    <ifs ifs_code="GX00078" ifs_name="工序路线业务配置删除 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteProcesRouteBusinessConfiguration" biz_method="" serial_no="1" biz_name="deleteProcesRouteBusinessConfiguration" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    <!-- 工序业务配置业务代码查询-->
+    <ifs ifs_code="GX00079" ifs_name="工序业务配置业务代码查询 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryProcessC" biz_method="" serial_no="1" biz_name="queryProcessC" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    <!-- 查询当前SN所在ROUTE -->
+    <ifs ifs_code="GX00080" ifs_name="查询当前SN所在ROUTE " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryPreSnRoute" biz_method="" serial_no="1" biz_name="queryPreSnRoute" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    <!-- 工序管理     END -->
+    
+    
+    
+    <!-- 模板管理     START -->
+	<!-- 查询模板定义信息 -->
+    <ifs ifs_code="MF00031" ifs_name="查询模板定义信息 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryTemplateDefinition" biz_method="" serial_no="1" biz_name="queryTemplateDefinition" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- 新增模板定义信息 -->
+    <ifs ifs_code="MF00032" ifs_name="新增模板定义信息 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertTemplateDefinition" biz_method="" serial_no="1" biz_name="queryTemplateDefinition" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- 修改模板定义信息 -->
+    <ifs ifs_code="MF00033" ifs_name="修改模板定义信息 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateTemplateDefinition" biz_method="" serial_no="1" biz_name="queryTemplateDefinition" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- 删除模板定义信息 -->
+    <ifs ifs_code="MF00034" ifs_name="删除模板定义信息 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteTemplateDefinition" biz_method="" serial_no="1" biz_name="queryTemplateDefinition" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    <!-- 查询模板方法定义信息 -->
+    <ifs ifs_code="MF00041" ifs_name="查询模板方法定义信息 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryTemplateMethodDefinition" biz_method="" serial_no="1" biz_name="queryTemplateMethodDefinition" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- 新增模板方法定义信息 -->
+    <ifs ifs_code="MF00042" ifs_name="新增模板方法定义信息 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertTemplateMethodDefinition" biz_method="" serial_no="1" biz_name="insertTemplateMethodDefinition" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- 修改模板方法定义信息 -->
+    <ifs ifs_code="MF00043" ifs_name="修改模板方法定义信息 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateTemplateMethodDefinition" biz_method="" serial_no="1" biz_name="updateTemplateMethodDefinition" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- 删除模板方法定义信息 -->
+    <ifs ifs_code="MF00044" ifs_name="删除模板方法定义信息  " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteTemplateMethodDefinition" biz_method="" serial_no="1" biz_name="deleteTemplateMethodDefinition" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    <!-- 模板方法配置与模板方法关联查询-->
+    <ifs ifs_code="MF00045" ifs_name="模板方法配置与模板方法关联查询  " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryTempMethodAndDefinition" biz_method="" serial_no="1" biz_name="queryTempMethodAndDefinition" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    <!-- 查询模板方法配置信息 -->
+    <ifs ifs_code="MF00051" ifs_name="查询模板方法配置信息 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryTemplateMethodConfiguration" biz_method="" serial_no="1" biz_name="queryTemplateMethodConfiguration" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- 新增模板方法配置信息 -->
+    <ifs ifs_code="MF00052" ifs_name="新增模板方法配置信息 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertTemplateMethodConfiguration" biz_method="" serial_no="1" biz_name="insertTemplateMethodConfiguration" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- 修改模板方法配置信息 -->
+    <ifs ifs_code="MF00053" ifs_name="修改模板方法配置信息 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateTemplateMethodConfiguration" biz_method="" serial_no="1" biz_name="updateTemplateMethodConfiguration" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- 删除模板方法配置信息 -->
+    <ifs ifs_code="MF00054" ifs_name="删除模板方法配置信息 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteTemplateMethodConfiguration" biz_method="" serial_no="1" biz_name="deleteTemplateMethodConfiguration" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    <!-- 查询模版方法运行记录表 -->
+     <ifs ifs_code="MF00081" ifs_name="查询模版方法运行记录表  " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryTemplateMethodRunLog" biz_method="" serial_no="1" biz_name="queryTemplateMethodRunLog" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- 新增模版方法运行记录表 -->
+     <ifs ifs_code="MF00082" ifs_name="新增模版方法运行记录表  " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertTemplateMethodRunLog" biz_method="" serial_no="1" biz_name="insertTemplateMethodRunLog" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- 修改模版方法运行记录表 -->
+     <ifs ifs_code="MF00083" ifs_name="修改模版方法运行记录表  " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateTemplateMethodRunLog" biz_method="" serial_no="1" biz_name="updateTemplateMethodRunLog" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- 删除模版方法运行记录表 -->
+     <ifs ifs_code="MF00084" ifs_name="删除模版方法运行记录表   " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteTemplateMethodRunLog" biz_method="" serial_no="1" biz_name="deleteTemplateMethodRunLog" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    
+    <!-- 作业指示物料申请明细查询 -->
+     <ifs ifs_code="MF00085" ifs_name="作业指示物料申请明细查询   " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryJobInstructionApplication" biz_method="" serial_no="1" biz_name="queryJobInstructionApplication" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- 作业指示物料申请明细新增 -->
+     <ifs ifs_code="MF00086" ifs_name="作业指示物料申请明细新增   " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertJobInstructionApplication" biz_method="" serial_no="1" biz_name="insertJobInstructionApplication" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    <!-- 工单工序路线配置查询 -->
+    <ifs ifs_code="MF00087" ifs_name="工单工序路线配置查询   " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryWorkOrderRouting" biz_method="" serial_no="1" biz_name="queryWorkOrderRouting" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- 工单工序路线配置新增 -->
+    <ifs ifs_code="MF00088" ifs_name="工单工序路线配置新增  " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertWorkOrderRouting" biz_method="" serial_no="1" biz_name="insertWorkOrderRouting" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- 工单工序路线配置修改 -->
+    <ifs ifs_code="MF00089" ifs_name="工单工序路线配置修改" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateWorkOrderRouting" biz_method="" serial_no="1" biz_name="updateWorkOrderRouting" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- 工单工序路线配置删除 -->
+    <ifs ifs_code="MF00099" ifs_name="工单工序路线配置删除" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteWorkOrderRouting" biz_method="" serial_no="1" biz_name="deleteWorkOrderRouting" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    <!-- 生产制成管控表查询 -->
+    <ifs ifs_code="MF00100" ifs_name="生产制成管控表查询" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryProductionControl" biz_method="" serial_no="1" biz_name="queryProductionControl" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- 生产制成管控表新增 -->
+    <ifs ifs_code="MF00101" ifs_name="生产制成管控表新增" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertProductionControl" biz_method="" serial_no="1" biz_name="insertProductionControl" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+     <!-- 生产制成管控表修改 -->
+    <ifs ifs_code="MF00102" ifs_name="生产制成管控表修改" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateProductionControl" biz_method="" serial_no="1" biz_name="updateProductionControl" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+     <!-- 生产制成管控表删除 -->
+    <ifs ifs_code="MF00103" ifs_name="生产制成管控表删除" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteProductionControl" biz_method="" serial_no="1" biz_name="deleteProductionControl" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    <!-- 生产制成管控明细表查询 -->
+    <ifs ifs_code="MF00104" ifs_name="生产制成管控表明细查询" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryProductionControlDetailed" biz_method="" serial_no="1" biz_name="queryProductionControlDetailed" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- 生产制成管控明细表新增 -->
+    <ifs ifs_code="MF00105" ifs_name="生产制成管控表明细新增" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertProductionControlDetailed" biz_method="" serial_no="1" biz_name="insertProductionControlDetailed" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+     <!-- 生产制成管控明细表修改 -->
+    <ifs ifs_code="MF00106" ifs_name="生产制成管控明细表修改" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateProductionControlDetailed" biz_method="" serial_no="1" biz_name="updateProductionControlDetailed" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+     <!-- 生产制成管控明细表删除 -->
+    <ifs ifs_code="MF00107" ifs_name="生产制成管控明细表删除" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteProductionControlDetailed" biz_method="" serial_no="1" biz_name="deleteProductionControlDetailed" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    <!-- 模板管理     END -->
+    <!-- 模板方法步骤调用统一入口 -->
+    <ifs ifs_code="MF99999" ifs_name="模板方法步骤调用统一入口   " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="tempFunProcessInterface" biz_method="" serial_no="1" biz_name="tempFunProcessInterface" biz_type="3" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    <!-- 查询OQC箱子信息 -->
+    <ifs ifs_code="MF00108" ifs_name="模板方法步骤调用统一入口   " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="OQCScanBarCode" biz_method="" serial_no="1" biz_name="OQCScanBarCode" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    <!-- 查询OQCBOX信息 -->
+     <ifs ifs_code="MF00109" ifs_name="查询OQCBOX信息    " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryOQC_LOTIDBOx" biz_method="" serial_no="1" biz_name="queryOQC_LOTIDBOx" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+	<!-- 插入OQCBOX信息 -->
+     <ifs ifs_code="MF00110" ifs_name="插入OQCBOX信息  " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertOQC_LOTIDBOXInfo" biz_method="" serial_no="1" biz_name="insertOQC_LOTIDBOXInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    <!-- OQC信息查询 -->
+     <ifs ifs_code="MF00111" ifs_name="OQC信息查询  " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryOQCInfo" biz_method="" serial_no="1" biz_name="queryOQCInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+     <!-- 查询拉线设备维护信息 -->
+    <ifs ifs_code="MF00112" ifs_name="查询拉线设备维护信息  " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryET_LINE_INFO" biz_method="" serial_no="1" biz_name="queryET_LINE_INFO" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- 插入拉线设备维护信息 -->
+    <ifs ifs_code="MF00113" ifs_name="插入拉线设备维护信息  " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertET_LINE_INFO" biz_method="" serial_no="1" biz_name="insertET_LINE_INFO" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+     <!-- 删除拉线设备维护信息 -->
+    <ifs ifs_code="MF00114" ifs_name="删除拉线设备维护信息  " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteET_LINE_INFO" biz_method="" serial_no="1" biz_name="deleteET_LINE_INFO" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    <!-- 物料申请更新 -->
+    <ifs ifs_code="MF00115" ifs_name="物料申请更新  " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateGetMaterialRequestInfo" biz_method="" serial_no="1" biz_name="updateGetMaterialRequestInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    <!-- 物料申请新增 -->
+    <ifs ifs_code="MF00116" ifs_name="物料申请新增   " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertGetMaterialRequestInfo" biz_method="" serial_no="1" biz_name="insertGetMaterialRequestInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    
+</ifss>

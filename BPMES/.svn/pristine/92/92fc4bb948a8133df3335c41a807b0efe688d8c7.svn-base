@@ -1,0 +1,421 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<engines>
+
+	<!-- 拉式物料看板 -->
+	<engine engine_code="queryPullMaterialKanban" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryPullMaterialKanban" >
+	</engine>
+	
+	<!-- AGV看板 -->
+	<engine engine_code="queryAGVKanban" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryAGVKanban" >
+	</engine>
+	
+	<!-- AOI光学检测设备看板   START-->
+	<!-- AOI工单信息 -->
+	<engine engine_code="queryAOIMoInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryAOIMoInfo" >
+	</engine>
+	<!-- AOI次品示意图 -->
+	<engine engine_code="queryAOISketchMap" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryAOISketchMap" >
+	</engine>
+	<!-- AOI机器状态示意图 -->
+	<engine engine_code="queryAOIMachineStateDiagram" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryAOIMachineStateDiagram" >
+	</engine>
+	<!-- AOI设备综合状况 -->
+	<engine engine_code="queryAOIEquipmentSituation" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryAOIEquipmentSituation" >
+	</engine>
+	<!-- AOI光学检测设备看板   END-->
+	
+	
+	<!-- SMT拉头看板    START -->
+	<!-- SMT产能达成状况 -->
+	<engine engine_code="querySmtCapacityReach" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querySmtCapacityReach" >
+	</engine>
+	<!-- SMT工单生产信息 -->
+	<engine engine_code="querySmtWorkProInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querySmtWorkProInfo" >
+	</engine>
+	<!-- SMT工单生产与计划信息 -->
+	<engine engine_code="querySmtWorkProductionAndPlanning" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querySmtWorkProductionAndPlanning" >
+	</engine>
+	<!-- SMT工单设备监视 -->
+	<engine engine_code="querySmtWorkEquipmentMonitoring" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querySmtWorkEquipmentMonitoring" >
+	</engine>
+	<!-- SMT拉头看板    END -->
+	
+	
+	<!-- SPI锡膏检测设备看板   START -->
+	<!-- SPI工单信息 -->
+	<engine engine_code="querySPIMoInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querySPIMoInfo" >
+	</engine>
+	<!-- SPI次品示意图 -->
+	<engine engine_code="querySPISketchMap" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querySPISketchMap" >
+	</engine>
+	<!-- SPI机器状态示意图 -->
+	<engine engine_code="querySPIMachineStateDiagram" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querySPIMachineStateDiagram" >
+	</engine>
+	<!-- SPI设备综合状况 -->
+	<engine engine_code="querySPIEquipmentSituation" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querySPIEquipmentSituation" >
+	</engine>
+	<!-- SPI锡膏检测设备看板   END -->
+	
+	
+	<!-- 半成品测试设备看板   START -->
+	<!-- SFPT工单信息 -->
+	<engine engine_code="querySFPTMoInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querySFPTMoInfo" >
+	</engine>
+	<!-- SFPT次品示意图 -->
+	<engine engine_code="querySFPTSketchMap" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querySFPTSketchMap" >
+	</engine>
+	<!-- SFPT机器状态示意图 -->
+	<engine engine_code="querySFPTMachineStateDiagram" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querySFPTMachineStateDiagram" >
+	</engine>
+	<!-- SFPT设备综合状况 -->
+	<engine engine_code="querySFPTEquipmentSituation" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querySFPTEquipmentSituation" >
+	</engine>
+	<!-- 半成品测试设备看板   END -->
+	
+	
+	<!-- 波峰炉综合看板   START -->
+	<!-- WFSK工单信息 -->
+	<engine engine_code="queryWFSKMoInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryWFSKMoInfo" >
+	</engine>
+	<!-- WFSK次品示意图 -->
+	<engine engine_code="queryWFSKSketchMap" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryWFSKSketchMap" >
+	</engine>
+	<!-- WFSK机器状态示意图 -->
+	<engine engine_code="queryWFSKMachineStateDiagram" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryWFSKMachineStateDiagram" >
+	</engine>
+	<!-- WFSK设备综合状况 -->
+	<engine engine_code="queryWFSKEquipmentSituation" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryWFSKEquipmentSituation" >
+	</engine>
+	<!-- 波峰炉综合看板   END -->
+	
+	
+	<!-- 成品测试设备   START -->
+	<!-- FPTE工单信息 -->
+	<engine engine_code="queryFPTEMoInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryFPTEMoInfo" >
+	</engine>
+	<!-- FPTE次品示意图 -->
+	<engine engine_code="queryFPTESketchMap" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryFPTESketchMap" >
+	</engine>
+	<!--FPTE机器状态示意图 -->
+	<engine engine_code="queryFPTEMachineStateDiagram" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryFPTEMachineStateDiagram" >
+	</engine>
+	<!-- FPTE设备综合状况 -->
+	<engine engine_code="queryFPTEEquipmentSituation" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryFPTEEquipmentSituation" >
+	</engine>
+	<!-- 成品测试设备   END -->
+	
+	
+	<!-- 分板机看板  START -->
+	<!-- SBMK工单信息 -->
+	<engine engine_code="querySBMKMoInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querySBMKMoInfo" >
+	</engine>
+	<!-- SBMK设备产能 -->
+	<engine engine_code="querySBMKSketchMap" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querySBMKSketchMap" >
+	</engine>
+	<!--SBMK机器状态示意图 -->
+	<engine engine_code="querySBMKMachineStateDiagram" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querySBMKMachineStateDiagram" >
+	</engine>
+	<!-- SBMK设备综合状况 -->
+	<engine engine_code="querySBMKEquipmentSituation" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querySBMKEquipmentSituation" >
+	</engine>
+	<!-- 分板机看板  END -->
+	
+	
+	<!-- 缓存设备  START -->
+	<!-- CD工单信息 -->
+	<engine engine_code="queryCDMoInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryCDMoInfo" >
+	</engine>
+	<!-- CD缓存明细 -->
+	<engine engine_code="queryCDSketchMap" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryCDSketchMap" >
+	</engine>
+	<!-- CD机器状态示意图 -->
+	<engine engine_code="queryCDMachineStateDiagram" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryCDMachineStateDiagram" >
+	</engine>
+	<!-- CD设备综合状况 -->
+	<engine engine_code="queryCDEquipmentSituation" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryCDEquipmentSituation" >
+	</engine>
+	<!-- 缓存设备   END -->
+	
+	
+	
+	<!-- 回流炉设备看板  START -->
+	<!-- ROEK工单信息 -->
+	<engine engine_code="queryROEKMoInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryROEKMoInfo" >
+	</engine>
+	<!-- ROEK参数监控 -->
+	<engine engine_code="queryROEKSketchMap" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryROEKSketchMap" >
+	</engine>
+	<!-- ROEK机器状态示意图 -->
+	<engine engine_code="queryROEKMachineStateDiagram" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryROEKMachineStateDiagram" >
+	</engine>
+	<!-- ROEK设备综合状况 -->
+	<engine engine_code="queryROEKEquipmentSituation" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryROEKEquipmentSituation" >
+	</engine>
+	<!-- 回流炉设备看板   END -->
+	
+	
+	<!-- 生产拉头看板  START -->
+	<!-- 主信息 -->
+	<engine engine_code="queryProductionPullHeader" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryProductionPullHeader" >
+	</engine>
+	<!-- 产能达成状况 -->
+	<engine engine_code="queryCapacityReach" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryCapacityReach" >
+	</engine>
+	<!-- 拉线人员 -->
+	<engine engine_code="queryLinecdHummer" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryLinecdHummer" >
+	</engine>
+	<!-- 生产拉头看板    END -->
+	
+	
+	<!-- 生产拉尾看板   START -->
+	<!-- PT产能达成状况 -->
+	<engine engine_code="queryPTCapacityReach" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryPTCapacityReach" >
+	</engine>
+	<!-- PT生产与计划信息 -->
+	<engine engine_code="queryPTWorkProductionAndPlanning" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryPTWorkProductionAndPlanning" >
+	</engine>
+	<!-- WIP状态 -->
+	<engine engine_code="queryPTWipState" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryPTWipState" >
+	</engine>
+	<!-- 异常种类 -->
+	<engine engine_code="queryPTAbnormalSpecies" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryPTAbnormalSpecies" >
+	</engine>
+	<!-- 生产拉尾看板   END -->
+	
+	
+	<!-- 生产综合看板  START -->
+	<!-- 表格显示信息 -->
+	<engine engine_code="queryComprehensiveProduction" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryComprehensiveProduction" >
+	</engine>
+	<!-- 折线图信息 -->
+	<engine engine_code="queryCPBrokenLineGraph" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryCPBrokenLineGraph" >
+	</engine>
+	<!-- 原材料利用率 -->
+	<engine engine_code="queryUtilizationRateOfRawMaterials" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryUtilizationRateOfRawMaterials" >
+	</engine>
+	<!-- 缺陷排名 -->
+	<engine engine_code="queryCPDefectRanking" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryCPDefectRanking" >
+	</engine>
+	<!-- 停机异常 -->
+	<engine engine_code="queryCPAbnormalShutdown" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryCPAbnormalShutdown" >
+	</engine>
+	<!-- 生产综合看板  END -->
+	
+	
+	<!-- 松下贴片设备看板    START -->
+	<!-- 松下贴片工单信息 -->
+	<engine engine_code="queryWoPanasonicPatch" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryWoPanasonicPatch" >
+	</engine>
+	<!-- 前五抛料率 -->
+	<engine engine_code="queryFirstFiveThrowRate" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryFirstFiveThrowRate" >
+	</engine>
+	<!-- PP机器状态示意图 -->
+	<engine engine_code="queryPPachineStateDiagram" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryPPachineStateDiagram" >
+	</engine>
+	<!-- PP设备综合状况 -->
+	<engine engine_code="queryPPEquipmentSituation" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryPPEquipmentSituation" >
+	</engine>
+	<!-- 松下贴片设备看板    END -->
+	
+	
+	<!-- 贴标机看板    START -->
+	<!-- 贴标机看板 工单信息 -->
+	<engine engine_code="queryLMWoPanasonicPatch" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryLMWoPanasonicPatch" >
+	</engine>
+	<!-- LM设备产能 -->
+	<engine engine_code="queryLMEquipmentCapacity" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryLMEquipmentCapacity" >
+	</engine>
+	<!-- LM机器状态示意图 -->
+	<engine engine_code="queryLMachineStateDiagram" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryLMachineStateDiagram" >
+	</engine>
+	<!-- LM设备综合状况 -->
+	<engine engine_code="queryLMEquipmentSituation" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryLMEquipmentSituation" >
+	</engine>
+	<!--  贴标机看板      END -->
+	
+	
+	<!-- 印刷机看板    START -->
+	<!-- 印刷机看板 工单信息 -->
+	<engine engine_code="queryPrintMWoPanasonicPatch" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryPrintMWoPanasonicPatch" >
+	</engine>
+	<!-- PrintM设备产能 -->
+	<engine engine_code="queryPrintMEquipmentCapacity" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryPrintMEquipmentCapacity" >
+	</engine>
+	<!-- PrintM机器状态示意图 -->
+	<engine engine_code="queryPrintMachineStateDiagram" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryPrintMachineStateDiagram" >
+	</engine>
+	<!-- PrintM设备综合状况 -->
+	<engine engine_code="queryPrintMEquipmentSituation" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryPrintMEquipmentSituation" >
+	</engine>
+	<!--  印刷机看板      END -->
+	
+	<!-- 自动包装设备看板    START -->
+	<!-- 自动包装设备   工单信息 -->
+	<engine engine_code="queryAutoPackWoPanasonicPatch" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryAutoPackWoPanasonicPatch" >
+	</engine>
+	<!-- AutoPack设备产能 -->
+	<engine engine_code="queryAutoPackEquipmentCapacity" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryAutoPackEquipmentCapacity" >
+	</engine>
+	<!-- AutoPack机器状态示意图 -->
+	<engine engine_code="queryAutoPackachineStateDiagram" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryAutoPackachineStateDiagram" >
+	</engine>
+	<!-- AutoPack设备综合状况 -->
+	<engine engine_code="queryAutoPackEquipmentSituation" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryAutoPackEquipmentSituation" >
+	</engine>
+	<!-- 自动包装设备看板    END -->
+	
+	
+	<!-- 自动组装设备看板    START -->
+	<!-- 自动组装设备   工单信息 -->
+	<engine engine_code="queryAutoAssemblyWoPanasonicPatch" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryAutoAssemblyWoPanasonicPatch" >
+	</engine>
+	<!-- AutoAssembly设备产能 -->
+	<engine engine_code="queryAutoAssemblyEquipmentCapacity" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryAutoAssemblyEquipmentCapacity" >
+	</engine>
+	<!-- AutoAssembly机器状态示意图 -->
+	<engine engine_code="queryAutoAssemblyachineStateDiagram" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryAutoAssemblyachineStateDiagram" >
+	</engine>
+	<!-- AutoAssembly设备综合状况 -->
+	<engine engine_code="queryAutoAssemblyEquipmentSituation" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryAutoAssemblyEquipmentSituation" >
+	</engine>
+	<!-- 自动组装设备看板    END -->
+	
+	<engine engine_code="queryWIPInfoSituation" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryWIPInfoSituation" >
+	</engine>
+	
+	
+	<!-- 车间整体看板   START -->
+	<!-- 工单完成情况 -->
+	<engine engine_code="queryWorkingComplateInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryWorkingComplateInfo" >
+	</engine>
+	<!-- 计划达成率 -->
+	<engine engine_code="queryPlannedCompletionRate" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryPlannedCompletionRate" >
+	</engine>
+	<!-- SMT自动化产线工单看板 -->
+	<engine engine_code="querySmtZidonLineWoKanBan" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querySmtZidonLineWoKanBan" >
+	</engine>	
+	<!-- 车间整体前五不良原因 -->
+	<engine engine_code="queryFiveReason" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryFiveReason" >
+	</engine>
+	<!-- 停机异常 -->
+	<engine engine_code="queryETStopAbnormal" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryETStopAbnormal" >
+	</engine>
+	<!-- 设备生产明细 -->
+	<engine engine_code="queryEtProductDetailInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryEtProductDetailInfo" >
+	</engine>
+	<!-- 缓存明细 -->
+	<engine engine_code="queryCacheDetailInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryCacheDetailInfo" >
+	</engine>
+	<!-- 车间整体看板   END -->
+	
+	
+	<!-- 产线动态看板页面    START -->
+	<!-- UPH -->
+	<engine engine_code="queryUPH" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryUPH" >
+	</engine>
+	<!-- 总装配数 -->
+	<engine engine_code="querySumAssembling" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querySumAssembling" >
+	</engine>
+	<!-- 加工中的个数 -->
+	<engine engine_code="queryNumberOfProcesses" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryNumberOfProcesses" >
+	</engine>
+	<!-- 每台机器的生产数 -->
+	<engine engine_code="queryNumberOfMachinesPerMachine" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryNumberOfMachinesPerMachine" >
+	</engine>
+	<!-- 获取机器的生产状态 -->
+	<engine engine_code="queryMachineProductionStatus" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryMachineProductionStatus" >
+	</engine>
+	<!-- 每个工序生产产品所需要的时间  -->
+	<engine engine_code="queryProductionTimePerProcess" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryProductionTimePerProcess" >
+	</engine>
+	<!-- 产品加工历史记录 -->
+	<engine engine_code="queryProductProcessingHistory" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryProductProcessingHistory" >
+	</engine>
+	<!-- 良品率 -->
+	<engine engine_code="queryGoodYield" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryGoodYield" >
+	</engine>
+	<!-- AOI良品率 -->
+	<engine engine_code="queryAOIGoodYield" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryAOIGoodYield" >
+	</engine>
+	<!-- SPI良品率 -->
+	<engine engine_code="querySPIGoodYield" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querySPIGoodYield" >
+	</engine>
+	
+	<!-- R_MES_PRO_LINE_TEST_ONE -->
+	<engine engine_code="queryTestOne" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryTestOne" >
+	</engine>
+	
+	<!-- R_MES_PRO_LINE_TEST_TWO -->
+	<engine engine_code="queryTestTwo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryTestTwo" >
+	</engine>
+	
+	<!-- 产线OEE -->
+	<engine engine_code="queryLineOEE" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryLineOEE" >
+	</engine>
+	<!-- 产线动态看板页面    END -->
+	
+	<!-- SN绑定关系报表查询 -->
+	<engine engine_code="querySNBindingRelationship" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querySNBindingRelationship" >
+	</engine>
+	
+	<!-- 插件机查询 -->
+	<engine engine_code="queryPluginMachineInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryPluginMachineInfo" >
+	</engine>
+	
+	
+	<!-- 生产日报表 -->
+	<engine engine_code="queryDailyProductionReport" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryDailyProductionReport" >
+	</engine>
+	
+	<!-- 生产进度 -->
+	<engine engine_code="queryCentralMonitoringProductionSchedule" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryCentralMonitoringProductionSchedule" >
+	</engine>
+	
+	<!-- SN追溯报表查询-->
+	<engine engine_code="queryRetrospectiveReportSN" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryRetrospectiveReportSN" >
+	</engine>
+	<!-- 查询工位生产SN信息  -->
+	<engine engine_code="queryCurrWipInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryCurrWipInfo" >
+	</engine>
+	<engine engine_code="queryR_MES_ET_EXPCE_T" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryR_MES_ET_EXPCE_T" >
+	</engine>
+	
+	<!-- 烧录机电子生产情况  -->
+	<engine engine_code="queryBurnerElectron_Screen" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryBurnerElectron_Screen" >
+	</engine>
+	<!-- ACF电子设备状态参数  -->
+	<engine engine_code="queryACF_Screen" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryACF_Screen" >
+	</engine>
+	
+	<!-- 校准测试机数据查询  -->
+	<engine engine_code="queryTestReport" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryTestReport" >
+	</engine>
+	
+	<!-- 设备工单生产信息  取实际生产数据 -->
+	<engine engine_code="queryMoProductInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryMoProductInfo" >
+	</engine>
+	
+	<!-- 生产拉头看板报表信息-产能达成状况 -->
+	<engine engine_code="queryCapacityReachInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryCapacityReachInfo" >
+	</engine>
+	
+    <!-- 生产拉头看板报表信息-主信息 -->
+	<engine engine_code="queryProductionPullHeaderInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryProductionPullHeaderInfo" >
+	</engine>
+	
+    <!-- 生产拉头 产线状态查询 -->
+	<engine engine_code="queryLineStauts" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryLineStauts" >
+	</engine>
+
+	<!--机械设备状态查询  -->
+	<engine engine_code="queryEquipmentStauts" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryEquipmentStauts" >
+	</engine>
+	<!-- 机械设备工单信息 -->
+	<engine engine_code="queryEquipmentInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryEquipmentInfo" >
+	</engine>
+	<!-- 机械设备次品示意图 -->
+	<engine engine_code="queryTest_etInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryTest_etInfo" >
+	</engine>
+	
+	
+</engines>

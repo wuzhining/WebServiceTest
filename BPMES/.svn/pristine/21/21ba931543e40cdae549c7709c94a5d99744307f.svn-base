@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>产品BOM</title>
+    <style type="text/javascript"></style>
+    <link rel="stylesheet" type="text/css" href="../../../common/IplantCompent/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../../../common/IplantCompent/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="../../../common/IplantCompent/Demo/demo.css">
+    <script src="../../../common/IplantCompent/jquery.min.js" type="text/javascript"></script>
+    <script src="../../../common/IplantCompent/jquery.easyui.min.js" type="text/javascript"></script>
+    <script src="../../../common/IplantCommon/DataRequest.js" type="text/javascript"></script>
+    <script src="../../../common/IplantCommon/CommonUtil.js" type="text/javascript"></script>
+    <script src="../../../common/IplantCommon/OutPutExcel.js" type="text/javascript"></script>
+    <script src="js/bomProduct.js" type="text/javascript"></script>
+  <!--   <script type="text/javascript" src="js/datagrid-detailview.js"></script> -->
+    <script type="text/javascript"></script>
+</head>
+<body style="padding: 0;margin: 0;">
+	<div style="height:100%;width:100%;" class="easyui-layout" fit='true'>
+
+         <div region='north' id="tb" style="width: auto; height: 30px; background: linear-gradient(rgb(255, 255, 255) 0px, rgba(149, 184, 231, 0.28) 100%);">
+                <table style="width: auto; height:100%;" cellspacing="0" border="0">
+                    <tr>
+                      <td>
+                         <a id="btnAdd" href="#" class="easyui-linkbutton add" iconCls="icon-add" data-options="plain:true" >增加</a>
+                   		 <a id="btnSave" href="#" class="easyui-linkbutton save" iconCls="icon-save" data-options="plain:true" >保存</a>
+                         <a id="btnDelete" href="#" class="easyui-linkbutton delete" iconCls="icon-remove" data-options="plain:true">删除</a>
+                         <!-- <a id="btnSearch" href="#" class="easyui-linkbutton search" iconCls="icon-search" data-options="plain:true">检索</a> -->
+                         <a href="#" class="easyui-linkbutton" iconCls="icon-print" id="btnImport" data-options="plain:true">导入</a>
+						 <a href="#" class="easyui-linkbutton" iconCls="icon-print" id="btnExprt" data-options="plain:true">导出</a>
+                     	 <span id='showMessageInfo' class='divspan' style='width:300px;'></span>
+                      </td>
+                    </tr>
+               </table>
+           </div>
+           <div region="center" style="width:100%" style="border:0">
+           		<div region='north' id='tbsearch' style="width: auto; height: 30px;background: linear-gradient(rgb(255, 255, 255) 0px, rgba(149, 184, 231, 0.28) 100%);">
+	                <table>
+				                <tr >
+				                	<td>工厂编码：</td>
+				                    <td>
+				                        <input id="search_MaterialType" name="postingdate" style="width: 200px;" class="easyui-textbox"/>
+				                    </td>
+				                    <td>母BOM编码：</td>
+				                    <td>
+				                        <input id="search_BOMcoding" name="postingdate" style="width: 200px;" class="easyui-textbox"/>
+				                    </td>
+				                    <td>
+				                       <a href="#" class="easyui-linkbutton" iconCls="icon-search" id="btnSearch" data-options="plain:true">查询</a>	
+				                    </td>
+				                </tr>
+			          </table>	
+	             </div>
+           
+           		<table region='center' style="height: auto;max-height: 100%" id="bomProduct_tab" class='easyui-treegrid' toolbar="#tbsearch" rownumbers="true" "></table>
+  		  
+  		   </div>
+    </div>
+    <div id="enditTabupload" class="easyui-dialog" style="width: 450px;height: 150px;max-height:100%;" closed="true" data-options="modal: true,
+				buttons: [{
+					text:'提交',
+					iconCls:'icon-ok',
+					handler:function(){
+						ImportStation();
+					}
+				},{
+					text:'取消',
+					iconCls:'icon-no',
+					handler:function(){
+					setDataNull();
+					$('#enditTabupload').dialog('close');
+					}
+				}]">
+				
+	<FORM id ="importUplod" action="/iTaurus/iPlant_ImgUpload" method="post" enctype="multipart/form-data" style="padding:10px 20px 10px 40px;" target="ifm">  
+       <table border="1" width="360" cellpadding="4" cellspacing="2" bordercolor="#9BD7FF">  
+          <tr><td width="350px">  
+          <div class='divFile' style='width:320px;' >
+          	<a href="javascript:;" class="a-upload"><input name="txtPHOTO" id="txtPHOTO" type="file" onchange="importFile()" />选择...</a><span id='showFileName' class='divspan' style='width:260px;'></span>
+          </div>
+	           <input name="FILE_BELONG" id="FILE_BELONG" size="40" type="hidden"/> 
+	           <input name="FILE_CLS" id = "FILE_CLS" size="40" type="hidden"/> 
+	           <input name="FILE_TYPE" id = "FILE_TYPE" size="40" type="hidden"/> 
+	           <input name="importType" id = "importType" size="40" value='1' type="hidden"/>
+	           <input name="IFS" id = "IFS" size="40" type="hidden"/>
+           </td>
+          </tr>
+         </table>  
+      </FORM>		
+     </div>
+     <iframe id='ifm' name='ifm' style="display:none"/></iframe>
+     
+     
+       <div id="enditTabBOM" class="easyui-dialog" style="width: 700px;height: 460px;" closed="true" data-options="modal: true,
+				buttons: [{
+					text:'保存',
+					iconCls:'icon-ok',
+					handler:function(){
+						savaStation(); 
+					}
+				},{
+					text:'取消',
+					iconCls:'icon-no',
+					handler:function(){
+						$('#enditTabBOM').dialog('close');	
+					}
+				}]">
+        <form id="fmCustom" method="post" style="padding:25px 10px 10px 20px;">
+            <table border="0">
+                 <tr style="height: 35px;">
+                    <td>BOM编码：</td>
+                    <td>
+                        <select id="BOMCoding" name="postingdate" style="width: 200px;" class="easyui-combobox"  required="required" data-options="validType:['specialTextCharacter'],required:true,missingMessage:'该选项为必填信息'"></select>
+                    </td>
+                    <td style="color: red ">*</td>
+                    <td>BOM名称：</td>
+                    <td>
+                        <input id="BOMName" name="postingdate" border="1px solid #95B8E7" style="width:200px;"  class="easyui-textbox" readonly="true" />
+                    </td>
+                </tr>
+                <tr style="height: 35px;">
+                    <td>母BOM编码：</td>
+                    <td>
+                        <select id="parentBOMCoding" name="postingdate" style="width: 200px;" class="easyui-combobox"  required="required" data-options="missingMessage:'该选项为必填信息'"></select>
+                    </td>
+                    <td style="color: red ">*</td>
+                    <td>母BOM名称：</td>
+                    <td>
+                        <input id="parentBOMname" name="postingdate" style="width: 200px;" class="easyui-textbox"  readonly="true" />
+                    </td>
+                </tr>
+                <tr style="height: 35px;">
+                    <td>工厂名称：</td>
+                    <td>
+                        <input id="plantName" name="postingdate" style="width: 200px;" class="easyui-combobox"  editable="false"  required="required" data-options="missingMessage:'该选项为必填信息'" />
+                    </td>
+                    <td style="color: red ">*</td>
+                    <td>单&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;位：</td>
+                    <td>
+                        <input id="unit" name="postingdate" style="width: 200px;" class="easyui-combobox"  editable="false"  required="required" data-options="missingMessage:'该选项为必填信息'" />
+                    </td>
+                    <td style="color: red ">*</td>
+                </tr>
+                <tr style="height: 35px;">
+                    <td>单机用量：</td>
+                    <td>
+                        <input id="Singledosage" name="postingdate" style="width: 200px;" class="easyui-numberbox"  />
+                    </td>
+                    <td></td>
+                    
+                    <td>成型周期：</td>
+                    <td>
+                        <input id="moldingcycle" name="postingdate" style="width: 200px;" class="easyui-numberbox"  />
+                    </td>
+                    <td></td>
+                </tr>
+                <tr style="height: 35px;">
+                    <td>有效开始日期：</td>
+                    <td>
+                        <input id="startdate" name="postingdate" style="width: 200px;" class="easyui-datebox"   editable="false"/>
+                    </td>
+                    <td></td>
+                    <td>有效结束日期：</td>
+                    <td>
+                        <input id="enddate" name="postingdate" style="width: 200px;" class="easyui-datebox"   editable="false"/>
+                    </td>
+                    <td></td>
+                </tr>
+                <tr style="height: 35px;">
+                    <td>工艺名称：</td>
+                    <td>
+                        <input id="technologicalprocess" name="postingdate" style="width: 200px;" class="easyui-combobox"   editable="false"/>
+                    </td>
+                    <td style="color: red ">*</td>
+                    <td>BOM状态: </td>
+                    <td>
+                        <input id="txtBOM_ST" name="postingdate" style="width: 20px;" value="Y" type="checkbox"  checked="checked" />
+                    </td>
+                </tr>
+                <tr style="height: 35px;">
+                    <td>是否启用：</td>
+                    <td>
+                        <input id="available" name="postingdate" style="width: 20px;" type="checkbox" value="Y" checked="checked"/>
+                    </td>
+                    <td></td>
+                    <td>说&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;明：</td>
+                    <td>
+                        <input id="txtNote" name="postingdate" style="width: 200px;height:40px" class="easyui-textbox" data-options="multiline:true"/>
+                    </td>
+                    <td></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</body>
+
+</html>

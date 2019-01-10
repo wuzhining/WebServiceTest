@@ -1,0 +1,267 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<engines>
+	<!-- 用户登录 -->
+	<engine engine_code="userLogin" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryOptInfo" >
+	</engine>
+	
+	<!-- 1.1 数据字典管理 -->
+	<!-- 新增数据字典信息 -->
+	<engine engine_code="insertDictionary" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertDictionary" >
+	</engine>	
+	<!-- 删除数据字典信息 -->
+	<engine engine_code="deleteDictionary" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteDictionary" >
+	</engine>	
+	<!-- 修改数据字典信息 -->
+	<engine engine_code="updateDictionary" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateDictionary" >
+	</engine>	
+	<!-- 查询数据字典信息-->
+	<engine engine_code="queryDictionary" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryDictionary" >
+	</engine>	
+	<!-- 新增字典项信息-->
+	<engine engine_code="insertDictionaryDetail" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertDictionaryDetail" >
+	</engine>	
+	<!-- 删除字典项信息-->
+	<engine engine_code="deleteDictionaryDetail" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteDictionaryDetail" >
+	</engine>	
+	<!-- 修改字典项信息 -->
+	<engine engine_code="updateDictionaryDetail" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateDictionaryDetail" >
+	</engine>	
+	<!-- 查询字典项信息 -->
+	<engine engine_code="queryDictionaryDetail" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryDictionaryDetail" >
+	</engine>
+	
+	<!-- 1.2  菜单及模块信息配置   -->   
+	<!-- 新增系统菜单信息 --> 
+	<engine engine_code="insertSysMenu" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertSysMenu" >
+	</engine>	
+	<!-- 删除系统菜单信息 -->
+	<engine engine_code="deleteSysMenu" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteSysMenu" >
+	</engine>	
+	<!-- 修改系统菜单信息 -->
+	<engine engine_code="updateSysMenu" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateSysMenu" >
+	</engine>	
+	<!-- 查询系统菜单信息 -->
+	<engine engine_code="querySysMenu" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querySysMenu" >
+	</engine>	
+	
+	<!-- 1.3  员工信息管理 -->
+	<!-- 新增一行员工信息 -->
+	<engine engine_code="insertOptInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertOptInfo" >
+	</engine>	
+	<!-- 批量新增员工信息 -->
+	<engine engine_code="insertBatchOptInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertBatchOptInfo" >
+	</engine>	
+	<!-- 删除员工信息 -->
+	<engine engine_code="deleteOptInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteOptInfo" >
+	</engine>		
+	<!-- 修改员工信息 -->
+	<engine engine_code="updateOptInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateOptInfo" >
+	</engine>	
+	<!-- 修改员工图片信息 -->
+	<engine engine_code="updateOptPhotoInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateOptPhotoInfo" >
+	</engine>	
+	<!-- 查询员工信息 -->
+	<engine engine_code="queryOptInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryOptInfo" >
+	</engine>
+	
+	<!-- 1.4 岗位管理 -->
+	<!-- 新增岗位信息 -->
+	<engine engine_code="insertPostInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertPostInfo" >
+	</engine>	
+	<!-- 删除岗位信息 -->
+	<engine engine_code="deletePostInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deletePostInfo" >
+	</engine>	
+	<!-- 修改岗位信息 -->
+	<engine engine_code="updatePostInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updatePostInfo" >
+	</engine>
+   	<!-- 查询岗位信息 -->
+	<engine engine_code="queryPostInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryPostInfo" >
+	</engine>	
+	
+	<!-- 1.5 部门管理 -->
+	<!-- 新增部门信息 -->
+	<engine engine_code="insertDptInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertDptInfo" >
+	</engine>
+	<!-- 删除部门信息 -->
+	<engine engine_code="deleteDptInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteDptInfo" >
+	</engine>	
+	<!-- 修改部门信息 -->
+	<engine engine_code="updateDptInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateDptInfo" >
+	</engine>	
+	<!-- 查询部门信息 -->
+	<engine engine_code="queryDptInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryDptInfo" >
+	</engine>	
+	
+	<!-- 1.6 用户组信息管理 -->		
+    <!-- 查询用户组信息 -->
+    <engine engine_code="queryOpGroup" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryOpGroup" >
+    </engine>
+    <!-- 用户组信息新增 -->
+    <engine engine_code="insertOpGroup" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertOpGroup" >
+    </engine>
+    <!-- 用户组信息删除 -->
+    <engine engine_code="deleteOpGroup" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteOpGroup" >
+    </engine>
+    <!-- 用户组信息修改 -->
+    <engine engine_code="updateOpGroup" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateOpGroup" >
+    </engine>
+
+    <!-- 1.7 功能信息管理 -->
+	<!-- 功能信息查询 -->
+    <engine engine_code="queryFunction" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryFunction" >
+    </engine>
+    <!-- 功能信息新增 -->
+    <engine engine_code="insertFunction" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertFunction" >
+    </engine>
+    <!-- 功能信息删除 -->
+    <engine engine_code="deleteFunction" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteFunction" >
+    </engine>
+    <!-- 功能信息修改 -->
+    <engine engine_code="updateFunction" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateFunction" >
+    </engine>
+
+	<!-- 1.8 用户组权限配置管理 -->
+    <!-- 查询用户组权限配置 -->
+	<engine engine_code="queryOpGroupQx" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryOpGroupQx" >
+	</engine>
+	<!-- 用户组权限信息新增 -->
+	<engine engine_code="insertOpGroupQx" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertOpGroupQx" >
+	</engine>
+	<!-- 用户组权限信息删除 -->
+	<engine engine_code="deleteOpGroupQx" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteOpGroupQx" >
+	</engine>
+	<!--用户组权限信息修改 -->
+	<engine engine_code="updateOpGroupQx" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateOpGroupQx" >
+	</engine>
+	
+	
+	<!-- 1.9 用户信息管理-->
+    <!-- 用户信息查询 -->
+	<engine engine_code="queryOpUser" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryOpUser" >
+	</engine>
+	<!-- 用户信息新增 -->
+	<engine engine_code="insertOpUser" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertOpUser" >
+	</engine>
+	<!-- 用户信息删除 -->
+	<engine engine_code="deleteOpUser" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteOpUser" >
+	</engine>
+	<!-- 用户信息修改-->
+	<engine engine_code="updateOpUser" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateOpUser" >
+	</engine>
+	
+	<!-- 查询员工信息(关联表查询) -->
+	<engine engine_code="queryStaffInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryStaffInfo" >
+	</engine>
+	
+	<!-- 操作日志 -->
+    <!-- 查询操作日志 -->
+    <engine engine_code="queryOperaLog" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryOperaLog" >
+	</engine>
+	<!-- 新增操作日志 -->
+	<engine engine_code="insertOperaLog" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertOperaLog" >
+	</engine>
+    <!-- 删除操作日志 -->
+    <engine engine_code="deleteOperaLog" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteOperaLog" >
+	</engine>
+    <!-- 修改操作日志 -->
+    <engine engine_code="updateOperaLog" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateOperaLog" >
+	</engine>
+	
+	<!-- 查询系统菜单树状结构 -->
+	<engine engine_code="querySysMenuTree" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querySysMenuTree" >
+	</engine>
+	
+	<!-- 系统框架结构关系 -->
+    <!-- 查询系统框架结构 -->
+    <engine engine_code="querySysFrameRn" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querySysFrameRn" >
+	</engine>
+	<!-- 新增系统框架结构 -->
+	<engine engine_code="insertSysFrameRn" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="insertSysFrameRn" >
+	</engine>
+	<!-- 删除系统框架结构 -->
+	<engine engine_code="deleteSysFrameRn" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="deleteSysFrameRn" >
+	</engine>
+    <!-- 修改系统框架结构 -->
+    <engine engine_code="updateSysFrameRn" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="updateSysFrameRn" >
+	</engine>
+    
+    <!-- 数据结构关系 -->
+    <!-- 查询数据结构 -->
+    <engine engine_code="queryDataStructureRn" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryDataStructureRn" >
+	</engine>
+	<!-- 新增数据结构 -->
+	<engine engine_code="insertDataStructureRn" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="insertDataStructureRn" >
+	</engine>
+	<!-- 删除数据结构 -->
+	<engine engine_code="deleteDataStructureRn" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="deleteDataStructureRn" >
+	</engine>
+    <!-- 修改数据结构 -->
+    <engine engine_code="updateDataStructureRn" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="updateDataStructureRn" >
+	</engine>
+    
+	<!-- 共通代码 -->
+
+    <!-- 生成命名规则共通类 -->
+	<engine engine_code="CREATE_NAME_RULES" engine_name="生成命名规则共通类" engine_type="4" page_mode="2" engine_cate="1" attr1="CREATE_NAME_RULES" >
+	</engine>
+	 <!-- 生成序列共通类 -->
+	<engine engine_code="CREATE_SEQ" engine_name="生成序列通类" engine_type="4" page_mode="2" engine_cate="1" attr1="CREATE_SEQ" >
+	</engine>
+	
+	<!-- 查询部门信息树状结构 -->
+	<engine engine_code="querySysDptTree" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querySysDptTree" >
+	</engine>
+	
+	<!-- 查询设备信息树状结构 -->
+	<engine engine_code="querySysSheBeiTree" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querySysSheBeiTree" >
+	</engine>
+	
+	<!-- 查询用户按钮权限 -->
+	<engine engine_code="queryButtonQx" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="queryButtonQx" >
+	</engine>
+	
+	<!-- 安卓端菜单与按钮权限配置 -->
+	<engine engine_code="queryAppMenuPermissions" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="queryAppMenuPermissions" >
+	</engine>
+	
+	<!-- 用户信息修改-->
+	<engine engine_code="updateOpUserByLogin" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateOpUserByLogin" >
+	</engine>
+	
+	<!-- 部门信息关联表查询 -->
+	<engine engine_code="queryDptInfoGl" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryDptInfoGl" >
+	</engine>
+	
+	<!-- 系统报错模块 -->
+    <!-- 查询系统报错 -->
+    <engine engine_code="querySystemError" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querySystemError" >
+	</engine>
+	<!-- 新增系统报错 -->
+	<engine engine_code="insertSystemError" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="insertSystemError" >
+	</engine>
+	<!-- 删除系统报错 -->
+	<engine engine_code="deleteSystemError" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="deleteSystemError" >
+	</engine>
+    <!-- 修改系统报错 -->
+    <engine engine_code="updateSystemError" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="updateSystemError" >
+	</engine>
+	
+	<engine engine_code="querySystemOwner" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="querySystemOwner" ></engine>
+	
+	
+	
+	<!-- 物料类别模块 -->
+    <!-- 新增物料类别信息 -->
+    <engine engine_code="Addmaterialcategoryinformation" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="Addmaterialcategoryinformation" >
+	</engine>
+	<!-- 删除物料类别信息 -->
+	<engine engine_code="Deletematerialcategoryinformation" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="Deletematerialcategoryinformation" >
+	</engine>
+	<!-- 修改物料类别信息-->
+	<engine engine_code="updatematerialcategoryinformation" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="updatematerialcategoryinformation" >
+	</engine>
+    <!--查询物料类别信息-->
+    <engine engine_code="querymaterialcategoryinformation" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="querymaterialcategoryinformation" >
+	</engine>
+	
+</engines>

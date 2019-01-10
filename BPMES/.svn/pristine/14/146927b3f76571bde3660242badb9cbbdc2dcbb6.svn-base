@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>设备列表</title>
+    <style type="text/css">
+    	.input1{
+    		background:#DDDDDD
+    	}
+    	
+    	.td1{
+    		padding-top:5px;
+    		text-align:right;
+    	}
+    	
+    	.td2{
+			background:#F1F1F1;    	
+    	}
+    </style>
+    <script type="text/javascript">
+     windowPageConfig={
+    		dictCode:'DJT01',
+     	    gridName:'listType_tab',
+     	    txtDictCode:'txtListCode',
+     	    txtDictName:'txtListName',
+     	    cbUsed:'cbUsedFlag',
+     	    dictRemark:'txtDictRemark',
+     	    title:'设备列表',
+     	    gcDictCD:'设备编码',
+     	    gcDictName:'设备名称'
+        }
+    </script>
+    <link rel="stylesheet" type="text/css" href="../../../common/IplantCompent/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../../../common/IplantCompent/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="../../../common/IplantCompent/Demo/demo.css">
+    <script src="../../../common/IplantCompent/jquery.min.js" type="text/javascript"></script>
+    <script src="../../../common/IplantCompent/jquery.easyui.min.js" type="text/javascript"></script>
+    <script src="../../../common/IplantCommon/DataRequest.js" type="text/javascript"></script>
+    <script src="../js/EquipmentList.js" type="text/javascript"></script>
+</head>
+<body style="padding: 0; margin: 0;">
+    <div style="height:100%;width:100%" class="easyui-layout" fit="true">
+       
+            <div region='north' id="tb" style="width: auto; height: 120px;background: linear-gradient(rgb(255, 255, 255) 0px, rgba(149, 184, 231, 0.28) 100%);">
+                <table style="width: auto; height:100%;" cellspacing="0" border="0">
+                    <tr>
+                      <td>
+                          <a href="#" class="easyui-linkbutton add" iconcls="icon-add" id='btnAdd' data-options="plain:true">添加</a>
+                          <a href="#" class="easyui-linkbutton update" iconcls="icon-edit" id='btnUpdate' data-options="plain:true">修改</a>
+                          <a href="#" class="easyui-linkbutton delete" iconcls="icon-remove" id='btnDelete' data-options="plain:true">删除</a>
+                      </td>
+                    </tr>
+                    <tr>
+                    	 <td  height="30" >
+                    	<div style="margin-left:130px;">设备类型<input class="easyui-textbox" id="eqType" style="width:150px;"/></div>
+                    	</td> 
+                    	
+                    	 <td  height="30" >
+                    	<div style="margin-left:130px;">设备编码<input class="easyui-textbox" id="eqCode" style="width:150px;"/>
+                    	</div>
+                    	</td>
+                    	
+                    	<td  height="30">
+                    	<div style="margin-left:130px;">设备名称<input class="easyui-textbox" id="eqName" style="width:150px;"/>
+                    	</div>
+                    	</td> 
+                    </tr>
+                    <tr>
+                    	<td colspan="3"> 
+                    	<div style="margin-left:550px;"> 
+                    	<input type="checkbox" >全字匹配                  	
+                    	<a class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="eqList()">查询</a> <a  onclick="clean()" class="easyui-linkbutton" data-options="iconCls:'icon-clear'">清空</a>	 
+                    	</div>
+                    	</td>
+                    </tr>
+               </table>
+            </div>
+            <div region="center" style="width:100%" style="border:0">
+             	<table  id="listType_tab" class='easyui-datagrid' style="height: auto; max-height: 100%; padding-top:10px;"  rownumbers="true"></table>
+            </div>
+       </div>
+    <div id="enditTab" class="easyui-dialog" style="width: 820px; height: 500px;" closed="true" data-options="modal: true,
+				 buttons: [{
+					text:'保存',
+					iconCls:'icon-ok',
+					handler:function(){
+						saveDictItem(); 
+					}
+				},{
+					text:'取消',
+					iconCls:'icon-no',
+					handler:function(){
+						setDataNull();
+                    	$('#enditTab').dialog('close');	
+					}
+				}]">
+        <form id="fmcustomtype" method="post" style="padding: 10px 20px 10px 40px;">
+            <table border="1"  cellspacing="0" width="730" height="400" bordercolor="#D6DAE0">
+             <tr style="height: 10px;">
+             	<td class="td1 td2"  colspan="4" style="text-align:left">带<font color="red"> * </font>为必填项</td>
+             </tr>
+                <tr style="height: 15px;">
+                    <td class="td1 td2" width="98">设备编码<font color="red"> *&nbsp;</font></td>
+                    <td>
+                        <input id="txtListCode" style="width: 200px;" class="easyui-textbox" />
+                    </td>
+                    
+                     <td class="td1 td2" width="98">设备名称<font color="red"> *&nbsp;</font></td>
+                    <td>
+                        <input id="txtListName" style="width: 200px;" class="easyui-textbox" />
+                    </td>
+                </tr>
+                <tr style="height: 15px;">
+                    <td class="td1 td2">资产编号</td>
+                    <td>
+                        <input id="assetCode" style="width: 200px;" class="easyui-textbox" />
+                    </td>
+                    
+                    <td class="td1 td2">设备厂商编码</td>
+                    <td>
+                        <input id="EquipmentFacCode" style="width: 200px;" class="easyui-textbox" />
+                    </td>
+                </tr>
+                  <tr style="height: 15px;">
+                    <td class="td1 td2">供应商</td>
+                    <td>
+                        <input id="supplier" style="width: 200px;" class="easyui-textbox" />
+                    </td>
+                    
+                    <td class="td1 td2">制造商</td>
+                    <td>
+                        <input id="manufacturer" style="width: 200px;" class="easyui-textbox" />
+                    </td>
+                </tr>
+                  <tr style="height: 15px;">
+                    <td class="td1 td2">设备类型</td>
+                    <td>
+                        <input id="equipmentType" style="width: 200px;height:30px;"  class="easyui-combobox" />
+                    </td>
+                    
+                      <td class="td1 td2">设备型号</td>
+                    <td>
+                        <input id="equipmentModel" style="width: 200px;height:30px;"  class="easyui-textbox" />
+                    </td>
+                </tr>
+                  <tr style="height: 15px;">
+                    <td class="td1 td2">设备制造日期<font color="red"> *&nbsp; </font></td>
+                    <td>
+                        <input id="makeDate" style="width: 200px;"  class="easyui-datebox" />
+                    </td>
+                    
+                     <td class="td1 td2">购买日期<font color="red"> *&nbsp; </font></td>
+                    <td>
+                        <input id="buyDate" style="width: 200px;"  class="easyui-datebox" />
+                    </td>
+                </tr>
+                <tr height="50">
+                   <td align='right' class="td1 td2">产线名称</td>
+                   <td>
+                      <input id="productionName" style="width: 200px;height:30px;" class="easyui-combobox"/>
+                   </td> 
+                   
+                   <td align='right' class="td1 td2">工位名称</td>
+                   <td>
+                      <input id="stationNames"  style="width: 200px;height:30px;" class="easyui-combobox"/>
+                   </td>   
+                  </tr>  
+                  <tr height="50">
+                   <td align='right' class="td1 td2">设备状态</td>
+                   <td>
+                      <input id="equipmentState" style="width: 200px;height:30px;" class="easyui-combobox"/>
+                   </td> 
+                   
+                   <td align='right' class="td1 td2">保养项目</td>
+                   <td>
+                      <input id="stationName"  style="width: 215px;height:30px;" class="easyui-combobox"/>
+                   </td>   
+                 
+                  <tr style="height: 15px;">
+                    <td  class="td1 td2">备注</td>
+                    <td colspan="3">
+                        <input id="remark" style="width: 500px;height: 75px;" class="easyui-textbox" />
+                    </td>
+                </tr>  
+                
+                 <tr style="height: 15px;">
+                    <td class="td1 td2">AOI IP<font color="red"> *&nbsp;</font></td>
+                    <td>
+                        <input id="IP" style="width: 200px;"  class="easyui-textbox" />
+                    </td>
+                    
+                     <td class="td1 td2">数据库名<font color="red"> *&nbsp; </font></td>
+                    <td>
+                        <input id="dataName" style="width: 200px;"  class="easyui-textbox" />
+                    </td>
+                   </tr>
+                   
+                   <tr style="height: 15px;">
+                    <td class="td1 td2">登录名<font color="red"> *&nbsp; </font></td>
+                    <td>
+                        <input id="loginName" style="width: 200px;"  class="easyui-textbox" />
+                    </td>
+                    
+                     <td class="td1 td2">密码<font color="red"> *&nbsp;</font></td>
+                    <td>
+                        <input id="pwd" style="width: 200px;"  class="easyui-textbox" />
+                    </td>
+                   </tr>
+                       
+            </table>
+        </form>
+    </div>
+</body>
+</html>

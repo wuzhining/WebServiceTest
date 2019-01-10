@@ -1,0 +1,211 @@
+﻿/* 启动时加载 */
+/*
+ */
+(function() {
+	function factoryInfo() {
+		initGridData = function() {
+				var dgrid = $('#station_tab').datagrid('options');
+				if(!dgrid) return;
+				var reqData = {
+					IFS: 'B000025',
+					pageIndex: 1,
+					pageSize: dgrid.pageSize
+				}
+				reqGridData('/iPlant_ajax', 'station_tab', reqData);
+				/**初始化所属工厂**/
+				var factory = {
+		                url: "/iPlant_ajax",
+		                dataType: "JSON",
+		                data: {IFS: "B000021",USE_YN:'Y'},
+		                successCallBack: function(a) {
+		                	var op = a.RESPONSE[0].RESPONSE_DATA;
+		                    $.each(op,function(n,obj) {
+		                    	dataCompany.push({'value':obj.FT_CD,'text':obj.FT_NM});
+						    });  
+		                },
+		                errorCallBack: function() {
+		                    $.messager.alert("提示", '请联系管理员，查询失败！')
+		                }
+		            };
+					iplantAjaxRequest(factory),
+					/**初始化车间类别*/
+					station = {
+		                url: "/iPlant_ajax",
+		                dataType: "JSON",
+		                data: {IFS:'D000008',DICT_CD:"CPL01",USE_YN:'Y'},
+		                successCallBack: function(a) {
+		                	var op = a.RESPONSE[0].RESPONSE_DATA;
+		                    $.each(op,function(n,obj) {
+		                    	dataFactory.push({'value':obj.DICT_IT,'text':obj.DICT_IT_NM});
+						    });  
+		                },
+		                errorCallBack: function() {
+		                    $.messager.alert("提示", '请联系管理员，查询失败！')
+		                }
+		            };
+					iplantAjaxRequest(station);
+			},
+			bindGridData = function(reqData, jsonData) {
+				var gridList = {
+						name: 'station_tab',
+						dataType: 'json',
+						columns: [[
+							{field: 'PL_CD',title: '车间编码',width: 150,align: 'center',formatter: function (value) {if(checkNotEmpty(value)) return "<span title='" + value + "'>" + value + "</span>";},editor:{type:'validatebox',
+					        	   options:{required:true, validType:['length[1,30]','specialTextCharacter']}}},
+							{field: 'PL_NM',title: '车间名称',width: 200,align: 'center',formatter: function (value) {if(checkNotEmpty(value)) return "<span title='" + value + "'>" + value + "</span>";},editor:{type:'validatebox',
+					        	   options:{required:true, validType:['length[1,30]','specialTextCharacter']}}},
+						    {field: 'FT_CD',title: '所属工厂',width: 150,align: 'center',formatter: function (value,row) {if(checkNotEmpty(value)) return "<span title='" + value + "'>" + ( row.FT_NM  || value)+ "</span>";},
+									editor:{type:'combobox',options:{valueField:'value',textField:'text',data:dataCompany,required:true,editable:false}}}, 
+							{field: 'DICT_IT',title: '车间类别',width: 100,align: 'center',formatter: function (value,row) {if(checkNotEmpty(value)) return "<span title='" +  value + "'>" +  (row.DICT_IT_NM || value)+ "</span>";},
+									editor:{type:'combobox',options:{valueField:'value',textField:'text',data:dataFactory,required:true}}},  
+							{field: 'USE_YN',title: '是否启用',width: 100,align: 'center',formatter: function(value, row, index) {if(value == 'Y') { return '启用';} else { return '未启用';}},editor:{type:'checkbox',options:{on: 'Y',off: 'N'}}},
+							{field: 'PL_RM',title: '备注',width: 200,align: 'center',formatter: function (value) {if(checkNotEmpty(value)) return "<span title='" + value + "'>" + value + "</span>";},editor:{type:'validatebox',
+					        	   options:{validType:['length[1,100]','specialTextCharacter']}}}, 
+							{field: 'CRT_ID',title: '创建人',width: 100,align: 'center',formatter: function (value) {if(checkNotEmpty(value)) return "<span title='" + value + "'>" + value + "</span>";}},
+							{field: 'CRT_DT',title: '创建时间',width: 200,align: 'center',formatter: function (value) {if(checkNotEmpty(value)) return "<span title='" + value + "'>" + value + "</span>";}}, 
+							{field: 'UPT_ID',title: '修改人',width: 100,align: 'center',formatter: function (value) {if(checkNotEmpty(value)) return "<span title='" + value + "'>" + value + "</span>";}}, 
+							{field: 'UPT_DT',title: '修改时间',width: 200,align: 'center',formatter: function (value) {if(checkNotEmpty(value)) return "<span title='" + value + "'>" + value + "</span>";}}
+						]],
+						/**结束编辑模式的操作*/
+					     onEndEdit:function(index,row){
+					    	 var ed = $(this).datagrid('getEditor', {index: index,field: 'FT_CD'});
+					    	 row.FT_CD = $(ed.target).combobox('getValue');
+					    	 row.FT_NM = $(ed.target).combobox('getText');
+					    	 var eddi = $(this).datagrid('getEditor', {index: index,field: 'DICT_IT'});
+					    	 row.DICT_IT = $(eddi.target).combobox('getValue');
+					    	 row.DICT_IT_NM = $(eddi.target).combobox('getText');
+					     },
+					     /**进入编辑模式的操作*/
+					     onBeforeEdit:function(index,row){
+					    	 showmessage.html('');
+					    	 row.editing = true;
+					    	 row.edited = false;
+					    	 oldRow = JSON.stringify(row).replace(reg,'\"\"');
+					    	 $(this).datagrid('refreshRow', index);
+					     },
+					     /**编辑模式进入之后的操作*/
+					     onAfterEdit:function(index,row){
+					    	 /**判断是否进行数据变更*/
+					    	 var temp = JSON.stringify(row).replace(reg,'\"\"');
+					    	 if(temp!=oldRow){
+					    		 row.edited = true;
+					    	 }
+					    	 row.editing = false;
+					    	 $(this).datagrid('refreshRow', index);
+					     },
+				        onCancelEdit:function(index,row){
+				            row.editing = false;
+				            $(this).datagrid('refreshRow', index);
+				        },
+				        /**单击进入编辑模式*/
+					    onClickRow: function (index, row) {
+					    	if (editIndex != index){
+					    		var ed,fc,editorFt;
+					    		if(editIndex!=undefined){
+				    				/**判断是否为新增行，并验证新增工厂编码重复*/
+					    			var rowEdit = dataGrid.datagrid('getRows')[editIndex],edft = $(this).datagrid('getEditor', {index: editIndex,field: 'PL_CD'}),editorFt = edft.target,ftCd = editorFt.val();
+					    			if(checkNotEmpty(rowEdit.editType)){
+					    				if(rowEdit.editType=='add'){
+					    					if(checkNotEmpty(ftCd)){
+							    				var ajaxParam = {
+													url : '/iPlant_ajax',
+													dataType : 'JSON',
+													data : {
+														IFS : 'B000025',
+														CP_CD : ftCd,
+														pageIndex : 1,
+														pageSize : 10
+													},
+													successCallBack : function(data) {
+														rowNum = parseInt(data.RESPONSE["0"].RESPONSE_HDR.DATA_ROWS);
+														if (rowNum > 0) {
+															dataGrid.datagrid('selectRow', editIndex).datagrid('beginEdit', editIndex);
+												       		showmessage.html('<font color=red>您输入的工厂编码['+ ftCd + ']已有相同,请重新输入!</font>');
+												       		return false;
+														} else {
+															addDatagridEditor(dataGrid,index);
+														}
+													}
+												};
+												iplantAjaxRequest(ajaxParam);
+							    			}else{
+								        	   addDatagridEditor(dataGrid,index);
+							    			}
+					    				}else{
+					    					addDatagridEditor(dataGrid,index);
+					    					if(!checkNotEmpty(row.editType)){//如果是修改的情况，ft_cd字段为只读模式
+									    		ed = $(this).datagrid('getEditor', {index: index,field: 'PL_CD'});
+									    		fc = ed.target;
+									    		fc.prop('readonly',true);
+								    		}
+					    				}
+					    			}else{
+							    		 addDatagridEditor(dataGrid,index);
+							    		 if(!checkNotEmpty(row.editType)){
+									    		ed = $(this).datagrid('getEditor', {index: index,field: 'PL_CD'});
+									    		fc = ed.target;
+									    		fc.prop('readonly',true);
+								    		}
+					    			}
+					    		}else{
+					    			addDatagridEditor(dataGrid,index);
+					    			if(!checkNotEmpty(row.editType)){
+							    		ed = $(this).datagrid('getEditor', {index: index,field: 'PL_CD'});
+							    		fc = ed.target;
+							    		fc.prop('readonly',true);
+						    		}
+					    		}
+					    	}
+			            },
+					}
+				initGridView(reqData, gridList);
+				dataGrid.datagrid('loadData', jsonData);
+			}
+			/**查询车间信息**/
+			getDataBySearch = function(){
+				var dgrid = $('#station_tab').datagrid('options');
+				if(!dgrid) return;
+				var StationCode = $('#StationCode').val();
+				var StationName = $('#StationName').val();
+				var StationUse =$('#StationUse').combobox('getValue');
+				var reqData = {
+					PL_CD: StationCode,
+					PL_NM: StationName,
+					USE_YN: StationUse,
+					IFS: 'B000025',
+					pageIndex: 1,
+					pageSize: dgrid.pageSize
+				}
+				reqGridData('/iPlant_ajax', 'station_tab',reqData);
+			}
+	}
+	factoryInfo.prototype = {
+		init: function() {
+			$(function() {
+				dataGrid = $('#station_tab'),dataCompany=[],dataFactory=[],showmessage=$('#showMessageInfo'),editIndex = undefined,oldRow=undefined, reg=new RegExp("null","g");
+				$("body")[0].onkeydown = keyPress;
+                $("body")[0].onkeyup = keyRelease;
+				var CompanyOpttype; //0：新增   1:编辑
+				initGridData();
+				$('#btnSearch').click(function() {
+					getDataBySearch();
+				});
+				$('.add').click(function() {
+					insertDataGrid('station_tab',{PL_CD:"",PL_NM:""});
+				})
+				$('.delete').click(function() {
+					deleteDataGrid('station_tab','PL_CD','B000027','showMessageInfo');
+				})
+
+				$('.save').click(function() {
+					saveDataGrid('station_tab','B000026','B000028','showMessageInfo');
+				})
+				$('.panel-tool-close').click(function() {
+					setDataNull();
+				});
+			});
+		}
+	}
+	var fcfo = new factoryInfo();
+	fcfo.init();
+})();

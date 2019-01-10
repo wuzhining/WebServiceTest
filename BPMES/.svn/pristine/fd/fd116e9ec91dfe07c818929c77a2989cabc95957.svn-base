@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<engines>
+
+	<!-- 产品追溯管理     START -->
+	<!-- 根据工单查询信息 -->
+	<engine engine_code="queryProductInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryProductInfo" >
+	</engine>
+	<!-- 查询产品信息 -->
+	<engine engine_code="queryProducdsInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryProducdsInfo" >
+	</engine>
+	<!-- 查询工单信息 -->
+	<engine engine_code="queryProducdsMoInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryProducdsMoInfo" >
+	</engine>
+	
+	
+
+	
+	
+	
+
+	
+
+	
+</engines>

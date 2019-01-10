@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>生产监视</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="../../../common/IplantCompent/themes/default/easyui2.css">
+	<link rel="stylesheet" type="text/css" href="../../../common/IplantCompent/themes/icon.css">
+	<!-- <link rel="stylesheet" type="text/css" href="../../../common/IplantCompent/Demo/demo.css"> -->
+	<script src="../../../common/IplantCompent/jquery.min.js" type="text/javascript"></script>
+	<script src="../../../common/IplantCompent/jquery.easyui.min.js" type="text/javascript"></script>
+	<script src="../../../business/IplantMobile/js/DataRequest.js" type="text/javascript"></script>
+	<script src="../../../common/IplantCommon/CommonUtil.js" type="text/javascript"></script>
+	<link rel="stylesheet" type="text/css" href="css/StationMonitor.css">
+    <script src="highcharts/code/highcharts.js"></script>
+	<script src="highcharts/code/highcharts-3d.js"></script>
+	<script src="highcharts/code/highcharts-more.js"></script>
+	<script src="highcharts/code/modules/exporting.js"></script>
+    <script src="js/MachineMonitor2.js"></script>
+    <style>
+  	.panel-body {
+  		border-color: #FFFFFF;
+	}
+	.panel-title {
+    	font-size: 4px;
+   	 	height: 6px;
+    	line-height: 6px;
+	}
+  	</style>
+  </head>
+  <body style="margin:0px;padding:0px;" class="easyui-layout" >
+	  	<div id="ccgird" data-options="region:'north',title:'',collapsible:false" style="height:80px;overflow: hidden;">
+	  		<table id="zfaxxGrid" >
+			</table>
+	  	</div>   
+	    <div data-options="region:'center'">   
+	        <div class="easyui-layout" data-options="fit:true" style="height:100%;overflow: hidden">   
+	            <div data-options="region:'center'" style="text-align: center;overflow: hidden">
+	            	<table id="ccTable"  style="width: 96%;height: 99%;table-layout:fixed;">
+		               <tr>
+		                  <td style="width:25%;height: 100%;">
+		                     <div id="machineRate"  style="width: 96%;height: 100%;"></div>
+		                  </td>
+		                  <td style="width:25%;height: 100%;">
+		                     <div id="machineOEE" style="width: 96%;height: 100%;"></div>
+		                  </td>
+		                  <td style="width:25%;height: 100%;">
+		                     <div id="groupOEE" style="width: 96%;height: 100%;" ></div>
+		                  </td>
+		                  <td style="width:25%;height: 100%;">
+		                     <div id="capacity" style="width: 96%;height: 100%;" ></div>
+		                  </td>
+		               </tr>
+		           </table>
+	            </div>   
+	            <div data-options="region:'south'"  style="height:60px;text-align: center;overflow: hidden">
+	            	 <table style="width: 100%;height:50px;border-collapse:collapse;">
+                                           <tr height="6px">
+                                               <td  colspan="9" style="text-align: center;border-left: 1px solid #95B8E7;border-right: 1px solid #95B8E7; border-top: 1px solid #95B8E7;vertical-align: middle;color:#1771B3" >白班设备组</td>
+                                           </tr>
+                                           <tr height="6px">
+                                           		<td   style="width:8.325%;text-align: center;border-left: 1px solid #95B8E7; border-top: 1px solid #95B8E7;vertical-align: middle;color:#1771B3;white-space: nowrap;text-overflow: ellipsis;overflow: hidden;" >姓名：</td>
+                                           		<td   style="width:16.65%;text-align: center;border-left: 1px solid #95B8E7; border-top: 1px solid #95B8E7;vertical-align: middle;color:#1771B3;white-space: nowrap;text-overflow: ellipsis;overflow: hidden;" >朱八</td>
+                                               	<td rowspan="3"   style="width:8.325%;text-align: center;border-left: 1px solid #95B8E7;border-bottom: 1px solid #95B8E7; border-top: 1px solid #95B8E7;vertical-align: middle;color:#1771B3" ><img width='20px' height='26px' src="image/emp1.jpg"/></td>
+                                               	<td   style="width:8.325%;text-align: center;border-left: 1px solid #95B8E7; border-top: 1px solid #95B8E7;vertical-align: middle;color:#1771B3;white-space: nowrap;text-overflow: ellipsis;overflow: hidden;" >姓名：</td>
+                                               	<td   style="width:16.65%;text-align: center;border-left: 1px solid #95B8E7; border-top: 1px solid #95B8E7;vertical-align: middle;color:#1771B3;white-space: nowrap;text-overflow: ellipsis;overflow: hidden;" >孙浩</td>
+                                              	<td rowspan="3"   style="width:8.325%;text-align: center;border-left: 1px solid #95B8E7; border-bottom: 1px solid #95B8E7;border-top: 1px solid #95B8E7;vertical-align: middle;color:#1771B3" ><img width='20px' height='26px' src="image/emp2.jpg"/></td>
+                                              	<td   style="width:8.325%;text-align: center;border-left: 1px solid #95B8E7; border-top: 1px solid #95B8E7;vertical-align: middle;color:#1771B3;white-space: nowrap;text-overflow: ellipsis;overflow: hidden;" >姓名：</td>
+                                              	<td   style="width:16.65%;text-align: center;border-left: 1px solid #95B8E7; border-top: 1px solid #95B8E7;vertical-align: middle;color:#1771B3;white-space: nowrap;text-overflow: ellipsis;overflow: hidden;" >唐谈</td>
+                                               	<td rowspan="3"   style="width:8.325%;text-align: center;border-left: 1px solid #95B8E7;border-right: 1px solid #95B8E7;border-bottom: 1px solid #95B8E7; border-top: 1px solid #95B8E7;vertical-align: middle;color:#1771B3" ><img width='24px' height='30px' src="image/emp3.jpg"/></td>
+                                           </tr>
+                                           <tr height="6px">
+                                           		<td   style="text-align: center;border-left: 1px solid #95B8E7; border-top: 1px solid #95B8E7;vertical-align: middle;color:#1771B3;white-space: nowrap;text-overflow: ellipsis;overflow: hidden;" >工号：</td>
+                                           		<td   style="text-align: center;border-left: 1px solid #95B8E7; border-top: 1px solid #95B8E7;vertical-align: middle;color:#1771B3;white-space: nowrap;text-overflow: ellipsis;overflow: hidden;" >9527</td>
+                                               	<td   style="text-align: center;border-left: 1px solid #95B8E7; border-top: 1px solid #95B8E7;vertical-align: middle;color:#1771B3;white-space: nowrap;text-overflow: ellipsis;overflow: hidden;" >工号：</td>
+                                               	<td   style="text-align: center;border-left: 1px solid #95B8E7; border-top: 1px solid #95B8E7;vertical-align: middle;color:#1771B3;white-space: nowrap;text-overflow: ellipsis;overflow: hidden;" >9527</td>
+                                               	<td   style="text-align: center;border-left: 1px solid #95B8E7; border-top: 1px solid #95B8E7;vertical-align: middle;color:#1771B3;white-space: nowrap;text-overflow: ellipsis;overflow: hidden;" >工号：</td>
+                                               	<td   style="text-align: center;border-left: 1px solid #95B8E7; border-top: 1px solid #95B8E7;vertical-align: middle;color:#1771B3;white-space: nowrap;text-overflow: ellipsis;overflow: hidden;" >9527</td>
+                                           </tr>
+                                           <tr height="6px">
+                                               	<td   style="text-align: center;border-left: 1px solid #95B8E7; border-top: 1px solid #95B8E7;border-bottom: 1px solid #95B8E7;vertical-align: middle;color:#1771B3;white-space: nowrap;text-overflow: ellipsis;overflow: hidden;" >电话：</td>
+                                               	<td   style="text-align: center;border-left: 1px solid #95B8E7; border-top: 1px solid #95B8E7;border-bottom: 1px solid #95B8E7;vertical-align: middle;color:#1771B3;white-space: nowrap;text-overflow: ellipsis;overflow: hidden;" >13670124567</td>
+                                              	<td   style="text-align: center;border-left: 1px solid #95B8E7; border-top: 1px solid #95B8E7;border-bottom: 1px solid #95B8E7;vertical-align: middle;color:#1771B3;white-space: nowrap;text-overflow: ellipsis;overflow: hidden;" >电话：</td>
+                                              	<td   style="text-align: center;border-left: 1px solid #95B8E7; border-top: 1px solid #95B8E7;border-bottom: 1px solid #95B8E7;vertical-align: middle;color:#1771B3;white-space: nowrap;text-overflow: ellipsis;overflow: hidden;" >13670124567</td>
+                                               	<td   style="text-align: center;border-left: 1px solid #95B8E7; border-top: 1px solid #95B8E7;border-bottom: 1px solid #95B8E7;vertical-align: middle;color:#1771B3;white-space: nowrap;text-overflow: ellipsis;overflow: hidden;" >电话：</td>
+                                              	<td   style="text-align: center;border-left: 1px solid #95B8E7; border-top: 1px solid #95B8E7;border-bottom: 1px solid #95B8E7;vertical-align: middle;color:#1771B3;white-space: nowrap;text-overflow: ellipsis;overflow: hidden;" >13670124567</td>
+                                           </tr>
+                                       </table>
+	            </div>   
+	        </div>   
+	    </div> 
+      
+  </body>
+</html>

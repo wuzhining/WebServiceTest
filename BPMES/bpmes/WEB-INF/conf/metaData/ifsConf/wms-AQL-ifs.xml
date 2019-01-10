@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ifss>
+	<!-- 德富莱AQL抽样模块 -->
+	<!-- 查询AQL抽样规则 -->
+	<ifs ifs_code="WMS_AQL0001" ifs_name="查询AQL抽样规则" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="QueryAQLRuleList" biz_method="" serial_no="1" biz_name="QueryAQLRuleList" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 修改AQL抽样规则 -->
+	<ifs ifs_code="WMS_AQL0002" ifs_name="修改AQL抽样规则" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="AQLRuleListInfoUpdate" biz_method="" serial_no="1" biz_name="AQLRuleListInfoUpdate" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 新增AQL抽样规则-->
+	<ifs ifs_code="WMS_AQL0003" ifs_name="新增AQL抽样规则" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="AQLRuleListInfoInsert" biz_method="" serial_no="1" biz_name="AQLRuleListInfoInsert" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 删除AQL抽样规则 -->
+	<ifs ifs_code="WMS_AQL0004" ifs_name="删除AQL抽样规则" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="AQLRuleListInfoDelete" biz_method="" serial_no="1" biz_name="AQLRuleListInfoDelete" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 查询检验项列表 -->
+	<ifs ifs_code="WMS_AQL0005" ifs_name="查询AQL检验项列表 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="QueryAQLSample" biz_method="" serial_no="1" biz_name="QueryAQLSample" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 修改检验项列表 -->
+	<ifs ifs_code="WMS_AQL0006" ifs_name="修改AQL检验项列表" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="AQLSampleInfoUpdate" biz_method="" serial_no="1" biz_name="AQLSampleInfoUpdate" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 新增检验项列表 -->
+	<ifs ifs_code="WMS_AQL0007" ifs_name="新增AQL检验项列表" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="AQLSampleInfoInsert" biz_method="" serial_no="1" biz_name="AQLSampleInfoInsert" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 删除检验项列表 -->
+	<ifs ifs_code="WMS_AQL0008" ifs_name="删除AQL检验项列表 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="AQLSampleInfoDelete" biz_method="" serial_no="1" biz_name="AQLSampleInfoDelete" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	
+		<!-- 查询AQL抽样规则列表 -->
+	<ifs ifs_code="WMS_AQL0009" ifs_name="查询AQL抽样规则列表" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="QueryAQLRuleMember" biz_method="" serial_no="1" biz_name="QueryAQLRuleMember" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 修改AQL抽样规则列表 -->
+	<ifs ifs_code="WMS_AQL0010" ifs_name="修改AQL抽样规则列表 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="AQLRuleMemberInfoUpdate" biz_method="" serial_no="1" biz_name="AQLRuleMemberInfoUpdate" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 新增AQL抽样规则列表 -->
+	<ifs ifs_code="WMS_AQL0011" ifs_name="新增AQL抽样规则列表" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="AQLRuleMemberInfoInsert" biz_method="" serial_no="1" biz_name="AQLRuleMemberInfoInsert" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 删除AQL抽样规则列表 -->
+	<ifs ifs_code="WMS_AQL0012" ifs_name="删除AQL抽样规则列表" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="AQLRuleMemberInfoDelete" biz_method="" serial_no="1" biz_name="AQLRuleMemberInfoDelete" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	
+	<!-- 客诉列表模块 -->
+	<!-- 查询客诉列表 -->
+	 <ifs ifs_code="WMS_AQL0013" ifs_name="查询客诉列表" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="QueryCustomerlist" biz_method="" serial_no="1" biz_name="QueryCustomerlist" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!--修改客诉列表  -->
+	<ifs ifs_code="WMS_AQL0014" ifs_name="修改客诉列表" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="CustomerlistUpdate" biz_method="" serial_no="1" biz_name="CustomerlistUpdate" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 新增客诉列表 -->
+	<ifs ifs_code="WMS_AQL0015" ifs_name="新增客诉列表" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="CustomerlistInsert" biz_method="" serial_no="1" biz_name="CustomerlistInsert" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 删除客诉列表 -->
+	<ifs ifs_code="WMS_AQL0016" ifs_name="删除客诉列表" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="CustomerlistDelete" biz_method="" serial_no="1" biz_name="CustomerlistDelete" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs> 
+</ifss>

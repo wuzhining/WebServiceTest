@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="">
+
+	<!-- AQL抽样模块 -->
+	<!-- 查询AQL抽样规则 -->
+	<select id="QueryAQLRuleList" parameterType="hashmap"
+		resultType="java.util.HashMap">
+		<include refid="oraclePagingFileTop"></include>
+		T1.AQLRULEID,
+		T1.AQLRULETYPEID,
+		T1.RULENAME,
+		T1.RULEDESCRIPTION,
+		T1.CREATER_NAME,
+		TO_CHAR(T1.CREATE_DATE,'YYYY-MM-DD HH24:MI:SS')
+		CREATE_DATE,
+		T1.UPDATER_NAME,
+		TO_CHAR(T1.UPDATE_DATE,'YYYY-MM-DD
+		HH24:MI:SS') UPDATE_DATE
+		FROM WMS1.WMS_QUALITY_AQLRULE T1
+		<where>
+			1=1
+			<if test=" RULENAME !=null and RULENAME !=''">
+				and RULENAME LIKE '%${RULENAME}%'
+			</if>
+			<if test=" AQLRULETYPEID !=null and AQLRULETYPEID !=''">
+				and AQLRULETYPEID = '${AQLRULETYPEID}'
+			</if>
+		</where>
+		ORDER BY CREATE_DATE DESC
+		<include refid="oraclePagingFileBottom"></include>
+	</select>
+
+	<select id="QueryAQLRuleList_COUNT" parameterType="hashmap"
+		resultType="java.util.HashMap">
+		SELECT COUNT(1) AS ROWS_COUNT
+		FROM WMS1.WMS_QUALITY_AQLRULE T1
+		<where>
+			1=1
+			<if test=" RULENAME !=null and RULENAME !=''">
+				and RULENAME LIKE '%${RULENAME}%'
+			</if>
+		</where>
+	</select>
+
+
+	<!-- 修改AQL抽样规则 -->
+	<update id="AQLRuleListInfoUpdate" parameterType="java.util.HashMap">
+		update WMS1.WMS_QUALITY_AQLRULE
+		<set>
+			<if test=" RULENAME !=null and RULENAME !=''">
+				RULENAME = '${RULENAME}',
+			</if>
+			<if test=" RULEDESCRIPTION !=null and RULEDESCRIPTION !=''">
+				RULEDESCRIPTION = '${RULEDESCRIPTION}',
+			</if>
+			<if test=" AQLRULETYPEID !=null and AQLRULETYPEID !=''">
+				AQLRULETYPEID = '${AQLRULETYPEID}',
+			</if>
+			<if test="F_USE_CD !=null">
+				UPDATER_ID='${F_USE_CD}',
+			</if>
+			<if test="F_USE_CD !=null">
+				UPDATER_NAME='${F_USE_CD}',
+			</if>
+			UPDATE_DATE= SYSDATE
+		</set>
+		<where>
+			AQLRULEID='${AQLRULEID}'
+		</where>
+	</update>
+
+	<!-- 新增AQL抽样规则 -->
+	<insert id="AQLRuleListInfoInsert" parameterType="hashmap">
+	   <selectKey resultType="INTEGER" order="BEFORE" keyProperty="ID">  
+       SELECT WMS1.AQLRULEID.NEXTVAL as ID from DUAL
+   		</selectKey> 
+		INSERT INTO
+		WMS1.WMS_QUALITY_AQLRULE
+		(
+		AQLRULEID,
+		RULENAME,
+		RULEDESCRIPTION,
+		AQLRULETYPEID,
+		CREATER_ID,
+		CREATER_NAME,
+		CREATE_DATE
+		)
+		VALUES
+		(
+		WMS1.AQLRULEID.NEXTVAL,
+		'${RULENAME}',
+		'${RULEDESCRIPTION}',
+		'${AQLRULETYPEID}',
+		'${F_USE_CD}',
+		'${F_USE_CD}',
+		SYSDATE
+		)
+	</insert>
+
+	<!-- 删除AQL抽样规则 -->
+	<delete id="AQLRuleListInfoDelete" parameterType="hashmap">
+		delete WMS1.WMS_QUALITY_AQLRULE T1
+		<where>
+			AQLRULEID='${AQLRULEID}'
+		</where>
+	</delete>
+
+
+	<!-- 查询检验项列表 -->
+	<select id="QueryAQLSample" parameterType="hashmap" resultType="java.util.HashMap">
+		<include refid="oraclePagingFileTop"></include>
+		T1.AQLSAMPLEID,
+		T1.AQLSAMPLENAME,
+		T1.CREATER_NAME,
+		TO_CHAR(T1.CREATE_DATE,'YYYY-MM-DD HH24:MI:SS') CREATE_DATE,
+		T1.UPDATER_NAME,
+		TO_CHAR(T1.UPDATE_DATE,'YYYY-MM-DD HH24:MI:SS')
+		UPDATE_DATE
+		FROM WMS1.WMS_QUALITY_AQLSAMPLE T1
+		<where>
+			1=1
+			<if test=" AQLSAMPLENAME !=null and AQLSAMPLENAME !=''">
+				and AQLSAMPLENAME LIKE '%${AQLSAMPLENAME}%'
+			</if>
+		</where>
+		ORDER BY CREATE_DATE DESC
+		<include refid="oraclePagingFileBottom"></include>
+	</select>
+
+	<select id="QueryAQLSample_COUNT" parameterType="hashmap"
+		resultType="java.util.HashMap">
+		SELECT COUNT(1) AS ROWS_COUNT
+		FROM WMS1.WMS_QUALITY_AQLSAMPLE T1
+		<where>
+			1=1
+			<if test=" AQLSAMPLENAME !=null and AQLSAMPLENAME !=''">
+				and AQLSAMPLENAME LIKE '%${AQLSAMPLENAME}%'
+			</if>
+		</where>
+	</select>
+
+
+	<!-- 修改检验项列表 -->
+	<update id="AQLSampleInfoUpdate" parameterType="java.util.HashMap">
+		update WMS1.WMS_QUALITY_AQLSAMPLE
+		<set>
+			<if test=" AQLSAMPLENAME !=null and AQLSAMPLENAME !=''">
+				AQLSAMPLENAME = '${AQLSAMPLENAME}',
+			</if>
+			<if test="F_USE_CD !=null">
+				UPDATER_ID='${F_USE_CD}',
+			</if>
+			<if test="F_USE_CD !=null">
+				UPDATER_NAME='${F_USE_CD}',
+			</if>
+			UPDATE_DATE= SYSDATE
+		</set>
+		<where>
+			AQLSAMPLEID='${AQLSAMPLEID}'
+		</where>
+	</update>
+
+	<!-- 新增检验项列表 -->
+	<insert id="AQLSampleInfoInsert" parameterType="hashmap">
+		INSERT INTO
+		WMS1.WMS_QUALITY_AQLSAMPLE
+		(
+		AQLSAMPLEID,
+		AQLSAMPLENAME,
+		CREATER_ID,
+		CREATER_NAME,
+		CREATE_DATE
+		)
+		VALUES
+		(
+		AQLSAMPLEID.NEXTVAL,
+		'${AQLSAMPLENAME}',
+		'${F_USE_CD}',
+		'${F_USE_CD}',
+		SYSDATE
+		)
+	</insert>
+
+	<!-- 删除检验项列表 -->
+	<delete id="AQLSampleInfoDelete" parameterType="hashmap">
+		delete WMS1.WMS_QUALITY_AQLSAMPLE T1
+		<where>
+			AQLSAMPLEID='${AQLSAMPLEID}'
+		</where>
+	</delete>
+  
+   <!-- 查询AQL抽样规则列表 -->
+	<select id="QueryAQLRuleMember" parameterType="hashmap"
+		resultType="java.util.HashMap">
+		SELECT
+		T1.AQLRULEMEMBERID,
+		T1.AQLRULEID,
+		T1.LOTLETTER,
+		T1.SAMPLINGVALUE,
+		T1.ACVALUE,
+		T1.REVALUE,
+		T1.CREATER_NAME,
+		TO_CHAR(T1.CREATE_DATE,'YYYY-MM-DD HH24:MI:SS') CREATE_DATE,
+		T1.UPDATER_NAME,
+		TO_CHAR(T1.UPDATE_DATE,'YYYY-MM-DD HH24:MI:SS') UPDATE_DATE
+		FROM WMS1.WMS_QUALITY_AQLRULEMEMBER T1
+		<where>
+			1=1
+			<if test=" AQLRULEID !=null and AQLRULEID !=''">
+				and AQLRULEID = '${AQLRULEID}'
+			</if>
+			<if test=" LOTLETTER !=null and LOTLETTER !=''">
+				and LOTLETTER = '${LOTLETTER}'
+			</if>
+		</where>
+	</select>
+
+	<!-- 修改AQL抽样规则列表 -->
+	<update id="AQLRuleMemberInfoUpdate" parameterType="java.util.HashMap">
+		<foreach collection="list" item="item" index="index" open="begin"
+			close=";end;" separator=";">
+			update WMS1.WMS_QUALITY_AQLRULEMEMBER
+			<set>
+				<if test="item.SAMPLINGVALUE !=null">
+					SAMPLINGVALUE='${item.SAMPLINGVALUE}',
+				</if>
+				<if test="item.ACVALUE !=null">
+					ACVALUE='${item.ACVALUE}',
+				</if>
+				<if test="item.REVALUE !=null">
+					REVALUE='${item.REVALUE}',
+				</if>
+				UPDATER_ID='${F_GR_CD}',
+				UPDATE_DATE= SYSDATE
+			</set>
+			<where>
+				AQLRULEMEMBERID='${item.AQLRULEMEMBERID}'
+			</where>
+		</foreach>
+	</update>
+
+	<!-- 新增AQL抽样规则列表 -->
+	<insert id="AQLRuleMemberInfoInsert" parameterType="hashmap">
+		INSERT INTO WMS1.WMS_QUALITY_AQLRULEMEMBER
+		(
+		AQLRULEMEMBERID,
+		AQLRULEID,
+		LOTLETTER,
+		SAMPLINGVALUE,
+		ACVALUE,
+		REVALUE,
+		CREATER_ID,
+		CREATE_DATE
+		)
+		(
+		<foreach collection="list" item="item" index="index"
+			separator="union all">
+			SELECT
+			WMS1.FUNC_AQLRULEMEMBERID(),
+			'${item.AQLRULEID}',
+			'${item.LOTLETTER}',
+			'${item.SAMPLINGVALUE}',
+			'${item.ACVALUE}',
+			'${item.REVALUE}',
+			'${F_USE_CD}',
+			SYSDATE
+			FROM DUAL
+		</foreach>
+		)
+	</insert>
+
+	<!-- 删除AQL抽样规则列表 -->
+	<delete id="AQLRuleMemberInfoDelete" parameterType="hashmap">
+		delete WMS1.WMS_QUALITY_AQLRULEMEMBER
+		<where>
+			AQLRULEID='${AQLRULEID}'
+		</where>
+	</delete>
+	
+	
+	<!-- 客诉列表模块 -->
+	<!-- 查询客诉列表 -->
+	<select id="QueryCustomerlist" parameterType="hashmap"
+		resultType="java.util.HashMap">
+		<include refid="oraclePagingFileTop"></include>
+
+		T1.QCENTRY_ID,
+		T1.SUPPLIER_NAME,
+		T1.SUPPLIER_CODE,
+		T1.MATERIAL_NAME,
+		T1.MATERIAL_CODE,
+		T1.CLIENT_DIVISION,
+		T1.CLIENT_REASON,
+		T1.REMARK,
+		TO_CHAR(T1.UPDATE_DATE,'YYYY-MM-DD HH24:MI:SS')
+		UPDATE_DATE,
+		T1.UPDATER_NAME,
+		TO_CHAR(T1.CREATE_DATE,'YYYY-MM-DD HH24:MI:SS')
+		CREATE_DATE,
+		T1.CREATE_NAME
+		FROM MES1.MES_CLIENT_QCENTRY T1
+		<where>
+			1=1
+			<if test=" MATERIAL_NAME !=null and MATERIAL_NAME !=''">
+				and MATERIAL_NAME LIKE '%${MATERIAL_NAME}%'
+			</if>
+			<if test=" SUPPLIER_NAME !=null and SUPPLIER_NAME !=''">
+				and SUPPLIER_NAME LIKE '%${SUPPLIER_NAME}%'
+			</if>
+		</where>
+		ORDER BY CREATE_DATE DESC
+		<include refid="oraclePagingFileBottom"></include>
+	</select>
+
+	<select id="QueryCustomerlist_COUNT" parameterType="hashmap"
+		resultType="java.util.HashMap">
+		SELECT COUNT(1) AS ROWS_COUNT
+		FROM MES1.MES_CLIENT_QCENTRY T1
+		<where>
+			1=1
+			<if test=" MATERIAL_NAME !=null and MATERIAL_NAME !=''">
+				and MATERIAL_NAME LIKE '%${MATERIAL_NAME}%'
+			</if>
+			<if test=" SUPPLIER_NAME !=null and SUPPLIER_NAME !=''">
+				and SUPPLIER_NAME LIKE '%${SUPPLIER_NAME}%'
+			</if>
+		</where>
+	</select>
+
+
+	<!-- 修改客诉列表 -->
+	<update id="CustomerlistUpdate" parameterType="java.util.HashMap">
+		update MES1.MES_CLIENT_QCENTRY
+		<set>
+			<if test=" MATERIAL_CODE !=null and MATERIAL_CODE !=''">
+				MATERIAL_CODE = '${MATERIAL_CODE}',
+			</if>
+			<if test=" MATERIAL_NAME !=null and MATERIAL_NAME !=''">
+				MATERIAL_NAME = '${MATERIAL_NAME}',
+			</if>
+			<if test=" SUPPLIER_CODE !=null and SUPPLIER_CODE !=''">
+				SUPPLIER_CODE = '${SUPPLIER_CODE}',
+			</if>
+			<if test=" SUPPLIER_NAME !=null and SUPPLIER_NAME !=''">
+				SUPPLIER_NAME = '${SUPPLIER_NAME}',
+			</if>
+			<if test=" CLIENT_DIVISION !=null and CLIENT_DIVISION !=''">
+				CLIENT_DIVISION = '${CLIENT_DIVISION}',
+			</if>
+			<if test=" CLIENT_REASON !=null and CLIENT_REASON !=''">
+				CLIENT_REASON = '${CLIENT_REASON}',
+			</if>
+			<if test=" REMARK !=null and REMARK !=''">
+				REMARK = '${REMARK}',
+			</if>
+			UPDATE_DATE=SYSDATE,
+			UPDATER_NAME='${F_USE_CD}'
+			
+		</set>
+		<where>
+			QCENTRY_ID='${ID}'
+		</where>
+	</update>
+
+	<!-- 新增客诉列表 -->
+	<insert id="CustomerlistInsert" parameterType="hashmap">
+	  <!--  <selectKey resultType="INTEGER" order="BEFORE" keyProperty="ID">  
+       SELECT MES1.QCENTRY_ID.NEXTVAL as ID from DUAL
+   		</selectKey>  -->
+		INSERT INTO
+		MES1.MES_CLIENT_QCENTRY
+		(
+		QCENTRY_ID,
+		MATERIAL_CODE,
+		MATERIAL_NAME,
+		SUPPLIER_CODE,
+		SUPPLIER_NAME,
+		CLIENT_DIVISION,
+		CLIENT_REASON,
+		REMARK,
+		CREATE_DATE,
+		CREATE_NAME
+		)
+		VALUES
+		(
+		${ID},
+		'${MATERIAL_CODE}',
+		'${MATERIAL_NAME}',
+		'${SUPPLIER_CODE}',
+		'${SUPPLIER_NAME}',
+		'${CLIENT_DIVISION}',
+		'${CLIENT_REASON}',
+		'${REMARK}',
+			SYSDATE,
+			'${F_USE_CD}'
+		)
+	</insert>
+
+	<!-- 删除客诉列表 -->
+	<delete id="CustomerlistDelete" parameterType="java.util.HashMap">
+		delete MES1.MES_CLIENT_QCENTRY 
+		<!--  <where>
+			QCENTRY_ID='${QCENTRY_ID}'
+		</where>-->
+		WHERE QCENTRY_ID IN
+		<foreach item="item" collection="list" open="(" separator="," close=")">
+		#{item.QCENTRY_ID} </foreach> 
+	</delete>
+
+</mapper>

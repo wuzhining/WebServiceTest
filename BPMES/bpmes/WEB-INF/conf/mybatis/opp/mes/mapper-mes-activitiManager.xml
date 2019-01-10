@@ -1,0 +1,496 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="">
+
+    <!-- 流程运行表操作 -->
+	<!-- 增加流程运行信息-->
+	<insert id="busiDataInsert" parameterType="java.util.HashMap">
+		INSERT INTO MES1.R_MES_BUSI_DATA_T
+		  (BUSI_SEQ,
+		   BAR_CODE,
+		   EXECUTION_ID,
+		   FCT_CD,
+		   WC_CD,
+		   OPER_TIME,
+		   OPER_CHANNEL,
+		   OPER_USER,
+		   PROC_STATUS,
+		   ACCEPT_PARAM,
+		   DEAL_PARAM,
+		   NODE_CODE,
+		   MO,
+		   USR_DFN_1,
+		   USR_DFN_2,
+		   USR_DFN_3,
+		   USR_DFN_4,
+		   USR_DFN_5,
+		   CRT_ID,
+		   CRT_IP,
+		   CRT_DT
+		   )
+		VALUES
+		  ( BUSI_DATA_SEQ.NEXTVAL,
+		   '${BAR_CODE}',
+		   '${EXECUTION_ID}',
+		   '${FCT_CD}',
+		   '${WC_CD}',
+		   '${OPER_TIME}',
+		   '${OPER_CHANNEL}',
+		   '${OPER_USER}',
+		   '${PROC_STATUS}',
+		   '${ACCEPT_PARAM}',
+		   '${DEAL_PARAM}',
+		   '${NODE_CODE}',
+		   '${MO}',
+		   '${USR_DFN_1}',
+		   '${USR_DFN_2}',
+		   '${USR_DFN_3}',
+		   '${USR_DFN_4}',
+		   '${USR_DFN_5}',
+		   '${F_USE_CD}',
+		   '${CRT_IP}',
+		   SYSDATE
+		)
+	</insert>
+    <!-- 删除流程运行信息-->
+    <delete id="busiDataDelete" parameterType="hashmap">
+    DELETE MES1.R_MES_BUSI_DATA_T
+ 		WHERE BUSI_SEQ = '${BUSI_SEQ}'
+    </delete>
+    <!-- 修改流程运行信息-->
+    <update id="busiDataUpdate" parameterType="java.util.HashMap">
+	    UPDATE MES1.R_MES_BUSI_DATA_T
+	   	<set>
+	   	   <if test="BUSI_SEQ!=null and BUSI_SEQ!='' "> 
+	   	   	BUSI_SEQ = '${BUSI_SEQ}',
+	   	   </if>
+	   	   <if test="BAR_CODE!=null and BAR_CODE!='' ">
+	       	BAR_CODE = '${BAR_CODE}',
+	       </if>
+	       <if test="EXECUTION_ID!=null and EXECUTION_ID!='' ">
+	       	EXECUTION_ID = '${EXECUTION_ID}',
+	       </if>
+	       <if test="FCT_CD!=null and FCT_CD!='' ">
+	       	FCT_CD = '${FCT_CD}',
+	       </if>
+	       <if test="WC_CD!=null">
+	       	WC_CD = '${WC_CD}',
+	       </if>
+	       <if test="OPER_TIME!=null">
+	       OPER_TIME = '${OPER_TIME}',
+	       </if>
+	       <if test="OPER_CHANNEL!=null">
+	       OPER_CHANNEL = '${OPER_CHANNEL}',
+	       </if>
+	       <if test="OPER_USER!=null">
+	       OPER_USER = '${OPER_USER}',
+	       </if>
+	       <if test="PROC_STATUS!=null">
+	       PROC_STATUS = '${PROC_STATUS}',
+	       </if>
+	       <if test="ACCEPT_PARAM!=null">
+	       ACCEPT_PARAM = '${ACCEPT_PARAM}',
+	       </if>
+	       <if test="DEAL_PARAM!=null">
+	       DEAL_PARAM = '${DEAL_PARAM}',
+	       </if>
+	       <if test="NODE_CODE!=null">
+	       NODE_CODE = '${NODE_CODE}',
+	       </if>
+	       <if test="MO!=null">
+	       MO = '${MO}',
+	       </if>
+	       <if test="USR_DFN_1!=null">
+	       USR_DFN_1 = '${USR_DFN_1}',
+	       </if>
+		   <if test="USR_DFN_2!=null">
+	       USR_DFN_2 = '${USR_DFN_2}',
+	       </if>
+	        <if test="USR_DFN_3!=null">
+	       USR_DFN_3 = '${USR_DFN_3}',
+	       </if>
+	        <if test="USR_DFN_4!=null">
+	       USR_DFN_4 = '${USR_DFN_4}',
+	       </if>
+	       <if test="USR_DFN_5!=null">
+	       USR_DFN_5 = '${USR_DFN_5}',
+	       </if>
+	       UPT_ID = '${F_USE_CD}',
+	       <if test="UPT_IP!=null">
+	       UPT_IP = '${UPT_IP}',
+	       </if>
+	       UPT_DT = SYSDATE
+	   </set> 
+	   <where> 
+	    BUSI_SEQ = '${BUSI_SEQ}'
+       </where>
+    </update>
+    <!-- 查询流程运行信息-->
+    <select id="busiDataQueryByBusiSeq" parameterType="hashmap" resultType="java.util.HashMap">
+    	SELECT 
+    	   BUSI_SEQ,
+	       BAR_CODE,
+	       EXECUTION_ID,
+	       FCT_CD,
+	       WC_CD,
+	       OPER_TIME,
+	       OPER_CHANNEL,
+	       OPER_USER,
+	       PROC_STATUS,
+	       ACCEPT_PARAM,
+	       DEAL_PARAM,
+	       NODE_CODE,
+	       MO,
+	       USR_DFN_1,
+	       USR_DFN_2,
+	       USR_DFN_3,
+	       USR_DFN_4,
+	       USR_DFN_5,
+	       CRT_ID,
+	       CRT_IP,
+	       CRT_DT,
+	       UPT_ID,
+	       UPT_IP,
+	       UPT_DT
+	  	FROM MES1.R_MES_BUSI_DATA_T
+	  	<where>1=1
+	  	 <if test="BUSI_SEQ!=null and BUSI_SEQ!='' ">
+	       AND BUSI_SEQ = '${BUSI_SEQ}'
+	       </if>
+	       <if test="BAR_CODE!=null and BAR_CODE!='' ">
+	       AND BAR_CODE = '${BAR_CODE}'
+	       </if>
+	       <if test="PROC_STATUS!=null and PROC_STATUS!='' ">
+	       AND PROC_STATUS = '${PROC_STATUS}'
+	       </if>
+	   </where>
+    </select>
+    
+    
+    <!-- 查询流程运行信息-->
+    <select id="busiDataQuery" parameterType="hashmap" resultType="java.util.HashMap">
+    	SELECT 
+    	   BUSI_SEQ,
+	       BAR_CODE,
+	       EXECUTION_ID,
+	       FCT_CD,
+	       WC_CD,
+	       OPER_TIME,
+	       OPER_CHANNEL,
+	       OPER_USER,
+	       PROC_STATUS,
+	       ACCEPT_PARAM,
+	       DEAL_PARAM,
+	       NODE_CODE,
+	       MO,
+	       USR_DFN_1,
+	       USR_DFN_2,
+	       USR_DFN_3,
+	       USR_DFN_4,
+	       USR_DFN_5,
+	       CRT_ID,
+	       CRT_IP,
+	       CRT_DT,
+	       UPT_ID,
+	       UPT_IP,
+	       UPT_DT
+	  	FROM MES1.R_MES_BUSI_DATA_T
+	  	<where>1=1
+	       <if test="BUSI_SEQ!=null and BUSI_SEQ!='' ">
+	        AND BUSI_SEQ = '${BUSI_SEQ}'
+	       </if>
+	       <if test="BAR_CODE!=null and BAR_CODE!='' ">
+	        AND BAR_CODE = '${BAR_CODE}'
+	       </if>
+	       <if test="PROC_STATUS!=null and PROC_STATUS!='' ">
+	        AND PROC_STATUS = '${PROC_STATUS}'
+	       </if>
+	       <if test="IN_PROC_STATUS !=null and IN_PROC_STATUS !='' ">
+	         AND PROC_STATUS IN (${IN_PROC_STATUS})
+	       </if>
+	   </where> 
+    </select>
+    
+    
+    <!-- 流程节点表操作 -->
+	<!-- 增加流程节点信息-->
+	<insert id="busiNodeInsert" parameterType="java.util.HashMap">
+	INSERT INTO MES1.R_MES_BUSI_NODE_T
+	  (TASK_ID,
+	   BUSI_SEQ,
+	   BAR_CODE,
+	   OPER_TIME,
+	   OPER_USER,
+	   VAR_NAME,
+	   VAR_VALUE,
+	   NODE_CODE,
+	   NODE_NAME,
+	   NODE_KEY,
+	   OP_START_TIME,
+	   MO,
+	   USR_DFN_1,
+	   USR_DFN_2,
+	   USR_DFN_3,
+	   USR_DFN_4,
+	   USR_DFN_5,
+	   CRT_ID,
+	   CRT_IP,
+	   CRT_DT
+	   )
+	VALUES
+	  ('${taskId}',
+	   '${BUSI_SEQ}',
+	   '${BAR_CODE}',
+	   '${OPER_TIME}',
+	   '${OPER_USER}',
+	   '${VAR_NAME}',
+	   '${VAR_VALUE}',
+	   '${NODE_CODE}',
+	   '${NODE_NAME}',
+	   '${NODE_KEY}',
+	    SYSDATE,
+	   '${MO}',
+	   '${USR_DFN_1}',
+	   '${USR_DFN_2}',
+	   '${USR_DFN_3}',
+	   '${USR_DFN_4}',
+	   '${USR_DFN_5}',
+	   '${F_USE_CD}',
+	   '${CRT_IP}',
+	   SYSDATE 
+	   )
+	</insert>
+	<!-- 删除流程节点信息-->
+	 <delete id="delNodeInsert" parameterType="hashmap">
+	    DELETE MES1.R_MES_BUSI_NODE_T
+		 WHERE TASK_ID = '${taskId}'
+		   AND BAR_CODE = '${BAR_CODE}'
+    </delete>
+	<!-- 修改流程节点信息-->
+	 <update id="busiNodeUpdate" parameterType="java.util.HashMap">
+	    UPDATE MES1.R_MES_BUSI_NODE_T
+	   <set> 
+	   	   <if test="TASK_ID != '' and TASK_ID !=null" >
+	       TASK_ID = '${TASK_ID}',
+	       </if>
+	       <if test="BUSI_SEQ!=null and BUSI_SEQ!='' ">
+	       BUSI_SEQ = '${BUSI_SEQ}',
+	       </if>
+	       <if test="BAR_CODE!=null and BAR_CODE!='' ">
+	       BAR_CODE = '${BAR_CODE}',
+	       </if>
+	       <if test="OPER_TIME!=null">
+	       OPER_TIME = '${OPER_TIME}',
+	       </if>
+	       <if test="OPER_USER !=null">
+	       OPER_USER = '${OPER_USER}',
+	       </if>
+	       <if test="VAR_NAME!=null">
+	       VAR_NAME = '${VAR_NAME}',
+	       </if>
+	       <if test="VAR_VALUE!=null">
+	       VAR_VALUE = '${VAR_VALUE}',
+	       </if>
+	       <if test="NODE_CODE!=null">
+	       NODE_CODE = '${NODE_CODE}',
+	       </if>
+	       <if test="NODE_NAME!=null">
+	       NODE_NAME = '${NODE_NAME}',
+	       </if>
+	       <if test="NODE_KEY!=null">
+	       NODE_KEY = '${NODE_KEY}',
+	       </if>
+	       <if test="OP_START_TIME!=null">
+	       OP_START_TIME = '${OP_START_TIME}',
+	       </if>
+	       <if test="MO!=null">
+	       MO = '${MO}',
+	       </if>
+	       <if test="USR_DFN_1!=null">
+	       USR_DFN_1 = '${USR_DFN_1}',
+	       </if>
+	       <if test="USR_DFN_2!=null">
+	       USR_DFN_2 = '${USR_DFN_2}',
+	       </if>
+	       <if test="USR_DFN_3!=null">
+	       USR_DFN_3 = '${USR_DFN_3}',
+	       </if>
+	       <if test="USR_DFN_4!=null">
+	       USR_DFN_4 = '${USR_DFN_4}',
+	       </if>
+	       <if test="USR_DFN_5!=null">
+	       USR_DFN_5 = '${USR_DFN_5}',
+	       </if>
+	       UPT_ID = '${F_USE_CD}',
+	       <if test="UPT_IP!=null">
+	       UPT_IP = '${UPT_IP}',
+	       </if>
+	       UPT_DT = SYSDATE
+	 </set>
+	 <where> 
+	     TASK_ID = '${TASK_ID}'
+	     AND 
+	     BAR_CODE = '${BAR_CODE}'
+    </where>
+    </update>
+	<!-- 查询流程节点信息-->
+	<select id="busiNodeSelectJudge" parameterType="hashmap" resultType="java.util.HashMap">
+    	SELECT TASK_ID,
+	       BUSI_SEQ,
+	       BAR_CODE,
+	       OPER_TIME,
+	       OPER_USER,
+	       VAR_NAME,
+	       VAR_VALUE,
+	       NODE_CODE,
+	       NODE_NAME,
+	       NODE_KEY,
+	       OP_START_TIME,
+	       MO,
+	       USR_DFN_1,
+	       USR_DFN_2,
+	       USR_DFN_3,
+	       USR_DFN_4,
+	       USR_DFN_5,
+	       CRT_ID,
+	       CRT_IP,
+	       CRT_DT,
+	       UPT_ID,
+	       UPT_IP,
+	       UPT_DT
+	   FROM MES1.R_MES_BUSI_NODE_T
+	   <where>1=1
+	        <if test="taskId != '' and taskId !=null" >
+	        TASK_ID = '${taskId}',
+	        </if>
+	        <if test="BUSI_SEQ!=null and BUSI_SEQ!='' ">
+	        BUSI_SEQ = '${BUSI_SEQ}',
+	        </if>
+	        <if test="BAR_CODE!=null and BAR_CODE!='' ">
+	        BAR_CODE = '${BAR_CODE}',
+	        </if>
+	   </where>
+    </select>
+    
+    <select id="taskQuery" parameterType="hashmap"  resultType="java.util.HashMap">
+		SELECT ID_  AS TASK_ID, NAME_ AS NODE_NAME, TASK_DEF_KEY_ AS NODE_KEY,ASSIGNEE_,PROC_INST_ID_  AS PROC_INST_ID
+		FROM MES1.ACT_RU_TASK WHERE 1=1
+		<if test="processInstanceId != '' and processInstanceId != null" >
+		  	AND PROC_INST_ID_ = #{processInstanceId}
+		 </if>
+		  <if test="taskId != '' and taskId !=null" >
+		  	AND ID_ = #{taskId}
+		 </if>
+    </select>
+    
+    <select id="taskQueryByOp" parameterType="hashmap"  resultType="java.util.HashMap">
+		SELECT DISTINCT TA.ID_           AS TASK_ID,
+                TA.NAME_          AS NODE_NAME,
+                TA.TASK_DEF_KEY_ AS NODE_KEY,
+                TA.ASSIGNEE_,
+                TA.PROC_INST_ID_
+			  FROM MES1.ACT_RU_TASK TA
+			  LEFT JOIN MES1.ACT_RU_IDENTITYLINK I
+			    ON TA.PROC_INST_ID_ = I.PROC_INST_ID_
+			    OR TA.ID_ = I.TASK_ID_
+			WHERE 
+		 	   	 I.USER_ID_ = '${F_USE_CD}' 
+		 <if test="processInstanceId != '' and processInstanceId != null" >
+		  	AND TA.PROC_INST_ID_ = #{processInstanceId}
+		 </if>
+		  <if test="taskId != '' and taskId !=null" >
+		  	AND TA.ID_ = #{taskId}
+		 </if>
+	</select>
+	
+	<!-- 查询流程定义信息 -->
+	<select id="busiDefQuery" parameterType="hashmap"  resultType="java.util.HashMap">
+	SELECT BUSI_CODE,BUSI_NAME,PROCDEF_KEY,m.NAME_ as PROCDEF_KEY_NM,PRIO_LVL,CASE  WHEN PRIO_LVL='1' THEN '一级' WHEN PRIO_LVL='2' THEN '二级' WHEN PRIO_LVL='3' THEN '三级' END AS PRIO_LVL_NM,
+	BUSI_SCOPE,CASE  WHEN BUSI_SCOPE='mes' THEN '生产执行' WHEN BUSI_SCOPE='wms' THEN '仓库管理' WHEN BUSI_SCOPE='tpm' THEN '生产维护' END AS BUSI_SCOPE_NM,HIST_URL,BATCH_YN,ENABLE_ALLDAY,MO,USR_DFN_1,USR_DFN_2,USR_DFN_3,USR_DFN_4,USR_DFN_5,CRT_ID,CRT_IP,TO_CHAR(CRT_DT, 'YYYY-MM-DD HH24:MI:SS') AS CRT_DT,UPT_ID,UPT_IP,TO_CHAR(UPT_DT, 'YYYY-MM-DD HH24:MI:SS') AS UPT_DT
+	FROM MES1.R_MES_BUSI_DEF_T b left join MES1.ACT_RE_MODEL m on b.PROCDEF_KEY = m.key_ 
+		<where> 1=1
+			<if test="BUSI_NAME != '' and BUSI_NAME !=null" > AND BUSI_NAME like '%${BUSI_NAME}%'</if>
+		    <if test="PROCDEF_KEY != '' and PROCDEF_KEY !=null" > AND PROCDEF_KEY like '%${PROCDEF_KEY}%'</if>
+	    </where>
+	</select>
+	<select id="busiDefQuery_count" parameterType="hashmap" resultType="java.util.HashMap">
+   	    SELECT COUNT(1) FROM MES1.R_MES_BUSI_DEF_T
+   		<where> 1=1
+		   	<if test="BUSI_NAME != '' and BUSI_NAME !=null" > AND BUSI_NAME like '%${BUSI_NAME}%'</if>
+	    	<if test="PROCDEF_KEY != '' and PROCDEF_KEY !=null" > AND PROCDEF_KEY like '%${PROCDEF_KEY}%'</if>
+   		</where>
+    </select>
+	<!-- 增加流程定义信息 -->
+	<insert id="busiDefInsert" parameterType="java.util.List">
+    	INSERT INTO 
+	    	MES1.R_MES_BUSI_DEF_T
+		    	(BUSI_CODE,BUSI_NAME,PROCDEF_KEY,PRIO_LVL,BUSI_SCOPE,HIST_URL,BATCH_YN,ENABLE_ALLDAY,MO,USR_DFN_1,USR_DFN_2,USR_DFN_3,USR_DFN_4,USR_DFN_5,CRT_ID,CRT_IP,CRT_DT)
+		    	(
+		    	 <foreach collection="list" item="item" index="index" separator="union all">
+		    	 	SELECT
+			    		'${item.BUSI_CODE}','${item.BUSI_NAME}','${item.PROCDEF_KEY}','${item.PRIO_LVL}','${item.BUSI_SCOPE}','${item.HIST_URL}',
+			    		'${item.BATCH_YN}','${item.ENABLE_ALLDAY}','${item.MO}','${item.USR_DFN_1}','${item.USR_DFN_2}','${item.USR_DFN_3}','${item.USR_DFN_4}','${item.USR_DFN_5}','${F_USE_CD}','${CRT_IP}',SYSDATE
+			    	FROM DUAL
+		    	 </foreach>
+		    	)
+    </insert>
+	<!-- 修改流程定义信息 -->
+	<update id="busiDefUpdate" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" open="begin" close=";end;" separator=";">
+			UPDATE MES1.R_MES_BUSI_DEF_T
+				<set>
+					<if test="item.BUSI_CODE!=null and item.BUSI_CODE!='' ">BUSI_CODE = '${item.BUSI_CODE}',</if>
+					<if test="item.BUSI_NAME!=null and item.BUSI_CODE!='' ">BUSI_NAME = '${item.BUSI_NAME}',</if>
+			        <if test="item.PROCDEF_KEY!=null and item.PROCDEF_KEY!='' ">PROCDEF_KEY = '${item.PROCDEF_KEY}',</if>
+			        <if test="item.PRIO_LVL!=null and item.PRIO_LVL!='' ">PRIO_LVL = '${item.PRIO_LVL}',</if>
+			        <if test="item.BUSI_SCOPE!=null and item.BUSI_SCOPE!='' ">BUSI_SCOPE = '${item.BUSI_SCOPE}',</if>
+			        <if test="item.HIST_URL!=null and item.HIST_URL!='' ">HIST_URL = '${item.HIST_URL}',</if>
+			        <if test="item.BATCH_YN!=null and item.BATCH_YN!='' ">BATCH_YN = '${item.BATCH_YN}',</if>
+			        <if test="item.ENABLE_ALLDAY!=null and item.ENABLE_ALLDAY!='' ">ENABLE_ALLDAY = '${item.ENABLE_ALLDAY}',</if>
+			        <if test="item.MO!=null and item.MO!='' ">MO = '${item.MO}',</if>
+			        <if test="item.USR_DFN_1!=null and item.USR_DFN_1!='' ">USR_DFN_1 = '${item.USR_DFN_1}',</if>
+			        <if test="item.USR_DFN_2!=null and item.USR_DFN_2!='' ">USR_DFN_2 = '${item.USR_DFN_2}',</if>
+			        <if test="item.USR_DFN_3!=null and item.USR_DFN_3!='' ">USR_DFN_3 = '${item.USR_DFN_3}',</if>
+			        <if test="item.USR_DFN_4!=null and item.USR_DFN_4!='' ">USR_DFN_4 = '${item.USR_DFN_4}',</if>
+			        <if test="item.USR_DFN_5!=null and item.USR_DFN_5!='' ">USR_DFN_5 = '${item.USR_DFN_5}',</if>
+			        UPT_ID = '${F_USE_CD}',
+			        UPT_IP = '${UPT_IP}',
+			        UPT_DT = SYSDATE
+				</set>
+			<where>	BUSI_CODE = '${item.BUSI_CODE}'
+	    AND PROCDEF_KEY = '${item.PROCDEF_KEY}'</where>
+		</foreach>
+	</update>
+	<!-- 删除流程定义信息 -->
+	<delete id="busiDefDelete" parameterType="hashmap">
+		DELETE MES1.R_MES_BUSI_DEF_T WHERE BUSI_CODE = '${BUSI_CODE}' AND PROCDEF_KEY = '${PROCDEF_KEY}'
+	</delete>
+	<!-- 查询流程定义信息 -->
+	<select id="busiDefExist" parameterType="hashmap"  resultType="java.util.HashMap">
+	SELECT BUSI_CODE,BUSI_NAME,PROCDEF_KEY,PRIO_LVL,BUSI_SCOPE,HIST_URL,BATCH_YN,ENABLE_ALLDAY,MO,USR_DFN_1,USR_DFN_2,USR_DFN_3,USR_DFN_4,USR_DFN_5,CRT_ID,CRT_IP,CRT_DT,UPT_ID,UPT_IP,UPT_DT
+	FROM MES1.R_MES_BUSI_DEF_T
+	 <where> 1=1
+	 	<if test="BUSI_CODE != '' and BUSI_CODE !=null" > AND BUSI_CODE = '${BUSI_CODE}'</if>
+	    <if test="PROCDEF_KEY != '' and PROCDEF_KEY !=null" > AND PROCDEF_KEY = '${PROCDEF_KEY}'</if>
+	   </where>
+	</select>
+	<!-- 流程设计器2.0 分组查询 -->
+	<select id="searchwp_type" parameterType="hashmap"  resultType="java.util.HashMap">
+		select  wp_type,count(wp_type) from mes_crafts_wp group by wp_type
+	</select>
+	
+	<!-- 流程设计器2.0 任务查询 -->
+	<select id="SearchActivitiTask" parameterType="hashmap"  resultType="java.util.HashMap">
+		SELECT  WP_CD,WP_TYPE,WP_NM FROM MES_CRAFTS_WP 
+		<where> 1=1
+	 	<if test="WP_TYPE != '' and WP_TYPE !=null" > AND WP_TYPE = '${WP_TYPE}'</if>
+	   </where> 
+	   GROUP BY WP_CD,WP_TYPE,WP_NM
+	</select>
+	<!-- 流程设计器2.0 流程图保存 -->
+	<insert id="InsertActivitiSave" parameterType="java.util.List">
+    	
+    </insert>
+    
+    
+ </mapper>

@@ -1,0 +1,1733 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="">
+         <!-- 共通分页 lipl -->
+  		 <sql id="oraclePagingFileTop">
+          SELECT PF.* FROM (SELECT ROWNUM AS RN,
+         </sql>
+         <sql id="oraclePagingFileBottom">
+          )PF
+          	 <if test="pageIndex!=null and pageIndex!='' ">
+             <if test="pageSize!=null and pageSize!='' ">   
+	            WHERE PF.RN >  (${pageIndex}-1)*${pageSize} AND PF.RN &lt; = ${pageIndex}*${pageSize}
+         	</if>
+         	</if>
+         </sql>
+         
+         <!-- 单表查询排序自定义 lipl 只适合于没有别名的字段-->
+         <sql id="ziDingYiPaiXu">
+               <if test="SORT_RULES ==null or SORT_RULES =='' ">			    
+			    	ORDER BY CRT_DT DESC
+			    </if>	
+			    <if test="SORT_RULES !=null and SORT_RULES!='' ">
+ 					ORDER BY ${SORT_RULES} 
+ 				</if>	
+         </sql>
+         
+         <!-- 数据库用户名设置 -->
+         <sql id="iplant">iplant1.</sql>
+         <sql id="iplant_2">iplant2.</sql>
+         <sql id="iplant_3">iplant3.</sql>
+         <sql id="mes_1">mes1.</sql>
+         <sql id="mes_2">mes2.</sql>
+         <sql id="tpm">tpm.</sql>
+         <sql id="wms">wms.</sql>
+         
+		<!-- 1.1 数据字典管理 -->
+	<!-- 新增数据字典 -->
+	<insert id="insertDictionary" parameterType="hashmap">
+		INSERT INTO iplant1.C_iplant_DM_T (DICT_CD,DICT_NM,MT_FLAG,DICT_TP,USE_YN,CRT_ID,CRT_DT) VALUES('${DICT_CD}','${DICT_NM}','${MT_FLAG}','${DICT_TP}','${USE_YN}','${F_USE_CD}',SYSDATE)
+    </insert>					        
+	<!-- 删除字典信息 -->			        
+	<delete id="deleteDictionary" parameterType="hashmap">
+		DELETE iplant1.C_iplant_DM_T <where> DICT_CD='${DICT_CD}'</where>  
+	</delete>		
+	<!-- 修改字典信息 -->		
+	<update id="updateDictionary" parameterType="hashmap">
+		UPDATE iplant1.C_iplant_DM_T
+		<set> 
+			<if test="DICT_NM!=null and DICT_NM!='' "> DICT_NM='${DICT_NM}',</if>			        
+			<if test="MT_FLAG!=null and MT_FLAG!='' "> MT_FLAG='${MT_FLAG}',</if>			        
+			<if test="DICT_TP!=null and DICT_TP!='' "> DICT_TP='${DICT_TP}',</if>			        
+			<if test="USE_YN!=null and USE_YN!='' "> USE_YN='${USE_YN}',</if>			        	        
+			CRT_ID='${F_USE_CD}',CRT_DT=SYSDATE        
+		</set>
+	    <where>
+	    	DICT_CD='${DICT_CD}'
+	    </where>       
+	</update>		
+	<!--查询数据字典 -->
+	<select id="queryDictionary" parameterType="hashmap" resultType="java.util.HashMap">
+		<include refid="oraclePagingFileTop"></include>	
+		DICT_CD,DICT_NM,MT_FLAG,DICT_TP,USE_YN,CRT_ID,IPLANT1.F_GET_USER_NAME(CRT_ID) AS CRT_ID_NM,TO_CHAR(CRT_DT,'YYYY-MM-DD HH24:Mi:SS') AS CRT_DT,
+			IPLANT1.F_GET_USER_NAME(UPT_ID) AS UPT_ID_NM,TO_CHAR(UPT_DT,'YYYY-MM-DD HH24:Mi:SS') AS UPT_DT,
+			CASE 
+			  	WHEN MT_FLAG='0' THEN '是'
+			  	WHEN MT_FLAG='1' THEN '否'
+			END AS MT_FLAG_NM,
+			CASE 
+				WHEN DICT_TP='s1' THEN '系统'
+				WHEN DICT_TP='s3' THEN 'MES'
+				WHEN DICT_TP='s2' THEN 'TPM'
+				WHEN DICT_TP='s4' THEN 'WMS'
+				WHEN DICT_TP='s9' THEN 'APP'
+			END AS DICT_TP_NM FROM iplant1.C_iplant_DM_T
+		<where> 1=1
+		 	<if test="USE_YN!=null and USE_YN!='' "> AND USE_YN='${USE_YN}'</if>  
+	      	<if test="DICT_CD!=null and DICT_CD!='' "> AND DICT_CD='${DICT_CD}'</if>
+	      	<if test="DICT_TP!=null and DICT_TP!='' "> AND DICT_TP='${DICT_TP}'</if>
+	      	<if test="DICT_NM!=null and DICT_NM!='' "> AND DICT_NM LIKE '%${DICT_NM}%'</if>
+	      	<if test="MT_FLAG!=null and MT_FLAG!='' "> AND MT_FLAG='${MT_FLAG}'</if>
+		</where> ORDER BY CRT_DT DESC
+		<include refid="oraclePagingFileBottom"></include>	
+	</select>	
+	<!-- 查询数据字典分页总数 -->
+	<select id="queryDictionary_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT COUNT(1) ROWS_COUNT FROM iplant1.C_iplant_DM_T 	
+		 <where> 1=1
+		 	<if test="USE_YN!=null and USE_YN!='' "> AND USE_YN='${USE_YN}'</if>  
+		    <if test="DICT_CD!=null and DICT_CD!='' "> AND DICT_CD='${DICT_CD}'</if>
+		    <if test="DICT_TP!=null and DICT_TP!='' "> AND DICT_TP='${DICT_TP}'</if>
+		    <if test="DICT_NM!=null and DICT_NM!='' "> AND DICT_NM LIKE '%${DICT_NM}%'</if>
+		    <if test="MT_FLAG!=null and MT_FLAG!='' "> AND MT_FLAG='${MT_FLAG}'</if>
+    	</where> 
+	</select>		
+	<!-- 新增字典项信息 -->
+	<insert id="insertDictionaryDetail" parameterType="java.util.List" >
+	   INSERT INTO iplant1.C_iplant_DM_T(DICT_CD,DICT_NM,MT_FLAG,USE_YN,CRT_ID,crt_dt) 
+		VALUES('${DICT_CD}','${DICT_NM}','${MT_FLAG}','${USE_YN}','${F_USE_CD}',SYSDATE)
+		<!--     	INSERT INTO iplant1.C_iplant_DD_T(DICT_CD,DICT_IT,DICT_IT_NM,DICT_ORD,USE_YN,DICT_RM,CRT_ID,CRT_DT)
+		 (<foreach collection="list" item="item" index="index" separator="union all">
+		    SELECT '${item.DICT_CD}','${item.DICT_IT}','${item.DICT_IT_NM}','${item.DICT_ORD}','${item.USE_YN}','${item.DICT_RM}','${item.CRT_ID}',SYSDATE FROM DUAL
+		   </foreach> 
+		   ) --> 
+	</insert>		
+	<!-- 删除字典项信息 -->		
+	<delete id="deleteDictionaryDetail"  parameterType="hashmap">
+		DELETE iplant1.C_iplant_DM_T <where> DICT_CD='${DICT_CD}'</where>
+	</delete>	
+	<!-- 修改字典项信息-->		
+	<update id="updateDictionaryDetail" parameterType="java.util.List">
+	UPDATE iplant1.C_iplant_DM_T
+	<set>
+	
+	<if test="DICT_NM!=null and DICT_NM!= ''">DICT_NM='${DICT_NM}',</if>
+	<if test="MT_FLAG!=null and MT_FLAG!= ''">MT_FLAG='${MT_FLAG}',</if>
+	<if test="USE_YN!=null and USE_YN!= ''">USE_YN='${USE_YN}',</if>
+	UPT_ID='${F_USE_CD}',
+	UPT_DT=SYSDATE
+	</set>
+	<where>
+			DICT_CD = '${DICT_CD}'
+        </where>
+	<!-- <foreach collection="list" item="item" index="index" open="begin" close=";end;" separator=";">
+	   UPDATE iplant1.C_iplant_DD_T
+          <set>
+             <if test="item.DICT_CD!=null and item.DICT_CD!=''"> DICT_CD = '${item.DICT_CD}', </if>
+             <if test="item.DICT_IT_NM!=null and item.DICT_IT_NM!=''"> DICT_IT_NM = '${item.DICT_IT_NM}',</if>
+             <if test="item.DICT_ORD!=null and item.DICT_ORD!=''"> DICT_ORD = '${item.DICT_ORD}',</if>
+             <if test="item.USE_YN!=null and item.USE_YN!=''"> USE_YN = '${item.USE_YN}',</if>
+             <if test="item.DICT_RM!=null and item.DICT_RM!=''"> DICT_RM = '${item.DICT_RM}',</if>
+            CRT_ID = '${F_USE_CD}',CRT_DT = SYSDATE
+          </set>
+         <where>
+			DICT_IT = '${item.DICT_IT}'
+        </where>
+	</foreach> -->
+	</update>		
+	<!-- 查询字典项信息 -->
+	<select id="queryDictionaryDetail" parameterType="hashmap" resultType="java.util.HashMap">
+		<include refid="oraclePagingFileTop"></include>	
+		T1.IT_ID,T1.DICT_CD,T2.DICT_NM,T1.DICT_IT,T1.DICT_IT_NM,T1.DICT_ORD,T1.USE_YN,T1.DICT_RM,T1.CRT_ID,IPLANT1.F_GET_USER_NAME(T1.CRT_ID) AS CRT_ID_NM,TO_CHAR(T1.CRT_DT,'YYYY-MM-DD HH24:Mi:SS') AS CRT_DT FROM  iplant1.C_iplant_DD_T T1 LEFT JOIN iplant1.C_iplant_DM_T T2 ON T1.DICT_CD=T2.DICT_CD
+		<where> 1=1
+			<if test="USE_YN!=null and USE_YN!='' "> AND T1.USE_YN='${USE_YN}'</if>
+       	 	<if test="DICT_CD!=null and DICT_CD!='' "> AND	T1.DICT_CD='${DICT_CD}'</if>
+          	<if test="SYS_BEL!=null and SYS_BEL!='' "> AND	T1.SYS_BEL='${SYS_BEL}'</if>
+          	<if test="DICT_IT!=null and DICT_IT!='' "> AND T1.DICT_IT='${DICT_IT}'</if> 
+          	<if test="DICT_IT_NM!=null and DICT_IT_NM!='' "> AND T1.DICT_IT_NM='${DICT_IT_NM}'</if>
+         </where> ORDER BY T1.CRT_DT DESC,T1.DICT_IT ASC
+         <include refid="oraclePagingFileBottom"></include>
+	</select>
+	<!-- 查询数据字典项分页总数 -->
+	<select id="queryDictionaryDetail_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT COUNT(1) ROWS_COUNT FROM  iplant1.C_iplant_DD_T T1 
+		<where> 1=1
+			<if test="USE_YN!=null and USE_YN!='' "> AND T1.USE_YN='${USE_YN}'</if>
+       	 	<if test="DICT_CD!=null and DICT_CD!='' "> AND	T1.DICT_CD='${DICT_CD}'</if>
+          	<if test="SYS_BEL!=null and SYS_BEL!='' "> AND	T1.SYS_BEL='${SYS_BEL}'</if>
+          	<if test="DICT_IT!=null and DICT_IT!='' "> AND T1.DICT_IT='${DICT_IT}'</if> 
+          	<if test="DICT_IT_NM!=null and DICT_IT_NM!='' "> AND T1.DICT_IT_NM='${DICT_IT_NM}'</if>
+         </where> 
+	</select>
+       
+	<!-- 查询字典代码 -->
+	<select id="queryDICT_CD" parameterType="hashmap" resultType="java.util.HashMap">   		
+		SELECT COUNT(*) AS STATUS FROM (SELECT DICT_CD  FROM iplant1.C_iplant_DD_T   WHERE DICT_CD='${DICT_CD}' )
+    	</select>
+        
+		<!-- 1.2 菜单及模块信息配置   -->      
+		<!-- 新增系统菜单 --> 
+		<insert id="insertSysMenu" parameterType="hashmap">
+       		INSERT INTO iplant1.C_IPLANT_M1_T(MN_CD,MN_NM,MN_TP,SYS_BEL,USE_YN,LINK_URL,MN_LEVL,MN_ENG,MN_MD,CRT_ID,CRT_DT,CRT_IP,LINK_ICON)
+         	VALUES('${MN_CD}','${MN_NM}','${MN_TP}','${SYS_BEL}','${USE_YN}','${LINK_URL}','${MN_LEVL}','${MN_ENG}','${MN_MD}','${F_USE_CD}', SYSDATE,'${CRT_IP}','${LINK_ICON}')
+		</insert>		
+		
+		<!-- 删除系统菜单 -->
+		<delete id="deleteSysMenu" parameterType="hashmap">
+		        DELETE iplant1.C_IPLANT_M1_T <where>  MN_CD='${MN_CD}'</where>
+		</delete>		
+		
+		<!-- 修改系统菜单 -->
+ 		<update id="updateSysMenu"  parameterType="hashmap">
+        	UPDATE iplant1.C_IPLANT_M1_T
+	        <set>
+	           <if test="MN_NM!=null  "> MN_NM='${MN_NM}',</if>
+	           <if test="MN_TP!=null  ">MN_TP='${MN_TP}',</if>
+	           <if test="SYS_BEL!=null  ">SYS_BEL='${SYS_BEL}',</if>
+	           <if test="USE_YN!=null  ">USE_YN='${USE_YN}',</if>
+	           <if test="LINK_ICON!=null  ">LINK_ICON='${LINK_ICON}',</if>
+	           <if test="LINK_URL!=null  ">LINK_URL='${LINK_URL}',</if>
+	           <if test="MN_LEVL!=null ">MN_LEVL='${MN_LEVL}',</if>
+	           <if test="MN_ENG!=null ">MN_ENG='${MN_ENG}',</if>
+	             UPT_ID='${F_USE_CD}',UPT_IP='${UPT_IP}',UPT_DT=SYSDATE 
+	         </set>
+	         <where>  
+	            MN_CD='${MN_CD}'
+	         </where>     
+ 		</update>	
+		<!-- 查询系统菜单 --> 		
+ 		<select id="querySysMenu" parameterType="hashmap" resultType="java.util.HashMap" >
+	    	<include refid="oraclePagingFileTop"></include>	
+	            MN_CD,MN_NM, MN_TP,SYS_BEL,D.DICT_IT_NM AS SYS_BEL_NM,M.USE_YN AS USE_YN,LINK_URL,MN_LEVL,MN_ENG,MN_MD,M.CRT_ID AS CRT_ID,M.CRT_IP AS CRT_IP,TO_CHAR(M.CRT_DT,'YYYY-MM-DD HH24:Mi:SS') AS CRT_DT,
+		        M.UPT_ID AS UPT_ID,M.UPT_IP AS UPT_IP,TO_CHAR(M.UPT_DT,'YYYY-MM-DD HH24:Mi:SS') AS UPT_DT,LINK_ICON FROM iplant1.C_IPLANT_M1_T M LEFT JOIN iplant1.C_IPLANT_DD_T D ON D.DICT_IT=M.SYS_BEL 
+	          <where> 1=1
+	             <if test="USE_YN!=null and USE_YN!='' "> AND M.USE_YN='${USE_YN}'</if>
+  		         <if test="QU_SYS_BEL!=null and QU_SYS_BEL!='' "> AND M.SYS_BEL='${QU_SYS_BEL}'</if>
+	             <if test="MN_CD!=null and MN_CD!='' "> AND M.MN_CD like '%${MN_CD}%'</if>   
+	             <if test="MN_NM!=null and MN_NM!='' "> AND M.MN_NM like '%${MN_NM}%'</if>
+	             <if test="MN_LEVL!=null and MN_LEVL!='' "> AND M.MN_LEVL='${MN_LEVL}' </if>     
+	          </where>
+	          	ORDER BY M.CRT_DT DESC
+	    	<include refid="oraclePagingFileBottom"></include>    		        
+ 		</select>
+ 		<!-- 查询系统菜单分页总数 -->
+ 		<select id="querySysMenu_COUNT" parameterType="hashmap" resultType="java.util.HashMap" >
+			SELECT COUNT(1) ROWS_COUNT FROM iplant1.C_IPLANT_M1_T
+	         <where>1=1
+	             <if test="USE_YN!=null and USE_YN!='' "> AND USE_YN='${USE_YN}'</if>
+  		         <if test="QU_SYS_BEL!=null and QU_SYS_BEL!='' "> AND SYS_BEL='${QU_SYS_BEL}'</if>
+	             <if test="MN_CD!=null and MN_CD!='' "> AND MN_CD like '%${MN_CD}%'</if>   
+	             <if test="MN_NM!=null and MN_NM!='' "> AND MN_NM like '%${MN_NM}%'</if>
+	             <if test="MN_LEVL!=null and MN_LEVL!='' "> AND MN_LEVL='${MN_LEVL}'</if>          		            
+	         </where>	
+ 		</select>
+ 		         
+		<!-- 1.3 员工信息管理 -->
+		<!-- 新增员工信息 -->
+		 <insert id="insertOptInfo" parameterType="java.util.HashMap"> 
+    		INSERT INTO iplant1.C_IPLANT_E1_T(
+				         EMP_CD,EMP_NM,ENG_NM,EMP_HP,SEX,EMP_ST,DPT_CD,PS_CD, OB_DT,TR_DT,IC_CN,BAR_CN,BIRTHDAY,ID_CD,NP,TEL,E_MAIL,DT_TM,EMP_RM,CRT_ID,CRT_DT,CRT_IP               
+				         )
+   			  	 (<foreach collection="list" item="item" index="index" separator="union all">
+		             SELECT 
+				        '${item.EMP_CD}','${item.EMP_NM}','${item.ENG_NM}','${item.EMP_HP}','${item.SEX}','${item.EMP_ST}','${item.DPT_CD}','${item.PS_CD}',TO_DATE('${item.OB_DT}','yyyy-MM-dd'),TO_DATE('${item.TR_DT}','yyyy-MM-dd'),				        
+				        '${item.IC_CN}','${item.BAR_CN}',TO_DATE('${item.BIRTHDAY}','YYYY-MM-DD'),'${item.ID_CD}','${item.NP}','${item.TEL}','${item.E_MAIL}','${item.DT_TM}','${item.EMP_RM}','${item.F_USE_CD}', SYSDATE,'${item.CRT_IP}'    
+			             FROM DUAL	
+		         </foreach>)
+	    </insert>
+
+		
+		<!-- 批量新增员工信息 -->
+		<insert id="insertBatchOptInfo" parameterType="java.util.List">
+			INSERT INTO iplant1.C_IPLANT_E1_T (EMP_CD,
+				 EMP_NM,ENG_NM,EMP_HP,SEX,EMP_ST,DPT_CD,PS_CD,OB_DT,TR_DT,IC_CN,BAR_CN,BIRTHDAY,ID_CD,NP,TEL, E_MAIL,DT_TM,EMP_RM,CRT_ID,CRT_DT,CRT_IP )
+			 	(<foreach collection="list" item="item" index="index" separator="union all">
+					SELECT '${item.EMP_CD}','${item.EMP_NM}','${item.ENG_NM}','${item.EMP_HP}','${item.SEX}','${item.EMP_ST}','${item.DPT_CD}','${item.PS_CD}',
+				        TO_DATE('${item.OB_DT}','yyyy-MM-dd'),TO_DATE('${item.TR_DT}','yyyy-MM-dd'),'${item.IC_CN}','${item.BAR_CN}',TO_DATE('${item.BIRTHDAY}','YYYY-MM-DD'),
+				        '${item.ID_CD}','${item.NP}', '${item.TEL}','${item.E_MAIL}',TO_DATE('${item.DT_TM}','yyyy-MM-dd'),'${item.EMP_RM}','${F_USE_CD}', SYSDATE,'${item.CRT_IP}' FROM DUAL
+				</foreach>) 
+		</insert> 
+				
+		<!-- 删除员工信息 -->
+ 		<delete id="deleteOptInfo" parameterType="hashmap">
+ 		        DELETE iplant1.C_IPLANT_E1_T
+	 		        <where> 
+	 		            EMP_CD='${EMP_CD}'
+	 		        </where>  
+ 		</delete>		
+		<!-- 修改员工信息 -->
+		<update id="updateOptInfo" parameterType="java.util.HashMap" >
+			<foreach collection="list" item="item" index="index" open="begin" close=";end;" separator=";">
+				UPDATE iplant1.C_IPLANT_E1_T
+					<set>
+					    <if test="item.EMP_NM!=null and item.EMP_NM!='' ">
+	                     EMP_NM='${item.EMP_NM}',
+	                   </if>
+	                   <if test="item.ENG_NM!=null  ">
+	                     ENG_NM='${item.ENG_NM}',
+	                   </if>
+	                   <if test="item.SEX!=null  ">
+	                     SEX='${item.SEX}',
+	                   </if>
+	                   <if test="item.EMP_ST!=null  ">
+	                     EMP_ST='${item.EMP_ST}',
+	                   </if>
+	                   <if test="item.DPT_CD!=null ">
+	                     DPT_CD='${item.DPT_CD}',
+	                   </if>
+	                   <if test="item.PS_CD!=null  ">
+	                     PS_CD='${item.PS_CD}',
+	                   </if>
+	                   <if test="item.OB_DT!=null  ">
+	                     OB_DT=TO_DATE('${item.OB_DT}','YYYY-MM-DD'),
+	                   </if>
+	                   <if test="item.TR_DT!=null  ">
+	                     TR_DT=TO_DATE('${item.TR_DT}','YYYY-MM-DD'),
+	                   </if>
+	                   <if test="item.IC_CN!=null  ">
+	                     IC_CN='${item.IC_CN}',
+	                   </if>
+	                   <if test="item.BAR_CN!=null  ">
+	                     BAR_CN='${item.BAR_CN}',
+	                   </if>
+	                   <if test="item.BIRTHDAY!=null  ">
+	                     BIRTHDAY=TO_DATE('${item.BIRTHDAY}','YYYY-MM-DD'),
+	                   </if>
+	                   <if test="item.ID_CD!=null  ">
+	                     ID_CD='${item.ID_CD}',
+	                   </if>
+	                   <if test="item.NP!=null  ">
+	                     NP='${item.NP}',
+	                   </if>
+	                   <if test="item.TEL!=null  ">
+	                     TEL='${item.TEL}',
+	                   </if>
+	                   <if test="item.E_MAIL!=null  ">
+	                     E_MAIL='${item.E_MAIL}',
+	                   </if>
+	                   <if test="item.DT_TM!=null  ">
+	                     DT_TM='${item.DT_TM}',
+	                   </if>
+	                   <if test="item.EMP_RM!=null  ">
+	                     EMP_RM='${item.EMP_RM}',
+	                   </if> 
+	                     UPT_ID='${F_USE_CD}',
+	                     UPT_IP='${UPT_IP}',           
+	                     UPT_DT=SYSDATE,
+	                   <if test="EMP_PIC!=null">
+	                   	EMP_PIC = '${item.EMP_PIC}'
+	                   </if>  
+	                </set>
+	               <where>
+	                   EMP_CD='${item.EMP_CD}'
+	               </where>           
+			</foreach>
+		</update>
+		
+		<!-- 修改员工图片 -->
+ 		  <update id="updateOptPhotoInfo">
+ 		  		  UPDATE iplant1.C_IPLANT_E1_T
+ 		  		  	<set>
+ 		  		  	 <if test="EMP_PIC!=null and EMP_PIC!=''">
+						EMP_PIC = '${EMP_PIC}',
+					 </if>
+ 		  		  	     UPT_ID='${UPT_ID}',
+					     UPT_IP='${UPT_IP}',
+					     UPT_DT=SYSDATE
+ 		  		  	 </set>
+ 		  		  	 <where>
+ 		  		  	 	 EMP_CD='${EMP_CD}'
+ 		  		  	 </where>
+ 		  </update>
+      
+		<!-- 查询员工信息 --> 
+		<select id="queryOptInfo" parameterType="hashmap" resultType="java.util.HashMap">
+			 <include refid="oraclePagingFileTop"></include>	
+	                 T1.EMP_CD,
+					 T1.EMP_NM,
+					 T1.ENG_NM,
+					 T1.EMP_HP,
+					 T1.SEX,
+					 T1.EMP_ST,
+					 T1.DPT_CD,
+					 T1.PS_CD,
+					 TO_CHAR(T1.OB_DT,'YYYY-MM-DD') AS OB_DT,
+					 TO_CHAR(T1.TR_DT,'YYYY-MM-DD') AS TR_DT,
+					 T1.IC_CN,
+					 T1.BAR_CN,
+					 T1.BIRTHDAY,
+					 T1.ID_CD,
+					 T1.NP,
+					 T1.TEL,
+					 T1.E_MAIL,
+					 T1.DT_TM,
+					 T1.EMP_RM,
+					 T1.CRT_ID,
+					 TO_CHAR(T1.CRT_DT,'YYYY-MM-DD HH24:Mi:SS') AS CRT_DT,
+					 T1.CRT_IP,
+					 T1.UPT_ID,
+					 TO_CHAR(T1.UPT_DT,'YYYY-MM-DD HH24:Mi:SS') AS UPT_DT,
+					 T1.UPT_IP,
+					 T2.DPT_NM,
+					 T3.PS_NM  
+                  FROM iplant1.C_IPLANT_E1_T  T1
+                  LEFT JOIN iplant1.C_IPLANT_D1_T  T2 ON T1.DPT_CD=T2.DPT_CD
+                  LEFT JOIN iplant1.C_IPLANT_P2_T  T3 
+                  ON T1.PS_CD=T3.PS_CD AND T1.DPT_CD = T3.DPT_CD     
+                  <where> 1=1
+					<if test="EMP_CD!=null and EMP_CD!='' "> AND T1.EMP_CD='${EMP_CD}'</if>
+					<if test="EMP_NM!=null and EMP_NM!='' "> AND T1.EMP_NM='${EMP_NM}'</if>
+					<if test="EMP_ST!=null and EMP_ST!='' "> AND T1.EMP_ST='${EMP_ST}'</if>
+				 </where>
+				 ORDER BY CRT_DT DESC
+				 <include refid="oraclePagingFileBottom"></include>	
+		</select>
+		<!-- 查询员工信息分页总数 --> 
+		<select id="queryOptInfo_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+				SELECT COUNT(1) ROWS_COUNT FROM iplant1.C_IPLANT_E1_T T1          
+                <where> 1=1
+					<if test="EMP_CD!=null and EMP_CD!='' "> AND T1.EMP_CD='${EMP_CD}'</if>
+					<if test="EMP_NM!=null and EMP_NM!='' "> AND T1.EMP_NM='${EMP_NM}'</if>
+					<if test="EMP_ST!=null and EMP_ST!='' "> AND T1.EMP_ST='${EMP_ST}'</if>
+			   </where>
+		</select>			
+		<!-- 查询员工信息（关联表查询） -->
+		<select id="queryStaffInfo" parameterType="hashmap" resultType="java.util.HashMap">
+				<include refid="oraclePagingFileTop"></include>
+					 EMP_CD,
+				     EMP_NM,
+				     ENG_NM,
+				     EMP_PIC,
+				     EMP_HP,
+				     SEX,
+				     A.DPT_CD,
+				     A2.DPT_NM,
+				     A.PS_CD,
+				     A1.PS_NM,
+				     EMP_ST,
+				     ID_CD,
+				     TO_CHAR(BIRTHDAY,'YYYY-MM-DD') AS BIRTHDAY,
+				     NP,
+				     TEL,
+				     TO_CHAR(OB_DT,'YYYY-MM-DD') AS OB_DT,
+					 TO_CHAR(TR_DT,'YYYY-MM-DD') AS TR_DT,
+				     BAR_CN,
+				     IC_CN,
+				     A.CRT_ID,
+				     TO_CHAR(A.CRT_DT,'YYYY-MM-DD HH24:Mi:SS') AS CRT_DT,
+				     A.UPT_ID,
+				     TO_CHAR(A.UPT_DT,'YYYY-MM-DD HH24:Mi:SS') AS UPT_DT,
+				     A.EMP_RM
+ 				FROM iplant1.C_IPLANT_E1_T A
+  				LEFT JOIN iplant1.C_IPLANT_P2_T A1 ON A.PS_CD = A1.PS_CD AND A.DPT_CD = A1.DPT_CD
+  				LEFT JOIN iplant1.C_IPLANT_D1_T A2 ON A.DPT_CD = A2.DPT_CD 
+ 				<where> 1=1
+ 					<if test="EMP_CD!=null and EMP_CD!='' "> 
+ 						AND EMP_CD='${EMP_CD}'
+ 					</if>
+ 					<if test="EMP_ST!=null and EMP_ST!='' "> 
+ 						AND EMP_ST='${EMP_ST}'
+ 					</if>
+ 					<if test="EMP_NM!=null and EMP_NM!='' ">
+ 						AND EMP_NM LIKE '%${EMP_NM}%'
+ 					</if>
+ 					<if test="ENG_NM!=null and ENG_NM!='' ">
+ 						AND ENG_NM LIKE '%${ENG_NM}%'
+ 					</if>
+ 					<if test="DPT_NM!=null and DPT_NM!='' ">
+ 						AND A2.DPT_NM LIKE '%${DPT_NM}%'
+ 					</if>
+ 					<if test="PS_NM!=null and PS_NM!='' ">
+ 						AND A1.PS_NM LIKE '%${PS_NM}%'
+ 					</if>
+ 					<if test="DPT_CD !=null and DPT_CD !='' ">
+ 						AND A1.DPT_CD='${DPT_CD}'
+ 					</if>
+ 					<if test="PS_CD !=null and PS_CD !='' ">
+ 						AND A1.PS_CD='${PS_CD}'
+ 					</if>			
+				</where>
+					ORDER BY A.CRT_DT DESC	
+				<include refid="oraclePagingFileBottom"></include>	
+		</select>
+		<!-- 查询员工信息分页总数（关联表查询） -->
+		<select id="queryStaffInfo_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+			 SELECT COUNT(1) ROWS_COUNT FROM iplant1.C_IPLANT_E1_T A LEFT JOIN iplant1.C_IPLANT_P2_T A1 ON A.PS_CD = A1.PS_CD AND A.DPT_CD = A1.DPT_CD
+  				LEFT JOIN iplant1.C_IPLANT_D1_T A2 ON A.DPT_CD = A2.DPT_CD 
+ 			 <where> 1=1
+ 			     <if test="EMP_CD!=null and EMP_CD!='' "> 
+ 					 AND EMP_CD='${EMP_CD}'
+ 				 </if>
+ 				 <if test="EMP_NM!=null and EMP_NM!='' ">
+ 					 AND EMP_NM LIKE '%${EMP_NM}'
+ 				 </if>
+ 				 <if test="ENG_NM!=null and ENG_NM!='' ">
+ 					 AND ENG_NM LIKE '%${ENG_NM}'
+ 				 </if>
+ 				 <if test="DPT_NM!=null and DPT_NM!='' ">
+ 					 AND A2.DPT_NM LIKE '%${DPT_NM}'
+ 				 </if>
+ 				 <if test="PS_NM!=null and PS_NM!='' ">
+ 				     AND A1.PS_NM LIKE '%${PS_NM}'
+ 				 </if>	
+ 				 <if test="DPT_CD !=null and DPT_CD !='' ">
+ 					AND A1.DPT_CD='${DPT_CD}'
+ 				 </if>
+ 				  <if test="PS_CD !=null and PS_CD !='' ">
+ 					 AND A1.PS_CD='${PS_CD}'		
+ 				  </if>	
+				</where>	
+		</select>
+		
+		<!-- 1.4 岗位管理 -->
+		<!-- 新增岗位信息 -->
+		 <insert id="insertPostInfo" parameterType="java.util.HashMap"> 
+    		INSERT INTO iplant1.C_IPLANT_P2_T(PS_CD,PS_NM,DPT_CD,PS_SORT,PS_ST,USE_YN,PS_RM,CRT_ID,CRT_DT)
+   			  	 (<foreach collection="list" item="item" index="index" separator="union all">
+		             SELECT '${item.PS_CD}','${item.PS_NM}','${item.DPT_CD}','${item.PS_SORT}','${item.PS_ST}','${item.USE_YN}','${item.PS_RM}','${F_USE_CD}',SYSDATE FROM DUAL	
+		         </foreach>)
+	    </insert>
+ 		
+		<!-- 删除岗位信息 --> 			
+ 		<delete id="deletePostInfo" parameterType="hashmap">
+ 		        DELETE iplant1.C_IPLANT_P2_T
+ 		        <where> 
+ 		            PS_CD='${PS_CD}'
+ 		        </where>  
+ 		</delete>
+		<!-- 修改岗位信息 -->
+		<update id="updatePostInfo" parameterType="java.util.HashMap" >
+			<foreach collection="list" item="item" index="index" open="begin" close=";end;" separator=";">
+				UPDATE iplant1.C_IPLANT_P2_T
+					  <set>
+	                   <if test="item.PS_NM!=null and item.PS_NM!='' ">
+	                     PS_NM='${item.PS_NM}',  
+	                   </if>
+	                   <if test="item.DPT_CD!=null  ">
+	                     DPT_CD='${item.DPT_CD}', 
+	                   </if>
+	                   <if test="item.PS_SORT!=null  ">
+	                     PS_SORT='${item.PS_SORT}',
+	                   </if>
+	                   <if test="item.PS_ST!=null  ">
+	                     PS_ST='${item.PS_ST}',
+	                   </if>
+	                   <if test="item.USE_YN!=null  ">
+	                     USE_YN='${item.USE_YN}',  
+	                   </if>
+	                   <if test="item.PS_RM!=null ">
+	                     PS_RM='${item.PS_RM}', 
+	                   </if>
+	                     UPT_ID='${F_USE_CD}',	                             
+	                     UPT_IP='${UPT_IP}',	                  
+	                     UPT_DT=SYSDATE 
+	                </set>
+                  <where> 
+                       PS_CD='${item.PS_CD}'
+                  </where>
+			</foreach>
+		</update>		
+        
+		<!-- 查询岗位信息 -->
+ 		<select id="queryPostInfo" parameterType="hashmap" resultType="java.util.HashMap">
+ 		      <include refid="oraclePagingFileTop"></include>
+	 		        T1.PS_CD,
+	 		        T1.PS_NM,
+	 		        T1.DPT_CD,
+	 		        T2.DPT_NM,
+	 		        T1.PS_SORT,
+	 		        T1.PS_ST,
+					T1.USE_YN,
+					T1.PS_RM,
+					T1.CRT_ID,
+					TO_CHAR(T1.CRT_DT,'YYYY-MM-DD HH24:Mi:SS') AS CRT_DT,
+					T1.CRT_IP,
+					T1.UPT_ID,
+					T1.UPT_IP,
+					TO_CHAR(T1.UPT_DT,'YYYY-MM-DD HH24:Mi:SS') AS UPT_DT 
+ 		          FROM iplant1.C_IPLANT_P2_T T1
+ 		          LEFT JOIN iplant1.C_IPLANT_D1_T T2 ON T1.DPT_CD=T2.DPT_CD
+ 		          <where> 1=1
+ 		          	 <if test="USE_YN!=null and USE_YN!='' ">
+    		     	   AND T1.USE_YN='${USE_YN}'	
+    		     	 </if>
+	 		         <if test="PS_CD!=null and PS_CD!='' ">
+	 		           AND T1.PS_CD='${PS_CD}'
+	 		         </if> 
+	 		         <if test="PS_NM!=null and PS_NM!='' ">
+	 		           AND T1.PS_NM='${PS_NM}'
+	 		         </if>
+	 		         <if test="PS_ST!=null and PS_ST!='' ">
+	 		           AND T1.PS_ST='${PS_ST}'
+	 		        </if>
+	 		        <if test="DPT_CD!=null and DPT_CD!=''">
+	 		           AND T1.DPT_CD='${DPT_CD}'
+	 		        </if>
+ 		          </where> 
+ 		          	ORDER BY CRT_DT DESC
+ 		          <include refid="oraclePagingFileBottom"></include> 
+ 		</select>
+ 		<!-- 查询岗位信息分页总数 -->
+ 		<select id="queryPostInfo_COUNT" parameterType="hashmap" resultType="java.util.HashMap">        						
+			SELECT COUNT(1) ROWS_COUNT FROM iplant1.C_IPLANT_P2_T T1 
+	         <where> 1=1
+	          	 <if test="USE_YN!=null and USE_YN!='' ">
+  		     	   AND T1.USE_YN='${USE_YN}'	
+   		     	 </if>
+ 		         <if test="PS_CD!=null and PS_CD!='' ">
+ 		           AND T1.PS_CD='${PS_CD}'
+ 		         </if> 
+ 		         <if test="PS_NM!=null and PS_NM!='' ">
+ 		           AND T1.PS_NM='${PS_NM}'
+ 		         </if>
+ 		         <if test="PS_ST!=null and PS_ST!='' ">
+ 		           AND T1.PS_ST='${PS_ST}'
+ 		        </if>
+ 		        <if test="DPT_CD!=null and DPT_CD!=''">
+ 		           AND T1.DPT_CD='${DPT_CD}'
+ 		        </if>
+		     </where> 
+ 		</select>		
+		<!-- 1.5 部门管理 --> 	
+		<!-- 新增部门信息 -->
+		<insert id="insertDptInfo" parameterType="java.util.HashMap"> 
+    		INSERT INTO iplant1.C_IPLANT_D1_T(DPT_CD,DPT_NM,FT_CD,DPT_SORT,DPT_ST,USE_YN,DPT_LEVL,DPT_RM,CRT_ID,CRT_DT)
+   			  	 (<foreach collection="list" item="item" index="index" separator="union all">
+		             SELECT '${item.DPT_CD}','${item.DPT_NM}','${item.FT_CD}','${item.DPT_SORT}','${item.DPT_ST}','${item.USE_YN}','${item.DPT_LEVL}','${item.DPT_RM}','${F_USE_CD}',SYSDATE FROM DUAL	
+		         </foreach>)
+	    </insert>	
+		<!-- 删除部门信息 -->		
+		<delete id="deleteDptInfo" parameterType="hashmap">
+		        DELETE iplant1.C_IPLANT_D1_T
+			        <where>  
+			            DPT_CD='${DPT_CD}'
+			        </where>  
+		</delete>	
+		<!-- 修改部门信息 -->
+		<update id="updateDptInfo" parameterType="java.util.HashMap" >
+			<foreach collection="list" item="item" index="index" open="begin" close=";end;" separator=";">
+				UPDATE iplant1.C_IPLANT_D1_T
+					<set>
+					      <if test="item.DPT_NM!=null and item.DPT_NM!='' ">
+				             DPT_NM='${item.DPT_NM}',
+				           </if>        
+				           <if test="item.FT_CD!=null and item.FT_CD!='' ">
+				             FT_CD='${item.FT_CD}',
+				           </if>
+				           <if test="item.DPT_SORT!=null and item.DPT_SORT!='' ">
+				             DPT_SORT='${item.DPT_SORT}',
+				           </if>
+				           <if test="item.DPT_ST!=null  and item.DPT_ST!='' ">
+				             DPT_ST='${item.DPT_ST}',
+				           </if>
+				           <if test="item.USE_YN!=null  and item.USE_YN!='' ">
+				             USE_YN='${item.USE_YN}',
+				           </if>
+				           <if test="item.DPT_LEVL!=null  and item.DPT_LEVL!='' ">
+				             DPT_LEVL='${item.DPT_LEVL}',
+				           </if>
+				           <if test="item.DPT_RM!=null  and item.DPT_RM!='' ">
+				             DPT_RM='${item.DPT_RM}',
+				           </if>
+						   CRT_ID='${F_USE_CD}',
+						   CRT_DT=SYSDATE
+					</set>
+					<where>DPT_CD='${item.DPT_CD}'</where>
+			</foreach>
+		</update>
+		<!-- 查询部门信息 -->
+		<select id="queryDptInfo" parameterType="hashmap" resultType="java.util.HashMap">
+		      <include refid="oraclePagingFileTop"></include>
+		          T1.DPT_CD, 
+	              T1.DPT_NM,
+	              T1.FT_CD,
+	              T1.DPT_SORT, 
+	              T1.DPT_ST,
+	              T1.USE_YN,
+	              T1.DPT_LEVL,
+	              T1.DPT_RM,
+	              T1.CRT_ID,
+	              T1.CRT_IP,
+	              TO_CHAR(T1.CRT_DT,'YYYY-MM-DD HH24:Mi:SS') AS CRT_DT,
+	              T1.UPT_ID,
+	              T1.UPT_IP,
+	              TO_CHAR(T1.UPT_DT,'YYYY-MM-DD HH24:Mi:SS') AS UPT_DT,
+	              T2.FT_NM,
+	              T3.ST_P_CD
+           		FROM      iplant1.C_IPLANT_D1_T T1
+           		LEFT JOIN iplant1.C_IPLANT_F1_T T2 ON T1.FT_CD=T2.FT_CD	
+           		LEFT JOIN iplant1.C_IPLANT_S2_T	 T3 
+           		ON T1.DPT_CD=T3.ST_C_CD    
+		         <where> 1=1
+		           	 <if test="USE_YN!=null and USE_YN!='' ">
+    		     		 AND T1.USE_YN='${USE_YN}'	
+    		     	 </if>	
+		             <if test="DPT_CD!=null and DPT_CD!='' ">
+		                 AND T1.DPT_CD='${DPT_CD}'
+		             </if>  
+				     <if test="DPT_NM!=null and DPT_NM!='' ">
+				         AND T1.DPT_NM LIKE '%${DPT_NM}%'
+				     </if>
+		         </where> 
+		         <include refid="oraclePagingFileBottom"></include> 
+		         	ORDER BY CRT_DT DESC
+		</select>
+		<!-- 查询部门信息分页总数 -->
+		<select id="queryDptInfo_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+			SELECT COUNT(1) AS ROWS_COUNT FROM iplant1.C_IPLANT_D1_T T1
+	         <where> 1=1
+	           	 <if test="USE_YN!=null and USE_YN!='' "> AND T1.USE_YN='${USE_YN}'</if>	
+	             <if test="DPT_CD!=null and DPT_CD!='' "> AND T1.DPT_CD='${DPT_CD}'</if>  
+			     <if test="DPT_NM!=null and DPT_NM!='' "> AND T1.DPT_NM LIKE '%${DPT_NM}%'</if>
+	         </where> 
+		</select>		
+		
+		<!-- 1.6 用户组信息管理 -->		
+ 		<!-- 用户组信息查询 -->
+ 		<select id="queryOpGroup" parameterType="hashmap" resultType="java.util.HashMap" >
+			    SELECT 
+			        GR_CD,
+			        GR_NM,
+			        GR_ST,
+			        USE_YN,
+			        GR_RM,
+			        CRT_ID,
+			        CRT_IP,
+			        TO_CHAR(CRT_DT,'YYYY-MM-DD HH24:Mi:SS') AS CRT_DT,
+			        UPT_ID,
+			        UPT_IP,
+			        TO_CHAR(UPT_DT,'YYYY-MM-DD HH24:Mi:SS') AS UPT_DT
+			     FROM  iplant1.C_IPLANT_G1_T
+		         <where> 1=1				       	    
+				     <if test="GR_CD !=null and GR_CD !='' ">
+				       AND GR_CD='${GR_CD}'
+				     </if>
+				     <if test="GR_NM !=null and GR_NM !='' ">
+				       AND GR_NM='${GR_NM}'
+				     </if>
+				     <if test="USE_YN !=null and USE_YN !='' ">
+				       AND USE_YN='${USE_YN}'
+				     </if>
+			     </where>
+			     	ORDER BY CRT_DT DESC 
+ 		</select>		
+ 		<!-- 用户组信息新增 -->
+ 		 <insert id="insertOpGroup" parameterType="java.util.HashMap"> 
+    		INSERT INTO iplant1.C_IPLANT_G1_T(GR_CD,GR_NM,GR_ST,USE_YN,GR_RM,CRT_ID,CRT_DT)
+   			  	 (<foreach collection="list" item="item" index="index" separator="union all">
+		             SELECT '${item.GR_CD}','${item.GR_NM}','${item.GR_ST}','${item.USE_YN}','${item.GR_RM}','${F_USE_CD}',SYSDATE FROM DUAL	
+		         </foreach>)
+	    </insert>
+		     
+		<!-- 用户组信息删除 -->    
+		<delete id="deleteOpGroup" parameterType="hashmap">
+		        DELETE iplant1.C_IPLANT_G1_T 
+			        <where> 
+			       		GR_CD='${GR_CD}'
+			        </where>
+		</delete>     
+		<!-- 用户组信息修改 -->
+		<update id="updateOpGroup" parameterType="java.util.HashMap" >
+			<foreach collection="list" item="item" index="index" open="begin" close=";end;" separator=";">
+				UPDATE iplant1.C_IPLANT_G1_T
+		            <set>
+		               <if test="item.GR_NM !=null and item.GR_NM !=''">
+		                   GR_NM='${item.GR_NM}',
+		               </if>
+		               <if test="item.GR_ST !=null ">
+		                   GR_ST='${item.GR_ST}',
+		               </if>
+		               <if test="item.USE_YN !=null">
+		                   USE_YN='${item.USE_YN}',
+		               </if>
+		               <if test="item.GR_RM !=null">
+		                   GR_RM='${item.GR_RM}',
+		               </if>
+		                   UPT_ID='${F_USE_CD}',
+		                   UPT_IP='${UPT_IP}',
+		                   UPT_DT=SYSDATE 
+		             </set>     
+		             <where>
+		                   GR_CD='${item.GR_CD}'
+		             </where>
+			</foreach>
+		</update>
+		
+			
+		<!-- 1.7 功能信息管理 -->
+		<!-- 功能信息查询 -->
+		<select id="queryFunction" parameterType="hashmap" resultType="java.util.HashMap">
+			 <include refid="oraclePagingFileTop"></include>	
+		        	 FUN_CD,
+	                 FUN_NM,
+	                 FUN_TP,
+	                 T1.MN_CD,
+	                 T2.MN_NM,
+	                 FUN_ST,
+	                 T1.USE_YN,
+	                 T1.FUN_LEVL,
+	                 T1.LINK_URL,
+	                 FUN_ENG,
+	                 T1.CRT_ID,
+	                 TO_CHAR(T1.CRT_DT,'YYYY-MM-DD HH24:Mi:SS') AS CRT_DT,
+	                 T1.CRT_IP,
+	                 T1.UPT_ID,
+	                 TO_CHAR(T1.UPT_DT,'YYYY-MM-DD HH24:Mi:SS') AS UPT_DT,
+	                 T1.UPT_IP      
+	            FROM  iplant1.C_IPLANT_F2_T T1
+	            LEFT JOIN iplant1.C_IPLANT_M1_T T2 ON T1.MN_CD=T2.MN_CD
+		       <where> 1=1
+		         <if test="FUN_CD !=NULL and FUN_CD !=''">
+		           	AND FUN_CD='${FUN_CD}'
+		         </if>
+		         <if test="FUN_NM !=NULL and FUN_NM !=''">
+		            AND FUN_NM LIKE '%${FUN_NM}%'  
+		         </if>
+		         <if test="MN_CD !=NULL and MN_CD !=''">
+		            AND T1.MN_CD = '${MN_CD}'  
+		         </if>
+		         <if test="USE_YN !=NULL and USE_YN !=''">
+		            AND T1.USE_YN ='${USE_YN}'  
+		         </if>
+		       </where>
+		       <include refid="oraclePagingFileBottom"></include> 
+		       	ORDER BY MN_CD 
+		</select>
+		<!-- 功能信息查询 分页总数 -->
+		<select id="queryFunction_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+				SELECT COUNT(1) AS ROWS_COUNT
+				FROM  iplant1.C_IPLANT_F2_T T1
+		       <where> 1=1
+		         <if test="FUN_CD !=NULL and FUN_CD !=''">
+		           	AND FUN_CD='${FUN_CD}'
+		         </if>
+		         <if test="FUN_NM !=NULL and FUN_NM !=''">
+		            AND FUN_NM LIKE '%${FUN_NM}%'  
+		         </if>
+		         <if test="MN_CD !=NULL and MN_CD !=''">
+		            AND T1.MN_CD = '${MN_CD}'  
+		         </if>
+		         <if test="USE_YN !=NULL and USE_YN !=''">
+		            AND T1.USE_YN ='${USE_YN}'  
+		         </if>
+		       </where>			  
+		</select>					
+		<!-- 功能信息新增 -->
+		<insert id="insertFunction" parameterType="hashmap">
+				INSERT INTO
+					 iplant1.C_IPLANT_F2_T 
+				        (
+				         FUN_CD,
+			             FUN_NM,
+			             FUN_TP,
+			             MN_CD,
+			             FUN_ST,
+			             USE_YN,
+			             FUN_LEVL,
+			             LINK_URL,			             
+			             FUN_ENG,
+					     CRT_ID,
+					     CRT_IP,
+					     CRT_DT
+				        )
+				     VALUES 
+				        (
+				        '${FUN_CD}',
+				        '${FUN_NM}',
+				        '${FUN_TP}',
+				        '${MN_CD}',
+				        '${FUN_ST}',
+				        '${USE_YN}',
+				        '${FUN_LEVL}',
+				        '${LINK_URL}',
+				        '${FUN_ENG}',
+				        '${F_USE_CD}',
+				        '${CRT_IP}',
+				        SYSDATE 
+				        )
+		</insert>	     
+		<!-- 功能信息删除 -->    
+		<delete id="deleteFunction" parameterType="hashmap">
+		        DELETE iplant1.C_IPLANT_F2_T 
+			       <where> 
+			          FUN_CD='${FUN_CD}'
+			       </where>
+		</delete>
+		<!-- 功能信息修改 -->
+		<update id="updateFunction" parameterType="hashmap">
+		         UPDATE  iplant1.C_IPLANT_F2_T  
+		            <set>
+		               <if test="FUN_NM !=null">
+		                   FUN_NM='${FUN_NM}',
+		               </if>
+		               <if test="FUN_TP !=null ">
+		                   FUN_TP='${FUN_TP}',
+		               </if>
+		               <if test="MN_CD !=null and MN_CD !=''">         
+		                   MN_CD='${MN_CD}',
+		               </if>
+		               <if test="FUN_ST !=null ">         
+		                   FUN_ST='${FUN_ST}',
+		               </if>
+		               <if test="USE_YN !=null ">
+		                   USE_YN='${USE_YN}',
+		               </if>
+		               <if test="FUN_LEVL !=null ">
+		                   FUN_LEVL='${FUN_LEVL}',
+		               </if>
+		               <if test="LINK_URL !=null ">
+		                   LINK_URL='${LINK_URL}',
+		               </if>
+		               <if test="FUN_ENG !=null ">
+		                   FUN_ENG='${FUN_ENG}',
+		               </if>
+		                   UPT_ID='${F_USE_CD}',
+		                   UPT_IP='${UPT_IP}',
+		                   UPT_DT=SYSDATE 
+		             </set>     
+		             <where>
+		                   FUN_CD='${FUN_CD}'
+		             </where>
+		  </update>
+	              
+	     <!-- 1.8 用户组权限配置管理 -->
+		 <!-- 查询用户组权限配置 -->
+ 		 <select id="queryOpGroupQx" parameterType="hashmap" resultType="java.util.HashMap" >
+			      SELECT 
+			           GR_CD,
+			           FUN_CD,
+			           GR_ST,
+			           MN_CD,
+			           CRT_ID,
+			           CRT_IP,
+			           TO_CHAR(CRT_DT,'YYYY-MM-DD HH24:Mi:SS') AS CRT_DT,
+			           UPT_ID,
+			           UPT_IP,
+			           TO_CHAR(UPT_DT,'YYYY-MM-DD HH24:Mi:SS') AS UPT_DT
+			        FROM  iplant1.C_IPLANT_P3_T
+				    <where> 1=1
+				       <if test="GR_CD !=null and GR_CD !='' ">
+				           AND GR_CD='${GR_CD}'
+				       </if>
+				   </where>
+				   ORDER BY CRT_DT DESC 
+ 		</select>
+ 		<!-- 查询用户组权限配置分页总数 -->
+		<select id="queryOpGroupQx_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+				SELECT COUNT(1) AS ROWS_COUNT
+				FROM  iplant1.C_IPLANT_P3_T
+				    <where> 1=1
+				       <if test="GR_CD !=null and GR_CD !='' ">
+				           AND GR_CD='${GR_CD}'
+				       </if>
+				   </where>	  
+		</select>				
+ 		<!-- 用户组权限信息新增 -->
+		<insert id="insertOpGroupQx" parameterType="java.util.List">
+				INSERT INTO 
+				    iplant1.C_IPLANT_P3_T 
+				        (
+			             GR_CD,
+			             FUN_CD,
+			             GR_ST,			             
+					     CRT_ID,
+					     CRT_IP,
+					     CRT_DT,
+					     MN_CD
+				         )
+				         (
+				         <foreach collection="list" item="item" index="index" separator="union all">
+				             SELECT 			        
+					        '${item.GR_CD}'  ,
+					        '${item.FUN_CD}' ,
+					        '${item.GR_ST}'  ,
+					        '${item.USE_CD}' ,
+					        '${item.CRT_IP}' ,
+					         SYSDATE,
+					        '${item.MN_CD}' 	
+					        FROM DUAL								       				
+				         </foreach>
+				          )
+		</insert>	     
+		<!-- 用户组权限信息删除 -->    
+		<delete id="deleteOpGroupQx" parameterType="hashmap">
+		        DELETE iplant1.C_IPLANT_P3_T 
+			       <where> 
+			           GR_CD='${GR_CD}'
+			       </where>
+		</delete> 
+		<!-- 用户组权限信息修改 -->
+		<update id="updateOpGroupQx" parameterType="hashmap">
+		        UPDATE  iplant1.C_IPLANT_P3_T  
+		            <set>
+		               <if test="FUN_CD !=null and FUN_CD !=''">
+		                   FUN_CD='${FUN_CD}',
+		               </if>
+		               <if test="GR_ST !=null">
+		                   GR_ST='${GR_ST}',
+		               </if>
+		                   UPT_ID='${F_USE_CD}',
+		                   UPT_IP='${UPT_IP}',
+		                   UPT_DT=SYSDATE 
+		             </set>     
+		             <where>
+		                 GR_CD='${GR_CD}'
+		             </where>
+		  </update>
+     
+         <!-- 1.9 用户信息管理-->
+		 <!-- 用户信息查询 -->
+ 		 <select id="queryOpUser" parameterType="hashmap" resultType="java.util.HashMap" >
+			     <include refid="oraclePagingFileTop"></include>	
+			             T1.USE_CD,
+		                 T1.PW,
+		                 T1.EMP_NO,
+		                 T1.GR_CD,
+		                 T1.USE_YN,
+		                 T1.USE_ST,
+		                 T1.USE_RM,
+		                 T1.CRT_ID,
+		                 T1.CRT_IP,
+		                 TO_CHAR(T1.CRT_DT,'YYYY-MM-DD HH24:Mi:SS') AS CRT_DT,
+		                 T1.UPT_ID,
+		                 TO_CHAR(T1.UPT_DT,'YYYY-MM-DD HH24:Mi:SS') AS UPT_DT,
+		                 T1.UPT_IP,
+		                 T2.EMP_NM      AS  USE_NM,
+		                 T3.GR_NM,
+		                 T2.BAR_CN,
+			             T1.USE_IT 
+			        FROM  iplant1.C_IPLANT_U1_T T1
+	             	LEFT JOIN iplant1.C_IPLANT_E1_T T2 ON T1.EMP_NO=T2.EMP_CD
+	                LEFT JOIN iplant1.C_IPLANT_G1_T T3 ON T1.GR_CD=T3.GR_CD 
+				    <where>	1=1			             
+				         <if test="USE_CD !=null and USE_CD !='' "> AND T1.USE_CD='${USE_CD}'</if>
+				         <if test="EMP_NM !=null and EMP_NM !='' "> AND T2.EMP_NM like '%${EMP_NM}%'</if>
+					     <if test="EMP_NO !=null and EMP_NO !='' "> AND T1.EMP_NO='${EMP_NO}'</if>
+					     <if test="GR_CD !=null and GR_CD !='' "> AND T1.GR_CD='${GR_CD}'</if>
+					     <if test="USE_YN !=null and USE_YN !='' "> AND T1.USE_YN='${USE_YN}'</if>
+					     <if test="	BAR_CODE !=null and BAR_CODE !='' "> AND T2.BAR_CN='${BAR_CODE}'</if>
+				   </where>
+				   ORDER BY CRT_DT DESC
+				   <include refid="oraclePagingFileBottom"></include>  
+ 		</select>
+ 		<!-- 查询用户信息分页总数 -->
+ 		<select  id="queryOpUser_COUNT" parameterType="hashmap" resultType="java.util.HashMap" >	
+		 	SELECT COUNT(1) ROWS_COUNT FROM iplant1.C_IPLANT_U1_T T1  LEFT JOIN iplant1.C_IPLANT_E1_T T2 ON T1.EMP_NO=T2.EMP_CD
+		 	<where> 1=1				             
+			     <if test="USE_CD !=null and USE_CD !='' "> AND T1.USE_CD='${USE_CD}'</if>
+			     <if test="EMP_NM !=null and EMP_NM !='' "> AND T2.EMP_NM like '%${EMP_NM}%'</if>
+			     <if test="EMP_NO !=null and EMP_NO !='' "> AND T1.EMP_NO='${EMP_NO}'</if>
+			     <if test="GR_CD !=null and GR_CD !='' "> AND T1.GR_CD='${GR_CD}'</if>
+			     <if test="USE_YN !=null and USE_YN !='' "> AND T1.USE_YN='${USE_YN}'</if>
+			     <if test="	BAR_CODE !=null and BAR_CODE !='' "> AND T2.BAR_CN='${BAR_CODE}'</if>
+			</where>
+		</select>	
+ 		<!-- 用户信息新增 -->
+ 		 <!-- <insert id="insertOpUser" parameterType="java.util.HashMap"> 
+    		INSERT INTO iplant1.C_IPLANT_U1_T(USE_CD,PW,EMP_NO,GR_CD,USE_YN,USE_ST,USE_RM,USE_IT,CRT_ID,CRT_DT)
+   			  	 (<foreach collection="list" item="item" index="index" separator="union all">
+		             SELECT '${item.USE_CD}','${item.PW}','${item.EMP_NO}','${item.GR_CD}','${item.USE_YN}','${item.USE_ST}','${item.USE_RM}','0','${F_USE_CD}',SYSDATE FROM DUAL	
+		         </foreach>)
+	    </insert> -->
+	    <insert id="insertOpUser" parameterType="hashmap">
+				INSERT INTO iplant1.C_IPLANT_U1_T (USE_CD,PW,EMP_NO,GR_CD,USE_YN,USE_ST,USE_RM,CRT_ID,CRT_IP,CRT_DT,USE_IT)
+				VALUES('${USE_CD}','${PW}','${EMP_NO}','${GR_CD}','${USE_YN}','${USE_ST}','${USE_RM}','${F_USE_CD}','${CRT_IP}',SYSDATE,'0')
+		</insert>
+		
+		<!-- 用户信息删除 -->    
+		<delete id="deleteOpUser" parameterType="hashmap">
+			DELETE iplant1.C_IPLANT_U1_T 
+			<where> USE_CD='${USE_CD}'</where>
+		</delete> 
+		<!-- 用户信息修改 -->
+		<update id="updateOpUser" parameterType="hashmap">
+		        UPDATE  iplant1.C_IPLANT_U1_T  
+		            <set>
+		               <if test="PW !=null"> PW='${PW}',</if>
+		               <if test="EMP_NO !=null"> EMP_NO='${EMP_NO}',</if>
+		               <if test="GR_CD !=null"> GR_CD='${GR_CD}',</if>
+		               <if test="USE_YN !=null"> USE_YN='${USE_YN}',</if>
+		               <if test="USE_ST !=null"> USE_ST='${USE_ST}',</if>
+		               <if test="USE_IT !=null and USE_IT !=''"> USE_IT='${USE_IT}',</if>
+		               <if test="USE_RM !=null">USE_RM='${USE_RM}',</if>
+		                UPT_ID='${F_USE_CD}',UPT_IP='${UPT_IP}',UPT_DT=SYSDATE 
+		             </set>     
+		             <where>
+		                USE_CD='${USE_CD}'
+		             </where>
+		  </update>
+		<!-- <update id="updateOpUser" parameterType="java.util.HashMap" >
+			<foreach collection="list" item="item" index="index" open="begin" close=";end;" separator=";">
+				UPDATE iplant1.C_IPLANT_U1_T
+					<set>
+		               <if test="item.PW !=null"> PW='${item.PW}',</if>
+		               <if test="item.EMP_NO !=null"> EMP_NO='${item.EMP_NO}',</if>
+		               <if test="item.GR_CD !=null"> GR_CD='${item.GR_CD}',</if>
+		               <if test="item.USE_YN !=null"> USE_YN='${item.USE_YN}',</if>
+		               <if test="item.USE_ST !=null"> USE_ST='${item.USE_ST}',</if>
+		               <if test="item.USE_IT !=null and item.USE_IT !=''"> USE_IT='${item.USE_IT}',</if>
+		               <if test="item.USE_RM !=null"> USE_RM='${item.USE_RM}',</if>
+		                UPT_ID='${F_USE_CD}',UPT_IP='${UPT_IP}', UPT_DT=SYSDATE 
+		             </set>     
+		             <where>
+		                USE_CD='${item.USE_CD}'
+		             </where>
+			</foreach>
+		</update> -->
+		<!-- 用户信息修改 -->
+		<update id="updateOpUserByLogin" parameterType="hashmap">
+		        UPDATE  iplant1.C_IPLANT_U1_T  
+		            <set>
+		               <if test="PW !=null ">
+		                   PW='${PW}',
+		               </if>
+		               <if test="EMP_NO !=null">
+		                   EMP_NO='${EMP_NO}',
+		               </if>
+		               <if test="GR_CD !=null">
+		                   GR_CD='${GR_CD}',
+		               </if>
+		               <if test="USE_YN !=null">
+		                   USE_YN='${USE_YN}',
+		               </if>
+		               <if test="USE_ST !=null">
+		                   USE_ST='${USE_ST}',
+		               </if>
+		               <if test="USE_IT !=null and USE_IT !=''">
+		                   USE_IT='${USE_IT}',
+		               </if>
+		               <if test="USE_RM !=null">
+		                   USE_RM='${USE_RM}',
+		               </if>
+		                   UPT_ID='${F_USE_CD}',
+		                   UPT_IP='${UPT_IP}',UPT_DT=SYSDATE 
+		             </set>     
+		             <where> USE_CD='${F_USE_CD}'</where>
+		  </update>
+		  
+		  <!-- 操作日志 -->
+		  <!-- 查询操作日志 -->
+		  <select id="queryOperaLog" parameterType="hashmap" resultType="java.util.HashMap" >
+		  		  SELECT 
+		  		  	   USE_CD,
+					   MD_CD,
+				       ET_TM,
+					   LV_TM,
+					   IP
+		  		  FROM mes2.H_IPLANT_UX_T
+		  		  <where> 1=1
+		  		  	  <if test="USE_CD!=null and USE_CD!='' ">
+		  		  	  	  AND USE_CD='${USE_CD}'	
+		  		  	  </if>
+		  		  	  <if test="MD_CD!=null and MD_CD!='' ">
+		  		  	  	  AND MD_CD='${MD_CD}'
+		  		  	  </if> 
+		  		  </where>
+		  		  	ORDER BY ET_TM DESC
+		  </select>
+		  <!-- 新增操作日志 -->
+		  <insert id="insertOperaLog" parameterType="hashmap">
+		  		  INSERT INTO
+		  		  	 mes2.H_IPLANT_UX_T
+		  		  	  	 (
+		  		  	  	  USE_CD,
+						  MD_CD,
+						  ET_TM,
+						  IP
+		  		  	  	 )
+		  		  	  VALUES
+		  		  	  	 (
+		  		  	  	  '${USE_CD}',
+		  		  	  	  '${MD_CD}',
+		  		  	  	   SYSDATE,
+		  		  	  	  '${IP}'
+		  		  	  	  )	 	 	
+		  </insert>
+		  <!-- 删除操作日志 -->
+		  <delete id="deleteOperaLog" parameterType="hashmap">
+		  		  DELETE mes2.H_IPLANT_UX_T
+		  			   <where>
+		  			   	   USE_CD='${USE_CD}'	 	 
+		  			   </where>
+		  </delete>
+		  <!-- 修改操作日志 -->
+		  <update id="updateOperaLog" parameterType="hashmap">
+	  		  UPDATE mes2.H_IPLANT_UX_T
+	  		 	   <set>
+	  		 	   	  <if test="USE_CD!=null and USE_CD!='' ">
+	  		 	   	  	  USE_CD='${USE_CD}',
+	  		 	   	  </if>
+	  		 	   	  <if test="MD_CD!=null and MD_CD!='' ">
+	  		 	   	  	  MD_CD='${MD_CD}'  	
+	  		 	   	  </if>
+	  		 	   </set> 
+	  		 	   <where>
+	  		 	  	  USE_CD='${USE_CD}'
+	  		 	   </where> 
+		  </update>
+		  
+		  <!-- 查询系统菜单树状结构 -->
+ 		  <select id="querySysMenuTree"  parameterType="hashmap" resultType="java.util.HashMap">
+ 		  	SELECT T1.ST_C_CD,T3.LINK_URL AS ST_C_URL,T3.MN_NM AS ST_C_NM,T3.LINK_ICON AS LINK_ICON,T3.MN_TP AS MN_TP,T1.ST_P_CD,T1.ST_TP,T3.MN_SNO
+			FROM iplant1.C_IPLANT_S1_T T1 JOIN iplant1.C_IPLANT_M1_T T3 ON T1.ST_C_CD=T3.MN_CD
+			    <where> T1.ST_TP =1 AND T3.USE_YN='Y'
+		        <if test="SYS_BEL!=null and SYS_BEL!='' "> AND T3.SYS_BEL='${SYS_BEL}'</if>
+			    <if test="ST_P_CD!=null and ST_P_CD!='' "> AND T1.ST_P_CD='${ST_P_CD}'</if>
+                <if test="ST_C_CD!=null and ST_C_CD!='' "> AND T1.ST_C_CD='${ST_C_CD}'</if>
+                <if test="USE_YN !=null and USE_YN !='' "> AND T3.USE_YN ='${USE_YN}'</if>
+                <if test="F_USE_CD !='admin' "> AND EXISTS(SELECT A1.MN_CD FROM iplant1.C_IPLANT_P3_T A1 JOIN iplant1.C_IPLANT_U1_T A2 ON A1.GR_CD = A2.GR_CD
+	               WHERE A2.USE_YN = 'Y' AND A2.USE_CD ='${F_USE_CD}' AND T1.ST_C_CD =A1.MN_CD)</if>
+			    </where>
+			    union
+			    SELECT T1.ST_C_CD,T3.LINK_URL AS ST_C_URL,T3.MN_NM AS ST_C_NM,T3.LINK_ICON AS LINK_ICON,T3.MN_TP AS MN_TP,T1.ST_P_CD,T1.ST_TP,T3.MN_SNO
+				FROM iplant1.C_IPLANT_S1_T T1 JOIN iplant1.C_IPLANT_M1_T T3 ON T1.ST_C_CD=T3.MN_CD
+			    <where> T1.ST_TP =1 AND T3.USE_YN='Y'
+		        <if test="SYS_BEL!=null and SYS_BEL!='' "> AND T3.SYS_BEL='${SYS_BEL}'</if>
+			    <if test="ST_P_CD!=null and ST_P_CD!='' "> AND T1.ST_P_CD='${ST_P_CD}'</if>
+                <if test="ST_C_CD!=null and ST_C_CD!='' "> AND T1.ST_C_CD='${ST_C_CD}'</if>
+                <if test="USE_YN !=null and USE_YN !='' "> AND T3.USE_YN ='${USE_YN}'</if>
+			    and  T1.ST_C_CD in(SELECT ST_P_CD FROM (SELECT T1.ST_C_CD,T3.LINK_URL AS ST_C_URL,T3.MN_NM AS ST_C_NM,T3.LINK_ICON AS LINK_ICON,T3.MN_TP AS MN_TP,T1.ST_P_CD,T1.ST_TP,T3.MN_SNO
+				FROM iplant1.C_IPLANT_S1_T T1 JOIN iplant1.C_IPLANT_M1_T T3 ON T1.ST_C_CD=T3.MN_CD
+			    <where> T1.ST_TP =1 AND T3.USE_YN='Y'
+		        <if test="SYS_BEL!=null and SYS_BEL!='' "> AND T3.SYS_BEL='${SYS_BEL}'</if>
+			    <if test="ST_P_CD!=null and ST_P_CD!='' "> AND T1.ST_P_CD='${ST_P_CD}'</if>
+                <if test="ST_C_CD!=null and ST_C_CD!='' "> AND T1.ST_C_CD='${ST_C_CD}'</if>
+                <if test="USE_YN !=null and USE_YN !='' "> AND T3.USE_YN ='${USE_YN}'</if>
+                <if test="F_USE_CD !='admin' "> AND EXISTS(SELECT A1.MN_CD FROM iplant1.C_IPLANT_P3_T A1 JOIN iplant1.C_IPLANT_U1_T A2 ON A1.GR_CD = A2.GR_CD
+	               WHERE A2.USE_YN = 'Y' AND A2.USE_CD ='${F_USE_CD}' AND T1.ST_C_CD =A1.MN_CD)</if>
+			    </where>))
+			    </where>
+			    ORDER BY MN_SNO
+ 		  </select> 
+
+		  <!-- 命名规则 -->
+ 		  <select id="CREATE_NAME_RULES"  parameterType="hashmap" resultType="java.util.HashMap">
+               SELECT IPLANT1.RULES_FUN('${NAME_RULES}',TPM1.${SEQ_NAME}) AS C_RESULT FROM DUAL
+ 		  </select> 
+ 		  
+ 		  <!-- 命名序列-->
+ 		  <select id="CREATE_SEQ"  parameterType="hashmap" resultType="java.util.HashMap">	  
+	          SELECT  ${SEQ_NAME}.NEXTVAL AS  SEQ  FROM DUAL          
+ 		  </select> 
+ 		  
+ 		  <!-- 系统框架结构关系 -->
+ 		  <!-- 查询系统菜单树状结构 -->
+ 		  <select id="querySysFrameRn" parameterType="hashmap" resultType="java.util.HashMap">
+ 		  	  <include refid="oraclePagingFileTop"></include>	
+ 		  		  	ST_P_CD,
+					ST_C_CD,
+					ST_TP
+ 		  		  FROM iplant1.C_IPLANT_S1_T
+ 		  		  <where> 1=1
+ 		  		  	  <if test="ST_P_CD!=null and ST_P_CD!='' ">
+ 		  		  	  	  AND ST_P_CD='${ST_P_CD}'
+ 		  		  	  </if>
+ 		  		  	  <if test="ST_C_CD!=null and ST_C_CD!='' ">
+ 		  		  	  	  AND ST_C_CD='${ST_C_CD}'	
+ 		  		  	  </if>
+ 		  		  	  <if test="ST_TP!=null and ST_TP!='' ">
+ 		  		  	  	  AND ST_TP='${ST_TP}'	
+ 		  		  	  </if>
+ 		  		  </where>
+ 		  		  <include refid="oraclePagingFileBottom"></include>		
+ 		  </select>
+ 		  <!-- 查询系统框架结构分页总数 -->
+ 		  <select id="querySysFrameRn_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+ 		  		  SELECT 
+ 		  		  	COUNT(1)  AS ROWS_COUNT
+ 		  		  FROM iplant1.C_IPLANT_S1_T
+ 		  		  <where> 1=1
+ 		  		  	  <if test="ST_P_CD!=null and ST_P_CD!='' ">
+ 		  		  	  	  AND ST_P_CD='${ST_P_CD}'
+ 		  		  	  </if>
+ 		  		  	  <if test="ST_C_CD!=null and ST_C_CD!='' ">
+ 		  		  	  	  AND ST_C_CD='${ST_C_CD}'	
+ 		  		  	  </if>
+ 		  		  	  <if test="ST_TP!=null and ST_TP!='' ">
+ 		  		  	  	  AND ST_TP='${ST_TP}'	
+ 		  		  	  </if>
+ 		  		  </where>	
+ 		  </select>
+ 		  <!-- 新增系统框架结构 -->
+ 		  <insert id="insertSysFrameRn" parameterType="hashmap">
+ 		  		  INSERT INTO 
+ 		  		  	iplant1.C_IPLANT_S1_T
+ 		  		  		(
+ 		  		  		ST_P_CD,
+						ST_C_CD,
+						ST_TP
+ 		  		  		)
+ 		  		  	 VALUES
+ 		  		  	 	(
+ 		  		  	 	'${ST_P_CD}',
+						'${ST_C_CD}',
+						'${ST_TP}'
+ 		  		  	 	)	
+ 		  </insert>
+		  <!-- 删除系统框架结构 -->
+		  <delete id="deleteSysFrameRn" parameterType="hashmap">
+		  		  DELETE iplant1.C_IPLANT_S1_T
+		  		  		<where>
+		  		  			ST_C_CD='${ST_C_CD}'
+		  		  		</where>
+		  </delete>
+		  <!-- 修改系统框架结构 -->
+		  <update id="updateSysFrameRn" parameterType="hashmap">
+		  		  UPDATE iplant1.C_IPLANT_S1_T
+		  		  	<set>
+		  		  	   <if test="ST_C_CD!=null and ST_C_CD!='' ">
+		  		  	   	   ST_C_CD='${ST_C_CD}',
+		  		  	   </if>
+		  		  	   <if test="ST_TP!=null and ST_TP!='' ">
+		  		  	   	   ST_TP='${ST_TP}'
+		  		  	   </if>
+		  		  	</set>
+		  		  	<where>
+		  		  		ST_C_CD='${ST_C_CD}'
+		  		  	</where>
+		  </update>
+		  
+		  <!-- 数据结构关系 -->
+		  <!-- 查询数据结构 -->
+		  <select id="queryDataStructureRn" parameterType="hashmap" resultType="java.util.HashMap">
+		  		 <include refid="oraclePagingFileTop"></include>	
+		  		  	 ST_P_CD,
+					 ST_C_CD,
+					 ST_TP
+		  		  FROM iplant1.C_IPLANT_S2_T
+		  		  <where> 1=1
+		  		  	 <if test="ST_P_CD!=null and ST_P_CD!='' ">
+		  		  		 AND ST_P_CD='${ST_P_CD}'
+		  		  	 </if>
+		  		  	 <if test="ST_C_CD!=null and ST_C_CD!=''">
+		  		  	 	 AND ST_C_CD='${ST_C_CD}'	
+		  		  	 </if>
+		  		  	 <if test="ST_TP!=null and ST_TP!='' ">
+		  		  	 	 AND ST_TP='${ST_TP}'
+		  		  	 </if>
+		  		  </where>
+		  		  <include refid="oraclePagingFileBottom"></include>		
+		  </select>
+		  <!-- 新增数据结构 -->
+		   <insert id="insertDataStructureRn" parameterType="java.util.HashMap"> 
+    		INSERT INTO iplant1.C_IPLANT_S2_T(ST_P_CD,ST_C_CD,ST_TP)
+   			  	 (<foreach collection="list" item="item" index="index" separator="union all">
+		             SELECT '${item.ST_P_CD}','${item.ST_C_CD}','${item.ST_TP}' FROM DUAL	
+		         </foreach>)
+	    </insert> 
+		  <!-- 删除数据结构 -->
+		  <delete id="deleteDataStructureRn" parameterType="hashmap">
+		  		  DELETE iplant1.C_IPLANT_S2_T
+		  		  		<where>
+		  		  			ST_C_CD='${ST_C_CD}'
+		  		  		</where>
+		  </delete>
+		  <!-- 修改数据结构 -->
+		  <update id="updateDataStructureRn" parameterType="java.util.HashMap" >
+			<foreach collection="list" item="item" index="index" open="begin" close=";end;" separator=";">
+				UPDATE iplant1.C_IPLANT_S2_T
+					<set>
+					   <if test="item.ST_P_CD!=null and item.ST_P_CD!='' "> ST_P_CD='${item.ST_P_CD}',</if>
+					   <if test="item.ST_C_CD!=null and item.ST_C_CD!='' ">ST_C_CD='${item.ST_C_CD}',</if>
+					</set>
+					<where> ST_C_CD='${item.ST_C_CD}'</where>
+			</foreach>
+		</update>
+		
+		
+		  <!-- 查询部门菜单树状结构 -->
+ 		  <select id="querySysDptTree"  parameterType="hashmap" resultType="java.util.HashMap">
+		            SELECT 
+		              T1.ST_C_CD,  
+		              T3.DPT_NM              AS ST_C_NM,
+		              T1.ST_P_CD,
+		              T1.ST_TP
+		              FROM iplant1.C_IPLANT_S2_T T1
+		              JOIN iplant1.C_IPLANT_D1_T T3 ON T1.ST_C_CD=T3.DPT_CD
+				    <where>
+				        T1.ST_TP =1
+				    <if test="ST_P_CD!=null and ST_P_CD!='' ">
+                    AND T1.ST_P_CD='${ST_P_CD}',
+                   </if>
+                   <if test="ST_C_CD!=null and ST_C_CD!='' ">
+                    AND T1.ST_C_CD='${ST_C_CD}',
+                   </if>
+				   </where>
+				   ORDER BY ST_C_CD
+ 		  </select> 
+ 		  
+ 		   <!-- 查询设备树状结构 -->
+ 		  <select id="querySysSheBeiTree"  parameterType="hashmap" resultType="java.util.HashMap">
+ 		            SELECT T1.*                       
+                      FROM   
+					  (
+					   SELECT 
+					   ET_CD    AS ST_C_CD,
+					   ET_NM    AS ST_C_NM,
+					   LC_CD    AS ST_P_CD
+					   FROM 
+					   iplant1.C_IPLANT_E2_T
+					   WHERE LC_CD IS NOT NULL
+					   
+					   UNION
+					   SELECT
+					   LC_CD    AS ST_C_CD,
+					   LC_NM    AS ST_C_NM,
+					   PL_CD    AS ST_P_CD
+					   FROM iplant1.C_IPLANT_L1_T
+					   WHERE PL_CD IS NOT NULL
+					     AND USE_YN='Y'
+					   UNION
+					   SELECT 
+					   ET_CD    AS ST_C_CD,
+					   ET_NM    AS ST_C_NM,
+					   PL_CD    AS ST_P_CD
+					   FROM 
+					   C_IPLANT_E2_T
+					   WHERE LC_CD IS  NULL
+					   UNION
+					   SELECT 
+					   PL_CD    AS ST_C_CD,
+					   PL_NM    AS ST_C_NM,
+					   'N/A'    AS ST_P_CD
+					   FROM iplant1.C_IPLANT_P1_T
+					   WHERE USE_YN = 'Y'
+					   
+					   ) T1
+					    <where>1=1
+					    <if test="ST_P_CD!=null and ST_P_CD!='' ">
+	                    AND T1.ST_P_CD='${ST_P_CD}'
+	                   </if>
+	                   <if test="ST_C_CD!=null and ST_C_CD!='' ">
+	                    AND T1.ST_C_CD='${ST_C_CD}'
+	                   </if>
+					   </where>
+ 		  </select> 
+ 		  
+ 		  <!-- 查询用户按钮权限 -->
+ 		  <select id="queryButtonQx"  parameterType="hashmap" resultType="java.util.HashMap">
+ 		           SELECT 
+                     DISTINCT 
+                     T1.FUN_CD,                                
+                     T3.FUN_NM,
+                     T1.GR_CD,
+                     T1.MN_CD         
+                  FROM iplant1.C_IPLANT_P3_T T1
+                  LEFT JOIN iplant1.C_IPLANT_F2_T T3 ON T1.FUN_CD=T3.FUN_CD AND T1.MN_CD = T3.MN_CD
+		            <where>
+		                T1.MN_CD = '${MN_CD}'
+		                AND T1.GR_CD = '${F_GR_CD}'
+		                AND EXISTS( 
+		                    SELECT  USE_CD
+		                      FROM  iplant1.C_IPLANT_U1_T T2
+		                      WHERE
+		                            T1.GR_CD=T2.GR_CD
+		                            AND T2.USE_CD='${F_USE_CD}'   
+		                             )
+				    </where>		   
+ 		  </select>  
+ 		  
+ 		  <!-- 安卓端菜单与按钮权限配置 -->
+ 		  <select  id="queryAppMenuPermissions"  parameterType="hashmap" resultType="java.util.HashMap">
+ 		        SELECT 
+					     T1.GR_CD,
+					     T1.FUN_CD,
+					     T3.FUN_NM,
+					     T1.MN_CD,
+					     T2.MN_NM,
+					     T2.MN_TP,
+					     T2.MN_LEVL,
+					     T4.USE_CD
+					  FROM 
+					            iplant1.C_IPLANT_P3_T  T1
+					  LEFT JOIN iplant1.C_IPLANT_M1_T  T2  ON T1.MN_CD  = T2.MN_CD 
+					  LEFT JOIN iplant1.C_IPLANT_F2_T  T3  ON T1.FUN_CD = T3.FUN_CD AND T1.MN_CD = T3.MN_CD
+					  LEFT JOIN iplant1.C_IPLANT_U1_T  T4  ON T1.GR_CD  = T4.GR_CD  AND T4.USE_CD ='050066'
+					    WHERE 1=1
+					      AND T2.USE_YN ='Y'
+					      AND T2.MN_TP='2'
+					         AND EXISTS(
+					         SELECT T5.GR_CD 
+					          FROM iplant1.C_IPLANT_U1_T T5
+					          WHERE T5.USE_CD = '${USE_CD}'
+					            AND T5.GR_CD = T1.GR_CD
+					    )
+ 		  </select>
+ 		  
+ 		  <!-- 部门信息关联表查询 -->
+ 		  <select id="queryDptInfoGl"  parameterType="hashmap" resultType="java.util.HashMap">
+ 		  		 <include refid="oraclePagingFileTop"></include>	
+			          T1.DPT_CD,
+			          T1.DPT_NM,
+			          T1.FT_CD,
+			          T1.DPT_SORT,
+			          T1.DPT_ST,
+			          T1.USE_YN,
+			          T1.DPT_LEVL,
+			          T1.DPT_RM,
+			          T1.CRT_ID,
+			          T1.CRT_DT,
+			          T1.CRT_IP,
+			          T1.UPT_ID,
+			          T1.UPT_DT,
+			          T1.UPT_IP,
+			          T2.EMP_CD,
+			          T2.EMP_NM         
+			    FROM  iplant1.C_IPLANT_D1_T T1 LEFT JOIN  iplant1.C_IPLANT_E1_T T2 ON T1.DPT_CD=T2.DPT_CD 
+			    <where> 1=1
+			    	<if test="EMP_CD !=null and EMP_CD !='' ">
+			    		AND T2.EMP_CD='${EMP_CD}'
+			    	</if>
+			    </where>
+			    <include refid="oraclePagingFileBottom"></include>		
+ 		  </select>
+ 		  
+ 		  <!-- 部门信息关联表分页总数查询 -->
+ 		  <select id="queryDptInfoGl_COUNT"  parameterType="hashmap" resultType="java.util.HashMap">
+			SELECT COUNT(1) AS ROWS_COUNT FROM  iplant1.C_IPLANT_D1_T T1 LEFT JOIN  iplant1.C_IPLANT_E1_T T2 ON T1.DPT_CD=T2.DPT_CD 
+		    <where> 1=1
+		    	<if test="EMP_CD !=null and EMP_CD !='' ">
+		    		AND T2.EMP_CD='${EMP_CD}'
+		    	</if>
+		    </where>
+ 		  </select>
+ 		  
+ 		  <!-- 系统规则模块 -->
+ 		  <!-- 新增系统规则 --> 		
+	    <insert id="insertSysRule" parameterType="java.util.HashMap"> 
+    		INSERT INTO iplant1.C_IPLANT_S5_T(RULE_CD,RULE_NM,SITE_VL,IS_OVER,SET_UP)
+   			  	 (<foreach collection="list" item="item" index="index" separator="union all">
+		             SELECT '${item.RULE_CD}','${item.RULE_NM}','${item.SITE_VL}','${item.IS_OVER}','${item.SET_UP}' FROM DUAL	
+		         </foreach>)
+	    </insert>   
+		<!-- 删除系统规则 -->
+		<delete id="deleteSysRule" parameterType="hashmap">
+		        DELETE iplant1.C_IPLANT_S5_T
+		        	<where>  
+		         		RULE_CD='${RULE_CD}'
+		       	 	</where>
+		</delete>		
+		
+		<!-- 修改系统规则-->
+ 		<update id="updateSysRule" parameterType="java.util.HashMap" >
+			<foreach collection="list" item="item" index="index" open="begin" close=";end;" separator=";">
+				UPDATE iplant1.C_IPLANT_S5_T
+					<set>
+					   <if test="item.RULE_NM!=null and item.RULE_NM!='' "> RULE_NM='${item.RULE_NM}',</if>
+					   <if test="item.SITE_VL!=null and item.SITE_VL!='' ">SITE_VL='${item.SITE_VL}',</if>
+					   <if test="item.IS_OVER!=null and item.IS_OVER!='' ">IS_OVER='${item.IS_OVER}',</if>
+					   SET_UP='${item.SET_UP}'
+					</set>
+					<where> RULE_CD='${item.RULE_CD}'</where>
+			</foreach>
+		</update>	
+ 		<!-- 查询系统规则树状结构 -->
+       <select id="querySysRuleTree"  parameterType="hashmap" resultType="java.util.HashMap">
+ 		            <!--  <include refid="oraclePagingFileTop"></include>-->
+ 		            SELECT 
+			              T1.ST_C_CD,  
+			              T3.RULE_NM              AS ST_C_NM,
+			              T3.SITE_VL,
+			              T3.IS_OVER,
+			              T3.SET_UP, 
+			              T1.ST_P_CD,
+			              T1.ST_TP
+			              FROM iplant1.C_IPLANT_S2_T T1
+			              JOIN iplant1.C_IPLANT_S5_T T3 ON T1.ST_C_CD=T3.RULE_CD
+			              <where>
+					        T1.ST_TP =1
+					      </where>
+					   ORDER BY ST_C_CD
+					  <!--  <include refid="oraclePagingFileBottom"></include> -->
+ 		  </select>  
+<!--  		  <select id="querySysRuleTree"  parameterType="hashmap" resultType="java.util.HashMap">
+ 		     WITH 
+              A AS(
+                 SELECT  ROWNUM     AS RN,
+                    T1.ST_C_CD,  
+			              T3.RULE_NM AS ST_C_NM,
+			              T3.SITE_VL,
+			              T3.IS_OVER,
+			              T3.SET_UP, 
+			              T1.ST_P_CD,
+			              T1.ST_TP FROM iplant1.C_IPLANT_S2_T T1
+                 JOIN iplant1.C_IPLANT_S5_T T3 ON T1.ST_C_CD=T3.RULE_CD
+                 WHERE T1.ST_TP =1 
+                 ORDER BY ST_P_CD
+              ),
+              B AS(
+                    SELECT ROWNUM BRN,A.ST_C_CD,A.ST_C_NM,A.SITE_VL,A.IS_OVER,A.SET_UP,A.ST_P_CD,A.ST_TP 
+                    FROM A WHERE 1=1 AND ST_P_CD='N/A' ORDER BY A.RN
+              ),
+              C AS(SELECT * FROM B WHERE B.BRN >  (${pageIndex}-1)*${pageSize}  
+                  AND B.BRN &lt; = ${pageIndex}*${pageSize})
+              SELECT * FROM C
+              UNION ALL
+              SELECT A.* FROM A
+              JOIN C ON A.ST_P_CD=C.ST_C_CD
+ 		  </select> -->
+ 		  <!-- 查询系统规则总数 --> 
+ 		  <select id="querySysRuleTree_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+ 		  		  SELECT 
+ 		  		  	COUNT(1)  AS ROWS_COUNT
+ 		  		  FROM iplant1.C_IPLANT_S2_T T1 JOIN iplant1.C_IPLANT_S5_T T3 ON T1.ST_C_CD=T3.RULE_CD
+ 		  		  <where>
+					   T1.ST_TP =1
+				  </where>
+				 <!-- SELECT COUNT(1) AS ROWS_COUNT FROM iplant1.C_IPLANT_S2_T T1
+                 JOIN iplant1.C_IPLANT_S5_T T3 ON T1.ST_C_CD=T3.RULE_CD
+                 WHERE T1.ST_TP =1 
+                 ORDER BY ST_P_CD -->
+             
+ 		  </select>
+ 		  
+ 		  <!-- 添加系统规则数据结构-->
+ 		  <insert id="insertSysRuleTree" parameterType="java.util.HashMap">
+ 		 
+	   			INSERT INTO iplant1.C_IPLANT_S2_T(ST_P_CD,ST_C_CD,ST_TP)
+	   		(<foreach collection="list" item="item" index="index" separator="union all">
+	   			SELECT 
+	   			<choose>
+			    <when test="item.ST_P_CD!=null and item.ST_P_CD!=''">
+			        '${item.ST_P_CD}',
+			    </when>
+			    <otherwise>
+			        'N/A',
+			    </otherwise>
+			</choose>
+				'${item.ST_C_CD}','${item.ST_TP}' FROM DUAL	
+		         </foreach>)
+	     </insert>
+	     <!-- 删除系统规则数据结构 -->
+		 <delete id="deleteSysRuleTree" parameterType="hashmap">
+		  		 DELETE iplant1.C_IPLANT_S2_T
+		  		  		<where>
+		  		  			ST_C_CD='${ST_C_CD}'
+		  		  		</where>
+		 </delete>
+		 <!-- 修改系统规则数据结构 -->
+	     <update id="updateSysRuleTree" parameterType="java.util.HashMap" >
+			<foreach collection="list" item="item" index="index" open="begin" close=";end;" separator=";">
+				UPDATE iplant1.C_IPLANT_S2_T
+					<set>
+					   <if test="item.ST_P_CD!=null and item.ST_P_CD!='' "> ST_P_CD='${item.ST_P_CD}',</if>
+					   <if test="item.ST_C_CD!=null and item.ST_C_CD!='' ">ST_C_CD='${item.ST_C_CD}',</if>
+					</set>
+					<where> ST_C_CD='${item.ST_C_CD}'</where>
+			</foreach>
+		</update>
+		
+		<!-- 系统报错模块 -->
+		<!-- 查询系统报错 -->
+		<select id="querySystemError" parameterType="hashmap" resultType="java.util.HashMap">
+			<include refid="oraclePagingFileTop"></include>	
+		  		CD, ERR_CD, LAN, ERR_TY, DEC, STATUS, REMARK
+				FROM iplant1.C_IPLANT_E3_T
+				<where> 1=1
+					<if test="ERR_CD !=null and ERR_CD !='' "> AND ERR_CD ='${ERR_CD}' </if>
+					<if test="ST_C_CD !=null and ST_C_CD !=''"> AND LAN ='${LAN}' </if>
+		  		  	<if test="ST_TP !=null and ST_TP !='' "> AND ERR_TY ='${ERR_TY}' </if>
+				</where>
+			<include refid="oraclePagingFileBottom"></include>		
+		</select>
+	<!-- 查询系统报错分页总数 -->
+ 		<select  id="querySystemError_COUNT" parameterType="hashmap" resultType="java.util.HashMap" >	
+		 	SELECT COUNT(1) ROWS_COUNT FROM iplant1.C_IPLANT_E3_T  
+		 	<where> 1=1				             
+				<if test="ERR_CD !=null and ERR_CD !='' "> AND ERR_CD ='${ERR_CD}' </if>
+				<if test="ST_C_CD !=null and ST_C_CD !=''"> AND LAN ='${LAN}' </if>
+				<if test="ST_TP !=null and ST_TP !='' "> AND ERR_TY ='${ERR_TY}' </if>
+			</where>
+		</select>	
+ 		<!-- 新增系统报错 --> 		
+	    <insert id="insertSystemError" parameterType="java.util.HashMap"> 
+    		INSERT INTO iplant1.C_IPLANT_E3_T(CD,ERR_CD,LAN,ERR_TY,DEC, STATUS, REMARK)
+   			  	 (<foreach collection="list" item="item" index="index" separator="union all">
+		             SELECT '${item.CD}','${item.ERR_CD}','${item.LAN}','${item.ERR_TY}','${item.DEC}','${item.STATUS}','${item.REMARK}' FROM DUAL	
+		         </foreach>)
+	    </insert>   
+		<!-- 删除系统报错 -->
+		<delete id="deleteSystemError" parameterType="hashmap">
+			DELETE iplant1.C_IPLANT_E3_T <where> CD = '${CD}' </where>
+		</delete>		
+		
+		<!-- 修改系统报错-->
+ 		<update id="updateSystemError" parameterType="java.util.HashMap" >
+			<foreach collection="list" item="item" index="index" open="begin" close=";end;" separator=";">
+				UPDATE iplant1.C_IPLANT_E3_T
+					<set>
+					   <if test="item.ERR_CD !=null and item.ERR_CD !='' "> ERR_CD='${item.ERR_CD}',</if>
+					   <if test="item.LAN !=null and item.LAN !='' ">LAN='${item.LAN}',</if>
+					   <if test="item.ERR_TY !=null and item.ERR_TY !='' ">ERR_TY='${item.ERR_TY}',</if>
+					   DEC = '${item.DEC}',
+					   STATUS = '${item.STATUS}',
+					   REMARK = '${item.REMARK}'
+					</set>
+					<where> CD = '${item.CD}'</where>
+			</foreach>
+		</update>
+		<!-- 查询用户权限所属系统  -->
+		<select id="querySystemOwner" parameterType="hashmap" resultType="java.util.HashMap">
+			<include refid="oraclePagingFileTop"></include>	
+		  		dd.dict_it as dict_it,dd.dict_it_nm as dict_it_nm from iplant1.C_IPLANT_DD_T dd where dd.dict_it in( select m.sys_bel from iplant1.C_IPLANT_M1_T m where m.mn_cd in(select p.mn_cd from iplant1.C_IPLANT_P3_T p where p.GR_CD in( select gr_cd from iplant1.C_IPLANT_U1_T t where 1=1 <if test="F_USE_CD !=null and ERR_CD !=F_USE_CD "> AND t.USE_CD ='${F_USE_CD}' </if>)) group by m.sys_bel) order by dd.dict_it asc
+			<include refid="oraclePagingFileBottom"></include>		
+		</select>
+		<select  id="querySystemOwner_COUNT" parameterType="hashmap" resultType="java.util.HashMap" >	
+		 	SELECT COUNT(1) ROWS_COUNT FROM iplant1.C_IPLANT_DD_T dd where dd.dict_it in( select m.sys_bel from iplant1.C_IPLANT_M1_T m where m.mn_cd in(select p.mn_cd from iplant1.C_IPLANT_P3_T p where p.GR_CD in( select gr_cd from iplant1.C_IPLANT_U1_T t where 1=1 <if test="F_USE_CD !=null and ERR_CD !=F_USE_CD "> AND t.USE_CD ='${F_USE_CD}' </if>)) group by m.sys_bel)
+		</select>
+		
+		
+		
+		
+		
+		<!-- 物料类别模块 -->
+		<!-- 新增物料类别信息 -->
+	<insert id="Addmaterialcategoryinformation" parameterType="hashmap" >
+	   INSERT INTO iplant1.C_iplant_DD_T(DICT_CD,DICT_IT,DICT_IT_NM,DICT_ORD,USE_YN,DICT_RM,CRT_ID,CRT_DT)
+	      values('${DICT_CD}','${DICT_IT}','${DICT_IT_NM}','${DICT_ORD}','${USE_YN}','${DICT_RM}','${F_USE_CD}',SYSDATE)
+	        
+	</insert>		
+	<!-- 删除物料类别信息 -->		
+	<delete id="Deletematerialcategoryinformation"  parameterType="hashmap">
+		DELETE iplant1.C_iplant_DD_T <where> DICT_IT='${DICT_IT}'</where>
+	</delete>	
+	<!-- 修改物料类别信息-->		
+	<update id="updatematerialcategoryinformation" parameterType="hashmap">
+		 UPDATE iplant1.C_iplant_DD_T
+          <set>
+             <if test="DICT_CD!=null and DICT_CD!=''"> DICT_CD = '${DICT_CD}', </if>
+             <if test="DICT_IT_NM!=null and DICT_IT_NM!=''"> DICT_IT_NM = '${DICT_IT_NM}',</if>
+             <if test="DICT_ORD!=null and DICT_ORD!=''"> DICT_ORD = '${DICT_ORD}',</if>
+             <if test="USE_YN!=null and USE_YN!=''"> USE_YN = '${USE_YN}',</if>
+             <if test="DICT_RM!=null and DICT_RM!=''"> DICT_RM = '${DICT_RM}',</if>
+            CRT_ID = '${F_USE_CD}',CRT_DT = SYSDATE
+          </set>
+         <where>
+			DICT_IT = '${DICT_IT}'
+        </where>
+	</update>		
+	<!-- 查询物料类别信息 -->
+	<select id="querymaterialcategoryinformation" parameterType="hashmap" resultType="java.util.HashMap">
+		<include refid="oraclePagingFileTop"></include>	
+		T1.IT_ID,T1.DICT_CD,T2.DICT_NM,T1.DICT_IT,T1.DICT_IT_NM,T1.DICT_ORD,T1.USE_YN,T1.DICT_RM,T1.CRT_ID,IPLANT1.F_GET_USER_NAME(T1.CRT_ID) AS CRT_ID_NM,TO_CHAR(T1.CRT_DT,'YYYY-MM-DD HH24:Mi:SS') AS CRT_DT FROM  iplant1.C_iplant_DD_T T1 LEFT JOIN iplant1.C_iplant_DM_T T2 ON T1.DICT_CD=T2.DICT_CD
+		<where> 1=1
+			<if test="USE_YN!=null and USE_YN!='' "> AND T1.USE_YN='${USE_YN}'</if>
+       	 	<if test="DICT_CD!=null and DICT_CD!='' "> AND	T1.DICT_CD='${DICT_CD}'</if>
+          	<if test="SYS_BEL!=null and SYS_BEL!='' "> AND	T1.SYS_BEL='${SYS_BEL}'</if>
+          	<if test="DICT_IT!=null and DICT_IT!='' "> AND T1.DICT_IT='${DICT_IT}'</if> 
+          	<if test="DICT_IT_NM!=null and DICT_IT_NM!='' "> AND T1.DICT_IT_NM='${DICT_IT_NM}'</if>
+         </where> ORDER BY T1.CRT_DT DESC,T1.DICT_IT ASC
+         <include refid="oraclePagingFileBottom"></include>
+	</select>
+	<!-- 查询数据物料类别信息分页总数 -->
+	<select id="querymaterialcategoryinformation_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT COUNT(1) ROWS_COUNT FROM  iplant1.C_iplant_DD_T T1 
+		<where> 1=1
+			<if test="USE_YN!=null and USE_YN!='' "> AND T1.USE_YN='${USE_YN}'</if>
+       	 	<if test="DICT_CD!=null and DICT_CD!='' "> AND	T1.DICT_CD='${DICT_CD}'</if>
+          	<if test="SYS_BEL!=null and SYS_BEL!='' "> AND	T1.SYS_BEL='${SYS_BEL}'</if>
+          	<if test="DICT_IT!=null and DICT_IT!='' "> AND T1.DICT_IT='${DICT_IT}'</if> 
+          	<if test="DICT_IT_NM!=null and DICT_IT_NM!='' "> AND T1.DICT_IT_NM='${DICT_IT_NM}'</if>
+         </where> 
+	</select>
+ </mapper>

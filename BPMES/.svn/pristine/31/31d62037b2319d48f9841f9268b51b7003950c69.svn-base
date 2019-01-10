@@ -1,0 +1,82 @@
+(function () {
+    function cardDetail() {
+        pageConfig={
+            gridName: 'equipment_tab',
+            title:'设备保养',
+        },
+        initGridData=function(){
+            var dgrid=$('#'+pageConfig.gridName).datagrid('options');
+            if(!dgrid) return;
+            var reqData = {
+                    IFS: 'H000016',
+                    pageIndex:1,
+                    pageSize:dgrid.pageSize
+            }
+         reqGridData('/iPlant_ajax',pageConfig.gridName, reqData);
+        },
+        bindGridData = function (reqData,jsonData) {
+            var grid = {
+                name: pageConfig.gridName,
+                dataType: 'json',
+                columns: [[
+                   { field: 'MT_CD', title: '保养单号', width: 200, align: 'center' },
+                   { field: 'ET_NM', title: '设备编号', width: 200, align: 'center' },
+                   { field: 'MT_ST', title: '保养内容', width: 200, align: 'center' },
+                   { field: 'KB_IU', title: '保养原因', width: 200, align: 'center' },
+                   { field: 'EMP_NM', title: '保养人员', width: 200, align: 'center' },
+                   { field: 'BGN_DT', title: '开始时间', width: 200, align: 'center' },
+                   { field: 'END_DT', title: '结束时间', width: 200, align: 'center' }
+                ]]
+            }
+            initGridView(reqData,grid);
+            $('#'+pageConfig.gridName).datagrid('loadData', jsonData);
+        }
+        getDataByCondition =function(){
+        	var equipmentCode = $('#equipmentCode').val();
+        	var equipmentNM = $('#equipmentNM').combobox('getValue');
+            var startDate = $('#startDate').datetimebox('getValue');
+            var endDate = $('#endDate').datetimebox('getValue');
+            var reqData ={
+            	MT_CD:equipmentCode,
+            	ET_CD:equipmentNM,
+                BGN_DT: startDate,
+                END_DT: endDate,
+                IFS:'H000016'
+            };
+            reqGridData('/iPlant_ajax',pageConfig.gridName,reqData);
+        }
+    }
+    cardDetail.prototype = {
+        init: function () {
+            $(function () {
+            	ajaxParam={
+                        url:'/iPlant_ajax',
+                        data:{
+                            IFS:'B000029',
+                        },
+                        successCallBack:function(data){
+                            var rowNum=0
+                            if(data.RESPONSE["0"].RESPONSE_HDR.DATA_ROWS){
+                              rowNum=parseInt(data.RESPONSE["0"].RESPONSE_HDR.DATA_ROWS);
+                            }
+                            var rowCollection=createSourceObj(data);
+                              $("#equipmentNM").combobox({
+                                  panelHeight:200,
+                                  data:rowCollection,
+                                  valueField:'ET_CD',  
+                                  textField:'ET_NM',
+                              });                                                                                    
+                        }
+                    };
+                   iplantAjaxRequest(ajaxParam);
+                initGridData();
+
+                $('#btnSearch').click(function(){
+                	getDataByCondition();
+                });
+            });
+        }
+    }
+    var card = new cardDetail();
+    card.init();
+})();

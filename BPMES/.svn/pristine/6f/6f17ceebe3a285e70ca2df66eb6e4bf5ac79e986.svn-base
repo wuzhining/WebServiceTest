@@ -1,0 +1,328 @@
+/* 启动时加载 */
+/*
+ */
+(function() {
+	function factoryInfo() {
+		initGridData = function() {
+			var dgrid = dataGrid.datagrid('options');
+			if(!dgrid) return;
+			var reqData = {
+			    WO_NO: wono,	
+				IFS: 'W0000037',
+				pageIndex: 1,
+				pageSize: dgrid.pageSize
+			}
+			reqGridData('/iPlant_ajax', 'ParameterConfiguration_tab', reqData);
+		},
+		
+		bindGridData = function(reqData, jsonData) {
+			var gridList = {
+				name: 'ParameterConfiguration_tab',
+				dataType: 'json',
+				columns: [[				
+					{field: 'SIMUL_ID',title: '排程版本号',width: 200,align: 'center',formatter: function (value) {if(checkNotEmpty(value)) return "<span title='" + value + "'>" + value + "</span>";},editor:{type:'validatebox',
+				           options:{validType:['length[1,30]','specialCharacterTextArea']}}},
+					{field: 'WC_CD',title: '排程范围',width: 100,align: 'center',formatter: function (value,row) {if(checkNotEmpty(value)) return "<span title='" +  value + "'>" +  (row.WC_NM || value)+ "</span>";},
+						   editor:{type:'combobox',options:{valueField:'value',textField:'text',data:WC_CD,required:true,editable:false}}}, 
+				    {field: 'PLAN_CYCLE',title: '排程周期',width: 150, align: 'center',formatter: function (value) {if(checkNotEmpty(value)) return "<span title='" + value + "'>" + value + "</span>";},editor:{type:'validatebox',
+					       options:{required:true, validType:['length[1,30]','specialTextCharacter']}}},
+			        {field: 'PLAN_METHOD',title: '排程方法',width: 100,align: 'center',formatter: function (value,row) {if(checkNotEmpty(value)) return "<span title='" +  value + "'>" +  (PLAN_METHOD[value])+ "</span>";},
+					   editor:{type:'combobox',options:{valueField:'value',textField:'text',data:PLAN_METHOD,required:true,editable:false}}}, 
+		        	
+        	        {field: 'PRF_CD',title: '工段名称',width: 100,align: 'center',formatter: function (value,row) {if(checkNotEmpty(value)) return "<span title='" +  value + "'>" +  (row.PRF_NAME || value)+ "</span>";},
+					   editor:{type:'combobox',options:{valueField:'value',textField:'text',data:PRF_CD,required:true,editable:false}}},
+				    {field: 'LINE_CD',title: '拉线',width: 100,align: 'center',formatter: function (value,row) {if(checkNotEmpty(value)) return "<span title='" +  value + "'>" +  (row.LINE_NM || value)+ "</span>";},
+					   editor:{type:'combobox',options:{valueField:'value',textField:'text',data:PD_LN_CD,required:true,editable:false}}},
+				    {field: 'SHIFT_CD',title: '班次',width: 100,align: 'center',formatter: function (value,row) {if(checkNotEmpty(value)) return "<span title='" +  value + "'>" +  (row.SHIFT_NM || value)+ "</span>";},
+					   editor:{type:'combobox',options:{valueField:'value',textField:'text',data:CS_CD,required:true,editable:false}}},
+					   
+	                {field: 'MAT_YN',title: '是否考虑物料供给',width: 120,align: 'center',formatter: function(value, row, index) {if(value == 'Y') { return '是';} else { return '否';}},editor:{type:'checkbox',options:{on: 'Y',off: 'N'}}},
+	                {field: 'CAPA_YN',title: '是否考虑实际产能',width: 120,align: 'center',formatter: function(value, row, index) {if(value == 'Y') { return '是';} else { return '否';}},editor:{type:'checkbox',options:{on: 'Y',off: 'N'}}},
+	                {field: 'MO',title: '备注',width: 200,align: 'center',formatter: function (value) {if(checkNotEmpty(value)) return "<span title='" + value + "'>" + value + "</span>";},editor:{type:'validatebox',
+						   options:{validType:['length[1,25]','specialTextCharacter']}}},
+				    {field: 'CRT_ID',title: '创建人',width: 100,align: 'center',formatter: function (value) {if(checkNotEmpty(value)) return "<span title='" + value + "'>" + value + "</span>";}},
+					{field: 'CRT_DT',title: '创建时间',width: 200,align: 'center',formatter: function (value) {if(checkNotEmpty(value)) return "<span title='" + value + "'>" + value + "</span>";}}, 
+					{field: 'UPT_ID',title: '修改人',width: 100,align: 'center',formatter: function (value) {if(checkNotEmpty(value)) return "<span title='" + value + "'>" + value + "</span>";}}, 
+					{field: 'UPT_DT',title: '修改时间',width: 200,align: 'center',formatter: function (value) {if(checkNotEmpty(value)) return "<span title='" + value + "'>" + value + "</span>";}}
+				]],
+				/**单击进入编辑模式*/
+		        onCancelEdit:function(index,row){
+		            row.editing = false;
+		            $(this).datagrid('refreshRow', index);
+		        },
+		        onClickCell: function (index,field,value) {
+		        	var tabName,dialogName,titleName,rowEdit,editem,editorFt,itemCd,reqData,dgrid;
+		        	var rows = dataGrid.datagrid('getRows'),row = rows[index];
+		        	//addDatagridEditor(dataGrid,index);
+		        	dataGrid.datagrid('selectRow', index).datagrid('beginEdit', index);
+		        	if(!checkNotEmpty(row.editType)){/*如果是修改的情况，ft_cd字段为只读模式*/
+			    		ed = $(this).datagrid('getEditor', {index: index,field: 'SIMUL_ID'});
+			    		fc = ed.target;
+			    		fc.prop('readonly',true);
+		    		}
+		        }
+			}
+			initGridView(reqData, gridList);
+			dataGrid.datagrid('loadData', jsonData);
+		}
+	}
+	
+	
+	
+	factoryInfo.prototype = {
+		init: function() {
+			$(function() {
+				/*周期*/
+				var period = [{'value':1,'text':1},{'value':2,'text':2},{'value':3,'text':3},{'value':4,'text':4},{'value':5,'text':5},{'value':6,'text':6},{'value':7,'text':7}];
+				$('#period').combobox({
+                    data:period,
+                    valueField:'value',
+                    textField:'text',
+                    panelWidth:150,
+                    value:"1"
+                });
+				/*周期单位*/
+				var unit = [{'value':'D','text':'天'},{'value':'W','text':'周'}];
+				$('#unit').combobox({
+                    data:unit,
+                    valueField:'value',
+                    textField:'text',
+                    panelWidth:50,
+                    value:"天"
+                });
+				
+				/*排程方法*/
+				var PLAN_METHOD = [{'value':'1','text':'有限能力'},{'value':'2','text':'无限能力'}];
+				$('#PLAN_METHOD').combobox({
+                    data:PLAN_METHOD,
+                    valueField:'value',
+                    textField:'text',
+                    panelWidth:150,
+                    value:'有限能力'
+                });
+				
+				/*是否考虑物料供给*/
+				var MAT_YN = [{'value':'Y','text':'是'},{'value':'N','text':'否'}];
+				$('#MAT_YN').combobox({
+                    data:MAT_YN,
+                    valueField:'value',
+                    textField:'text',
+                    panelWidth:150,
+                    value:'N'
+                });
+				
+				/*是否考虑实际产能*/
+				var CAPA_YN = [{'value':'Y','text':'是'},{'value':'N','text':'否'}];
+				$('#CAPA_YN').combobox({
+                    data:CAPA_YN,
+                    valueField:'value',
+                    textField:'text',
+                    panelWidth:150,
+                    value:'N'
+                });
+				
+				/*工序*/
+				var ajaxParam1={
+		                url:'/iPlant_ajax',
+		                data:{
+		                    IFS:'GX00001',
+		                },
+		                successCallBack:function(data){
+		                	$('#PRF_CD').combobox('clear');
+		                    var rowCollection=createSourceObj(data); 
+		                    PRF_CD = [];
+		                    PRF_CD.push({"value":"", "text":"全部"});
+		                    for(var i=0; i< rowCollection.length; i++){
+		                    	PRF_CD.push({"value":rowCollection[i].PRF_CD, "text":rowCollection[i].PRF_NAME});
+		                    }
+		                    $('#PRF_CD').combobox({
+		                        data:PRF_CD,
+		                        valueField:'value',
+		                        textField:'text',
+		                        panelWidth:150
+		                    });
+		                }
+		            }
+		            iplantAjaxRequest(ajaxParam1);
+				
+				/*车间*/
+				var ajaxParam2={
+	                    url:'/iPlant_ajax',
+	                    data:{
+	                        IFS:'B000025',
+	                    },
+	                    successCallBack:function(data){
+	                    	$('#PL_CD').combobox('clear');
+	                        var rowCollection=createSourceObj(data); 
+	                        WC_CD = [];
+	                        WC_CD.push({"value":"", "text":"全部"});
+	                        for(var i=0; i< rowCollection.length; i++){
+	                        	WC_CD.push({"value":rowCollection[i].PL_CD, "text":rowCollection[i].PL_NM});
+	                        }
+	                        $('#PL_CD').combobox({
+	                            data:WC_CD,
+	                            valueField:'value',
+	                            textField:'text',
+	                            panelWidth:150
+	                        });
+	                    }
+	                }
+				iplantAjaxRequest(ajaxParam2);
+				
+				/*拉线*/
+				var ajaxParam3={
+	                    url:'/iPlant_ajax',
+	                    data:{
+	                        IFS:'B000109',
+	                    },
+	                    successCallBack:function(data){
+	                    	$('#PD_LN_CD').combobox('clear');
+	                        var rowCollection=createSourceObj(data); 
+	                        PD_LN_CD = [];
+	                        PD_LN_CD.push({"value":"", "text":"全部"});
+	                        for(var i=0; i< rowCollection.length; i++){
+	                        	PD_LN_CD.push({"value":rowCollection[i].PD_LN_CD, "text":rowCollection[i].PD_LN_NM});
+	                        }
+	                        $('#PD_LN_CD').combobox({
+	                            data:PD_LN_CD,
+	                            valueField:'value',
+	                            textField:'text',
+	                            panelWidth:150
+	                        });
+	                    }
+	                }
+				iplantAjaxRequest(ajaxParam3);
+				
+				/*班次*/
+				var ajaxParam4={
+	                    url:'/iPlant_ajax',
+	                    data:{
+	                        IFS:'B000017',
+	                    },
+	                    successCallBack:function(data){
+	                    	$('#CS_CD').combobox('clear');
+	                        var rowCollection=createSourceObj(data); 
+	                        CS_CD = [];
+	                        CS_CD.push({"value":"", "text":"全部"});
+	                        for(var i=0; i< rowCollection.length; i++){
+	                        	CS_CD.push({"value":rowCollection[i].CS_CD, "text":rowCollection[i].CS_NM});
+	                        }
+	                        $('#CS_CD').combobox({
+	                            data:CS_CD,
+	                            valueField:'value',
+	                            textField:'text',
+	                            panelWidth:150
+	                        });
+	                    }
+	                }
+				iplantAjaxRequest(ajaxParam4);
+				
+				/*初始化全局变量对象*/
+				dataGrid = $('#ParameterConfiguration_tab');
+				initGridData();
+				
+				$('#btnAdd').click(function() {
+					var initData = {};
+					var WC_CDValue = $('#PL_CD').combobox('getValue');
+					var PLAN_CYCLE = $('#period').combobox('getValue')+$('#unit').combobox('getText');
+					var PRF_CDValue = $('#PRF_CD').combobox('getValue');
+					var PLAN_METHODValue = $('#PLAN_METHOD').combobox('getValue');
+					var LINE_CDValue = $('#PD_LN_CD').combobox('getValue');
+					var SHIFT_CDValue = $('#CS_CD').combobox('getValue');
+					var MAT_YNValue = $('#MAT_YN').combobox('getValue');
+					var CAPA_YNValue = $('#CAPA_YN').combobox('getValue');
+					
+					if(WC_CD.length>0 && PRF_CD.length>0){
+						initData={WC_CD:WC_CDValue,PLAN_CYCLE:PLAN_CYCLE,PLAN_METHOD:PLAN_METHODValue,PRF_CD:PRF_CDValue,
+								LINE_CD:LINE_CDValue,SHIFT_CD:SHIFT_CDValue,MAT_YN:MAT_YNValue,CAPA_YN:CAPA_YNValue
+						}
+					}
+					insertDataGrid('ParameterConfiguration_tab',initData);
+		        	addDatagridEditor(dataGrid,0);
+				});
+				
+				$('#btnSave').click(function() {
+					saveDataGrid=function(tabName,insertIfs,updateIfs,messageId){
+				    	 var edDataGrid = $('#'+'ParameterConfiguration_tab');
+				         if (endEditing(edDataGrid)){
+				        	//判断后变更数据
+				        	if (edDataGrid.datagrid('getChanges').length) {
+				                var inserted = edDataGrid.datagrid('getChanges', "inserted");  
+				                var updated = edDataGrid.datagrid('getChanges', "updated");
+				                /**装载数据*/
+				                var arrInsert = new Array(),arrUpdate = new Array();
+				                if(inserted.length>0){
+				                	for(var m=0;m<inserted.length;m++){
+				                		arrInsert.push(inserted[m]);
+				                	}
+				                	//批量先增
+				                    var ajaxInsert = {
+				                        url: '/iPlant_ajax',
+				                        dataType: 'JSON',
+				                        data: {
+				                            list: arrInsert,
+				                            IFS: 'GW00066',
+				                            FUN : 'insertPlanPamrm'
+				                        },
+				                        successCallBack: function (data) {
+				                        	edDataGrid.datagrid('acceptChanges');
+				                        	initGridData();
+				                        	$('#showMessageInfo').html('<font color=red>保存成功！</font>');
+				                            return;
+				                        },
+				                        errorCallBack: function (data) {
+				                        	$('#showMessageInfo').html('<font color=red>保存失败！</font>');
+				                            return;
+				                        }
+				                    };
+				                    iplantAjaxRequest(ajaxInsert);
+				                }
+				                if(updated.length>0){
+				                	for(var m=0;m<updated.length;m++){
+				                		/*if(updated[m].edited){*/
+				                			arrUpdate.push(updated[m]);
+				                		/*}*/
+				                	}
+				                	//批量修改
+				                    var ajaxUpdate = {
+				                        url: '/iPlant_ajax',
+				                        dataType: 'JSON',
+				                        data: {
+				                            list: arrUpdate,
+				                            IFS: 'W0000038'
+			
+				                        },
+				                        successCallBack: function (data) {
+				                        	initGridData();
+				                        	edDataGrid.datagrid('acceptChanges');
+				                        	$('#showMessageInfo').html('<font color=red>保存成功！</font>');
+				                            return;
+				                        },
+				                        errorCallBack: function (data) {
+				                        	$('#showMessageInfo').html('<font color=red>保存失败！</font>');
+				                            return;
+				                        }
+				                    };
+				                    iplantAjaxRequest(ajaxUpdate);
+				                }
+				            }else{
+				            	$('#showMessageInfo').html('<font color=red>没有进行变更！</font>');
+				            }
+						}else{
+							$('#showMessageInfo').html('<font color=red>请输入必填项！</font>');
+						}
+					};
+					saveDataGrid();
+				});
+				
+				/*清空表单数据*/
+		    	$('#btnClear').click(function(){
+		    		$("#fmStation").form('clear');
+		    	});
+		    	
+			});
+		}
+	}
+	var fcfo = new factoryInfo();var wono,IS_CHECK,WOSTATE,WC_CD=[],PRF_CD=[],PD_LN_CD=[],CS_CD=[];
+	fcfo.init();
+})();

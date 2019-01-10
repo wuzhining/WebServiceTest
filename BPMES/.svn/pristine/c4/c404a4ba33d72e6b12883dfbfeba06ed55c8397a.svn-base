@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="">
+
+	<!-- 德富莱包装内容模块 -->
+	<!-- 查询包装内容列表-->
+	<select id="queryContlev" parameterType="hashmap"
+		resultType="java.util.HashMap">
+		<include refid="oraclePagingFileTop"></include>
+		CONTPACKLEV_ID,CONTAINER_ID,CONTPACKLEV_PACK,CONTPACKLEV_VALUE,CONTPACKLEV_REVISION,CONTPACKLEV_PRODORD,CONTPACKLEV_MINQTY,CONTPACKLEV_MAXQTY,
+		TO_CHAR(CONTPACKLEV_CREATEDT,'YYYY-MM-DD HH24:MI:SS') AS CONTPACKLEV_CREATEDT,
+		to_char(CONTPACKLEV_MODIFYDT,'YYYY-MM-DD HH24:MI:SS') as CONTPACKLEV_MODIFYDT,
+		CONTPACKLEV_MODIFYBY,CONTPACKLEV_CREATEBY from wms1.wms_contpacklev
+		<where>
+		   1=1
+		   <if test="CONTPACKLEV_VALUE !=null and CONTPACKLEV_VALUE !='' "> 
+	    		   AND CONTPACKLEV_VALUE like '%${CONTPACKLEV_VALUE}%'      	 
+		   </if>
+		</where>
+		ORDER BY CONTPACKLEV_CREATEDT DESC
+		<include refid="oraclePagingFileBottom"></include>
+	</select>
+
+	<!-- 修改包装标签列表-->
+	<update id="UpdateContlev" parameterType="java.util.HashMap">		
+			update wms1.wms_contpacklev
+			<set>
+				<if test="CONTAINER_ID !=null  ">
+					CONTAINER_ID='${CONTAINER_ID}',
+				</if>
+				<if test="CONTPACKLEV_PACK !=null ">
+					CONTPACKLEV_PACK='${CONTPACKLEV_PACK}',
+				</if>
+				<if test="CONTPACKLEV_VALUE !=null ">
+					CONTPACKLEV_VALUE='${CONTPACKLEV_VALUE}',
+				</if>
+				<if test="CONTPACKLEV_REVISION !=null ">
+					CONTPACKLEV_REVISION='${CONTPACKLEV_REVISION}',
+				</if>
+				<if test="CONTPACKLEV_PRODORD !=null ">
+					CONTPACKLEV_PRODORD='${CONTPACKLEV_PRODORD}',
+				</if>
+				<if test="CONTPACKLEV_MINQTY !=null ">
+					CONTPACKLEV_MINQTY='${CONTPACKLEV_MINQTY}',
+				</if>
+				<if test="CONTPACKLEV_MAXQTY !=null ">
+					CONTPACKLEV_MAXQTY='${CONTPACKLEV_MAXQTY}',
+				</if>
+				<if test="F_USE_CD !=null">
+					CONTPACKLEV_MODIFYBY='${F_USE_CD}',
+				</if>
+				CONTPACKLEV_MODIFYDT= SYSDATE
+			</set>
+			<where>
+				CONTPACKLEV_ID='${CONTPACKLEV_ID}'
+			</where>		
+	</update>
+
+	<!-- 新增包装标签列表-->
+	<insert id="InsertContlev" parameterType="hashmap">
+		insert into wms1.wms_contpacklev
+		(
+		CONTPACKLEV_ID,
+		CONTAINER_ID,
+		CONTPACKLEV_PACK,
+		CONTPACKLEV_VALUE,
+		CONTPACKLEV_REVISION,
+		CONTPACKLEV_PRODORD,
+		CONTPACKLEV_MINQTY,
+		CONTPACKLEV_MAXQTY,
+		CONTPACKLEV_CREATEDT,
+		CONTPACKLEV_CREATEBY
+		)
+     VALUES
+		(		
+			'${CONTPACKLEV_ID}',
+			'${CONTAINER_ID}',
+			'${CONTPACKLEV_PACK}',
+			'${CONTPACKLEV_VALUE}',
+			'${CONTPACKLEV_REVISION}',
+		    '${CONTPACKLEV_PRODORD}',
+		    '${CONTPACKLEV_MINQTY}',
+		    '${CONTPACKLEV_MAXQTY}',
+			SYSDATE,
+			'${F_USE_CD}'
+		)
+	</insert>
+
+	<!-- 删除包装信息列表 -->
+	<delete id="DeleteContlev" parameterType="hashmap">
+
+		delete wms1.wms_contpacklev
+		<where>
+			CONTPACKLEV_ID='${CONTPACKLEV_ID}'
+		</where>
+	</delete>
+	
+	<!-- 获得包装箱id-->
+	<select id="GetidContlev" parameterType="hashmap" resultType="java.util.HashMap"> 
+	   SELECT wms1.CONTPACKLEV_ID.nextval AS CONTPACKLEV_ID FROM DUAL
+	</select>
+</mapper>

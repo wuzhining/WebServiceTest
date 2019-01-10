@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<engines>
+	<!-- A.2 仓库PDA模块 -->
+	<!-- 通过订单号或者唯一码编号查询物料数据 -->
+	<engine engine_code="queryMateriaByOrderIdOrBarcode" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryMateriaByOrderIdOrBarcode" ></engine>
+	<!-- 更新唯一码对应的物料状态信息为待质检状态 -->
+	<engine engine_code="updateMateriaStatusNeedCheck" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateMateriaStatusNeedCheck" ></engine>
+	<!-- 通过唯一码查询待质检物料清单 -->
+	<engine engine_code="queryNeedCheckingMateriaListByBarcode" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryNeedCheckingMateriaListByBarcode" ></engine>
+	<!-- 通过唯一码确定物料质检是否通过 -->
+	<engine engine_code="updateIQCStatusByBarcode" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateIQCStatusByBarcode" ></engine>
+	<!-- PDA入库 -->
+	<engine engine_code="materiaCheckinByBarcode" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="materiaCheckinByBarcode" ></engine>
+	<!-- MSR入库调用接口 -->
+	<engine engine_code="CheckinByMSR" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="CheckinByMSR" ></engine>
+	<!-- MSR出库调用接口 -->
+	<engine engine_code="CheckOutByMSR" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="CheckOutByMSR" ></engine>
+	
+	<!-- JIT备料查询JIT类型工单 -->
+	<engine engine_code="chooseJITTypeWorkOrder" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="chooseJITTypeWorkOrder" ></engine>
+	<!-- JIT备料通过工单号查询须备料信息 -->
+	<engine engine_code="chooseJITNeedMateriaByWorkOrder" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="chooseJITNeedMateriaByWorkOrder" ></engine>
+	<!-- JIT备料分析 -->
+	<engine engine_code="wms_jit_prepare" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="wms_jit_prepare" ></engine>
+	<!-- JIT物料拆包 -->
+	<engine engine_code="wms_jit_unpack" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="wms_jit_unpack" ></engine>
+	<!-- JIT备料出库 -->
+	<engine engine_code="wms_jit_checkout" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="wms_jit_checkout" ></engine>
+	
+	<!-- 工单备料查询 -->
+	<engine engine_code="chooseNormalTypeWorkOrder" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="chooseNormalTypeWorkOrder" ></engine>
+	<!-- 工单备料通过工单号查询须备料信息 -->
+	<engine engine_code="chooseNormalNeedMateriaByWorkOrder" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="chooseNormalNeedMateriaByWorkOrder" ></engine>
+	<!-- 工单备料分析 -->
+	<engine engine_code="wms_normal_prepare" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="wms_normal_prepare" ></engine>
+	<!-- 工单物料拆包 -->
+	<engine engine_code="wms_normal_unpack" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="wms_normal_unpack" ></engine>
+	<!-- 工单备料出库 -->
+	<engine engine_code="wms_normal_checkout" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="wms_normal_checkout" ></engine>
+	<!-- 选择箱单 -->
+	<engine engine_code="chooseBoxDetailOrder" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="chooseBoxDetailOrder" ></engine>
+	<!-- 选择箱单详情 -->
+	<engine engine_code="chooseBoxDetailOrder" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="chooseBoxDetailOrder" ></engine>
+	
+	<!-- PDA成品入库  -->
+	<engine engine_code="mm_product_checkin" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="mm_product_checkin" ></engine>
+	<!-- PDA成品出库  -->
+	<engine engine_code="mm_product_checkout" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="mm_product_checkout" ></engine>
+	<!-- 选择待出库的箱单详情  -->
+	<engine engine_code="chooseCheckOutBoxDetailOrder" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="chooseCheckOutBoxDetailOrder" ></engine>
+	<!-- PDA库位看板报表  -->
+	<engine engine_code="WMSPositionBoard" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="WMSPositionBoard" ></engine>
+	<!-- PDA库位状态看板  -->
+	<engine engine_code="WMSPositionStatusBoard" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="WMSPositionStatusBoard" ></engine>
+	<!-- PDA退料  -->
+	<engine engine_code="mm_return_materia" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="mm_return_materia" ></engine>
+	
+	<!-- 平库发料  -->
+	<engine engine_code="wms_normal_checkout1" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="wms_normal_checkout1" ></engine>
+	<!-- 立库演示发料  -->
+	<engine engine_code="wms_show_checkout" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="wms_show_checkout" ></engine>
+	<!-- 查询备料信息  -->
+	<engine engine_code="wms_show_search" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="wms_show_search" ></engine>
+	<!-- 立库PDA入库验证  -->
+	<engine engine_code="wms_enter_validate" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="wms_enter_validate" ></engine>
+	
+	<!-- 成品仓初始化列表  -->
+	<engine engine_code="wms_columns_List" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="wms_columns_List" ></engine>
+	<engine engine_code="wms_rows_List" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="wms_rows_List" ></engine>
+	<!-- 成品仓初始化列表  -->
+	<engine engine_code="wms_shelf_List" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="wms_shelf_List" ></engine>
+	<!-- 立库PDA入库  -->
+	<engine engine_code="wms_materia_checkin" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="wms_materia_checkin" ></engine>
+	<!-- 工单备料分析下架  -->
+	<engine engine_code="wms_out_prepare" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="wms_out_prepare" ></engine>
+	<!-- 工单备料出库  -->
+	<engine engine_code="wms_materia_checkout" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="wms_materia_checkout" ></engine>
+    <!-- 返料上架  -->
+	<engine engine_code="wmsMateriaReturn" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="wmsMateriaReturn" ></engine>
+    <!-- 立库rfid是否占用验证  -->
+	<engine engine_code="wmsPositionCheckRfid" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="wmsPositionCheckRfid" ></engine>
+
+</engines>

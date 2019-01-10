@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ifss>
+
+	<!-- 产品追溯管理     START -->
+	<!-- 根据工单查询信息 -->
+	<ifs ifs_code="XK00001" ifs_name="查询工单产品工序信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryProductInfo" biz_method="" serial_no="1" biz_name="queryProductInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+	<!-- 根据工单号查询产品信息 -->
+	<ifs ifs_code="XK00002" ifs_name="查询产品信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryProducdsInfo" biz_method="" serial_no="1" biz_name="queryProducdsInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+	<!-- 根据工单号查询工单信息 -->
+	<ifs ifs_code="XK00003" ifs_name="查询产品信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryProducdsMoInfo" biz_method="" serial_no="1" biz_name="queryProducdsMoInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+	
+    
+  
+    
+    
+</ifss>

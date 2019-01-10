@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="">      
+
+		<!-- 1.1 数据字典管理 -->		
+<!-- 查询设备保养项目信息 -->
+	<select id="queryEquipmentList" parameterType="hashmap" resultType="java.util.HashMap">
+	  <!--  <include refid="oraclePagingFileTop"></include>  --> 	 
+		 select MT_CD,DICT_IT_NM_01,KB_NM,KB_PD,KB_SC,KB_IU,to_char(CRT_DT,'yyyy-mm-dd') CRT_DT
+		 ,to_char(UPT_DT,'yyyy-mm-dd') UPT_DT,DICT_IT_NM_01,DICT_IT_NM_02  from TPM2.H_TPM_M1_T  
+		 <where>1=1
+		 <if test="TMEP!=null and TMEP!='' and flag!='true'">
+		 and KB_IU like '%${TMEP}%'
+		 </if>
+		 <!-- 全字匹配 -->
+		  <if test="TMEP!=null and TMEP!='' and flag=='true'">and DICT_IT_NM_01 ='${TMEP}'</if>  
+		 </where>
+		    <!-- <include refid="oraclePagingFileBottom"></include>   --> 	
+	</select>
+	
+	<!-- 设备保养分页总数 -->
+	<select id="queryEquipmentList_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+	  	 
+		SELECT COUNT(1) ROWS_COUNT  from TPM2.H_TPM_M1_T  
+		 <where>1=1
+		 <if test="TMEP!=null and TMEP!='' and flag!='true'">
+		 and KB_IU like '%${TMEP}%'
+		 </if>
+		 <!-- 全字匹配 -->
+		  <if test="TMEP!=null and TMEP!='' and flag=='true'">and DICT_IT_NM_01 ='${TMEP}'</if>  
+		 </where>
+		      	
+	</select>
+	
+	<!-- 删除设备列表 -->
+	<delete id="deleteEquipmentList" parameterType="hashmap">
+		DELETE FROM IPLANT1.C_IPLANT_E2_T 
+		<where>
+			ET_CD='${ET_CD}'
+		</where> 
+	</delete>
+	
+	
+	<!-- 新增设备列表 -->
+	<insert id="insertEquipmentList" parameterType="hashmap">
+	INSERT INTO iplant1.C_IPLANT_E2_T(ET_CD,ET_NM,ET_UT,DICT_IT ,ET_TT,ET_MT )
+	values('${ET_CD}','${ET_NM}','${ET_UT}','${DICT_IT}' ,'${ET_TT}','${ET_MT}')
+	</insert>
+	
+	<!-- 修改设备列表 -->
+	<update id="updateEquipmentList" parameterType="hashmap">
+		update iplant1.C_IPLANT_E2_T 
+		<set>
+			ET_NM='${ET_NM}',<!-- 设备名称 -->
+			ET_UT='${ET_UT}',<!-- 设备型号 -->
+			DICT_IT='${DICT_IT}',<!-- 设备类型 -->
+			ET_TT='${ET_TT}', <!-- 产线名称 -->
+			ET_MT='${ET_MT}',<!-- 设备状态 -->
+			ROUT_CD='${ROUT_CD}' <!-- 工位名称 -->
+		</set>
+		where ET_CD='${ET_CD}'
+	</update>
+	
+	
+	<!-- 设备类型下拉框 -->
+	<select id="queryEqType" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT DICT_IT from iplant1.C_IPLANT_E2_T   
+	</select>
+	
+	<!-- 产线名称下拉框 -->
+	<select id="queryProduName" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT ET_TT  from iplant1.C_IPLANT_E2_T  
+	</select>
+	
+	<!-- 设备状态下拉框 -->
+	<select id="queryEqState" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT ET_MT  from iplant1.C_IPLANT_E2_T  
+	</select>
+	
+		<!-- 保养项目下拉框 -->
+	<select id="stationName" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT KB_IU  from tpm2.h_tpm_m1_t  
+	</select>
+	
+		<!-- 工位名称下拉框 -->
+	<select id="stationNames" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT ROUT_CD  from iplant1.C_IPLANT_E2_T  
+	</select>
+ </mapper>

@@ -1,0 +1,252 @@
+/*发送请求*/
+function iplantAjaxRequest(ajaxParam) {
+    var reqData = ajaxParam.data;
+    $.extend(reqData, { reqType: 'APP' });
+    //请求路径字符串操作
+    var reqUrl = '/iTaurus/iPlant_app';
+    var reqStr = '';
+    if (reqData != null) {
+        reqStr = '{\"REQ\":[{\"REQ_DATA\":' + JSON.stringify(reqData) + '}]}';
+    }
+    //将对象转换为json字符串
+    var params = {
+        url: reqUrl,
+        type: 'POST',
+        contentType: "application/x-www-form-urlencoded; charset=utf-8",
+        async: String(ajaxParam.async) == 'false' ? false : true,
+        data: { "reqStr": reqStr },
+        beforeSend: ajaxParam.beforeSend || function () {
+        },
+        success: ajaxParam.successCallBack || function (data) {
+        },
+        error: ajaxParam.errorCallBack || function (e) {
+        }
+    }
+    $.ajax(params);
+};
+
+/*发送请求*/
+function WarehouseAjaxRequest(url,ajaxParam) {
+    var reqData = ajaxParam.data;
+    $.extend(reqData, { reqType: 'APP' });
+    //请求路径字符串操作
+    var reqUrl = url;
+    if(reqData.staticFlag){
+    	reqUrl = ajaxParam.url;
+    }
+    var reqStr = '';
+    if (reqData != null) {
+        reqStr = '{\"REQ\":[{\"REQ_DATA\":' + JSON.stringify(reqData) + '}]}';
+    }
+    //将对象转换为json字符串
+    var params = {
+        url: reqUrl,
+        type: 'POST',
+        contentType: "application/x-www-form-urlencoded; charset=utf-8",
+        async: String(ajaxParam.async) == 'false' ? false : true,
+        data: { "reqStr": reqStr },
+        success: ajaxParam.successCallBack || function (data) {},
+        error: ajaxParam.errorCallBack || function (e) {}
+    }
+    $.ajax(params);
+};
+
+
+/*将后台返回数据进行转换为控件可以绑定格式*/
+function createSourceObj(data) {
+    var rowArray = new Array();
+    if(data.RESPONSE.length>0){
+       if(!data.RESPONSE["0"].RESPONSE_DATA) return rowArray;
+       for (var i = 0; i < data.RESPONSE["0"].RESPONSE_DATA.length; i++) {
+          if (data.RESPONSE["0"].RESPONSE_DATA[i]) {
+              rowArray.push($.extend(data.RESPONSE["0"].RESPONSE_DATA[i],{code:''}));
+          }
+       }
+    }
+    return rowArray;
+};
+
+/*获取url中的参数*/
+function getQueryString(name) {
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+    var r = window.location.search.substr(1).match(reg);
+    if (r != null) return unescape(r[2]);
+    return null;
+};
+
+/*计时器方法*/
+function TimerFun(){
+	var cond1 = year % 4 == 0;  //条件1：年份必须要能被4整除
+    var cond2 = year % 100 != 0;  //条件2：年份不能是整百数
+    var cond3 = year % 400 ==0;  //条件3：年份是400的倍数
+    var cond = cond1 && cond2 || cond3;
+	var monthAndDay = $('#lineDate').html();
+	var timeAndMinute = $('#lineTime').html();
+	/*时分秒*/
+	var second = parseInt(timeAndMinute.substring(6));
+	var minute = parseInt(timeAndMinute.substring(3,5));
+	var hour = parseInt(timeAndMinute.substring(0,2));
+	/*年月日*/
+	var day = parseInt(monthAndDay.substring(8,10));
+	var month = parseInt(monthAndDay.substring(5,7));
+	var year = parseInt(monthAndDay.substring(0,5));
+	/*秒+1后的验证*/
+	second+=1;
+	if(second == 60){
+		minute+=1;
+		second =0;
+	};
+	if(second<10){
+		second = '0'+second;
+	};
+	if(minute == 60){
+		hour+=1;
+		minute =0;
+	}
+	if(minute<10){
+		minute = '0'+minute;
+	};
+	if(hour == 24){
+		day+=1;
+		hour =0;
+	}
+	if(hour<10){
+		hour = '0'+hour;
+	};
+	if(month == 1||month == 3||month == 5||month == 7||month == 8||month == 10||month == 12){
+		if(day==32){
+			month+=1;
+			day =1;
+		}
+	}else if(month == 2){
+		if(cond) {
+			if(day==30){
+				month+=1;
+				day =1;
+			}
+	    } else {
+	    	if(day==29){
+				month+=1;
+				day =1;
+			}
+	    }
+	}else if(month == 4||month == 6||month == 9||month == 11){
+		if(day==31){
+			month+=1;
+			day =1;
+		}
+	}
+	if(day<10){
+		day = '0'+day;
+	};
+	if(month==13){
+		year+=1;
+		month=1;
+	};
+	if(month<10){
+		month = '0'+month;
+	};
+	/*时间戳赋值*/
+	$('#lineDate').html(year+'年'+month+'月'+day+'日');
+	$("#lineTime").html(hour+':'+minute+':'+second);
+};
+
+function capaChart(container,data_capa,data_finish){
+	Highcharts.chart(container,
+			{
+				chart : {
+					backgroundColor: '#383A4C',
+					type : 'column'
+				},
+				title : {
+					text : '<span style="color:#1771B3;font-size:0.7em;">产能达成状况</span>'
+				},
+				legend: {
+					align: 'left', 			//水平方向位置
+					verticalAlign: 'top', 		//垂直方向位置
+				},
+				xAxis : {
+					min : 0,
+       		    	max : 11,
+       		    	categories: ['08:00-09:00', '09:00-10:00', '10:00-11:00', '11:00-12:00', '12:00-13:00', '13:00-14:00',
+ 		       					'14:00-15:00', '15:00-16:00', '16:00-17:00', '17:00-18:00', '18:00-19:00', '19:00-20:00'],
+					crosshair : true
+				},
+				yAxis : {
+					min : 0,
+					title : {
+						text : null
+					},
+					minRange: 1
+				},
+				tooltip : {
+					headerFormat : '<span style="font-size:0.2em">{point.key}</span><table>',
+					pointFormat : '<tr><td style="color:{series.color};padding:0">{series.name}: </td>'
+							+ '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+					footerFormat : '</table>',
+					shared : true,
+					useHTML : true
+				},
+				plotOptions : {
+					series: {
+       		            animation: {
+       		                duration: 5000,
+       		                easing: 'easeOutBounce'
+       		            }
+       			     },
+       			     column:{
+                        dataLabels:{
+                            enabled:true, // dataLabels设为true
+                            style:{
+                                color:'#D7DEE9'
+                            },
+                            formatter : function(){
+                            	if(this.y=='undefined'){
+                            		this.y = '';
+                            	}
+                            	return this.y
+                            }
+                        }
+                    } 
+				},
+				series : [
+				    {
+						name : '<span style="color:#FFFFFF">目标数</span>',
+						data :data_capa
+					},
+					{
+						name : '<span style="color:#FFFFFF">完成数</span>',
+						data :data_finish
+					},
+					{
+						type : 'line',
+						dashStyle : 'Dash',
+						name : '目标数',
+						data :data_capa,
+						marker : {
+							lineWidth : 3,
+							lineColor : 'blue',
+							fillColor : 'black'
+						}
+					}],
+				credits : {
+					enabled : false
+				},
+				exporting : {
+					enabled : false
+				}
+		});
+}
+/*
+ * 将一个数组分成几个同等长度的数组
+ * array[分割的原数组]
+ * size[每个子数组的长度]
+ */function sliceArray(array, size) {
+    var result = [];
+    for (var x = 0; x < Math.ceil(array.length / size); x++) {
+        var start = x * size;
+        var end = start + size;
+        result.push(array.slice(start, end));
+    }
+    return result;
+}

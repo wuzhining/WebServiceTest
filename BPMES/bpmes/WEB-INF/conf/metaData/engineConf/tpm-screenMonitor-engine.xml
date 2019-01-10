@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<engines>
+	<!-- A6  大屏幕监视 -->
+    <!-- A6.1 设备监视-->
+	<engine engine_code="queryEquipent" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryEquipent" >
+	</engine>
+	
+	<!-- A6.1 设备监视统计-->
+	<engine engine_code="queryEquipentTotal" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryEquipentTotal" >
+	</engine>
+	
+	<!-- A6.1 设备监视列表-->
+	<engine engine_code="queryEquipentMachineList" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryEquipentMachineList" >
+	</engine>
+	
+	<!-- A6.2   工单监视-->
+	<engine engine_code="queryOrderMonitor" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryOrderMonitor" >
+	</engine>
+	
+	<!-- A6.3    报警监视-->
+	<engine engine_code="queryAlarm" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryAlarm" >
+	</engine>
+	
+	<!-- A6.4 OEE综合分析-->
+	<engine engine_code="queryOee" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryOee" >
+	</engine>
+	
+	<!-- A6.5   停机柱状图-->
+	<engine engine_code="queryDowntimeHistogram" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryDowntimeHistogram" >
+	</engine>
+	
+	<!-- A6.6   质量雷达-->
+	<engine engine_code="queryQualityRadar" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryQualityRadar" >
+	</engine>
+</engines>	

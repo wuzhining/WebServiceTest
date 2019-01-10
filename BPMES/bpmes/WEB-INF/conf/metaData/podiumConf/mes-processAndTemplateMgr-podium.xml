@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<podiums>
+    <!-- 模板方法步骤调用统一入口 -->
+    <podium podium_code="tempFunProcessInterface"  podium_name="模板方法步骤调用统一入口  " podium_class="com.iPlant.frame.Template.TemplateMethodHandleManarge" podium_method="handle" attr1="" attr2=""/>
+
+	<podium podium_code="insertProductionInput"  podium_name="生产投入接口" podium_class="com.iPlant.mes.common.InsertBindSnMany" podium_method="execute" attr1="" attr2=""/>
+
+</podiums>

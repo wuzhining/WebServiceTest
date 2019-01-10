@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="">
+
+	<!-- 德富莱包装标签模块 -->
+	<!-- 查询包装标签列表-->
+	<select id="queryContdoc" parameterType="hashmap"
+		resultType="java.util.HashMap">
+		<include refid="oraclePagingFileTop"></include>
+		CONTDOC_ID,CONTAINER_ID,DOC_ID,CONTDOC_SEQ,
+		TO_CHAR(CONTDOC_CREATEDT,'YYYY-MM-DD HH24:MI:SS') AS CONTDOC_CREATEDT,
+		to_char(CONTDOC_MODIFYDT,'YYYY-MM-DD HH24:MI:SS') as CONTDOC_MODIFYDT,
+		CONTDOC_MODIFYBY,CONTDOC_CREATEBY from wms1.wms_containerdoc
+		<where>
+		   1=1
+		   <if test="DOC_ID !=null and DOC_ID !='' "> 
+	    		   AND DOC_ID like '%${DOC_ID}%'      	 
+		   </if>
+		</where>
+		ORDER BY CONTDOC_CREATEDT DESC
+		<include refid="oraclePagingFileBottom"></include>
+	</select>
+
+	<!-- 修改包装标签列表-->
+	<update id="UpdateContdoc" parameterType="java.util.HashMap">		
+			update wms1.wms_containerdoc
+			<set>
+				<if test="CONTAINER_ID !=null  ">
+					CONTAINER_ID='${CONTAINER_ID}',
+				</if>
+				<if test="DOC_ID !=null ">
+					DOC_ID='${DOC_ID}',
+				</if>
+				<if test="CONTDOC_SEQ !=null ">
+					CONTDOC_SEQ='${CONTDOC_SEQ}',
+				</if>
+				<if test="F_USE_CD !=null">
+					CONTDOC_MODIFYBY='${F_USE_CD}',
+				</if>
+				CONTDOC_MODIFYDT= SYSDATE
+			</set>
+			<where>
+				CONTDOC_ID='${CONTDOC_ID}'
+			</where>		
+	</update>
+
+	<!-- 新增包装标签列表-->
+	<insert id="InsertContdoc" parameterType="hashmap">
+		insert into wms1.wms_containerdoc
+		(
+		CONTDOC_ID,
+		CONTAINER_ID,
+		DOC_ID,
+		CONTDOC_SEQ,
+		CONTDOC_CREATEDT,
+		CONTDOC_CREATEBY
+		)
+     VALUES
+		(		
+			'${CONTDOC_ID}',
+			'${CONTAINER_ID}',
+			'${DOC_ID}',
+			'${CONTDOC_SEQ}',
+			SYSDATE,
+			'${F_USE_CD}'
+		)
+	</insert>
+
+	<!-- 删除包装信息列表 -->
+	<delete id="DeleteContdoc" parameterType="hashmap">
+
+		delete wms1.wms_containerdoc
+		<where>
+			CONTDOC_ID='${CONTDOC_ID}'
+		</where>
+	</delete>
+	
+	<!-- 获得包装箱id-->
+	<select id="GetidContdoc" parameterType="hashmap" resultType="java.util.HashMap"> 
+	   SELECT wms1.containerdocid.nextval AS CONTDOC_ID FROM DUAL
+	</select>
+</mapper>

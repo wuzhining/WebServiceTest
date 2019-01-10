@@ -1,0 +1,2378 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="">
+
+
+
+	<!-- 拉式物料看板 -->
+	<select id="queryPullMaterialKanban" parameterType="hashmap" resultType="java.util.HashMap">
+		<include refid="oraclePagingFileTop"></include>
+		       T1.WC_CD,
+		       (SELECT A.PL_NM FROM IPLANT1.C_IPLANT_P1_T A WHERE A.PL_CD = T1.WC_CD) AS WC_NM, 
+		       T1.MO_NO,
+		       T1.WO_NO,
+		       T1.LINE_CD,
+		       '上料' AS STA_ON,
+		       T2.MAT_CD     AS ITEM_CD,
+		       T4.ITEM_NM,
+		       (T1.PLAN_WO_QTY-T1.PROD_QTY)*T2.USR_DFN_1   AS PLAN_WO_QTY,
+		       '原材料仓1' AS WH_NM, 
+		       'C001' AS WH_LIBRARY,
+		       T1.PROD_QTY,
+		       T1.CAPA,
+<!-- 		       T3.DICT_IT_NM AS MO_STATE_NM, -->
+               '正在生产'    AS MO_STATE_NM,
+<!-- 		       (T1.PLAN_WO_QTY-T1.PROD_QTY) AS SHENYU_QTY, -->
+<!-- 		       TRUNC(((T1.PLAN_WO_QTY-T1.PROD_QTY)/T1.CAPA)*60,2) AS SHENYU_TM, -->
+                T2.ISSUE_QTY  AS SHENYU_QTY,
+                TRUNC(((T2.ISSUE_QTY)/T1.CAPA)*60,2) AS SHENYU_TM,
+		       TO_CHAR(T2.CRT_DT, 'YYYY-MM-DD HH24:MI:SS') AS CRT_DT
+		    FROM MES1.R_MES_WO_T T1
+		    LEFT JOIN MES1.R_MES_CALL_MAT2_T T2
+		    ON T1.WO_NO=T2.WO_NO 
+		    AND T1.MO_NO= T2.MO_NO
+		    LEFT JOIN IPLANT1.C_IPLANT_DD_T T3 ON T1.WO_STATE=T3.DICT_IT
+		    LEFT JOIN MES1.R_MES_ITEM_T     T4 ON T2.MAT_CD = T4.ITEM_CD
+		    WHERE T1.WO_STATE = '9'
+		  AND T1.LINE_CD  ='${LINE_CD}' 
+	  <include refid="oraclePagingFileBottom"></include>
+	</select>
+	
+	<select id="queryPullMaterialKanban_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT
+		  COUNT(1) AS ROWS_COUNT
+		FROM MES1.R_MES_WO_T T1
+		LEFT JOIN MES1.R_MES_CALL_MAT_T T2
+		ON T1.WO_NO=T2.WO_NO 
+		AND T1.MO_NO= T2.MO_NO
+		AND T1.ITEM_CD = T2.ITEM_CD
+		LEFT JOIN IPLANT1.C_IPLANT_DD_T T3 ON T1.WO_STATE=T3.DICT_IT
+		WHERE T1.WO_STATE = '9'
+		  AND T1.LINE_CD  ='${LINE_CD}' 
+	</select>
+	
+	<!-- AOI光学检测设备看板   START-->
+	<!-- AOI工单信息 -->
+	<select id="queryAOIMoInfo" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap">
+		       
+	   {call MES1.R_MES_REPORT_KANBAN.R_AOI_MO_INFO_P('${REQ_TIME}','${LINE_CD}','${ET_CD}',
+	  #{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=screenMonitorTotMap},#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, #{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},#{MESSAGE,jdbcType=VARCHAR,mode=OUT,javaType=String})}     
+		       
+	</select>
+	<!-- AOI次品示意图 -->
+	<select id="queryAOISketchMap" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT 
+	         AOI_NG_NA,
+	         COUNT(*) AS AOI_NUM
+	    FROM MES1.H_MES_AOI_S
+	    WHERE
+	    AOI_CRT_DT between TO_DATE('${REQ_TIME}','yyyy-mm-dd hh24:mi:ss')  
+	    AND TO_DATE('${REQ_TIME}','yyyy-mm-dd hh24:mi:ss')+ 12/24
+	    AND LINE_CD = '${LINE_CD}'  
+	    GROUP BY AOI_NG_NA
+	</select>
+	<!-- AOI机器状态示意图 -->
+	<select id="queryAOIMachineStateDiagram" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap">
+	 {call MES1.R_MES_REPORT_KANBAN.R_STATE_DIAGRAM_P('${REQ_TIME}','${LINE_CD}','${ET_CD}',
+   #{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=screenMonitorTotMap},#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, #{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},#{MESSAGE,jdbcType=VARCHAR,mode=OUT,javaType=String})}     
+	</select>
+	<!-- AOI设备综合状况 -->
+	<select id="queryAOIEquipmentSituation" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap">
+	 {call MES1.R_MES_REPORT_KANBAN.R_EQU_SITUATION_P('${REQ_TIME}','${LINE_CD}','${ET_CD}',
+   #{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=screenMonitorTotMap},#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, #{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},#{MESSAGE,jdbcType=VARCHAR,mode=OUT,javaType=String})}     
+	</select>
+	<!-- AOI光学检测设备看板   END-->
+	
+	<!-- SMT拉头看板    START -->
+	<!-- SMT产能达成状况 -->
+	<select id="querySmtCapacityReach" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap">
+	{call MES1.R_MES_REPORT_KANBAN.R_REACH_CUR_P('${REQ_TIME}','${LINE_CD}','${ET_CD}',
+   #{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=screenMonitorTotMap},#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, #{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},#{MESSAGE,jdbcType=VARCHAR,mode=OUT,javaType=String})}
+	</select>
+	
+	<!-- SMT工单生产信息 -->
+	<select id="querySmtWorkProInfo" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT 
+		  DISTINCT
+		  T1.WO_NO,
+		  T1.MO_NO,
+		  T1.PLAN_WO_QTY,
+		  T1.PROD_QTY,
+		  ROUND((T1.PROD_QTY/T1.PLAN_PO_QTY),2)*100 || '%' AS COM_RATE,
+		  T1.CAPA,
+		  (T1.PLAN_PO_QTY-T1.PROD_QTY)/T1.CAPA AS SUR_NUM,
+		 <!--  TO_DATE(   
+    TO_CHAR(SYSDATE + ((T1.PLAN_PO_QTY-T1.PROD_QTY)/T1.CAPA)/24,    'YYYY-MM-DD HH24:MI:SS'),  
+    'YYYY-MM-DD HH24:MI:SS')  AS SURPLUS -->
+        TO_CHAR((SYSDATE + ((T1.PLAN_PO_QTY-T1.PROD_QTY)/T1.CAPA)/24),'YYYY-MM-DD HH24:MI:SS') AS SURPLUS
+		FROM MES1.R_MES_WO_T T1
+		LEFT JOIN MES1.R_MES_OP_LOT_T T2
+		ON T1.WO_NO = T2.WO_NO AND T1.MO_NO = T2.MO_NO
+		WHERE
+		T2.ROUT_CD =(SELECT TO_ROUT_CD FROM MES1.R_MES_MO_PRF_CONF_T T8 WHERE T8.MO_NO = T1.MO_NO AND T8.FROM_ROUT_CD ='START')
+		AND T1.LINE_CD ='${LINE_CD}'
+		AND T1.WO_STATE='9'
+	</select>
+	<!-- SMT工单生产与计划信息 -->
+	<select id="querySmtWorkProductionAndPlanning" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT 
+	        T1.WO_NO,
+	        T1.PLAN_PO_QTY,
+	        T1.PLAN_WO_QTY,
+	        T1.LINE_CD,
+	        T1.WC_CD,
+	        T1.MO_NO,
+	        T1.ITEM_CD,
+	        T1.ITEM_NM,
+	        T1.PROD_QTY,
+	        ROUND((PLAN_WO_QTY/PLAN_PO_QTY),2)*100 || '%' AS PLAN_RATE,
+	        T1.CAPA
+	    FROM MES1.R_MES_WO_T T1
+	    LEFT JOIN MES1.R_MES_OP_LOT_T T2
+	    ON T1.WO_NO = T2.WO_NO 
+	    AND T1.MO_NO = T2.MO_NO
+	    WHERE 
+	    T2.CRT_DT between TO_DATE('${REQ_TIME}','yyyy-mm-dd hh24:mi:ss')  
+	    AND TO_DATE('${REQ_TIME}','yyyy-mm-dd hh24:mi:ss')+12/24
+	    AND T1.WO_STATE='9'
+	    AND T1.LINE_CD ='${LINE_CD}'
+	    GROUP BY 
+	      T1.WO_NO,
+	      T1.PLAN_PO_QTY,
+	      T1.PLAN_WO_QTY,
+	      T1.LINE_CD,
+	      T1.WC_CD,
+	      T1.MO_NO,
+	      T1.ITEM_CD,
+	      T1.ITEM_NM,
+	      T1.PROD_QTY,
+	      T1.CAPA
+	</select>
+	<!-- SMT工单设备监视 -->
+	<select id="querySmtWorkEquipmentMonitoring" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT 
+		   T1.LINE_CD,
+		   T6.WO_NO,
+           T6.MO_NO,
+		   T1.ET_CD,
+		   T4.ET_NM,
+		   T6.PLAN_PO_QTY,
+           T6.PROD_QTY,
+		   T4.ET_PL,
+		   T2.DICT_IT,
+		   T2.DICT_IT_NM,
+		   ceil(((To_date(to_char(SYSDATE, 'yyyy-mm-dd hh24:mi:ss') , 'yyyy-mm-dd hh24:mi:ss') - 
+		     To_date( to_char(T2.BGN_DATE,'yyyy-mm-dd hh24:mi:ss') ,'yyyy-mm-dd hh24:mi:ss')
+		   )) * 24*60) AS DEF_A,
+		   T2.EMP_CD,
+		   T5.DICT_IT_01,
+		   T5.DICT_IT_NM_01,
+		   T5.TOT_TINGJI
+		   FROM MES1.R_MES_ET_LINE_T T1 
+		   LEFT JOIN TPM1.R_TPM_S1_T T2 ON T1.ET_CD = T2.ET_CD
+		   LEFT JOIN  IPLANT1.C_IPLANT_E2_T T4 ON T1.ET_CD = T4.ET_CD
+		   LEFT JOIN MES1.R_MES_WO_T T6 ON T2.DO_CD = T6.WO_NO 
+		   LEFT JOIN
+		   (
+		   
+		   SELECT
+		        A.ET_CD,
+		        A.DICT_IT_01,
+		        A.DICT_IT_NM_01,
+		        SUM(A.DEF_A)     AS TOT_TINGJI
+		        FROM
+		        (
+		    SELECT 
+		      ET_CD,
+		      DO_CD,
+		      DICT_IT_01,
+		      DICT_IT_NM_01,
+		      ceil(((To_date(to_char(NVL(END_DATE,SYSDATE), 'yyyy-mm-dd hh24:mi:ss') , 'yyyy-mm-dd hh24:mi:ss') - 
+		     To_date( to_char(BGN_DATE ,'yyyy-mm-dd hh24:mi:ss') ,'yyyy-mm-dd hh24:mi:ss')
+		
+		   )) * 24*60)  AS  DEF_A
+		   FROM TPM2.H_TPM_S1_T
+		   WHERE  BGN_DATE between TO_DATE('${REQ_TIME}','yyyy-mm-dd hh24:mi:ss')  
+		     AND  TO_DATE('${REQ_TIME}','yyyy-mm-dd hh24:mi:ss')+12/24
+		     ) A
+		     GROUP BY A.ET_CD,
+		        A.DICT_IT_01,
+		        A.DICT_IT_NM_01 
+		   ) T5   ON T2.ET_CD = T5.ET_CD
+		   WHERE T1.LINE_CD ='${LINE_CD}'
+	</select>
+	<!-- SMT拉头看板    END -->
+	
+	<!-- SPI锡膏检测设备看板   START -->
+	<!-- SPI工单信息 -->
+	<select id="querySPIMoInfo" parameterType="hashmap" resultType="java.util.HashMap">
+		 SELECT 
+		  WO_NO,
+		  MO_NO,
+		  ITEM_CD,
+		  ITEM_NM,
+		  PLAN_WO_QTY,
+		  'SPI锡膏检测' AS   CHENGX,
+		  CAPA,
+		  PROD_QTY,
+		  T2.DICT_IT,
+		  T2.DICT_IT_NM,
+		  ceil(((To_date(to_char(SYSDATE, 'yyyy-mm-dd hh24:mi:ss') , 'yyyy-mm-dd hh24:mi:ss') - 
+		     To_date( to_char(BGN_DATE,'yyyy-mm-dd hh24:mi:ss') ,'yyyy-mm-dd hh24:mi:ss')
+		
+		   )) * 24*60)  AS  DEF_A,
+		   T3.ET_CD,
+		   T3.DO_CD,
+		   T3.DICT_IT_01,
+		   T3.DICT_IT_NM_01,
+		   T3.TOT_TINGJI
+		 FROM MES1.R_MES_WO_T  T1
+		 LEFT JOIN  TPM1.R_TPM_S1_T T2 ON T1.WO_NO = T2.DO_CD AND T2.ET_CD ='SPI'
+		 LEFT JOIN  
+		 (SELECT 
+		        A.ET_CD,
+		        A.DO_CD,
+		        A.DICT_IT_01,
+		        A.DICT_IT_NM_01,
+		        SUM(A.DEF_B)     AS TOT_TINGJI
+		        FROM
+		 (  SELECT 
+		      ET_CD,
+		      DO_CD,
+		      DICT_IT_01,
+		      DICT_IT_NM_01,
+		      ceil(((To_date(to_char(NVL(END_DATE,SYSDATE), 'yyyy-mm-dd hh24:mi:ss') , 'yyyy-mm-dd hh24:mi:ss') - 
+		     To_date( to_char(BGN_DATE ,'yyyy-mm-dd hh24:mi:ss') ,'yyyy-mm-dd hh24:mi:ss')
+		
+		   )) * 24*60)  AS  DEF_B
+		   FROM TPM2.H_TPM_S1_T
+		   WHERE  BGN_DATE between TO_DATE('${REQ_TIME}','yyyy-mm-dd hh24:mi:ss')  
+		     AND  TO_DATE('${REQ_TIME}','yyyy-mm-dd hh24:mi:ss')+12/24
+		     AND  ET_CD='${ET_CD}'
+		     ) A
+		     GROUP BY A.ET_CD,
+		        A.DICT_IT_01,
+		        A.DICT_IT_NM_01,
+		        A.DO_CD  ) T3   ON T1.wo_no =t3.DO_CD
+     		WHERE T1.WO_STATE ='9'
+     		  AND T1.LINE_CD ='${LINE_CD}'
+	</select>
+	<!-- SPI次品示意图 -->
+	<select id="querySPISketchMap" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT 
+		     SPI_T_R,
+		     COUNT(*) AS SPI_NUM 
+		FROM MES1.H_MES_SPI_S
+		WHERE
+		SPI_CRT_DT between TO_DATE('${REQ_TIME}','yyyy-mm-dd hh24:mi:ss')  
+		AND TO_DATE('${REQ_TIME}','yyyy-mm-dd hh24:mi:ss')+ 12/24
+		AND LINE_CD = '${LINE_CD}'
+		GROUP BY SPI_T_R  
+	</select>
+	<!-- 半成品测试设备看板   START -->
+	<!-- SFPT工单信息 -->
+	
+	<select id="querySFPTMoInfo" parameterType="hashmap" resultType="java.util.HashMap"></select>
+	<!-- SFPT次品示意图 -->
+	
+	<select id="querySFPTSketchMap" parameterType="hashmap" resultType="java.util.HashMap"></select>
+	<!-- SFPT机器状态示意图 -->
+	
+	<select id="querySFPTMachineStateDiagram" parameterType="hashmap" resultType="java.util.HashMap"></select>
+	<!-- SFPT设备综合状况 -->
+	
+	<select id="querySFPTEquipmentSituation" parameterType="hashmap" resultType="java.util.HashMap"></select>
+	<!-- 半成品测试设备看板   END -->
+	
+	
+	<!-- 波峰炉综合看板   START -->
+	<!-- WFSK工单信息 -->
+	<select id="queryWFSKMoInfo" parameterType="hashmap" resultType="java.util.HashMap"></select>
+	<!-- WFSK次品示意图 -->
+	<select id="queryWFSKSketchMap" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT
+		
+		  MO_NO,
+		  WO_NO,
+		  WC_NO,
+		  LINE_CD,
+		  SHIFT_CD,
+		  ITEM_CD,
+		  MODEL_CD,
+		  TEMPER_1,
+		  TEMPER_2,
+		  TEMPER_3,
+		  TEMPER_4,
+		  TEMPER_5,
+		  TEMPER_6,
+		  WIND_SP_1,
+		  WIND_SP_2,
+		  WIND_SP_3,
+		  WIND_SP_4,
+		  WIND_SP_5,
+		  WIND_SP_6,
+		  HEIGTH_1,
+		  HEIGTH_2,
+		  HEIGTH_3,
+		  HEIGTH_4,
+		  HEIGTH_5,
+		  HEIGTH_6
+		FROM MES1.H_MES_WAVE_WELDER_M
+		where CRT_DT
+		=(
+		SELECT MAX(CRT_DT) AS RT_DT FROM MES1.H_MES_WAVE_WELDER_M
+		)
+		AND LINE_CD = '${LINE_CD}'
+		AND MODEL_CD = '${ET_CD}'
+	
+	</select>
+	<!-- WFSK机器状态示意图 -->
+	
+	<select id="queryWFSKMachineStateDiagram" parameterType="hashmap" resultType="java.util.HashMap"></select>
+	<!-- WFSK设备综合状况 -->
+	
+	<select id="queryWFSKEquipmentSituation" parameterType="hashmap" resultType="java.util.HashMap"></select>
+	<!-- 波峰炉综合看板   END -->
+	
+	
+	<!-- 成品测试设备   START -->
+	<!-- FPTE工单信息 -->
+	
+	<select id="queryFPTEMoInfo" parameterType="hashmap" resultType="java.util.HashMap"></select>
+	<!-- FPTE次品示意图 -->
+	<select id="queryFPTESketchMap" parameterType="hashmap" resultType="java.util.HashMap">
+	    SELECT 
+		   TEST_ITEMS,
+		   COUNT(*) AS NUM_QTY
+		FROM
+		(
+		  SELECT
+		    ROUT_CD,
+		    TEST_ITEMS
+		  FROM
+		  MES1.R_MES_AUTO_TEST_T
+		  WHERE CRT_DT between TO_DATE('${REQ_TIME}','yyyy-mm-dd hh24:mi:ss')  
+		  AND TO_DATE('${REQ_TIME}','yyyy-mm-dd hh24:mi:ss')+12/24
+		  AND ROUT_CD IN('${TEST_EQ_ONE}','${TEST_EQ_TWO}')
+		)
+		GROUP BY TEST_ITEMS
+	</select>
+	<!--FPTE机器状态示意图 -->
+	
+	<select id="queryFPTEMachineStateDiagram" parameterType="hashmap" resultType="java.util.HashMap"></select>
+	<!-- FPTE设备综合状况 -->
+	
+	<select id="queryFPTEEquipmentSituation" parameterType="hashmap" resultType="java.util.HashMap"></select>
+	<!-- 成品测试设备   END -->
+	
+	
+	<!-- 分板机看板  START -->
+	<!-- SBMK工单信息 -->
+	<select id="querySBMKMoInfo" parameterType="hashmap" resultType="java.util.HashMap">
+		
+	</select>
+	<!-- SBMK设备产能 -->
+	<select id="querySBMKSketchMap" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap">
+		{call MES1.R_MES_REPORT_KANBAN.R_SKETCH_MAP_P('${REQ_TIME}','${LINE_CD}','${ET_CD}',
+	  #{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=screenMonitorTotMap},#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, #{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},#{MESSAGE,jdbcType=VARCHAR,mode=OUT,javaType=String})}
+	</select>
+	
+	<!--SBMK机器状态示意图 -->
+	
+	<select id="querySBMKMachineStateDiagram" parameterType="hashmap" resultType="java.util.HashMap"></select>
+	<!-- SBMK设备综合状况 -->
+	
+	<select id="querySBMKEquipmentSituation" parameterType="hashmap" resultType="java.util.HashMap"></select>
+	<!-- 分板机看板  END -->
+	
+	<!-- 缓存设备  START -->
+	<!-- CD工单信息 -->
+	
+	<select id="queryCDMoInfo" parameterType="hashmap" resultType="java.util.HashMap"></select>
+	<!-- CD缓存明细 -->
+	<select id="queryCDSketchMap" parameterType="hashmap" resultType="java.util.HashMap">
+		
+	</select>
+	<!-- CD机器状态示意图 -->
+	
+	<select id="queryCDMachineStateDiagram" parameterType="hashmap" resultType="java.util.HashMap"></select>
+	<!-- CD设备综合状况 -->
+	
+	<select id="queryCDEquipmentSituation" parameterType="hashmap" resultType="java.util.HashMap"></select>
+	<!-- 缓存设备   END -->
+	
+	
+	
+	<!-- 回流炉设备看板  START -->
+	<!-- ROEK工单信息 -->
+	<select id="queryROEKMoInfo" parameterType="hashmap" resultType="java.util.HashMap"></select>
+	<!-- ROEK参数监控 -->
+	<select id="queryROEKSketchMap" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT 
+		  MO_NO,
+		  WO_NO,
+		  WC_CD,
+		  LINE_CD,
+		  SHIFT_CD,
+		  ITEM_CD,
+		  MODEL_CD,
+		  TEMPER_1,
+		  TEMPER_2,
+		  TEMPER_3,
+		  TEMPER_4,
+		  TEMPER_5,
+		  TEMPER_6,
+		  WIND_SP_1,
+		  WIND_SP_2,
+		  WIND_SP_3,
+		  WIND_SP_4,
+		  WIND_SP_5,
+		  WIND_SP_6
+		FROM MES1.H_MES_OVEN_WELDER_M
+		WHERE RT_DT
+		=(
+			SELECT MAX(RT_DT) AS RT_DT FROM MES1.H_MES_OVEN_WELDER_M
+		)
+		AND LINE_CD = '${LINE_CD}'
+		AND MODEL_CD = '${ET_CD}'
+	</select>
+	<!-- ROEK机器状态示意图 -->
+	
+	<select id="queryROEKMachineStateDiagram" parameterType="hashmap" resultType="java.util.HashMap"></select>
+	<!-- ROEK设备综合状况 -->
+	
+	<select id="queryROEKEquipmentSituation" parameterType="hashmap" resultType="java.util.HashMap"></select>
+	<!-- 回流炉设备看板   END -->
+	
+	
+	<!-- 生产拉头看板  START -->
+	<!-- 拉线人员 -->
+	<select id="queryLinecdHummer" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT 
+		   T1.EMP_CD,
+		   T1.EMP_NM,
+		   A1.PS_NM,
+		   T1.TEL,
+		   T1.EMP_PIC
+		FROM IPLANT1.C_IPLANT_E1_T T1
+		LEFT JOIN MES1.R_MES_LINE_HUM_T T2
+		ON T1.EMP_CD = T2.PER_HUM
+		LEFT JOIN IPLANT1.C_IPLANT_P2_T A1 ON T1.PS_CD = A1.PS_CD
+		WHERE T1.EMP_CD IN(
+		  SELECT 
+		      PER_HUM 
+		  FROM R_MES_LINE_HUM_T 
+		  WHERE LINE_CD = '${LINE_CD}'
+		)
+	</select>
+	<!-- 主信息 -->
+	<select id="queryProductionPullHeader" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT
+      DISTINCT
+      T1.WO_NO,
+      T1.MO_NO, 
+      T1.LINE_CD,
+      T1.PLAN_PO_QTY,
+      T1.PLAN_STRT_DT,
+      T1.PROD_QTY,
+      T1.ITEM_CD,
+      T1.PLAN_WO_QTY,
+      T3.LINE_QTY,
+      T1.CAPA,
+      T1.MODEL_NM,
+      T1.MODEL_CD,
+      (T1.PLAN_PO_QTY - T1.PROD_QTY) AS NO_QTY,
+      ROUND((T1.PROD_QTY/T1.PLAN_PO_QTY),2)*100|| '%' AS COM_RATE
+		FROM MES1.R_MES_WO_T T1
+		LEFT JOIN
+		MES1.R_MES_OP_LOT_T T2
+		ON T1.WO_NO = T2.WO_NO AND T1.MO_NO = T2.MO_NO
+		LEFT JOIN 
+		(
+		  SELECT
+		     LINE_CD,
+		     COUNT(*) AS LINE_QTY
+		  FROM
+		  MES1.R_MES_LINE_HUM_T
+		  GROUP BY LINE_CD
+		) T3 ON T1.LINE_CD = T3.LINE_CD 
+		WHERE T1.LINE_CD = '${LINE_CD}'
+		AND T1.WO_STATE='9'
+	</select>
+	<!-- 产能达成状况 -->
+	<select id="queryCapacityReach" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap">
+		 {call MES1.R_MES_REPORT_KANBAN.R_CAPACITY_REACH_P('${REQ_TIME}','${LINE_CD}','${ET_CD}',
+	  #{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=screenMonitorTotMap},#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, #{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},#{MESSAGE,jdbcType=VARCHAR,mode=OUT,javaType=String})}
+	</select>
+	<!-- 生产拉头看板    END -->
+	
+	
+	<!-- 生产拉尾看板   START -->
+	<!-- PT产能达成状况 -->
+	<select id="queryPTCapacityReach" parameterType="hashmap" statementType="CALLABLE"  resultType="java.util.HashMap">
+	    {call MES1.R_MES_REPORT_KANBAN.R_LAST_CAPACITY_REACH_P('${REQ_TIME}','${LINE_CD}','${ET_CD}',
+	  #{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=screenMonitorTotMap},#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, #{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},#{MESSAGE,jdbcType=VARCHAR,mode=OUT,javaType=String})}
+	</select>
+	<!-- PT生产与计划信息 -->
+	<select id="queryPTWorkProductionAndPlanning" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT 
+			  T1.WO_NO,
+			  T1.PLAN_PO_QTY,
+			  T1.PLAN_WO_QTY,
+			  T1.LINE_CD,
+			  T1.WC_CD,
+			  T1.MO_NO,
+			  T1.ITEM_CD,
+			  T1.ITEM_NM,
+			  T1.PROD_QTY,
+			  ROUND((PROD_QTY/PLAN_WO_QTY),2)*100 || '%' AS PLAN_RATE,
+			  T1.CAPA
+		FROM MES1.R_MES_WO_T T1
+		LEFT JOIN MES1.R_MES_OP_LOT_T T2
+		ON T1.WO_NO = T2.WO_NO 
+		AND T1.MO_NO = T2.MO_NO
+		WHERE 
+		T2.CRT_DT between TO_DATE('${REQ_TIME}','yyyy-mm-dd hh24:mi:ss')  
+		AND TO_DATE('${REQ_TIME}','yyyy-mm-dd hh24:mi:ss')+12/24
+		AND T1.WO_STATE ='9'
+		GROUP BY 
+			T1.WO_NO,
+			T1.PLAN_PO_QTY,
+			T1.PLAN_WO_QTY,
+			T1.LINE_CD,
+			T1.WC_CD,
+			T1.MO_NO,
+			T1.ITEM_CD,
+			T1.ITEM_NM,
+			T1.PROD_QTY,
+			T1.CAPA
+	</select>
+	<!-- WIP状态 -->
+	<select id="queryPTWipState" parameterType="hashmap" resultType="java.util.HashMap">
+	
+	</select>
+	
+	<!-- 异常种类 -->
+	<select id="queryPTAbnormalSpecies" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT 
+		     A.WO_NO,
+		     A.MO_NO,
+		     A.LINE_CD,
+		     A.SHIFT_CD,
+		     A.QC_DFCT_CD,
+		     A.DFCT_QTY,
+		     A.MT_DEF_NM,
+		     B.TOT_DFCT_QTY,
+		     ROUND((A.DFCT_QTY/B.TOT_DFCT_QTY),2)*100 AS CIPIN_RATE
+		    FROM   
+		    (
+		    SELECT 
+		     T1.WO_NO,
+		     T1.MO_NO,
+		     T1.LINE_CD,
+		     T1.SHIFT_CD,
+		     T2.QC_DFCT_CD,
+		     COUNT(*)     AS  DFCT_QTY,
+		     T3.MT_DEF_NM
+		    FROM MES1.R_MES_WO_T T1
+		    JOIN  MES1.R_MES_IPQC_DTL_T   T2  ON T1.WO_NO = T2.WO_NO AND T1.MO_NO = T2.MO_NO AND T1.LINE_CD = T2.LINE_CD 
+		    LEFT JOIN  MES1.R_MES_MT_DEF_DTL_T T3  ON T2.QC_DFCT_CD = T3.MT_DEF_CD
+		    WHERE T1.LINE_CD = '${LINE_CD}'
+		      AND T1.WO_STATE ='9'
+		      AND T2.CRT_DT between TO_DATE('${REQ_TIME}','yyyy-mm-dd hh24:mi:ss')  
+		      AND TO_DATE('${REQ_TIME}','yyyy-mm-dd hh24:mi:ss')  +12/24
+		      GROUP BY   
+		       T1.WO_NO,
+               T1.MO_NO,
+               T1.LINE_CD,
+               T1.SHIFT_CD,
+               T2.QC_DFCT_CD,
+               T3.MT_DEF_NM
+		     ) A
+		     JOIN (
+		      SELECT 
+		     T1.WO_NO,
+		     T1.MO_NO,
+		     T1.LINE_CD,
+		     T1.SHIFT_CD,
+		     COUNT(*)     AS  TOT_DFCT_QTY
+		    FROM MES1.R_MES_WO_T T1
+		    JOIN  MES1.R_MES_IPQC_DTL_T   T2  ON T1.WO_NO = T2.WO_NO AND T1.MO_NO = T2.MO_NO AND T1.LINE_CD = T2.LINE_CD
+		    WHERE T1.LINE_CD = '${LINE_CD}'
+		      AND T1.WO_STATE ='9'
+		      AND T2.CRT_DT between TO_DATE('${REQ_TIME}','yyyy-mm-dd hh24:mi:ss')  
+		      AND TO_DATE('${REQ_TIME}','yyyy-mm-dd hh24:mi:ss') +12/24 
+		      GROUP BY
+	           T1.WO_NO,
+               T1.MO_NO,
+               T1.LINE_CD,
+               T1.SHIFT_CD
+		     )B   ON A.WO_NO =B.WO_NO AND A.MO_NO = B.MO_NO AND A.LINE_CD = B.LINE_CD AND A.SHIFT_CD = B.SHIFT_CD
+	</select>
+	<!-- 生产拉尾看板   END -->
+	
+	
+	<!-- 生产综合看板  START -->
+	<!-- 表格显示信息 -->
+	<select id="queryComprehensiveProduction" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT 
+		   WC_CD,
+		   (SELECT A.PL_NM FROM IPLANT1.C_IPLANT_P1_T A WHERE A.PL_CD = WC_CD) AS WC_NM,
+		   LINE_CD,
+		   (SELECT B.PD_LN_NM FROM IPLANT1.C_IPLANT_P5_T B WHERE B.PD_LN_CD =LINE_CD) AS LINE_NM,
+		   MO_NO,
+		   WO_NO,
+		   ITEM_CD,
+		   ITEM_NM,
+		   PLAN_PO_QTY,
+		   PROD_QTY,
+		   PLAN_WO_QTY,
+		   ROUND((PROD_QTY/PLAN_WO_QTY),2)*100 || '%' AS PLAN_RATE, 
+		   CAPA
+		FROM MES1.R_MES_WO_T
+		WHERE WO_STATE = '9'
+	</select>
+	<!-- 折线图信息 -->
+	<select id="queryCPBrokenLineGraph" parameterType="hashmap" statementType="CALLABLE"  resultType="java.util.HashMap">
+	   {call MES1.R_MES_REPORT_KANBAN.R_LINE_GRAPH_P('${REQ_TIME}','${LINE_CD}','${ET_CD}',
+	  #{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=screenMonitorTotMap},#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, #{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},#{MESSAGE,jdbcType=VARCHAR,mode=OUT,javaType=String})}     
+	</select>
+	
+	<!-- 原材料利用率 -->
+	<select id="queryUtilizationRateOfRawMaterials" parameterType="hashmap" resultType="java.util.HashMap">
+			
+	</select>
+	<!-- 缺陷排名 -->
+	<select id="queryCPDefectRanking" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT 
+		     A.WO_NO,
+		     A.MO_NO,
+		     A.LINE_CD,
+		     A.SHIFT_CD,
+		     A.QC_DFCT_CD,
+		     A.DFCT_QTY,
+		     A.QC_DFCT_CD,
+		     A.MT_DEF_NM
+		FROM   
+		(SELECT 
+		 T1.WO_NO,
+		 T1.MO_NO,
+		 T1.LINE_CD,
+		 T1.SHIFT_CD,
+		 T2.QC_DFCT_CD,
+		 COUNT(*)     AS  DFCT_QTY,
+		 T3.MT_DEF_NM
+	   FROM MES1.R_MES_WO_T T1
+	   JOIN  MES1.R_MES_IPQC_DTL_T   T2  ON T1.WO_NO = T2.WO_NO AND T1.MO_NO = T2.MO_NO AND T1.LINE_CD = T2.LINE_CD 
+	   LEFT JOIN  MES1.R_MES_MT_DEF_DTL_T T3  ON T2.QC_DFCT_CD = T3.MT_DEF_CD
+	   WHERE T1.LINE_CD = '${LINE_CD}'
+	   AND T1.WO_STATE ='9'
+	   AND T2.IPQC_RSLT = 'fail'
+	   AND T2.CRT_DT between TO_DATE('${REQ_TIME}','yyyy-mm-dd hh24:mi:ss')  
+	   AND TO_DATE('${REQ_TIME}','yyyy-mm-dd hh24:mi:ss')+ 12/24  
+	   GROUP BY
+	     T1.WO_NO,
+	     T1.MO_NO,
+	     T1.LINE_CD,
+	     T1.SHIFT_CD,
+	     T2.QC_DFCT_CD,
+	     T3.MT_DEF_NM
+		) A
+		ORDER BY A.DFCT_QTY DESC
+	</select>
+	<!-- 停机异常 -->
+	
+	<select id="queryCPAbnormalShutdown" parameterType="hashmap" resultType="java.util.HashMap"></select>
+	<!-- 生产综合看板  END -->
+	
+	
+	<!-- 松下贴片设备看板    START -->
+	<!-- 松下贴片工单信息 -->
+	<select id="queryWoPanasonicPatch" parameterType="hashmap" resultType="java.util.HashMap">
+	</select>
+	<!-- 前五抛料率 -->
+	<select id="queryFirstFiveThrowRate" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT
+		    DISTINCT
+		    T3.Z_ADD,
+		    T3.MO_NO,
+		    T3.WO_NO,
+		    T3.WC_CD,
+		    T3.LINE_CD,
+		    T3.SHIFT_CD,
+		    T3.ITEM_CD,
+		    T5.TAKE_TYPE,
+		    T5.MODEL_CD,
+		    T5.Z_QTY,
+		    T4.Z_QTY_SUM,
+		    ROUND((T5.Z_QTY/T4.Z_QTY_SUM),2)*100 || '%' AS Z_RATE
+		FROM 
+		MES1.H_MES_SMT_S T3
+		LEFT JOIN
+		(
+		  SELECT
+		      T1.Z_ADD,
+		      T1.MO_NO,
+		      T1.WO_NO,
+		      T1.WC_CD,
+		      T1.LINE_CD,
+		      T1.SHIFT_CD,
+		      T1.ITEM_CD,
+		      T1.MODEL_CD,
+		      SUM(NP_QTY) AS Z_QTY_SUM
+		  FROM MES1.H_MES_SMT_S T1
+		  GROUP BY
+		    T1.Z_ADD,
+		    T1.MO_NO,
+		    T1.WO_NO,
+		    T1.WC_CD,
+		    T1.LINE_CD,
+		    T1.SHIFT_CD,
+		    T1.ITEM_CD,
+		    T1.MODEL_CD
+		) T4 ON T3.Z_ADD = T4.Z_ADD AND T3.MO_NO = T4.MO_NO
+		LEFT JOIN
+		(
+		  SELECT
+		      Z_ADD,
+		      MO_NO,
+		      WO_NO,
+		      WC_CD,
+		      LINE_CD,
+		      SHIFT_CD,
+		      ITEM_CD,
+		      TAKE_TYPE,
+		      MODEL_CD,
+		      SUM(NP_QTY) AS Z_QTY
+		  FROM MES1.H_MES_SMT_S
+		  WHERE TAKE_TYPE !=1
+		  GROUP BY
+		    Z_ADD,
+		    MO_NO,
+		    WO_NO,
+		    WC_CD,
+		    LINE_CD,
+		    SHIFT_CD,
+		    ITEM_CD,
+		    TAKE_TYPE,
+		    MODEL_CD
+		) T5 ON T3.Z_ADD = T5.Z_ADD AND T3.MO_NO = T5.MO_NO
+		LEFT JOIN MES1.R_MES_WO_T T6
+    	ON T3.MO_NO = T6.MO_NO AND T3.WO_NO = T6.WO_NO
+		WHERE T3.LINE_CD = '${LINE_CD}'
+		  AND T6.WO_STATE = '9'
+		  AND T3.MODEL_CD = '${ET_CD}'
+		ORDER BY ROUND((T5.Z_QTY/T4.Z_QTY_SUM),2)*100 DESC
+	</select>
+	<!-- PP机器状态示意图 -->
+	
+	<select id="queryPPachineStateDiagram" parameterType="hashmap" resultType="java.util.HashMap"></select>
+	<!-- PP设备综合状况 -->
+	
+	<select id="queryPPEquipmentSituation" parameterType="hashmap" resultType="java.util.HashMap"></select>
+	<!-- 松下贴片设备看板    END -->
+	
+	
+	<!-- 贴标机看板    START -->
+	<!-- 贴标机看板 工单信息 -->
+	
+	<select id="queryLMWoPanasonicPatch" parameterType="hashmap" resultType="java.util.HashMap"></select>
+	<!-- LM设备产能 -->
+	
+	<select id="queryLMEquipmentCapacity" parameterType="hashmap" resultType="java.util.HashMap"></select>
+	<!-- LM机器状态示意图 -->
+	
+	<select id="queryLMachineStateDiagram" parameterType="hashmap" resultType="java.util.HashMap"></select>
+	<!-- LM设备综合状况 -->
+	
+	<select id="queryLMEquipmentSituation" parameterType="hashmap" resultType="java.util.HashMap"></select>
+	<!--  贴标机看板      END -->
+	
+	
+	<!-- 印刷机看板    START -->
+	<!-- 印刷机看板 工单信息 -->
+	
+	<select id="queryPrintMWoPanasonicPatch" parameterType="hashmap" resultType="java.util.HashMap"></select>
+	<!-- PrintM设备产能 -->
+	
+	<select id="queryPrintMEquipmentCapacity" parameterType="hashmap" resultType="java.util.HashMap"></select>
+	<!-- PrintM机器状态示意图 -->
+	
+	<select id="queryPrintMachineStateDiagram" parameterType="hashmap" resultType="java.util.HashMap"></select>
+	<!-- PrintM设备综合状况 -->
+	
+	<select id="queryPrintMEquipmentSituation" parameterType="hashmap" resultType="java.util.HashMap"></select>
+	<!--  印刷机看板      END -->
+	
+	<!-- 自动包装设备看板    START -->
+	<!-- 自动包装设备   工单信息 -->
+	
+	<select id="queryAutoPackWoPanasonicPatch" parameterType="hashmap" resultType="java.util.HashMap"></select>
+	<!-- AutoPack设备产能 -->
+	
+	<select id="queryAutoPackEquipmentCapacity" parameterType="hashmap" resultType="java.util.HashMap"></select>
+	<!-- AutoPack机器状态示意图 -->
+	
+	<select id="queryAutoPackachineStateDiagram" parameterType="hashmap" resultType="java.util.HashMap"></select>
+	<!-- AutoPack设备综合状况 -->
+	
+	<select id="queryAutoPackEquipmentSituation" parameterType="hashmap" resultType="java.util.HashMap"></select>
+	<!-- 自动包装设备看板    END -->
+	
+	
+	<!-- 自动组装设备看板    START -->
+	<!-- 自动组装设备   工单信息 -->
+	
+	<select id="queryAutoAssemblyWoPanasonicPatch" parameterType="hashmap" resultType="java.util.HashMap"></select>
+	<!-- AutoAssembly设备产能 -->
+	
+	<select id="queryAutoAssemblyEquipmentCapacity" parameterType="hashmap" resultType="java.util.HashMap"></select>
+	<!-- AutoAssembly机器状态示意图 -->
+	
+	<select id="queryAutoAssemblyachineStateDiagram" parameterType="hashmap" resultType="java.util.HashMap"></select>
+	<!-- AutoAssembly设备综合状况 -->
+	
+	<select id="queryAutoAssemblyEquipmentSituation" parameterType="hashmap" resultType="java.util.HashMap"></select>
+	<!-- 自动组装设备看板    END -->
+	
+	<select id="queryWIPInfoSituation" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap">
+	  {call MES1.R_MES_SMT_PACKAGE.R_WO_WIP_P('${LINE_CD}','${SHIFT_CD}','${CURR_DATE}',
+  #{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=screenMonitorTotMap},#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, #{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},#{MESSAGE,jdbcType=VARCHAR,mode=OUT,javaType=String})}
+  
+	</select>
+	
+	
+	<!-- 车间整体看板   START -->
+	<!-- 工单完成情况 -->
+	<select id="queryWorkingComplateInfo" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT
+		  DISTINCT
+		  T1.MO_NO,
+		  T1.ITEM_CD,
+		  T1.ITEM_NM,
+		  T1.PLAN_PO_QTY,
+		  T2.PAI_QTY,
+		  T2.INPUT_QTY,
+		  T2.TOTAL_QTY
+		FROM MES1.R_MES_WO_T T1
+		LEFT JOIN
+		(
+		  SELECT
+		    MO_NO, 
+		    SUM(PLAN_WO_QTY) AS PAI_QTY,
+		    SUM(PROD_QTY) AS TOTAL_QTY,
+		    SUM(INPUT_QTY) AS INPUT_QTY
+		  FROM MES1.R_MES_WO_T
+		  WHERE WO_STATE = '9'
+		  GROUP BY MO_NO 
+		) T2 ON T1.MO_NO = T2.MO_NO
+		WHERE 
+		T1.WO_STATE = '9'
+		AND T1.LINE_CD = '${LINE_CD}'
+	</select>
+	
+	<!-- 计划达成率 -->
+	<select id="queryPlannedCompletionRate" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT 
+	     T1.LINE_CD,
+	     T1.ET_CD,
+	     T3.ET_NM,
+	     T3.ET_QTY,
+	     NVL(T2.PRD_QTY,0) AS PRD_QTY,
+	     CASE
+	       WHEN ROUND((NVL(T2.PRD_QTY,0) / T3.ET_QTY), 3) * 100 || '%' LIKE '.%' THEN
+	        '0' || ROUND((NVL(T2.PRD_QTY,0) / T3.ET_QTY), 3) * 100 || '%'
+	       ELSE
+	        ROUND((NVL(T2.PRD_QTY,0) / T3.ET_QTY), 3) * 100 || '%'
+	     END AS ZHITONG_RATE
+	  FROM R_MES_ET_LINE_T T1
+	  LEFT JOIN (SELECT WO_NO,
+	                    MO_NO,
+	                    ET_CD,
+	                    LINE_CD,
+	                    WC_CD,
+	                    SHIFT_CD,
+	                    SUM(PRO_QTY) AS PRD_QTY
+	               FROM R_MES_ET_PROD_T
+	              WHERE CRT_DT between
+	                    TO_DATE('${REQ_TIME}', 'yyyy-mm-dd hh24:mi:ss') AND
+	                    TO_DATE('${REQ_TIME}', 'yyyy-mm-dd hh24:mi:ss')+8/24
+	                AND LINE_CD = '${LINE_CD}'
+	              GROUP BY WO_NO, MO_NO, ET_CD, LINE_CD, WC_CD, SHIFT_CD) T2
+	    ON T1.ET_CD = T2.ET_CD
+	   AND T1.LINE_CD = T2.LINE_CD
+	  LEFT JOIN IPLANT1.C_IPLANT_E2_T T3
+	    ON T1.ET_CD = T3.ET_CD
+	 WHERE T1.LINE_CD = '${LINE_CD}'
+	</select>
+	<!-- 车间整体看板   END -->
+	
+	<!-- SMT自动化产线工单看板 -->
+	<select id="querySmtZidonLineWoKanBan" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT
+		   LINE_CD, 
+		   WC_CD,
+		   MO_NO,
+		   WO_NO,
+		   ITEM_CD,
+		   ITEM_NM,
+		   PLAN_WO_QTY,
+		   PROD_QTY,
+		   TO_CHAR(PLAN_STRT_DT, 'YYYY-MM-DD HH24:MI:SS') AS PLAN_STRT_DT,
+		   TO_CHAR(PLAN_END_DT, 'YYYY-MM-DD HH24:MI:SS') AS PLAN_END_DT,
+		   WO_STATE,
+		   (SELECT DICT_IT_NM FROM IPLANT1.C_IPLANT_DD_T WHERE DICT_IT = WO_STATE) AS WO_STATE_NM
+		FROM MES1.R_MES_WO_T              
+		WHERE LINE_CD = '${LINE_CD}'
+	</select>
+	
+	<!-- 车间整体前五不良原因 -->
+	<select id="queryFiveReason" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT
+		  QC_DFCT_CD,
+		  (
+		    SELECT 
+	           MT_DEF_NM 
+	        FROM 
+	        MES1.R_MES_MT_DEF_DTL_T T 
+	        WHERE T.MT_DEF_CD = QC_DFCT_CD
+	    )AS QC_DFCT_NM,
+	    COUNT(*) AS DFCT_QTY
+		FROM MES1.R_MES_IPQC_DTL_T
+		WHERE IPQC_RSLT = 'fail'
+		AND LINE_CD = '${LINE_CD}'
+		AND CRT_DT between TO_DATE('${REQ_TIME}','yyyy-mm-dd hh24:mi:ss')  
+		AND TO_DATE('${REQ_TIME}','yyyy-mm-dd hh24:mi:ss')+8/24
+		GROUP BY
+		QC_DFCT_CD
+		ORDER BY DFCT_QTY DESC
+	</select>
+	
+	<!-- 停机异常 -->
+	<select id="queryETStopAbnormal" parameterType="hashmap" resultType="java.util.HashMap">
+		
+	</select>
+	
+	<!-- 设备生产明细 -->
+	<select id="queryEtProductDetailInfo" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT 
+       T1.LINE_CD,
+       T6.WO_NO,
+           T6.MO_NO,
+       T1.ET_CD,
+       T4.ET_NM,
+       T6.PLAN_PO_QTY,
+           T6.PROD_QTY,
+       T4.ET_PL,
+       T2.DICT_IT,
+       T2.DICT_IT_NM,
+       T2.BGN_DATE,
+       T2.EMP_CD,
+       T5.*
+       FROM MES1.R_MES_ET_LINE_T T1 
+       LEFT JOIN TPM1.R_TPM_S1_T T2 ON T1.ET_CD = T2.ET_CD
+       LEFT JOIN  IPLANT1.C_IPLANT_E2_T T4 ON T1.ET_CD = T4.ET_CD
+       LEFT JOIN MES1.R_MES_WO_T T6 ON T2.DO_CD = T6.WO_NO 
+       LEFT JOIN
+       (
+       select * from 
+       (
+       SELECT
+           A.ET_CD, 
+           A.DICT_IT_NM,
+            SUM(A.DEF_A)     AS TOT_TINGJI
+            FROM
+            (
+        SELECT 
+          ET_CD, 
+          DO_CD,
+          DICT_IT,
+          DICT_IT_NM,
+          ceil(((To_date(to_char(SYSDATE, 'yyyy-mm-dd hh24:mi:ss') , 'yyyy-mm-dd hh24:mi:ss') - 
+         To_date(to_char(BGN_DATE ,'yyyy-mm-dd hh24:mi:ss') ,'yyyy-mm-dd hh24:mi:ss')
+       )) * 24*60)  AS  DEF_A
+       FROM TPM1.R_TPM_S1_T
+       WHERE TO_CHAR(BGN_DATE,'yyyy-mm-dd')=TO_CHAR(TO_DATE('${REQ_TIME}','yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')
+         ) A
+         GROUP BY A.ET_CD,
+            A.DICT_IT,
+            A.DICT_IT_NM 
+            )pivot (sum(TOT_TINGJI) for DICT_IT_NM in ('正在生产' AS PRO_S, '待机空闲' AS DAI_S, '停机在生产' AS TIN_PRO, '停机' AS TIN_S, '异常生产' AS YICHAN_S,'计划停机' AS PLAN_TIN,'通信失败' AS TON_S,'无派单生产' AS WU_S))
+            
+       ) T5   ON T2.ET_CD = T5.ET_CD
+       WHERE T1.LINE_CD ='${LINE_CD}'
+       AND T1.ET_CD IN ('EQ005','EQ008','EQ004','EQ007','EQ006','EQ003')
+	</select>
+	
+	<!-- 缓存明细 -->
+	<select id="queryCacheDetailInfo" parameterType="hashmap" resultType="java.util.HashMap">
+	    SELECT
+		*
+		FROM
+		(
+			SELECT
+			   T2.WO_NO,
+			   T2.MO_NO,
+			   T2.BAR_CODE,
+			   T1.LINE_CD,
+			   T2.CRT_DT,
+			   ceil(((To_date(to_char(SYSDATE, 'yyyy-mm-dd hh24:mi:ss') , 'yyyy-mm-dd hh24:mi:ss') - 
+					     To_date( to_char(T2.CRT_DT,'yyyy-mm-dd hh24:mi:ss') ,'yyyy-mm-dd hh24:mi:ss')
+				 )) * 24*60)  AS  DEF_A
+			FROM 
+			MES1.R_MES_OP_LOT_T T2
+			LEFT JOIN  MES1.R_MES_WO_T T1
+			ON T1.WO_NO = T2.WO_NO 
+			AND T1.MO_NO = T2.MO_NO
+			LEFT JOIN TPM1.R_TPM_S1_T T3
+			ON T1.WO_NO = T3.DO_CD
+			WHERE
+			T2.ROUT_CD =(SELECT FROM_ROUT_CD FROM MES1.R_MES_MO_PRF_CONF_T T8 WHERE T8.MO_NO = T1.MO_NO AND T8.TO_ROUT_CD ='END')
+			AND T3.ET_CD = '${ET_CD}'
+			AND T1.LINE_CD = '${LINE_CD}'
+			AND T2.CRT_DT
+			between TO_DATE('${REQ_TIME}','yyyy-mm-dd hh24:mi:ss')  
+	        AND TO_DATE('${REQ_TIME}','yyyy-mm-dd hh24:mi:ss')+12/24
+			ORDER BY T2.CRT_DT DESC
+	 ) WHERE ROWNUM<![CDATA[<11]]>
+	</select>
+	<!-- 车间整体看板   END -->
+	
+	
+	<!-- 产线动态看板页面    START -->
+	<!-- UPH -->
+	<select id="queryUPH" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT 
+		   'A' AS TM,
+		   T1.LINE_CD,
+		   T1.SHIFT_CD,
+		   T1.WC_CD,
+		   T1.MO_NO,
+		   T1.WO_NO,
+		   COUNT(*) AS H_COMP
+		FROM MES1.R_MES_OP_LOT_T T1
+		WHERE T1.ROUT_CD IN 
+		(
+		  SELECT 
+		     FROM_ROUT_CD 
+		  FROM MES1.R_MES_MO_PRF_CONF_T T2 
+		  WHERE 
+		  T2.MO_NO = T1.MO_NO 
+		  AND T2.TO_ROUT_CD ='END'
+		)
+		AND T1.CRT_DT between TO_DATE('${REQ_TIME}','yyyy-mm-dd hh24:mi:ss')  
+		AND TO_DATE('${REQ_TIME}','yyyy-mm-dd hh24:mi:ss')+ 1/24
+		GROUP BY
+		T1.LINE_CD,
+		T1.SHIFT_CD,
+		T1.WC_CD,
+		T1.MO_NO,
+		T1.WO_NO
+		UNION ALL
+		SELECT 
+		   'B' AS TM,
+		   T1.LINE_CD,
+		   T1.SHIFT_CD,
+		   T1.WC_CD,
+		   T1.MO_NO,
+		   T1.WO_NO,
+		   COUNT(*) AS H_COMP
+		FROM MES1.R_MES_OP_LOT_T T1
+		WHERE T1.ROUT_CD IN 
+		(
+		  SELECT 
+		     FROM_ROUT_CD 
+		  FROM MES1.R_MES_MO_PRF_CONF_T T2 
+		  WHERE 
+		  T2.MO_NO = T1.MO_NO 
+		  AND T2.TO_ROUT_CD ='END'
+		)
+		AND T1.CRT_DT between TO_DATE('${REQ_TIME}','yyyy-mm-dd hh24:mi:ss')+ 1/24  
+		AND TO_DATE('${REQ_TIME}','yyyy-mm-dd hh24:mi:ss')+ 2/24
+		GROUP BY
+		T1.LINE_CD,
+		T1.SHIFT_CD,
+		T1.WC_CD,
+		T1.MO_NO,
+		T1.WO_NO
+		UNION ALL
+		SELECT 
+		   'C' AS TM,
+		   T1.LINE_CD,
+		   T1.SHIFT_CD,
+		   T1.WC_CD,
+		   T1.MO_NO,
+		   T1.WO_NO,
+		   COUNT(*) AS H_COMP
+		FROM MES1.R_MES_OP_LOT_T T1
+		WHERE T1.ROUT_CD IN 
+		(
+		  SELECT 
+		     FROM_ROUT_CD 
+		  FROM MES1.R_MES_MO_PRF_CONF_T T2 
+		  WHERE 
+		  T2.MO_NO = T1.MO_NO 
+		  AND T2.TO_ROUT_CD ='END'
+		)
+		AND T1.CRT_DT between TO_DATE('${REQ_TIME}','yyyy-mm-dd hh24:mi:ss')+ 2/24  
+		AND TO_DATE('${REQ_TIME}','yyyy-mm-dd hh24:mi:ss')+ 3/24
+		GROUP BY
+		T1.LINE_CD,
+		T1.SHIFT_CD,
+		T1.WC_CD,
+		T1.MO_NO,
+		T1.WO_NO
+		UNION ALL
+		SELECT 
+		   'D' AS TM,
+		   T1.LINE_CD,
+		   T1.SHIFT_CD,
+		   T1.WC_CD,
+		   T1.MO_NO,
+		   T1.WO_NO,
+		   COUNT(*) AS H_COMP
+		FROM MES1.R_MES_OP_LOT_T T1
+		WHERE T1.ROUT_CD IN 
+		(
+		  SELECT 
+		     FROM_ROUT_CD 
+		  FROM MES1.R_MES_MO_PRF_CONF_T T2 
+		  WHERE 
+		  T2.MO_NO = T1.MO_NO 
+		  AND T2.TO_ROUT_CD ='END'
+		)
+		AND T1.CRT_DT between TO_DATE('${REQ_TIME}','yyyy-mm-dd hh24:mi:ss')+ 3/24  
+		AND TO_DATE('${REQ_TIME}','yyyy-mm-dd hh24:mi:ss')+ 4/24
+		GROUP BY
+		T1.LINE_CD,
+		T1.SHIFT_CD,
+		T1.WC_CD,
+		T1.MO_NO,
+		T1.WO_NO
+		UNION ALL
+		SELECT 
+		   'E' AS TM,
+		   T1.LINE_CD,
+		   T1.SHIFT_CD,
+		   T1.WC_CD,
+		   T1.MO_NO,
+		   T1.WO_NO,
+		   COUNT(*) AS H_COMP
+		FROM MES1.R_MES_OP_LOT_T T1
+		WHERE T1.ROUT_CD IN 
+		(
+		  SELECT 
+		     FROM_ROUT_CD 
+		  FROM MES1.R_MES_MO_PRF_CONF_T T2 
+		  WHERE 
+		  T2.MO_NO = T1.MO_NO 
+		  AND T2.TO_ROUT_CD ='END'
+		)
+		AND T1.CRT_DT between TO_DATE('${REQ_TIME}','yyyy-mm-dd hh24:mi:ss')+ 4/24  
+		AND TO_DATE('${REQ_TIME}','yyyy-mm-dd hh24:mi:ss')+ 5/24
+		GROUP BY
+		T1.LINE_CD,
+		T1.SHIFT_CD,
+		T1.WC_CD,
+		T1.MO_NO,
+		T1.WO_NO
+		UNION ALL
+		SELECT 
+		   'F' AS TM,
+		   T1.LINE_CD,
+		   T1.SHIFT_CD,
+		   T1.WC_CD,
+		   T1.MO_NO,
+		   T1.WO_NO,
+		   COUNT(*) AS H_COMP
+		FROM MES1.R_MES_OP_LOT_T T1
+		WHERE T1.ROUT_CD IN 
+		(
+		  SELECT 
+		     FROM_ROUT_CD 
+		  FROM MES1.R_MES_MO_PRF_CONF_T T2 
+		  WHERE 
+		  T2.MO_NO = T1.MO_NO 
+		  AND T2.TO_ROUT_CD ='END'
+		)
+		AND T1.CRT_DT between TO_DATE('${REQ_TIME}','yyyy-mm-dd hh24:mi:ss')+ 5/24  
+		AND TO_DATE('${REQ_TIME}','yyyy-mm-dd hh24:mi:ss')+ 6/24
+		GROUP BY
+		T1.LINE_CD,
+		T1.SHIFT_CD,
+		T1.WC_CD,
+		T1.MO_NO,
+		T1.WO_NO
+		UNION ALL
+		SELECT 
+		   'G' AS TM,
+		   T1.LINE_CD,
+		   T1.SHIFT_CD,
+		   T1.WC_CD,
+		   T1.MO_NO,
+		   T1.WO_NO,
+		   COUNT(*) AS H_COMP
+		FROM MES1.R_MES_OP_LOT_T T1
+		WHERE T1.ROUT_CD IN 
+		(
+		  SELECT 
+		     FROM_ROUT_CD 
+		  FROM MES1.R_MES_MO_PRF_CONF_T T2 
+		  WHERE 
+		  T2.MO_NO = T1.MO_NO 
+		  AND T2.TO_ROUT_CD ='END'
+		)
+		AND T1.CRT_DT between TO_DATE('${REQ_TIME}','yyyy-mm-dd hh24:mi:ss')+ 6/24  
+		AND TO_DATE('${REQ_TIME}','yyyy-mm-dd hh24:mi:ss')+ 7/24
+		GROUP BY
+		T1.LINE_CD,
+		T1.SHIFT_CD,
+		T1.WC_CD,
+		T1.MO_NO,
+		T1.WO_NO
+		UNION ALL
+		SELECT 
+		   'H' AS TM,
+		   T1.LINE_CD,
+		   T1.SHIFT_CD,
+		   T1.WC_CD,
+		   T1.MO_NO,
+		   T1.WO_NO,
+		   COUNT(*) AS H_COMP
+		FROM MES1.R_MES_OP_LOT_T T1
+		WHERE T1.ROUT_CD IN 
+		(
+		  SELECT 
+		     FROM_ROUT_CD 
+		  FROM MES1.R_MES_MO_PRF_CONF_T T2 
+		  WHERE 
+		  T2.MO_NO = T1.MO_NO 
+		  AND T2.TO_ROUT_CD ='END'
+		)
+		AND T1.CRT_DT between TO_DATE('${REQ_TIME}','yyyy-mm-dd hh24:mi:ss')+ 7/24  
+		AND TO_DATE('${REQ_TIME}','yyyy-mm-dd hh24:mi:ss')+ 8/24
+		GROUP BY
+		T1.LINE_CD,
+		T1.SHIFT_CD,
+		T1.WC_CD,
+		T1.MO_NO,
+		T1.WO_NO
+		UNION ALL
+		SELECT 
+		   'I' AS TM,
+		   T1.LINE_CD,
+		   T1.SHIFT_CD,
+		   T1.WC_CD,
+		   T1.MO_NO,
+		   T1.WO_NO,
+		   COUNT(*) AS H_COMP
+		FROM MES1.R_MES_OP_LOT_T T1
+		WHERE T1.ROUT_CD IN 
+		(
+		  SELECT 
+		     FROM_ROUT_CD 
+		  FROM MES1.R_MES_MO_PRF_CONF_T T2 
+		  WHERE 
+		  T2.MO_NO = T1.MO_NO 
+		  AND T2.TO_ROUT_CD ='END'
+		)
+		AND T1.CRT_DT between TO_DATE('${REQ_TIME}','yyyy-mm-dd hh24:mi:ss')+ 8/24  
+		AND TO_DATE('${REQ_TIME}','yyyy-mm-dd hh24:mi:ss')+ 9/24
+		GROUP BY
+		T1.LINE_CD,
+		T1.SHIFT_CD,
+		T1.WC_CD,
+		T1.MO_NO,
+		T1.WO_NO
+	</select>
+	
+	<!-- 总装配数 -->
+	<select id="querySumAssembling" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT 
+		    A.PLAN_PO_QTY,
+		    A.PROD_QTY,
+		    ROUND((A.PROD_QTY/A.PLAN_PO_QTY),2)*100 || '%' AS PRO_JIN_DU
+		FROM MES1.R_MES_WO_T A
+		WHERE A.WO_STATE = '9'
+	</select>
+	
+	<!-- 加工中的个数 -->
+	<select id="queryNumberOfProcesses" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT 
+		    COUNT(*) AS MAC_QTY
+		FROM MES1.R_MES_OP_LOT_T T1
+		WHERE T1.ROUT_CD IN 
+		(
+		  SELECT 
+            FROM_ROUT_CD AS ROUT_CD
+        FROM
+        MES1.R_MES_MO_PRF_CONF_T T8 
+        WHERE T8.MO_NO = (SELECT MO_NO FROM MES1.R_MES_WO_T WHERE WO_STATE='9')
+        AND T8.FROM_ROUT_CD !=(
+            SELECT 
+              FROM_ROUT_CD
+          FROM 
+          MES1.R_MES_MO_PRF_CONF_T T8 WHERE T8.MO_NO = (SELECT MO_NO FROM MES1.R_MES_WO_T WHERE WO_STATE='9') AND T8.TO_ROUT_CD ='END')
+        AND T8.FROM_ROUT_CD !='START'
+		)
+		AND T1.CRT_DT between TO_DATE('${REQ_TIME}','yyyy-mm-dd hh24:mi:ss')  
+		AND TO_DATE('${REQ_TIME}','yyyy-mm-dd hh24:mi:ss')+ 12/24
+		GROUP BY
+		T1.LINE_CD,
+		T1.SHIFT_CD,
+		T1.WC_CD,
+		T1.MO_NO,
+		T1.WO_NO   
+	</select>
+	<!-- 每台机器的生产数 -->
+	<select id="queryNumberOfMachinesPerMachine" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT
+	      DISTINCT 
+	      T1.ROUT_CD,
+	      T3.ROUT_NAME,
+	      T2.ET_SUM_QTY
+	    FROM 
+	    MES1.R_MES_OP_LOT_T T1
+	    JOIN
+	    (
+	      SELECT
+	          ROUT_CD,
+	          COUNT(*) AS ET_SUM_QTY
+	      FROM 
+	      MES1.R_MES_OP_LOT_T
+	      WHERE LINE_CD = '${LINE_CD}'
+	      AND CRT_DT between TO_DATE('${REQ_TIME}','yyyy-mm-dd hh24:mi:ss')  
+          AND TO_DATE('${REQ_TIME}','yyyy-mm-dd hh24:mi:ss')+ 12/24
+	      GROUP BY
+	      ROUT_CD
+	    )T2 ON T1.ROUT_CD = T2.ROUT_CD
+	    LEFT JOIN MES1.R_MES_ROUTE_DEF_T T3
+	    ON T1.ROUT_CD = T3.ROUT_CD
+	</select>
+	
+	<!-- 获取机器的生产状态 -->
+	<select id="queryMachineProductionStatus" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT 
+	     T1.ET_CD,
+	     T2.ET_NM,
+	     T1.DO_CD,
+	     T1.DICT_IT,
+	     T1.DICT_IT_NM,
+	     TO_CHAR(T1.BGN_DATE, 'YYYY-MM-DD HH24:MI:SS') AS BGN_DATE,
+	     T1.EMP_CD
+	  FROM TPM1.R_TPM_S1_T T1
+	  LEFT JOIN IPLANT1.C_IPLANT_E2_T T2
+	  ON T1.ET_CD = T2.ET_CD
+	  WHERE T1.ET_CD IN
+	  (
+	  SELECT 
+	    ET_CD 
+	  FROM MES1.R_MES_ET_LINE_T 
+	  WHERE LINE_CD = '${LINE_CD}'
+	  )
+	</select>
+	<!-- 每个工序生产产品所需要的时间  -->
+	<select id="queryProductionTimePerProcess" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT 
+		   MO_NO,
+   		   WO_NO,
+  		   BAR_CODE,
+  		   PREV_ROUT_CD,
+           CRT_DT,
+   		   START_DT,
+   		   END_DT,
+   		   STOP_DT
+		FROM
+		(
+		SELECT 
+		   A.MO_NO,
+		   A.WO_NO,
+		   A.BAR_CODE,
+		   A.PREV_ROUT_CD,
+		   A.CRT_DT,
+		   A.START_DT,
+		   A.END_DT,
+		   ROUND(TO_NUMBER(A.END_DT - A.START_DT) * 24 * 60 * 60) AS STOP_DT
+		FROM MES1.R_MES_WIP_DETAIL_T A
+		JOIN
+		(
+		   SELECT 
+		     DISTINCT
+		     T3.MO_NO, 
+		     T3.ITEM_CD, 
+		     T3.ITEM_NM, 
+		     T3.FROM_ROUT_CD, 
+		     T3.TO_ROUT_CD, 
+		     T3.BRANCH_ROUT, 
+		     T3.CAPACITY, 
+		     T3.CRT_DT, 
+		     T3.UPT_DT, 
+		     T3.IS_INPUT, 
+		     T3.IS_OUTPUT
+		  FROM MES1.r_mes_mo_prf_conf_t T3
+		  JOIN MES1.R_MES_WO_T T2 
+		  ON T3.MO_NO = T2.MO_NO
+		  JOIN MES1.R_MES_WIP_DETAIL_T T1
+		  ON T3.MO_NO=T1.MO_NO
+		  WHERE T2.WO_STATE = 5
+		  
+		) B ON A.MO_NO = B.MO_NO AND A.PREV_ROUT_CD = B.FROM_ROUT_CD
+		WHERE A.PREV_ROUT_CD = '${ROUT_CD}'
+		ORDER BY A.CRT_DT DESC
+		) WHERE ROWNUM <![CDATA[<=]]>7
+	</select>
+	<!-- 产品加工历史记录 -->
+	<select id="queryProductProcessingHistory" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT 
+		    MO_NO,
+		    WO_NO,
+		    ITEM_CD,
+		    ITEM_NM, 
+		    BAR_CODE,
+		    PREV_ROUT_CD, 
+		    (SELECT ROUT_NAME FROM MES1.R_MES_ROUTE_DEF_T D WHERE D.ROUT_CD = PREV_ROUT_CD) AS PREV_ROUT_NM,
+		    CURR_ROUT_CD, 
+		    NEXT_ROUT_CD,
+		    TO_CHAR(START_DT, 'YYYY-MM-DD HH24:MI:SS') AS START_DT, 
+		    TO_CHAR(END_DT, 'YYYY-MM-DD HH24:MI:SS') AS END_DT,
+		    ROUND(TO_NUMBER(END_DT - START_DT) * 24 * 60 * 60) AS STOP_DT
+		FROM MES1.R_MES_WIP_DETAIL_T WHERE BAR_CODE IN
+		(
+		SELECT 
+		    BAR_CODE
+		FROM MES1.R_MES_WIP_DETAIL_T
+		GROUP BY 
+		BAR_CODE,
+		MO_NO,
+		WO_NO
+		)
+		AND BAR_CODE = 
+		(
+		  SELECT 
+	      	*
+	      FROM
+	      (
+		  SELECT 
+		   BAR_CODE
+		  FROM MES1.R_MES_WIP_T
+		  WHERE CURR_ROUT_CD !='END'
+		  AND CRT_DT=
+		  (
+		    SELECT 
+		        MAX(CRT_DT)
+		    FROM MES1.R_MES_WIP_T
+		    WHERE CURR_ROUT_CD !='END'
+		  )
+		  ) WHERE ROWNUM <![CDATA[<=1]]>
+		)
+		ORDER BY CRT_DT ASC
+	</select>
+	
+	
+	
+	<!-- 良品率 -->
+	<select id="queryGoodYield" parameterType="hashmap" resultType="java.util.HashMap">
+	    SELECT
+	       DISTINCT
+	       A.MO_NO,
+	       A.WO_NO,
+	       B.PROD_QTY,
+	       (B.PROD_QTY-(
+	        SELECT 
+	           COUNT(*) AS NOT_QTY 
+	        FROM MES1.R_MES_IPQC_DTL_T T1
+	        LEFT JOIN MES1.R_MES_WO_T T2
+	        ON T1.WO_NO = T2.WO_NO AND T1.MO_NO = T2.MO_NO
+	        WHERE T1.CRT_DT between TO_DATE('${REQ_TIME}','yyyy-mm-dd hh24:mi:ss')
+	        AND TO_DATE('${REQ_TIME}','yyyy-mm-dd hh24:mi:ss')+ 12/24
+	        AND T1.IPQC_RSLT !='pass'
+	        AND T2.WO_STATE = '9'
+	       )) AS GOOD_QTY,
+	       ROUND(((B.PROD_QTY-(
+	        SELECT 
+	           COUNT(*) AS NOT_QTY 
+	        FROM MES1.R_MES_IPQC_DTL_T T1
+	        LEFT JOIN MES1.R_MES_WO_T T2
+	        ON T1.WO_NO = T2.WO_NO AND T1.MO_NO = T2.MO_NO
+	        WHERE T1.CRT_DT between TO_DATE('${REQ_TIME}','yyyy-mm-dd hh24:mi:ss')
+	        AND TO_DATE('${REQ_TIME}','yyyy-mm-dd hh24:mi:ss')+ 12/24
+	        AND T1.IPQC_RSLT !='pass'
+	        AND T2.WO_STATE = '9'
+	      ))/B.PROD_QTY),2)*100 || '%' AS GOOD_RATE,
+	      ROUND(((SELECT 
+           COUNT(*) AS NOT_QTY 
+	      FROM MES1.R_MES_IPQC_DTL_T T1
+	      LEFT JOIN MES1.R_MES_WO_T T2
+	      ON T1.WO_NO = T2.WO_NO AND T1.MO_NO = T2.MO_NO
+	      WHERE T1.CRT_DT between TO_DATE('${REQ_TIME}','yyyy-mm-dd hh24:mi:ss')
+	      AND TO_DATE('${REQ_TIME}','yyyy-mm-dd hh24:mi:ss')+ 12/24
+	      AND T1.IPQC_RSLT !='pass'
+	      AND T2.WO_STATE = '9')/B.PROD_QTY),2)*100 || '%' AS NOT_RATE
+	    FROM 
+	    MES1.R_MES_OP_LOT_T A
+	    LEFT JOIN MES1.R_MES_WO_T B
+	    ON A.WO_NO = B.WO_NO AND A.MO_NO = B.MO_NO
+	    WHERE A.CRT_DT between TO_DATE('${REQ_TIME}','yyyy-mm-dd hh24:mi:ss')
+	    AND TO_DATE('${REQ_TIME}','yyyy-mm-dd hh24:mi:ss')+ 12/24
+	    AND A.LINE_CD = '${LINE_CD}'
+	    AND B.WO_STATE = '9'
+	</select>
+	
+	<!-- AOI良品率 -->
+	<select id="queryAOIGoodYield" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT
+		   DISTINCT
+		   T3.MO_NO,
+		   T3.WO_NO, 
+		   T4.NOT_QTY,
+		   T5.LOT_QTY,
+		   ROUND(((T5.LOT_QTY-T4.NOT_QTY)/T5.LOT_QTY),2)*100 || '%' AS GOOD_QTY
+		FROM 
+		MES1.R_MES_OP_LOT_T T3
+		JOIN
+		(
+		    SELECT 
+		       T1.MO_NO,
+		       T1.WO_NO,
+		       COUNT(*) AS NOT_QTY 
+		    FROM MES1.R_MES_IPQC_DTL_T T1
+		    WHERE T1.CRT_DT between TO_DATE('${REQ_TIME}','yyyy-mm-dd hh24:mi:ss')
+		    AND TO_DATE('${REQ_TIME}','yyyy-mm-dd hh24:mi:ss')+ 12/24
+		    AND IPQC_RSLT !='pass'
+		    GROUP BY
+		    T1.MO_NO,
+		    T1.WO_NO 
+		) T4 ON T3.WO_NO = T4.WO_NO AND T3.MO_NO = T4.MO_NO
+		JOIN
+		(  
+		  SELECT 
+		     T2.MO_NO,
+		     T2.WO_NO, 
+		     COUNT(*) AS LOT_QTY 
+		  FROM MES1.R_MES_OP_LOT_T T2
+		  WHERE T2.CRT_DT between TO_DATE('${REQ_TIME}','yyyy-mm-dd hh24:mi:ss')  
+		  AND TO_DATE('${REQ_TIME}','yyyy-mm-dd hh24:mi:ss')+ 12/24
+		  GROUP BY
+		  T2.MO_NO,
+		  T2.WO_NO 
+		) T5 ON T3.WO_NO = T5.WO_NO AND T3.MO_NO = T5.MO_NO
+		WHERE T3.CRT_DT between TO_DATE('${REQ_TIME}','yyyy-mm-dd hh24:mi:ss')
+		AND TO_DATE('${REQ_TIME}','yyyy-mm-dd hh24:mi:ss')+ 12/24
+		AND T3.LINE_CD = 'LINE01'
+	</select>
+	
+	<!-- SPI良品率 -->
+	<select id="querySPIGoodYield" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT
+		   DISTINCT
+		   T3.MO_NO,
+		   T3.WO_NO, 
+		   T4.NOT_QTY,
+		   T5.LOT_QTY,
+		   ROUND(((T5.LOT_QTY-T4.NOT_QTY)/T5.LOT_QTY),2)*100 || '%' AS GOOD_QTY
+		FROM 
+		MES1.R_MES_OP_LOT_T T3
+		JOIN
+		(
+		    SELECT 
+		       T1.MO_NO,
+		       T1.WO_NO,
+		       COUNT(*) AS NOT_QTY 
+		    FROM MES1.R_MES_IPQC_DTL_T T1
+		    WHERE T1.CRT_DT between TO_DATE('${REQ_TIME}','yyyy-mm-dd hh24:mi:ss')
+		    AND TO_DATE('${REQ_TIME}','yyyy-mm-dd hh24:mi:ss')+ 12/24
+		    AND IPQC_RSLT !='pass'
+		    GROUP BY
+		    T1.MO_NO,
+		    T1.WO_NO 
+		) T4 ON T3.WO_NO = T4.WO_NO AND T3.MO_NO = T4.MO_NO
+		JOIN
+		(  
+		  SELECT 
+		     T2.MO_NO,
+		     T2.WO_NO, 
+		     COUNT(*) AS LOT_QTY 
+		  FROM MES1.R_MES_OP_LOT_T T2
+		  WHERE T2.CRT_DT between TO_DATE('${REQ_TIME}','yyyy-mm-dd hh24:mi:ss')  
+		  AND TO_DATE('${REQ_TIME}','yyyy-mm-dd hh24:mi:ss')+ 12/24
+		  GROUP BY
+		  T2.MO_NO,
+		  T2.WO_NO 
+		) T5 ON T3.WO_NO = T5.WO_NO AND T3.MO_NO = T5.MO_NO
+		WHERE T3.CRT_DT between TO_DATE('${REQ_TIME}','yyyy-mm-dd hh24:mi:ss')
+		AND TO_DATE('${REQ_TIME}','yyyy-mm-dd hh24:mi:ss')+ 12/24
+		AND T3.LINE_CD = 'LINE01'
+	</select>
+
+	<!-- 产线OEE -->
+	<select id="queryLineOEE" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT
+		   T3.OEE_ID,
+		   T3.OEE_TIME,
+		   T3.OEE_ST_CODE,
+		   T3.OEE_FL_CODE,
+		   T3.OEE_CRT_DT,
+		   T3.RUN_RATE,
+		   T3.GRAN_RATE,
+		   T3.RTY,
+		   T3.OEE,
+		   T3.CRT_DT,
+		   T3.MO_NO,
+		   T3.WO_NO,
+		   T3.WC_CD,
+		   T3.LINE_CD,
+		   T3.SHIFT_CD,
+		   T3.ITEM_CD 
+		FROM MES1.H_MES_OEE T3
+		WHERE T3.OEE_ID IN(
+		  SELECT 
+		       ET_CD 
+		  FROM IPLANT1.C_IPLANT_E2_T T1
+		  WHERE T1.ROUT_CD IN 
+		  (
+		    SELECT 
+		       FROM_ROUT_CD
+		    FROM MES1.R_MES_MO_PRF_CONF_T T2 
+		    JOIN MES1.R_MES_WO_T A
+		    ON T2.MO_NO = A.MO_NO AND A.WO_STATE = '9'
+		    WHERE 
+		    T2.TO_ROUT_CD ='END'
+		  )
+		)
+		AND CRT_DT=
+		(
+		  SELECT
+		    MAX(T3.CRT_DT) AS CRT_DT
+		  FROM MES1.H_MES_OEE T3
+		  WHERE T3.OEE_ID IN(
+		    SELECT 
+		         ET_CD 
+		    FROM IPLANT1.C_IPLANT_E2_T T1
+		    WHERE T1.ROUT_CD IN 
+		    (
+		      SELECT 
+		         FROM_ROUT_CD
+		      FROM MES1.R_MES_MO_PRF_CONF_T T2 
+		      JOIN MES1.R_MES_WO_T A
+		      ON T2.MO_NO = A.MO_NO AND A.WO_STATE = '9'
+		      WHERE 
+		      T2.TO_ROUT_CD ='END'
+		    )
+		  )
+		)
+	</select>
+	
+	
+	<!-- 查询工位生产SN信息 -->
+	<select id="queryCurrWipInfo" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT 
+			  MAX(T3.BAR_CODE)    AS BAR_CODE,
+			  T3.PREV_ROUT_CD,
+			  T4.ROUT_NAME,
+			  MAX(T3.CRT_DT)      AS  CRT_DT  
+		FROM MES1.R_MES_WO_T  T1
+		JOIN  MES1.R_MES_MO_PRF_CONF_T  T2 ON T1.MO_NO =  T2.MO_NO
+		JOIN  MES1.R_MES_WIP_DETAIL_T         T3 ON T2.MO_NO = T3.MO_NO 
+		JOIN  MES1.R_MES_ROUTE_DEF_T          T4 ON T3.PREV_ROUT_CD = T4.ROUT_CD
+		AND T1.WO_NO = T3.WO_NO AND T2.FROM_ROUT_CD = T3.PREV_ROUT_CD
+		WHERE 
+		WO_STATE ='9'
+		AND T2.FROM_ROUT_CD !='START'
+		AND NOT EXISTS (
+		    SELECT * FROM R_MES_WIP_DETAIL_T  T4
+		    WHERE T3.BAR_CODE = T4.BAR_CODE 
+		    AND T3.CURR_ROUT_CD = T4.PREV_ROUT_CD
+		)
+	    GROUP BY T3.PREV_ROUT_CD,T4.ROUT_NAME
+		ORDER BY T3.PREV_ROUT_CD
+	</select>
+	
+	<!-- R_MES_PRO_LINE_TEST_ONE -->
+	<select id="queryTestOne" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT 
+	      ROUT_CD, 
+	      TO_CHAR(START_DT, 'YYYY-MM-DD HH24:MI:SS') AS START_DT, 
+	      BAR_CODE, 
+	      ROUT_NM,
+	      DEF_TIME
+	    FROM MES1.R_MES_PRO_LINE_TEST_ONE
+	    <where>1=1
+	    	<!-- <if test="ROUT_TYPE!=null and ROUT_TYPE!=''">
+			   AND ROUT_TYPE = '${ROUT_TYPE}' -->
+<!-- 			   <if test='ROUT_TYPE == 1'> -->
+<!-- 			  		AND ROUT_CD ='RP012'  -->
+<!-- 			  	</if> -->
+<!-- 			  	<if test='ROUT_TYPE == 2'> -->
+<!-- 			  		AND ROUT_CD ='PH008'  -->
+<!-- 			  	</if> -->
+		   <!--  </if> -->
+		    <if test="ROUT_TYPE!=null and ROUT_TYPE!=''">
+			      AND ROUT_TYPE = '${ROUT_TYPE}' 
+ 		 </if> 
+	    </where>
+	</select>
+	
+	<!-- R_MES_PRO_LINE_TEST_TWO -->
+	<select id="queryTestTwo" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT 
+		  ROUT_CD, 
+		  TO_CHAR(START_DT, 'YYYY-MM-DD HH24:MI:SS') AS START_DT, 
+		  TO_CHAR(END_DT, 'YYYY-MM-DD HH24:MI:SS') AS END_DT,
+		  ROUND(TO_NUMBER(END_DT - START_DT) * 24 * 60 * 60) AS STOP_DT, 
+		  BAR_CODE,
+		  ROUT_NM,
+		  RESULT
+		FROM 
+		MES1.R_MES_PRO_LINE_TEST_TWO 
+		<where>1=1
+		 AND BAR_CODE =
+			(
+			  SELECT 
+			      BAR_CODE
+			  FROM MES1.R_MES_PRO_LINE_TEST_ONE
+			  <where>
+			  	<if test='ROUT_TYPE == 1'>
+			  		AND ROUT_CD ='RP012' 
+			  	</if>
+			  	<if test='ROUT_TYPE == 2'>
+			  		AND ROUT_CD ='PH008' 
+ 			  	</if>
+			  </where>
+			)
+ 	     <if test="ROUT_TYPE!=null and ROUT_TYPE!=''">
+			AND ROUT_TYPE = '${ROUT_TYPE}' 
+ 		 </if> 
+		</where>
+	</select>
+	
+	<!-- 产线动态看板页面    END -->
+	
+	
+	<!-- SN绑定关系报表查询 -->
+	<select id="querySNBindingRelationship" parameterType="hashmap" resultType="java.util.HashMap">
+		<include refid="oraclePagingFileTop"></include>
+		    T1.FCT_CD,
+		    (SELECT FT_NM FROM IPLANT1.C_IPLANT_F1_T C WHERE C.FT_CD = T1.FCT_CD) AS FCT_NM,
+		    T1.BIND_NO,
+		    T1.BAR_CODE,
+		    T1.BIND_ST,
+		    T2.WO_NO,
+		    T2.MO_NO,
+		    T2.ITEM_CD,
+		    T2.ITEM_NM,
+		    T1.MO,
+		    T1.USR_DFN_1,
+		    T1.USR_DFN_2,
+		    T1.USR_DFN_3,
+		    T1.USR_DFN_4,
+		    T1.USR_DFN_5,
+		    T1.CRT_ID,
+		    T1.CRT_IP,
+		    TO_CHAR(T1.CRT_DT, 'YYYY-MM-DD HH24:MI:SS') AS CRT_DT,
+		    T1.UPT_ID,
+		    T1.UPT_IP,
+		    TO_CHAR(T1.UPT_DT, 'YYYY-MM-DD HH24:MI:SS') AS UPT_DT
+		FROM (SELECT * FROM MES1.R_MES_SN_BIND_T ORDER BY CRT_DT DESC) T1
+		JOIN
+		MES1.R_MES_MO_BC_T T2
+		ON T1.BAR_CODE = T2.BAR_CODE
+		<where>1=1
+			<if test="BAR_CODE!=null and BAR_CODE!=''">
+				AND T1.BIND_NO = (
+				 SELECT 
+				      BIND_NO 
+				 FROM MES1.R_MES_SN_BIND_T
+				 WHERE BAR_CODE = '${BAR_CODE}'
+				)
+			</if>
+			<if test="WO_NO!=null and WO_NO!=''">
+				AND T2.WO_NO = '${WO_NO}'
+			</if>
+			<if test="ITEM_CD!=null and ITEM_CD!=''">
+				AND T2.ITEM_CD like '%${ITEM_CD}%'
+			</if>
+			<if test="CRT_DT!=null and CRT_DT!=''">
+				AND T1.CRT_DT <![CDATA[>=TO_DATE('${CRT_DT}' || '00:00:00','yyyy-MM-dd HH24:mi:ss')]]>
+			</if>
+		</where>
+	 <include refid="oraclePagingFileBottom"></include>
+	</select>
+	
+	<!-- SN绑定关系分页 -->
+	<select id="querySNBindingRelationship_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT 
+		   COUNT(1) AS ROWS_COUNT
+		FROM MES1.R_MES_SN_BIND_T T1
+		JOIN
+		MES1.R_MES_MO_BC_T T2
+		ON T1.BAR_CODE = T2.BAR_CODE
+		<where>1=1
+			<if test="BAR_CODE!=null and BAR_CODE!=''">
+				AND T1.BIND_NO = (
+				 SELECT 
+				      BIND_NO 
+				 FROM MES1.R_MES_SN_BIND_T
+				 WHERE BAR_CODE = '${BAR_CODE}'
+				)
+			</if>
+			<if test="WO_NO!=null and WO_NO!=''">
+				AND T2.WO_NO = '${WO_NO}'
+			</if>
+			<if test="ITEM_CD!=null and ITEM_CD!=''">
+				AND T2.ITEM_CD like '%${ITEM_CD}%'
+			</if>
+			<if test="CRT_DT!=null and CRT_DT!=''">
+				AND T1.CRT_DT <![CDATA[>=TO_DATE('${CRT_DT}' || '00:00:00','yyyy-MM-dd HH24:mi:ss')]]>
+			</if>
+		</where>
+	</select>
+	
+	<!-- 插件机查询 -->
+	<select id="queryPluginMachineInfo" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT 
+		     MODEL_CD,
+		     PLUF_CD,
+		     STACK_CD,
+		     PLUD_NUM,
+		     FM_NUM,
+		     EP_NUM,
+		     FM_OE,
+		     SUCK_OE,
+		     PROD_DT,
+		     RTD_DT,
+		     BAR_CODE
+		FROM MES1.H_MES_RHSG_DTL_T
+		WHERE RTD_DT=
+		(
+		  SELECT MAX(RTD_DT) AS RTD_DT FROM MES1.H_MES_RHSG_DTL_T
+		  WHERE MODEL_CD='${ET_CD}'
+		)
+	    AND MODEL_CD='${ET_CD}'
+	</select>
+	
+	
+	<!-- 生产日报表 -->
+	<select id="queryDailyProductionReport" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT 
+		   TO_CHAR(TO_DATE('${RPO_DT}', 'yyyy-mm-dd hh24:mi:ss'), 'YYYY-MM-DD') AS QUERY_DATE,
+	       T1.FCT_CD,
+	       (SELECT FT_NM FROM IPLANT1.C_IPLANT_F1_T C WHERE C.FT_CD = T1.FCT_CD) AS FCT_NM,
+           T1.WC_CD,
+           (SELECT A.PL_NM FROM IPLANT1.C_IPLANT_P1_T A WHERE A.PL_CD = T1.WC_CD) AS WC_NM,
+           T2.LINE_CD,
+           (SELECT B.PD_LN_NM FROM IPLANT1.C_IPLANT_P5_T B WHERE B.PD_LN_CD = T2.LINE_CD) AS LINE_NM,
+           T2.SHIFT_CD,
+           (SELECT C.CS_NM FROM IPLANT1.C_IPLANT_C4_T C WHERE C.CS_CD = T2.SHIFT_CD) AS SHIFT_NM,
+	       T2.WO_NO,
+	       T1.MO_NO,
+	       T1.ITEM_CD,
+	       T1.ITEM_NM,
+	       T2.PLAN_WO_QTY,
+	       NVL(T1.INPUT_QTY, 0) AS INPUT_QTY,
+	       NVL(T3.OUTPUT_QTY, 0) AS OUTPUT_QTY,
+	       NVL(T4.IPQC_QTY, 0) AS IPQC_QTY,
+	       NVL(T3. OUTPUT_QTY, 0) - NVL(T4.IPQC_QTY, 0) AS GOOD_QTY
+	  FROM (SELECT T1.FCT_CD,
+	               T1.WC_CD,
+	               T2.WO_NO,
+	               T1.MO_NO,
+	               T1.ITEM_CD,
+	               T1.ITEM_NM,
+	               T2.PREV_ROUT_CD,
+	               T1.FROM_ROUT_CD,
+	               COUNT(*) AS INPUT_QTY
+	          FROM MES1.R_MES_MO_PRF_CONF_T T1
+	          LEFT JOIN MES1.R_MES_WIP_DETAIL_T T2
+	            ON T1.MO_NO = T2.MO_NO
+	           AND T1.FROM_ROUT_CD = T2.PREV_ROUT_CD
+	         WHERE T1.IS_INPUT = 'Y'
+	           AND T2.CRT_DT Between
+	               TO_DATE('${RPO_DT}', 'yyyy-mm-dd hh24:mi:ss') AND
+	               TO_DATE('${RPO_DT}', 'yyyy-mm-dd hh24:mi:ss')+ 12/24
+	         GROUP BY T1.FCT_CD,
+	                  T1.WC_CD,
+	                  T2.WO_NO,
+	                  T1.MO_NO,
+	                  T1.ITEM_CD,
+	                  T1.ITEM_NM,
+	                  T2.PREV_ROUT_CD,
+	                  T1.FROM_ROUT_CD) T1
+	  LEFT JOIN MES1.R_MES_WO_T T2
+	    ON T1.MO_NO = T2.MO_NO
+	   AND T1.WO_NO = T2.WO_NO
+	  JOIN (SELECT T1.FCT_CD,
+	               T1.WC_CD,
+	               T2.WO_NO,
+	               T1.MO_NO,
+	               T1.ITEM_CD,
+	               T1.ITEM_NM,
+	               T2.PREV_ROUT_CD,
+	               T1.FROM_ROUT_CD,
+	               COUNT(*) AS OUTPUT_QTY
+	          FROM MES1.R_MES_MO_PRF_CONF_T T1
+	          LEFT JOIN MES1.R_MES_WIP_DETAIL_T T2
+	            ON T1.MO_NO = T2.MO_NO
+	           AND T1.FROM_ROUT_CD = T2.PREV_ROUT_CD
+	         WHERE T1.IS_OUTPUT = 'Y'
+	           AND T2.CRT_DT Between
+	               TO_DATE('${RPO_DT}', 'yyyy-mm-dd hh24:mi:ss') AND
+	               TO_DATE('${RPO_DT}', 'yyyy-mm-dd hh24:mi:ss')+ 12/24
+	         GROUP BY T1.FCT_CD,
+	                  T1.WC_CD,
+	                  T2.WO_NO,
+	                  T1.MO_NO,
+	                  T1.ITEM_CD,
+	                  T1.ITEM_NM,
+	                  T2.PREV_ROUT_CD,
+	                  T1.FROM_ROUT_CD) T3
+	    ON T2.WO_NO = T3.WO_NO
+	   AND T2.MO_NO = T3.MO_NO
+	  LEFT JOIN (SELECT T1.FCT_CD,
+	                    T1.WC_CD,
+	                    T1.LINE_CD,
+	                    T1.WO_NO,
+	                    T1.MO_NO,
+	                    T1.ITEM_CD,
+	                    T1.ITEM_NM,
+	                    COUNT(*) IPQC_QTY
+	               FROM MES1.R_MES_IPQC_DTL_T T1
+	              WHERE IPQC_RSLT = 'fail'
+	                AND CRT_DT Between
+	                    TO_DATE('${RPO_DT}', 'yyyy-mm-dd hh24:mi:ss') AND
+	                    TO_DATE('${RPO_DT}', 'yyyy-mm-dd hh24:mi:ss')+ 12/24
+	              GROUP BY T1.FCT_CD,
+	                       T1.WC_CD,
+	                       T1.LINE_CD,
+	                       T1.WO_NO,
+	                       T1.MO_NO,
+	                       T1.ITEM_CD,
+	                       T1.ITEM_NM) T4
+	    ON T1.WO_NO = T2.WO_NO
+	   AND T1.MO_NO = T2.MO_NO
+	   AND T1.ITEM_CD = T2.ITEM_CD
+	</select>
+	
+	<!-- 生产进度 -->
+	<select id="queryCentralMonitoringProductionSchedule" parameterType="hashmap" resultType="java.util.HashMap">
+	
+	
+	SELECT
+      DISTINCT
+      T1.MO_NO,
+      T1.ITEM_CD,
+      T1.ITEM_NM,
+      T2.PAI_QTY     AS  PLAN_WO_QTY,
+      T2.INPUT_QTY   AS  INPUT_QTY,
+      T2.TOTAL_QTY   AS  OUTPUT_QTY,
+      NVL(T2.TOTAL_QTY,0)
+      -NVL(T3.CIPIN_QTY,0)  AS GOOD_QTY,
+      T3.CIPIN_QTY   AS  IPQC_QTY,
+      0              AS OUTSUM, 
+      0              AS INSUM
+    FROM MES1.R_MES_WO_T T1
+    LEFT JOIN
+    (
+      SELECT
+        MO_NO, 
+        SUM(PLAN_WO_QTY) AS PAI_QTY,
+        SUM(PROD_QTY) AS TOTAL_QTY,
+        SUM(INPUT_QTY) AS INPUT_QTY
+      FROM MES1.R_MES_WO_T
+      WHERE WO_STATE = '9'
+      GROUP BY MO_NO 
+    ) T2 ON T1.MO_NO = T2.MO_NO
+      LEFT JOIN (
+SELECT  FCT_CD,WC_CD,LINE_CD,WO_NO,MO_NO, COUNT(*) AS CIPIN_QTY FROM R_MES_IPQC_DTL_T
+ WHERE  
+      LINE_CD ='LINE01'
+      AND IPQC_RSLT = 'fail'
+     GROUP BY FCT_CD,WC_CD,LINE_CD,WO_NO,MO_NO
+   ) T3  ON T1.WO_NO = T3.WO_NO AND T1.MO_NO = T3.MO_NO AND T1.LINE_CD = T3.LINE_CD
+    
+    WHERE 
+    T1.WO_STATE = '9'
+    AND T1.LINE_CD = 'LINE01'
+	
+<!-- 		SELECT  -->
+<!-- 		 GG.PLAN_WO_QTY, -->
+<!-- 		 GG.INPUT_QTY, -->
+<!-- 		 GG.OUTPUT_QTY, -->
+<!-- 		 GG.GOOD_QTY, -->
+<!-- 		 GG.IPQC_QTY, -->
+<!-- 		 NVL(GG.OUTSUM,0) AS OUTSUM, -->
+<!-- 		 NVL(GG.INSUM,0) AS INSUM -->
+<!-- 		FROM( -->
+<!-- 		SELECT  -->
+<!-- 		 DD.PLAN_WO_QTY, -->
+<!-- 		 DD.INPUT_QTY, -->
+<!-- 		 DD.OUTPUT_QTY, -->
+<!-- 		 DD.GOOD_QTY, -->
+<!-- 		 DD.IPQC_QTY, -->
+<!-- 		 (SELECT  -->
+<!-- 		 TT.OUTSUM -->
+<!-- 		 FROM -->
+<!-- 		(SELECT  -->
+<!-- 		 SUM(NVL(DD.PACKAGE_CAPACITY,0)) AS OUTSUM, -->
+<!-- 		 DD.CURR_DATE -->
+<!-- 		 FROM -->
+<!-- 		( SELECT  -->
+<!-- 		   T1.BARCODE, -->
+<!-- 		   T1.MATERIA_ID, -->
+<!-- 		   T1.MATERIA_NAME, -->
+<!-- 		   T1.UNIT_ID, -->
+<!-- 		   T1.UNIT_NAME, -->
+<!-- 		   T1.POSITION_ID, -->
+<!-- 		   T1.PACKAGE_CAPACITY, -->
+<!-- 		   T2.SHELF_ID, -->
+<!-- 		   T5.WAREHOUSE_ID, -->
+<!-- 		   T5.WAREHOUSE_TYPE_ID, -->
+<!-- 		   TO_CHAR(T1.UPDATE_DATE, 'YYYY-MM-DD') AS CURR_DATE -->
+<!-- 		 FROM WMS1.WMS_CHECKIN_PACKAGE T1 -->
+<!-- 		 LEFT JOIN WMS1.WMS_POSITION T2 ON T2.POSITION_ID=T1.POSITION_ID -->
+<!-- 		 LEFT JOIN WMS1.WMS_SHELF T3 ON T3.SHELF_ID=T2.SHELF_ID -->
+<!-- 		 LEFT JOIN WMS1.WMS_STORE T4 ON T4.STORE_ID=T3.STORE_ID -->
+<!-- 		 LEFT JOIN WMS1.WMS_WAREHOUSE T5 ON T5.WAREHOUSE_ID= T4.WAREHOUSE_ID -->
+<!-- 		 WHERE T1.CHECKIN_STATUS='ENT01.06'  AND T5.WAREHOUSE_TYPE_ID='48677' -->
+<!-- 		  )DD -->
+<!-- 		 GROUP BY DD.CURR_DATE -->
+<!-- 		 )TT) AS OUTSUM, -->
+<!-- 		 ( -->
+<!-- 		 SELECT  -->
+<!-- 		 TT.INSUM -->
+<!-- 		 FROM -->
+<!-- 		(SELECT  -->
+<!-- 		 SUM(NVL(DD.PACKAGE_CAPACITY,0)) AS INSUM, -->
+<!-- 		 DD.CURR_DATE -->
+<!-- 		 FROM -->
+<!-- 		( SELECT  -->
+<!-- 		   T1.BARCODE, -->
+<!-- 		   T1.MATERIA_ID, -->
+<!-- 		   T1.MATERIA_NAME, -->
+<!-- 		   T1.UNIT_ID, -->
+<!-- 		   T1.UNIT_NAME, -->
+<!-- 		   T1.POSITION_ID, -->
+<!-- 		   T1.PACKAGE_CAPACITY, -->
+<!-- 		   T2.SHELF_ID, -->
+<!-- 		   T5.WAREHOUSE_ID, -->
+<!-- 		   T5.WAREHOUSE_TYPE_ID, -->
+<!-- 		   TO_CHAR(T1.UPDATE_DATE, 'YYYY-MM-DD') AS CURR_DATE -->
+<!-- 		 FROM WMS1.WMS_CHECKIN_PACKAGE T1 -->
+<!-- 		 LEFT JOIN WMS1.WMS_POSITION T2 ON T2.POSITION_ID=T1.POSITION_ID -->
+<!-- 		 LEFT JOIN WMS1.WMS_SHELF T3 ON T3.SHELF_ID=T2.SHELF_ID -->
+<!-- 		 LEFT JOIN WMS1.WMS_STORE T4 ON T4.STORE_ID=T3.STORE_ID -->
+<!-- 		 LEFT JOIN WMS1.WMS_WAREHOUSE T5 ON T5.WAREHOUSE_ID= T4.WAREHOUSE_ID -->
+<!-- 		 WHERE T1.CHECKIN_STATUS='ENT01.04'  AND T5.WAREHOUSE_TYPE_ID='48677' -->
+<!-- 		  )DD -->
+<!-- 		 GROUP BY DD.CURR_DATE -->
+<!-- 		 )TT -->
+<!-- 		 ) AS INSUM -->
+<!-- 		FROM( -->
+<!-- 		 SELECT -->
+<!-- 		        SUM(T2.PLAN_WO_QTY) AS PLAN_WO_QTY, -->
+<!-- 		        SUM(NVL(T1.INPUT_QTY, 0)) AS INPUT_QTY, -->
+<!-- 		        SUM(NVL(T3.OUTPUT_QTY, 0)) AS OUTPUT_QTY, -->
+<!-- 		        SUM(NVL(T3. OUTPUT_QTY, 0)) -  SUM(NVL(T4.IPQC_QTY, 0)) AS GOOD_QTY, -->
+<!-- 		        SUM(NVL(T4.IPQC_QTY,0)) AS IPQC_QTY -->
+		        
+<!-- 		   FROM (SELECT T1.FCT_CD, -->
+<!-- 		                T1.WC_CD, -->
+<!-- 		                T2.WO_NO, -->
+<!-- 		                T1.MO_NO, -->
+<!-- 		                T1.ITEM_CD, -->
+<!-- 		                T1.ITEM_NM, -->
+<!-- 		                T2.PREV_ROUT_CD, -->
+<!-- 		                T1.FROM_ROUT_CD, -->
+<!-- 		                COUNT(*) AS INPUT_QTY -->
+<!-- 		           FROM MES1.R_MES_MO_PRF_CONF_T T1 -->
+<!-- 		           LEFT JOIN MES1.R_MES_WIP_DETAIL_T T2 -->
+<!-- 		             ON T1.MO_NO = T2.MO_NO -->
+<!-- 		            AND T1.FROM_ROUT_CD = T2.PREV_ROUT_CD -->
+<!-- 		          WHERE T1.IS_INPUT = 'Y' -->
+<!-- 		           AND T2.CRT_DT BETWEEN -->
+<!-- 		                TO_DATE('2017-06-06 08:00', 'YYYY-MM-DD HH24:MI:SS') AND -->
+<!-- 		                TO_DATE('2017-06-06 08:00', 'YYYY-MM-DD HH24:MI:SS') + 12/24 -->
+<!-- 		          GROUP BY T1.FCT_CD, -->
+<!-- 		                   T1.WC_CD, -->
+<!-- 		                   T2.WO_NO, -->
+<!-- 		                   T1.MO_NO, -->
+<!-- 		                   T1.ITEM_CD, -->
+<!-- 		                   T1.ITEM_NM, -->
+<!-- 		                   T2.PREV_ROUT_CD, -->
+<!-- 		                   T1.FROM_ROUT_CD) T1 -->
+<!-- 		   LEFT JOIN MES1.R_MES_WO_T T2 -->
+<!-- 		     ON T1.MO_NO = T2.MO_NO -->
+<!-- 		    AND T1.WO_NO = T2.WO_NO -->
+<!-- 		   JOIN (SELECT T1.FCT_CD, -->
+<!-- 		                T1.WC_CD, -->
+<!-- 		                T2.WO_NO, -->
+<!-- 		                T1.MO_NO, -->
+<!-- 		                T1.ITEM_CD, -->
+<!-- 		                T1.ITEM_NM, -->
+<!-- 		                T2.PREV_ROUT_CD, -->
+<!-- 		                T1.FROM_ROUT_CD, -->
+<!-- 		                COUNT(*) AS OUTPUT_QTY -->
+<!-- 		           FROM MES1.R_MES_MO_PRF_CONF_T T1 -->
+<!-- 		           LEFT JOIN MES1.R_MES_WIP_DETAIL_T T2 -->
+<!-- 		             ON T1.MO_NO = T2.MO_NO -->
+<!-- 		            AND T1.FROM_ROUT_CD = T2.PREV_ROUT_CD -->
+<!-- 		          WHERE T1.IS_OUTPUT = 'Y' -->
+<!-- 		           AND T2.CRT_DT BETWEEN -->
+<!-- 		                TO_DATE('2017-06-06 08:00', 'YYYY-MM-DD HH24:MI:SS') AND -->
+<!-- 		                TO_DATE('2017-06-06 08:00', 'YYYY-MM-DD HH24:MI:SS') + 12/24 -->
+<!-- 		          GROUP BY T1.FCT_CD, -->
+<!-- 		                   T1.WC_CD, -->
+<!-- 		                   T2.WO_NO, -->
+<!-- 		                   T1.MO_NO, -->
+<!-- 		                   T1.ITEM_CD, -->
+<!-- 		                   T1.ITEM_NM, -->
+<!-- 		                   T2.PREV_ROUT_CD, -->
+<!-- 		                   T1.FROM_ROUT_CD) T3 -->
+<!-- 		     ON T2.WO_NO = T3.WO_NO -->
+<!-- 		    AND T2.MO_NO = T3.MO_NO -->
+<!-- 		    LEFT JOIN (SELECT T1.FCT_CD, -->
+<!-- 		                     T1.WC_CD, -->
+<!-- 		                     T1.LINE_CD, -->
+<!-- 		                     T1.WO_NO, -->
+<!-- 		                     T1.MO_NO, -->
+<!-- 		                     T1.ITEM_CD, -->
+<!-- 		                     T1.ITEM_NM, -->
+<!-- 		                     COUNT(*) IPQC_QTY -->
+<!-- 		                FROM MES1.R_MES_IPQC_DTL_T T1 -->
+<!-- 		               WHERE IPQC_RSLT = 'FAIL' -->
+<!-- 		               AND CRT_DT BETWEEN -->
+<!-- 		                     TO_DATE('2017-06-06 08:00', 'YYYY-MM-DD HH24:MI:SS') AND -->
+<!-- 		                     TO_DATE('2017-06-06 08:00', 'YYYY-MM-DD HH24:MI:SS') + 12/24 -->
+<!-- 		               GROUP BY T1.FCT_CD, -->
+<!-- 		                        T1.WC_CD, -->
+<!-- 		                        T1.LINE_CD, -->
+<!-- 		                        T1.WO_NO, -->
+<!-- 		                        T1.MO_NO, -->
+<!-- 		                        T1.ITEM_CD, -->
+<!-- 		                        T1.ITEM_NM) T4 -->
+<!-- 		     ON T1.WO_NO = T2.WO_NO -->
+<!-- 		    AND T1.MO_NO = T2.MO_NO -->
+<!-- 		    AND T1.ITEM_CD = T2.ITEM_CD -->
+<!-- 		)DD -->
+<!-- 		) GG -->
+		
+	</select>
+	
+	<!-- SN追溯报表查询-->
+	<select id="queryRetrospectiveReportSN" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap">
+	  {call MES1.R_MES_REPORT_PACKAGE.R_SN_QUERY_CUR_P('${WO_NO}',
+  #{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=screenMonitorTotMap},#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, #{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},#{MESSAGE,jdbcType=VARCHAR,mode=OUT,javaType=String})}
+	</select>
+	
+	
+    <!-- 机器跑马灯效果 -->
+	<select id="queryR_MES_ET_EXPCE_T" parameterType="hashmap" resultType="java.util.HashMap">
+	   SELECT 
+	   ET_CD,
+	   EXPCE_CD,
+	   EXPCE_NM,
+	   EXPEC_SORT
+	   FROM MES1.R_MES_ET_EXPCE_T
+	   <where> 1=1
+	   <if test="ET_CD!=null and ET_CD!=''">
+			AND ET_CD = '${ET_CD}'
+		</if>
+		<if test="EXPCE_CD!=null and EXPCE_CD!=''">
+			AND EXPCE_CD = '${EXPCE_CD}'
+		</if>
+	   <if test="EXPCE_NM!=null and EXPCE_NM!=''">
+			AND EXPCE_NM = '${EXPCE_NM}'
+		</if>
+	   <if test="EXPEC_SORT!=null and EXPEC_SORT!=''">
+			AND EXPEC_SORT = '${EXPEC_SORT}'
+		</if>
+	   </where> 
+	</select>
+	
+	<!-- 烧录机电子生产情况  -->
+	<select id="queryBurnerElectron_Screen" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT 
+		   PD_NAME, 
+		   PD_VERSION, 
+		   BURN_DT, 
+		   BURN_QTY, 
+		   DF_RATE 
+	   FROM MES1.R_MES_BURNERELE_T
+    </select>
+	
+	<!-- ACF电子设备状态参数  -->
+	<select id="queryACF_Screen" parameterType="hashmap" resultType="java.util.HashMap">
+	   SELECT
+		 ET_PAR, 
+		 FOCAL_SCOPE, 
+		 PULSE_W, 
+		 WELD_FREQUEN, 
+		 TARGET_MODE, 
+		 CNC_SYS, 
+		 BENCH_FORMING, 
+		 REP_POSAC, 
+		 POWER_DEMAND, 
+		 COOL_TYPE, 
+		 SER_ENMENT 
+	  FROM MES1.R_MES_ACF_ELEC_T
+    </select>
+	
+	<!-- 校准测试机数据查询  -->
+	<select id="queryTestReport" parameterType="hashmap" resultType="java.util.HashMap">
+	 	   SELECT  
+       T1.WO_NO,
+       T1.LINE_CD,
+       T1.MO_NO,
+       T1.ITEM_CD,
+       T4.PLAN_PO_QTY,
+       T1.PLAN_WO_QTY,
+       T4.ITEM_CD_VERSION,
+       T4.PRF_CD,
+      COUNT(*)  AS SUN,
+      (
+      SELECT
+      COUNT(*) SUN
+      FROM MES1.R_MES_MO_BC_T TQ1
+      LEFT JOIN  R_MES_CALIBRATION_T TQ2 ON TQ2.PCB_SN=TQ1.BAR_CODE 
+      WHERE TQ1.BAR_CODE=TQ2.PCB_SN AND TQ1.WO_NO=T1.WO_NO
+      AND TQ2.JUDGMENT_RESULT='OK' ) AS
+       GOOD,
+      (
+      SELECT
+      COUNT(*) SUN
+      FROM MES1.R_MES_MO_BC_T TQ1
+      LEFT JOIN  R_MES_CALIBRATION_T TQ2 ON TQ2.PCB_SN=TQ1.BAR_CODE 
+      WHERE TQ1.BAR_CODE=TQ2.PCB_SN AND TQ1.WO_NO=T1.WO_NO
+      AND TQ2.JUDGMENT_RESULT='NG'
+      ) AS
+       BAD,
+      ROUND(((SELECT
+      COUNT(*) SUN
+      FROM MES1.R_MES_MO_BC_T TQ1
+      LEFT JOIN  R_MES_CALIBRATION_T TQ2 ON TQ2.PCB_SN=TQ1.BAR_CODE 
+      WHERE TQ1.BAR_CODE=TQ2.PCB_SN AND TQ1.WO_NO=T1.WO_NO
+      AND TQ2.JUDGMENT_RESULT='OK' )/
+      COUNT(*)
+      ),2)*100 || '%' AS YIELD
+      FROM MES1.R_MES_MO_BC_T T1
+      LEFT JOIN  R_MES_CALIBRATION_T T2 ON T2.PCB_SN=T1.BAR_CODE 
+      LEFT JOIN MES1.R_MES_WO_T T3 ON T1.WO_NO=T3.WO_NO
+      LEFT JOIN MES1.R_MES_MO_T T4 ON T1.MO_NO = T4.MO_NO
+       <where> T1.BAR_CODE=T2.PCB_SN 
+       <if test="MO_NO!=null and MO_NO!=''">
+			AND T1.MO_NO  LIKE '%${MO_NO}%'
+		</if>
+		 <if test="PRF_CD!=null and PRF_CD!=''">
+			AND T4.PRF_CD  LIKE '%${PRF_CD}%'
+		</if>
+	   </where> 
+      GROUP BY 
+       T1.WO_NO,
+       T1.LINE_CD,
+       T1.MO_NO,
+       T1.ITEM_CD,
+       T1.PLAN_WO_QTY,
+       T4.ITEM_CD_VERSION,
+       T4.PLAN_PO_QTY,
+       T4.PRF_CD
+    </select>
+	
+	
+<!-- 	<select id="queryTestReport_COUNT" parameterType="hashmap" resultType="java.util.HashMap"> -->
+	 
+<!-- 	</select> -->
+
+	<!-- 设备工单生产信息  取实际生产数据 -->
+	<select id="queryMoProductInfo" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap">
+	   {call MES1.R_MES_REPORT_TV_PACKAGE.R_ET_MO_INFO_P('${REQ_TIME}','${LINE_CD}','${ET_CD}',
+	  #{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=screenMonitorTotMap},#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, #{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},#{MESSAGE,jdbcType=VARCHAR,mode=OUT,javaType=String})}     
+	</select>
+	
+	<!-- 生产拉头看板报表信息-产能达成状况 -->
+	<select id="queryCapacityReachInfo" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap">
+		 {call MES1.R_MES_REPORT_TV_PACKAGE.R_CAPACITY_REACH_P('${REQ_TIME}','${LINE_CD}','${ET_CD}',
+	  #{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=screenMonitorTotMap},#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, #{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},#{MESSAGE,jdbcType=VARCHAR,mode=OUT,javaType=String})}
+	</select>
+	
+	
+	<!-- 生产拉头看板报表信息-主信息 -->
+	<select id="queryProductionPullHeaderInfo" parameterType="hashmap" resultType="java.util.HashMap">
+	    SELECT
+	      DISTINCT 
+	      T1.WO_NO,
+	      T1.MO_NO, 
+	      T1.LINE_CD,
+	      T1.PLAN_PO_QTY,
+	      T1.PLAN_STRT_DT,
+	      T1.PROD_QTY,
+	      T1.ITEM_CD,
+	      T1.PLAN_WO_QTY,
+	      T3.LINE_QTY,
+	      T1.CAPA,
+	      T1.MODEL_NM,
+	      T1.MODEL_CD,
+	      (T1.PLAN_PO_QTY - T1.PROD_QTY) AS NO_QTY,
+	      ROUND((T1.PROD_QTY/T1.PLAN_PO_QTY),2)*100|| '%' AS COM_RATE
+			FROM MES1.R_MES_WO_T T1
+			LEFT JOIN
+			MES1.R_MES_WIP_DETAIL_T T2
+			ON T1.WO_NO = T2.WO_NO AND T1.MO_NO = T2.MO_NO
+			LEFT JOIN 
+			(
+			  SELECT
+			     LINE_CD,
+			     COUNT(*) AS LINE_QTY
+			  FROM
+			  MES1.R_MES_LINE_HUM_T
+			  GROUP BY LINE_CD
+			) T3 ON T1.LINE_CD = T3.LINE_CD 
+			WHERE T1.LINE_CD = '${LINE_CD}'
+			AND T1.WO_STATE='7'
+	</select>
+	
+	<!-- 生产拉头 产线状态查询 -->
+	<select id="queryLineStauts" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap">
+	   {call MES1.R_MES_REPORT_TV_PACKAGE.R_LINE_STAUTS_P('${LINE_CD}',
+	  #{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=screenMonitorTotMap},#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, #{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},#{MESSAGE,jdbcType=VARCHAR,mode=OUT,javaType=String})}     
+	</select>
+	
+	<!--机械设备状态查询  -->
+	<select id="queryEquipmentStauts" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap">
+	   {call MES1.R_MES_REPORT_TV_PACKAGE.R_MES_EQUIPMENT_STATE_DTL_P('${REQ_TIME}','${LINE_CD}','${ET_CD}',
+	  #{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=screenMonitorTotMap},#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, #{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},#{MESSAGE,jdbcType=VARCHAR,mode=OUT,javaType=String})}     
+	</select>
+	
+		<!--机械设备工单信息 -->
+	<select id="queryEquipmentInfo" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap">
+	   {call MES1.R_MES_REPORT_TV_PACKAGE.R_MES_EQUIPMENT_INFO_P('${REQ_TIME}','${LINE_CD}','${ET_CD}',
+	  #{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=screenMonitorTotMap},#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, #{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},#{MESSAGE,jdbcType=VARCHAR,mode=OUT,javaType=String})}     
+		       
+	</select>
+	
+	<!-- 机械设备次品示意图 -->
+	<select id="queryTest_etInfo" parameterType="hashmap" resultType="java.util.HashMap">
+		select ET_CD,
+       PCB_SN,
+       JUDGMENT_RESULT,
+       count(*) as test_num,
+       TRUNC((USR_DFN_1/count(*)),3)*100 || '%' as USR_DFN_1,
+       TRUNC((USR_DFN_2/count(*)),3)*100 || '%' as USR_DFN_2,
+       TRUNC((USR_DFN_3/count(*)),3)*100 || '%' as USR_DFN_3,
+       TRUNC((USR_DFN_4/count(*)),3)*100 || '%' as USR_DFN_4
+  from R_MES_TEST_ET_T  
+  WHERE
+	    CRT_DT between TO_DATE('${REQ_TIME}','yyyy-mm-dd hh24:mi:ss')  
+	    AND TO_DATE('${REQ_TIME}','yyyy-mm-dd hh24:mi:ss')+ 12/24
+	    AND ET_CD = '${ET_CD}'
+  GROUP BY JUDGMENT_RESULT,ET_CD，PCB_SN，USR_DFN_1，USR_DFN_2，USR_DFN_3，USR_DFN_4
+	</select>
+<!-- 机械设备一周产能 -->
+	<select id="query_QTY" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap">
+	  {call MES1.R_MES_REPORT_TV_PACKAGE.R_MES_QTY_INFO_P('${REQ_TIME}','${LINE_CD}','${ET_CD}',
+	  #{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=screenMonitorTotMap},#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, #{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},#{MESSAGE,jdbcType=VARCHAR,mode=OUT,javaType=String})}
+	</select>
+	<!-- 机械设备综合状况 -->
+	<select id="query_OEE" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap">
+	 {call MES1.R_MES_REPORT_TV_PACKAGE.R_MES_OEE_INFO_P('${REQ_TIME}','${LINE_CD}','${ET_CD}',
+	  #{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=screenMonitorTotMap},#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, #{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},#{MESSAGE,jdbcType=VARCHAR,mode=OUT,javaType=String})}
+	 </select>
+</mapper>

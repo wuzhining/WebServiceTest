@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="">      
+
+		<!-- 1.1 数据字典管理 -->		
+	<!-- 查询维修类别信息 -->
+	<select id="queryService" parameterType="hashmap" resultType="java.util.HashMap">
+		  <include refid="oraclePagingFileTop"></include>
+		   SC_NMU,SC_NAME,SC_RM,USE_YN,CRT_ID,to_char(CRT_DT,'yyyy-mm-dd') CRT_DT,UPT_ID,to_char(UPT_DT,'yyyy-mm-dd') UPT_DT from SERVICE_CATEGORY 
+		   <where>
+		  1=1 
+		   </where> 
+		   <include refid="oraclePagingFileBottom"></include> 
+	</select>
+	
+	<!-- 查询维修类别分页总数 -->
+	<select id="queryService_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+	SELECT COUNT(1) ROWS_COUNT from SERVICE_CATEGORY 
+	</select>
+	
+	<!-- 删除保养项目 -->
+  	<delete id="deleteService" parameterType="hashmap">
+		DELETE FROM SERVICE_CATEGORY 
+		<where>
+			SC_NMU IN
+		</where> 
+		<foreach collection="list"  index="index" item="item" open="(" separator="," close=")"  >
+       					#{item.SC_NMU}
+      				</foreach>
+	</delete> 
+	
+	<!-- 新增维修类别 -->
+	 <insert id="insertService" parameterType="hashmap">
+	 	<selectKey resultType="int" keyProperty="SC_ID" order="BEFORE"> 
+            SELECT SERV.NEXTVAL FROM DUAL 
+        </selectKey>
+		insert into SERVICE_CATEGORY ( SC_ID,SC_NMU,SC_NAME,SC_RM,USE_YN,CRT_ID,CRT_DT)
+		values('${SC_ID}','${SC_NMU}','${SC_NAME}','${SC_RM}','${USE_YN}','${F_USE_CD}',sysdate)
+	</insert> 
+	
+	 <!-- 修改维修类别-->
+ 	    <update id="updateService" parameterType="hashmap">
+	    	update SERVICE_CATEGORY
+	    	<set>
+	    		<if test="SC_NAME!=null and SC_NAME!= ''">SC_NAME='${SC_NAME}',</if>
+	    		<if test="SC_RM!=null and SC_RM!= ''">SC_RM='${SC_RM}',</if>
+	    	UPT_ID='${F_USE_CD}',
+	    	UPT_DT=sysdate
+	    	</set>
+	    	where SC_NMU='${SC_NMU}'
+	    </update> 
+ </mapper>

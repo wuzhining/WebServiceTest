@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>工单导入</title>
+    <link rel="stylesheet" type="text/css" href="../../../common/IplantCompent/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../../../common/IplantCompent/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="../../../common/IplantCompent/Demo/demo.css">
+    <script src="../../../common/IplantCompent/jquery.min.js" type="text/javascript"></script>
+    <script src="../../../common/IplantCompent/jquery.easyui.min.js" type="text/javascript"></script>
+    <script src="../../../common/IplantCommon/DataRequest.js" type="text/javascript"></script>
+    <script src="../../../common/IplantCommon/CommonUtil.js" type="text/javascript"></script>
+       <script src="../../../common/IplantCommon/OutPutExcel.js" type="text/javascript"></script>
+    <script src="js/ProductionScheduleImport.js" type="text/javascript"></script>
+    <script type="text/javascript"></script>
+</head>
+<body style="padding: 0;margin: 0;">
+	<div style="height:100%;width:100%;" class="easyui-layout" fit='true'>
+        <div region='north' id="tb" style="width: auto; height: 30px;background: linear-gradient(rgb(255, 255, 255) 0px, rgba(149, 184, 231, 0.28) 100%);">
+				<table style="width: auto; height:100%;" cellspacing="0" border="0">
+					<tr>
+						<td>
+							<a href="#" class="easyui-linkbutton" iconCls="icon-print" id="btnImport" data-options="plain:true">导入</a>
+							<a href="#" class="easyui-linkbutton" iconCls="icon-print" id="btnExprt" data-options="plain:true">导出</a>
+							<span id='showMessageInfo' class='divspan' style='width:300px;'></span>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div region="center" style="border:0">
+				<div region='north' id='tbsearch' style="width: auto; height: 58px;background: linear-gradient(rgb(255, 255, 255) 0px, rgba(149, 184, 231, 0.28) 100%);">
+					<table>
+	                <tr >
+	                	<td>排产号：</td>
+	                    <td>		
+	                        <input id="searchMO_NO" name="postingdate" style="width: 200px;" class="easyui-textbox"/>
+	                    </td>
+	                 	<td>物料号：</td>
+	                    <td>
+	                        <input id="searchITEM_CD" name="postingdate" style="width: 200px;" class="easyui-textbox" />
+	                    </td>
+	                    <td>作业指示号：</td>
+	                    <td>
+	                        <input id="searchWO_NO" name="postingdate" style="width: 200px;" class="easyui-textbox" />
+	                    </td>
+	                    <td>排产状态：</td>
+	                    <td>
+	                         <input id="searchMO_STATE" name="postingdate" editable="false" style="width: 200px;" class="easyui-combobox"/>
+	                    </td>
+	                </tr>
+	                <tr>
+	                 	<td>计划完成时间：</td>
+	                    <td>
+	                        <input id="searchPLAN_STRT_DT" name="postingdate" style="width: 200px;" class="easyui-textbox" />
+	                    </td>
+	                    <td>TO：</td>
+	                    <td>
+	                       <input id="searchPLAN_END_DT" name="postingdate" style="width: 200px;" class="easyui-textbox" />
+	                    </td>
+	                     <td>机型：</td>
+	                    <td>
+	                       <input id="searchMODEL_NM" name="postingdate" style="width: 200px;" class="easyui-textbox" valueField="id" textField="text" />
+	                    </td>
+	                    <td>
+	                       <a href="#" class="easyui-linkbutton" iconCls="icon-search" id="btnSearch" data-options="plain:true">查询</a>	
+	                    </td>
+	                </tr>
+                </table>
+             </div>
+            <table region='center' style="height: auto;max-height: 100%" id="productionScheduleImport_tab" class='easyui-datagrid' toolbar="#tbsearch" rownumbers="true"></table>
+     </div>
+     </div>
+    <div id="enditTab" class="easyui-dialog" style="width: 1200px;height: 300px;" closed="true" >
+            <table border="0">
+                <tr>    
+                 <table  id="poDetil_tab" class='easyui-datagrid' style="width: 1650px;height: 800px;" iconCls="icon-edit" toolbar="#tb1">
+                 </table>  
+                </tr>  
+            </table>
+    </div> 
+    
+     <div id="enditTabupload" class="easyui-dialog" style="width: 600px;height: 300px;" closed="true" data-options="modal: true,
+				buttons: [{
+					text:'提交',
+					iconCls:'icon-ok',
+					handler:function(){
+						ImportStation();
+					}
+				},{
+					text:'取消',
+					iconCls:'icon-no',
+					handler:function(){
+						$('#enditTab').dialog('close');
+					}
+				}]">
+				
+	<FORM id ="importUplod" action="/iTaurus/iPlant_ImgUpload" method="post" enctype="multipart/form-data" style="padding:10px 20px 10px 40px;">  
+       <table border="1" width="500" cellpadding="4" cellspacing="2" bordercolor="#9BD7FF">  
+          <tr><td width="100%" colspan="2">  
+                          文件： <input name="txtPHOTO" id="txtPHOTO" type="file"  />
+          </td></tr>  
+          <tr>
+          <td>
+           <input name="FILE_BELONG" id="FILE_BELONG" size="40" type="hidden"/> 
+           <input name="FILE_CLS" id = "FILE_CLS" size="40" type="hidden"/> 
+           <input name="FILE_TYPE" id = "FILE_TYPE" size="40" type="hidden"/> 
+           <input name="importType" id = "importType" size="40" value='1' type="hidden"/>
+           <input name="IFS" id = "IFS" size="40" type="hidden"/>
+           </td>
+          </tr>
+  
+         </table>  
+  
+       
+      </FORM>		
+				
+				
+     </div>
+</body>
+
+</html>

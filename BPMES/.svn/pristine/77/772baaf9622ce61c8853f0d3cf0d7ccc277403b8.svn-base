@@ -1,0 +1,28 @@
+{
+    "RESPONSE": [
+        {
+            "RESPONSE_DATA": [
+                {
+                    "abnormal_reason": "B001",
+                    "abnormal_rate": 20
+                },
+                {
+                    "abnormal_reason": "B003",
+                    "abnormal_rate": 35
+                },
+                {
+                    "abnormal_reason": "B009",
+                    "abnormal_rate": 25
+                },
+                {
+                  "abnormal_reason": "B008",
+                    "abnormal_rate": 10
+                },
+                {
+                   "abnormal_reason": "B004",
+                   "abnormal_rate": 10
+                }
+            ]
+        }
+    ]
+}

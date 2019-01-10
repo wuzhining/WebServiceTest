@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ifss>
+	<!-- 德富莱检验定义模块 -->
+	<!-- 查询检验类型列表 -->
+	<ifs ifs_code="WMS_QC0001" ifs_name="查询检验类型列表" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="QueryInspectionType" biz_method="" serial_no="1" biz_name="QueryInspectionType" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 修改检验类型列表 -->
+	<ifs ifs_code="WMS_QC0002" ifs_name="修改检验类型列表" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="InspectionTypeInfoUpdate" biz_method="" serial_no="1" biz_name="InspectionTypeInfoUpdate" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 新增检验类型列表-->
+	<ifs ifs_code="WMS_QC0003" ifs_name="新增检验类型列表" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="InspectionTypeInfoInsert" biz_method="" serial_no="1" biz_name="InspectionTypeInfoInsert" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 删除检验类型列表 -->
+	<ifs ifs_code="WMS_QC0004" ifs_name="删除检验类型列表" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="InspectionTypeInfoDelete" biz_method="" serial_no="1" biz_name="InspectionTypeInfoDelete" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 查询检查项清单-->
+	<ifs ifs_code="WMS_QC0005" ifs_name="查询检查项清单" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryInspectionItem" biz_method="" serial_no="1" biz_name="queryInspectionItem" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 修改检查项清单-->
+	<ifs ifs_code="WMS_QC0006" ifs_name="修改检查项清单" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateInspectionItem" biz_method="" serial_no="1" biz_name="updateInspectionItem" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 新增检查项清单-->
+	<ifs ifs_code="WMS_QC0012" ifs_name="新增检查项清单" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertInspectionItem" biz_method="" serial_no="1" biz_name="insertInspectionItem" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 删除检查项清单-->
+	<ifs ifs_code="WMS_QC0013" ifs_name="删除检查项清单" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteInspectionItem" biz_method="" serial_no="1" biz_name="deleteInspectionItem" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 查询检查项清单明细-->
+	<ifs ifs_code="WMS_QC0014" ifs_name="查询检查项清单明细" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryInspectionItemDetail" biz_method="" serial_no="1" biz_name="queryInspectionItemDetail" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 修改检查项清单明细-->
+	<ifs ifs_code="WMS_QC0015" ifs_name="修改检查项清单明细" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateInspectionItemDetail" biz_method="" serial_no="1" biz_name="updateInspectionItemDetail" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 新增检查项清单明细-->
+	<ifs ifs_code="WMS_QC0011" ifs_name="新增检查项清单明细" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertInspectionItemDetail" biz_method="" serial_no="1" biz_name="insertInspectionItemDetail" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 删除检查项清单明细-->
+	<ifs ifs_code="WMS_QC0012" ifs_name="删除检查项清单明细" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteInspectionItemDetail" biz_method="" serial_no="1" biz_name="deleteInspectionItemDetail" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 检验定义 -->
+	<!-- 查询检验模板清单 -->
+	<ifs ifs_code="WMS_AQL00007" ifs_name="查询产品类型" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="QueryQualityTemplate" biz_method="" serial_no="1" biz_name="QueryQualityTemplate" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 查询检验模板清单 序列 -->
+	<ifs ifs_code="WMS_AQL000071" ifs_name="查询产品类型" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="QueryQualityTemplateSeq" biz_method="" serial_no="1" biz_name="QueryQualityTemplateSeq" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 查询检验模板清单 多表 -->
+	<ifs ifs_code="WMS_AQL000072" ifs_name="查询产品类型" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="QueryQualityTemplateD" biz_method="" serial_no="1" biz_name="QueryQualityTemplateD" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 修改检验模板清单 -->
+	<ifs ifs_code="WMS_AQL00008" ifs_name="修改产品类型" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="QualityTemplateUpdate" biz_method="" serial_no="1" biz_name="QualityTemplateUpdate" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 新增检验模板清单 -->
+	<ifs ifs_code="WMS_AQL00009" ifs_name="新增产品类型" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="QualityTemplateInsert" biz_method="" serial_no="1" biz_name="QualityTemplateInsert" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 新增到中间表 -->
+	<ifs ifs_code="WMS_AQL000091" ifs_name="新增产品类型" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="QualityTemplateInsertZ" biz_method="" serial_no="1" biz_name="QualityTemplateInsertZ" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 删除检验模板清单 -->
+	<ifs ifs_code="WMS_AQL00010" ifs_name="删除产品类型" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="QualityTemplateDelete" biz_method="" serial_no="1" biz_name="QualityTemplateDelete" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>	
+	
+	<!-- 删除中间表 -->
+	<ifs ifs_code="WMS_AQL000101" ifs_name="删除产品类型" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="QualityTemplateDeleteZ" biz_method="" serial_no="1" biz_name="QualityTemplateDeleteZ" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>	
+	
+	<!-- =====================================模块关联列表模块========================================================== -->
+	<!-- 新增模块关联列表信息 -->
+	<ifs ifs_code="WMS_QMS0001" ifs_name="新增模块关联列表信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="INSERT_WMS_INSPECTIONTEMPLATEITEM" biz_method="" serial_no="1" biz_name="INSERT_WMS_INSPECTIONTEMPLATEITEM" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>	
+	
+	
+	<!--查询模块关联列表信息 -->
+	<ifs ifs_code="WMS_QMS0002" ifs_name="查询模块关联列表信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="select_WMS_INSPECTIONTEMPLATEITEM" biz_method="" serial_no="1" biz_name="select_WMS_INSPECTIONTEMPLATEITEM" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+		
+	 <!-- =====================================QHold管理========================================================== -->
+	<!--查询物料详情信息  -->
+	<ifs ifs_code="WMS_QHold001" ifs_name="查询物料详情信息 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="Qualityqms_HoldMaterial" biz_method="" serial_no="1" biz_name="Qualityqms_HoldMaterial" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!--查询QHold详情信息  -->
+	<ifs ifs_code="WMS_QHold002" ifs_name="查询QHold详情信息 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="Qualityqms_HoldHistory" biz_method="" serial_no="1" biz_name="Qualityqms_HoldHistory" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!--新增物料详情信息  -->
+	<ifs ifs_code="WMS_QHold003" ifs_name="新增物料详情信息 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="Insertqms_HoldMaterial" biz_method="" serial_no="1" biz_name="Insertqms_HoldMaterial" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!--新增QHold详情信息  -->
+	<ifs ifs_code="WMS_QHold004" ifs_name="新增QHold详情信息 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="Insertqms_HoldHistory" biz_method="" serial_no="1" biz_name="Insertqms_HoldHistory" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!--修改QHold详情信息  -->
+	<ifs ifs_code="WMS_QHold005" ifs_name="修改QHold详情信息 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="Updateqms_HoldHistory" biz_method="" serial_no="1" biz_name="Updateqms_HoldHistory" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!--修改模块关联列表信息 -->
+	<ifs ifs_code="WMS_QMS0003" ifs_name="修改模块关联列表信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="update_WMS_INSPECTIONTEMPLATEITEM" biz_method="" serial_no="1" biz_name="update_WMS_INSPECTIONTEMPLATEITEM" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	
+	 <!--删除模块关联列表信息 -->
+	<ifs ifs_code="WMS_QMS0004" ifs_name="删除模块关联列表信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="delete_WMS_INSPECTIONTEMPLATEITEM" biz_method="" serial_no="1" biz_name="delete_WMS_INSPECTIONTEMPLATEITEM" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	
+	
+	
+	
+	
+</ifss>

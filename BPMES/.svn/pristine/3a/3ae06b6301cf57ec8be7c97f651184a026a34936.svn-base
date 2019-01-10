@@ -1,0 +1,45 @@
+{
+    "RESPONSE": [
+        {
+            "RESPONSE_DATA": [
+                {
+                    "material_name": "123658",
+                    "input_qty": 1200,
+                    "act_used_qty": 120,
+                    "used_rate": 10
+                    
+                },
+                {
+                    "material_name": "9647454",
+                    "input_qty": 1000,
+                    "act_used_qty": 200,
+                    "used_rate": 20
+                },
+                {
+                    "material_name": "345861",
+                    "input_qty": 1000,
+                    "act_used_qty": 500,
+                    "used_rate": 50
+                },
+                {
+                    "material_name": "345156",
+                    "input_qty": 2000,
+                    "act_used_qty":1000 ,
+                    "used_rate": 50
+                },
+                {
+                   "material_name": "986524",
+                    "input_qty": 800,
+                    "act_used_qty": 400,
+                    "used_rate": 50
+                },
+                {
+                   "material_name": "985463",
+                    "input_qty": 500,
+                    "act_used_qty": 100,
+                    "used_rate": 20
+                }
+            ]
+        }
+    ]
+}

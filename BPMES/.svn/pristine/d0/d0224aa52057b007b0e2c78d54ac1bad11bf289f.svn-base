@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ifss>
+	<!-- A6. 标签管理 -->
+    <!-- A6.1 标签种类信息 -->
+	<!-- 查询标签种类-->
+	<ifs ifs_code="L000001" ifs_name="查询标签种类" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryLabelTypeInfo" biz_method="" serial_no="1" biz_name="queryLabelTypeInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 新增标签种类 -->
+	<ifs ifs_code="L000002" ifs_name="新增标签种类" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertLabelTypeInfo" biz_method="" serial_no="1" biz_name="insertLabelTypeInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 删除标签种类 -->
+	<ifs ifs_code="L000003" ifs_name="删除标签种类" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteLabelTypeInfo" biz_method="" serial_no="1" biz_name="deleteLabelTypeInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 修改标签种类 -->
+	<ifs ifs_code="L000004" ifs_name="修改标签种类" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateLabelTypeInfo" biz_method="" serial_no="1" biz_name="updateLabelTypeInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs> 
+	
+	<!-- A6.2 标签设置信息 -->
+	<!-- 查询标签设置-->
+	<ifs ifs_code="L000011" ifs_name="查询标签设置" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryLabelSetInfo" biz_method="" serial_no="1" biz_name="queryLabelSetInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 新增标签设置 -->
+	<ifs ifs_code="L000012" ifs_name="新增标签设置" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertLabelSetInfo" biz_method="" serial_no="1" biz_name="insertLabelSetInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 删除标签设置 -->
+	<ifs ifs_code="L000013" ifs_name="删除标签设置" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteLabelSetInfo" biz_method="" serial_no="1" biz_name="deleteLabelSetInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 修改标签设置 -->
+	<ifs ifs_code="L000014" ifs_name="修改标签设置" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateLabelSetInfo" biz_method="" serial_no="1" biz_name="updateLabelSetInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- A6.3 标签变量信息 -->
+	<!-- 查询标签变量-->
+	<ifs ifs_code="L000021" ifs_name="查询标签变量" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryLabelVariateInfo" biz_method="" serial_no="1" biz_name="queryLabelVariateInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 新增标签变量-->
+	<ifs ifs_code="L000022" ifs_name="新增标签变量" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertLabelVariateInfo" biz_method="" serial_no="1" biz_name="insertLabelVariateInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 删除标签变量 -->
+	<ifs ifs_code="L000023" ifs_name="删除标签变量" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteLabelVariateInfo" biz_method="" serial_no="1" biz_name="deleteLabelVariateInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 修改标签变量 -->
+	<ifs ifs_code="L000024" ifs_name="修改标签变量" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateLabelVariateInfo" biz_method="" serial_no="1" biz_name="updateLabelVariateInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs> 
+	
+	<!-- A6.4 标签变量关联信息 -->
+	<!-- 查询标签变量关联 -->
+	<ifs ifs_code="L000031" ifs_name="查询标签变量关联" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryLabelVariateRelevanceInfo" biz_method="" serial_no="1" biz_name="queryLabelVariateRelevanceInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 新增标签变量关联 -->
+	<ifs ifs_code="L000032" ifs_name="新增标签变量关联" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertLabelVariateRelevanceInfo" biz_method="" serial_no="1" biz_name="insertLabelVariateRelevanceInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 删除标签变量关联 -->
+	<ifs ifs_code="L000033" ifs_name="删除标签变量关联" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteLabelVariateRelevanceInfo" biz_method="" serial_no="1" biz_name="deleteLabelVariateRelevanceInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 修改标签变量关联 -->
+	<ifs ifs_code="L000034" ifs_name="修改标签变量关联" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateLabelVariateRelevanceInfo" biz_method="" serial_no="1" biz_name="updateLabelVariateRelevanceInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs> 
+	
+	<!-- A6.5 标签预览信息 -->
+	<!-- 查询标签预览 -->
+	<ifs ifs_code="L000041" ifs_name="查询标签预览" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryLabelPreviewInfo" biz_method="" serial_no="1" biz_name="queryLabelPreviewInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 新增标签预览 -->
+	<ifs ifs_code="L000042" ifs_name="新增标签预览" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertLabelPreviewInfo" biz_method="" serial_no="1" biz_name="insertLabelPreviewInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 删除标签预览 -->
+	<ifs ifs_code="L000043" ifs_name="删除标签预览" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteLabelPreviewInfo" biz_method="" serial_no="1" biz_name="deleteLabelPreviewInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 修改标签预览 -->
+	<ifs ifs_code="L000044" ifs_name="修改标签预览" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateLabelPreviewInfo" biz_method="" serial_no="1" biz_name="updateLabelPreviewInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs> 
+	
+	<!-- A6.6 作业组逻辑信息 -->
+	<!-- 查询作业组逻辑 -->
+	<ifs ifs_code="L000051" ifs_name="查询作业组逻辑" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryTaskTeamLogicInfo" biz_method="" serial_no="1" biz_name="queryTaskTeamLogicInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 新增作业组逻辑 --> 
+	<ifs ifs_code="L000052" ifs_name="新增作业组逻辑" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertTaskTeamLogicInfo" biz_method="" serial_no="1" biz_name="insertTaskTeamLogicInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 删除作业组逻辑 -->
+	<ifs ifs_code="L000053" ifs_name="删除作业组逻辑" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteTaskTeamLogicInfo" biz_method="" serial_no="1" biz_name="deleteTaskTeamLogicInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 修改作业组逻辑 -->
+	<ifs ifs_code="L000054" ifs_name="修改作业组逻辑" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateTaskTeamLogicInfo" biz_method="" serial_no="1" biz_name="updateTaskTeamLogicInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs> 
+	
+	<!-- A6.7 作业维护信息 -->
+	<!-- 查询作业维护 -->
+	<ifs ifs_code="L000061" ifs_name="查询作业维护" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryTaskVindicateInfo" biz_method="" serial_no="1" biz_name="queryTaskVindicateInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 新增作业维护 -->
+	<ifs ifs_code="L000062" ifs_name="新增作业维护" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertTaskVindicateInfo" biz_method="" serial_no="1" biz_name="insertTaskVindicateInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 删除作业维护 -->
+	<ifs ifs_code="L000063" ifs_name="删除作业维护" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteTaskVindicateInfo" biz_method="" serial_no="1" biz_name="deleteTaskVindicateInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 修改作业维护 -->
+	<ifs ifs_code="L000064" ifs_name="修改作业维护" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateTaskVindicateInfo" biz_method="" serial_no="1" biz_name="updateTaskVindicateInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- A6.8作业组与作业关系表信息 -->
+	<!-- 查询作业组与作业关系表 -->
+	<ifs ifs_code="L000071" ifs_name="查询作业组与作业关系" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryTeamAndTaskInfo" biz_method="" serial_no="1" biz_name="queryTeamAndTaskInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 新增作业组与作业关系表 -->
+	<ifs ifs_code="L000072" ifs_name="新增作业组与作业关系" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertTeamAndTaskInfo" biz_method="" serial_no="1" biz_name="insertTeamAndTaskInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 删除作业组与作业关系表 -->
+	<ifs ifs_code="L000073" ifs_name="删除作业组与作业关系" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteTeamAndTaskInfo" biz_method="" serial_no="1" biz_name="deleteTeamAndTaskInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- A6.9 作业资源关系表信息 -->
+	<!-- 查询作业资源关系表 -->
+	<ifs ifs_code="L000081" ifs_name="查询作业资源关系" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryTaskResourcesInfo" biz_method="" serial_no="1" biz_name="queryTaskResourcesInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 新增作业资源关系 -->
+	<ifs ifs_code="L000082" ifs_name="新增作业资源关系" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertTaskResourcesInfo" biz_method="" serial_no="1" biz_name="insertTaskResourcesInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 删除作业资源关系 -->
+	<ifs ifs_code="L000083" ifs_name="删除作业资源关系" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteTaskResourcesInfo" biz_method="" serial_no="1" biz_name="deleteTaskResourcesInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 修改作业资源关系-->
+	<ifs ifs_code="L000084" ifs_name="修改作业资源关系" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateTaskResourcesInfo" biz_method="" serial_no="1" biz_name="updateTaskResourcesInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- A7.0 作业组资源关系表信息 -->
+	<!-- 查询作业组资源关系表 -->
+	<ifs ifs_code="L000091" ifs_name="查询作业组资源关系" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryTaskTeamResourcesInfo" biz_method="" serial_no="1" biz_name="queryTaskTeamResourcesInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 新增作业组资源关系 -->
+	<ifs ifs_code="L000092" ifs_name="新增作业组资源关系" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertTaskTeamResourcesInfo" biz_method="" serial_no="1" biz_name="insertTaskTeamResourcesInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 删除作业组资源关系 -->
+	<ifs ifs_code="L000093" ifs_name="删除作业组资源关系" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteTaskTeamResourcesInfo" biz_method="" serial_no="1" biz_name="deleteTaskTeamResourcesInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 修改作业组资源关系 -->
+	<ifs ifs_code="L000094" ifs_name="修改作业组资源关系" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateTaskTeamResourcesInfo" biz_method="" serial_no="1" biz_name="updateTaskTeamResourcesInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+</ifss>

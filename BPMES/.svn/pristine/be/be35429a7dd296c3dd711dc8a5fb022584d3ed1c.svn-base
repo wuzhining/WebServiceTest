@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ifss>
+    
+    <!-- 1.1 数据字典管理 -->
+    <!-- 查询字典项信息 -->
+	<ifs ifs_code="D0000088" ifs_name="查询字典项" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryEquipmentTypes" biz_method="" serial_no="1" biz_name="queryEquipmentTypes" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+    
+    
+</ifss>

@@ -1,0 +1,444 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ifss>
+	<!-- 1  物料类型维护 -->
+	<!-- 物料类型维护查询 -->
+
+	<ifs ifs_code="Z000001" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="search_MaterialTypeMaintenance" biz_method="" serial_no="1" biz_name="search_MaterialTypeMaintenance" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 物料类型维护新增 -->
+	<ifs ifs_code="Z000002" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="add_MaterialTypeMaintenance" biz_method="" serial_no="1" biz_name="add_MaterialTypeMaintenance" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 物料类型维护修改 -->
+	<ifs ifs_code="Z000003" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="update_MaterialTypeMaintenance" biz_method="" serial_no="1" biz_name="update_MaterialTypeMaintenance" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 物料类型维护删除 -->
+	<ifs ifs_code="Z000004" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="delete_MaterialTypeMaintenance" biz_method="" serial_no="1" biz_name="delete_MaterialTypeMaintenance" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 物料类型维护查看已分配物料 -->
+	<ifs ifs_code="Z000005" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="MaterialTypeMaintenance_OKM" biz_method="" serial_no="1" biz_name="MaterialTypeMaintenance_OKM" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 物料类型维护导入 -->
+	<ifs ifs_code="Z000043" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="ExeclImportMaterialTypeMaintenance" biz_method="" serial_no="1" biz_name="ExeclImportMaterialTypeMaintenance" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 物料类型维护导出 -->
+	<ifs ifs_code="Z000044" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="ExeclExportMaterialTypeMaintenance" biz_method="" serial_no="1" biz_name="ExeclExportMaterialTypeMaintenance" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 物料类型维护 物料组属性查询-->
+	<ifs ifs_code="Z000045" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="search_MaterialProperties" biz_method="" serial_no="1" biz_name="search_MaterialProperties" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 物料类型维护 物料组属性增加-->
+	<ifs ifs_code="Z000054" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insert_MaterialProperties" biz_method="" serial_no="1" biz_name="insert_MaterialProperties" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 物料类型维护 物料组属性修改-->
+	<ifs ifs_code="Z000055" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="update_MaterialProperties" biz_method="" serial_no="1" biz_name="update_MaterialProperties" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 物料类型维护 物料组属性删除-->
+	<ifs ifs_code="Z000056" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="delete_MaterialProperties" biz_method="" serial_no="1" biz_name="delete_MaterialProperties" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	
+	
+	<!-- 物料类型维护 物料组属性设置-->
+	<!-- 物料类型维护 物料组属性设置查询-->
+	<ifs ifs_code="Z000046" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="search_MaterialPropertiesSetting" biz_method="" serial_no="1" biz_name="search_MaterialPropertiesSetting" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 物料类型维护 物料组属性设置增加-->
+	<ifs ifs_code="Z000047" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="add_MaterialPropertiesSetting" biz_method="" serial_no="1" biz_name="add_MaterialPropertiesSetting" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 物料类型维护 物料组属性设置修改-->
+	<ifs ifs_code="Z000048" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="update_MaterialPropertiesSetting" biz_method="" serial_no="1" biz_name="update_MaterialPropertiesSetting" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 物料类型维护 物料组属性设置删除-->
+	<ifs ifs_code="Z000049" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="delete_MaterialPropertiesSetting" biz_method="" serial_no="1" biz_name="delete_MaterialPropertiesSetting" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!--=================================== 物料维护 =====================================-->
+	<!-- =============物料信息================ -->
+    <!-- 查询物料信息 -->
+	<ifs ifs_code="Z000007" ifs_name="查询物料信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryMaterial" biz_method="" serial_no="1" biz_name="queryMaterial" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<ifs ifs_code="Z000007P" ifs_name="导出物料信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryMaterialNotPage" biz_method="" serial_no="1" biz_name="queryMaterialNotPage" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 新增物料信息 -->
+	<ifs ifs_code="Z000008" ifs_name="新增物料信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertMaterial" biz_method="" serial_no="1" biz_name="insertMaterial" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 修改物料信息 -->
+	<ifs ifs_code="Z000009" ifs_name="修改物料信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="materialUpdate" biz_method="" serial_no="1" biz_name="materialUpdate" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	 <!-- 修改产品图片保存路径 -->
+    <ifs ifs_code="Z000090" ifs_name="修改产品图片保存路径" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="materialPhotoPathUpdate" biz_method="" serial_no="1" biz_name="materialPhotoPathUpdate" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+	<!-- 删除物料信息 -->
+	<ifs ifs_code="Z000010" ifs_name="删除物料信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteMaterial" biz_method="" serial_no="1" biz_name="deleteMaterial" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 查询物料仓库 -->
+	<ifs ifs_code="Z000052" ifs_name="查询物料仓库" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryMaterialWHS" biz_method="" serial_no="1" biz_name="queryMaterialWHS" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 导入物料信息 -->
+	<ifs ifs_code="Z000011" ifs_name="导入物料信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="ImportMaterial" biz_method="" serial_no="1" biz_name="ImportMaterial" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 导出物料信息 -->
+	<ifs ifs_code="Z000012" ifs_name="导出物料信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="exportMaterial" biz_method="" serial_no="1" biz_name="exportMaterial" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 下载物料信息 -->
+	<ifs ifs_code="Z000013" ifs_name="下载物料信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="downloadMaterial" biz_method="" serial_no="1" biz_name="downloadMaterial" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- =============物料属性================ -->
+	<!-- 查询物料属性 -->
+	<ifs ifs_code="Z000014" ifs_name="查询物料属性" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryMaterialProperty" biz_method="" serial_no="1" biz_name="queryMaterialProperty" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 新增物料属性 -->
+	<ifs ifs_code="Z000015" ifs_name="新增物料属性" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertMaterialProperty" biz_method="" serial_no="1" biz_name="insertMaterialProperty" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 修改物料属性 -->
+	<ifs ifs_code="Z000016" ifs_name="修改物料属性" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateMaterialProperty" biz_method="" serial_no="1" biz_name="updateMaterialProperty" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 删除物料属性 -->
+	<ifs ifs_code="Z000017" ifs_name="删除物料属性" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteMaterialProperty" biz_method="" serial_no="1" biz_name="deleteMaterialProperty" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- =============物料属性值================ -->
+	<!-- 查询物料属性值 -->
+	<ifs ifs_code="Z000018" ifs_name="查询物料属性值" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryMaterialPropertyValue" biz_method="" serial_no="1" biz_name="queryMaterialPropertyValue" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 新增物料属性值 -->
+	<ifs ifs_code="Z000019" ifs_name="新增物料属性值" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertMaterialPropertyValue" biz_method="" serial_no="1" biz_name="insertMaterialPropertyValue" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 修改物料属性值 -->
+	<ifs ifs_code="Z000020" ifs_name="修改物料属性值" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateMaterialPropertyValue" biz_method="" serial_no="1" biz_name="updateMaterialPropertyValue" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 删除物料属性值 -->
+	<ifs ifs_code="Z000021" ifs_name="删除物料属性值" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteMaterialPropertyValue" biz_method="" serial_no="1" biz_name="deleteMaterialPropertyValue" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- =============MSD设置================ -->
+	<!-- 查询MSD设置 -->
+	<ifs ifs_code="Z000022" ifs_name="查询MSD设置" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryMSDSettings" biz_method="" serial_no="1" biz_name="queryMSDSettings" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 新增MSD设置 -->
+	<ifs ifs_code="Z000023" ifs_name="新增MSD设置" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertMSDSettings" biz_method="" serial_no="1" biz_name="insertMSDSettings" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 修改MSD设置 -->
+	<ifs ifs_code="Z000024" ifs_name="修改MSD设置" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateMSDSettings" biz_method="" serial_no="1" biz_name="updateMSDSettings" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 删除MSD设置 -->
+	<ifs ifs_code="Z000034" ifs_name="删除MSD设置" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteMSDSettings" biz_method="" serial_no="1" biz_name="deleteMSDSettings" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- =============替代料设置================ -->
+	<!-- 查询替代料设置 -->
+	<ifs ifs_code="Z000035" ifs_name="查询替代料设置" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="querySubstituteMaterialSettings" biz_method="" serial_no="1" biz_name="querySubstituteMaterialSettings" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 新增替代料设置 -->
+	<ifs ifs_code="Z000036" ifs_name="新增替代料设置" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertSubstituteMaterialSettings" biz_method="" serial_no="1" biz_name="insertSubstituteMaterialSettings" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 修改替代料设置 -->
+	<ifs ifs_code="Z000037" ifs_name="修改替代料设置" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateSubstituteMaterialSettings" biz_method="" serial_no="1" biz_name="updateSubstituteMaterialSettings" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 删除替代料设置 -->
+	<ifs ifs_code="Z000038" ifs_name="删除替代料设置" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteSubstituteMaterialSettings" biz_method="" serial_no="1" biz_name="deleteSubstituteMaterialSettings" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- ==============物料位置=============== -->
+	<!-- 查询物料位置-->
+	<ifs ifs_code="Z000039" ifs_name="查询物料位置" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryMaterialPosition" biz_method="" serial_no="1" biz_name="queryMaterialPosition" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 新增物料位置-->
+	<ifs ifs_code="Z000040" ifs_name="新增物料位置" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertMaterialPosition" biz_method="" serial_no="1" biz_name="insertMaterialPosition" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 修改物料位置 -->
+	<ifs ifs_code="Z000041" ifs_name="修改物料位置" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateMaterialPosition" biz_method="" serial_no="1" biz_name="updateMaterialPosition" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 删除物料位置 -->
+	<ifs ifs_code="Z000042" ifs_name="删除物料位置" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteMaterialPosition" biz_method="" serial_no="1" biz_name="deleteMaterialPosition" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	
+	<!-- 2  工序BOM -->
+	<!-- 工序BOM查询 -->
+	<ifs ifs_code="Z000025" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="search_ProcessBom" biz_method="" serial_no="1" biz_name="search_ProcessBom" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 分组查询工序BOM -->
+	<ifs ifs_code="Z000058" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="search_ProcessBomGroup" biz_method="" serial_no="1" biz_name="search_ProcessBomGroup" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 工序BOM新增 -->
+	<ifs ifs_code="Z000026" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="add_ProcessBom" biz_method="" serial_no="1" biz_name="add_ProcessBom" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 工序BOM修改 -->
+	<ifs ifs_code="Z000027" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="update_ProcessBom" biz_method="" serial_no="1" biz_name="update_ProcessBom" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 工序BOM删除 -->
+	<ifs ifs_code="Z000028" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="delete_ProcessBom" biz_method="" serial_no="1" biz_name="delete_ProcessBom" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+
+	
+	<!-- 工序BOM装配物料明细查询 -->
+	<ifs ifs_code="Z000060" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryBomAssemblyMaterialDetails" biz_method="" serial_no="1" biz_name="queryBomAssemblyMaterialDetails" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 工序BOM装配物料明细增加 -->
+	<ifs ifs_code="Z000061" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertBomAssemblyMaterialDetails" biz_method="" serial_no="1" biz_name="insertBomAssemblyMaterialDetails" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 工序BOM装配物料明细修改 -->
+	<ifs ifs_code="Z000062" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateBomAssemblyMaterialDetails" biz_method="" serial_no="1" biz_name="updateBomAssemblyMaterialDetails" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 工序BOM装配物料明细删除 -->
+    
+    <ifs ifs_code="Z000063" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteBomAssemblyMaterialDetails" biz_method="" serial_no="1" biz_name="deleteBomAssemblyMaterialDetails" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+
+
+    <!-- 3  产品BOM -->
+	<!-- 产品BOM查询 -->
+	<ifs ifs_code="Z000029" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="search_ProdBom" biz_method="" serial_no="1" biz_name="search_ProdBom" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 产品BOM新增 -->
+	<ifs ifs_code="Z000030" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="add_ProdBom" biz_method="" serial_no="1" biz_name="add_ProdBom" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 产品BOM修改 -->
+	<ifs ifs_code="Z000031" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="update_ProdBom" biz_method="" serial_no="1" biz_name="update_ProdBom" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 产品BOM删除 -->
+	<ifs ifs_code="Z000032" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="delete_ProdBom" biz_method="" serial_no="1" biz_name="delete_ProdBom" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+
+    <!-- 产品BOM树状结构查询 -->
+	<ifs ifs_code="Z000033" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="search_ProdBomTree" biz_method="" serial_no="1" biz_name="search_ProdBomTree" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	
+	<!-- 产品BOM EXECL批量导入 -->
+	<ifs ifs_code="Z000050" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="add_ProdBomExeclImport" biz_method="" serial_no="1" biz_name="add_ProdBomExeclImport" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 产品BOM父节点下拉框 -->
+	<ifs ifs_code="Z000051" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryProdBomCombox" biz_method="" serial_no="1" biz_name="queryProdBomCombox" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 根据BOM编码返回BOM版本-->
+	<ifs ifs_code="Z000052" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryBomCdIsVersion" biz_method="" serial_no="1" biz_name="queryBomCdIsVersion" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 查询所有的BOM编码-->
+	<ifs ifs_code="Z000053" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryAllBomCd" biz_method="" serial_no="1" biz_name="queryAllBomCd" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 组装BOM -->
+    <!-- 组装BOM查询 -->
+    <ifs ifs_code="Z000070" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryAssembleBom" biz_method="" serial_no="1" biz_name="queryAssembleBom" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+    <!-- 组装BOM修改 -->
+    <ifs ifs_code="Z000071" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateAssembleBom" biz_method="" serial_no="1" biz_name="updateAssembleBom" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+    <!-- 组装BOM新增 -->
+    <ifs ifs_code="Z000072" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertAssembleBom" biz_method="" serial_no="1" biz_name="insertAssembleBom" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+    <!-- 组装BOM删除 -->
+	<ifs ifs_code="Z000073" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteAssembleBom" biz_method="" serial_no="1" biz_name="deleteAssembleBom" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!--物料信息数据绑定下拉框-->
+	<ifs ifs_code="Z000074" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="MAT_COMBOBOX_DATA" biz_method="" serial_no="1" biz_name="MAT_COMBOBOX_DATA" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+ </ifss>

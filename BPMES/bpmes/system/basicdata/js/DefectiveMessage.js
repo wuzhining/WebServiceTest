@@ -1,0 +1,690 @@
+(function () {
+    function RoleMes() {
+     pageConfig={
+        dictType:'CBR01',
+        gridName:'carrierBarCodePrint_tab',
+        DefectiveCode:'DefectiveCode',
+        DefectiveName:'DefectiveName',
+        title:'不良管理',
+      },
+      dataArr={},
+      initGridData=function(){
+        var dgrid=$('#'+pageConfig.gridName).datagrid('options');
+        if(!dgrid) return;
+            var reqData = {
+                    IFS: 'B000037',
+                    pageIndex:1,
+                pageSize:dgrid.pageSize
+            }
+        reqGridData('/iPlant_ajax',pageConfig.gridName, reqData);
+        },
+      bindGridData = function (reqData,jsonData) {
+            var grid = {
+                name: pageConfig.gridName,
+                dataType: 'json',
+            columns: [[
+//             {field : "CZ",width : 10,checkbox : true},
+             { field: 'BR_CD', title: '不良代码', width: 100 ,align:'center'},
+             { field: 'BR_NM', title: '不良名称', width: 200,align:'center'},
+             { field: 'DICT_IT', title: '不良类别', width: 200,align:'center',
+					formatter: function(value, row, index) {
+						if(value != '') {
+							return dataArr[value];
+						} else {
+							return value;
+						}
+					}},
+             { field: 'BR_SORT', title: '排序', width: 100,align:'center'},
+             { field: 'USE_YN', title: '是否启用', width: 100,align:'center',formatter:function(value,row,index) {
+              if(row.USE_YN=='Y'){
+                return"启用";
+              }else{
+                return"不启用";
+              }
+               }},
+               { field: 'CRT_ID', title: '创建人', width: 100,align:'center'},
+               { field: 'CRT_DT', title: '创建时间', width: 200,align:'center'},
+               { field: 'UPT_ID', title: '修改人', width: 100,align:'center'},
+               { field: 'UPT_DT', title: '修改时间', width: 200,align:'center'},
+            ]],
+            onDblClickRow: function(index,row){	
+            	OptType=1;
+		    	 $("#enditTab").dialog("open").dialog('setTitle', '查看不良信息');
+		    	 checkFun();
+		    	 $('#DefectiveCode').textbox('setValue',row.BR_CD==null?'':row.BR_CD);
+	             $('#DefectiveName').textbox('setValue',row.BR_NM==null?'':row.BR_NM);
+	             $('#DefectiveTypeCode').combobox('setValue',row.DICT_IT==null?'':row.DICT_IT);
+	             $('#toSORT').textbox('setValue',row.BR_SORT==null?'':row.BR_SORT);
+	             $('#DefectiveUse').val(row.USE_YN==null?'':row.USE_YN);
+	             if(row.USE_YN=='Y'){
+	                $('#DefectiveUse').prop('checked','checked');
+	             }else{
+	                $('#DefectiveUse').prop('checked','');
+	             }
+		     },
+		     
+		     
+            /**单击进入编辑模式*//*
+	        onClickCell: function (index,field,value) {
+	        	var tabName,dialogName,titleName,rowEdit,editem,editorFt,itemCd,reqData,dgrid;
+	        	var rows = dataGrid.datagrid('getRows'),row = rows[index];
+	        	*//**判断是否为可编辑字段*//*
+	        	addDatagridEditor(dataGrid,index);
+	        	if(!checkNotEmpty(row.editType)){如果是修改的情况，ft_cd字段为只读模式
+		    		ed = $(this).datagrid('getEditor', {index: index,field: 'BR_CD'});
+		    		fc = ed.target;
+		    		fc.prop('readonly',true);
+		        	OpenFrameAttribute(row.BR_CD);
+		        	$('#header-bottom').html(row.BR_CD);
+	    		}
+	        },*/
+        }
+            //initGridView(reqData,grid);
+            initGridMultiView(reqData, grid);
+            $('#'+pageConfig.gridName).datagrid('loadData', jsonData);
+			dataGrid.datagrid({"onLoadSuccess":function(data){
+//			    $(this).datagrid('selectRow',0);
+//				$('#header-bottom').html(data.rows[0].CARE_LB);
+				//alert(data.rows[8].BR_CD);
+			    OpenFrameAttribute(data.rows[8].BR_CD);
+			    
+			}}).datagrid('loadData', jsonData);
+        },  
+        checkFun = function (){
+        	var qx = getUpdateRight();
+			if(qx=="Y"){
+				$('#DefectiveCode').textbox('textbox').attr('disabled', true);
+		    	 $('#DefectiveName').textbox('textbox').attr('disabled', false);
+		    	 $('#toSORT').textbox('textbox').attr('disabled', false);
+		    	 $('#DefectiveTypeCode').combobox('textbox').attr('disabled', false);
+		    	 $('#saveID').show();
+		    	 $('#cancleID').show();
+			}else{
+				 OptType=2;
+				 $('#DefectiveCode').textbox('textbox').attr('disabled', true);
+		    	 $('#DefectiveName').textbox('textbox').attr('disabled', true);
+		    	 $('#toSORT').textbox('textbox').attr('disabled', true);
+		    	 $('#DefectiveTypeCode').combobox('textbox').attr('disabled', true);
+		    	 $('#saveID').hide();
+		    	 $('#cancleID').hide();
+			}
+			 
+      }
+        /*验证重复*/
+		existbad = function(badCode) {
+			var rowNum, tpm = $('#DefectiveCode');
+			if (getOptType() == 0) {
+				if(/[　，。、！？：“”［］——（）…！＠＃￥＆＊＋＞＜；：‘\u4e00-\u9fa5\s\n\r\t]+/.test($('#DefectiveCode').textbox('getText'))){
+		        	$.messager.alert('提示', "不良代码不能是中文和非法字符，请重新输入。","",function(){
+						$('#DefectiveCode').textbox('setValue', '');
+						
+					});
+		        	return;
+		        }
+				if (tpm.val() != undefined && tpm.val() != ''
+						&& tpm.val() != null) {
+					if (badCode != undefined && badCode != ''
+							&& badCode != null) {
+						if (tpm.textbox('getValue') != undefined
+								&& tpm.textbox('getValue') != ''
+								&& tpm.textbox('getValue') != null) {
+							var ajaxParam = {
+								url : '/iPlant_ajax',
+								dataType : 'JSON',
+								data : {
+									IFS : 'B000037',
+									BR_CD : badCode,
+									pageIndex : 1,
+									pageSize : 10
+								},
+								successCallBack : function(data) {
+									rowNum = parseInt(data.RESPONSE["0"].RESPONSE_HDR.DATA_ROWS);
+									if (rowNum > 0) {
+										$.messager
+												.alert(
+														'提示',
+														'您输入的不良代码['
+																+ badCode
+																+ ']已有相同,请重新输入!');
+										tpm.textbox('setValue', '');
+										return false;
+									} else {
+										return 1;
+									}
+								}
+							};
+							iplantAjaxRequest(ajaxParam);
+						}
+					}
+				}
+			}
+         }
+        OptType=0,
+      getOptType=function(){
+        return this.OptType;
+      },
+      setOptType=function(value){
+        this.OptType=value;
+      },
+     
+      validSelectedData = function (gridName,type) {
+          var checkedItems = $('#' + gridName).datagrid('getSelections');
+          var num = 0;
+          $.each(checkedItems, function (index, item) {
+             num++;
+          });
+          if (type == 'Update') {
+              if (num != 1) {
+                  return false;
+              }
+          }
+          else {
+              if (num <= 0) {
+                  return false;
+              }
+          }
+          return true;
+      },
+      getDataByCondition = function(){
+        var dgrid=$('#'+pageConfig.gridName).datagrid('options');
+        var DefectiveMesCode = $('#queryDefectiveCode').textbox('getValue');
+        var DefectiveMesNum = $('#queryDefectiveName').textbox('getValue');
+        var blType = $('#blType').combobox('getValue');
+        var reqData ={
+          BR_CD: DefectiveMesCode,
+          BR_NM: DefectiveMesNum,
+          DICT_IT:blType,
+          IFS:'B000037',
+          pageIndex:1,
+          pageSize:dgrid.pageSize
+        }
+        reqGridData('/iPlant_ajax','carrierBarCodePrint_tab',reqData);
+      },
+      updateRoleMes = function () {
+         var isSelectedData = validSelectedData(pageConfig.gridName, 'Update');
+         if (!isSelectedData) {
+             $.messager.alert('提示', '请选择一条数据进行修改');
+             return;
+         }
+         var row = $("#"+pageConfig.gridName).datagrid("getSelected");
+         setOptType(1);
+         if (row) {
+             $("#enditTab").dialog("open").dialog('setTitle', '编辑'+pageConfig.title+'维护');                        
+             $('#'+pageConfig.DefectiveCode).css('background-color','#95B8E7');              
+             $('#DefectiveCode').textbox('textbox').attr('readonly', true);
+   		     $('#DefectiveCode').textbox('textbox').attr('disabled', true);
+   		     $('#DefectiveCode').textbox('setValue',row.BR_CD==null?'':row.BR_CD);
+             $('#DefectiveName').textbox('setValue',row.BR_NM==null?'':row.BR_NM);
+             $('#DefectiveTypeCode').combobox('setValue',row.DICT_IT==null?'':row.DICT_IT);
+             $('#toSORT').textbox('setValue',row.BR_SORT==null?'':row.BR_SORT);
+             $('#DefectiveUse').val(row.USE_YN==null?'':row.USE_YN);
+             if(row.USE_YN=='Y'){
+                $('#DefectiveUse').prop('checked','checked');
+             }else{
+                $('#DefectiveUse').prop('checked','');
+             }
+          }
+         checkFun();
+      },
+      deleteRoleMes = function () {
+           var isSelectedData = validSelectedData(pageConfig.gridName, 'Delete');
+           if (!isSelectedData) {
+               $.messager.alert('提示', '请选择一条数据进行删除');
+               return;
+           }
+           var checkedItems = $('#' + pageConfig.gridName).datagrid('getSelections');
+           //确认提示框
+           var delCnt=0;
+           $.messager.confirm('确认框', '您确定要删除您所选择的数据?', function (r) {
+             if(r==true){
+               $.each(checkedItems, function (index, item) {
+                 delCnt++;
+                     var ajaxParam = {
+                               url: '/iPlant_ajax',
+                               dataType: 'JSON',
+                               data: {
+                                  BR_CD: item.BR_CD,
+                                  IFS:'B000039'
+                               },
+                            successCallBack:function(data){
+                                 	 if(delCnt==checkedItems.length){
+	                              	 	if(data.RESPONSE["0"].RESPONSE_HDR.MSG_CODE=='0'){
+	                              	 		$.messager.alert('提示', '删除成功!','',function(){
+	                                	      initGridData();
+	                                     });	
+	                              	 	}else{
+	                              	 		$.messager.alert('提示','删除失败,此数据正在使用!')
+	                              	 	}
+	                                     
+	                            	 }
+                         		},
+                         		errorCallBack:function(data){
+                         			if(delCnt==checkedItems.length){
+                         				$.messager.alert('提示','删除失败,服务器无响应!');
+                         			}
+                         		}
+                        };
+                       iplantAjaxRequest(ajaxParam);
+                   });
+             }
+           });     
+      },
+      addRoleMes = function () {
+    	  setOptType(0);
+          checkFun();
+    	   $('#DefectiveCode').textbox('textbox').attr('readonly',
+					false);
+	       $('#DefectiveCode').textbox('textbox').attr('disabled',
+					false);
+           $("#enditTab").dialog("open").dialog('setTitle', pageConfig.title+'维护');
+           $("#DefectiveMes").form("clear");
+      },
+      /*验证修改内容是否重复*/
+      saveUpdateValidate = function() {
+			var checkedItems = $('#carrierBarCodePrint_tab').datagrid('getSelections');
+			row = checkedItems[0];
+			if (row.BR_CD) {
+				var isUserYn = 'N';
+				if ($('#DefectiveUse').is(':checked')) {
+					isUserYn = "Y";
+				} else {
+					isUserYn = "N";
+				}
+				if ($('#DefectiveCode').textbox('getValue') != (row.BR_CD==null?'':row.BR_CD)
+						|| $('#DefectiveName').textbox('getValue') != (row.BR_NM==null?'':row.BR_NM)
+						|| $('#DefectiveTypeCode').combobox('getValue') != (row.DICT_IT==null?'':row.DICT_IT)
+						|| $('#toSORT').textbox('getValue') != (row.BR_SORT==null?'':row.BR_SORT)
+						|| isUserYn != row.USE_YN) {
+					return true;
+				} else {
+					return false;
+				}
+			}
+		}
+      saveRoleMes = function () {
+        /*if (!checkDataValid()){
+           $.messager.alert('提示', '请输入必选添加信息');
+             return
+        }*/
+        if(!checkForm()) return;
+ //       var toSort =$('#toSORT').val(); 
+        var toSort = $('#toSORT').combobox('getValue');
+        console.log("toSort--"+toSort);
+        if(toSort != ""){
+			if(!/^\d+$/.test(toSort)){
+				$.messager.alert('提示','排序只能输入数字');
+				return;
+			}
+		}
+        var DefectiveMesId =$('#DefectiveCode').textbox('getValue');
+        var DefectiveMesName =$('#DefectiveName').textbox('getValue');
+        var DefectiveTypeCode =$('#DefectiveTypeCode').combobox('getValue');
+        var DefectiveSort =$('#toSORT').textbox('getValue');
+        var IFServerNo = '',DefectiveUse='';
+        if($("#DefectiveUse").is(':checked')) DefectiveUse='Y';
+        else DefectiveUse='N';
+             var reqData={
+                BR_CD: DefectiveMesId,
+                BR_NM: DefectiveMesName,
+                DICT_IT: DefectiveTypeCode,
+                BR_SORT: DefectiveSort,
+                USE_YN: DefectiveUse,
+           }
+           var optType=getOptType();
+           //新增
+           if (optType == 0) {
+               IFServerNo = 'B000038',
+               $.extend(reqData, { CRT_ID: '',CRT_IP: '',IFS:IFServerNo}); 
+           }
+           //修改
+           else if (optType == 1) {
+               IFServerNo = 'B000040',
+               reqData =$.extend(reqData, { CRT_ID: '',CRT_IP: '',IFS:IFServerNo});
+           }
+           var susMsg='',errorMsg='';
+           if(optType==0){
+             susMsg='添加成功';
+             errorMsg='添加失败,请联系管理员';
+           }
+           else{
+             susMsg='更新成功';
+             errorMsg='更新失败,请联系管理员';
+           }
+           if(!checkForm()) return;
+           var ajaxParam = {
+               url: '/iPlant_ajax',
+               dataType: 'JSON',
+               data: reqData,
+               successCallBack:function(data){
+                 if($.messager.alert('提示', susMsg)){
+                   $('#enditTab').dialog('close');
+                    setDataNull();
+                     initGridData();   
+                 }
+               },
+               errorCallBack:function(){
+                 $.messager.alert('提示', errorMsg);
+               }
+               
+           };
+           iplantAjaxRequest(ajaxParam);
+      },
+      bindCombogrid =function (jsonData){
+        var ajaxParam ={
+          url:'/iPlant_ajax',
+          data:{
+            IFS:'D000008',
+            DICT_CD: pageConfig.dictType,
+            USE_YN:'Y'
+          },
+          successCallBack:function(data){
+            var rowNum=0
+            if(data.RESPONSE["0"].RESPONSE_HDR.DATA_ROWS){
+               rowNum=parseInt(data.RESPONSE["0"].RESPONSE_HDR.DATA_ROWS);
+            }
+            var rowCollection=createSourceObj(data);
+            var jsonData={
+                  total:rowNum,
+                  rows:rowCollection
+            }
+            $('#DefectiveTypeCode').combogrid({
+                rows:rowCollection,
+                idField:'DICT_IT',
+                textField:'DICT_IT_NM',
+                panelWidth:800,
+                 columns: [[
+                   { field: 'IT_ID', title: '不良类别编码', width: 100, align: 'center' },
+                   { field: 'DICT_IT_NM',title:'字典项名称',width:100,align:'center'},
+                   { field: 'DICT_CD',title: '字典代码',width:75,align:'center'},
+                   { field: 'DICT_IT', title: '字典项', width: 75, align: 'center' },
+                   { field:'DICT_ORD',title:'取值顺序',width:75,align:'center'},
+                   { field: 'CRT_ID', title: '创建人', width: 75, align: 'center' },
+                   { field: 'CRT_DT', title: '创建时间', width: 75, align: 'center'},
+                   { field: 'UPT_ID', title: '修改人', width: 75, align: 'center' },
+                   { field: 'UPT_DT', title: '修改时间', width: 75, align: 'center'},
+                   {field: 'USE_YN', title: '是否启用', width: 75, align: 'center',
+                       formatter: function (value, row, index) {
+                           if (value == 'Y') {
+                               return '启用';
+                           }
+                           else {
+                               return '未启用';
+                           }
+                       }
+                   },
+                ]]
+              });
+              $('#DefectiveTypeCode').combogrid("grid").datagrid("loadData", jsonData);
+          }
+        }
+        iplantAjaxRequest(ajaxParam);
+        }
+        //不良类别   
+        initComboboxData = function(){
+          	iplantAjaxRequest( {
+    			url: '/iPlant_ajax',
+    			data: {IFS:'D000008',DICT_CD:"CBR01",USE_YN:'Y'},
+    			successCallBack: function (data) {
+    				var array = new Array();
+    				var ccArr = [];
+    				var rowCollection=createSourceObj(data);
+    				ccArr.push({"id":"","text":"全部"});
+    				for(var i=0; i<rowCollection.length;i++){
+    					array.push({"id":rowCollection[i].DICT_IT,"text":rowCollection[i].DICT_IT_NM});
+    					ccArr.push({"id":rowCollection[i].DICT_IT,"text":rowCollection[i].DICT_IT_NM});
+    					dataArr[rowCollection[i].DICT_IT]=rowCollection[i].DICT_IT_NM;
+    				}
+    				
+    				//查询
+    				$('#blType').combobox({
+    					data:ccArr,
+    					valueField:'id',
+    					textField:'text'
+    				});
+    				//编辑时
+    				$('#DefectiveTypeCode').combobox({
+    					data:array,
+    					valueField:'id',
+    					textField:'text'
+    				});
+    				initGridData();
+    				if(OptType == 1){
+    					updateRoleMes();
+    					
+    				}
+    			}
+    		});
+          }
+        
+        /*是否打印弹出打印预览页面*/
+		openPrintPreview = function(BR_CD,BR_NM,CRT_ID){
+			$("#PrintPreview_openDiv").dialog("open").dialog('setTitle', '打印预览页面');
+			$("#BR_CD").textbox('setValue',BR_CD);
+//			$("#CARE_CD").textbox('setValue',CARE_CD);
+			$("#BR_NM").textbox('setValue',BR_NM);
+			$("#txtCRT_ID").textbox('setValue',CRT_ID);
+			$("#txtCurrentCount").numberbox('setValue',1);
+		}
+		
+		/*底部的关联表格*/   
+		/*OpenFrameAttribute = function(BR_CD){
+			var tabName = 'carrierBarCodePrintQuerybottom_tab';
+			var dgridOp = $('#'+tabName).datagrid('options');
+			if(!dgridOp) return;
+			var reqDataA = {
+				IFS: 'B000157',
+				BR_CD: BR_CD,
+				pageIndex: 1,
+				pageSize: dgridOp.pageSize	
+			}
+			dialogDataGrid('/iPlant_ajax', tabName, reqDataA);
+			dialogEditorDataGrid = function(tabName,reqDataA, jsonData) {
+				var columnsTab,edDataGrid,messageInfo;
+				columnsTab=[
+						{field: 'BR_CD',title: '不良条码',width: 80,align: 'center',formatter: function (value) {if(checkNotEmpty(value)) return "<span title='" + value + "'>" + value + "</span>";},editor:{type:'validatebox',
+							   options:{required:true, validType:['length[1,50]','specialTextCharacter']}}},  
+						{field: 'BR_NM',title: '不良名称',width: 120,align: 'center',formatter: function (value) {if(checkNotEmpty(value)) return "<span title='" + value + "'>" + value + "</span>";},editor:{type:'validatebox',
+							   options:{required:true, validType:['length[1,50]','specialTextCharacter']}}},
+						{field: 'CRT_ID',title: '创建人',width: 80,align: 'center',formatter: function (value) {if(checkNotEmpty(value)) return "<span title='" + value + "'>" + value + "</span>";}},
+						{field: 'CRT_DT',title: '创建时间',width: 180,align: 'center',formatter: function (value) {if(checkNotEmpty(value)) return "<span title='" + value + "'>" + value + "</span>";}}];
+
+				var gridLists = {
+					name: tabName,
+					dataType: 'json',
+					columns: [columnsTab]
+				}
+				initEditorDataGridView(reqDataA, gridLists);
+				$('#'+tabName).datagrid('loadData', jsonData);
+			}
+		}*/
+		
+		
+		
+		
+		/**
+		 * 打印SN
+		 * 
+		 * @param dgrid
+		 */
+		saveMesSNcode = function(){
+			var post = $("#carrierBarCodePrint_tab").datagrid('getSelections');
+			var postLenght = post.length;
+			var rowSz = $('#rowSize').textbox('getValue');
+			var data1=new Array();var dataRow = new Array();
+			var barCodeList="";
+			//alert(JSON.stringify(post));
+            $.each(post,function(n,obj) {/*
+	    		 var ajaxParam0 = {
+			            url: '/iPlant_ajax',
+			            dataType: 'JSON',
+			            data: {
+			            	BR_CD:obj.BR_CD,
+			                IFS: 'B000156'
+			             },
+			            successCallBack:function(dataList){
+			            	var op = dataList.RESPONSE[0].RESPONSE_DATA[0].BR_NM;
+			            	if(op!=null){         		
+			            		var index = op.lastIndexOf("\-"),str = op.substring(index+1,op.length);	
+					        		for (var h=1;h<=rowSz;h++){
+					        			 var sum = (parseInt(str) + h),code;
+					        			
+					            		 if(sum >= 10 && sum < 100){
+						         				code = '00' +sum;
+						         			}else if(sum >= 100 && sum < 1000){	
+						         				code = '0' +sum;
+						         			}else if(sum >= 1000){
+						         				code = sum;
+						         			}else {
+						         				code = '000' +sum;
+						         			}
+					        			data1.push({"CODE":obj.BR_CD +'-'+ code});	
+					        			dataRow.push({BR_CD:obj.BR_CD,BR_NM:obj.BR_CD +'-'+ code}); 			 
+					        		}
+
+			            	}else{
+					        		for (var j=1;j<=rowSz;j++){			
+					        			 var sum = j,code;	
+					            		 if(sum >= 10 && sum < 100){
+						         				code = '00' +sum;
+						         			}else if(sum >= 100 && sum < 1000){	
+						         				code = '0' +sum;
+						         			}else if(sum >= 1000){
+						         				code = sum;
+						         			}else {
+						         				code = '000' +sum;
+						         			}
+					        			data1.push({"CODE":obj.BR_CD+'-'+code});	
+					        			dataRow.push({BR_CD:obj.BR_CD,BR_NM:obj.BR_CD+'-'+code});
+					        			
+					        		  }
+			            	}
+				    		var ajaxParam = {
+						            url: '/iPlant_ajax',
+						            dataType: 'JSON',
+						            data: {
+						            	list:dataRow,    	
+						                IFS: 'B000158'
+						            }
+						      };
+						    iplantAjaxRequest(ajaxParam);
+						    dataRow = [];
+
+			         }
+			      };
+			      iplantAjaxRequest(ajaxParam0);
+            */});
+            barCodeStr = {labName:"CARELB.lab",'rowSize':rowSz,"barCodeList":data1};
+    		zbSocketPrinter(barCodeStr);    		
+			$('#PrintPreview_openDiv').dialog('close');
+			$.messager.alert("提示", '条码打印完成！');
+			initGridData();		
+		 }
+		
+		 setDataNull = function () {
+         }
+    } 
+    RoleMes.prototype = {
+        init: function () {
+            $(function () {
+            	dataGrid = $('#carrierBarCodePrint_tab'),dataTmp=[],dataPrintType=[],showmessage=$('#showMessageInfo'),editIndex = undefined,oldRow=undefined, reg=new RegExp("null","g");
+            	$("body")[0].onkeydown = keyPress;
+                $("body")[0].onkeyup = keyRelease;
+            	initComboboxData();
+                $('#btnAdd').click(function () {
+//                	initComboboxData();
+                    addRoleMes();
+                });
+                $('#btnUpdate').click(function () {
+                    updateRoleMes();
+//                    initComboboxData();
+//                    bindCombogrid();
+                });
+                
+                $('#save').click(function () {
+                    saveRoleMes();
+                });
+                $('.close').click(function () {
+                    setDataNull();
+                    $('#enditTab').dialog('close');
+                    $('#queryTab').dialog('close');
+                    initGridData();
+                });
+                $('#btnDelete').click(function(){
+                  deleteRoleMes();
+                });
+//                $('#blType').combobox('textbox').bind('focus',function(){  
+//		          	initComboboxData();
+//				
+//		         });  
+//              $('#blType').click(function(){
+//              	initComboboxData();
+//              })
+                $('#btnSearch').click(function(){
+                	getDataByCondition();
+                })
+                $('#btnFreshen').click(function() {
+                	getDataByCondition();
+				});
+                $('#confirm').click(function(){
+                  getDataByCondition(); 
+                })
+                $('input',$('#DefectiveCode').next('span')).keyup(function(){
+                  checkInputLength('DefectiveCode',20);
+                })
+                $('input',$('#DefectiveName').next('span')).keyup(function(){
+                  checkInputLength('DefectiveName',30);
+                })
+                $('input',$('#toSORT').next('span')).keyup(function(){
+                  checkInputLength('toSORT',5);  
+                })
+              //限制输入英文单引号
+				$("input",$("#DefectiveCode").next("span")).keydown(function(e){
+	          		   if(e.keyCode==222){
+	        				if(e.preventDefault){
+	                            e.preventDefault();
+	                        }
+	                		else
+	                		{
+	                			e.returnValue = false;
+	                        }      
+	        			}
+	          	   });
+				$("input",$("#DefectiveName").next("span")).keydown(function(e){
+	          		   if(e.keyCode==222){
+	        				if(e.preventDefault){
+	                            e.preventDefault();
+	                        }
+	                		else
+	                		{
+	                			e.returnValue = false;
+	                        }      
+	        			}
+	          	   });
+				$("input",$("#toSORT").next("span")).keydown(function(e){
+	          		   if(e.keyCode==222){
+	        				if(e.preventDefault){
+	                            e.preventDefault();
+	                        }
+	                		else
+	                		{
+	                			e.returnValue = false;
+	                        }      
+	        			}
+	          	   });
+				
+				 $('#btnPrint').click(function(){
+						var post = $("#carrierBarCodePrint_tab").datagrid('getSelections');
+						if(post == null || post == ''){
+							$.messager.alert('提示', '请选择一条数据进行打印');
+						}else{
+							var BR_CD,BR_NM,CRT_ID;
+							BR_CD = post[0].BR_CD;BR_NM = post[0].BR_NM; CRT_ID= post[0].CRT_ID;
+							openPrintPreview(BR_CD,BR_NM,CRT_ID);
+						}
+					})
+            });
+        }
+    }
+    var pCode = new RoleMes();
+    pCode.init();
+})();

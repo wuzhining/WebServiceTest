@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<engines>
+
+	<!-- 工序管理     START -->
+	<!-- 查询工序定义信息 -->
+	<engine engine_code="queryProcessDefinition" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryProcessDefinition" >
+	</engine>
+	
+	<!-- 新增工序定义信息 -->
+	<engine engine_code="insertProcessDefinition" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertProcessDefinition" >
+	</engine>
+	
+	<!-- 修改工序定义信息 -->
+	<engine engine_code="updateProcessDefinition" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateProcessDefinition" >
+	</engine>
+	
+	<!-- 删除工序定义信息 -->
+	<engine engine_code="deleteProcessDefinition" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteProcessDefinition" >
+	</engine>
+	
+	
+	<!-- 查询工序路线定义信息 -->
+	<engine engine_code="queryProcessRouteDefinition" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryProcessRouteDefinition" >
+	</engine>
+	
+	<!-- 新增工序路线定义信息 -->
+	<engine engine_code="insertProcessRouteDefinition" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertProcessRouteDefinition" >
+	</engine>
+	
+	<!-- 修改工序路线定义信息 -->
+	<engine engine_code="updateProcessRouteDefinition" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateProcessRouteDefinition" >
+	</engine>
+	
+	<!-- 删除工序路线定义信息 -->
+	<engine engine_code="deleteProcessRouteDefinition" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteProcessRouteDefinition" >
+	</engine>
+	
+	
+	<!-- 查询工序路线流程模板配置 -->
+	<engine engine_code="queryProcessRouteConfiguration" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryProcessRouteConfiguration" >
+	</engine>
+	
+	<!-- 新增工序路线流程模板配置-->
+	<engine engine_code="insertProcessRouteConfiguration" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertProcessRouteConfiguration" >
+	</engine>
+	
+	<!-- 修改工序路线流程模板配置 -->
+	<engine engine_code="updateProcessRouteConfiguration" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateProcessRouteConfiguration" >
+	</engine>
+	
+	<!-- 删除工序路线流程模板配置 -->
+	<engine engine_code="deleteProcessRouteConfiguration" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteProcessRouteConfiguration" >
+	</engine>
+
+	<!-- 查询产品工序路线流程配置 -->
+	<engine engine_code="queryProductProcessRouteConfiguration" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryProductProcessRouteConfiguration" >
+	</engine>
+	<!-- 新增产品工序路线流程配置 -->
+	<engine engine_code="insertProductProcessRouteConfiguration" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertProductProcessRouteConfiguration" >
+	</engine>
+	<!-- 修改产品工序路线流程配置 -->
+	<engine engine_code="updateProductProcessRouteConfiguration" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateProductProcessRouteConfiguration" >
+	</engine>
+	<!-- 删除产品工序路线流程配置 -->
+	<engine engine_code="deleteProductProcessRouteConfiguration" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteProductProcessRouteConfiguration" >
+	</engine>
+
+	
+	<!-- 查询工序类型 -->
+	<engine engine_code="queryPrfInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryPrfInfo" >
+	</engine>
+
+	<!-- 查询路线类型 -->
+	<engine engine_code="queryRouteInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryRouteInfo" >
+	</engine>
+	
+	<!-- 查询模板类型 -->
+	<engine engine_code="queryTempInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryTempInfo" >
+	</engine>
+	
+	<!-- 查询方法类型 -->
+	<engine engine_code="queryFunInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryFunInfo" >
+	</engine>
+
+
+	<!-- 工序管理    END -->
+	
+	<!-- 模板管理     START -->
+	<!-- 查询模板定义信息 -->
+	<engine engine_code="queryTemplateDefinition" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryTemplateDefinition" >
+	</engine>
+	
+	<!-- 新增模板定义信息 -->
+	<engine engine_code="insertTemplateDefinition" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertTemplateDefinition" >
+	</engine>
+	
+	<!-- 修改模板定义信息 -->
+	<engine engine_code="updateTemplateDefinition" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateTemplateDefinition" >
+	</engine>
+	
+	<!-- 删除模板定义信息 -->
+	<engine engine_code="deleteTemplateDefinition" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteTemplateDefinition" >
+	</engine>
+	
+	
+	<!-- 查询模板方法定义信息 -->
+	<engine engine_code="queryTemplateMethodDefinition" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryTemplateMethodDefinition" >
+	</engine>
+	
+	<!-- 新增模板方法定义信息-->
+	<engine engine_code="insertTemplateMethodDefinition" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertTemplateMethodDefinition" >
+	</engine>
+	
+	<!-- 修改模板方法定义信息-->
+	<engine engine_code="updateTemplateMethodDefinition" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateTemplateMethodDefinition" >
+	</engine>
+	
+	<!-- 删除模板方法定义信息-->
+	<engine engine_code="deleteTemplateMethodDefinition" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteTemplateMethodDefinition" >
+	</engine>
+	
+	<!-- 模板方法配置与模板方法关联查询-->
+	<engine engine_code="queryTempMethodAndDefinition" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryTempMethodAndDefinition" >
+	</engine>
+	
+	
+	
+	
+	<!-- 查询模板方法配置信息 -->
+	<engine engine_code="queryTemplateMethodConfiguration" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryTemplateMethodConfiguration" >
+	</engine>
+	
+	<!-- 新增模板方法配置信息-->
+	<engine engine_code="insertTemplateMethodConfiguration" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertTemplateMethodConfiguration" >
+	</engine>
+	
+	<!-- 修改模板方法配置信息-->
+	<engine engine_code="updateTemplateMethodConfiguration" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateTemplateMethodConfiguration" >
+	</engine>
+	
+	<!-- 删除模板方法配置信息-->
+	<engine engine_code="deleteTemplateMethodConfiguration" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteTemplateMethodConfiguration" >
+	</engine>
+	
+	
+	<!-- 查询模版方法运行记录表 -->
+	<engine engine_code="queryTemplateMethodRunLog" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryTemplateMethodRunLog" >
+	</engine>
+	<!-- 新增模版方法运行记录表 -->
+	<engine engine_code="insertTemplateMethodRunLog" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertTemplateMethodRunLog" >
+	</engine>
+	<!-- 修改模版方法运行记录表 -->
+	<engine engine_code="updateTemplateMethodRunLog" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateTemplateMethodRunLog" >
+	</engine>
+	<!-- 删除模版方法运行记录表 -->
+	<engine engine_code="deleteTemplateMethodRunLog" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteTemplateMethodRunLog" >
+	</engine>
+	
+	
+	<!-- 作业指示物料申请明细查询 -->
+	<engine engine_code="queryJobInstructionApplication" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryJobInstructionApplication" >
+	</engine>
+	<!-- 作业指示物料申请明细新增 -->
+	<engine engine_code="insertJobInstructionApplication" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertJobInstructionApplication" >
+	</engine>
+	
+	<!-- 工单工序路线配置查询 -->
+	<engine engine_code="queryWorkOrderRouting" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryWorkOrderRouting" >
+	</engine>
+	<!-- 工单工序路线配置新增 -->
+	<engine engine_code="insertWorkOrderRouting" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertWorkOrderRouting" >
+	</engine>
+	<!-- 工单工序路线配置修改 -->
+	<engine engine_code="updateWorkOrderRouting" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateWorkOrderRouting" >
+	</engine>
+	<!-- 工单工序路线配置删除 -->
+	<engine engine_code="deleteWorkOrderRouting" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteWorkOrderRouting" >
+	</engine>
+	<!-- 模板管理     END -->
+	
+	<engine engine_code="queryMoRout" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryMoRout" >
+	</engine>
+	<!-- 生产制成管控表查询 -->
+	<engine engine_code="queryProductionControl" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryProductionControl" >
+	</engine>
+	<!-- 生产制成管控表新增 -->
+	<engine engine_code="insertProductionControl" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertProductionControl" >
+	</engine>
+	<!-- 生产制成管控表修改 -->
+	<engine engine_code="updateProductionControl" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateProductionControl" >
+	</engine>
+	<!-- 生产制成管控表删除 -->
+	<engine engine_code="deleteProductionControl" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteProductionControl" >
+	</engine>
+	
+	<!-- 生产制成管控明细表查询 -->
+	<engine engine_code="queryProductionControlDetailed" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryProductionControlDetailed" >
+	</engine>
+	<!-- 生产制成管控明细表新增 -->
+	<engine engine_code="insertProductionControlDetailed" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertProductionControlDetailed" >
+	</engine>
+	<!-- 生产制成管控明细表修改 -->
+	<engine engine_code="updateProductionControlDetailed" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateProductionControlDetailed" >
+	</engine>
+	<!-- 生产制成管控明细表删除 -->
+	<engine engine_code="deleteProductionControlDetailed" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteProductionControlDetailed" >
+	</engine>
+	
+	
+	<!-- 工序路线业务配置查询 -->
+	<engine engine_code="queryProcesRouteBusinessConfiguration" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryProcesRouteBusinessConfiguration" >
+	</engine>
+	<!-- 工序路线业务配置新增 -->
+	<engine engine_code="insertProcesRouteBusinessConfiguration" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertProcesRouteBusinessConfiguration" >
+	</engine>
+	<!-- 工序路线业务配置修改 -->
+	<engine engine_code="updateProcesRouteBusinessConfiguration" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateProcesRouteBusinessConfiguration" >
+	</engine>
+	<!-- 工序路线业务配置删除 -->
+	<engine engine_code="deleteProcesRouteBusinessConfiguration" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteProcesRouteBusinessConfiguration" >
+	</engine>
+	
+	<!-- 工序业务配置业务代码查询 -->
+	<engine engine_code="queryProcessC" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryProcessC" >
+	</engine>
+	
+	
+	<!-- 查询当前SN所在ROUTE -->
+	<engine engine_code="queryPreSnRoute" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryPreSnRoute" >
+	</engine>
+	
+	<!-- 离线OQC扫描箱子 -->
+	<engine engine_code="OQCScanBarCode" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="OQCScanBarCode" >
+	</engine>
+	<!-- 查询OQCBOX信息 -->
+	<engine engine_code="queryOQC_LOTIDBOx" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryOQC_LOTIDBOx" >
+	</engine>
+	
+	<!-- 插入OQCBOX信息 -->
+	<engine engine_code="insertOQC_LOTIDBOXInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertOQC_LOTIDBOXInfo" >
+	</engine>
+	<!-- 查询OQC信息 -->
+	<engine engine_code="queryOQCInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryOQCInfo" >
+	</engine>
+	
+	 <!-- 查询拉线设备维护信息 -->
+	<engine engine_code="queryET_LINE_INFO" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryET_LINE_INFO" >
+	</engine>
+	 <!-- 插入拉线设备维护信息 -->
+	<engine engine_code="insertET_LINE_INFO" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertET_LINE_INFO" >
+	</engine>
+	 <!-- 删除拉线设备维护信息 -->
+	<engine engine_code="deleteET_LINE_INFO" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteET_LINE_INFO" >
+	</engine>
+	
+	<!-- 物料申请更新 -->
+	<engine engine_code="updateGetMaterialRequestInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateGetMaterialRequestInfo" >
+	</engine>
+	
+	<!-- 物料申请新增 -->
+	<engine engine_code="insertGetMaterialRequestInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertGetMaterialRequestInfo" >
+	</engine>
+	
+</engines>

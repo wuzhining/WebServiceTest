@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>大屏幕监视</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <script src="js/jquery-1.11.2.min.js"></script>
+	<script src="js/jquery.dialogBox.js"></script>
+	<script src="js/jquery.cookie.js"></script>
+    <script src="js/echarts.min.js"></script>
+    <script src="scripts/TimeObjectUtil.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/jquery.dialogbox.css">
+    <script type="text/javascript">
+    	var globalFreshTime = 10; // 刷新时间，默认10s
+    	var globalProductLine; //产线
+    	//数组去重
+    	function unique(array){
+    	  var n = {}, r = [], len = array.length, val, type;
+    	    for (var i = 0; i < array.length; i++) {
+    	        val = array[i];
+    	        type = typeof val;
+    	        if (!n[val]) {
+    	            n[val] = [type];
+    	            r.push(val);
+    	        } else if (n[val].indexOf(type) < 0) {
+    	            n[val].push(type);
+    	            r.push(val);
+    	        }
+    	    }
+    	    return r;
+    	}
+	 	// 定义获取和更新时间的函数
+	    function showTime() {
+	        var curTime = new Date();
+	        $("#spanTime").html(TimeObjectUtil.formatterDateTime(curTime).toString().split(" ")[1]);
+	        setTimeout("showTime()", 1000);
+	    }
+	 	//定时刷新刷新界面
+	 	function refreshWordOrder() {
+        // 	 		if ($("#selectProductionLine")[0].selectedIndex > 0) {
+        				//resetStaffUI();
+        				//resetWorkOrderUI();
+        	 			getStaff(globalProductLine);
+        				getWorkInfo(globalProductLine);
+                        getBarData(globalProductLine);
+        				setTimeout("refreshWordOrder()", 1000*globalFreshTime);
+        // 	 		}
+	 	}
+    	$(document).ready(function(){
+            setBarData([],[],0,0);
+    		var date = new Date();
+    		$("#spanDate").html(TimeObjectUtil.formatterDate(date));
+    		showTime();
+    		$('#btn-auto-close').bind("click",function(){
+    			$('#auto-close-dialogBox').dialogBox({
+					autoHide: true,
+					time: 1000,
+					title: '提醒',
+					content: '暂无数据，10秒后数据将会更新'
+				});
+			});
+    		$('#btn-type').bind("click",function(){
+				$('#type-dialogBox').dialogBox({
+					type: 'correct',  //three type:'normal'(default),'correct','error',
+					width: 300,
+					height: 200,
+					hasMask: true,
+					hasBtn: true,
+					autoHide: false,
+					time: 3000000,
+					effect: 'newspaper',
+					title: '选择产线',
+					content: "<select id='selectProductionLine' style='width:100%;'><option value='请选择'>请选择产线</option></select><br/>" +
+							"系统将每<select id='selectRefreshTime' style='width:50%;'>" + 
+							"<option value='请选择'>请选择刷新时间</option><option value='10'>10秒</option>" + 
+							"<option value='30'>30秒</option>"+
+							"<option value='60'>60秒</option>"+
+							"</select>刷新一次 "
+				});
+			});
+    		$('#btn-type').click();
+    		getProductionLine();
+    		$("#selectProductionLine").bind("change", function(){
+            //     			alert($("#selectProductionLine").val()+"-----------------");
+				resetStaffUI();
+				resetWorkOrderUI();
+    			getStaff($("#selectProductionLine").val());
+    			getWorkInfo($("#selectProductionLine").val());
+                getBarData($("#selectProductionLine").val());
+    			globalProductLine = $("#selectProductionLine").val();
+    		});
+    		$("#selectRefreshTime").bind("change", function(){
+    			globalFreshTime = $("#selectRefreshTime").val();
+    			if (isNaN(globalFreshTime)) {
+    				globalFreshTime = 10;
+    			}
+    		});
+    		refreshWordOrder();
+    	});
+    	// 从后台获取产线信息
+    	function getProductionLine() {
+    		var params = {IFS:'B000094',reqType:'APP'};
+    		reqStr = '{\"REQ\":[{\"REQ_DATA\":' + JSON.stringify(params) + '}]}';
+    		$.ajax({
+    			url:'../iPlant_app',
+    		    type: 'POST',
+                contentType: "application/x-www-form-urlencoded; charset=utf-8",
+    		    data:{ "reqStr": reqStr },
+    		    success:function(data){
+    		    	var aa=data;
+    		    	var strJsonData='';
+    		    	var arr = [];
+    		    	var strJsonHRD=JSON.stringify(data.RESPONSE["0"].RESPONSE_HDR);
+    		        for(var i=0;i<data.RESPONSE["0"].RESPONSE_DATA.length;i++){
+    		        	if(data.RESPONSE["0"].RESPONSE_DATA[i]){
+    		        		strJsonData = data.RESPONSE["0"].RESPONSE_DATA[i].PRODUCTIONLINE;
+    		        		arr.push(strJsonData);
+    		        	}
+    		        }
+    		        var sortArr = unique(arr);
+    		        for (var i = 0; i < sortArr.length; i++) {
+    		        	$("#selectProductionLine").append("<option value='"+sortArr[i]+"'>"+sortArr[i]+"</option>");
+    		        }
+    		        
+    		   },
+               errorCallBack:function(e){
+            	   var dd='fef';
+               }
+    		});
+    	}
+    	// 从后台获取某条产线上的员工信息
+    	function getStaff(pLine) {
+    		//alert(pLine);
+    		var params = {IFS:'B000086',reqType:'APP',PRODUCTIONLINE:pLine};
+    		//console.info(params);
+    		reqStr = '{\"REQ\":[{\"REQ_DATA\":' + JSON.stringify(params) + '}]}';
+    		$.ajax({
+    			url:'../iPlant_app',
+    		    type: 'POST',
+                contentType: "application/x-www-form-urlencoded; charset=utf-8",
+    		    data:{ "reqStr": reqStr },
+    		    success:function(data){
+    		    	var count = 0;
+    		    	var aa=data;
+    		    	var strJsonData='';
+    		    	var strJsonHRD=JSON.stringify(data.RESPONSE["0"].RESPONSE_HDR);
+    		        for(var i=0;i<data.RESPONSE["0"].RESPONSE_DATA.length;i++){
+    		        	if(data.RESPONSE["0"].RESPONSE_DATA[i]){
+    		        		strJsonData = "姓名:"+data.RESPONSE["0"].RESPONSE_DATA[i].NAME + 
+    		        					  ",电话:" + data.RESPONSE["0"].RESPONSE_DATA[i].TELEPHONE + 
+    		        					  ",工号:" + data.RESPONSE["0"].RESPONSE_DATA[i].NUMBER +
+    		        					  ",相片:" + data.RESPONSE["0"].RESPONSE_DATA[i].FILE_SAVE_PATH + 
+    		        					  ",产线:" + data.RESPONSE["0"].RESPONSE_DATA[i].PRODUCTIONLINE +
+    		        					  ",岗位:" + data.RESPONSE["0"].RESPONSE_DATA[i].JOBTITLE;
+    		        		setStaffInfo(data.RESPONSE["0"].RESPONSE_DATA[i].NAME, data.RESPONSE["0"].RESPONSE_DATA[i].NUMBER,
+    		        				data.RESPONSE["0"].RESPONSE_DATA[i].TELEPHONE,data.RESPONSE["0"].RESPONSE_DATA[i].FILE_SAVE_PATH,
+    		        				data.RESPONSE["0"].RESPONSE_DATA[i].JOBTITLE,data.RESPONSE["0"].RESPONSE_DATA[i].PRODUCTIONLINE)
+    		        		//console.info(strJsonData);
+    		        		count++;
+    		        	}
+    		        }
+    		        if(count==0) {
+    		        	resetStaffUI();
+    		        }
+    		        
+    		   },
+               errorCallBack:function(e){
+            	   var dd='fef';
+               }
+    		});
+    	}
+    	
+
+    	// 从后台获取某台生产线上的工单信息
+    	function getWorkInfo(pLine) {
+    		//alert(pLine);
+    		var params = {IFS:'J000001',reqType:'APP',PRODUCTIONIINE:pLine};
+    		//console.info(params);
+    		reqStr = '{\"REQ\":[{\"REQ_DATA\":' + JSON.stringify(params) + '}]}';
+    		$.ajax({
+    			url:'../iPlant_app',
+    		    type: 'POST',
+                contentType: "application/x-www-form-urlencoded; charset=utf-8",
+    		    data:{ "reqStr": reqStr },
+    		    success:function(data){
+    		    	var aa=data;
+    		    	var count = 0;
+    		    	var strJsonData='';
+    		    	var strJsonHRD=JSON.stringify(data.RESPONSE["0"].RESPONSE_HDR);
+    		        for(var i=0;i<data.RESPONSE["0"].RESPONSE_DATA.length;i++){
+    		        	if(data.RESPONSE["0"].RESPONSE_DATA[i]){
+    		        		strJsonData = ",产线:" + data.RESPONSE["0"].RESPONSE_DATA[i].PRODUCTIONLINE + 
+    		        					  "系列:"+data.RESPONSE["0"].RESPONSE_DATA[i].PRODUCTSERIES + 
+    		        					  ",型号:" + data.RESPONSE["0"].RESPONSE_DATA[i].PRODUCTMODEL + 
+    		        					  ",人数:" + data.RESPONSE["0"].RESPONSE_DATA[i].THENUMBEROF +
+    		        					  ",小时目标:" + data.RESPONSE["0"].RESPONSE_DATA[i].HOURTARGET + 
+    		        					  ",班次目标:" + data.RESPONSE["0"].RESPONSE_DATA[i].SHIFTTARGET + 
+    		        					  ",完成数量:" + data.RESPONSE["0"].RESPONSE_DATA[i].ENDNUMBER + 
+    		        					  ",计划数量:" + data.RESPONSE["0"].RESPONSE_DATA[i].NUMBER + 
+    		        					  ",未完成数量:" + data.RESPONSE["0"].RESPONSE_DATA[i].TODONUMBER + 
+    		        					  ",效率:" + data.RESPONSE["0"].RESPONSE_DATA[i].PCT + 
+    		        					  ",累计完成数量:" + data.RESPONSE["0"].RESPONSE_DATA[i].ENDNUMBER +
+    		        					  ",生产状态:" + data.RESPONSE["0"].RESPONSE_DATA[i].CURRENTSTATUS +
+    		        					  ",工单编号:" + data.RESPONSE["0"].RESPONSE_DATA[i].WORKORDER+
+    		        					  ",换线工单编号:" + data.RESPONSE["0"].RESPONSE_DATA[i].STARTNO +
+    		        					  ",照片路径:" + data.RESPONSE["0"].RESPONSE_DATA[i].FILE_SAVE_PATH;
+    		        		setWorkInfo(data.RESPONSE["0"].RESPONSE_DATA[i].PRODUCTIONLINE,data.RESPONSE["0"].RESPONSE_DATA[i].PRODUCTSERIES,
+		        					  data.RESPONSE["0"].RESPONSE_DATA[i].PRODUCTMODEL, data.RESPONSE["0"].RESPONSE_DATA[i].THENUMBEROF,
+		        					  data.RESPONSE["0"].RESPONSE_DATA[i].HOURTARGET, data.RESPONSE["0"].RESPONSE_DATA[i].SHIFTTARGET, 
+		        					  data.RESPONSE["0"].RESPONSE_DATA[i].ENDNUMBER, data.RESPONSE["0"].RESPONSE_DATA[i].NUMBER, 
+		        					  data.RESPONSE["0"].RESPONSE_DATA[i].TODONUMBER, data.RESPONSE["0"].RESPONSE_DATA[i].PCT, 
+		        					  data.RESPONSE["0"].RESPONSE_DATA[i].ENDNUMBER, data.RESPONSE["0"].RESPONSE_DATA[i].CURRENTSTATUS,
+		        					  data.RESPONSE["0"].RESPONSE_DATA[i].WORKORDER, data.RESPONSE["0"].RESPONSE_DATA[i].FILE_SAVE_PATH,
+		        					  data.RESPONSE["0"].RESPONSE_DATA[i].STARTNO);
+    		        		//console.info(strJsonData);
+    		        		count++;
+    		        	}
+    		        }
+    		        //获取不到后台数据，显示提示并刷新数据
+    		        if (count == 0) {
+    		        	//$('#btn-auto-close').click();
+    		        	resetWorkOrderUI();
+    		        }
+    		        
+    		   },
+               errorCallBack:function(e){
+            	   var dd='fef';
+               }
+    		});
+    	}
+    	
+        // 从后台获取生产线柱状图数据
+        function getBarData(pLine){
+            var params = {IFS:'J000007',reqType:'APP',PRODUCTIONIINE:pLine};
+            reqStr = '{\"REQ\":[{\"REQ_DATA\":' + JSON.stringify(params) + '}]}';
+            $.ajax({
+                url:'../iPlant_app',
+                type: 'POST',
+                contentType: "application/x-www-form-urlencoded; charset=utf-8",
+                data:{ "reqStr": reqStr },
+                success:function(data){
+                   var x=[];
+                   var y=[];
+                   var mark=$("#target1").html();
+                   var maxnum;
+                   x=data.RESPONSE[0].RESPONSE_DATA[0].X.split(",");
+                   y=data.RESPONSE[0].RESPONSE_DATA[0].Y.split(",");
+                   x=x.slice(0,x.length-1);
+                   y=y.slice(0,y.length-1);
+                   var num=Math.max.apply(null, y);
+                   maxnum = num>mark? num:mark;
+                    var count = 0;
+                    for(var i=0;i<data.RESPONSE["0"].RESPONSE_DATA.length;i++){
+                        if(data.RESPONSE["0"].RESPONSE_DATA[i]){
+                            setBarData(x,y,mark,maxnum);
+                            count++;
+                        }
+                    }
+                    if(data.RESPONSE[0].RESPONSE_DATA[0].X==''||data.RESPONSE[0].RESPONSE_DATA[0].Y=='') {
+                        setBarData([],[],0,0);
+                    }
+               },
+               errorCallBack:function(e){
+                  setBarData([],[],0,0);
+               }
+            });
+        }
+
+ 		filterUrlPath = function(url){
+ 			var urlPath = "",arr,num,webroot=document.location.href;
+ 		    webroot=webroot.substring(webroot.indexOf('//')+2,webroot.length);
+ 		    webroot=webroot.substring(webroot.indexOf('/')+1,webroot.length);
+ 		    webroot=webroot.substring(0,webroot.indexOf('/'));
+ 		    var rootpath="/"+webroot;
+ 			if(url!=undefined && url!='' && url!=null){
+ 				if(url.indexOf('\\')>0){
+ 					arr = url.split('\\'),num = arr.length;
+ 					for(var i=0;i<arr.length;i++){
+ 						if(arr[i]=="upload"){
+ 							urlPath = urlPath+"\\"+arr[i];
+ 							num = i;
+ 						}
+ 						if(i>num)
+ 							urlPath = urlPath+"\\"+arr[i];
+ 					}
+ 				}
+ 			}
+ 			return rootpath+urlPath;
+ 		}
+    	
+    	/**
+    	*	设置员工的相关信息
+    	*	name   员工名称
+    	*	number 员工工号
+    	*	phone  员工电话
+    	*	photo  员工相片
+    	*	title  员工岗位
+    	*/
+    	function setStaffInfo(name, number, phone, photo, title) {
+    		if (title == "生产担当科文" || title == "0") {
+    			$("#productDeptName").html(name);
+    			$("#productDeptPhoto").attr("src", filterUrlPath(photo));
+    			$("#productDeptNo").html(number);
+    			$("#productDeptPhone").html(phone);
+    		} else if (title == "QC担当" || title == "1") {
+    			$("#qcDeptName").html(name);
+    			$("#qcDeptPhoto").attr("src", filterUrlPath(photo));
+    			$("#qcDeptNo").html(number);
+    			$("#qcDeptPhone").html(phone);
+    		} else if (title == "PE跟拉担当" || title == "2") {
+    			$("#peDeptName").html(name);
+    			$("#peDeptPhoto").attr("src", filterUrlPath(photo));
+    			$("#peDeptNo").html(number);
+    			$("#peDeptPhone").html(phone);
+    		} else if (title == "现场负责主管" || title == "3") {
+    			$("#bossName").html(name);
+    			$("#bossPhoto").attr("src", filterUrlPath(photo));
+    			$("#bossNo").html(number);
+    			$("#bossPhone").html(phone);
+    		}
+    	}
+    	/**
+    	*	设置工单详情
+    	*	
+    	*/
+    	function setWorkInfo(lineNo, series, modelNo, poeple, target1, target2, completeQty, planQty, shift, efficiency, accQty,currentStatus, workOrder, fileSavePath, startNo) {
+    		$("#lineNo").html(lineNo);
+    		$("#series").html(series);
+    		$("#modelNo").html(modelNo);
+    		$("#people").html(poeple);
+    		$("#target1").html(target1);
+    		$("#target2").html(target2);
+    		$("#completeQty").html(completeQty);
+    		$("#planQty").html(planQty);
+    		$("#shift").html(shift);
+    		if (efficiency != "") {
+    			$("#efficiency").html(efficiency+"%");
+    		} else {
+    			$("#efficiency").html("");
+    		} 
+    		$("#accQty").html(accQty);
+    		$("#imgProduct").attr("src", filterUrlPath(fileSavePath));
+    		if (currentStatus == "正常生产") {
+    			setNormalStyle();
+    		} else if (currentStatus == "换线") {
+    			setChangeLineStyle(startNo);
+    		} else if (currentStatus == "异常") {
+    			setAbnormalStyle();
+    		} else if (currentStatus == "停机") {
+    			setStopLineStyle();
+    		}
+    		
+    	}
+    	
+    	function setNormalStyle() {
+    		resetProductStatusStyles();
+    		$("#tdNormal").attr("style", "background-color:#37B42A;");
+    		$("#imgNormal").attr("src", "img/green-normal.png");
+    	}
+    	
+    	function setAbnormalStyle() {
+    		resetProductStatusStyles();
+    		$("#tbAbnormal").attr("style", "background-color:#E5BF12;");
+    		$("#imgAbnormal").attr("src", "img/yellow-abnormal.png");
+    	}
+    	
+    	function setStopLineStyle() {
+    		resetProductStatusStyles();
+    		$("#tdStop").attr("style", "background-color:#E44e13;");
+    		$("#imgStop").attr("src", "img/red-stop.png");
+    	}
+    	
+    	function setChangeLineStyle(startWorkOrder) {
+    		resetProductStatusStyles();
+    		$("#tdChangeLine").attr("style", "background-color:#E5BF12;");
+    		$("#spanChangeLine").html(startWorkOrder);
+    	}
+    	
+    	function resetProductStatusStyles() {
+    		$("#tdNormal").attr("style", "background-color:#2F95DB;");
+    		$("#imgNormal").attr("src", "img/normal.png");
+    		
+    		$("#tbAbnormal").attr("style", "background-color:#2F95DB;");
+    		$("#imgAbnormal").attr("src", "img/abnormal.png");
+    		
+    		$("#tdStop").attr("style", "background-color:#2F95DB;");
+    		$("#imgStop").attr("src", "img/stop.png");
+    		
+    		$("#tdChangeLine").attr("style", "background-color:#2F95DB;");
+    		$("#spanChangeLine").html("");
+    	}
+    	
+    	function resetWorkOrderUI() {
+    		$("#lineNo").html("");
+    		$("#imgProduct").attr("src", "");
+    		$("#series").html("");
+    		$("#modelNo").html("");
+    		$("#people").html("");
+    		$("#target1").html("");
+    		$("#target2").html("");
+    		$("#completeQty").html("");
+    		$("#planQty").html("");
+    		$("#shift").html("");
+    		$("#efficiency").html("");
+    		$("#accQty").html("");
+    		$("#spanChangeLine").html("");
+    		resetProductStatusStyles();
+    	}
+    	
+    	function resetStaffUI() {
+    		$("#productDeptName").html("");
+    		$("#productDeptPhoto").attr("src", "");
+    		$("#productDeptNo").html("");
+    		$("#productDeptPhone").html("");
+    		$("#qcDeptName").html("");
+    		$("#qcDeptPhoto").attr("src", "");
+    		$("#qcDeptNo").html("");
+    		$("#qcDeptPhone").html("");
+    		$("#peDeptName").html("");
+    		$("#peDeptPhoto").attr("src", "");
+    		$("#peDeptNo").html("");
+    		$("#peDeptPhone").html("");
+    		$("#bossName").html("");
+    		$("#bossPhoto").attr("src", "");
+    		$("#bossNo").html("");
+    		$("#bossPhone").html("");
+    		resetProductStatusStyles();
+    	}
+
+        function setBarData(x,y,mark,maxnum){
+            var dom = document.getElementById("container");
+              var myChart = echarts.init(dom);
+              option = null;
+              option = {
+                  //柱状图表头
+                  title:{
+                    x:'center',
+                    y:'top',
+                    text:'产能达成状况',
+                    fontSize:32,
+                    textAlign:'center',
+                    trigger: 'axis',
+                    textStyle:{
+                        color:'#fff',
+                        fontWeight:'normal',
+                    }
+                  },
+                  //柱状图图例
+                  color:['#ea69a2','#fff','#f06'],
+                  legend: {
+                      x:'center',
+                      y:30,
+                      left:'41%',
+                      align:'left',
+                      data:['完成数量','完成量','目标数'],
+                      textStyle:{
+                        color:'#fff',
+                      },
+
+                  },
+                  //x坐标间隔
+                  xAxis: [
+                      {
+                          type: 'category',
+                          position:'bottom',
+                          data:x,
+                          boundaryGap:['30%','30%'],
+                          nameTextStyle:{
+                              color:'#fff',
+                          },
+                          axisLine:{
+                                lineStyle:{
+                                    color:'#fff',
+                                }
+                          },
+                          axisTick:{
+                                inside:true
+                            }
+                      }
+                  ],
+                  //y坐标数量
+                  yAxis:  [
+                      {
+                            type: 'value',
+                            name: '单位/个',
+                            max:maxnum,
+                            nameTextStyle:{
+                                color:'#fff',
+                            },
+                            axisLine:{
+                                lineStyle:{
+                                    color:'#fff',
+                                }
+                            },
+                            axisTick:{
+                                inside:true
+                            }
+                      },
+                      {show:false}
+                  ], 
+                  series: [
+                      //柱状图数量
+                      {
+                          name:'完成数量',
+                          type:'bar',
+                          data: y,
+                          barWidth:'25%',
+                          itemStyle:{
+                            normal:{
+                              label: {
+                                "show": true,
+                                "textStyle": {
+                                    "color": "#fff"
+                                },
+                                "position": "insideTop",
+                                formatter: function(p) {
+                                    return p.value > 0 ? (p.value) : '';
+                                }
+                              }
+                            }
+                          }
+                      },
+                      //折线数量
+                      {
+                          name:'完成量',
+                          type:'line',
+                          /*yAxisIndex: 1,*/
+                          data: y,
+                      },
+                      //目标数量
+                      {
+                        name:'目标数',
+                        type:'line',
+                        markLine: {
+                          data: [
+                            {yAxis:mark,name:'目标值'},
+                          ],
+                          textStyle:{
+                            color:'#fff',
+                          },
+                        }
+                      }
+                  ]
+              };
+              myChart.setOption(option, true);
+        }
+    </script>
+  </head>
+  <body style="margin:0px;padding:0px;">
+  	  <input type="button" id="btn-auto-close" style="display: none;"/>
+  	  <div id="auto-close-dialogBox"></div>
+  	  <input type="button" id="btn-type" style="display: none;"/>
+	  <div id="type-dialogBox"></div>
+	  <div style="background: url('img/title.png') no-repeat; width: 95%; height:12%; padding-left:5%; overflow: hidden;"></div>
+      <div style="height: 88%;width: 100%;  background-color: #2F95DB; overflow: hidden;margin:0px;">
+		<div style="height: 100%;width: 100%;  background-color: #2F95DB">
+	      	<div style="width: 100%; height: 33%;">
+		      	<table>
+		      		<tr>
+						<td width="10%"><p><span>线号</span></p><p><span>Line No.</span></p></td>
+						<td width="10%"><p><span id="lineNo">${LineNo}</span></p></td>
+                        <td width="10%"><p><span>目标</span></p><p><span>Target</span></p></td>
+                        <td width="15%"><p><span id="target1">${Target1}</span></p></td>
+                        <td width="8%"><p><span id="target2">${Target2}</span></p></td>
+						<td rowspan="6" style="width: 45%;"><img src="" id="imgProduct" /></td>
+					</tr>
+					<tr>
+						<td><p><span>日期</span></p><p><span>Date</span></p></td>
+						<td><p><span id="spanDate">${date}</span></p></td>
+                        <td><p><span>完成数量</span></p><p><span>Shift Complete Qty</span></p></td>
+                        <td colspan="2"><p><span id="completeQty">${CompleteQty}</span></p></td>
+					</tr>
+					<tr>
+						<td><p><span>时间</span></p><p><span>Time</span></p></td>
+						<td><p><span id="spanTime">${Time}</span></p></td>
+                        <td><p><span>效率</span></p><p><span>Efficiency</span></p></td>
+                        <td colspan="2"><p><span id="efficiency" style="font-weight: bold; font-style: normal; text-align: left; font-size: 16px; color: RGB(229,191,18);line-height:0px;">${Efficiency}</span></p></td>
+					</tr>
+					<tr>
+						<td><p><span>系列</span></p><p><span>Series</span></p></td>
+						<td><p><span id="series">${Series}</span></p></td>
+                        <td rowspan="2"><p><span>Job Order</span></p></td>
+                        <td><p><span>计划数量</span></p><p><span>Plan Qty</span></p></td>
+                        <td><p><span id="planQty">${PlanQty}</span></p></td>
+					</tr>
+					<tr>
+						<td><p><span>型号</span></p><p><span>Model No.</span></p></td>
+						<td><p><span id="modelNo">${ModelNo}</span></p></td>
+                        <td><p><span>累计完成数量</span></p><p><span>Accumulated complete Qty</span></p></td>
+                        <td><p><span id="accQty">${ACCQty}</span></p></td>
+					</tr>
+					<tr>
+						<td><p><span>人数</span></p><p><span>No. Of People</span></p></td>
+						<td><p><span id="people">${people}</span></p></td>
+                        <td><p><span>未完成数量</span></p><p><span>Unfinished Qty</span></p></td>
+                        <td colspan="2"><p><span id="shift" style="font-weight: bold; font-style: normal; text-align: left; font-size: 16px; color: RGB(229,191,18);line-height:0px;">${Shift}</span></p></td>
+					</tr>
+		      	</table>
+	        </div>
+            <div id="container" style="width:100%;height:32%;margin:1.5% 0 -1.5% -3%">
+            </div>
+            <div style="width: 100%;height: 10%;">
+            <table>
+                <tr style="border: 0px;margin: 0px;padding: 0px;">
+                    <td width="20%"><p><span>生产状态</span></p><p><span>Product Status</span></p></td>
+                    <td width="20%" style="background-color: #37B42A;" id="tdNormal">
+                        <div><p><span>正常 Normal</span></p></div>
+                        <div><img alt="正常" src="img/green-normal.png" id="imgNormal"></div>
+                    </td>
+                    <td width="20%" style=" background-color: #E5BF12;" id="tbAbnormal">
+                        <div><p><span>异常 Abnormal</span></p></div>
+                        <div><img alt="异常" src="img/yellow-abnormal.png" id="imgAbnormal"></div>
+                    </td>
+                    <td width="20%" style=" background-color: #E44e13;" id="tdStop">
+                        <div><p><span>停机 Stop Line</span></p></div>
+                        <div><img alt="停机" src="img/red-stop.png" id="imgStop"></div>
+                    </td>
+                    <td width="20%" style=" background-color: #E5BF12;" id="tdChangeLine">
+                        <div><p><span>换线 Change Line</span></p></div>
+                        <div><p><span id="spanChangeLine">AAAAAAAAAA</span></p></div>
+                    </td>
+                </tr>
+            </table>
+          </div>
+	        <div style="width: 100%;height: 6%;">
+	      	    <table>
+	      		<tr>
+	      			<td width="25%" style="border-top: 0px;border-bottom: 0px;margin: 0px;padding: 0px;"><p><span>生产担当科文</span></p><p><span>Responsible for production</span></p></td>
+	      			<td width="25%" style="border-top: 0px;border-bottom: 0px;margin: 0px;padding: 0px;"><p><span>QC担当</span></p><p><span>The head of QC</span></p></td>
+	      			<td width="25%" style="border-top: 0px;border-bottom: 0px;margin: 0px;padding: 0px;"><p><span>PE跟拉担当</span></p><p><span>Responsible for PE heel pull</span></p></td>
+	      			<td width="25%" style="border-top: 0px;border-bottom: 0px;margin: 0px;padding: 0px;"><p><span>现场负责主管</span></p><p><span>Site Responsible Supervisor</span></p></td>
+	      		</tr>
+	      	    </table>
+	        </div>
+	        <div style="width: 100%;height: 18%;">
+	      	    <table>
+	      		<tr>
+	      			<td width="25%" style="border-top: 0px;margin: 0px;padding: 0px;">
+	      				<table style="border: 0px;margin: 0px;padding: 0px;">
+	      					<tr style="border: 0px;margin: 0px;padding: 0px;">
+	      						<td style="border-left: 0px;border-top: 0px;margin: 0px;padding: 0px;width: 30%;"><p><span>姓名</span></p><p><span>Name</span></p></td>
+	      						<td style="border-top: 0px;margin: 0px;padding: 0px;width: 30%;"><p><span id="productDeptName">${Name1}</span></p></td>
+	      						<td style="border-top: 0px;margin: 0px;padding: 0px;" rowspan="3" align="center" valign="middle"><img id="productDeptPhoto" style="width: 100px;height: 150px;"/></td>
+	      					</tr>
+	      					<tr style="border: 0px;margin: 0px;padding: 0px;">
+	      						<td style="border-left: 0px;margin: 0px;padding: 0px;"><p><span>工号</span></p><p><span>Number</span></p></td>
+	      						<td><p><span id="productDeptNo">${Number1}</span></p></td>
+	      					</tr>
+	      					<tr style="border: 0px;margin: 0px;padding: 0px;">
+	      						<td style="border-left: 0px;margin: 0px;padding: 0px;"><p><span>手机</span></p><p><span>Phone</span></td>
+	      						<td><p><span id="productDeptPhone">${Phone1}</span></p></td>
+	      					</tr>
+	      				</table>
+	      			</td>
+	      			<td width="25%" style="border-top: 0px;margin: 0px;padding: 0px;">
+	      				<table style="border: 0px;margin: 0px;padding: 0px;">
+	      					<tr style="border: 0px;margin: 0px;padding: 0px;">
+	      						<td style="border-left: 0px;border-top: 0px;margin: 0px;padding: 0px;width: 30%;"><p><span>姓名</span></p><p><span>Name</span></p></td>
+	      						<td style="border-top: 0px;margin: 0px;padding: 0px;width: 30%;"><p><span id="qcDeptName">${Name1}</span></p></td>
+	      						<td style="border-top: 0px;margin: 0px;padding: 0px;" rowspan="3" align="center" valign="middle"><img id="qcDeptPhoto" style="width: 100px;height: 150px;"/></td>
+	      					</tr>
+	      					<tr style="border: 0px;margin: 0px;padding: 0px;">
+	      						<td style="border-left: 0px;margin: 0px;padding: 0px;"><p><span>工号</span></p><p><span>Number</span></p></td>
+	      						<td><p><span id="qcDeptNo">${Number1}</span></p></td>
+	      					</tr>
+	      					<tr style="border: 0px;margin: 0px;padding: 0px;">
+	      						<td style="border-left: 0px;margin: 0px;padding: 0px;"><p><span>手机</span></p><p><span>Phone</span></td>
+	      						<td><p><span id="qcDeptPhone">${Phone1}</span></p></td>
+	      					</tr>
+	      				</table>
+	      			</td>
+	      			<td width="25%" style="border-top: 0px;margin: 0px;padding: 0px;">
+	      				<table style="border: 0px;margin: 0px;padding: 0px;">
+	      					<tr style="border: 0px;margin: 0px;padding: 0px;">
+	      						<td style="border-left: 0px;border-top: 0px;margin: 0px;padding: 0px;width: 30%;"><p><span>姓名</span></p><p><span>Name</span></p></td>
+	      						<td style="border-top: 0px;margin: 0px;padding: 0px;width: 30%;"><p><span id="peDeptName">${Name1}</span></p></td>
+	      						<td style="border-top: 0px;margin: 0px;padding: 0px;" rowspan="3" align="center" valign="middle"><img id="peDeptPhoto" style="width: 100px;height: 150px;"/></td>
+	      					</tr>
+	      					<tr style="border: 0px;margin: 0px;padding: 0px;">
+	      						<td style="border-left: 0px;margin: 0px;padding: 0px;"><p><span>工号</span></p><p><span>Number</span></p></td>
+	      						<td><p><span id="peDeptNo">${Number1}</span></p></td>
+	      					</tr>
+	      					<tr style="border: 0px;margin: 0px;padding: 0px;">
+	      						<td style="border-left: 0px;margin: 0px;padding: 0px;"><p><span>手机</span></p><p><span>Phone</span></td>
+	      						<td><p><span id="peDeptPhone">${Phone1}</span></p></td>
+	      					</tr>
+	      				</table>
+	      			</td>
+	      			<td width="25%" style="border-top: 0px;margin: 0px;padding: 0px;">
+	      				<table style="border: 0px;margin: 0px;padding: 0px;">
+	      					<tr style="border: 0px;margin: 0px;padding: 0px;">
+	      						<td style="border-left: 0px;border-top: 0px;margin: 0px;padding: 0px;width: 30%;"><p><span>姓名</span></p><p><span>Name</span></p></td>
+	      						<td style="border-top: 0px;margin: 0px;padding: 0px;width: 30%;"><p><span id="bossName">${Name1}</span></p></td>
+	      						<td style="border-top: 0px;margin: 0px;padding: 0px;" rowspan="3" align="center" valign="middle"><img id="bossPhoto" style="width: 100px;height: 150px;"/></td>
+	      					</tr>
+	      					<tr style="border: 0px;margin: 0px;padding: 0px;">
+	      						<td style="border-left: 0px;margin: 0px;padding: 0px;"><p><span>工号</span></p><p><span>Number</span></p></td>
+	      						<td><p><span id="bossNo">${Number1}</span></p></td>
+	      					</tr>
+	      					<tr style="border: 0px;margin: 0px;padding: 0px;">
+	      						<td style="border-left: 0px;margin: 0px;padding: 0px;"><p><span>手机</span></p><p><span>Phone</span></td>
+	      						<td><p><span id="bossPhone">${Phone1}</span></p></td>
+	      					</tr>
+	      				</table>
+	      			</td>
+	      		</tr>
+	      	    </table>
+	        </div>
+	    </div>
+      </div>
+  </body>
+    <style type="text/css">
+        table {
+            border-right: 1px solid #95B8E7;
+            border-bottom: 1px solid #95B8E7;
+            border-collapse:collapse;
+            width: 100%;
+            height: 90%; 
+        }
+        table tr {
+            text-align: center;
+            height:45px;
+            vertical-align: middle;
+        }
+        table tr td {
+            text-align: center;
+            border-left: 1px solid #95B8E7;
+            border-top: 1px solid #95B8E7;
+            vertical-align: middle;
+        }
+        *{
+            padding: 0;
+        }
+        html{
+            height: 100%;
+        }
+        body {
+            height: 100%;
+        }
+        p {
+            border:0;
+            height: 0px;
+            line-height: 50%;
+            text-align: center;
+            /*background-color: rgba(0,0,0,0.5); IE9、标准浏览器、IE6和部分IE7内核的浏览器(如QQ浏览器)会读懂 */
+        }
+        p span {
+            font-family: "微软雅黑","宋体";
+            font-weight: normal;
+            color: #FFFFFF;
+            text-align: center;
+            padding-bottom: 1px;
+        }
+        @media \0screen\,screen\9 {/* 只支持IE6、7、8 */
+            p {
+                background-color:#000000;
+                filter:Alpha(opacity=50);
+                position:static; /* IE6、7、8只能设置position:static(默认属性) ，否则会导致子元素继承Alpha值 */
+                *zoom:1; /* 激活IE6、7的haslayout属性，让它读懂Alpha */
+            }
+            p span {
+                position: relative;/* 设置子元素为相对定位，可让子元素不继承Alpha值 */
+            }  
+        }
+        xinmu {
+        }
+    </style>
+</html>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ifss>
+	<!-- A.1 MSD管理 -->
+	
+    <!-- ========================================MSD等级列表=========================================== -->  
+	<!-- 查询信息 -->
+	<ifs ifs_code="DMS_R0001" ifs_name="查询" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="MSDRankListSelect" biz_method="" serial_no="1" biz_name="MSDRankListSelect" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>	
+	<!-- 新增 -->
+	<ifs ifs_code="DMS_R0002" ifs_name="新增" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="MSDRankListInsert" biz_method="" serial_no="1" biz_name="MSDRankListInsert" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 修改 -->
+	<ifs ifs_code="DMS_R0003" ifs_name="修改" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="MSDRankListUpdate" biz_method="" serial_no="1" biz_name="MSDRankListUpdate" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 删除 -->
+	<ifs ifs_code="DMS_R0004" ifs_name="删除" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="MSDRankListDelete" biz_method="" serial_no="1" biz_name="MSDRankListDelete" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- =========================================MSD容器列表======================================= -->  
+	<!-- 查询信息 -->
+	<ifs ifs_code="DMS_R0005" ifs_name="查询" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="ContainerListSelect" biz_method="" serial_no="1" biz_name="ContainerListSelect" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>	
+	<!-- 新增 -->
+	<ifs ifs_code="DMS_R0006" ifs_name="新增" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="ContainerListInsert" biz_method="" serial_no="1" biz_name="ContainerListInsert" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 修改 -->
+	<ifs ifs_code="DMS_R0007" ifs_name="修改" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="ContainerListUpdate" biz_method="" serial_no="1" biz_name="ContainerListUpdate" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 删除 -->
+	<ifs ifs_code="DMS_R0008" ifs_name="删除" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="ContainerListDelete" biz_method="" serial_no="1" biz_name="ContainerListDelete" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+</ifss>

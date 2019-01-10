@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="">
+     <!-- 新增IQC重检超时设置列表信息 -->
+	<insert id="INSERT_MES_IQCreInspection" parameterType="hashmap">
+		INSERT INTO MES1.R_MES_RETRYTIMEOUTLIST_T
+	     (    
+			  IQC_RETRY_ID ,
+			  MATERIAL_CODE ,
+			  MATERIAL_NAME ,
+			  SUPPLIER_CODE ,
+			  SUPPLIER_NAME   ,
+			  TIMES    ,
+			  F_FIRST  ,
+			  S_SECOND      ,
+			  THIRD     ,
+			  FOURTH      ,
+			  EARLYWARNING     ,
+			  ROHS_REPORT  ,
+			  CREATE_DATE     ,
+			  CRT_ID                       
+          
+		)
+		SELECT
+		       ${ID} ,
+			  '${MATERIAL_CODE}' ,
+			  '${MATERIAL_NAME }' ,
+			  '${SUPPLIER_CODE }' ,
+			  '${SUPPLIER_NAME}'   ,
+			  '${TIMES}'    ,
+			  '${F_FIRST}'  ,
+			  '${S_SECOND}'      ,
+			  '${THIRD}'     ,
+			  '${FOURTH}'      ,
+			  '${EARLYWARNING}'     ,
+			   TO_DATE('${ROHS_REPORT}','YYYY-MM-DD'),
+			   SYSDATE,
+			  '${F_USE_CD}'
+			FROM DUAL 
+	</insert>
+   <!--查询IQC重检超时设置列表信息 -->
+	<select id="select_MES_IQCreInspection" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT 		
+			  IQC_RETRY_ID ,
+			  MATERIAL_CODE ,
+			  MATERIAL_NAME ,
+			  SUPPLIER_CODE ,
+			  SUPPLIER_NAME   ,
+			  TIMES    ,
+			  F_FIRST  ,
+			  S_SECOND      ,
+			  THIRD     ,
+			  FOURTH      ,
+			  EARLYWARNING     ,
+			  TO_CHAR(ROHS_REPORT,'YYYY-MM-DD ') ROHS_REPORT,
+<!-- 			  TO_CHAR(ROHS_REPORT,'YYYY-MM-DD')='${ROHS_REPORT}'   -->
+			  CRT_ID          ,
+			  TO_CHAR(CREATE_DATE,'YYYY-MM-DD HH24:MI:SS') CREATE_DATE,
+			  UPT_ID          ,
+			  TO_CHAR(UPT_DT,'YYYY-MM-DD HH24:MI:SS') UPT_DT    
+           FROM MES1.R_MES_RETRYTIMEOUTLIST_T
+		
+		<where>
+			1=1
+			<if test="MATERIAL_CODE !=null and MATERIAL_CODE !=''">
+				and MATERIAL_CODE like '%${MATERIAL_CODE}%' 
+			</if>
+		</where>
+		
+	</select>
+	
+	
+	<!-- 修改IQC重检超时设置列表 -->
+	<update id="update_MES_IQCreInspection" parameterType="java.util.HashMap">		
+		update MES1.R_MES_RETRYTIMEOUTLIST_T
+		<set>
+	     	<if test="MATERIAL_CODE!=null and MATERIAL_CODE!=''">
+	     		MATERIAL_CODE='${MATERIAL_CODE}',
+	     	</if>
+	     	
+	     	<if test="MATERIAL_NAME!=null and MATERIAL_NAME!=''">
+	     		MATERIAL_NAME='${MATERIAL_NAME}',
+	     	</if>
+	     	
+	     	<if test="SUPPLIER_CODE!=null and SUPPLIER_CODE!=''">
+	     		SUPPLIER_CODE='${SUPPLIER_CODE}',
+	     	</if>
+	     	
+	     	<if test="SUPPLIER_NAME!=null and SUPPLIER_NAME!=''">
+	     		SUPPLIER_NAME='${SUPPLIER_NAME}',
+	     	</if>
+	     	
+	     	<if test="TIMES!=null and TIMES!=''">
+	     		TIMES='${TIMES}',
+	     	</if>
+	     	
+	     	<if test="F_FIRST!=null and F_FIRST!=''">
+	     		F_FIRST='${F_FIRST}',
+	     	</if>
+	     		
+	     	<if test="S_SECOND!=null and S_SECOND!=''">
+	     		S_SECOND='${S_SECOND}',
+	     	</if>
+	     	
+	     	<if test="THIRD!=null and THIRD!=''">
+	     		THIRD='${THIRD}',
+	     	</if>
+	     	
+	     	<if test="FOURTH!=null and FOURTH!=''">
+	     		FOURTH='${FOURTH}',
+	     	</if>
+	     	
+	        <if test="EARLYWARNING!=null and EARLYWARNING!=''">
+	     		EARLYWARNING='${EARLYWARNING}',
+	     	</if>
+	     	
+	     	<if test="ROHS_REPORT!=null and ROHS_REPORT!=''">
+<!-- 	     		ROHS_REPORT='${ROHS_REPORT}', -->
+	     		ROHS_REPORT=TO_DATE('${ROHS_REPORT}','YYYY-MM-DD '), 
+	     	</if>
+	     	
+			UPT_ID = '${F_USE_CD}',
+			UPT_DT = SYSDATE
+		</set>
+		<where>
+			IQC_RETRY_ID = ${ID}
+		</where>	
+	</update>
+	
+	 <!--删除IQC重检超时设置列表信息 -->
+	<delete id="delete_MES_IQCreInspection" parameterType="java.util.HashMap">
+		DELETE MES1.R_MES_RETRYTIMEOUTLIST_T
+		WHERE IQC_RETRY_ID IN
+		<foreach item="item" collection="list" open="(" separator="," close=")"> 
+        #{item.IQC_RETRY_ID}
+      </foreach>
+	</delete>
+	
+	
+</mapper>

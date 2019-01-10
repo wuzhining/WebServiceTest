@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<engines>
+    <!-- ==============================质量管理============================= -->
+    <!-- =============OQC抽检比例维护=========== -->
+    <!-- 查询抽检信息 -->
+	<engine engine_code="querySamplingProportion" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querySamplingProportion" >
+	</engine>
+    <!-- 新增抽检信息 -->
+	<engine engine_code="insertSamplingProportion" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="insertSamplingProportion" >
+	</engine>
+	<!-- 修改抽检信息 -->
+	<engine engine_code="updateSamplingProportion" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="updateSamplingProportion" >
+	</engine>
+	<!-- 删除抽检信息 -->
+	<engine engine_code="deleteSamplingProportion" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="deleteSamplingProportion" >
+	</engine>
+
+	<!-- ===============抽检项目维护=========== -->
+	<!-- 查询抽检项目信息 -->
+	<engine engine_code="querySamplingProject" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querySamplingProject" >
+	</engine>
+	<!-- 新增抽检项目信息 -->
+	<engine engine_code="insertSamplingProject" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="insertSamplingProject" >
+	</engine>
+	<!-- 修改抽检项目信息 -->
+	<engine engine_code="updateSamplingProject" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="updateSamplingProject" >
+	</engine>
+	<!-- 删除抽检项目信息 -->
+	<engine engine_code="deleteSamplingProject" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="deleteSamplingProject" >
+	</engine>
+	<!-- 查询抽检项目信息树结构 -->
+	<engine engine_code="querySamplingProjectTree" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querySamplingProjectTree" >
+	</engine>
+	
+	<!-- 查询抽检项目顶层架构 -->
+	<engine engine_code="querySamplingProjectTop" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querySamplingProjectTop" >
+	</engine>
+	<!-- 查询工序 -->
+	<engine engine_code="queryWorkingProcedure" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryWorkingProcedure" >
+	</engine>
+	<!-- 新增抽检项目顶层架构 -->
+	<engine engine_code="insertSamplingProjectTop" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="insertSamplingProjectTop" >
+	</engine>
+	<!-- 修改抽检项目顶层架构 -->
+	<engine engine_code="updateSamplingProjectTop" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="updateSamplingProjectTop" >
+	</engine>
+	<!-- 删除抽检项目顶层架构 -->
+	<engine engine_code="deleteSamplingProjectTop" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="deleteSamplingProjectTop" >
+	</engine>
+	
+	
+	<!-- ==============Q-HOLD功能=============== -->
+	<!-- 查询Q-HOLD功能信息 -->
+	<engine engine_code="queryQ-HOLDFunction" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryQ-HOLDFunction" >
+	</engine>
+	<!-- 查询Q-HOLD类型信息 -->
+	<engine engine_code="queryQ-HOLDType" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryQ-HOLDType" >
+	</engine>
+	<!-- 新增Q-HOLD功能信息 -->
+	<engine engine_code="insertQ-HOLDFunction" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="insertQ-HOLDFunction" >
+	</engine>
+	<!-- 修改Q-HOLD功能信息 -->
+	<engine engine_code="updateQ-HOLDFunction" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="updateQ-HOLDFunction" >
+	</engine>
+	<!-- 删除Q-HOLD功能信息 -->
+	<engine engine_code="deleteQ-HOLDFunction" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="deleteQ-HOLDFunction" >
+	</engine>
+	
+	<!-- 查询Q-HOLD时间段信息 -->
+	<engine engine_code="queryQ-HOLDTime" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryQ-HOLDTime" >
+	</engine>
+	<!-- 新增Q-HOLD时间段信息 -->
+	<engine engine_code="insertQ-HOLDTime" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="insertQ-HOLDTime" >
+	</engine>
+	<!-- 修改Q-HOLD时间段信息-->
+	<engine engine_code="updateQ-HOLDTime" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="updateQ-HOLDTime" >
+	</engine>
+	<!-- 删除Q-HOLD时间段信息 -->
+	<engine engine_code="deleteQ-HOLDTime" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="deleteQ-HOLDTime" >
+	</engine>
+	
+	
+	<!-- 查询QC不良组信息表 -->
+	<engine engine_code="queryQCbadGroup" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="queryQCbadGroup" >
+	</engine>
+	<!-- 新增QC不良组信息表 -->
+	<engine engine_code="insertQCbadGroup" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="insertQCbadGroup" >
+	</engine>
+	<!-- 修改QC不良组信息表 -->
+	<engine engine_code="updateQCbadGroup" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="updateQCbadGroup" >
+	</engine>
+	<!-- 删除QC不良组信息表 -->
+	<engine engine_code="deleteQCbadGroup" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="deleteQCbadGroup" >
+	</engine>
+	
+	<!-- 查询QC不良信息明细表 -->
+	<engine engine_code="queryQCbadGroupDetailed" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="queryQCbadGroupDetailed" >
+	</engine>
+	<!-- 新增QC不良信息明细表 -->
+	<engine engine_code="insertQCbadGroupDetailed" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="insertQCbadGroupDetailed" >
+	</engine>
+	<!-- 修改QC不良信息明细表 -->
+	<engine engine_code="updateQCbadGroupDetailed" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="updateQCbadGroupDetailed" >
+	</engine>
+	<!-- 删除QC不良信息明细表 -->
+	<engine engine_code="deleteQCbadGroupDetailed" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="deleteQCbadGroupDetailed" >
+	</engine>
+	
+	
+</engines>

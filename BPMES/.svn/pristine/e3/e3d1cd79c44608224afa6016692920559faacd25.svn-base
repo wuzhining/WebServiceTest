@@ -1,0 +1,133 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../../../common/IplantCompent/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../../../common/IplantCompent/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="../../../common/IplantCompent/Demo/demo.css">
+    <script src="../../../common/IplantCompent/jquery.min.js" type="text/javascript"></script>
+    <script src="../../../common/IplantCompent/jquery.easyui.min.js" type="text/javascript"></script>
+    <script src="../../../common/IplantCommon/DataRequest.js" type="text/javascript"></script>
+    <script src="../../../common/IplantCommon/CommonUtil.js" type="text/javascript"></script>
+    <script type="text/javascript" src='js/measurementUnit.js'></script>
+    <meta charset="utf-8" />
+    <script type="text/javascript">
+    $(function(){
+		$("input",$("#txtEmployeeCode").next("span")).blur(function(){
+		    var employeeCode = $('#txtEmployeeCode').val();
+		    existemployee(employeeCode);
+	    });
+	})
+
+    </script>
+    <style type="text/css">
+    </style>
+</head>
+<body style="padding: 0;margin: 0;position:relative;">
+	      <div style="height:100%;width:100%" class="easyui-layout" fit="true">
+	      	<div region='west' data-options="split:true" title="计量单位" style="width:180px;">
+    			<ul id="dd" class="easyui-tree" ></ul>
+    		</div>
+            <div region='north' id="tb" style="width: auto; height: 30px;background: linear-gradient(rgb(255, 255, 255) 0px, rgba(149, 184, 231, 0.28) 100%);">
+                <table style="width: auto; height:100%;" cellspacing="0" border="0">
+                    <tr style="text-align:right">
+                      <td style="text-align:right">
+                      		<a id="btnAdd" href="#" class="easyui-linkbutton add" iconCls="icon-add" data-options="plain:true" >添加</a>
+                            <a href="#" id="btnDelete" class="easyui-linkbutton" iconCls="icon-remove" data-options="plain:true">删除</a>
+                            <a id="btnUpdate" href="#" class="easyui-linkbutton update" iconCls="icon-edit" data-options="plain:true">修改</a>
+                            <!-- <span id='showMessageInfo' class='divspan' style='width:300px;'></span> -->
+                      </td>
+                    </tr>
+               </table>
+            </div>
+            
+            <div region="center" style="width:100%" style="border:0">
+                 <div region='north' id='tbsearch' style="width: auto; height: 30px;background: linear-gradient(rgb(255, 255, 255) 0px, rgba(149, 184, 231, 0.28) 100%);">
+                <table valign='middle'>
+                     <tr style="height: 35px;" valign='middle'>
+                    <td><div>计量单位组名称：</div></td>
+                    <td>
+                        <input id="unitGroupName" name="postingdate" style="width: 200px;" class="easyui-textbox"/>
+                    </td>
+
+                    <td><div>计量单位名称：</div></td>
+                    <td>
+                        <input id="unitName" name="postingdate" style="width: 200px;" class="easyui-textbox" />
+                    </td>
+
+                    <td>
+                       <a href="#" class="easyui-linkbutton" iconCls="icon-search" id="btnSearch" data-options="plain:true">查询</a>	
+                     </td>
+                </tr>
+                </table>
+             </div>
+            
+             <table region='center' id="measurementUnit_tab" class='easyui-datagrid' style="height: auto; max-height: 100%; padding-top:10px;" toolbar="#tbsearch" iconCls="icon-edit" rownumbers="true"></table>
+            </div>
+       </div>
+
+    <div id="enditTab1" class="easyui-dialog" style="width: 560px;height: 250px;" title="单计量单位" closed="true" data-options="modal: true,
+				buttons: [{
+					text:'取消',
+					iconCls:'icon-no',
+					handler:function(){
+						clearUnit();
+					}
+				},
+                    {
+                    text:'确定',
+                    iconCls:'icon-ok',
+                    handler:function(){
+                        singleSavaUnit();
+                    }
+                }]">
+        <form id="fdsingleUnitName" method="post" style="padding:10px 20px 10px 40px;">
+            <table border="0">
+            	<tr style="height: 35px;">
+                    <td>计量单位组名称：</td>
+                    <td>
+                        <input id="singleUnitName" name="postingdate" style="width: 200px;" class="easyui-textbox" data-options="missingMessage:'该选项为必填信息'"/>
+                    </td>
+                </tr>
+            </table>
+            <div style="margin-top: 20px">
+                <table id='singleUnitDetail' class="easyui-datagrid" style="width: 452px" data-options='onClickRow:onClickRow'></table>
+            </div>
+
+        </form>
+    </div>
+    <div id="enditTab2" class="easyui-dialog" style="width: 560px;height: 300px" title="多计量单位" closed="true" data-options="modal: true,
+                buttons: [{
+                    text:'取消',
+                    iconCls:'icon-no',
+                    handler:function(){
+                        $('#enditTab2').dialog('close');
+                    }
+                },
+                    {
+                    text:'确定',
+                    iconCls:'icon-ok',
+                    handler:function(){
+						moreSavaUnit();
+                    }
+                }]">        
+        <form id="fdmoreUnitName" method="post" style="padding:10px 20px 10px 40px;">
+            <table border="0">
+                <tr style="height: 35px;">
+                    <td>
+                        计量单位组名称：
+                    </td>
+                    <td>
+                        <input id="moreUnitName"  name="postingdate" style="width: 200px;" class="easyui-textbox">
+                    </td>
+                </tr>
+            </table>
+            <div style="margin-top: 20px">
+                <table id='moreUnitDetail' class="easyui-datagrid" style="width: 452px" data-options='onClickRow:onClickRow,singleSelect: true,'></table>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>

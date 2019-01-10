@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<engines>
+	<!-- A.2 出库和入库管理 -->
+	<!-- 查询仓库类别 -->
+	<engine engine_code="" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="" >
+	</engine>
+	
+	<!-- ================== 订单管理  ================== -->
+	<!-- 查询主订单信息 -->
+	<engine engine_code="WMSOrderInfoQuery" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="WMSOrderInfoQuery" >
+	</engine>
+	<!-- 查询订单信息 -->
+	<engine engine_code="IndentInfoQuery" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="IndentInfoQuery" >
+	</engine>
+	<!-- 新增订单信息 -->
+	<engine engine_code="IndentInfoInsert" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="IndentInfoInsert" >
+	</engine>
+	<!-- 修改订单信息 -->
+	<engine engine_code="IndentInfoUpdate" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="IndentInfoUpdate" >
+	</engine>
+	<!-- 删除订单信息 -->
+	<engine engine_code="IndentInfoDelete" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="IndentInfoDelete" >
+	</engine>
+	
+	<!-- 出库单 -->
+	<!-- 查询出库单 -->
+	<engine engine_code="CheckOutInfoQuery" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="CheckOutInfoQuery" >
+	</engine>
+	
+	<!-- 级联底层查询操作 -->
+	<!-- 查询出所有仓库的名称 及ID-->
+	<engine engine_code="CheckWarehouseQueryInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="CheckWarehouseQueryInfo" >
+	</engine>
+	<!-- 查询出某个仓库下的储区的名称 及ID-->
+	<engine engine_code="CheckStorageQueryInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="CheckStorageQueryInfo" >
+	</engine>
+	<!-- 查询出某个储区下货架的名称 及ID-->
+	<engine engine_code="CheckShelfQueryInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="CheckShelfQueryInfo" >
+	</engine>
+	<!-- 查询出某个货架下货位的名称 及ID-->
+	<engine engine_code="CheckAllocationfQueryInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="CheckAllocationfQueryInfo" >
+	</engine>
+	<!-- 查询出某个货架下货位的名称 及ID-->
+	<engine engine_code="MaterialQueryInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="MaterialQueryInfo" >
+	</engine>
+	
+	<!-- ================== 入库通知  ================== -->
+	<!-- 查询入库通知单 -->
+	<engine engine_code="WarehousingNoticeQuery" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="WarehousingNoticeQuery" >
+	</engine>
+	<!-- 新增入库通知单 -->
+	<engine engine_code="WarehousingNoticeInsert" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="WarehousingNoticeInsert" >
+	</engine>
+	<!-- 修改入库通知单 -->
+	<engine engine_code="WarehousingNoticeUpdate" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="WarehousingNoticeUpdate" >
+	</engine>
+	<!-- 删除入库通知单 -->
+	<engine engine_code="WarehousingNoticeDelete" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="WarehousingNoticeDelete" >
+	</engine>
+	
+	<!-- 查询出计量单位的名称和ID -->
+	<engine engine_code="UnitQueryInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="UnitQueryInfo" >
+	</engine>
+	
+	<!-- 新增出库单 -->
+	<engine engine_code="CheckOutInsert" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="CheckOutInsert" >
+	</engine>
+	
+	<!-- 修改出库单 -->
+	<engine engine_code="CheckOutUpdate" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="CheckOutUpdate" >
+	</engine>
+	
+	<!-- 删除出库单 -->
+	<engine engine_code="CheckOutDelete" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="CheckOutDelete" >
+	</engine>
+	
+	<!-- 拣货单 -->
+	<!-- 查询拣货单 -->
+	<engine engine_code="PickInfoQuery" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="PickInfoQuery" >
+	</engine>
+	<!-- 新增拣货单 -->
+	<engine engine_code="PickInsert" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="PickInsert" >
+	</engine>
+	<!-- 根据ID查询出具体的某一条拣货单 -->
+	<engine engine_code="PickInfoQueryOne" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="PickInfoQueryOne" >
+	</engine>
+	<!-- 删除拣货单 -->
+	<engine engine_code="PickDelete" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="PickDelete" >
+	</engine>
+	<!-- 修改拣货单 -->
+	<engine engine_code="PickUpdate" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="PickUpdate" >
+	</engine>
+	
+	<!-- 查询未入通知单的订单信息 -->
+	<engine engine_code="IndentNotQuery" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="IndentNotQuery" >
+	</engine>
+	
+	<!-- 生成采购单号-->
+	<engine engine_code="orderIdRules" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="orderIdRules" >
+	</engine>
+	
+	<!-- 查询拣货单子节点 -->
+	<engine engine_code="PickInfoChildrenQuery" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="PickInfoChildrenQuery" >
+	</engine>
+
+    <!-- 查询订单主表 -->
+    <engine engine_code="OrderInfoMainQuery" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="OrderInfoMainQuery" >
+	</engine>
+	
+    <!-- 新增订单主表 -->
+	<engine engine_code="OrderInfoMainInsert" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="OrderInfoMainInsert" >
+	</engine>
+	
+	<!-- 修改订单主表 -->
+	<engine engine_code="OrderInfoMainUpdate" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="OrderInfoMainUpdate" >
+	</engine>
+		
+	<!-- 删除订单主表 -->
+	<engine engine_code="OrderInfoMainDelete" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="OrderInfoMainDelete" >
+	</engine>	
+
+	
+	<!-- 查询物料打包信息 -->
+	<engine engine_code="queryMateriaPack" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryMateriaPack" >
+	</engine>
+	
+
+	
+	<!-- 查询未入库单的订单信息 -->
+	<engine engine_code="IndentNotQuerys" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="IndentNotQuerys" >
+	</engine>
+	
+	<!-- 删除拣货单主从表数据 -->
+	<engine engine_code="DeleteWmsPickUp" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="DeleteWmsPickUp" >
+	</engine>
+	
+	<!-- 新增物料打包信息 -->
+	<engine engine_code="CheckinPackageInsert" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="CheckinPackageInsert" >
+	</engine>
+	
+	<!-- 查询物料打包数据 -->
+	<engine engine_code="CheckinPackageQuerys" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="CheckinPackageQuerys" >
+	</engine>
+	
+	<!-- 保存物料和唯一码对应关系信息 -->
+	<engine engine_code="materiaPackageInfoAdd" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="materiaPackageInfoAdd" >
+	</engine>
+	
+	<!-- 删除采购订单数据 -->
+	<engine engine_code="orderInfoDelete" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="orderInfoDelete" >
+	</engine>
+
+	<!-- 查询物料打包数据 -->
+	<engine engine_code="materiaPackageInfoQuery" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="materiaPackageInfoQuery" >
+	</engine>
+	
+	<!-- 查询货位详情数据 -->
+	<engine engine_code="positionMateriaInfoQuery" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="positionMateriaInfoQuery" >
+	</engine>
+	
+	<!-- 查询条码补打数据 -->
+	<engine engine_code="printedBarcodeInfoQuery" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="printedBarcodeInfoQuery" >
+	</engine>
+	
+	<!-- WMS交互 -->
+	<engine engine_code="wmsPackage" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="wmsPackage" >
+	</engine>
+	
+	<!-- 查询货位详情 -->
+	<engine engine_code="posQuery" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="posQuery" >
+	</engine>
+	<!-- 修改货位状态 -->
+	<engine engine_code="positionStatusUpdate" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="positionStatusUpdate" >
+	</engine>
+</engines>

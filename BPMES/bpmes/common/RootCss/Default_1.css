@@ -1,0 +1,225 @@
+﻿	    .panel-header, .panel-body{
+	    	border: 0;
+	    }
+	    .accordion .panel{
+	    	/*box-shadow: 0px 7px 7px 7px rgba(6,0,1,0.2);*/
+	    }
+	    .accordion .accordion-header .panel-title{
+	    	height: 20px;
+	    	color: #808c93;
+	    	font-size: 14px;
+	    	font-family: "微软雅黑";
+	    	font-weight: 500;
+	    	line-height: 20px;
+	    	
+	    }
+	    .accordion .accordion-body{
+	     /* background: -webkit-linear-gradient(left,rgb(221, 241, 254) 0px, rgb(255, 255, 255) 100%);*/ /* Safari 5.1 - 6.0 */
+		 /* background: -o-linear-gradient(left,rgb(221, 241, 254) 0px, rgb(255, 255, 255) 100%);*/ /* Opera 11.1 - 12.0 */
+		 /* background: -moz-linear-gradient(left,rgb(221, 241, 254) 0px, rgb(255, 255, 255) 100%);*/ /* Firefox 3.6 - 15 */
+ 		 /* background: linear-gradient(left,rgb(221, 241, 254) 0px, rgb(255, 255, 255) 100%);*/ /* 标准的语法 */ 
+	    	font-size: 12px;
+	    	/*border-top: 1px solid #b4daec;*/
+	    	background:url(../RootImages/navigation0.png) no-repeat;
+	    	
+	    }
+		.accordion .accordion-header{
+			/*border-top: 1px solid #b4daec;*/
+			background:url(../RootImages/navigation0.jpg);
+			/*background: linear-gradient(rgb(255, 255, 255) 0px, rgba(149, 184, 231, 0.28) 100%);*/
+			cursor:pointer;
+			
+		}
+		.tabs-header, .tabs-tool{
+			/*background:#3298e5;*/
+		}
+		.accordion-body{
+		/*background:url(common/RootImages/leftBGA.png) no-repeat;
+		background-size: cover;*/
+		}
+		.tabs-header, .tabs-tool{
+			height: 15px;
+			padding: 10px;
+		}
+		.tabs li a.tabs-inner, .tabs li.tabs-selected a.tabs-inner{
+			border-color:#eeeeee;
+		}
+		.tabs li.tabs-selected tabs-last{
+		    margin-top:2px;
+			z-index:9999999;
+		}
+		.tabs li.tabs-selected a.tabs-inner{
+			/*background: linear-gradient(to bottom,#eeeeee 0,#eeeeee 100%);
+			background:linear-gradient(to bottom,#EFF5FF 0,#E0ECFF 100%);
+			background:linear-gradient(rgb(239, 245, 255) 0px, rgb(255, 244, 224) 100%);*/
+			background:#ffffff;
+			
+		}
+		.tabs li a.tabs-inner{
+			/*background: linear-gradient(to bottom,#eeeeee 0,#eeeeee 100%);*/
+			/*background:linear-gradient(to bottom,#EFF5FF 0,#E0ECFF 100%);*/
+			/*background:#d3edff;*/
+	    }
+		.tabs{
+			    margin-top: 1px;
+			    border-bottom:1px solid #000000;
+		}
+		.panel-header{border:0}
+		
+        .tabs li a.tabs-inner, .tabs li.tabs-selected a.tabs-inner{
+              border-color:#0e2d5f;
+        }
+		
+		.panel-body{
+			background-color: #FFFFFF;
+		}
+		/*.accordion-expand{
+		background:url(RootImages/leftBG.png) no-repeat;
+		}*/
+		/*.panel-header{
+		background:url(RootImages/leftBG.png) repeat-x;
+		border:1px solid black;
+		}
+		.panel-title{
+		background:url(RootImages/leftBG.png) no-repeat;
+		}*/
+		/*菜单头部样式*/
+		.layout-split-west{
+		  border-right:1px solid #dddddd;
+		  background: -webkit-linear-gradient(left,rgb(221, 241, 254) 0px, rgb(255, 255, 255) 100%); /* Safari 5.1 - 6.0 */
+		  background: -o-linear-gradient(left,rgb(221, 241, 254) 0px, rgb(255, 255, 255) 100%); /* Opera 11.1 - 12.0 */
+		  background: -moz-linear-gradient(left,rgb(221, 241, 254) 0px, rgb(255, 255, 255) 100%); /* Firefox 3.6 - 15 */
+		  background: linear-gradient(left,rgb(221, 241, 254) 0px, rgb(255, 255, 255) 100%); /* 标准的语法 */
+		}
+		.layout-split-west > .panel-header{height:23px;width:185px;background:#ffffff;padding-top:8px;}
+		.layout-split-west > .panel-header > .panel-title{height:23px;background:url(../RootImages/nav_Icon.png) no-repeat #ffffff 3px 3px;padding-left:21px;padding-top:3px;color:#575757} 
+		body,h1,h3,h4{
+			margin: 0;
+			padding: 0;
+		}
+		ul,li{
+			margin: 0;
+			padding: 0;
+			list-style: none;
+			
+		}
+		.top_menu{position: absolute;top: 0;left: 22%;}
+		.top_menu li{
+			padding-top:10px;
+			height:80px;
+			float: left;
+			margin-left:10px;
+		}
+		.top_menu li a{color: #ebf4ff;text-decoration: none;margin-left: 20px;text-align: center;font-size:15px ;}
+		.top_menu > .active{background:#3da5fc}
+		.top_menu li:hover{background:#3da5fc}
+		.top_menu li a img{margin-right: 18px;width: 46px;height: 46px;}
+		.top_menu li a p{margin-top: -5px;}
+		.loadmsg_bg{display: inline-block;}
+		.loadmsg_bg_1{width:71px;height:30px;display:inline-block;background-image:url(../RootImages/basicInfo-History.png);background-repeat: no-repeat;background-position:9px 6px;padding-top: 5px;}
+		.loadmsg_bg_2{width:71px;height:30px;display:inline-block;background:url(../RootImages/basicInfo-admin.png) no-repeat 9px 6px;padding-top:5px;}
+	    .loadmsg_bg_3{width:71px;height:30px;display:inline-block;background:url(../RootImages/basicInfo-help.png) no-repeat 9px 6px;padding-top:5px;}
+	    .loadmsg_bg_4{width:71px;height:30px;display:inline-block;background:url(../RootImages/basicInfo-out.png) no-repeat 9px 6px;padding-top:5px;}
+	    .loadmsg_bg_5{width:71px;height:30px;display:inline-block;background:url(../RootImages/basicInfo-sys.png) no-repeat 9px 6px;padding-top:5px;}
+	    .loadmsg_bg:hover{background:#3da5fc;cursor: pointer;}
+	    .loadmsg_bg:hover::after{height:208px;width:198px;border:1px solid #3da5fc;position:absolute;top:80px;}
+	    #loadmsg_select{width:130px;border:1px solid #3da5fc;position:fixed;top:80px;background:#ffffff;display:none;color:black;padding-left:1px;padding-bottom:2px;overflow:auto}
+	    #loadmsg_select > li > a{text-decoration:none;color:#4c535c}
+	    #loadmsg_select > li{padding-left:2px;height:20px}
+	    #loadmsg_select > li:hover{background:#3da5fc;color:#ffffff}
+	    #system_select{width:100px;border:1px solid #3da5fc;position:fixed;top:80px;background:#ffffff;display:none;color:black;padding-left:1px;padding-bottom:2px;overflow:auto}
+	    #system_select > li > a{text-decoration:none;color:#4c535c}
+	    #system_select > li{padding-left:5px;height:20px}
+	    #system_select > li:hover{background:#3da5fc;color:#ffffff}
+	    #account_select{height:50px;width:100px;border:1px solid #3da5fc;position:fixed;top:80px;background:#ffffff;display:none;color:black;padding-left:2px;}
+	    a{text-decoration:none;color:#4c535c}
+	    #account_select > li:first-child{}
+	    <!--导航菜单-->
+	    #nav {width:180px;clear: both;border-left:1px solid #dddddd}
+	    #nav #nav_pad{height:30px;width:185px;background:#ffffff;padding-top:8px;}
+	    #nav #nav_text{height:33px;width:175px;background:url(../RootImages/nav_Icon.png) no-repeat #ffffff 14px 10px}
+	    #nav #nav_text h3{display:inline-block; margin-left:34px;margin-top:10px;color:#575757}
+	    <!--主页面搜索框-->
+	    #load_pad{width:100%;height:40px;background:#ecf2f7;padding-top:8px;padding-left:10px}
+	    #load_search{height:30px;width:98%;background:url(../RootImages/search_Icon.png) no-repeat #ffffff 11px 6px;border:1px solid #dddddd}
+	    #mainPanle #load_pad #load_search span{margin-left:30px;color:#575757;}
+	    #mainPanle #load_pad #load_search input{height:30px;width:80%;margin-left:10px;background:url(../RootImages/search_triangle.png) no-repeat 0 12px;border:0;outline:none;padding-left:10px}
+	    #list_display .display{height:114px;width:300px;background:url(../RootImages/default.png) no-repeat 53px 30px;padding-top:64px}
+	    /**********************************************************************SYS图标******************************************************************************/
+	     #list_display .display_icon-sparemanage{height:114px;width:300px;background:url(../RootImages/icon-sparemanage.png) no-repeat 53px 30px;padding-top:64px}
+	    #list_display .display_icon-grounpmanage{height:114px;width:300px;background:url(../RootImages/icon-company.png) no-repeat 53px 30px;padding-top:64px}
+	    #list_display span{margin-left:140px,color:#6fa1de}
+	    #list_display .display_icon-reparedevice{height:114px;width:300px;background:url(../RootImages/icon-maintenancemethod.png) no-repeat 53px 30px;padding-top:64px}
+	    #list_display .display_icon-factory{height:114px;width:300px;background:url(../RootImages/icon-factory.png) no-repeat 53px 30px;padding-top:64px}
+	     #list_display .display_icon-station{height:114px;width:300px;background:url(../RootImages/icon-station.png) no-repeat 53px 30px;padding-top:64px}
+	     #list_display .display_icon-dept{height:114px;width:300px;background:url(../RootImages/icon-dept.png) no-repeat 53px 30px;padding-top:64px}
+	     #list_display .display_icon-employee{height:114px;width:300px;background:url(../RootImages/icon-employee.png) no-repeat 53px 30px;padding-top:64px}
+	     #list_display .display_icon-area{height:114px;width:300px;background:url(../RootImages/icon-area.png) no-repeat 53px 30px;padding-top:64px}
+	     #list_display .display_icon-post{height:114px;width:300px;background:url(../RootImages/icon-post.png) no-repeat 53px 30px;padding-top:64px}
+	     #list_display .display_icon-country{height:114px;width:300px;background:url(../RootImages/icon-country.png) no-repeat 53px 30px;padding-top:64px}
+	     #list_display .display_icon-city{height:114px;width:300px;background:url(../RootImages/icon-city.png) no-repeat 53px 30px;padding-top:64px}
+	     #list_display .display_icon-losicfactory{height:114px;width:300px;background:url(../RootImages/icon-losicfactory.png) no-repeat 53px 30px;padding-top:64px}
+	     #list_display .display_icon-role{height:114px;width:300px;background:url(../RootImages/icon-role.png) no-repeat 53px 30px;padding-top:64px}
+	     #list_display .display_icon-user{height:114px;width:300px;background:url(../RootImages/icon-user.png) no-repeat 53px 30px;padding-top:64px;border-radius:80px}
+	     #list_display .display_icon-right{height:114px;width:300px;background:url(../RootImages/icon-right.png) no-repeat 53px 30px;padding-top:64px}
+	     #list_display .display_icon-function{height:114px;width:300px;background:url(../RootImages/icon-function.png) no-repeat 53px 30px;padding-top:64px}
+	     #list_display .display_icon-module{height:114px;width:300px;background:url(../RootImages/icon-modution.png) no-repeat 53px 30px;padding-top:64px}
+	     #list_display .display_icon-systemRule{height:114px;width:300px;background:url(../RootImages/icon-systemRule.png) no-repeat 53px 30px;padding-top:64px}	
+	     #list_display .display_icon-burprint{height:114px;width:300px;background:url(../RootImages/icon-burprint.png) no-repeat 53px 30px;padding-top:64px}	
+	     /*****************************************************************TPM图标**********************************************************************************/
+	     #list_display .display_icon-gdmanage{height:114px;width:300px;background:url(../RootImages/icon-gdmanage.png) no-repeat 53px 30px;padding-top:64px}
+	     #list_display .display_icon-alermconfig{height:114px;width:300px;background:url(../RootImages/icon-alermconfig.png) no-repeat 53px 30px;padding-top:64px}
+	     #list_display .display_icon-alermmsg{height:114px;width:300px;background:url(../RootImages/icon-alermmsg.png) no-repeat 53px 30px;padding-top:64px}
+	     #list_display .display_icon-alermbc{height:114px;width:300px;background:url(../RootImages/icon-alermbc.png) no-repeat 53px 30px;padding-top:64px}
+	     #list_display .display_icon-produtionReport{height:114px;width:300px;background:url(../RootImages/icon-productionDayReport.png) no-repeat 53px 30px;padding-top:64px}
+	     #list_display .display_icon-badReport{height:114px;width:300px;background:url(../RootImages/icon-badReport.png) no-repeat 53px 30px;padding-top:64px}
+	     #list_display .display_icon-planreport{height:114px;width:300px;background:url(../RootImages/icon-planreport.png) no-repeat 53px 30px;padding-top:64px}
+	     #list_display .display_icon-stopReport{height:114px;width:300px;background:url(../RootImages/icon-stopReport.png) no-repeat 53px 30px;padding-top:64px}
+	     #list_display .display_icon-equipspection{height:114px;width:300px;background:url(../RootImages/icon-equipmentinspection.png) no-repeat 53px 30px;padding-top:64px}
+	     #list_display .display_icon-equipmentoee{height:114px;width:300px;background:url(../RootImages/icon-equipmentoee.png) no-repeat 53px 30px;padding-top:64px}
+	     #list_display .display_icon-equipmentRepir{height:114px;width:300px;background:url(../RootImages/icon-equipmentRepir.png) no-repeat 53px 30px;padding-top:64px}
+	     #list_display .display_icon-equipmanence{height:114px;width:300px;background:url(../RootImages/icon-equipmanence.png) no-repeat 53px 30px;padding-top:64px;border-radius:80px}
+	     #list_display .display_icon-creditcard{height:114px;width:300px;background:url(../RootImages/icon-creditcardrecord.png) no-repeat 53px 30px;padding-top:64px}
+	     #list_display .display_icon-proRecord{height:114px;width:300px;background:url(../RootImages/icon-productionRecord.png) no-repeat 53px 30px;padding-top:64px}
+	     #list_display .display_icon-badRecord{height:114px;width:300px;background:url(../RootImages/icon-badRecord.png) no-repeat 53px 30px;padding-top:64px}
+	     #list_display .display_icon-monitoring{height:114px;width:300px;background:url(../RootImages/icon-monitoring.png) no-repeat 53px 30px;padding-top:64px}
+	     #list_display .display_icon-repiresty{height:114px;width:300px;background:url(../RootImages/icon-repiresty.png) no-repeat 53px 30px;padding-top:64px}		
+	    /************************************************************MES图标*******************************************************************************************/
+     	 #list_display .display_icon-probom{height:114px;width:300px;background:url(../RootImages/icon-probom.png) no-repeat 53px 30px;padding-top:64px}
+	     #list_display .display_icon-procedurebom{height:114px;width:300px;background:url(../RootImages/icon-procedurebom.png) no-repeat 53px 30px;padding-top:64px}
+	     #list_display .display_icon-materialtype{height:114px;width:300px;background:url(../RootImages/icon-materialtype.png) no-repeat 53px 30px;padding-top:64px}
+	     #list_display .display_icon-proRecord{height:114px;width:300px;background:url(../RootImages/icon-materialtype.png) no-repeat 53px 30px;padding-top:64px}
+	     #list_display .display_icon-mainmaterial{height:114px;width:300px;background:url(../RootImages/icon-maintainmaterial.png) no-repeat 53px 30px;padding-top:64px}
+	     #list_display .display_icon-materialinfo{height:114px;width:300px;background:url(../RootImages/icon-materialinfo.png) no-repeat 53px 30px;padding-top:64px}
+	     #list_display .display_icon-schedulingimpor{height:114px;width:300px;background:url(../RootImages/icon-schedulingimport.png) no-repeat 53px 30px;padding-top:64px}
+	     #list_display .display_icon-orderinquiry{height:114px;width:300px;background:url(../RootImages/icon-orderinquiry.png) no-repeat 53px 30px;padding-top:64px}
+	     #list_display .display_icon-materialquery{height:114px;width:300px;background:url(../RootImages/icon-materialquery.png) no-repeat 53px 30px;padding-top:64px}
+	     #list_display .display_icon-gdinquiry{height:114px;width:270px;background:url(../RootImages/icon-gdinquiry.png) no-repeat 53px 30px;padding-top:64px;border-radius:80px}
+	     #list_display .display_icon-gdMaintenance{height:114px;width:300px;background:url(../RootImages/icon-gdMaintenance.png) no-repeat 53px 30px;padding-top:64px}
+	     #list_display .display_icon-simproportion{height:114px;width:300px;background:url(../RootImages/icon-simproportion.png) no-repeat 53px 30px;padding-top:64px}
+	     #list_display .display_icon-samproject{height:114px;width:300px;background:url(../RootImages/icon-samproject.png) no-repeat 53px 30px;padding-top:64px}
+	     #list_display .display_icon-Q-HOLD{height:114px;width:300px;background:url(../RootImages/icon-Q-HOLD.png) no-repeat 53px 30px;padding-top:64px}
+	     #list_display .display_icon-repairduties{height:114px;width:300px;background:url(../RootImages/icon-maintenanceduties.png) no-repeat 53px 30px;padding-top:64px}
+	     #list_display .display_icon-repairreason{height:114px;width:300px;background:url(../RootImages/icon-maintenancereason.png) no-repeat 53px 30px;padding-top:64px}
+	     #list_display .display_icon-repairmethod{height:114px;width:300px;background:url(../RootImages/icon-maintenancemethod.png) no-repeat 53px 30px;padding-top:64px}
+	     #list_display .display_icon-worksearch{height:114px;width:300px;background:url(../RootImages/icon-worksearch.png) no-repeat 53px 30px;padding-top:64px}
+	     #list_display .display_icon-workmanance{height:114px;width:300px;background:url(../RootImages/icon-workmanance.png) no-repeat 53px 30px;padding-top:64px}
+	   	 /************************************************************WMS图标*******************************************************************************************/
+     	 #list_display .display_icon-warehousesty{height:114px;width:300px;background:url(../RootImages/icon-warehousesty.png) no-repeat 53px 30px;padding-top:64px}
+	     #list_display .display_icon-warehouseinfo{height:114px;width:300px;background:url(../RootImages/icon-warehouseinfo.png) no-repeat 53px 30px;padding-top:64px}
+	     #list_display .display_icon-reservoirinfo{height:114px;width:300px;background:url(../RootImages/icon-reservoirinfo.png) no-repeat 53px 30px;padding-top:64px}
+	     #list_display .display_icon-shelfinfo{height:114px;width:300px;background:url(../RootImages/icon-shelfinfo.png) no-repeat 53px 30px;padding-top:64px}
+	     #list_display .display_icon-goodsinfo{height:114px;width:300px;background:url(../RootImages/icon-goodsinfo.png) no-repeat 53px 30px;padding-top:64px}
+	     #list_display .display_icon-trayinfo{height:114px;width:300px;background:url(../RootImages/icon-trayinfo.png) no-repeat 53px 30px;padding-top:64px}
+	     #list_display .display_icon-measurement{height:114px;width:300px;background:url(../RootImages/icon-measurement.png) no-repeat 53px 30px;padding-top:64px}
+	     #list_display .display_icon-ordermanage{height:114px;width:300px;background:url(../RootImages/icon-ordermanage.png) no-repeat 53px 30px;padding-top:64px}
+	     #list_display .display_icon-notice{height:114px;width:270px;background:url(../RootImages/icon-notice.png) no-repeat 53px 30px;padding-top:64px;border-radius:80px}
+	     #list_display .display_icon-purchaseReturn{height:114px;width:300px;background:url(../RootImages/icon-purchaseReturn.png) no-repeat 53px 30px;padding-top:64px}
+	     #list_display .display_icon-proreturn{height:114px;width:300px;background:url(../RootImages/icon-productionreturn.png) no-repeat 53px 30px;padding-top:64px}
+	     #list_display .display_icon-outboundorder{height:114px;width:300px;background:url(../RootImages/icon-outboundorder.png) no-repeat 53px 30px;padding-top:64px}
+	     #list_display .display_icon-pickinglist{height:114px;width:300px;background:url(../RootImages/icon-pickinglist.png) no-repeat 53px 30px;padding-top:64px}
+	     #list_display .display_icon-inventorytask{height:114px;width:300px;background:url(../RootImages/icon-inventorytask.png) no-repeat 53px 30px;padding-top:64px}
+	     #list_display .display_icon-incominginput{height:114px;width:300px;background:url(../RootImages/icon-incominginput.png) no-repeat 53px 30px;padding-top:64px}
+	     #list_display .display_icon-IQCtesting{height:114px;width:300px;background:url(../RootImages/icon-IQCtesting.png) no-repeat 53px 30px;padding-top:64px} 
+	     #list_display .display_icon-bur{height:114px;width:300px;background:url(../RootImages/icon-bur.png) no-repeat 53px 30px;padding-top:64px} 
+	     

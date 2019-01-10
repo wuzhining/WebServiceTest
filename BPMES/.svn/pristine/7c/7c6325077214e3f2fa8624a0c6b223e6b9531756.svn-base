@@ -1,0 +1,32 @@
+{
+    "RESPONSE": [
+        {
+            "RESPONSE_DATA": [
+                {
+                    "defect_reason": "PC81010",
+                    "defect_qty": 484
+                },
+                {
+                    "defect_reason": "PC81421",
+                    "defect_qty": 447
+                },
+                {
+                    "defect_reason": "PC81001",
+                    "defect_qty": 440
+                },
+                {
+                    "defect_reason": "PC81400",
+                    "defect_qty": 365
+                },
+                {
+                    "defect_reason": "PC81002",
+                    "defect_qty": 227
+                },
+                {
+                    "defect_reason": "PC81006",
+                    "defect_qty": 185
+                }
+            ]
+        }
+    ]
+}

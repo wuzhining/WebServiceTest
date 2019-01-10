@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
+    <title>检验清单列表</title>
+    <link rel="stylesheet" type="text/css" href="../../../../common/IplantCompent/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../../../../common/IplantCompent/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="../../../../common/IplantCompent/Demo/demo.css">
+    <script src="../../../../common/IplantCompent/jquery.min.js" type="text/javascript"></script>
+    <script src="../../../../common/IplantCompent/jquery.easyui.min.js" type="text/javascript"></script>
+    <script src="../../../../common/IplantCommon/DataRequest.js" type="text/javascript"></script>
+    <script src="../../../../common/IplantCommon/CommonUtil.js" type="text/javascript"></script>
+    <script src="js/QualityTemplate.js" type="text/javascript"></script>
+    <script src="../../../../common/UICompent/locale/easyui-lang-zh_CN.js" type="text/javascript" ></script>
+    <script type="text/javascript"></script>
+    <style type="text/css">
+		.Label3
+		{
+		    width: 15%;
+		     height: 26px;
+		    text-align: right;
+		    background-color: #f7f7f7;
+		    padding: 3px;
+		    border-top: 1px solid #d3d3d3;
+		    border-left: 1px solid #d3d3d3;
+		    border-right: 1px solid #d3d3d3;
+		    border-bottom: 1px solid #d3d3d3;
+		}
+		.Label4
+		{
+		    height: 26px;
+		    text-align: center;
+		    border-top: 1px solid #d3d3d3;
+		    border-left: 1px solid #d3d3d3;
+		    border-right: 1px solid #d3d3d3;
+		    border-bottom: 1px solid #d3d3d3;
+		}
+		.Field3
+		{
+		    width: 23.3%;
+		     height: 26px;
+		    text-align: left;
+		    background-color: #fff;
+		    padding: 3px;
+		    border-top: 1px solid #d3d3d3;
+		    border-left: 1px solid #d3d3d3;
+		    border-right: 1px solid #d3d3d3;
+		    border-bottom: 1px solid #d3d3d3;
+		    word-break: break-all;
+		}
+		
+		
+		.ListTableHeader
+		{
+		    font-size: 12px;
+		    font-weight: bold;
+		    text-align: left;
+		    height: 21px;
+		    overflow: hidden;
+		    line-height: 18px;
+		    color: #183152;
+		    margin-left: 3px;
+		    border: 0px;
+		    padding: 0px;
+		    font-family: Verdana, 微软雅黑,黑体, 宋体;
+		    text-overflow: ellipsis;
+		    overflow: hidden;
+		    white-space: nowrap;
+		    
+		}
+		.ListTableHeader th
+		{
+		     
+		    height: 22px;
+		    border: 1px solid #d3d3d3;
+		    background: #ececec url(images/gridheaderbg.jpg) repeat-x;
+		    font-family: Verdana, 微软雅黑,黑体, 宋体;
+		    text-overflow: ellipsis;
+		    overflow: hidden;
+		    white-space: nowrap;
+		}
+		
+		.Field
+		{
+		     height: 26px;
+		    background-color: #fff;
+		    padding: 5px 0px 5px 5px;
+		    border-top: 1px solid #d3d3d3;
+		    border-left: 1px solid #d3d3d3;
+		    border-right: 1px solid #d3d3d3;
+		    border-bottom: 1px solid #d3d3d3;
+		    
+		}
+		em
+		{
+		    color: #F75000;
+		    font-family: Verdana, 微软雅黑,黑体, 宋体;
+		    font-size: 11px;
+		    font-weight: bold;
+		    padding-left: 0px;
+		    padding-right: 0px;
+		    vertical-align: middle;
+		    
+		}
+	</style>
+</head>
+<body style="padding: 0;margin: 0;">
+	<div style="height:100%;width:100%" class="easyui-layout" fit="true">
+        <div region='north' id="tb" style="width: auto; height: 30px;background: linear-gradient(rgb(255, 255, 255) 0px, rgba(149, 184, 231, 0.28) 100%);">
+               <table style="width: auto; height:100%;" cellspacing="0" border="0">
+                    <tr>
+                      <td>
+                      		<a id="bttAdd" href="#" class="easyui-linkbutton add" iconCls="icon-add" data-options="plain:true" >添加</a>
+                            <a id="bttUpdate" href="#" class="easyui-linkbutton update" iconCls="icon-edit" data-options="plain:true" >修改</a>
+                            <a id="bttDelete" href="#" class="easyui-linkbutton delete" iconCls="icon-remove" data-options="plain:true">删除</a>
+                      </td>
+                    </tr>
+               </table>
+            </div>
+    	<div region="center" style="width:100%" style="border:0">
+           <div region='north' id='tbsearch' style="width: auto; height: 30px;background: linear-gradient(rgb(255, 255, 255) 0px, rgba(149, 184, 231, 0.28) 100%);">
+                <table>
+	                <tr >
+	                	<td>检验模板名：</td>
+	                    <td>
+	                        <input id="INSPECTIONTEMPLATENAME1" name="INSPECTIONTEMPLATENAME1" style="width: 200px;" class="easyui-textbox"/>
+	                         &nbsp;&nbsp; &nbsp;&nbsp;
+	                    </td>
+	                    <td>模板类型：</td>
+	                    <td>
+	                        <input id="INSPECTIONTYPEID1" name="INSPECTIONTYPEID1" style="width: 200px;" class="easyui-combobox" data-options="editable:false,panelHeight:'auto'"/>
+	                         &nbsp;&nbsp; &nbsp;&nbsp;
+	                    </td>              
+	                    <td>
+	                       <a href="#" class="easyui-linkbutton" iconCls="icon-search" id="bttSearch" data-options="plain:true">查询</a>	
+	                    </td>
+	                </tr>
+                </table>
+             </div>
+            <table region='center' style="height: auto;max-height: 100%" id="RFID_tab" class='easyui-datagrid' toolbar="#tbsearch" rownumbers="true" ></table>
+            </div>
+      </div>
+	<input id="hidd" type="hidden" />
+    <div id="enditTab" class="easyui-dialog" style="width: 800px;height: 450px;" closed="true" align="center" data-options="modal: true,
+				buttons: [{
+					text:'保存',
+					iconCls:'icon-ok',
+					handler:function(){
+						savaStation();
+						
+					}
+				},{
+					text:'取消',
+					iconCls:'icon-no',
+					handler:function(){
+						setDataNull();
+						$('#enditTab').dialog('close');	
+					}
+				}]">
+        <form id="fmStation" method="post" style="padding:30px 20px 10px 25px;"> 
+            <table class="EditeContentTable" width="100%">
+				<tbody>
+					<tr>
+						<td class="Label3">验证模板名<em>*</em>
+						</td>
+						<td class="Field3">
+							<input id="INSPECTIONTEMPLATENAME"  name="postingdate" style="width: 170px;" class="easyui-textbox" required="required" data-options="missingMessage:'该选项为必填信息'" />
+						</td>
+						<td class="Label3">检验类型编号<em>*</em></td>
+						<td class="Field3">
+							<input id="INSPECTIONTYPEID"  name="postingdate" style="width: 170px;" class="easyui-combobox" required="required" data-options="editable:false,panelHeight:'auto',missingMessage:'该选项为必填信息'" />
+						</td>
+					</tr>
+					<tr>
+						<td class="Label3">状态<em>*</em>
+						</td>
+						<td class="Field3">
+							<select id="STATUS" class="easyui-combobox" name="sheng" style="width:170px;" required="required" data-options="editable:false,panelHeight:'auto',missingMessage:'该选项为必填信息'">
+						        <option value="0">启用</option>
+						        <option value="1">禁用</option>
+		                	</select>
+						</td>
+						<td class="Label3">描述</td>
+						<td class="Field3">
+							<input id="DESCRIPTION"  name="postingdate" style="width: 170px;" class="easyui-textbox"/>
+						</td>
+					</tr>					
+				</tbody>
+			</table>
+			
+            <table class="EditeContentTable" id="tabAddPro" width="100%" style="border-collapse:collapse">
+				<thead>
+					<tr>
+						<td class="Label4" style="width: 50%">检验项名称</td><td class="Label4"style="width: 30%">检查项明细</td>
+						<td class="Label4" style="width: 20%"><a style="color: blue;" id="AddPro" href="#" class="easyui-linkbutton" iconCls="icon-add" data-options="plain:true" >添加检验项目 </a></td>
+					</tr>
+				</thead>
+				<tbody>
+					
+				</tbody>
+			</table>
+        </form>
+    </div>
+    
+    <div id="enditTab1" class="easyui-dialog" style="width: 300px;height: 400px;" closed="true" data-options="modal: true,
+				buttons: [{
+					text:'确定',
+					iconCls:'icon-ok',
+					handler:function(){
+						savaStation1();
+					}
+				},{
+					text:'取消',
+					iconCls:'icon-no',
+					handler:function(){
+						setDataNull();
+						$('#enditTab1').dialog('close');	
+					}
+				}]">
+        <table class="EditeContentTable" id="tabAddPro1" width="100%" style="border-collapse:collapse">
+			<thead>
+				<tr >
+					<td class="Label4" style="width: 15%"></td>
+					<td class="Label4" style="width: 85%">检查项目名称</td>
+				</tr>
+			</thead>
+			<tbody id="tbo">
+				
+			</tbody>
+		</table>
+    </div>
+    
+    <div id="enditTab2" class="easyui-dialog" style="width: 400px;height: 400px;" closed="true" data-options="" >
+        <table class="EditeContentTable" id="tabAddPro2" width="100%" style="border-collapse:collapse">
+			<thead>
+				<tr >
+					<td class="Label4" style="width: 10%"></td>
+					<td class="Label4" style="width: 45%">检查项名称</td>
+					<td class="Label4" style="width: 45%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+				
+			</tbody>
+		</table>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<mappers>
+		<mapper resource="../conf/mybatis/opp/system/mapper-frame.xml" />
+		<mapper resource="../conf/mybatis/opp/system/mapper-system-basis.xml" />
+		<mapper resource="../conf/mybatis/opp/system/mapper-system-systemManage.xml" />
+		<mapper resource="../conf/mybatis/opp/system/mapper-system-alarm.xml" />
+	    <mapper resource="../conf/mybatis/opp/system/mapper-system-label.xml" /> 
+		<mapper resource="../conf/mybatis/opp/tpm/mapper-tpm-equipmentManage.xml"/>
+		<mapper resource="../conf/mybatis/opp/tpm/mapper-tpm-detail.xml" />
+		<mapper resource="../conf/mybatis/opp/tpm/mapper-tpm-mobileAPP.xml" />
+		<mapper resource="../conf/mybatis/opp/tpm/mapper-tpm-productionPlan.xml" />
+		<mapper resource="../conf/mybatis/opp/tpm/mapper-tpm-reportManage.xml" />
+		<mapper resource="../conf/mybatis/opp/tpm/mapper-tpm-screenMonitor.xml" />
+		<mapper resource="../conf/mybatis/opp/wms/mapper-wms-basis.xml" />
+		<mapper resource="../conf/mybatis/opp/wms/mapper-wms-check.xml" />
+	    <mapper resource="../conf/mybatis/opp/wms/mapper-wms-warehouse-in-out.xml" /> 
+	    <mapper resource="../conf/mybatis/opp/wms/mapper-wms-bp.xml" /> 
+	    <mapper resource="../conf/mybatis/opp/wms/mapper-wms-pda.xml" />
+		<mapper resource="../conf/mybatis/opp/wms/mapper-wms-Product.xml" /> 
+		<mapper resource="../conf/mybatis/opp/wms/mapper-wms-AQL.xml" /> 
+		<mapper resource="../conf/mybatis/opp/wms/mapper-wms-Quality.xml" />
+		<mapper resource="../conf/mybatis/opp/wms/mapper-wms-SPCManage.xml" />	  
+	    <mapper resource="../conf/mybatis/opp/wms/mapper-wms-pda.xml" /> 
+	    <mapper resource="../conf/mybatis/opp/wms/mapper-wms-packageList.xml" />
+	    <mapper resource="../conf/mybatis/opp/wms/mapper-wms-packageDoc.xml" />
+	    <mapper resource="../conf/mybatis/opp/wms/mapper-wms-packageLev.xml" />
+	    <mapper resource="../conf/mybatis/opp/wms/mapper-wms-dataConfig.xml" />	
+	    <mapper resource="../conf/mybatis/opp/wms/mapper-wms-IQCreInspection.xml" />	    
+		<mapper resource="../conf/mybatis/opp/mes/mapper-mes-materialManage.xml" />
+		<mapper resource="../conf/mybatis/opp/mes/mapper-mes-QualityAssurance.xml" />
+		<mapper resource="../conf/mybatis/opp/mes/mapper-mes-workorderManagement.xml" />    
+		<mapper resource="../conf/mybatis/opp/mes/mapper-mes-systemTools.xml" />
+		<mapper resource="../conf/mybatis/opp/mes/mapper-mes-reworkManagement.xml" /> 
+		<mapper resource="../conf/mybatis/opp/mes/mapper-mes-mobileApp.xml" />
+		<mapper resource="../conf/mybatis/opp/mes/mapper-mes-processTemplate.xml" />
+		<mapper resource="../conf/mybatis/opp/mes/mapper-mes-activitiManager.xml" />
+		<mapper resource="../conf/mybatis/opp/mes/mapper-mes-processAndTemplateMgr.xml" />
+		<mapper resource="../conf/mybatis/opp/mes/mapper-mes-smtManager.xml" />
+		<mapper resource="../conf/mybatis/opp/mes/mapper-mes-iMesReport.xml" />
+		<mapper resource="../conf/mybatis/opp/wms/mapper-wms-Product.xml" /> 
+		<mapper resource="../conf/mybatis/opp/wms/mapper-wms-kanban.xml" />
+		<mapper resource="../conf/mybatis/opp/wms/mapper-wms-MSD.xml" />
+		<mapper resource="../conf/mybatis/opp/mes/mapper-mes-smtinfo.xml" />
+	</mappers>
+</configuration>

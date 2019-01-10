@@ -1,0 +1,266 @@
+/* 启动时加载 */
+/*
+ */
+(function() {
+	function materialMaintenance() {
+		initGridData = function() {
+			var dgrid = dataGrid.datagrid('options');
+			if(!dgrid) return;
+			searchDataGrid();
+		},
+		bindGridData = function(reqData, jsonData) {
+			var gridList = {
+				name: 'material_tab',
+				dataType: 'json',
+				columns: [[
+					{field: 'FCT_NM',title: '工厂名称',width: 150,align: 'center',formatter: function (value) {if(checkNotEmpty(value)) return "<span title='" + value + "'>" + value + "</span>";}},
+					{field: 'ITEM_CD',title: '物料编码',width: 180,align: 'center',formatter: function (value) {if(checkNotEmpty(value)) return "<span title='" + value + "'>" + value + "</span>";}}, 
+					{field: 'ITEM_NM',title: '物料描述',width: 170,align: 'center',formatter: function (value) {if(checkNotEmpty(value)) return "<span title='" + value + "'>" + value + "</span>";}},
+					{field: 'ITEM_TYPE_NAME',title: '物料类型',width: 120,align: 'center',formatter: function (value) {if(checkNotEmpty(value)) return "<span title='" + value + "'>" + value + "</span>";}},
+					{field: 'FIRST_BAR_CODE',title: '起始条码流水',width: 180,align: 'center',formatter: function (value) {if(checkNotEmpty(value)) return "<span title='" + value + "'>" + value + "</span>";}},
+			        {field: 'LAST_BAR_CODE',title: '结束条码流水',width: 180,align: 'center',formatter: function (value) {if(checkNotEmpty(value)) return "<span title='" + value + "'>" + value + "</span>";}},
+				    {field: 'PTY_QTY',title: '打印数量',width: 80,align: 'right',formatter: function (value) {if(checkNotEmpty(value)) return "<span title='" + value + "'>" + value + "</span>";}},
+				    {field: 'CRT_ID',title: '打印人',width: 170,align: 'center',formatter: function (value) {if(checkNotEmpty(value)) return "<span title='" + value + "'>" + value + "</span>";}},
+				    {field: 'LAST_PRINT_TIME',title: '打印时间',width: 180,align: 'center',formatter: function (value) {if(checkNotEmpty(value)) return "<span title='" + value + "'>" + value + "</span>";}}, 
+				    {field: 'img',title: '是否打印',width: 120,align: 'center',formatter:function(){//使用formatter格式化刷子
+					       return "<img href='javascript:void(0)' class='easyui-linkbutton' src='../../../common/IplantCompent/themes/default/images/Printer.png'/>"}}
+				    ]],
+			     /**进入编辑模式的操作*/
+			     onBeforeEdit:function(index,row){
+			    	 showmessage.html('');
+			    	 row.editing = true;
+			    	 row.edited = false;
+			    	 oldRow = JSON.stringify(row).replace(reg,'\"\"');
+			    	 $(this).datagrid('refreshRow', index);
+			     },
+			     /**编辑模式进入之后的操作*/
+			     onAfterEdit:function(index,row){
+			    	 /**判断是否进行数据变更*/
+			    	 var temp = JSON.stringify(row).replace(reg,'\"\"');
+			    	 if(temp!=oldRow){
+			    		 row.edited = true;
+			    	 }
+			    	 row.editing = false;
+			    	 $(this).datagrid('refreshRow', index);
+			     },
+		        onCancelEdit:function(index,row){
+		            row.editing = false;
+		            $(this).datagrid('refreshRow', index);
+		        },
+		        /**单击进入编辑模式*/
+		        onClickCell: function (index,field,value) {
+		        	var tabName,dialogName,titleName,rowEdit,editem,editorFt,itemCd,reqData,dgrid;
+		        	var rows = dataGrid.datagrid('getRows'),row = rows[index];
+		        	/**判断是否为可编辑字段*/
+		        	if(field=='img'){
+		        		endEditingAll(dataGrid);
+						titleName = '打印明细',
+						dialogName = 'editTabMSD',								
+						openPrintPreview(row.ITEM_CD,row.ITEM_NM,row.BC_QTY,row.LAST_BAR_CODE,row.CRT_ID,row.CRT_DT);
+		        	}else if(field=='img2'){
+		        		
+		        	}else if(field=='img3'){
+		        		
+		        	}else if(field=='img4'){
+		        		
+		        	}else{
+			        	if (editIndex != index){
+				    		var ed,fc,editorFt;
+				    		if(editIndex!=undefined){
+			    				/**判断是否为新增行，并验证新增工厂编码重复*/
+				    			var rowEdit = dataGrid.datagrid('getRows')[editIndex],edft = $(this).datagrid('getEditor', {index: editIndex,field: 'ITEM_CD'}),editorFt = edft.target,ftCd = editorFt.val();
+				    			if(checkNotEmpty(rowEdit.editType)){
+				    				if(rowEdit.editType=='add'){
+							        	   addDatagridEditor(dataGrid,index);
+				    				}else{
+				    					addDatagridEditor(dataGrid,index);
+				    					if(!checkNotEmpty(row.editType)){  /*如果是修改的情况，ft_cd字段为只读模式*/
+								    		ed = $(this).datagrid('getEditor', {index: index,field: 'ITEM_CD'});
+								    		fc = ed.target;
+								    		fc.prop('readonly',true);
+							    		}
+				    				}
+				    			}else{
+						    		 addDatagridEditor(dataGrid,index);
+						    		 if(!checkNotEmpty(row.editType)){
+								    		ed = $(this).datagrid('getEditor', {index: index,field: 'ITEM_CD'});
+								    		fc = ed.target;
+								    		fc.prop('readonly',true);
+							    		}
+				    			}
+				    		}else{
+				    			addDatagridEditor(dataGrid,index);
+				    			if(!checkNotEmpty(row.editType)){
+						    		ed = $(this).datagrid('getEditor', {index: index,field: 'ITEM_CD'});
+						    		fc = ed.target;
+						    		fc.prop('readonly',true);
+					    		}
+				    		}
+				    	}
+		        	}
+		        },
+		        /**单击进入编辑模式*/
+			}
+			initGridView(reqData, gridList);
+			dataGrid.datagrid('loadData', jsonData);
+		},
+		searchDataGrid=function(){
+			var dgrid = dataGrid.datagrid('options');
+			var searchITEM_CD = $('#searchITEM_CD').textbox('getValue');
+			var reqData = {
+				IFS: 'S0000009',
+				ITEM_CD:searchITEM_CD,
+				pageIndex: 1,
+				pageSize: dgrid.pageSize
+			}
+			reqGridData('/iPlant_ajax', 'material_tab', reqData);
+		},
+		openDialogFrame =function(tabName,dialogName,titleName){
+			$("#"+dialogName).dialog("open").dialog('setTitle', titleName);
+		},
+		open1 = function () {
+			$("#enditTabupload").dialog("open").dialog('setTitle', "确定？");
+		},
+		dialogEditorDataGrid = function(tabName,reqData, jsonData) {
+			/*根据tabName判断哪个列表*/
+			var columnsTab,edDataGrid,messageInfo;
+			if(tabName=='materialMSD_tab'){
+				columnsTab=[{field: 'MO_NO',title: '',width: 10,align: 'center',hidden:true,formatter: function (value) {if(checkNotEmpty(value)) return "<span title='" + value + "'>" + value + "</span>";},editor:{type:'validatebox'}},
+					        {field: 'ROW_IDX',title: '层级',width: 80,align: 'center',formatter: function (value) {if(checkNotEmpty(value)) return "<span title='" + value + "'>" + value + "</span>";},editor:{type:'validatebox',
+						        	   options:{validType:['length[1,100]','specialTextCharacter']}}},
+						    {field: 'MAT_CD',title: '物料编码',width: 80,align: 'center',formatter: function (value) {if(checkNotEmpty(value)) return "<span title='" + value + "'>" + value + "</span>";},editor:{type:'validatebox',
+							        	   options:{validType:['length[1,100]','specialTextCharacter']}}},
+							{field: 'MAT_NM',title: '物料名称',width: 80,align: 'center',formatter: function (value) {if(checkNotEmpty(value)) return "<span title='" + value + "'>" + value + "</span>";},editor:{type:'validatebox',
+								        	   options:{validType:['length[1,100]','specialTextCharacter']}}},
+							{field: 'MO1111',title: '物料描述',width: 80,align: 'center',formatter: function (value) {if(checkNotEmpty(value)) return "<span title='" + value + "'>" + value + "</span>";},editor:{type:'validatebox',
+									        	   options:{validType:['length[1,100]','specialTextCharacter']}}},
+							{field: 'ISSUE_TYPE',title: '规格类型',width: 80,align: 'center',formatter: function (value) {if(checkNotEmpty(value)) return "<span title='" + value + "'>" + value + "</span>";},editor:{type:'validatebox',
+									        	   options:{validType:['length[1,100]','specialTextCharacter']}}},
+		        	        {field: 'UNIT',title: '位置',width: 80,align: 'center',formatter: function (value) {if(checkNotEmpty(value)) return "<span title='" + value + "'>" + value + "</span>";},editor:{type:'validatebox',
+			        	   options:{validType:['length[1,100]','specialTextCharacter']}}},
+			        	    {field: 'UNIT_QTY',title: '单击用量',width: 80,align: 'center',formatter: function (value) {if(checkNotEmpty(value)) return "<span title='" + value + "'>" + value + "</span>";},editor:{type:'validatebox',
+				        	   options:{validType:['length[1,100]','specialTextCharacter']}}},			        	   
+				        	{field: 'MO',title: '备注',width: 80,align: 'center',formatter: function (value) {if(checkNotEmpty(value)) return "<span title='" + value + "'>" + value + "</span>";},editor:{type:'validatebox',
+					        	   options:{validType:['length[1,100]','specialTextCharacter']}}}			        	   									        	   
+									        	   ];
+				edDataGrid = $('#'+tabName);
+				messageInfo = $('#showMSDInfo');
+			}else if(tabName=='Singleattribute_tab'){
+				
+				
+			}
+			
+			var gridList = {
+				name: tabName,
+				dataType: 'json',
+				pagination:false,
+				rownumbers:true,
+				loadMsg: '数据加载中...',
+				columns: [columnsTab],
+			     /**进入编辑模式的操作*/
+			     onBeforeEdit:function(index,row){
+			    	 messageInfo.html('');
+			    	 row.editing = true;
+			    	 row.edited = false;
+			    	 oldRow = JSON.stringify(row).replace(reg,'\"\"');
+			    	 $(this).datagrid('refreshRow', index);
+			     },
+			     /**编辑模式进入之后的操作*/
+			     onAfterEdit:function(index,row){
+			    	 /**判断是否进行数据变更*/
+			    	 var temp = JSON.stringify(row).replace(reg,'\"\"');
+			    	 if(temp!=oldRow){
+			    		 row.edited = true;
+			    	 }
+			    	 row.editing = false;
+			    	 $(this).datagrid('refreshRow', index);
+			     },
+		        onCancelEdit:function(index,row){
+		            row.editing = false;
+		            $(this).datagrid('refreshRow', index);
+		        },
+		        /**单击进入编辑模式*/
+			    onClickRow: function (index, row) {
+			    	if (editIndex != index){
+			    		var ed,fc,editorFt;
+			    		if(editIndex!=undefined){
+			    			if(tabName=='materialMSD_tab'){
+			    				addDatagridEditor(edDataGrid,index);
+			    			}
+			    		}else{
+			    			addDatagridEditor(edDataGrid,index);
+			    		}
+			    	}
+	            }
+			}
+			initGridView(reqData, gridList);
+			$('#'+tabName).datagrid('loadData', jsonData);
+		}
+	 
+	}
+	
+	openPrintPreview = function(ITEM_CD,ITEM_NM,BC_QTY,LAST_BAR_CODE,CRT_ID,CRT_DT){
+		$("#editTabMSD").dialog("open").dialog('setTitle', '打印明细');
+		$("#ITEM_CD").textbox('setValue',ITEM_CD);
+		$("#ITEM_NM").textbox('setValue',ITEM_NM);
+		$("#BC_QTY").textbox('setValue',BC_QTY);
+		$("#LAST_BAR_CODE").textbox('setValue',LAST_BAR_CODE);
+		$("#CRT_ID").textbox('setValue',CRT_ID);
+		$("#CRT_DT").textbox('setValue',CRT_DT);
+	}
+
+	materialMaintenance.prototype = {
+		init: function() {
+			$(function() {
+				/*初始化全局变量对象*/
+				dataGrid = $('#material_tab'),dataCompany=[],dataFactory=[],showmessage=$('#showMessageInfo'),editIndex = undefined,oldRow=undefined, reg=new RegExp("null","g");
+				initGridData();
+				/*获取工厂类别下拉*/
+				$('#btnSearch').click(function() {					
+					searchDataGrid();
+				});
+				$('#btnAdd').click(function() {					
+					insertDataGrid('material_tab',{FCT_CD:"00001",BAR_CODE:autoCreateCode('MES')});
+				});
+				
+				$('#btnDelete').click(function(){
+					deleteDataGrid('material_tab','ITEM_CD','S0000012','showMSDInfo');
+	            });
+					
+				$('#btnSave').click(function() {
+					saveDataGrid('material_tab','S0000010','S0000011','showMessageInfo');
+				});
+				
+				/*物料msd设置*/
+				$('#btnMSDAdd').click(function() {		
+					var dgrid = $('#materialMSD_tab').datagrid('options');
+					insertDataGrid('materialMSD_tab',{FCT_CD:"00001",WO_NO:autoCreateCode('MES'),MO_NO:dgrid.MO_NO});//初始化默认数据
+				});
+				
+				$('#btnMSDDelete').click(function(){
+					deleteDataGrid('materialMSD_tab','WO_NO','W0000020','showMSDInfo');
+	            });
+
+				$('#btnMSDSave').click(function() {
+					saveDataGrid('materialMSD_tab','W0000018S','W0000019S','showMSDInfo');
+				});
+			
+				$('.panel-tool-close').click(function() {
+					editIndex = undefined;
+				});
+				
+				$('#btnExprt').click(function(){
+                	var now = new Date();
+                    var year =now.getFullYear();
+                	var reqData = {
+                		IFS:'S0000009'
+                	}
+                	createTable('tbIMESReport','原材料条码导出','material_tab',reqData);
+                });
+				
+			});
+		}
+	}
+	var fcfo = new materialMaintenance();
+	fcfo.init();
+})();

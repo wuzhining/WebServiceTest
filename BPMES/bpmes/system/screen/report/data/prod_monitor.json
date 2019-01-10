@@ -1,0 +1,25 @@
+{
+    "RESPONSE": [
+        {
+            "RESPONSE_DATA": [
+                {
+                    "prod_line": "Carton",
+                    "hour_target_qty": 45,
+                    "class_target_qty":150,
+                    "prod_date":"2017-4-17",
+                    "finished_qty":100,
+                    "prod_time":"15:30",
+                    "prod_efficiency":85,
+                    "series":"test123",
+                    "plan_prod_cnt":200,
+                    "model":"M0036",
+                    "total_prod_cnt":130,
+                    "pepole_cnt":4,
+                    "no_finished_cnt":20
+                    
+                }
+               
+            ]
+        }
+    ]
+}

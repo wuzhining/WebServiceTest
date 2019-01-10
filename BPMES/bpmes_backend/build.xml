@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<project name="i-PlantIMES" basedir="." default="jar">
+    <!-- set properties name -->
+	<property name="pro.name" value="i-PlantIMES" />
+	<property name="pro.version" value="1.0.0" />
+    <property name="pro.mode" value="IMES" />
+    <property name="depend.dir" value="./dependencies" />
+    <property name="src.dir" value="./src/main/java" />
+    <property name="res.dir" value="./src/main/resources" />
+    <property name="bind.dir" value="${res.dir}/META-INF/config/jibx" />
+	<property name="build.dir" value="./target" />
+    <property name="compile.dir" value="./target/classes" />
+	
+    <path id="build.lib">
+        <fileset dir="${depend.dir}">
+            <include name="**/*.jar" />
+        </fileset>
+        <pathelement location="${compile.dir}" />
+    </path>
+    <!-- 初始脚本运行的环境 -->
+    <target name="init" description="初始化创建编译目录">
+        <tstamp/>
+        <mkdir dir="${compile.dir}" />
+    </target>
+    <target name="clean" description="清除编译过程生成的所有文件">
+        <delete dir="${build.dir}" />
+    </target>
+    <target name="compile" depends="init" description="编译JAVA类生成class文件">
+        <echo message="编译class" />
+        <javac destdir="${compile.dir}" encoding="UTF-8"  fork="true" debug="true" memoryMaximumSize="1024m">
+            <src path="${src.dir}" />
+            <classpath refid="build.lib" />
+            <compilerarg value="-Xlint:unchecked" />
+        </javac>
+    </target>
+	<target name="jar" depends="compile">    
+		<jar destfile="${build.dir}/${pro.name}-${pro.version}-${pro.mode}.jar" basedir="${compile.dir}"></jar>
+    </target>
+</project>

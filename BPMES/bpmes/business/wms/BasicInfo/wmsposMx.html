@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="../../../common/IplantCompent/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../../../common/IplantCompent/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="../../../common/IplantCompent/Demo/demo.css">
+    <script src="../../../common/IplantCompent/jquery.min.js" type="text/javascript"></script>
+    <script src="../../../common/IplantCompent/jquery.easyui.min.js" type="text/javascript"></script>
+    <script src="../../../common/IplantCommon/DataRequest.js" type="text/javascript"></script>
+    <script src="../../../common/IplantCommon/CommonUtil.js" type="text/javascript"></script>
+    <script src="js/wmsposMx.js" type="text/javascript"></script>
+    <meta charset="utf-8" />
+</head>
+<body style="padding: 0;margin: 0;">
+    <div class="easyui-layout" data-options="fit:true" >
+        <div data-options="region:'north'" style="width: auto; height: 30px;background: linear-gradient(rgb(255, 255, 255) 0px, rgba(149, 184, 231, 0.28) 100%);overflow:hidden;">
+            <table>
+              <tr>                   
+                 <td>
+                     <a href="#" class="easyui-linkbutton" iconCls="icon-operate" id="btnNullin" data-options="plain:true">空箱入库</a>
+                     <a href="#" class="easyui-linkbutton" iconCls="icon-operate" id="btnNullout" data-options="plain:true">空箱出库</a>
+                 </td>
+               </tr>   
+            </table>
+          </div>
+		<div id="ccSet" data-options="region:'center'" style="background:#000; color:white">
+			<table id="zfaxxGrid" style="width: 200px; height: 100%; border:solid #add9c0; border-width:1px 0px 0px 1px;align:left;"  cellspacing="5px" >
+			</table>
+		</div>     
+		<div data-options="region:'south',title:'货位详细信息'" style="width: 100%;height:350px">
+            	<table id="ccGrid" class='easyui-datagrid' style="width: 100%;height: 315px;" iconCls="icon-edit" rownumbers="true">
+			</table>		
+        </div>
+	</div>	
+<!-- 	 空箱入库 -->
+	<div id="enditTab" class="easyui-dialog" style="width: 380px;height: 460px;" closed="true" align="center" data-options="modal: true,
+				buttons: [{
+					text:'保存',
+					iconCls:'icon-ok',
+					handler:function(){
+						savaStation();
+						
+					}
+				},{
+					text:'取消',
+					iconCls:'icon-no',
+					handler:function(){
+						setDataNull();
+						$('#enditTab').dialog('close');	
+					}
+				}]">
+        <form id="fmStation" method="post" style="padding:10px 20px 10px 25px;">
+            <table border="0">
+                 <tr style="height: 20px;">
+                    <td>ID：</td>
+                    <td>
+                        <input id="txtTEMP_ID_1" name="postingdate" style="width: 150px;" class="easyui-textbox" required="required" data-options="missingMessage:'该选项为必填信息'"/>
+                    </td>
+                    <td ></td>
+                </tr>               
+                <tr style="height: 35px;">
+                    <td>货架名称：</td>
+                    <td> 
+					   <input id="txtSHELF_NAME_1" name="postingdate" style="width: 150px;" class="easyui-textbox" required="required" data-options="missingMessage:'该选项为必填信息'"/>
+                    </td>                    
+                </tr>  
+                <tr style="height: 35px;">
+                    <td>货位所在层：</td>
+                    <td> 
+					   <input id="txtROW_ID_1" name="postingdate" style="width: 150px;" class="easyui-textbox" required="required" data-options="missingMessage:'该选项为必填信息'"/>
+                    </td>
+                </tr>               
+                <tr style="height: 35px;">
+                    <td>货位所在列：</td>
+                    <td>
+					  <input id="txtCOLUMN_ID_1" name="postingdate" style="width: 150px;" class="easyui-textbox" required="required" data-options="missingMessage:'该选项为必填信息'"/> 
+                    </td>
+                </tr>    
+                 <tr style="height: 35px;">
+                    <td>RFID值：</td>
+                    <td>
+                        <input id="txtBarcode_1"  name="txtBarcode" style="width: 150px;" class="easyui-textbox" />
+                    </td>
+                    <td ></td>
+                </tr>                        
+                <tr style="height: 35px;">
+                    <td>出入库方向：</td>
+                    <td>                       
+                        <select id="txtDIRECT_1" name="DIRECT" style="width: 150px;" class="easyui-combobox" data-options="required:true,missingMessage:'该选项为必填信息'">						
+							<option value='IN'>上架</option>
+							<option value='OUT'>下架</option>							
+					   </select>
+                    </td>
+                    <td ></td>
+                </tr>
+                <tr style="height: 35px;">
+                    <td>操作状态：</td>
+                    <td>                       
+                        <select id="txtOPERATE_STATUS_1" name="OPERATE_STATUS"
+						style="width: 150px;" class="easyui-combobox" editable='false'
+						data-options="required:true,missingMessage:'该选项为必填信息'">						
+							<option value='0' selected="selected">未处理</option>
+							<option value='1'>成功</option>
+							<option value='2'>失败</option>							
+					   </select>
+                    </td>
+                    <td ></td>
+                </tr>
+                <tr style="height: 35px;">
+                    <td>数据处理状态：</td>
+                    <td>
+                      <select id="txtDATA_STATUS_1" name="DATA_STATUS"
+						style="width: 150px;" class="easyui-combobox" editable='false'
+						data-options="required:true,missingMessage:'该选项为必填信息'">						
+							<option value='0' selected="selected">未处理</option>
+							<option value='1'>已处理</option>						
+					   </select>
+                    </td>
+                    <td ></td>
+                </tr>
+                 <tr style="height: 35px;">
+                    <td>备注：</td>
+                    <td>
+                        <input id="txtDETAIL_1"  name="postingdate" style="width: 150px;" class="easyui-textbox" />
+                    </td>
+                    <td ></td>
+                </tr> 
+            </table>
+        </form>
+    </div>
+    
+    <!-- 	 空箱入库 -->
+	<div id="enditTab2" class="easyui-dialog" style="width: 380px;height: 460px;" closed="true" align="center" data-options="modal: true,
+				buttons: [{
+					text:'保存',
+					iconCls:'icon-ok',
+					handler:function(){
+						savaStation2();
+						
+					}
+				},{
+					text:'取消',
+					iconCls:'icon-no',
+					handler:function(){
+						setDataNull();
+						$('#enditTab2').dialog('close');	
+					}
+				}]">
+        <form id="fmStation2" method="post" style="padding:10px 20px 10px 25px;">
+            <table border="0">
+                 <tr style="height: 20px;">
+                    <td>ID：</td>
+                    <td>
+                        <input id="txtTEMP_ID_2" name="postingdate" style="width: 150px;" class="easyui-textbox" required="required" data-options="missingMessage:'该选项为必填信息'"/>
+                    </td>
+                    <td ></td>
+                </tr>               
+                <tr style="height: 35px;">
+                    <td>货架名称：</td>
+                    <td> 
+					   <input id="txtSHELF_NAME_2" name="postingdate" style="width: 150px;" class="easyui-textbox" required="required" data-options="missingMessage:'该选项为必填信息'"/>
+                    </td>                    
+                </tr>  
+                <tr style="height: 35px;">
+                    <td>货位所在层：</td>
+                    <td> 
+					   <input id="txtROW_ID_2" name="postingdate" style="width: 150px;" class="easyui-textbox" required="required" data-options="missingMessage:'该选项为必填信息'"/>
+                    </td>
+                </tr>               
+                <tr style="height: 35px;">
+                    <td>货位所在列：</td>
+                    <td>
+					  <input id="txtCOLUMN_ID_2" name="postingdate" style="width: 150px;" class="easyui-textbox" required="required" data-options="missingMessage:'该选项为必填信息'"/> 
+                    </td>
+                </tr>    
+                 <tr style="height: 35px;">
+                    <td>RFID值：</td>
+                    <td>
+                        <input id="txtBarcode_2"  name="txtBarcode" style="width: 150px;" class="easyui-textbox" required="required" data-options="missingMessage:'该选项为必填信息'"/>
+                    </td>
+                    <td ></td>
+                </tr>                        
+                <tr style="height: 35px;">
+                    <td>出入库方向：</td>
+                    <td>                       
+                        <select id="txtDIRECT_2" name="DIRECT" style="width: 150px;" class="easyui-combobox" data-options="required:true,missingMessage:'该选项为必填信息'">						
+							<option value='IN'>上架</option>
+							<option value='OUT'>下架</option>							
+					   </select>
+                    </td>
+                    <td ></td>
+                </tr>
+                <tr style="height: 35px;">
+                    <td>操作状态：</td>
+                    <td>                       
+                        <select id="txtOPERATE_STATUS_2" name="OPERATE_STATUS"
+						style="width: 150px;" class="easyui-combobox" editable='false'
+						data-options="required:true,missingMessage:'该选项为必填信息'">						
+							<option value='0' selected="selected">未处理</option>
+							<option value='1'>成功</option>
+							<option value='2'>失败</option>							
+					   </select>
+                    </td>
+                    <td ></td>
+                </tr>
+                <tr style="height: 35px;">
+                    <td>数据处理状态：</td>
+                    <td>
+                      <select id="txtDATA_STATUS_2" name="DATA_STATUS"
+						style="width: 150px;" class="easyui-combobox" editable='false'
+						data-options="required:true,missingMessage:'该选项为必填信息'">						
+							<option value='0' selected="selected">未处理</option>
+							<option value='1'>已处理</option>						
+					   </select>
+                    </td>
+                    <td ></td>
+                </tr>
+                 <tr style="height: 35px;">
+                    <td>备注：</td>
+                    <td>
+                        <input id="txtDETAIL_2"  name="postingdate" style="width: 150px;" class="easyui-textbox" />
+                    </td>
+                    <td ></td>
+                </tr> 
+            </table>
+        </form>
+    </div>
+</body>
+</html>

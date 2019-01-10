@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ifss>
+
+	<!-- 投入工位     START -->
+	<!-- 根据作业指示编号查询作业信息 -->
+	<ifs ifs_code="GW00001" ifs_name="投入工位查询工单信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryInputStation" biz_method="" serial_no="1" biz_name="queryInputStation" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    <!-- 查询该物料是否属于该作业指示 -->
+    <ifs ifs_code="GW00002" ifs_name="查询该物料是否属于该作业指示" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryInputStationITEMCD" biz_method="" serial_no="1" biz_name="queryInputStationITEMCD" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    <!-- 确定作业指示后插入生产投入表 -->
+    <ifs ifs_code="GW00003" ifs_name="确定作业指示后插入生产投入表" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertProductionInput" biz_method="" serial_no="1" biz_name="insertProductionInput" biz_type="3" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+
+	<!-- 更新工单条码表作业指示状态 -->
+	<ifs ifs_code="GW00004" ifs_name="更新工单条码表作业指示状态" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateBarcodeJobInstructionStatus" biz_method="" serial_no="1" biz_name="updateBarcodeJobInstructionStatus" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+
+    <!-- 查询作业指示明细列 -->
+	<ifs ifs_code="GW00005" ifs_name="查询作业指示明细列 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryJobInstructionDetails" biz_method="" serial_no="1" biz_name="queryJobInstructionDetails" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+	<!-- 投入工位     END -->
+
+	<!-- 扫描ENTER SN：查找工单信息 -->
+	<ifs ifs_code="GW00006" ifs_name="扫描ENTER SN：查找工单信息 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="querySnWorkOrderInformation" biz_method="" serial_no="1" biz_name="querySnWorkOrderInformation" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+	
+	<!-- APP扫描ENTER SN：查找工单信息 -->
+	<ifs ifs_code="GW00007" ifs_name="APP扫描ENTER SN：查找工单信息 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="querySnWorkOrderInformationAPP" biz_method="" serial_no="1" biz_name="querySnWorkOrderInformationAPP" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+
+	<!-- IPQC工位     START -->
+	<!-- 查询IPQC抽检明细信息 -->
+	<ifs ifs_code="GW00010" ifs_name="查询IPQC抽检明细信息 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryIpqcSamplingDetails" biz_method="" serial_no="1" biz_name="queryIpqcSamplingDetails" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- 增加IPQC抽检明细信息 -->
+    <ifs ifs_code="GW00011" ifs_name="增加IPQC抽检明细信息 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertIpqcSamplingDetails" biz_method="" serial_no="1" biz_name="insertIpqcSamplingDetails" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- 增加IPQC抽检信息 -->
+    <ifs ifs_code="GW00012" ifs_name="增加IPQC抽检信息 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertIpqcSampling" biz_method="" serial_no="1" biz_name="insertIpqcSampling" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- 验证SN是否已抽检过 -->
+     <ifs ifs_code="GW00013" ifs_name="验证SN是否已抽检过 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="checkIpqcSampling" biz_method="" serial_no="1" biz_name="checkIpqcSampling" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+	<!-- IPQC工位     END -->
+	
+	<!-- 包装工位     START -->
+	<!-- 查询生产箱号表信息 -->
+	<ifs ifs_code="GW00020" ifs_name="查询生产箱号表信息 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryProductionOfNo" biz_method="" serial_no="1" biz_name="queryProductionOfNo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+	<!-- 增加生产箱号表信息 -->
+	<ifs ifs_code="GW00021" ifs_name="增加生产箱号表信息  " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertProductionOfNo" biz_method="" serial_no="1" biz_name="insertProductionOfNo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- 查询BOX_ID-->
+    <ifs ifs_code="GW00022" ifs_name="查询BOX_ID" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryBoxId" biz_method="" serial_no="1" biz_name="queryBoxId" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    <!-- 验证SN是否已装箱-->
+    <ifs ifs_code="GW00023" ifs_name="验证SN是否已装箱" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="checkSnPackingBox" biz_method="" serial_no="1" biz_name="checkSnPackingBox" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    
+	<!-- 包装工位     END -->
+	
+	<!-- OQC工位   START -->
+	<!-- 增加OQC抽检明细信息 -->	
+	<ifs ifs_code="GW00030" ifs_name="增加OQC抽检明细信息 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertOqcDetails" biz_method="" serial_no="1" biz_name="insertOqcDetails" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+	<!-- 查询OQC抽检明细信息 -->
+	<ifs ifs_code="GW00031" ifs_name="查询OQC抽检明细信息 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryOqcDetails" biz_method="" serial_no="1" biz_name="queryOqcDetails" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+	
+	<!-- 增加OQC抽检信息 -->
+	<ifs ifs_code="GW00032" ifs_name="增加OQC抽检信息 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertOqc" biz_method="" serial_no="1" biz_name="insertOqc" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+	<!-- OQC工位   END -->
+	
+	<!-- 栈板工位     START -->
+	
+	<!-- 扫描箱号 -->
+	<ifs ifs_code="GW00046" ifs_name="扫描箱号 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryBoxPallet" biz_method="" serial_no="1" biz_name="queryBoxPallet" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+	
+	<!-- 查询栈板信息 -->
+	<ifs ifs_code="GW00040" ifs_name="查询栈板信息 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryPalletInformation" biz_method="" serial_no="1" biz_name="queryPalletInformation" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+	<!-- 增加栈板信息 -->
+	<ifs ifs_code="GW00041" ifs_name="增加栈板信息 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertPalletInformation" biz_method="" serial_no="1" biz_name="insertPalletInformation" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- 批量新增栈板明细信息  -->
+    <ifs ifs_code="GW00045" ifs_name="批量新增栈板明细信息 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertBatchPalletInformation" biz_method="" serial_no="1" biz_name="insertBatchPalletInformation" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+     <!-- 查询PLT_ID-->
+    <ifs ifs_code="GW00047" ifs_name="查询PLT_ID " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryPltId" biz_method="" serial_no="1" biz_name="queryPltId" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    <!-- 修改箱子主表的PLT_ID -->
+    <ifs ifs_code="GW00048" ifs_name="修改箱子主表的PLT_ID " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateBoxPlt" biz_method="" serial_no="1" biz_name="updateBoxPlt" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+	<!-- 栈板工位     END -->
+	
+	<!-- 装箱 -->
+	<ifs ifs_code="GW00042" ifs_name="装箱" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="savaPacking" biz_method="" serial_no="1" biz_name="savaPacking" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    <!-- 查询装箱记录 -->
+    <ifs ifs_code="GW00043" ifs_name="查询装箱记录" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryPackingrecord" biz_method="" serial_no="1" biz_name="queryPackingrecord" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+	<!-- 手动关箱 -->
+	<ifs ifs_code="GW00044" ifs_name="手动关箱" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="Closethebox" biz_method="" serial_no="1" biz_name="Closethebox" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    <!-- 装配工位 START -->
+	<!-- 装配信息查询 -->
+	<ifs ifs_code="GW00050" ifs_name="装配信息查询 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryAssemblyInformation" biz_method="" serial_no="1" biz_name="queryAssemblyInformation" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+	<!-- 装配信息新增 -->
+	<ifs ifs_code="GW00051" ifs_name="装配信息新增 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertAssemblyInformation" biz_method="" serial_no="1" biz_name="insertAssemblyInformation" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+	<!-- 装配信息修改 -->
+	<ifs ifs_code="GW00052" ifs_name="装配信息修改 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateAssemblyInformation" biz_method="" serial_no="1" biz_name="updateAssemblyInformation" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+	<!-- 装配信息删除 -->
+	<ifs ifs_code="GW00053" ifs_name="装配信息删除 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteAssemblyInformation" biz_method="" serial_no="1" biz_name="deleteAssemblyInformation" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    <!-- 装配扫描部件条码信息  -->
+	<ifs ifs_code="GW00054" ifs_name="装配扫描部件条码信息  " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryAssemblyScanBarCode" biz_method="" serial_no="1" biz_name="queryAssemblyScanBarCode" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+	<!-- 装配工位 END -->
+	
+	
+	
+	<!-- 维修工位 START -->
+	<!-- 维修工位记录表查询 -->
+	<ifs ifs_code="GW00060" ifs_name="维修工位记录表查询 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryRepairStation" biz_method="" serial_no="1" biz_name="queryRepairStation" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- 维修工位记录表新增 -->
+	<ifs ifs_code="GW00061" ifs_name="维修工位记录表新增 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertRepairStation" biz_method="" serial_no="1" biz_name="insertRepairStation" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- 根据SN查询得到IPQC与OQC抽检数据 -->
+	<ifs ifs_code="GW00062" ifs_name="根据SN查询得到IPQC与OQC抽检数据  " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="querySnIpqcAndOqc" biz_method="" serial_no="1" biz_name="querySnIpqcAndOqc" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    <!-- IPQC与OQC抽检 FAIL时更新工单条码表BC_STATUS -->
+	<ifs ifs_code="GW00063" ifs_name="IPQC与OQC抽检 FAIL时更新工单条码表BC_STATUS" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateSnIpqcAndOqcBcstatus" biz_method="" serial_no="1" biz_name="updateSnIpqcAndOqcBcstatus" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    <!-- OQC抽检fail时更新OQC主表OQC_STATE为NG -->
+	<ifs ifs_code="GW00064" ifs_name="OQC抽检fail时更新OQC主表OQC_STATE为NG" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateOqcState" biz_method="" serial_no="1" biz_name="updateOqcState" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+	<!-- 维修工位 END -->
+	
+	
+	<!-- 序列循环新增 -->
+    <ifs ifs_code="GW00066" ifs_name="序列循环新增" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">s
+		<Bizes>
+			<ifs_biz biz_code="foreachInsertFunInfo" biz_method="" serial_no="1" biz_name="foreachInsertFunInfo" biz_type="3" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 验证维修时该SN是否可以完成操作 -->
+    <ifs ifs_code="GW00067" ifs_name="验证维修时该SN是否可以完成操作" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">s
+		<Bizes>
+			<ifs_biz biz_code="CheckVerifyThatSnCanBeCompleted" biz_method="" serial_no="1" biz_name="CheckVerifyThatSnCanBeCompleted" biz_type="3" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!--更新生产投入表rout_cd  -->
+	<ifs ifs_code="GW00068" ifs_name="更新生产投入表rout_cd" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateProLotInfos" biz_method="" serial_no="1" biz_name="updateProLotInfos" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+	
+</ifss>

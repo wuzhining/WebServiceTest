@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<engines>
+	<!-- 1.1 数据字典管理 -->
+	<!-- 查询数据字典信息 -->
+	<engine engine_code="queryFrockDevice" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryFrockDevice" >
+	</engine>
+	
+	<!-- 查询供应商下拉 -->
+	<engine engine_code="querySupplierbox" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querySupplierbox" >
+	</engine>
+	
+	<!-- 新增数据字典信息 -->
+	<engine engine_code="insertFrockDevice" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertFrockDevice" >
+	</engine>	
+	
+		<!-- 修改数据字典信息 -->
+	<engine engine_code="updateFrockDevice" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateFrockDevice" >
+	</engine>
+	
+	<!-- 删除数据字典信息 -->
+	<engine engine_code="deleteFrockDevice" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteFrockDevice" >
+	</engine>
+</engines>

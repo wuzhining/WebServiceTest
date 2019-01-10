@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>smt流程列表</title>
+    <link rel="stylesheet" type="text/css" href="../../common/IplantCompent/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../../common/IplantCompent/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="../../common/IplantCompent/Demo/demo.css">
+    <script src="../../common/IplantCompent/jquery.min.js" type="text/javascript"></script>
+    <script src="../../common/IplantCompent/jquery.easyui.min.js" type="text/javascript"></script>
+    <script src="../../common/IplantCommon/DataRequest.js" type="text/javascript"></script>
+    <script src="../../common/IplantCommon/CommonUtil.js" type="text/javascript"></script>
+    <script src="js/smtForm.js" type="text/javascript"></script>
+    <script type="text/javascript"></script>
+</head>
+<body style="padding: 0;margin: 0;">
+	<div style="height:100%;width:100%;" class="easyui-layout" fit='true'>
+    	<div region="center" style="width:100%" style="border:0">
+           <div region='north' id='tb' style="width: auto; height: 30px;background: linear-gradient(rgb(255, 255, 255) 0px, rgba(149, 184, 231, 0.28) 100%);">
+               <table>
+                <tr >
+                	<td>
+                		<a href="#" class="easyui-linkbutton more" iconCls="icon-more" id="btnMore" data-options="plain:true">完成</a>	
+                    	<span id='showMessageInfo' class='divspan' style='width:300px;'></span>
+                    </td>
+                </tr>
+               </table>
+           </div>
+           <form id="smt_form" method="post" style="padding:30px 20px 10px 25px;">
+            <table border="0" id="smt_tab">
+            	<tr style="height: 35px;">
+                    <td align="center" colspan="2"><h2>SMT生产</h2></td>
+                </tr>
+                <tr style="height: 35px;">
+                    <td align="right">条码：</td>
+                    <td>
+                        <input id="barCode" name="barCode" style="width:200px;" class="easyui-textbox" data-options="required:true,missingMessage:'该选项为必填信息'"/>
+                    </td>
+                </tr>
+            </table>
+        </form>
+   		</div>
+	</div>
+</body>
+
+</html>

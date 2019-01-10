@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<engines>
+    <!--获取工厂信息 -->
+	<engine engine_code="getFactoryInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="getFactoryInfo" >
+	</engine>
+    <!--获取工序类型-->
+	<engine engine_code="getProcessType" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="getProcessType" >
+	</engine>
+    <!--获取工序编码-->
+	<engine engine_code="getProcessNo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="getProcessNo" >
+	</engine>
+    <!--获取物料信息-->
+	<engine engine_code="getmaterialInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="getmaterialInfo" >
+	</engine>
+    <!-- 工序BOM装配物料明细增加 -->
+	<engine engine_code="insertBomMaterialDetails" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertBomMaterialDetails" >
+	</engine>
+    <!-- 工序BOM装配物料明细查询 -->
+	<engine engine_code="queryBomMaterialDetails" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryBomMaterialDetails" >
+	</engine>
+     <!-- 工序BOM装配物料明细修改 -->
+	<engine engine_code="updateBomMaterialDetails" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateBomMaterialDetails" >
+	</engine>
+    <!-- 工序BOM删除 -->
+	<engine engine_code="deletezXK_ProcessBom" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deletezXK_ProcessBom" >
+	</engine>
+    <!-- 工序BOM删除并删除字表 -->
+	<engine engine_code="deletezsXK_ProcessBom" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deletezsXK_ProcessBom" >
+	</engine>
+    <!-- 工序BOM修改-->
+	<engine engine_code="updateXK_ProcessBom" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateXK_ProcessBom" >
+	</engine>
+    <!-- 工序BOM装配物料明细删除 -->
+	<engine engine_code="deleteBomMaterialDetails" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteBomMaterialDetails" >
+	</engine>
+    <!-- 工序BOM表查询产品BOM是否存在-->
+	<engine engine_code="queryProcessByProcedNo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryProcessByProcedNo" >
+	</engine>
+	
+	
+</engines>

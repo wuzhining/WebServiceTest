@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="">
+
+	<!-- 德富莱仓库模块 -->
+	<!-- 查找来料入库信息 -->
+	<select id="queryBPMateriaChechIn" parameterType="hashmap" resultType="java.util.HashMap"> 
+	<include refid="oraclePagingFileTop"></include>
+		CHECKIN_ID,CREATER_ID,CREATER_NAME,to_char(CREATE_DATE,'YYYY-MM-DD HH24:MI:SS') CREATE_DATE,CHECKIN_STATUS,CHECKIN_NAME FROM WMS1.WMS_MATERIA_CHECKIN mi where 
+		 <if test="CHECKIN_NAME !=null and CHECKIN_NAME !='' "> CHECKIN_NAME like '%${CHECKIN_NAME}%' AND </if>
+		( mi.checkin_status is null or mi.checkin_status = 'CHK01.01') order by CREATE_DATE DESC   
+	<include refid="oraclePagingFileBottom"></include>
+	</select>
+	
+	<!-- 查找来料入库信息汇总 -->
+	<select id="queryBPMateriaChechIn_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT count(1) rows_count FROM WMS1.WMS_MATERIA_CHECKIN mi where <if test="CHECKIN_NAME !=null and CHECKIN_NAME !='' "> CHECKIN_NAME like '%${CHECKIN_NAME}%' AND </if>(mi.checkin_status is null or mi.checkin_status = 'CHK01.01')
+	</select>
+	
+	<!-- 新增来料入库 -->
+	<insert id="insertBPMateriaChechIn" parameterType="hashmap">
+		INSERT INTO WMS1.WMS_MATERIA_CHECKIN(CHECKIN_ID,CREATER_ID,CREATE_DATE,CHECKIN_STATUS) VALUES('${CHECKIN_ID}','${F_USE_CD}',SYSDATE,'${CHECKIN_STATUS}')
+	</insert>
+	
+	<!-- 更新来料入库 -->
+	<update id="updateBPMateriaChechIn" parameterType="hashmap">
+		UPDATE WMS1.WMS_MATERIA_CHECKIN SET CHECKIN_STATUS = '${CHECKIN_STATUS}' WHERE CHECKIN_ID = '${CHECKIN_ID}'
+	</update>
+	
+	<!-- 删除来料入库 -->
+	<delete id="deleteBPMateriaChechIn" parameterType="hashmap">
+		DELETE WMS1.WMS_MATERIA_CHECKIN WHERE CHECKIN_ID   = '${CHECKIN_ID}'
+	</delete>
+	
+	<!-- 查找来料入库单详情 -->
+	<select id="queryBPMateriaChechInDetail" parameterType="hashmap" resultType="java.util.HashMap"> 
+	<include refid="oraclePagingFileTop"></include>
+		mi.checkin_id,mi.checkin_name,mr.suplier_id,mr.suplier_name,mr.materia_id,mr.materia_name,mr.unit_id,mr.unit_name,mr.warehouse_id,mr.warehouse_name,mr.generate_barcode,mr.checkin_number,mr.checkin_status
+		from wms1.wms_materia_checkin mi left join wms1.wms_meteria_relation mr on mi.checkin_id = mr.checkin_id where mi.checkin_id = '${CHECKIN_ID}'
+	<include refid="oraclePagingFileBottom"></include>
+	</select>
+	
+	<!-- 查找来料入库单详情条目汇总 -->
+	<select id="queryBPMateriaChechInDetail_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+		select count(1) rows_count from wms1.wms_materia_checkin mi left join wms1.wms_meteria_relation mr on mi.checkin_id = mr.checkin_id where mi.checkin_id = '${CHECKIN_ID}'
+	</select>
+	
+	<!-- 新增来料单与物料关联信息 -->
+	<insert id="insertMateriaRelation" parameterType="java.util.List">
+		insert into wms1.WMS_METERIA_RELATION
+		(
+		CHECKIN_ID,
+	    SUPLIER_ID,
+	    SUPLIER_NAME,
+	    MATERIA_ID,
+	    MATERIA_NAME,
+	    CHECKIN_NUMBER,
+	    UNIT_ID,
+	    UNIT_NAME,
+	    WAREHOUSE_ID,
+	    WAREHOUSE_NAME,
+	    GENERATE_BARCODE,
+	    CHECKIN_STATUS
+		)
+		(
+		<foreach collection="list" item="item" index="index" separator="union all">
+			SELECT '${item.CHECKIN_ID}',
+			'${item.SUPLIER_ID}',
+			'${item.SUPLIER_NAME}',
+			'${item.MATERIA_ID}',
+			'${item.MATERIA_NAME}',
+			'${item.CHECKIN_NUMBER}',
+			'${item.UNIT_ID}',
+			'${item.UNIT_NAME}',
+			'${item.WAREHOUSE_ID}',
+			'${item.WAREHOUSE_NAME}',
+			'${item.GENERATE_BARCODE}',
+			'${item.CHECKIN_STATUS}'
+			FROM
+			DUAL
+		</foreach>
+		)
+	</insert>
+	
+	<!-- 删除来料单与物料关联信息 -->
+	<delete id="deleteMateriaRelation" parameterType="hashmap">
+		DELETE WMS1.WMS_METERIA_RELATION WHERE CHECKIN_ID = '${CHECKIN_ID}'
+		<if test="MATERIA_ID!=null and MATERIA_ID!='' "> AND MATERIA_ID='${MATERIA_ID}'</if>
+	</delete>
+	
+	<!-- 查询物料信息 -->
+	<select id="queryBPMateriaInfo" parameterType="hashmap" resultType="java.util.HashMap">
+		<include refid="oraclePagingFileTop"></include>
+		   mn.item_cd, mn.item_nm from mes1.r_mes_item_t mn
+		   <if test="ITEM_NM!=null and ITEM_NM!='' "> where mn.item_nm like '%${ITEM_NM}%'</if>
+		 <include refid="oraclePagingFileBottom"></include>
+	</select>
+	
+	<!-- 查询物料信息汇总 -->
+	<select id="queryBPMateriaInfo_COUNT" parameterType="hashmap">
+		select count(1) as rows_count from mes1.r_mes_item_t mn
+		 <if test="ITEM_NM!=null and ITEM_NM!='' "> where mn.item_nm like '%${ITEM_NM}%'</if>
+	</select>
+	
+	<!-- 查询物料打包信息 -->
+	<select id="queryBPMateriaPack" parameterType="hashmap" resultType="java.util.HashMap">
+		<include refid="oraclePagingFileTop"></include>
+			CHECKIN_ID,MATERIA_ID,MATERIA_NAME,UNIT_ID,UNIT_NAME,PACKAGE_NUMBER,PACKAGE_CAPACITY,BARCODE,IQC_PASSED,CREATE_DATE,CHECKIN_STATUS
+			FROM WMS1.WMS_MATERIA_PACKAGE WHERE CHECKIN_ID = '${CHECKIN_ID}' AND  MATERIA_ID = '${MATERIA_ID}' AND  CHECKIN_STATUS != 'CHK01.07'
+		 <include refid="oraclePagingFileBottom"></include>
+	</select>
+	
+	<!-- 查询物料打包信息汇总 -->
+	<select id="queryBPMateriaPack_COUNT" parameterType="hashmap">
+		SELECT count(1) as rows_count WHERE CHECKIN_ID = '${CHECKIN_ID}' AND  MATERIA_ID = '${MATERIA_ID}' AND  CHECKIN_STATUS != 'CHK01.07'
+	</select>
+	
+	<!-- 插入物料打包信息 -->
+	<insert id="insertBPMateriaPack" parameterType="java.util.List">
+		insert into wms1.WMS_MATERIA_PACKAGE
+		(
+		CHECKIN_ID,
+	    MATERIA_ID,
+	    MATERIA_NAME,
+	    UNIT_ID,
+	    UNIT_NAME,
+	    PACKAGE_NUMBER,
+	    PACKAGE_CAPACITY,
+	    BARCODE,
+	    CREATE_DATE,
+	    CHECKIN_STATUS
+		)
+		(
+		<foreach collection="list" item="item" index="index" separator="union all">
+			SELECT '${item.CHECKIN_ID}',
+			'${item.MATERIA_ID}',
+			'${item.MATERIA_NAME}',
+			'${item.UNIT_ID}',
+			'${item.UNIT_NAME}',
+			'${item.PACKAGE_NUMBER}',
+			'${item.PACKAGE_CAPACITY}',
+			'${item.BARCODE}',
+			SYSDATE,
+			'CHK01.02'
+			FROM
+			DUAL
+		</foreach>
+		)
+	</insert>
+	
+	<!-- 删除物料打包信息 -->
+	<delete id="deleteBPMateriaPack" parameterType="hashmap">
+		DELETE FROM WMS1.WMS_MATERIA_PACKAGE WHERE CHECKIN_ID   = '${CHECKIN_ID}'
+		<if test="MATERIA_ID!=null and MATERIA_ID!='' "> AND MATERIA_ID = '${MATERIA_ID}'</if>
+	</delete>
+
+	<!-- 根据物料号生成条码数据 -->
+	<select id="generateMeteriaPackageBarcode" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT IPLANT1.Generate_Materia_Barcode('${TOTALNUMBER}', '${CAPACITY}') AS BARCODE FROM DUAL
+	</select>
+	
+	<resultMap id="messageDetails" type="java.util.HashMap">
+			<result property="MESSAGE" column="MESSAGE"/>
+	</resultMap>
+	
+	<resultMap id="checkInResult" type="java.util.HashMap">
+			<result property="MESSAGE" column="MESSAGE"/>
+			<result property="BARCODE" column="BARCODE"/>
+			<result property="WAREHOUSENAME" column="WAREHOUSENAME"/>
+			<result property="PACKAGECAPACITY" column="PACKAGECAPACITY"/>
+			<result property="MATERIAID" column="MATERIAID"/>
+			<result property="MATERIANAME" column="MATERIANAME"/>
+	</resultMap>
+	
+	<!-- 物料包扫描入库 -->
+	<select id="materiaPackagePDACheckIn" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap">
+		{call BP_MATERIA_PACKAGE.materia_package_checkin('${BARCODE}',
+					#{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=checkInResult},
+    				#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, 
+    				#{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},
+    				#{ROWS_COUNT,jdbcType=INTEGER,mode=OUT,javaType=Integer})}
+	</select>
+	
+	<!-- 删除来料数据  参数DELETE_TABLE 1 是删除来料录入表及其关联数据 2是删除来料与物料关联关系表级物料打包表-->
+	<select id="materiaPackageInfoDeleted" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap">
+		{call BP_MATERIA_PACKAGE.materia_info_delete('${CHECKIN_ID}','${MATERIA_ID}','${DELETE_TABLE}',
+					#{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=messageDetails},
+    				#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, 
+    				#{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},
+    				#{ROWS_COUNT,jdbcType=INTEGER,mode=OUT,javaType=Integer})}
+	</select>
+	
+	<!-- 添加来料与物料关联信息存储过程添加 -->
+	<select id="addMateriaRelationByProc" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap">
+		{call BP_MATERIA_PACKAGE.materia_relation_add('${CREATOR_ID}', '${CHECKIN_ID}', '${CHECKIN_NAME}', '${SUPLIER_ID}', '${SUPLIER_NAME}',
+					'${MATERIA_ID}', '${MATERIA_NAME}', '${CHECKIN_NUMBER}', '${UNIT_ID}', '${UNIT_NAME}', '${WAREHOUSE_ID}', '${WAREHOUSE_NAME}',
+					#{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=messageDetails},
+    				#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, 
+    				#{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},
+    				#{ROWS_COUNT,jdbcType=INTEGER,mode=OUT,javaType=Integer})}
+	</select>
+	
+	<!-- 添加物料打包数据存储过程添加 -->
+	<select id="addMateriaPackageByProc" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap">
+		{call BP_MATERIA_PACKAGE.materia_package_add('${CHECKIN_ID}','${MATERIA_ID}', '${MATERIA_NAME}', '${CHECKIN_NUMBER}',
+					'${UNIT_ID}', '${UNIT_NAME}', '${PACKAGECAPACITY}', '${BARCODE}',
+					#{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=messageDetails},
+    				#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, 
+    				#{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},
+    				#{ROWS_COUNT,jdbcType=INTEGER,mode=OUT,javaType=Integer})}
+	</select>
+	
+	<!-- 添加物料包出库拆包的数据存储过程添加 -->
+	<select id="materiaUnpackingByProc" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap">
+		{call BP_MATERIA_PACKAGE.materia_package_checkout('${BARCODE}','${CHECK_OUT_NUMBER}',
+					#{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=messageDetails},
+    				#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, 
+    				#{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},
+    				#{ROWS_COUNT,jdbcType=INTEGER,mode=OUT,javaType=Integer})}
+	</select>
+
+	<!-- 查询出检测数据  -->
+	<select id="queryPack" parameterType="hashmap" resultType="java.util.HashMap">
+		<include refid="oraclePagingFileTop"></include>
+			CHECKIN_ID,MATERIA_ID,MATERIA_NAME,UNIT_ID,UNIT_NAME,PACKAGE_NUMBER,BARCODE,IQC_PASSED,CREATE_DATE,UPDATE_DATE,PACKAGE_CAPACITY,CHECKIN_STATUS FROM wms1.WMS_MATERIA_PACKAGE where CHECKIN_STATUS='ENT01.02'
+			<if test="BARCODE!=null and BARCODE!=''"> and BARCODE='${BARCODE}'</if>
+		 <include refid="oraclePagingFileBottom"></include>
+	</select>
+	
+	<select id="queryPack_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+		select count(1) AS rows_count FROM wms1.WMS_MATERIA_PACKAGE where CHECKIN_STATUS='ENT01.02'
+		<if test="BARCODE!=null and BARCODE!=''"> and BARCODE='${BARCODE}'</if>
+	</select>
+	
+	<!-- 修改检测数据   -->
+	<update id="updatePack" parameterType="hashmap">
+		update wms1.WMS_MATERIA_PACKAGE set 
+		<if test="CHECKIN_STATUS !=null and CHECKIN_STATUS!=''"> CHECKIN_STATUS='${CHECKIN_STATUS}',</if>
+		<if test="PACKAGE_CAPACITY!=null and PACKAGE_CAPACITY!=''"> PACKAGE_CAPACITY = '${PACKAGE_CAPACITY}'</if>
+		where BARCODE='${BARCODE}'
+	</update>
+	<!-- 修改检测数据   -->
+	<update id="updaterelation" parameterType="hashmap">
+		update wms1.wms_meteria_relation set CHECKIN_STATUS='${CHECKIN_STATUS}' where CHECKIN_ID='${CHECKIN_ID}' and materia_id='${materia_id}'
+	</update>
+	
+	<!-- 查找补打条码数据 -->
+	<select id="queryPrintedBarcode" parameterType="hashmap" resultType="java.util.HashMap">
+		<include refid="oraclePagingFileTop"></include>
+			ch.checkin_id,ch.checkin_name,pk.materia_id,pk.materia_name,pk.unit_id,pk.unit_name,pk.package_number,pk.package_capacity,pk.barcode,
+		       case pk.checkin_status
+		         when 'CHK01.02' then '待质检'
+		         when 'CHK01.03' then '质检合格' end as checkin_status
+			from wms1.wms_materia_checkin ch left join wms1.wms_materia_package pk on ch.checkin_id = pk.checkin_id where pk.checkin_status in ('CHK01.02', 'CHK01.03')
+			<if test="CHECKIN_ID !=null and CHECKIN_ID != ''"> and ch.checkin_id='${CHECKIN_ID}'</if>
+			<if test="CHECKIN_NAME !=null and CHECKIN_NAME != ''"> and ch.checkin_name like '%${CHECKIN_NAME}%'</if>
+			<if test="BARCODE !=null and BARCODE != ''"> and pk.barcode like '%${BARCODE}%'</if>
+		 <include refid="oraclePagingFileBottom"></include>
+	</select>
+	
+	<!-- 查找补打条码数据数据汇总 -->
+	<select id="queryPrintedBarcode_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+		select count(1) as rows_count from wms1.wms_materia_checkin ch left join wms1.wms_materia_package pk on ch.checkin_id = pk.checkin_id where pk.checkin_status in ('CHK01.02', 'CHK01.03')
+		<if test="CHECKIN_ID !=null and CHECKIN_ID != ''"> and ch.checkin_id='${CHECKIN_ID}'</if>
+		<if test="CHECKIN_NAME !=null and CHECKIN_NAME != ''"> and ch.checkin_name like '%${CHECKIN_NAME}%'</if>
+	</select>
+	
+	<!-- 成品仓agv调度出入库查询 -->
+	<select id="agvProductSearch" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT 'WMS_BP00024' as WMS_ID,CP_ID,WAREHOUSE_ID,WAREHOUSE_NAME,SHELF_ID,SHELF_NAME,POSITION_ID,POSITION_NAME,ROW_ID,COLUMN_ID,M_BARCODE,DIRECT,OPERATE_STATUS,CRT_ID,CRT_TIME,AGV_ID FROM WMS1.WMS_COM_PRODUCT WHERE OPERATE_STATUS	='0' ORDER BY CRT_TIME ASC
+	</select>
+	
+	<!-- 成品仓agv调度出入库更新   -->
+	<update id="agvProductUpdate" parameterType="hashmap">
+		UPDATE WMS1.WMS_COM_PRODUCT SET OPERATE_STATUS='${OPERATE_STATUS}' WHERE CP_ID='${CP_ID}'
+	</update>
+	
+	<!-- 立库堆垛机状态   -->
+	<insert id="wmsComMstatusInsert" parameterType="hashmap">
+		INSERT INTO WMS1.WMS_COM_MSTATUS(CM_ID,S_SPEED,C_SPEED,M_SPEED,M_POSITION,UP_TIME) VALUES(SYS_GUID(),'${S_SPEED}','${C_SPEED}','${M_SPEED}','${M_POSITION}',sysdate)
+	</insert>
+	
+	<!-- 立库堆垛机状态 -->
+	<select id="wmsComMstatusSearch" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT * FROM (SELECT 'WMS_BP00026' as WMS_ID,CM_ID,S_SPEED,C_SPEED,M_SPEED,M_POSITION,UP_TIME FROM WMS1.WMS_COM_MSTATUS ORDER BY CRT_TIME desc) WHERE ROWNUM =1
+	</select>
+	
+	<!-- 成品仓库位初始化 -->
+	<select id="wmsComProductSearch" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap">
+		{call MM_VENDOR_DELIVERY.mm_product_initlist(#{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=checkInResult},
+    				#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, 
+    				#{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},
+    				#{ROWS_COUNT,jdbcType=INTEGER,mode=OUT,javaType=Integer})}
+	</select>
+	
+	<!-- 成品仓入库演示 -->
+	<select id="wmsComProductShowin" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap">
+		{call MM_VENDOR_DELIVERY.mm_product_showin(#{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=checkInResult},
+    				#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, 
+    				#{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},
+    				#{ROWS_COUNT,jdbcType=INTEGER,mode=OUT,javaType=Integer})}
+	</select>
+	
+	<!-- 成品仓出库演示 -->
+	<select id="wmsComProductShowout" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap">
+		{call MM_VENDOR_DELIVERY.mm_product_showout(#{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=checkInResult},
+    				#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, 
+    				#{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},
+    				#{ROWS_COUNT,jdbcType=INTEGER,mode=OUT,javaType=Integer})}
+	</select>
+</mapper>

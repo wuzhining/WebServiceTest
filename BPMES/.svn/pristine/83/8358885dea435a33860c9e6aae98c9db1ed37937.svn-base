@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="">
+	<!--<select id="queryScadaDip" parameterType="hashmap" resultType="java.util.HashMap">
+	 <where>1=1
+	</where> 
+	SELECT * FROM SCADA_DFLDIP
+	</select>-->
+	<!--
+	<parameterMap type="map" id="resultMap">
+    <parameter property="insertCell" jdbcType="INTEGER" mode="IN"/>
+    <parameter property="throwCell" jdbcType="INTEGER" mode="IN"/>
+    <parameter property="takeCell" jdbcType="INTEGER" mode="OUT"/>
+    <parameter property="throwCell" jdbcType="INTEGER" mode="OUT"/>
+	 {call MES1.P_GET_SCADA_CELLS_TOTAL(#{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=screenMonitorTotMap},#{nullCell,mode=OUT,jdbcType=VARCHAR,javaType=String},#{insertCell,mode=OUT,jdbcType=VARCHAR,javaType=String},#{throwCell,mode=OUT,jdbcType=VARCHAR,javaType=String},#{takeCell,mode=OUT,jdbcType=VARCHAR,javaType=String})}
+  </parameterMap>-->
+	<select id="queryScadaDip" parameterType="java.util.HashMap"  statementType="CALLABLE"  resultType="java.util.HashMap">
+	 {call MES1.P_GET_SCADA_CELLS_TOTAL('${USEMETHOD}',#{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=screenMonitorTotMap})}
+	</select> 
+	
+	<select id="queryScadaDipCellsTotal" parameterType="hashmap" resultType="java.util.HashMap">
+	select t.Acctime,sum(t.paramvalue) total from(
+              select sd.paramvalue,sd.paramname,to_char(sysdate,'yyyy-MM-dd') as Acctime
+              from scada_dfldip sd
+	 <where>1=1
+	</where> 
+              and sd.paramname='TotalCount' 
+              and to_date(substr(sd.uploadtime,1,19),'yyyy-MM-dd hh24:mi:ss') between to_date('${STARTDATE}','yyyy-MM-dd hh24:mi:ss') and to_date('${ENDDATE}' ,'yyyy-MM-dd hh24:mi:ss') ) t
+            group by (t.Acctime)
+	</select>
+	
+	<select id="queryScadaDipMaterialTotal" parameterType="hashmap" resultType="java.util.HashMap">
+	
+	select * from (
+        select sd.paramvalue,sd.paramname,sd.paramdesc,sd.uploadtime ,to_char(sysdate,'yyyy-MM-dd') as Atime
+        from scada_dfldip sd
+	 <where>1=1
+	</where> 
+		and to_date(substr(sd.uploadtime,1,19),'yyyy-MM-dd hh24:mi:ss') between to_date('${STARTDATE}','yyyy-MM-dd hh24:mi:ss')
+	    and to_date('${ENDDATE}' ,'yyyy-MM-dd hh24:mi:ss')
+	    and sd.paramname in('InsertCell','NullCell','ThrowCell','TakeCell')
+	    order by sd.uploadtime desc)
+	    where rownum between 1 and 5 
+	</select>
+</mapper>

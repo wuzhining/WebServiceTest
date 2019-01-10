@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>投入工位01</title>
+		<link rel="stylesheet" type="text/css" href="../../../common/IplantCompent/themes/default/easyui.css">
+		<link rel="stylesheet" type="text/css" href="../../../common/IplantCompent/themes/icon.css">
+		<link rel="stylesheet" type="text/css" href="../../../common/IplantCompent/Demo/demo.css">
+		<script src="../../../common/IplantCompent/jquery.min.js" type="text/javascript"></script>
+		<script src="../../../common/IplantCompent/jquery.easyui.min.js" type="text/javascript"></script>
+		<script src="../../../common/IplantCommon/DataRequest.js" type="text/javascript"></script>
+		<script src="../../../common/IplantCommon/CommonUtil.js" type="text/javascript"></script>
+		<script src="js/BoxLabelRerelease.js" type="text/javascript"></script>
+		<script type="text/javascript">
+		</script>
+		<meta charset="utf-8" />
+	</head>
+
+	<body style="padding: 0; margin: 0;">
+		<div style="height:100%;width:100%;" class="easyui-layout" fit="true">
+			<div region="north" style="height:145px">
+				<div style="width: auto; height: 30px;background: linear-gradient(rgb(255, 255, 255) 0px, rgba(149, 184, 231, 0.28) 100%);">
+					<table>
+						<tr>
+							<td>箱号：</td>
+							<td>
+								<input id="search_MaterialBOX_ID" name="postingdate" style="width: 160px;" class="easyui-textbox" />
+							</td>
+						</tr>
+					</table>
+				</div>
+				<form id="fmStation" method="post" style="padding:0px 20px 10px 0px;height:112px">
+					<div style="margin-top:5px;width:845px;height:25px;background-color:#ECF2FB;border:1px solid #95B8E7; border-bottom:none;line-height: 25px;border-top-left-radius:8px;border-top-right-radius:8px;">
+	  					<span style="color:#2F8CFE"><strong>箱子信息</strong></span>
+	  					<span id='showMessageInfo' class='divspan' style='width:300px;'></span>
+	  					<span style="float:right"><a id="Rerelease" href="#" class="easyui-linkbutton" style="width:auto;" id="btnSearch" iconCls="icon-add" data-options="plain:true">再发行</a></span>
+	 		 		</div>
+					<div style="width:845px;border:2px solid #ECECEC">
+						<table border="0" cellspacing="5" cellpadding="0" style="height: auto;border-collapse:separate;border-spacing:10px;">
+							<tr>
+								<td style="text-align:right;background-color:#F3F3EF"> 作业指示编号:</td>
+								<td>
+									<input id="InstructionsNumber" name="postingdate" style="width: 160px;" class="easyui-textbox" disabled="disabled" />
+								</td>
+								<td style="text-align:right;background-color:#F3F3EF">箱号:</td>
+								<td>
+									<input id="BoxCode" name="postingdate" style="width: 160px;" class="easyui-textbox" disabled="disabled" />
+								</td>
+								<td style="text-align:right;background-color:#F3F3EF">工厂名称:</td>
+								<td>
+									<input id="FactoryCode" name="postingdate" style="width:160px;" class="easyui-textbox" disabled="disabled" />
+								</td>
+							</tr>
+							<tr>	
+								<td style="text-align:right;background-color:#F3F3EF"> 物料编码:</td>
+								<td>
+									<input id="MaterialCode" name="postingdate" style="width: 160px;" class="easyui-textbox" disabled="disabled" />
+								</td>
+								<td style="text-align:right;background-color:#F3F3EF">拉线名称:</td>
+								<td>
+									<input id="wireCode" name="postingdate" style="width:160px;" class="easyui-textbox" disabled="disabled" />
+								</td>
+								<td style="text-align:right;background-color:#F3F3EF">车间名称:</td>
+								<td>
+									<input id="ProcessRoute" name="postingdate" style="width: 160px;" class="easyui-textbox" disabled="disabled" />
+								</td>
+							</tr>
+						</table>
+					</div>	
+				 </form>	
+			</div>
+								
+		    <div region="center">
+				<div style="margin-top:10px;width:100%;height:25px;background-color:#ECF2FB;border:1px solid #95B8E7; border-bottom:none;line-height: 25px;border-top-left-radius:8px;border-top-right-radius:8px;">
+					<span><strong style="color:#2F8CFE;">再生成箱号信息</strong></span>
+		 		</div>
+				<table style="height:auto;max-height:95%" id="BoxLabelRerelease_tab" class='easyui-datagrid' rownumbers="true">
+	           	</table>
+            </div>	 
+		</div>
+	</body>
+
+</html>

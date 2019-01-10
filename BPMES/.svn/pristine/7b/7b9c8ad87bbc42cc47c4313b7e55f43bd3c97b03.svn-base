@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ifss>
+    <!-- ==============================质量管理============================= -->
+    <!-- =============OQC抽检比例维护=========== -->
+    <!-- 查询抽检信息 -->
+    <ifs ifs_code="Q000001" ifs_name="查询抽检信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="querySamplingProportion" biz_method="" serial_no="1" biz_name="querySamplingProportion" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 新增抽检信息 -->
+	<ifs ifs_code="Q000002" ifs_name="新增抽检信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertSamplingProportion" biz_method="" serial_no="1" biz_name="insertSamplingProportion" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 修改抽检信息 -->
+	<ifs ifs_code="Q000003" ifs_name="修改抽检信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateSamplingProportion" biz_method="" serial_no="1" biz_name="updateSamplingProportion" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 删除抽检信息 -->
+	<ifs ifs_code="Q000004" ifs_name="删除抽检信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteSamplingProportion" biz_method="" serial_no="1" biz_name="deleteSamplingProportion" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- ===============抽检项目维护=========== -->
+	<!-- 查询抽检项目信息 -->
+	<ifs ifs_code="Q000005" ifs_name="查询抽检项目信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="querySamplingProject" biz_method="" serial_no="1" biz_name="querySamplingProject" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 新增抽检项目信息 -->
+	<ifs ifs_code="Q000006" ifs_name="新增抽检项目信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertSamplingProject" biz_method="" serial_no="1" biz_name="insertSamplingProject" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 修改抽检项目信息 -->
+	<ifs ifs_code="Q000007" ifs_name="修改抽检项目信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateSamplingProject" biz_method="" serial_no="1" biz_name="updateSamplingProject" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 删除抽检项目信息 -->
+	<ifs ifs_code="Q000008" ifs_name="删除抽检项目信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteSamplingProject" biz_method="" serial_no="1" biz_name="deleteSamplingProject" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 查询抽检项目树结构信息 -->
+	<ifs ifs_code="Q000009" ifs_name="查询抽检项目树结构信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="querySamplingProjectTree" biz_method="" serial_no="1" biz_name="querySamplingProjectTree" biz_type="3" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 查询抽检项目顶层架构 -->
+	<ifs ifs_code="Q000015" ifs_name="查询抽检项目顶层架构" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="querySamplingProjectTop" biz_method="" serial_no="1" biz_name="querySamplingProjectTop" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 查询工序 -->
+	<ifs ifs_code="Q000023" ifs_name="查询工序" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryWorkingProcedure" biz_method="" serial_no="1" biz_name="queryWorkingProcedure" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 新增抽检项目顶层架构 -->
+	<ifs ifs_code="Q000010" ifs_name="新增抽检项目顶层架构" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertSamplingProjectTop" biz_method="" serial_no="1" biz_name="insertSamplingProjectTop" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 修改抽检项目顶层架构 -->
+	<ifs ifs_code="Q000016" ifs_name="修改抽检项目顶层架构" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateSamplingProjectTop" biz_method="" serial_no="1" biz_name="updateSamplingProjectTop" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 删除抽检项目顶层架构 -->
+	<ifs ifs_code="Q000017" ifs_name="删除抽检项目顶层架构" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteSamplingProjectTop" biz_method="" serial_no="1" biz_name="deleteSamplingProjectTop" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- ==============Q-HOLD功能=============== -->
+	<!-- 查询Q-HOLD功能信息 -->
+	<ifs ifs_code="Q000011" ifs_name="查询Q-HOLD功能信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryQ-HOLDFunction" biz_method="" serial_no="1" biz_name="queryQ-HOLDFunction" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 查询Q-HOLD类型信息 -->
+	<ifs ifs_code="Q000018" ifs_name="查询Q-HOLD类型信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryQ-HOLDType" biz_method="" serial_no="1" biz_name="queryQ-HOLDType" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 新增Q-HOLD功能信息 -->
+	<ifs ifs_code="Q000012" ifs_name="新增Q-HOLD功能信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertQ-HOLDFunction" biz_method="" serial_no="1" biz_name="insertQ-HOLDFunction" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 修改Q-HOLD功能信息 -->
+	<ifs ifs_code="Q000013" ifs_name="修改Q-HOLD功能信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateQ-HOLDFunction" biz_method="" serial_no="1" biz_name="updateQ-HOLDFunction" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 删除Q-HOLD功能信息 -->
+	<ifs ifs_code="Q000014" ifs_name="删除Q-HOLD功能信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteQ-HOLDFunction" biz_method="" serial_no="1" biz_name="deleteQ-HOLDFunction" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 查询Q-HOLD时间段信息 -->
+	<ifs ifs_code="Q000019" ifs_name="查询Q-HOLD时间段信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryQ-HOLDTime" biz_method="" serial_no="1" biz_name="queryQ-HOLDTime" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 新增Q-HOLD时间段信息 -->
+	<ifs ifs_code="Q000020" ifs_name="新增Q-HOLD时间段信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertQ-HOLDTime" biz_method="" serial_no="1" biz_name="insertQ-HOLDTime" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 修改Q-HOLD时间段信息 -->
+	<ifs ifs_code="Q000021" ifs_name="修改Q-HOLD时间段信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateQ-HOLDTime" biz_method="" serial_no="1" biz_name="updateQ-HOLDTime" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 删除Q-HOLD时间段信息-->
+	<ifs ifs_code="Q000022" ifs_name="删除Q-HOLD时间段信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteQ-HOLDTime" biz_method="" serial_no="1" biz_name="deleteQ-HOLDTime" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	
+	<!-- 查询QC不良组信息表 -->
+	<ifs ifs_code="Q000025" ifs_name="查询QC不良组信息表 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryQCbadGroup" biz_method="" serial_no="1" biz_name="queryQCbadGroup" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 新增QC不良组信息表 -->
+	<ifs ifs_code="Q000026" ifs_name="新增QC不良组信息表 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertQCbadGroup" biz_method="" serial_no="1" biz_name="insertQCbadGroup" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 修改QC不良组信息表 -->
+	<ifs ifs_code="Q000027" ifs_name="修改QC不良组信息表 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateQCbadGroup" biz_method="" serial_no="1" biz_name="updateQCbadGroup" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 删除QC不良组信息表 -->
+	<ifs ifs_code="Q000028" ifs_name="删除QC不良组信息表 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteQCbadGroup" biz_method="" serial_no="1" biz_name="deleteQCbadGroup" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	
+	<!-- 查询QC不良信息明细表 -->
+	<ifs ifs_code="Q000029" ifs_name="查询QC不良信息明细表 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryQCbadGroupDetailed" biz_method="" serial_no="1" biz_name="queryQCbadGroupDetailed" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 新增QC不良信息明细表 -->
+	<ifs ifs_code="Q000030" ifs_name="新增QC不良信息明细表 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertQCbadGroupDetailed" biz_method="" serial_no="1" biz_name="insertQCbadGroupDetailed" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 修改QC不良信息明细表 -->
+	<ifs ifs_code="Q000031" ifs_name="修改QC不良信息明细表 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateQCbadGroupDetailed" biz_method="" serial_no="1" biz_name="updateQCbadGroupDetailed" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 删除QC不良信息明细表 -->
+	<ifs ifs_code="Q000032" ifs_name="删除QC不良信息明细表 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteQCbadGroupDetailed" biz_method="" serial_no="1" biz_name="deleteQCbadGroupDetailed" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	
+	
+	
+	
+	
+</ifss>

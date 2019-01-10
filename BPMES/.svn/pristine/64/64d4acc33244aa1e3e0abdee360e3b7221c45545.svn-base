@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <script type="text/javascript">
+    </script>
+    <link rel="stylesheet" type="text/css" href="../../../common/IplantCompent/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../../../common/IplantCompent/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="../../../common/IplantCompent/Demo/demo.css">
+    <script src="../../../common/IplantCompent/jquery.min.js" type="text/javascript"></script>
+    <script src="../../../common/IplantCompent/jquery.easyui.min.js" type="text/javascript"></script>
+    <script src="../../../common/IplantCommon/CommonUtil.js" type="text/javascript"></script>
+    <script src="../../../common/IplantCommon/DataRequest.js" type="text/javascript"></script>
+    <script src="../../../common/IplantCommon/OutPutExcel.js" type="text/javascript"></script>
+    <script src="js/WarehouseStock.js" type="text/javascript"></script>
+    <meta charset="utf-8" />
+</head>
+<body style="padding: 0;margin: 0;">
+    <div style="height:100%;width:100%" class="easyui-layout" fit="true">
+             <div region='north' id='tbsearch' style="width: auto; height: 30px;background: linear-gradient(rgb(255, 255, 255) 0px, rgba(149, 184, 231, 0.28) 100%);overflow:hidden;">
+               <table>
+                  <tr>
+                    <td align="center" valign="center">唯一码：</td>
+                    <td align="center" valign="center">
+                      <input id="querybarcode" name="postingdate" style="width: 200px;" class="easyui-textbox"/>
+                    </td>
+                   <td>
+                     <a href="#" class="easyui-linkbutton" iconCls="icon-search" id="btnSearch" data-options="plain:true">查询</a>
+<!--                      <a href="#" class="easyui-linkbutton" iconCls="icon-print"  id="btnExprt"  data-options="plain:true">导出</a> -->
+                   </td>
+                 </tr>   
+              </table>
+        </div>
+        <div data-options="region:'center'">
+            		<table id="WarehouseStock_tab" class='easyui-datagrid' rownumbers="true" ></table>
+         </div>
+    </div>
+</body>
+</html>

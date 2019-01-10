@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<engines>
+	<!-- A.2 基础资料管理 -->
+    <!-- A2.1.1 仓库类别信息 -->
+	<!-- 查询仓库类别 -->
+	<engine engine_code="" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="" >
+	</engine>
+	
+	<!-- 新增仓库信息 -->
+	<engine engine_code="productWarehouseInfoInsert" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="productWarehouseInfoInsert" ></engine>
+	
+	<!-- 查询成品仓库配置信息 -->
+	<engine engine_code="queryProductWarehouseInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryProductWarehouseInfo" ></engine>
+	
+	<!-- 修改成品仓库配置信息 -->
+	<engine engine_code="UpdateWareHouseInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="UpdateWareHouseInfo" ></engine>
+	
+	<!-- 删除成品仓库配置信息 -->
+	<engine engine_code="DeleteWareHouseInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="DeleteWareHouseInfo" ></engine>
+	
+	<!-- ============================================================================================================================================================== -->	
+	<!-- 出货方式模块 -->
+	
+	<!-- 新增出货方式信息 -->
+	<engine engine_code="deliveryModeInfoInsert" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deliveryModeInfoInsert" ></engine>
+	
+	<!-- 查询出货方式信息 -->
+	<engine engine_code="queryDeliveryModeInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryDeliveryModeInfo" ></engine>
+	
+	<!-- 修改出货方式信息 -->
+	<engine engine_code="UpdateDeliveryModeInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="UpdateDeliveryModeInfo" ></engine>
+	
+	<!-- 删除出货方式信息 -->
+	<engine engine_code="DeleteDeliveryModeInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="DeleteDeliveryModeInfo" ></engine>
+	
+	
+    <!-- ============================================================================================================================================================== -->	
+	<!-- 紧急物料配置清单模块 -->
+	
+	<!-- 新增紧急物料配置清单信息 -->
+	<engine engine_code="InsertEmergencyMaterial" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="InsertEmergencyMaterial" ></engine>
+	
+	<!-- 查询紧急物料配置清单信息 -->
+	<engine engine_code="QueryEmergencyMaterial" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="QueryEmergencyMaterial" ></engine>
+	
+		<!-- 查询紧急物料配置清单信息 -->
+	<engine engine_code="queryEmergencyMaterial_checkRepeat" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryEmergencyMaterial_checkRepeat" ></engine>
+	
+	
+	<!-- 修改紧急物料配置清单信息 -->
+	<engine engine_code="UpdateEmergencyMaterial" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="UpdateEmergencyMaterial" ></engine>
+	
+	<!-- 删除紧急物料配置清单信息 -->
+	<engine engine_code="DeleteEmergencyMaterial" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="DeleteEmergencyMaterial" ></engine>
+	
+ <!-- ============================================================================================================================================================== -->	
+	<!-- 交易类型清单信息模块 -->
+	
+		<!-- 新增交易类型清单信息 -->
+	<engine engine_code="InsertTransactionTypeList" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="InsertTransactionTypeList" ></engine>
+	
+	<!-- 查询交易类型清单信息 -->
+	<engine engine_code="QueryTransactionTypeList" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="QueryTransactionTypeList" ></engine>
+		
+	<!-- 修改交易类型清单信息 -->
+	<engine engine_code="UpdateTransactionTypeList" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="UpdateTransactionTypeList" ></engine>
+	
+     <!-- 删除交易类型清单信息 -->
+	<engine engine_code="DeleteTransactionTypeList" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="DeleteTransactionTypeList" ></engine>
+		
+	<!-- 查询交易类型清单信息校验重复数据 -->
+	<engine engine_code="queryTransactionTypeList_checkRepeat" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryTransactionTypeList_checkRepeat" ></engine>
+	
+	<!-- ============================================================================================================================================================== -->	
+	<!-- 仓库配置列表信息模块 -->
+	
+		<!-- 新增仓库配置列表信息 -->
+	<engine engine_code="InsertWarehouseConfiglist" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="InsertWarehouseConfiglist" ></engine>
+	
+	<!-- 查询仓库配置列表信息 -->
+	<engine engine_code="QueryWarehouseConfiglist" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="QueryWarehouseConfiglist" ></engine>
+		
+	<!-- 修改仓库配置列表信息 -->
+	<engine engine_code="UpdateWarehouseConfiglist" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="UpdateWarehouseConfiglist" ></engine>
+	
+     <!-- 删除仓库配置列表信息 -->
+	<engine engine_code="DeleteWarehouseConfiglist" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="DeleteWarehouseConfiglist" ></engine>
+		
+	<!-- 查询仓库配置列表信息校验重复数据 -->
+	<engine engine_code="queryWarehouseConfiglist_checkRepeat" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryWarehouseConfiglist_checkRepeat" ></engine>
+	
+	
+	<!-- ============================================================================================================================================================== -->	
+	<!-- IQC检验配置列表模块 -->
+	
+	<!-- 新增IQC检验配置列表信息 -->
+	<engine engine_code="InsertIQCcheckConfiglist" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="InsertIQCcheckConfiglist" ></engine>
+	
+	<!-- 查询IQC检验配置列表信息 -->
+	<engine engine_code="QueryIQCcheckConfiglist" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="QueryIQCcheckConfiglist" ></engine>
+		
+	<!-- 修改IQC检验配置列表信息 -->
+	<engine engine_code="UpdateIQCcheckConfiglist" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="UpdateIQCcheckConfiglist" ></engine>
+	
+     <!-- 删除IQC检验配置列表信息 -->
+	<engine engine_code="DeleteIQCcheckConfiglist" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="DeleteIQCcheckConfiglist" ></engine>
+		
+	<!-- 查询IQC检验配置列表校验重复数据 -->
+	<engine engine_code="queryIQCcheckConfiglist_checkRepeat" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryIQCcheckConfiglist_checkRepeat" ></engine>
+	
+	
+	
+<!-- ============================================================================================================================================================== -->	
+<!-- 供应商配置列表模块 -->
+	
+	<!-- 新增供应商配置列表信息  --> 
+	<engine engine_code="InsertMaterialSupplierConfig" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="InsertMaterialSupplierConfig" ></engine>
+	
+	<!-- 查询供应商配置列表信息 -->
+	<engine engine_code="QueryMaterialSupplierConfig" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="QueryMaterialSupplierConfig" ></engine>
+		
+	<!-- 修改供应商配置列表信息 -->
+	<engine engine_code="UpdateMaterialSupplierConfig" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="UpdateMaterialSupplierConfig" ></engine>
+	
+    <!-- 删除供应商配置列表信息 -->
+	<engine engine_code="DeleteMaterialSupplierConfig" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="DeleteMaterialSupplierConfig" ></engine>
+		
+     <!-- 查询供应商配置列表校验重复数据 -->
+	<engine engine_code="QueryMaterialSupplierConfig_checkRepeat" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="QueryMaterialSupplierConfig_checkRepeat" ></engine>
+	
+	
+	
+</engines>

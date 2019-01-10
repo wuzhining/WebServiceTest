@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<podiums>
+	<podium podium_code="search_MaintenanceReasonFramework"  podium_name="维修原因树结构 " podium_class="com.iPlant.mes.common.ImesTreeNode" podium_method="maintenanceReason" attr1="" attr2=""/>
+	
+	<podium podium_code="search_FaultCodeFramework"  podium_name="故障代码树结构 " podium_class="com.iPlant.mes.common.ImesTreeNode" podium_method="faultCodeFramework" attr1="" attr2=""/>
+	
+	<podium podium_code="queryMaintenanceMethodsTree"  podium_name="维修方法树结构 " podium_class="com.iPlant.mes.common.ImesTreeNode" podium_method="maintenanceMethodsTreeExecute" attr1="" attr2=""/>
+	
+	<podium podium_code="queryDefectcodeTree"  podium_name="缺陷代码树结构 " podium_class="com.iPlant.mes.common.ImesTreeNode" podium_method="DefectcodeTreeTreeExecute" attr1="" attr2=""/>
+
+	<!--序列循环新增  -->
+	<podium podium_code="foreachInsertFunInfo"  podium_name="维修原因树结构 " podium_class="com.iPlant.mes.common.ForeachInsertFun" podium_method="foreachList" attr1="" attr2=""/>
+
+</podiums>

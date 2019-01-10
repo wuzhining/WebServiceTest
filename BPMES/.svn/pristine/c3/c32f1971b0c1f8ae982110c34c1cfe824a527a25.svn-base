@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>大屏幕监视SMT</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <script src="js/jquery-1.11.2.min.js"></script>
+	<script src="js/jquery.dialogBox.js"></script>
+	<script src="js/jquery.cookie.js"></script>
+    <script src="js/echarts.min.js"></script>
+    <script src="scripts/TimeObjectUtil.js"></script>
+    <script src="js/screen.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/jquery.dialogbox.css">
+    <script type="text/javascript">
+    </script>
+  </head>
+  <body style="margin:0px;width:100%;height:100%;border:0px solid #000000;overflow: hidden" >
+       <div style=" width:60%; height:4%;overflow: hidden; margin:5px auto; border:0px solid #000000">
+	  	<p style="float:left;matgin:10px 0px 0px 300px;"><img src="img/white.jpg"/>&nbsp;<span>总共<span id="smtEquipment0"></span>台&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+	  	<p style="float:left;"><img src="img/green.jpg"/>&nbsp;<span>正常生产<span id="smtEquipment1"></span>台[占<span id="smtEquipment2"></span>%]&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+	  	<p style="float:left;"><img src="img/yellow.jpg"/>&nbsp;<span>异常生产<span id="smtEquipment3"></span>台[占<span id="smtEquipment4"></span>%]&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+	  	<p style="float:left;"><img src="img/red.jpg"/>&nbsp;<span>长期停机<span id="smtEquipment5"></span>台[占<span id="smtEquipment6"></span>%]&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+	  	<p style="float:left;"><img src="img/blue.jpg"/>&nbsp;<span>未派工单<span id="smtEquipment7"></span>台[占<span id="smtEquipment8"></span>%]&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+	  	<p style="float:left;"><img src="img/purple.jpg"/>&nbsp;<span>计划停机<span id="smtEquipment9"></span>台[占<span id="smtEquipment10"></span>%]</span></p>
+	  </div>
+	  <div style="height:95%;width: 99%; background-color: #FFF; overflow: hidden;margin:3px; border:0px solid #000000">
+	       	<table id="tab_smt" class="tab_css"  style="width:100%;height:100%;" cellspacing='0' cellpadding='0' >
+       	        <tr height="25%">
+	      	       <td>
+	      	          <table class='tab_child_css' cellspacing='0' cellpadding='0'>
+	      	               <tr><td class="td_title" colspan='4' style="border-right:0;text-align:center;"><strong>机器编号：  A.01</strong></td></tr>
+	      	               <tr>
+	      	                   <td colspan='2' width="">
+	      	                      <table class='tb_left_child_css' cellspacing='0' cellpadding='0'>
+	      	                          <tr>
+	      	                             <td align='center' style="text-align:center;"><img src="img/tbj_1.jpg" width="220px" height="112px" /></td>
+	      	                          </tr>
+	      	                      </table>
+	      	                   </td>
+	      	                   <td colspan='2' style="border-right:0;">
+	      	                       <table cellspacing='0' cellpadding='0' class='tb_right_child_css' border='0' >
+	      	                          <tr><td style="border-top:0;border-right:0;">机器名称：贴标机</td></tr>
+	      	                          <tr><td style="border-right:0;">累计停机时长：<span id="A01_stoptime"></span></td></tr>
+	      	                          <tr><td style="border-right:0;">生产时长：<span id="A01_producttime"></span></td></tr>
+	      	                          <tr><td style="border-right:0;">保养时长：<span id="A01_repairtime"></span></td></tr>
+	      	                          <tr><td style="border-right:0;">设备点检：<span id="A01_equipcheck"></span></td></tr>
+	      	                       </table>
+	      	                   </td>
+	      	               </tr>
+	      	               <tr>
+	      	                   <td class="td_info" colspan="4" style="border-right:0;">生产工单：<span id="A01_productWorkOrder"></span></td>
+	      	               </tr>
+	      	               <tr>
+	      	                   <td class="td_info" colspan="2">工单数：<span id="A01_workOrderNum"></span></td>
+	      	                   <td class="td_info" colspan="2" style="border-right:0;">良品数：<span id="A01_goodProductNum"></span></td>
+	      	               </tr>
+	      	               <tr>
+	      	                   <td class="td_info" colspan="2">机器状态：<span id="A01_equipStatus"></span></td>
+	      	                   <td class="td_info" colspan="2" style="border-right:0;">停机原因：<span id="A01_stopReason"></span></td>
+	      	               </tr>
+	      	               <tr>
+	      	                   <td class="td_info" colspan="2">异常时间：<span id="A01_exceptionTime"></span></td>
+	      	                   <td class="td_info" colspan="2" style="border-right:0;">停机时间：<span id="A01_stopDateTime"></span></td>
+	      	               </tr>
+	      	           </table>
+	      	       </td>
+	      	         <td>
+	      	            <table class='tab_child_css' cellspacing='0' cellpadding='0'>
+	      	               <tr><td class="td_title" colspan='4' style="border-right:0;text-align:center;"><strong>机器编号：  A.02</strong></td></tr>
+	      	               <tr>
+	      	                   <td colspan='2'>
+	      	                      <table class='tb_left_child_css'cellspacing='0' cellpadding='0'>
+	      	                          <tr>
+	      	                             <td align='center' style="text-align:center;"><img src="img/ysj_2.jpg" width="220px" height="112px" /></td>
+	      	                          </tr>
+	      	                      </table>
+	      	                   </td>
+	      	                   <td colspan='2' style="border-right:0;">
+	      	                       <table cellspacing='0' cellpadding='0' class='tb_right_child_css' border='0' >
+	      	                          <tr><td style="border-top:0;border-right:0;">机器名称：印刷机</td></tr>
+	      	                          <tr><td style="border-right:0;">累计停机时长：<span id="A02_stoptime"></span></td></tr>
+	      	                          <tr><td style="border-right:0;">生产时长：<span id="A02_producttime"></span></td></tr>
+	      	                          <tr><td style="border-right:0;">保养时长：<span id="A02_repairtime"></span></td></tr>
+	      	                          <tr><td style="border-right:0;">设备点检：<span id="A02_equipcheck"></span></td></tr>
+	      	                       </table>
+	      	                   </td>
+	      	               </tr>
+	      	               <tr>
+	      	                   <td class="td_info" colspan="4" style="border-right:0;">生产工单：<span id="A02_productWorkOrder"></span></td>
+	      	               </tr>
+	      	               <tr>
+	      	                   <td class="td_info" colspan="2">工单数：<span id="A02_workOrderNum"></span></td>
+	      	                   <td class="td_info" colspan="2" style="border-right:0;">良品数：<span id="A02_goodProductNum"></span></td>
+	      	               </tr>
+	      	               <tr>
+	      	                   <td class="td_info" colspan="2">机器状态：<span id="A02_equipStatus"></span></td>
+	      	                   <td class="td_info" colspan="2" style="border-right:0;">停机原因：<span id="A02_stopReason"></span></td>
+	      	               </tr>
+	      	               <tr>
+	      	                   <td class="td_info" colspan="2">异常时间：<span id="A02_exceptionTime"></span></td>
+	      	                   <td class="td_info" colspan="2" style="border-right:0;">停机时间：<span id="A02_stopDateTime"></span></td>
+	      	               </tr>
+	      	           </table>
+	      	       </td>
+	      	       <td>
+	      	            <table class='tab_child_css' cellspacing='0' cellpadding='0'>
+	      	               <tr><td class="td_title" colspan='4' style="border-right:0;text-align:center;"><strong>机器编号：  A.03</strong></td></tr>
+	      	               <tr>
+	      	                   <td colspan='2'>
+	      	                      <table class='tb_left_child_css'cellspacing='0' cellpadding='0'>
+	      	                          <tr>
+	      	                             <td align='center' style="text-align:center;"><img src="img/SPI_3.jpg" width="220px" height="112px" /></td>
+	      	                          </tr>
+	      	                      </table>
+	      	                   </td>
+	      	                   <td colspan='2' style="border-right:0;">
+	      	                       <table cellspacing='0' cellpadding='0' class='tb_right_child_css' border='0' >
+	      	                          <tr><td style="border-top:0;border-right:0;">机器名称：SPI</td></tr>
+	      	                          <tr><td style="border-right:0;">累计停机时长：<span id="A03_stoptime"></span></td></tr>
+	      	                          <tr><td style="border-right:0;">生产时长：<span id="A03_producttime"></span></td></tr>
+	      	                          <tr><td style="border-right:0;">保养时长：<span id="A03_repairtime"></span></td></tr>
+	      	                          <tr><td style="border-right:0;">设备点检：<span id="A03_equipcheck"></span></td></tr>
+	      	                       </table>
+	      	                   </td>
+	      	               </tr>
+	      	               <tr>
+	      	                   <td class="td_info" colspan="4" style="border-right:0;">生产工单：<span id="A03_productWorkOrder"></span></td>
+	      	               </tr>
+	      	               <tr>
+	      	                   <td class="td_info" colspan="2">工单数：<span id="A03_workOrderNum"></span></td>
+	      	                   <td class="td_info" colspan="2" style="border-right:0;">良品数：<span id="A03_goodProductNum"></span></td>
+	      	               </tr>
+	      	               <tr>
+	      	                   <td class="td_info" colspan="2">机器状态：<span id="A03_equipStatus"></span></td>
+	      	                   <td class="td_info" colspan="2" style="border-right:0;">停机原因：<span id="A03_stopReason"></span></td>
+	      	               </tr>
+	      	               <tr>
+	      	                   <td class="td_info" colspan="2">异常时间：<span id="A03_exceptionTime"></span></td>
+	      	                   <td class="td_info" colspan="2" style="border-right:0;">停机时间：<span id="A03_stopDateTime"></span></td>
+	      	               </tr>
+	      	           </table>
+	      	       </td>
+	      	       <td>
+	      	            <table class='tab_child_css' cellspacing='0' cellpadding='0'>
+	      	               <tr><td class="td_title" colspan='4' style="text-align:center;"><strong>机器编号：  A.04</strong></td></tr>
+	      	               <tr>
+	      	                   <td colspan='2'>
+	      	                      <table class='tb_left_child_css'cellspacing='0' cellpadding='0'>
+	      	                          <tr>
+	      	                             <td align='center' style="text-align:center;"><img src="img/tpj_4.jpg" width="220px" height="112px" /></td>
+	      	                          </tr>
+	      	                      </table>
+	      	                   </td>
+	      	                   <td colspan='2'>
+	      	                       <table cellspacing='0' cellpadding='0' class='tb_right_child_css' border='0' >
+	      	                          <tr><td style="border-top:0;border-right:0;">机器名称：贴片机</td></tr>
+	      	                          <tr><td style="border-right:0;">累计停机时长：<span id="A04_stoptime"></span></td></tr>
+	      	                          <tr><td style="border-right:0;">生产时长：<span id="A04_producttime"></span></td></tr>
+	      	                          <tr><td style="border-right:0;">保养时长：<span id="A04_repairtime"></span></td></tr>
+	      	                          <tr><td style="border-right:0;">设备点检：<span id="A04_equipcheck"></span></td></tr>
+	      	                       </table>
+	      	                   </td>
+	      	               </tr>
+	      	               <tr>
+	      	                   <td class="td_info" colspan="4">生产工单：<span id="A04_productWorkOrder"></span></td>
+	      	               </tr>
+	      	               <tr>
+	      	                   <td class="td_info" colspan="2">工单数：<span id="A04_workOrderNum"></span></td>
+	      	                   <td class="td_info" colspan="2">良品数：<span id="A04_goodProductNum"></span></td>
+	      	               </tr>
+	      	               <tr>
+	      	                   <td class="td_info" colspan="2">机器状态：<span id="A04_equipStatus"></span></td>
+	      	                   <td class="td_info" colspan="2">停机原因：<span id="A04_stopReason"></span></td>
+	      	               </tr>
+	      	               <tr>
+	      	                   <td class="td_info" colspan="2">异常时间：<span id="A04_exceptionTime"></span></td>
+	      	                   <td class="td_info" colspan="2">停机时间：<span id="A04_stopDateTime"></span></td>
+	      	               </tr>
+	      	           </table>
+	      	       </td>
+	      	    </tr>
+		      	<tr height="25%">
+	      	       <td>
+	      	          <table class='tab_child_css' cellspacing='0' cellpadding='0'>
+	      	               <tr><td class="td_title" colspan='4' style="border-right:0;text-align:center;"><strong>机器编号：  A.05</strong></td></tr>
+	      	               <tr>
+	      	                   <td colspan='2'>
+	      	                      <table class='tb_left_child_css' width="220px" cellspacing='0' cellpadding='0'>
+	      	                          <tr>
+	      	                             <td align='center' style="text-align:center;width:220px;"><img src="img/hll_5.jpg" width="220px" height="112px" /></td>
+	      	                          </tr>
+	      	                      </table>
+	      	                   </td>
+	      	                   <td colspan='2' style="border-right:0;">
+	      	                       <table cellspacing='0' cellpadding='0' class='tb_right_child_css' border='0' >
+	      	                          <tr><td style="border-top:0;border-right:0;">机器名称：回流炉</td></tr>
+	      	                          <tr><td style="border-right:0;">累计停机时长：<span id="A05_stoptime"></span></td></tr>
+	      	                          <tr><td style="border-right:0;">生产时长：<span id="A05_producttime"></span></td></tr>
+	      	                          <tr><td style="border-right:0;">保养时长：<span id="A05_repairtime"></span></td></tr>
+	      	                          <tr><td style="border-right:0;">设备点检：<span id="A05_equipcheck"></span></td></tr>
+	      	                       </table>
+	      	                   </td>
+	      	               </tr>
+	      	               <tr>
+	      	                   <td class="td_info" colspan="4" style="border-right:0;">生产工单：<span id="A05_productWorkOrder"></span></td>
+	      	               </tr>
+	      	               <tr>
+	      	                   <td class="td_info" colspan="2">工单数：<span id="A05_workOrderNum"></span></td>
+	      	                   <td class="td_info" colspan="2" style="border-right:0;">良品数：<span id="A05_goodProductNum"></span></td>
+	      	               </tr>
+	      	               <tr>
+	      	                   <td class="td_info" colspan="2">机器状态：<span id="A05_equipStatus"></span></td>
+	      	                   <td class="td_info" colspan="2" style="border-right:0;">停机原因：<span id="A05_stopReason"></span></td>
+	      	               </tr>
+	      	               <tr>
+	      	                   <td class="td_info" colspan="2">异常时间：<span id="A05_exceptionTime"></span></td>
+	      	                   <td class="td_info" colspan="2" style="border-right:0;">停机时间：<span id="A05_stopDateTime"></span></td>
+	      	               </tr>
+	      	           </table>
+	      	       </td>
+	      	         <td>
+	      	            <table class='tab_child_css' cellspacing='0' cellpadding='0'>
+	      	               <tr><td class="td_title" colspan='4' style="border-right:0;text-align:center;"><strong>机器编号：  A.06</strong></td></tr>
+	      	               <tr>
+	      	                   <td colspan='2'>
+	      	                      <table class='tb_left_child_css'cellspacing='0' cellpadding='0'>
+	      	                          <tr>
+	      	                             <td align='center' style="text-align:center;"><img src="img/AOI_6.jpg" width="220px" height="112px" /></td>
+	      	                          </tr>
+	      	                      </table>
+	      	                   </td>
+	      	                   <td colspan='2' style="border-right:0;">
+	      	                       <table cellspacing='0' cellpadding='0' class='tb_right_child_css' border='0' >
+	      	                          <tr><td style="border-top:0;border-right:0;">机器名称：AOI检测</td></tr>
+	      	                          <tr><td style="border-right:0;">累计停机时长：<span id="A06_stoptime"></span></td></tr>
+	      	                          <tr><td style="border-right:0;">生产时长：<span id="A06_producttime"></span></td></tr>
+	      	                          <tr><td style="border-right:0;">保养时长：<span id="A06_repairtime"></span></td></tr>
+	      	                          <tr><td style="border-right:0;">设备点检：<span id="A06_equipcheck"></span></td></tr>
+	      	                       </table>
+	      	                   </td>
+	      	               </tr>
+	      	               <tr>
+	      	                   <td class="td_info" colspan="4" style="border-right:0;">生产工单：<span id="A06_productWorkOrder"></span></td>
+	      	               </tr>
+	      	               <tr>
+	      	                   <td class="td_info" colspan="2">工单数：<span id="A06_workOrderNum"></span></td>
+	      	                   <td class="td_info" colspan="2" style="border-right:0;">良品数：<span id="A06_goodProductNum"></span></td>
+	      	               </tr>
+	      	               <tr>
+	      	                   <td class="td_info" colspan="2">机器状态：<span id="A06_equipStatus"></span></td>
+	      	                   <td class="td_info" colspan="2" style="border-right:0;">停机原因：<span id="A06_stopReason"></span></td>
+	      	               </tr>
+	      	               <tr>
+	      	                   <td class="td_info" colspan="2">异常时间：<span id="A06_exceptionTime"></span></td>
+	      	                   <td class="td_info" colspan="2" style="border-right:0;">停机时间：<span id="A06_stopDateTime"></span></td>
+	      	               </tr>
+	      	           </table>
+	      	       </td>
+	      	       <td>
+	      	            <table class='tab_child_css' cellspacing='0' cellpadding='0'>
+	      	               <tr><td class="td_title" colspan='4' style="border-right:0;text-align:center;"><strong>机器编号：  A.07</strong></td></tr>
+	      	               <tr>
+	      	                   <td colspan='2'>
+	      	                      <table class='tb_left_child_css'cellspacing='0' cellpadding='0'>
+	      	                          <tr>
+	      	                             <td align='center' style="text-align:center;"><img src="img/fbj_7.jpg" width="220px" height="112px" /></td>
+	      	                          </tr>
+	      	                      </table>
+	      	                   </td>
+	      	                   <td colspan='2' style="border-right:0;">
+	      	                       <table cellspacing='0' cellpadding='0' class='tb_right_child_css' border='0' >
+	      	                          <tr><td style="border-top:0;border-right:0;">机器名称：分板机</td></tr>
+	      	                          <tr><td style="border-right:0;">累计停机时长：<span id="A07_stoptime"></span></td></tr>
+	      	                          <tr><td style="border-right:0;">生产时长：<span id="A07_producttime"></span></td></tr>
+	      	                          <tr><td style="border-right:0;">保养时长：<span id="A07_repairtime"></span></td></tr>
+	      	                          <tr><td style="border-right:0;">设备点检：<span id="A07_equipcheck"></span></td></tr>
+	      	                       </table>
+	      	                   </td>
+	      	               </tr>
+	      	               <tr>
+	      	                   <td class="td_info" colspan="4" style="border-right:0;">生产工单：<span id="A07_productWorkOrder"></span></td>
+	      	               </tr>
+	      	               <tr>
+	      	                   <td class="td_info" colspan="2">工单数：<span id="A07_workOrderNum"></span></td>
+	      	                   <td class="td_info" colspan="2" style="border-right:0;">良品数：<span id="A07_goodProductNum"></span></td>
+	      	               </tr>
+	      	               <tr>
+	      	                   <td class="td_info" colspan="2">机器状态：<span id="A07_equipStatus"></span></td>
+	      	                   <td class="td_info" colspan="2" style="border-right:0;">停机原因：<span id="A07_stopReason"></span></td>
+	      	               </tr>
+	      	               <tr>
+	      	                   <td class="td_info" colspan="2">异常时间：<span id="A07_exceptionTime"></span></td>
+	      	                   <td class="td_info" colspan="2" style="border-right:0;">停机时间：<span id="A07_stopDateTime"></span></td>
+	      	               </tr>
+	      	           </table>
+	      	       </td>
+	      	       <td>
+	      	            <table class='tab_child_css' cellspacing='0' cellpadding='0'>
+	      	               <tr><td class="td_title" colspan='4' style="text-align:center;"><strong>机器编号：  A.08</strong></td></tr>
+	      	               <tr>
+	      	                   <td colspan='2'>
+	      	                      <table class='tb_left_child_css'cellspacing='0' cellpadding='0'>
+	      	                          <tr>
+	      	                             <td align='center' style="text-align:center;"><img src="img/cjj_8.jpg" width="220px" height="112px" /></td>
+	      	                          </tr>
+	      	                      </table>
+	      	                   </td>
+	      	                   <td colspan='2'>
+	      	                       <table cellspacing='0' cellpadding='0' class='tb_right_child_css' border='0' >
+	      	                          <tr><td style="border-top:0;border-right:0;">机器名称：插件机</td></tr>
+	      	                          <tr><td style="border-right:0;">累计停机时长：<span id="A08_stoptime"></span></td></tr>
+	      	                          <tr><td style="border-right:0;">生产时长：<span id="A08_producttime"></span></td></tr>
+	      	                          <tr><td style="border-right:0;">保养时长：<span id="A08_repairtime"></span></td></tr>
+	      	                          <tr><td style="border-right:0;">设备点检：<span id="A08_equipcheck"></span></td></tr>
+	      	                       </table>
+	      	                   </td>
+	      	               </tr>
+	      	               <tr>
+	      	                   <td class="td_info" colspan="4">生产工单：<span id="A08_productWorkOrder"></span></td>
+	      	               </tr>
+	      	               <tr>
+	      	                   <td class="td_info" colspan="2">工单数：<span id="A08_workOrderNum"></span></td>
+	      	                   <td class="td_info" colspan="2">良品数：<span id="A08_goodProductNum"></span></td>
+	      	               </tr>
+	      	               <tr>
+	      	                   <td class="td_info" colspan="2">机器状态：<span id="A08_equipStatus"></span></td>
+	      	                   <td class="td_info" colspan="2">停机原因：<span id="A08_stopReason"></span></td>
+	      	               </tr>
+	      	               <tr>
+	      	                   <td class="td_info" colspan="2">异常时间：<span id="A08_exceptionTime"></span></td>
+	      	                   <td class="td_info" colspan="2">停机时间：<span id="A08_stopDateTime"></span></td>
+	      	               </tr>
+	      	           </table>
+	      	       </td>
+	      	    </tr>
+	      	    <tr  height="28%">
+		      	    <td colspan='4'>
+		      	        <div id="container" style="width:100%;height:220px;margin:2px 0px 0px 2px;">
+		      	        	<div id="myMechine1" style="width:24%;height:220px;display:inline-block;"></div>
+		      	        	<div id="myMechine2" style="width:24%;height:220px;display:inline-block;"></div>
+		      	        	<div id="myMechine3" style="width:24%;height:220px;display:inline-block;"></div>
+		      	        	<div id="myMechine4" style="width:24%;height:220px;display:inline-block;"></div>
+		      	        </div>
+		      	    </td>
+	      	    </tr>
+	      	    <tr style="height:20%;">
+	      	      <td colspan='4'>
+	      	         <table class='tab_child_css' style="width:100%;height:100%;" cellspacing='0' cellpadding='0'>
+	      	             <tr class="tab_css_tr"><td style="text-align:center;background-color:#EEE;" colspan="9"><strong>白班设备组</strong></td></tr>
+	      	             <tr class="tab_css_tr">
+	      	             	<td style="width:8%;">姓名：</td>
+	      	             	<td style="width:12%;"><span id="person0_name"></span></td>
+	      	             	<td rowspan="4" style="width:10%;text-align:center;background-color:#EEE;"><img src="../../common/RootImages/default.png" style="height:90px;width:60px;" /></td>
+	      	             	<td style="width:8%;">姓名：</td>
+	      	             	<td style="width:12%;"><span id="person1_name"></span></td>
+	      	             	<td rowspan="4" style="width:10%;text-align:center;background-color:#EEE;"><img src="../../common/RootImages/default.png" style="height:90px;width:60px;" /></td>
+	      	             	<td style="width:8%;">姓名：</td>
+	      	             	<td style="width:12%;"><span id="person2_name"></span></td>
+	      	             	<td rowspan="4" style="width:10%;text-align:center;background-color:#EEE;"><img src="../../common/RootImages/default.png" style="height:90px;width:60px;" /></td>
+	      	             </tr>
+	      	             <tr class="tab_css_tr">
+	      	             	<td>工号：</td>
+	      	             	<td><span id="person0_code"></span></td>
+	      	             	<td>工号：</td>
+	      	             	<td><span id="person1_code"></span></td>
+	      	             	<td>工号：</td>
+	      	             	<td><span id="person2_code"></span></td>
+	      	             </tr>
+	      	             <tr class="tab_css_tr">
+	      	             	<td>电话：</td>
+	      	             	<td><span id="person0_phone"></span></td>
+	      	             	<td>电话：</td>
+	      	             	<td><span id="person1_phone"></span></td>
+	      	             	<td>电话：</td>
+	      	             	<td><span id="person2_phone"></span></td>
+	      	             </tr>
+	      	             <tr class="tab_css_tr">
+	      	             	<td>职位：</td>
+	      	             	<td><span id="person0_position"></span></td>
+	      	             	<td>职位：</td>
+	      	             	<td><span id="person1_position"></span></td>
+	      	             	<td>职位：</td>
+	      	             	<td><span id="person2_position"></span></td>
+	      	             </tr>
+	      	 		</table>
+	      		</td>
+	    	</tr>
+		</table>
+	  </div>
+  </body>
+    <style type="text/css">
+        /*table {
+            border-right: 1px solid #95B8E7;
+            border-bottom: 1px solid #95B8E7;
+            border-collapse:collapse;
+            width: 100%;
+            height: 90%; 
+        }
+        table tr {
+            text-align: center;
+            height:35px;
+            vertical-align: middle;
+        }
+        table tr td {
+            text-align: center;
+            border-left: 1px solid #95B8E7;
+            border-top: 1px solid #95B8E7;
+            vertical-align: middle;
+        }*/
+        .tab_css{
+            border: 0;
+            width: 100%;
+            height: 90%; 
+            vertical-align: top;
+        }
+        .tab_css_tr{
+        	text-align: left;
+            height:15px;
+            vertical-align: middle;
+        }
+        .tab_css tr td {
+            text-align: left;
+            /* border-left: 1px solid #95B8E7;
+            border-top: 1px solid #95B8E7; */
+            vertical-align: middle;
+        }
+        .tab_child_css{
+            width: 100%;
+            height:98%; 
+            cellspacing:0;
+            cellpadding:0;
+            border-left: 1px solid #95B8E7; 
+            border-bottom: 1px solid #95B8E7;
+        }
+        .tab_child_css tr{
+        	text-align: left;
+        	text-indent:1em;
+            height:15px;
+            vertical-align: middle;
+        }
+        .tab_child_css td{
+             border-right:1px solid #95B8E7;
+             border-top: 1px solid #95B8E7;
+        }
+        .tb_left_child_css{
+           	margin:0;
+           	padding:0;
+           	border:0;
+           	width:100%;
+           	height:100%;
+        }
+        .tb_left_child_css td{
+             border-right:0;
+             border-top: 0;
+             border-left: 0;
+             border-bottom: 0;
+        }
+        .tb_right_child_css{
+           	border:0;
+           	margin:0;
+           	padding:0;
+           	width:100%;
+           	height:100%;
+            border-right:0;
+            border-top: 0;
+            border-left: 0;
+            border-bottom: 0;
+        }
+        .td_title{
+           background-color:#CC8F33; 
+        }
+        .td_info{
+        	background-color:#1AE66B;
+        }
+        html{
+            height: 100%;
+        }
+        body {
+            height: 100%;
+            font-size:14px;
+        }
+        p {
+            border:0;
+            height: 0px;
+            line-height: 50%;
+            text-align: center;
+            /*background-color: rgba(0,0,0,0.5); IE9、标准浏览器、IE6和部分IE7内核的浏览器(如QQ浏览器)会读懂 */
+        }
+        p span {
+            font-family: "微软雅黑","宋体";
+            font-weight: normal;
+            color: #000000;
+            text-align: center;
+            padding-bottom: 1px;
+        }
+        @media \0screen\,screen\9 {/* 只支持IE6、7、8 */
+            p {
+                background-color:#000000;
+                filter:Alpha(opacity=50);
+                position:static; /* IE6、7、8只能设置position:static(默认属性) ，否则会导致子元素继承Alpha值 */
+                *zoom:1; /* 激活IE6、7的haslayout属性，让它读懂Alpha */
+            }
+            p span {
+                position: relative;/* 设置子元素为相对定位，可让子元素不继承Alpha值 */
+            }  
+        }
+        xinmu {
+        }
+    </style>
+</html>

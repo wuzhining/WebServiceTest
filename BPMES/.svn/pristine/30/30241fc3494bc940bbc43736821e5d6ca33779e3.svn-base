@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="">      
+
+		<!-- 1.1 数据字典管理 -->		
+	<!-- 查询备件类别信息 -->
+	<select id="querySpareType" parameterType="hashmap" resultType="java.util.HashMap">
+		  <include refid="oraclePagingFileTop"></include>
+		   SP_NMU,SP_NAME,SP_RM,USE_YN,CRT_ID,to_char(CRT_DT,'yyyy-mm-dd') CRT_DT,UPT_ID,to_char(UPT_DT,'yyyy-mm-dd') UPT_DT from SPARE_PARTS_CATEGORY 
+		   <where>
+		  1=1 
+		   </where> 
+		   <include refid="oraclePagingFileBottom"></include> 
+	</select>
+	
+	<!-- 查询备件类别分页总数 -->
+	<select id="querySpareType_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+	SELECT COUNT(1) ROWS_COUNT from SPARE_PARTS_CATEGORY 
+	</select>
+	
+	<!-- 删除保养项目 -->
+  	<delete id="deleteSpareType" parameterType="hashmap">
+		DELETE FROM SPARE_PARTS_CATEGORY 
+		<where>
+			SP_NMU IN
+		</where> 
+		<foreach collection="list"  index="index" item="item" open="(" separator="," close=")"  >
+       					#{item.SP_NMU}
+      				</foreach>
+	</delete> 
+	
+	<!-- 新增备件类别 -->
+	 <insert id="insertSpareType" parameterType="hashmap">
+	 	<selectKey resultType="int" keyProperty="SP_ID" order="BEFORE"> 
+            SELECT Spt.NEXTVAL FROM DUAL 
+        </selectKey>
+		insert into SPARE_PARTS_CATEGORY ( SP_ID,SP_NMU,SP_NAME,SP_RM,USE_YN,CRT_ID,CRT_DT)
+		values('${SP_ID}','${SP_NMU}','${SP_NAME}','${SP_RM}','${USE_YN}','${F_USE_CD}',sysdate)
+	</insert> 
+	
+	 <!-- 修改备件类别-->
+ 	    <update id="updateSpareType" parameterType="hashmap">
+	    	update SPARE_PARTS_CATEGORY
+	    	<set>
+	    		<if test="SP_NAME!=null and SP_NAME!= ''">SP_NAME='${SP_NAME}',</if>
+	    		<if test="SP_RM!=null and SP_RM!= ''">SP_RM='${SP_RM}',</if>
+	    	UPT_ID='${F_USE_CD}',
+	    	UPT_DT=sysdate
+	    	</set>
+	    	where SP_NMU='${SP_NMU}'
+	    </update> 
+ </mapper>

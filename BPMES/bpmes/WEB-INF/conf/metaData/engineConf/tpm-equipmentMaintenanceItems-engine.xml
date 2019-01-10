@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<engines>
+	<!-- 1.1 数据字典管理 -->
+	<!-- 查询数据字典信息 -->
+	<engine engine_code="queryEquipmentq" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryEquipmentq" >
+	</engine>
+	
+	<!-- 新增数据字典信息 -->
+	<engine engine_code="insertEquipmentIT" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertEquipmentIT" >
+	</engine>	
+	
+		<!-- 修改数据字典信息 -->
+	<engine engine_code="updateEquipmentq" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateEquipmentq" >
+	</engine>
+	
+	<!-- 删除数据字典信息 -->
+	<engine engine_code="deleteEquipmentIT" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteEquipmentIT" >
+	</engine>
+	
+		<!-- 查询下拉框信息 -->
+	<engine engine_code="queryY1110" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryY1110" >
+	</engine>
+</engines>

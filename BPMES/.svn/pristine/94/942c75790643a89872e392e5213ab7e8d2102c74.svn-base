@@ -1,0 +1,51 @@
+# log out path
+webapp.root=/ext/logs
+#log.root=${webapp.root}/WEB-INF/log
+log.root=${webapp.root}
+
+# root log
+log4j.rootLogger=error,frameRoll
+
+# iPlant  log
+log4j.logger.com.iPlant.frame=error,stdout,frameRoll
+log4j.additivity.com.iPlant.frame=false
+
+# web log
+log4j.logger.com.iPlant.frame.web=error,stdout,frameRoll
+log4j.additivity.com.iPlant.frame.web=false
+
+# importexport log add by kongls for test
+log4j.logger.com.iPlant.business.atom.util.importexport=error,stdout,frameRoll
+log4j.additivity.com.iPlant.business.atom.util.importexport=false
+
+# base biz log add by kongls for test
+log4j.logger.com.iPlant.business.atom.base.biz=error,stdout,frameRoll
+log4j.additivity.com.iPlant.business.atom.base.biz=false
+
+# bpm log
+#log4j.logger.com.iPlant.frame.bpm=error,stdout,frameRoll
+#log4j.additivity.com.iPlant.frame.bpm=false
+
+# service log
+#log4j.logger.com.iPlant.frame.service=error,stdout,frameRoll
+#log4j.additivity.com.iPlant.frame.service=false
+
+# dao log
+log4j.logger.com.iPlant.frame.dao=error,stdout,frameRoll
+log4j.additivity.com.iPlant.frame.dao=false
+
+# iPlant marshall log
+log4j.logger.com.iPlant.frame.business.config.marshall=error,stdout,frameRoll
+log4j.additivity.com.iPlant.frame.business.config.marshall=false
+
+# appender stdout
+log4j.appender.stdout=org.apache.log4j.ConsoleAppender
+log4j.appender.stdout.layout=org.apache.log4j.PatternLayout
+log4j.appender.stdout.layout.ConversionPattern=%-5p %d{yyyyMMdd HH:mm:ss} [%c:%L] - %n     [LOG] %m%n
+
+# appender frame Daily Rolling
+log4j.appender.frameRoll=org.apache.log4j.DailyRollingFileAppender
+log4j.appender.frameRoll.File=${log.root}/web-core.log
+log4j.appender.frameRoll.DatePattern='.'yyyy-MM-dd
+log4j.appender.frameRoll.layout=org.apache.log4j.PatternLayout
+log4j.appender.frameRoll.layout.ConversionPattern=%d{yyyyMMdd HH\:mm\:ss} %-5p [%c] - %n[LOG\:] %m%n

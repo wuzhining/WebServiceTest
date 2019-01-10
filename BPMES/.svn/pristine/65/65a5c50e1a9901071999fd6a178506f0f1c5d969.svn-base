@@ -1,0 +1,307 @@
+
+(function() {
+	function application() {
+		initGridData=function(){
+			var dgrid=$('#productWConf_tab').datagrid('options');
+			if(!dgrid) return;
+			var reqData={
+					IFS:'WMS_QHold002',
+					pageIndex:1,
+					pageSize:dgrid.pageSize
+			};
+			reqGridData('/iPlant_ajax','productWConf_tab',reqData);
+		},
+		bindGridData = function(reqData, jsonData) {
+			var gridList = {
+				name: 'productWConf_tab',
+				dataType: 'json',
+				singleSelect:false,
+				columns: [
+							[
+							{
+								field: 'HISTORYID',
+								title: 'HoldID',
+								width: 150,
+								align: 'center',formatter: function (value) {
+					           	if(value != null)
+                                return "<span title='" + value + "'>" + value + "</span>";}
+							}
+							,{
+								field: 'OBJECTCODE',
+								title: '编号',
+								width: 150,
+								align: 'center',formatter: function (value) {
+					           	if(value != null)
+                                return "<span title='" + value + "'>" + value + "</span>";}
+							},
+							{
+								field: 'OBJECTTYPE',
+								title: '对象类型',
+								width: 150,
+								align: 'center',formatter: function (value) {
+								if(value =='1')
+									return "<span title='" + '工单' + "'>" + '工单' + "</span>";
+								else if(value == '2')
+                                return "<span title='" + '产品' + "'>" + '产品' + "</span>";
+								else if(value == '3')
+	                               return "<span title='" + '物料' + "'>" + '物料' + "</span>";
+								else if(value == '4')
+	                                return "<span title='" + '在制品序列号' + "'>" + '在制品序列号' + "</span>";
+									
+								}
+							},{
+								field: 'OPERATETYPE',
+								title: '操作类型',
+								width: 150,
+								align: 'center',formatter: function (value) {
+					           	if(value == '1'){
+                                return "<span title='" + 'Hold' + "'>" + 'Hold' + "</span>";
+								}
+								else{
+									return "<span title='" + 'UnHold' + "'>" + 'UnHold' + "</span>";
+								}
+							}
+							},
+								{
+									field: 'REMARK',
+									title: '原因说明',
+									width: 220,
+									align: 'center',formatter: function (value) {
+						           	if(value != null)
+	                                return "<span title='" + value + "'>" + value + "</span>";}
+								},
+							
+							{
+								field: 'CRT_DT',
+								title: '创建日期',
+								width: 180,
+								align: 'center',formatter: function (value) {
+					           	if(value != null)
+                                return "<span title='" + value + "'>" + value + "</span>";}
+							},{
+								field: 'CRT_ID',
+								title: '创建人',
+								width: 150,
+								align: 'center',formatter: function (value) {
+					           	if(value != null)
+                                return "<span title='" + value + "'>" + value + "</span>";}
+							},
+							{
+								field: 'UPT_DT',
+								title: '修改日期',
+								width: 180,
+								align: 'center',formatter: function (value) {
+					           	if(value != null)
+                                return "<span title='" + value + "'>" + value + "</span>";}
+							},{
+								field: 'UPT_ID',
+								title: '修改人',
+								width: 150,
+								align: 'center',formatter: function (value) {
+					           	if(value != null)
+                                return "<span title='" + value + "'>" + value + "</span>";}
+							}
+						]
+					]
+			};
+			initGridView(reqData,gridList);
+			$('#productWConf_tab').datagrid('loadData',jsonData);
+		};
+					
+		getDataBySearch = function(objectType1){
+			var dgrid = $('#productWConf_tab').datagrid('options');
+			if(!dgrid) return;
+			var reqData = {
+				OBJECTTYPE: objectType1,
+				IFS: 'WMS_QHold002',
+				pageIndex: 1,
+				pageSize: dgrid.pageSize
+			};
+			reqGridData('/iPlant_ajax', 'productWConf_tab',reqData);
+		};
+		
+        
+		//置空查询输入框
+		setQueryNull=function() {
+    		$('#txtSPCProjectName').textbox('setValue',"");
+    		$("#txtOrderNO").textbox('setValue',"");
+    		$("#txtCauseDescription1").textbox('setValue',"");
+    		$("#txtMaterialCode").textbox('setValue',"");
+    		$("#txtCauseDescription2").textbox('setValue',"");
+    		$("#txtSN").textbox('setValue',"");
+    		$("#txtCauseDescription3").textbox('setValue',"");
+    		$("#txtVendorCode").textbox('setValue',"");
+    		$("#txtDateCode").textbox('setValue',"");
+    		$("#txtLotCode").textbox('setValue',"");
+		};
+		
+		savaStation = function(number,code,enable) {
+			var count=0;
+			var id='';
+			var reqData={
+					url: '/iPlant_ajax',
+					dataType: 'JSON',
+					data: {
+					OBJECTCODE:code,
+					IFS:'WMS_QHold002'
+			},successCallBack: function(a) {
+				var op = a.RESPONSE[0].RESPONSE_DATA;
+				count=0;
+				$.each(op,function(n,obj){
+					count=count+1;
+					id=obj.HISTORYID;
+				});
+				if(count == 0) {
+					IFServerNo = 'WMS_QHold004';
+				} else if(count >= 1) {
+					IFServerNo = 'WMS_QHold005';
+				} else {
+					IFServerNo = 'WMS_QHold002';
+				}
+				if(count == 0) {
+					susMsg = '添加成功';
+					errorMsg = '添加失败,请联系管理员';
+				} else {
+					susMsg = '更新成功';
+					errorMsg = '更新失败,请联系管理员';
+				}
+				var ajaxParam = {
+					url: '/iPlant_ajax',
+					dataType: 'JSON',
+					data: {
+						HISTORYID:id,
+						OBJECTTYPE:number,
+						OBJECTCODE: code,
+						OPERATETYPE: '1',
+						OBJECTSTATUS:'2',
+						REMARK:enable,					
+						IFS: IFServerNo
+					},
+					successCallBack: function(data) {
+						var susMsg=getReturnMsg(data);
+	                	$.messager.alert("提示",susMsg,"",function(){
+	            			reqGridData('/iPlant_ajax','productWConf_tab',{IFS:'WMS_QHold002'});
+	            			initGridData();
+	            		});
+					},
+				    errorCallBack: function() {
+						$.messager.alert('提示', errorMsg);
+					}
+						
+				};
+				iplantAjaxRequest(ajaxParam);
+				}
+			};
+			iplantAjaxRequest(reqData);
+			
+			
+			
+		};
+		
+		savaStation2 = function(code,txtVendorCode,txtDateCode,txtLotCode,enable) {
+			susMsg = '添加成功';
+			errorMsg = '添加失败,请联系管理员';
+				var ajaxParam = {
+					url: '/iPlant_ajax',
+					dataType: 'JSON',
+					data: {
+						MATERIALCODE:code,
+						VENDORCODE: txtVendorCode,
+						DATECODE: txtDateCode,
+						LOTCODE:txtLotCode,
+						REMARK:enable,					
+						IFS: 'WMS_QHold003'
+					},
+					successCallBack: function(data) {
+						var susMsg=getReturnMsg(data);
+	                	$.messager.alert("提示",susMsg,"",function(){
+	            			reqGridData('/iPlant_ajax','productWConf_tab',{IFS:'WMS_QHold002'});
+	            			initGridData();
+	            		});
+					},
+				    errorCallBack: function() {
+						$.messager.alert('提示', errorMsg);
+					}
+						
+				};
+				iplantAjaxRequest(ajaxParam);
+		};
+	};
+	application.prototype = {
+		init: function() {
+			$(function() {			
+				initGridData();	
+				var title1='工单QHold';
+				$('#btnResets').click(function(){
+		            setQueryNull();
+		        });
+				$('#tt').tabs({
+				    border:false,
+				    onSelect:function(title){
+				    	title1=title;
+			    		setQueryNull();
+				    	if(title === '工单QHold'){
+				    		getDataBySearch(1);
+				    	}
+				    	if(title=== '物料QHold'){
+				    		getDataBySearch(3);
+				    	}
+				    	if(title=== '在制品QHold'){
+				    		getDataBySearch(4);
+				    	}
+				    }
+				});
+				$('#btnsave').click(function() {
+					if(title1 === '工单QHold'){
+						var code=$("#txtOrderNO").val();
+						var MO=$("#txtCauseDescription1").val();
+						if(code==''){
+							$.messager.alert('提示', '工单号不能为空！');
+							return;
+						}
+						if(MO==''){
+							$.messager.alert('提示', '原因说明不能为空！');
+							return;
+						}
+						savaStation(1,code,MO);
+			    	}
+			    	if(title1 === '物料QHold'){
+			    		var code=$("#txtMaterialCode").val();
+						var MO=$("#txtCauseDescription2").val();
+						var txtVendorCode=$("#txtVendorCode").val();
+						var txtDateCode=$("#txtDateCode").val();
+						var txtLotCode=$("#txtLotCode").val();
+						if(code==''){
+							$.messager.alert('提示', '物料编码号不能为空！');
+							return;
+						}
+						if(MO==''){
+							$.messager.alert('提示', '原因说明不能为空！');
+							return;
+						}
+						savaStation(3,code,MO);
+						if(txtVendorCode !='' && txtDateCode!='' && txtLotCode!=''){
+							savaStation2(code,txtVendorCode,txtDateCode,txtLotCode,MO);
+						}
+			    	}
+			    	if(title1 === '在制品QHold'){
+			    		var code=$("#txtSN").val();
+						var MO=$("#txtCauseDescription3").val();
+						if(code==''){
+							$.messager.alert('提示', '产品序列号不能为空！');
+							return;
+						}
+						if(MO==''){
+							$.messager.alert('提示', '原因说明不能为空！');
+							return;
+						}
+						savaStation(4,code,MO);
+			    	}
+				});
+			});
+		}
+	};
+
+	var fcfo = new application();
+	fcfo.init();
+})();

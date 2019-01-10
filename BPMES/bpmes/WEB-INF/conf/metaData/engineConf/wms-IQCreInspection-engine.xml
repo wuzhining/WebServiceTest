@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<engines>
+   <!--IQC重检超时设置列表管理 -->
+   <!-- IQC重检超时设置列表 -->
+	<!-- 新增IQC重检超时设置列表信息 -->
+	<engine engine_code="INSERT_MES_IQCreInspection" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="INSERT_MES_IQCreInspection" >
+	</engine>
+	
+	<!--查询IQC重检超时设置列表信息 -->
+	<engine engine_code="select_MES_IQCreInspection" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="select_MES_IQCreInspection" >
+	</engine>
+	
+   <!--修改IQC重检超时设置列表信息 -->
+	<engine engine_code="update_MES_IQCreInspection" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="update_MES_IQCreInspection" >
+	</engine>
+	
+	
+	 <!--删除IQC重检超时设置列表信息 -->
+	<engine engine_code="delete_MES_IQCreInspection" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="delete_MES_IQCreInspection" >
+	</engine>
+</engines>	

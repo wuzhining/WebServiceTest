@@ -1,0 +1,230 @@
+* {
+    z-index: 0;
+}
+
+BODY {
+    FONT-SIZE: 12px;
+    width: 100%;
+    height: 100%;
+    COLOR: #003399;
+    margin: 0;
+    padding: 0;
+}
+
+FORM {
+    width: 99%;
+    height: 100%;
+}
+
+.tdInput {
+    FONT-SIZE: 12px;
+    WIDTH: 185px;
+    Height: 25px;
+    FONT-FAMILY: "arail";
+}
+.divLogin {
+   position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-top: -200px;
+    margin-left: -400px;
+    
+}
+#ff{
+	width: 90%;
+	/*position: absolute;
+	top: 30%;
+	left: 20%;*/
+	margin-left: 280px;
+	margin-top: 130px;
+	font-family: "微软雅黑";
+	color: #FFFFFF;
+	font-size: 12px;
+	 
+}
+	 ::-webkit-input-placeholder { /* WebKit browsers */  
+            color:    #aaa;  
+        }  
+        :-moz-placeholder { /* Mozilla Firefox 4 to 18 */  
+            color:    #aaa;  
+        }  
+        ::-moz-placeholder { /* Mozilla Firefox 19+ */  
+            color:    #aaa;opacity:1  
+        }  
+        :-ms-input-placeholder { /* Internet Explorer 10+ */  
+            color:    #aaa !important;  
+        }  
+        input:-webkit-autofill { /* 谷歌浏览器-文本框边框阴影遮住了背景颜色浅黄*/  
+            -webkit-box-shadow: 0 0 0 1000px #aaaaaa inset !important;  
+        }  
+        ::-ms-clear { display: none; }
+ 		::-ms-reveal { display: none; }
+input{
+	background:url() ;
+}
+
+.systemText{
+	position:fixed;
+	left:42%;
+	bottom:20px;
+	margin-top:1px;
+	color: #FFFFFF;
+	font-size: 12px;
+	
+}
+.loginBg {
+    width: 100%;
+    height: 100%;
+}
+
+#divLog {
+    position: absolute;
+    left: 35%;
+    top: 33%;
+}
+
+.logBg {
+    width: 580px;
+    height: 110px;
+}
+
+.tdTitle {
+    FONT-WEIGHT: bold;
+    FILTER: DropShadow(color=white,OffX=1, OffY=1,Positive=1);
+    COLOR: #007cc2;
+    font-size: 16px;
+    LINE-HEIGHT: 11pt;
+    POSITION: relative;
+    width: 100px;
+    height: 25px;
+}
+
+.tdEmpty {
+    width: 80px;
+    height: 25px;
+}
+
+.btnSplit {
+    margin-left: 5px;
+}
+
+#divVersion {
+    position: absolute;
+    left: 49%;
+    top: 56.8%;
+}
+
+.versionLabel {
+    color: #007cc2;
+    font-size: 12px;
+}
+
+TD {
+    FONT-SIZE: 12px;
+    COLOR: #003399;
+}
+
+TH {
+    FONT-SIZE: 12px;
+    COLOR: #003399;
+}
+
+IMG {
+    BORDER-RIGHT: 0px;
+    BORDER-TOP: 0px;
+    BORDER-LEFT: 0px;
+    BORDER-BOTTOM: 0px;
+}
+
+.INPUT {
+    FONT-SIZE: 12px;
+    WIDTH: 185px;
+    FONT-FAMILY: "arail";
+    Height: 25px;
+}
+
+FRAMESET {
+    BORDER-RIGHT: #d4d0c8 1px;
+    BORDER-TOP: #d4d0c8 0px;
+    BORDER-LEFT: #d4d0c8 0px;
+    BORDER-BOTTOM: #d4d0c8 0px;
+}
+
+SELECT {
+    BORDER-RIGHT: #7f9faa 1px solid;
+    BORDER-TOP: #7f9faa 1px solid;
+    FONT-SIZE: 12px;
+    BORDER-LEFT: #7f9faa 1px solid;
+    BORDER-BOTTOM: #7f9faa 1px solid;
+    FONT-FAMILY: "simsun";
+    BACKGROUND-COLOR: #d6e7ef;
+}
+
+TEXTAREA {
+    BORDER-RIGHT: #afc4d5 1px solid;
+    BORDER-TOP: #afc4d5 1px solid;
+    FONT-SIZE: 12px;
+    BACKGROUND: #d6e7ef;
+    BORDER-LEFT: #afc4d5 1px solid;
+    COLOR: #000066;
+    BORDER-BOTTOM: #afc4d5 1px solid;
+}
+
+TABLE {
+    BORDER-RIGHT: 0px;
+    BORDER-TOP: 0px;
+    FONT-SIZE: 9pt;
+    BORDER-LEFT: 0px;
+    BORDER-BOTTOM: 0px;
+    FONT-FAMILY: ����,MS SONG,SimSun,tahoma,sans-serif;
+}
+
+A {
+    COLOR: #666666;
+    TEXT-DECORATION: none;
+}
+
+.inp_off {
+    BORDER-RIGHT: 0px;
+    BORDER-TOP: 0px;
+    BACKGROUND: url(btn_blank.gif);
+    BORDER-LEFT: 0px;
+    WIDTH: 70px;
+    COLOR: #000000;
+    BORDER-BOTTOM: 0px;
+    HEIGHT: 24px;
+}
+
+.inp_on {
+    BORDER-RIGHT: 0px;
+    BORDER-TOP: 0px;
+    BACKGROUND: url(btn_on.gif);
+    BORDER-LEFT: 0px;
+    WIDTH: 70px;
+    COLOR: #000000;
+    BORDER-BOTTOM: 0px;
+    HEIGHT: 24px;
+}
+
+.font_login {
+    FONT-WEIGHT: bold;
+    FILTER: DropShadow(color=white,OffX=1, OffY=1,Positive=1);
+    COLOR: white;
+    font-size: 16px;
+    LINE-HEIGHT: 11pt;
+    POSITION: relative;
+}
+
+.font_gray {
+    FILTER: DropShadow(color=white,OffX=1, OffY=1,Positive=1);
+    COLOR: #666666;
+    LINE-HEIGHT: 11pt;
+    POSITION: relative;
+}
+
+.display_s1{height:80px;width:80px;background:url(../RootImages/SYS.png) no-repeat 45px 45px;padding-top:0px} 
+.display_s2{height:80px;width:80px;background:url(../RootImages/TPM.png) no-repeat 45px 45px;padding-top:0px} 
+.display_s3{height:80px;width:80px;background:url(../RootImages/MES.png) no-repeat 45px 45px;padding-top:0px} 
+.display_s4{height:80px;width:80px;background:url(../RootImages/WMS.png) no-repeat 45px 45px;padding-top:0px} 
+
+

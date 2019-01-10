@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ifss>
+	<!-- A3 生产计划 -->
+	<!-- A3.1 工单管理 -->
+    <!-- 查询工单信息 -->
+	<ifs ifs_code="P000001" ifs_name="查询工单信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryOdInfo" biz_method="" serial_no="1" biz_name="queryOdInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 查询工单信息（关联查询） -->
+	<ifs ifs_code="P000002" ifs_name="查询工单信息（关联查询）" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryOdInfogl" biz_method="" serial_no="1" biz_name="queryOdInfogl" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 新增工单信息 -->
+	<ifs ifs_code="P000003" ifs_name="新增工单信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertOdInfo" biz_method="" serial_no="1" biz_name="insertOdInfo" biz_type="3" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 删除工单信息 -->
+	<ifs ifs_code="P000004" ifs_name="删除工单信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteOdInfo" biz_method="" serial_no="1" biz_name="deleteOdInfo" biz_type="3" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 修改工单信息 -->
+	<ifs ifs_code="P000005" ifs_name="修改工单信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateOdInfo" biz_method="" serial_no="1" biz_name="updateOdInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 审核 -->
+	<ifs ifs_code="P000006" ifs_name="审核" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="auditOdInfo" biz_method="" serial_no="1" biz_name="auditOdInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>	
+	<!-- 导入生产工单 -->
+	<ifs ifs_code="P000007" ifs_name="导入生产工单" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="importOdInfo" biz_method="" serial_no="1" biz_name="importOdInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- A3.2 派工管理  -->
+	<!-- 查询派工信息-->
+	<ifs ifs_code="P000008" ifs_name="查询派工信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryWdInfo" biz_method="" serial_no="1" biz_name="queryWdInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 新增派工信息 -->
+	<ifs ifs_code="P000009" ifs_name="新增派工信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertWdInfo" biz_method="" serial_no="1" biz_name="insertWdInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 删除派工信息 -->
+	<ifs ifs_code="P000010" ifs_name="删除派工信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteWdInfo" biz_method="" serial_no="1" biz_name="deleteWdInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 修改派工信息 -->
+	<ifs ifs_code="P000011" ifs_name="修改派工信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateWdInfo" biz_method="" serial_no="1" biz_name="updateWdInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 获取派工时间 -->
+	<ifs ifs_code="P000016" ifs_name="获取派工时间" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="getApprovalTime" biz_method="" serial_no="1" biz_name="getApprovalTime" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- A3.3 生产数据  -->
+	<!-- 查询生产数据 -->
+	<ifs ifs_code="P000012" ifs_name="查询生产数据" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryProdData" biz_method="" serial_no="1" biz_name="queryProdData" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 新增生产数据 -->
+	<ifs ifs_code="P000013" ifs_name="新增生产数据" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertProdData" biz_method="" serial_no="1" biz_name="insertProdData" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 删除生产数据 -->
+	<ifs ifs_code="P000014" ifs_name="删除生产数据" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteProdData" biz_method="" serial_no="1" biz_name="deleteProdData" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 修改生产数据 -->
+	<ifs ifs_code="P000015" ifs_name="修改生产数据" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateProdData" biz_method="" serial_no="1" biz_name="updateProdData" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 派工单号生成规则 -->
+	<ifs ifs_code="P000017" ifs_name="派工单号生成规则" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="orderRules" biz_method="" serial_no="1" biz_name="orderRules" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 根据派工单修改工单状态 -->
+	<ifs ifs_code="P000018" ifs_name="根据派工单修改工单状态" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateOdInfoDo" biz_method="" serial_no="1" biz_name="updateOdInfoDo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 查询已审核派工单是否开始生产-->
+	<ifs ifs_code="P000019" ifs_name="查询已审核派工单是否开始生产" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryCheckOd" biz_method="" serial_no="1" biz_name="queryCheckOd" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 工单审核 -->
+	<ifs ifs_code="P000020" ifs_name="工单审核" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateOdInfoCheck" biz_method="" serial_no="1" biz_name="updateOdInfoCheck" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	
+	<!-- 调拨申请信息  -->
+	<!-- 查询调拨申请信息 -->
+	<ifs ifs_code="P000021" ifs_name="查询调拨申请信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryApply" biz_method="" serial_no="1" biz_name="queryApply" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 新增调拨申请信息 -->
+	<ifs ifs_code="P000022" ifs_name="新增调拨申请信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertApply" biz_method="" serial_no="1" biz_name="insertApply" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 删除调拨申请信息 -->
+	<ifs ifs_code="P000023" ifs_name="删除调拨申请信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteApply" biz_method="" serial_no="1" biz_name="deleteApply" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 修改调拨申请信息 -->
+	<ifs ifs_code="P000024" ifs_name="修改调拨申请信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateApply" biz_method="" serial_no="1" biz_name="updateApply" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 生成调拨申请单号 -->
+	<ifs ifs_code="P000025" ifs_name="生成调拨申请单号" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="Applyid" biz_method="" serial_no="1" biz_name="Applyid" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+</ifss>

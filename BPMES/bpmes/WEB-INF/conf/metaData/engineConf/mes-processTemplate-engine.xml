@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<engines>
+
+	<!-- 投入工位     START -->
+	<!-- 根据作业指示编号查询作业信息 -->
+	<engine engine_code="queryInputStation" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryInputStation" >
+	</engine>
+	
+	<!-- 查询该物料是否属于该作业指示 -->
+	<engine engine_code="queryInputStationITEMCD" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryInputStationITEMCD" >
+	</engine>
+	
+	<!-- 确定作业指示后插入生产投入表 -->
+	<engine engine_code="insertProductionInput" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertProductionInput" >
+	</engine>
+	
+	<!-- 更新工单条码表作业指示状态 -->
+	<engine engine_code="updateBarcodeJobInstructionStatus" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateBarcodeJobInstructionStatus" >
+	</engine>
+	
+	<!-- 查询作业指示明细列 -->
+	<engine engine_code="queryJobInstructionDetails" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryJobInstructionDetails" >
+	</engine>
+	
+	<!-- 投入工位     END -->
+	
+	<!-- 扫描ENTER SN：查找工单信息 -->
+	<engine engine_code="querySnWorkOrderInformation" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querySnWorkOrderInformation" >
+	</engine>
+	
+	<!-- APP扫描ENTER SN：查找工单信息 -->
+	<engine engine_code="querySnWorkOrderInformationAPP" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querySnWorkOrderInformationAPP" >
+	</engine>
+	
+	
+	
+	<!-- IPQC工位     START -->
+	<!-- 查询IPQC抽检明细信息 -->
+	<engine engine_code="queryIpqcSamplingDetails" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryIpqcSamplingDetails" >
+	</engine>
+	<!-- 增加IPQC抽检明细信息 -->
+	<engine engine_code="insertIpqcSamplingDetails" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="insertIpqcSamplingDetails" >
+	</engine>
+	<!-- 增加IPQC抽检信息 -->
+	<engine engine_code="insertIpqcSampling" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="insertIpqcSampling" >
+	</engine>
+	<!-- 验证SN是否已抽检过 -->
+	<engine engine_code="checkIpqcSampling" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="checkIpqcSampling" >
+	</engine>
+	
+	<!-- IPQC工位     END -->
+	
+	<!-- 包装工位     START -->
+	<!-- 查询生产箱号表信息 -->
+	<engine engine_code="queryProductionOfNo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryProductionOfNo" >
+	</engine>
+	<!-- 增加生产箱号表信息 -->
+	<engine engine_code="insertProductionOfNo" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="insertProductionOfNo" >
+	</engine>
+	<!-- 查询BOX_ID-->
+	<engine engine_code="queryBoxId" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="queryBoxId" >
+	</engine>
+	
+	<!-- 验证SN是否已装箱-->
+	<engine engine_code="checkSnPackingBox" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="checkSnPackingBox" >
+	</engine>
+	
+	<!-- 包装工位     END -->
+	
+	<!-- OQC工位   START -->
+	<!-- 增加OQC抽检明细信息 -->	
+	<engine engine_code="insertOqcDetails" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertOqcDetails" >
+	</engine>
+		
+	<!-- 查询OQC抽检明细信息 -->
+	<engine engine_code="queryOqcDetails" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="queryOqcDetails" >
+	</engine>
+	
+	<!-- 增加OQC抽检信息 -->	
+	<engine engine_code="insertOqc" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="insertOqc" >
+	</engine>
+	
+	<!-- OQC工位   END -->
+	
+	<!-- 栈板工位     START -->
+	<!-- 扫描箱号 -->
+	<engine engine_code="queryBoxPallet" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryBoxPallet" >
+	</engine>
+	
+	<!-- 查询栈板信息 -->
+	<engine engine_code="queryPalletInformation" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryPalletInformation" >
+	</engine>
+	
+	<!-- 增加栈板号信息 -->
+	<engine engine_code="insertPalletInformation" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertPalletInformation" >
+	</engine>
+	
+	<!-- 批量新增栈板明细信息 -->
+	<engine engine_code="insertBatchPalletInformation" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertBatchPalletInformation" >
+	</engine>
+	
+	<!-- 查询PLT_ID-->
+	<engine engine_code="queryPltId" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="queryPltId" >
+	</engine>
+	
+	<!-- 修改箱子主表的PLT_ID -->
+	<engine engine_code="updateBoxPlt" engine_name="" engine_type="4" page_mode="1" engine_cate="1" attr1="updateBoxPlt" >
+	</engine>
+	
+	
+	<!-- 栈板工位     END -->
+	<engine engine_code="savaPacking" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="savaPacking" >
+	</engine>
+	<engine engine_code="queryPackingrecord" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryPackingrecord" >
+	</engine>
+	<engine engine_code="Closethebox" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="Closethebox" >
+	</engine>
+	
+	
+	
+	<!-- 装配工位 START -->
+	<!-- 装配信息查询 -->
+	<engine engine_code="queryAssemblyInformation" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryAssemblyInformation" >
+	</engine>
+	<!-- 装配信息新增 -->
+	<engine engine_code="insertAssemblyInformation" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertAssemblyInformation" >
+	</engine>
+	<!-- 装配信息修改 -->
+	<engine engine_code="updateAssemblyInformation" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateAssemblyInformation" >
+	</engine>
+	<!-- 装配信息删除 -->
+	<engine engine_code="deleteAssemblyInformation" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteAssemblyInformation" >
+	</engine>
+	<!-- 装配扫描部件条码信息 -->
+	<engine engine_code="queryAssemblyScanBarCode" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryAssemblyScanBarCode" >
+	</engine>
+	
+	
+	<!-- 装配工位 END -->
+	
+	
+	<!-- 维修工位 START -->
+	<!-- 维修工位记录表查询 -->
+	<engine engine_code="queryRepairStation" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryRepairStation" >
+	</engine>
+	<!-- 维修工位记录表新增 -->
+	<engine engine_code="insertRepairStation" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertRepairStation" >
+	</engine>
+	
+	<!-- 根据SN查询得到IPQC与OQC抽检数据 -->
+	<engine engine_code="querySnIpqcAndOqc" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querySnIpqcAndOqc" >
+	</engine>
+	
+	<!-- IPQC与OQC抽检 FAIL时更新工单条码表BC_STATUS -->
+	<engine engine_code="updateSnIpqcAndOqcBcstatus" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateSnIpqcAndOqcBcstatus" >
+	</engine>
+	
+	<!-- OQC抽检fail时更新OQC主表OQC_STATE为NG -->
+	<engine engine_code="updateOqcState" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateOqcState" >
+	</engine>
+	<!-- 维修工位 END -->
+	
+	<!-- 序列循环新增 -->
+	<engine engine_code="foreachInsertFunInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="foreachInsertFunInfo" >
+	</engine>
+	
+	<!-- 验证维修时该SN是否可以完成操作 -->
+	<engine engine_code="CheckVerifyThatSnCanBeCompleted" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="CheckVerifyThatSnCanBeCompleted" >
+	</engine>
+	
+	<!--更新生产投入表 rout_cd -->
+	<engine engine_code="updateProLotInfos" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateProLotInfos" >
+	</engine>
+	
+	
+</engines>

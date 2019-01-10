@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <style>
+    
+    </style>
+   <link rel="stylesheet" type="text/css" href="../../../common/IplantCompent/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../../../common/IplantCompent/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="../../../common/IplantCompent/Demo/demo.css">
+    <link rel="stylesheet" type="text/css" href="../BasicDataType/css/data.css">
+    <script src="../../../common/IplantCompent/jquery.min.js" type="text/javascript"></script>
+    <script src="../../../common/IplantCompent/jquery.easyui.min.js" type="text/javascript"></script>
+    <script src="../../../common/IplantCommon/DataRequest.js" type="text/javascript"></script>
+    <script src="../js/BasicUnit.js" type="text/javascript"></script>
+    <meta charset="utf-8" />
+    <script type="text/javascript">
+        
+
+    </script>
+</head>
+<body style="padding: 0;margin: 0;">
+    <div style="height:100%;width:100%;" class="easyui-layout" fit='true'>
+    	 <div  region="center" style="width:100%;" class="easyui-layout">
+            <div region='north' id="tb" style="width: auto; height: 30px;">
+                <table style="width: 100%; height: 30px;" cellspacing="2" border="0" >
+                    <tr >
+                        <td>
+                        	<a id="btnSearch" href="#" class="easyui-linkbutton" iconCls="icon-search" onclick="updateBasicUnit();">查询</a>
+                            <a id="btnAdd" href="#" class="easyui-linkbutton" iconCls="icon-add" onclick="addBasicUnit();">添加</a>
+                            <a id="btnUpdate" href="#" class="easyui-linkbutton" iconCls="icon-edit" onclick="updateBasicUnit();">修改</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <table region='center' style='height: auto;max-height: 100%' id="BasicUnit_tab" class='easyui-datagrid' toolbar="#tb"  ></table>
+        </div>
+    </div>
+
+    <div id="enditTab" class="easyui-dialog" style="width: 400px;height: 350px;" closed="true" data-options="modal: true,
+				buttons: [{
+					text:'保存',
+					iconCls:'icon-ok',
+					handler:function(){
+						savaBasicUnit(); 
+					}
+				},{
+					text:'取消',
+					iconCls:'icon-no',
+					handler:function(){
+						$('#enditTab').dialog('close');	
+					}
+				}]">
+        <form id="fmBasicUnit" method="post" style="padding:10px 20px 10px 40px;">
+            <table border="0">
+                 <tr style="height: 35px;">
+                    <td>基本单位编码：</td>
+                    <td>
+                        <input id="txtBasicUnitCode" name="postingdate"  class="easyui-textbox" required="required" data-options="missingMessage:'该选项为必填信息'" />
+                    </td>
+                    <td style="color: red ">*</td>
+                </tr>
+                <tr style="height: 35px;">
+                    <td>基本单位名称：</td>
+                    <td>
+                        <input id="txtBasicUnitName" name="postingdate"  class="easyui-textbox" required="required" data-options="missingMessage:'该选项为必填信息'"/>
+                    </td>
+                    <td style="color: red ">*</td>
+                </tr>
+               <tr style="height: 35px;">
+                    <td>是否启用：</td>
+                    <td>
+                        <input id="txtBasicUnitUse" name="postingdate"  class="easyui-combobox" />
+                    </td>
+                </tr>
+                
+               <!--  <tr style="height: 50px;">
+
+                    <td colspan="3" align="center">
+                        <a href="#" class="easyui-linkbutton" iconCls="icon-save" onclick="savaBasicUnit()">保存</a>
+                        <a href="#" class="easyui-linkbutton" iconCls="icon-close" onclick="javascript:$('#enditTab').dialog('close')">关闭</a>
+
+                    </td>
+
+                </tr> -->
+
+            </table>
+
+        </form>
+
+    </div>
+</body>
+
+</html>

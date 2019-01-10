@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<podiums>
+	<podium  podium_code="insertStopCardInfo" podium_name="停机刷卡数据更新" podium_class="com.iPlant.mes.biz.mobile.CreditManage" podium_method="execute" attr1="" attr2=""/>
+	<podium  podium_code="updateEquipmentOp" podium_name="修改设备操作明细信息" podium_class="com.iPlant.mes.biz.mobile.CreditManage" podium_method="stopCard" attr1="" attr2=""/>
+	<podium  podium_code="deleteMouldDetailInfo" podium_name="修改模具产品映射关系明细信息" podium_class="com.iPlant.mes.biz.equipmentManage.EquipmentManage" podium_method="updateMouldDetail" attr1="" attr2=""/>
+</podiums>

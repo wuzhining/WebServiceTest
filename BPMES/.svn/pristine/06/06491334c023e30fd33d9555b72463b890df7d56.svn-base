@@ -1,0 +1,497 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ifss>
+    <!-- 用户登录 -->
+	<ifs ifs_code="D000000" ifs_name="系统登录" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="userLogin" biz_method="" serial_no="1" biz_name="userLogin" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+    
+    <!-- 1.1 数据字典管理 -->
+    <!-- 新增数据字典信息 -->
+    <ifs ifs_code="D000001" ifs_name="新增数据字典" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertDictionary" biz_method="" serial_no="1" biz_name="insertDictionary" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 删除数据字典信息 -->
+	<ifs ifs_code="D000002" ifs_name="删除数据字典" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteDictionary" biz_method="" serial_no="1" biz_name="deleteDictionary" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 修改数据字典信息 -->
+	<ifs ifs_code="D000003" ifs_name="修改数据字典" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateDictionary" biz_method="" serial_no="1" biz_name="updateDictionary" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 查询数据字典信息 -->
+	<ifs ifs_code="D000004" ifs_name="查询数据字典" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryDictionary" biz_method="" serial_no="1" biz_name="queryDictionary" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 新增字典项信息 -->
+	<ifs ifs_code="D000005" ifs_name="新增字典项" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertDictionaryDetail" biz_method="" serial_no="1" biz_name="insertDictionaryDetail" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>	
+	
+	<!-- 删除字典项信息 -->
+	<ifs ifs_code="D000006" ifs_name="删除字典项" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteDictionaryDetail" biz_method="" serial_no="1" biz_name="deleteDictionaryDetail" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>	
+	
+	<!-- 修改字典项信息 -->
+	<ifs ifs_code="D000007" ifs_name="修改字典项" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateDictionaryDetail" biz_method="" serial_no="1" biz_name="updateDictionaryDetail" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>		
+
+	<!-- 查询字典项信息 -->
+	<ifs ifs_code="D000008" ifs_name="查询字典项" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryDictionaryDetail" biz_method="" serial_no="1" biz_name="queryDictionaryDetail" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>	
+	
+	<!-- 1.2 菜单及模块信息配置   -->      
+	<!-- 新增系统菜单信息 --> 
+	<ifs ifs_code="D000009" ifs_name="新增系统菜单" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertSysMenu" biz_method="" serial_no="1" biz_name="insertSysMenu" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>	
+	
+	<!-- 删除系统菜单信息 -->
+	<ifs ifs_code="D000010" ifs_name="删除系统菜单" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteSysMenu" biz_method="" serial_no="1" biz_name="deleteSysMenu" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>	
+	
+	<!-- 修改系统菜单信息 -->
+	<ifs ifs_code="D000011" ifs_name="修改系统菜单" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateSysMenu" biz_method="" serial_no="1" biz_name="updateSysMenu" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>	
+	
+	<!-- 查询系统菜单信息 -->
+	<ifs ifs_code="D000012" ifs_name="查询系统菜单" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="querySysMenu" biz_method="" serial_no="1" biz_name="querySysMenu" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>	
+	<!-- 1.3  员工信息管理 -->
+	<!-- 新增一行员工信息 -->
+	<ifs ifs_code="D000013" ifs_name="新增员工" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertOptInfo" biz_method="" serial_no="1" biz_name="insertOptInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 删除员工信息 -->
+	<ifs ifs_code="D000014" ifs_name="删除员工" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteOptInfo" biz_method="" serial_no="1" biz_name="deleteOptInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>		
+	
+	<!-- 修改员工信息 -->	
+	<ifs ifs_code="D000015" ifs_name="修改员工" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateOptInfo" biz_method="" serial_no="1" biz_name="updateOptInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>	
+	
+	<!-- 修改员工图片信息 -->	
+	<ifs ifs_code="D000150" ifs_name="修改员工" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateOptPhotoInfo" biz_method="" serial_no="1" biz_name="updateOptPhotoInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>	
+	
+	<!-- 查询员工信息 -->
+	<ifs ifs_code="D000016" ifs_name="查询员工" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryOptInfo" biz_method="" serial_no="1" biz_name="queryOptInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 1.4 岗位管理 -->
+	<!-- 新增岗位信息 -->
+	<ifs ifs_code="D000017" ifs_name="新增岗位" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertPostInfo" biz_method="" serial_no="1" biz_name="insertPostInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>		
+	
+	<!-- 删除岗位信息 -->
+	<ifs ifs_code="D000018" ifs_name="删除岗位" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deletePostInfo" biz_method="" serial_no="1" biz_name="deletePostInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>	
+	
+	<!-- 修改岗位信息 -->
+	<ifs ifs_code="D000019" ifs_name="修改岗位" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updatePostInfo" biz_method="" serial_no="1" biz_name="updatePostInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>	
+	
+	<!-- 查询岗位信息 -->
+	<ifs ifs_code="D000020" ifs_name="查询岗位" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryPostInfo" biz_method="" serial_no="1" biz_name="queryPostInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>	
+	
+	<!-- 1.5 部门管理 -->
+	<!-- 新增部门信息 -->
+	<ifs ifs_code="D000021" ifs_name="新增部门" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertDptInfo" biz_method="" serial_no="1" biz_name="insertDptInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>	
+	
+	<!-- 删除部门信息 -->
+	<ifs ifs_code="D000022" ifs_name="删除部门" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteDptInfo" biz_method="" serial_no="1" biz_name="deleteDptInfo" biz_type="3" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>		
+	
+	<!-- 修改部门信息 -->
+	<ifs ifs_code="D000023" ifs_name="修改部门" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateDptInfo" biz_method="" serial_no="1" biz_name="updateDptInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>	
+
+	<!-- 查询部门信息 -->
+	<ifs ifs_code="D000024" ifs_name="查询部门" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryDptInfo" biz_method="" serial_no="1" biz_name="queryDptInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>	
+		
+	<!-- 1.6 用户组信息管理 -->		
+    <!-- 查询用户组信息 -->
+    <ifs ifs_code="D000025" ifs_name="查询用户组信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryOpGroup" biz_method="" serial_no="1" biz_name="queryOpGroup" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- 用户组信息新增 -->
+    <ifs ifs_code="D000026" ifs_name="用户组信息新增 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertOpGroup" biz_method="" serial_no="1" biz_name="insertOpGroup" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- 用户组信息删除  -->
+    <ifs ifs_code="D000027" ifs_name="用户组信息删除 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteOpGroup" biz_method="" serial_no="1" biz_name="updateQxOp" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- 用户组信息修改  -->
+    <ifs ifs_code="D000028" ifs_name="设置用户权限 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateOpGroup" biz_method="" serial_no="1" biz_name="updateQxOp" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    <!-- 1.7 功能信息管理 -->
+	<!-- 功能信息查询 -->
+	<ifs ifs_code="D000029" ifs_name="功能信息查询" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryFunction" biz_method="" serial_no="1" biz_name="queryFunction" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- 功能信息新增 -->
+    <ifs ifs_code="D000030" ifs_name="功能信息新增" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertFunction" biz_method="" serial_no="1" biz_name="insertFunction" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- 功能信息删除 -->
+    <ifs ifs_code="D000031" ifs_name="功能信息删除" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteFunction" biz_method="" serial_no="1" biz_name="deleteFunction" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- 功能信息修改 -->
+    <ifs ifs_code="D000032" ifs_name="功能信息修改" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateFunction" biz_method="" serial_no="1" biz_name="updateFunction" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    <!-- 1.8 用户组权限配置管理 -->
+    <!-- 查询用户组权限配置 -->
+    <ifs ifs_code="D000033" ifs_name="查询用户组权限配置" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryOpGroupQx" biz_method="" serial_no="1" biz_name="queryOpGroupQx" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- 用户组权限信息新增  -->
+    <ifs ifs_code="D000034" ifs_name="用户组权限信息新增 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertOpGroupQx" biz_method="" serial_no="1" biz_name="insertOpGroupQx" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- 用户组权限信息删除 -->
+    <ifs ifs_code="D000035" ifs_name="用户组权限信息删除" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteOpGroupQx" biz_method="" serial_no="1" biz_name="deleteOpGroupQx" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- 用户组权限信息修改 -->
+    <ifs ifs_code="D000036" ifs_name="用户组权限信息修改" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateOpGroupQx" biz_method="" serial_no="1" biz_name="updateOpGroupQx" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    <!-- 1.9 用户信息管理-->
+    <!-- 用户信息查询 -->
+	<ifs ifs_code="D000037" ifs_name="用户信息查询" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryOpUser" biz_method="" serial_no="1" biz_name="queryOpUser" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 用户信息新增 -->
+	<ifs ifs_code="D000038" ifs_name="用户信息新增" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertOpUser" biz_method="" serial_no="1" biz_name="insertOpUser" biz_type="3" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 用户信息删除 -->
+	<ifs ifs_code="D000039" ifs_name="用户信息删除" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteOpUser" biz_method="" serial_no="1" biz_name="deleteOpUser" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+    <!-- 用户信息修改-->
+    <ifs ifs_code="D000040" ifs_name="用户信息修改" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateOpUser" biz_method="" serial_no="1" biz_name="updateOpUser" biz_type="3" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+
+   
+    <!-- 查询员工信息(关联表查询) -->
+	<ifs ifs_code="D000041" ifs_name="查询员工信息(关联表查询)" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryStaffInfo" biz_method="" serial_no="1" biz_name="queryStaffInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+
+    <!-- 操作日志 -->
+    <!-- 查询操作日志 -->
+    <ifs ifs_code="D000042" ifs_name="查询操作日志" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryOperaLog" biz_method="" serial_no="1" biz_name="queryOperaLog" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>  
+    <!-- 新增操作日志 -->
+    <ifs ifs_code="D000043" ifs_name="新增操作日志" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertOperaLog" biz_method="" serial_no="1" biz_name="insertOperaLog" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>  
+    <!-- 删除操作日志 -->
+    <ifs ifs_code="D000044" ifs_name="删除操作日志" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteOperaLog" biz_method="" serial_no="1" biz_name="deleteOperaLog" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>  
+    <!-- 修改操作日志 -->
+    <ifs ifs_code="D000045" ifs_name="修改操作日志" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateOperaLog" biz_method="" serial_no="1" biz_name="updateOperaLog" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>  
+	
+	<!-- 查询系统菜单信息 -->
+	<ifs ifs_code="D000046" ifs_name="查询系统菜单树状结构" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="querySysMenuTree" biz_method="" serial_no="1" biz_name="querySysMenuTree" biz_type="3" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>	
+    
+    <!-- 系统框架结构关系 -->
+    <!-- 查询系统框架结构 -->
+    <ifs ifs_code="D000047" ifs_name="查询系统框架结构" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="querySysFrameRn" biz_method="" serial_no="1" biz_name="querySysFrameRn" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 新增系统框架结构 -->
+    <ifs ifs_code="D000048" ifs_name="新增系统框架结构" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertSysFrameRn" biz_method="" serial_no="1" biz_name="insertSysFrameRn" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>	
+	<!-- 删除系统框架结构 -->
+	<ifs ifs_code="D000049" ifs_name="删除系统框架结构" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteSysFrameRn" biz_method="" serial_no="1" biz_name="deleteSysFrameRn" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 修改系统框架结构 -->
+	<ifs ifs_code="D000050" ifs_name="删除系统框架结构" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateSysFrameRn" biz_method="" serial_no="1" biz_name="updateSysFrameRn" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>	
+	
+	<!-- 数据结构关系 -->
+    <!-- 查询数据结构 -->
+    <ifs ifs_code="D000051" ifs_name="查询数据结构" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryDataStructureRn" biz_method="" serial_no="1" biz_name="queryDataStructureRn" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 新增数据结构 -->
+    <ifs ifs_code="D000052" ifs_name="新增数据结构" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertDataStructureRn" biz_method="" serial_no="1" biz_name="insertDataStructureRn" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>	
+	<!-- 删除数据结构 -->
+	<ifs ifs_code="D000053" ifs_name="删除数据结构" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteDataStructureRn" biz_method="" serial_no="1" biz_name="deleteDataStructureRn" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 修改数据结构 -->
+	<ifs ifs_code="D000054" ifs_name="删除数据结构" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateDataStructureRn" biz_method="" serial_no="1" biz_name="updateDataStructureRn" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>	
+	<!-- 查询部门数结构信息 -->
+	<ifs ifs_code="D000055" ifs_name="查询系统部门信息状结构" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="querySysDptTree" biz_method="" serial_no="1" biz_name="querySysDptTree" biz_type="3" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>	
+	
+	<!-- 查询设备数结构信息 -->
+	<ifs ifs_code="D000056" ifs_name="查询系统设备树状结构" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="querySysSheBeiTree" biz_method="" serial_no="1" biz_name="querySysSheBeiTree" biz_type="3" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 查询用户按钮权限-->
+	<ifs ifs_code="D000057" ifs_name="查询用户按钮权限" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryButtonQx" biz_method="" serial_no="1" biz_name="queryButtonQx" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>		
+	
+	
+	 <!-- 安卓端菜单与按钮权限配置 -->
+	<ifs ifs_code="D000058" ifs_name="安卓端菜单与按钮权限配置" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryAppMenuPermissions" biz_method="" serial_no="1" biz_name="queryAppMenuPermissions" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>	
+	
+	 <!-- 用户信息修改-->
+    <ifs ifs_code="D000059" ifs_name="用户信息修改" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateOpUserByLogin" biz_method="" serial_no="1" biz_name="updateOpUserByLogin" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    <!-- 部门信息关联表查询 -->
+    <ifs ifs_code="D000060" ifs_name="部门信息关联表查询 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryDptInfoGl" biz_method="" serial_no="1" biz_name="queryDptInfoGl" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    <!-- 2.0 系统报错管理 -->		
+    <!-- 查询系统报错信息 -->
+    <ifs ifs_code="D000061" ifs_name="查询系统报错信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="querySystemError" biz_method="" serial_no="1" biz_name="querySystemError" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- 系统报错新增 -->
+    <ifs ifs_code="D000062" ifs_name="系统报错新增 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertSystemError" biz_method="" serial_no="1" biz_name="insertSystemError" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- 系统报错删除  -->
+    <ifs ifs_code="D000063" ifs_name="系统报错删除 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteSystemError" biz_method="" serial_no="1" biz_name="deleteSystemError" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- 系统报错修改  -->
+    <ifs ifs_code="D000064" ifs_name="系统报错修改" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateSystemError" biz_method="" serial_no="1" biz_name="updateSystemError" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    <!-- 批量新增员工信息 -->
+	<ifs ifs_code="D000071" ifs_name="批量新增员工" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertBatchOptInfo" biz_method="" serial_no="1" biz_name="insertBatchOptInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 查询用户权限所属系统 -->
+    <ifs ifs_code="D000070" ifs_name="查询用户权限所属系统" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="querySystemOwner" biz_method="" serial_no="1" biz_name="querySystemOwner" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    
+    
+    <!-- 物料类别模块 -->
+    <!-- 新增物料类别信息 -->
+	<ifs ifs_code="D000071" ifs_name="新增物料类别信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="Addmaterialcategoryinformation" biz_method="" serial_no="1" biz_name="Addmaterialcategoryinformation" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>	
+	
+	<!-- 删除物料类别信息 -->
+	<ifs ifs_code="D000072" ifs_name="删除物料类别信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="Deletematerialcategoryinformation" biz_method="" serial_no="1" biz_name="Deletematerialcategoryinformation" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>	
+	
+	<!-- 修改物料类别信息 -->
+	<ifs ifs_code="D000073" ifs_name="修改物料类别信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updatematerialcategoryinformation" biz_method="" serial_no="1" biz_name="updatematerialcategoryinformation" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>		
+
+	<!-- 查询物料类别信息 -->
+	<ifs ifs_code="D000074" ifs_name="查询物料类别信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="querymaterialcategoryinformation" biz_method="" serial_no="1" biz_name="querymaterialcategoryinformation" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>	
+</ifss>

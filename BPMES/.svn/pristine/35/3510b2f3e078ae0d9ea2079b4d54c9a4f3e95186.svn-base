@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<engines>
+	 <!-- A5  明细查询 -->
+    <!-- A5.1  刷卡数据-->
+    <!-- 刷卡数据查询 -->
+	<engine engine_code="queryCard" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryCard" >
+	</engine>
+	
+	<!-- A5.2    生产记录-->
+    <!-- 生产记录查询 -->
+	<engine engine_code="queryProductionRecords" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryProductionRecords" >
+	</engine>
+	
+	<!-- A5.3    设备维修记录-->
+    <!-- 设备维修记录查询 -->
+	<engine engine_code="queryERepairRecords" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryERepairRecords" >
+	</engine>
+	
+	<!-- A5.4    设备保养记录-->
+    <!-- 设备保养记录查询 -->
+	<engine engine_code="queryEMaintenanceRecords" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryEMaintenanceRecords" >
+	</engine>
+	
+	<!-- A5.5   次品记录-->
+	
+	<!-- A5.3    设备维修记录-->
+    <!-- 设备维修记录查询 -->
+	<engine engine_code="queryERepairRecords" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="queryERepairRecords" >
+	</engine>
+	
+	<!-- A5.4    设备保养记录-->
+    <!-- 设备保养记录查询 -->
+	<engine engine_code="queryEMaintenanceRecords" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="queryEMaintenanceRecords" >
+	</engine>
+	
+	<!-- A5.5   次品记录-->
+	<!-- A5.3   次品记录-->
+    <!-- 次品记录查询 -->
+	<engine engine_code="queryDefective" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryDefective" >
+	</engine>
+</engines>

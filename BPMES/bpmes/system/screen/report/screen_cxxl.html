@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SPI锡膏检测设备看板</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="../../../common/IplantCompent/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="../../../common/IplantCompent/themes/icon.css">
+	<link rel="stylesheet" type="text/css" href="../../../common/IplantCompent/Demo/demo.css">
+	<script src="../../../common/IplantCompent/jquery.min.js" type="text/javascript"></script>
+	<script src="../../../common/IplantCompent/jquery.easyui.min.js" type="text/javascript"></script>
+	<script src="../../../business/IplantMobile/js/DataRequest.js" type="text/javascript"></script>
+	<script src="../../../common/IplantCompent/jquery.lazyload.min.js" type="text/javascript"></script>
+	<script type="text/javascript" charset="utf-8"> 
+
+
+        function loadscript()
+
+        {
+
+        	LazyLoad.js([
+			 "../../../common/IplantCommon/CommonUtil.js",
+			 "highcharts/code/highcharts.js",
+			 "highcharts/code/highcharts-3d.js",
+			 "highcharts/code/modules/exporting.js",
+			 "highcharts/code/themes/dark-unica.js",
+			 
+			 "js/screen_cxxl.js"
+			]);
+		 };
+
+        setTimeout(loadscript,0);
+
+    </script>
+    <style>
+  	.panel-body {
+  		border-color: #393A4C;
+	}
+  	</style>
+  </head>
+  <body style="margin:0px;padding:0px;" class="easyui-layout">
+  	<div data-options="region:'north'" style="height:40px;background:#454E5D;overflow : hidden;">
+  		<div style="text-align:left; width:100%;background:#E0EEFF; height:40px;">
+  			<table>
+                <tr>
+                    <td>产品：</td>
+                    <td>
+                        <input id="DO_CD" name="postingdate" style="width: 150px;" class="easyui-textbox" />
+                    </td>
+	                <td>产线：</td>
+                    <td>
+                        <input id="machineCode" name="postingdate" style="width: 150px;" class="easyui-textbox" />
+                    </td>
+                    <td>开始时间：</td>
+                    <td>
+                        <input id="DO_CD" name="postingdate" style="width: 150px;" class="easyui-textbox" />
+                    </td>
+	                <td>结束时间：</td>
+                    <td>
+                        <input id="machineCode" name="postingdate" style="width: 150px;" class="easyui-textbox" />
+                    </td>
+                    <td>
+                        <a href="#" class="easyui-linkbutton" iconCls="icon-search" id="ccSearch" >查询</a>
+                    </td>
+                </tr>
+                </table>
+  		</div>
+  	</div>   
+    	<div data-options="region:'center'" style="background:#393A4C;overflow : hidden;" >   
+       	 	   <div id="container1" style="height:100%"></div>
+        </div>   
+  </body>
+</html>

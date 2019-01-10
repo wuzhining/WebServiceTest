@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
+    <title>模块关联列表</title>
+    <link rel="stylesheet" type="text/css" href="../../../common/IplantCompent/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../../../common/IplantCompent/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="../../../common/IplantCompent/Demo/demo.css">
+    <script src="../../../common/IplantCompent/jquery.min.js" type="text/javascript"></script>
+    <script src="../../../common/IplantCompent/jquery.easyui.min.js" type="text/javascript"></script>
+    <script src="../../../common/IplantCommon/DataRequest.js" type="text/javascript"></script>
+    <script src="../../../common/IplantCommon/CommonUtil.js" type="text/javascript"></script>
+    <script src="js/InspectionTemplateItemList.js" type="text/javascript"></script>
+    <script src="../../../common/UICompent/locale/easyui-lang-zh_CN.js" type="text/javascript" ></script>  
+    <script type="text/javascript">
+    </script>
+    
+    
+  <meta charset="utf-8" />
+    <script type="text/javascript">
+		    function doSearch(){
+		    	addMaterial()
+		    	getMaterialDataBySearch();
+		    };
+		    function searchVendorCode(){
+		    	addVendorCode();
+		    	getVendorCodeBySearch();
+		    };
+		    function searchTemplateName(){
+		    	addTemplateName();
+		    	getTemplateNamBySearche();
+		    };
+		    function searchAQLRuleInfo(){
+		    	addAQLRuleInfo();
+		    	getAQLRuleInfoSearche();
+		    }
+    </script> 
+    
+</head>
+<body style="padding: 0;margin: 0;">
+	<div style="height:100%;width:100%" class="easyui-layout" fit="true">
+        <div region='north' id="tb" style="width: auto; height: 30px;background: linear-gradient(rgb(255, 255, 255) 0px, rgba(149, 184, 231, 0.28) 100%);">
+               <table style="width: auto; height:100%;" cellspacing="0" border="0">
+                    <tr>
+                      <td>
+                      		<a id="btnAdd" href="#" class="easyui-linkbutton add" iconCls="icon-add" data-options="plain:true" >添加</a>
+                            <a id="btnUpdate" href="#" class="easyui-linkbutton update" iconCls="icon-edit" data-options="plain:true" >修改</a>
+                            <a id="btnDelete" href="#" class="easyui-linkbutton delete" iconCls="icon-remove" data-options="plain:true">删除</a>
+                            <a id="btnhelp"  href="#" class="easyui-linkbutton help" iconCls="icon-help"  data-options="plain:true" >帮助</a>
+                      </td>
+                    </tr>
+               </table>
+            </div>
+    	<div region="center" style="width:100%" style="border:0">
+           <div region='north' id='tbsearch' style="width: auto; height: 30px;background: linear-gradient(rgb(255, 255, 255) 0px, rgba(149, 184, 231, 0.28) 100%);">
+                <table>
+	                <tr >
+	                	<td>模板类型：</td>
+	                    <td>
+	                        <input id="selectTemplateType" name="postingdate" style="width: 200px;" class="easyui-textbox"/>
+	                         &nbsp;&nbsp; &nbsp;&nbsp;
+	                    </td>
+	                    
+	                    
+	                    <td>模板名称：</td>
+	                    <td>
+	                        <input id="selectTemplateName" name="postingdate" style="width: 200px;" class="easyui-textbox"/>
+	                         &nbsp;&nbsp; &nbsp;&nbsp;
+	                    </td>
+	                    
+	                    <td>产品编码：</td>
+	                    <td>
+	                        <input id="selectProductCoding" name="postingdate" style="width: 200px;" class="easyui-textbox"/>
+	                         &nbsp;&nbsp; &nbsp;&nbsp;
+	                    </td>
+
+	                    <td>全字匹配：</td>
+	                    <td>
+	                        <input id="selectfullMatching" name="postingdate" style="width: 20px;" type="checkbox" /><!-- value="Y" checked="checked" -->
+	                         &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+	                    </td>
+	                                        
+	                    <td>
+	                       <a href="#" class="easyui-linkbutton" iconCls="icon-search" id="btnSearch" data-options="plain:true">查询</a>	
+	                       <a href="#" class="easyui-linkbutton" iconCls="icon-reset" id="btnResets" data-options="plain:true">重置</a>
+	                    </td>
+	                    
+	                    
+	                </tr>
+                </table>
+             </div>
+            <table region='center' style="height: auto;max-height: 100%" id="productWConf_tab" class='easyui-datagrid' toolbar="#tbsearch" rownumbers="true" ></table>
+            </div>
+      </div>
+      
+      	<!-- 供应商信息选择框 -->
+			<div id="VendorCodeDetails" class="easyui-dialog" style="width: 850px;height: 500px;" align="center" data-options="modal:'true',closed:'true',buttons:'#VendorCodeDetails-buttons'">
+			      <form id="searchVendorCodeForm">
+			         <table style="height:15%;width:750px;align:center;padding-top: 20px;">
+			         	<tr>
+		                   <td>供应商编码:
+		                      <input id="searchVendorCode" name="postingdate" style="width: 120px;" class="easyui-textbox"/>
+		                   </td>
+		                   <td>供应商名称:
+		                      <input id="searchVendorName" name="postingdate" style="width: 120px;" class="easyui-textbox"/>
+		                   </td>
+		           
+			               <td>
+		                      <a href="#" class="easyui-linkbutton" iconCls="icon-search" id="btnSearch1" data-options="plain:true" onclick="javascript:getVendorCodeBySearch();">查询</a>	
+		                      &nbsp; <a href="#" class="easyui-linkbutton" iconCls="icon-reset" id="btnResets3" data-options="plain:true">重置</a>
+		                   </td>   
+		
+			               
+			               <td>
+			                   <div id="showMaster"><span id="showVendor" style="margin: 0;padding: 0;vertical-align:3px;width:250px; "></span></div>
+			               </td>
+			           </tr>
+			       	 </table>
+			       </form>
+		       <div style="height:85%;max-height: 85%;padding-left:20px;padding-right:20px;">
+		       		<table id="VendorCodeDetails_tab" class='easyui-datagrid' rownumbers="true"></table>
+		       </div>
+		    </div>
+		    
+		    
+	 <!-- 物料详情选择框 -->
+	<div id="addMaterialDetails" class="easyui-dialog" style="width: 703px;height: 535px;" align="center" data-options="modal:'true',closed:'true',buttons:'#addMaterialDetails-buttons'">
+	      <form id="searchMaterialForm">
+	         <table style="height:15%;width:700px;align:center;padding-top: 20px;">
+	         	<tr>
+	               <td style="height:30px;padding-left:20px;">物料编码：
+	               		<input id="materialCode" style="width:160px;height:30px;" class="easyui-textbox"/>
+	               </td>
+	               <td>物料名称：
+	               		<input id="materialName" style="width:160px;height:30px;" class="easyui-textbox"/>
+	               </td>
+                   <td>
+                   &nbsp;
+                      <a href="#" class="easyui-linkbutton" iconCls="icon-search" id="btnSearch1" data-options="plain:true" onclick="javascript:getMaterialDataBySearch();">查询</a>	
+                      &nbsp; <a href="#" class="easyui-linkbutton" iconCls="icon-reset" id="btnResets2" data-options="plain:true">重置</a>
+                   </td>               
+	               <td>
+	                   <div id="showMaterialDiv"><span id="showMaterial" style="margin: 0;padding: 0;vertical-align:3px;width:250px; "></span></div>
+	               </td>
+	           </tr>
+	       	 </table>
+	       </form>
+       <div style="height:85%;max-height: 85%;padding-left:20px;padding-right:20px;">
+       		<table id="materialDetails_tab" class='easyui-datagrid' rownumbers="true"></table>
+       </div>
+    </div>
+    
+    
+    
+    <!-- 模版信息选择框 -->
+	<div id="TemplateNameDetails" class="easyui-dialog" style="width: 700px;height: 400px;" align="center" data-options="modal:'true',closed:'true',buttons:'#VendorCodeDetails-buttons'">
+	      <form id="searchTemplateNameForm">
+	         <table style="height:15%;width:650px;align:center;padding-top: 20px;">
+	         	<tr>
+                   <td>检验模板名:
+                      <input id="searchTemplateCode" name="postingdate" style="width: 120px;" class="easyui-textbox"/>
+                   </td>
+                   <td>检验类型名称:
+                      <input id="searchTemplateName" name="postingdate" style="width: 120px;" class="easyui-textbox"/>
+                   </td>
+           
+	               <td>
+                      <a href="#" class="easyui-linkbutton" iconCls="icon-search" id="btnSearch1" data-options="plain:true" onclick="javascript:getTemplateNamBySearche();">查询</a>	
+                      &nbsp; <a href="#" class="easyui-linkbutton" iconCls="icon-reset" id="btnResets3" data-options="plain:true">重置</a>
+                   </td>   
+
+	               
+	               <td>
+	                   <div id="showTemplate"><span id="showVendor" style="margin: 0;padding: 0;vertical-align:3px;width:250px; "></span></div>
+	               </td>
+	           </tr>
+	       	 </table>
+	       </form>
+       <div style="height:85%;max-height: 85%;padding-left:20px;padding-right:20px;">
+       		<table id="TemplateNameDetails_tab" class='easyui-datagrid' rownumbers="true"></table>
+       </div>
+    </div>
+    
+    
+    <!-- AQL规则信息选择框 -->
+	<div id="AQLruleinfoDetails" class="easyui-dialog" style="width: 700px;height: 400px;" align="center" data-options="modal:'true',closed:'true',buttons:'#AQLruleinfoDetails-buttons'">
+	      <form id="searchAQLRuleInfoForm">
+	         <table style="height:15%;width:650px;align:center;padding-top: 20px;">
+	         	<tr>
+                   <td>规则名:
+                      <input id="searchAQLRuleName" name="postingdate" style="width: 120px;" class="easyui-textbox"/>
+                   </td>
+                   <td>类别名称:
+                      <input id="searchAQLRuleTypeName" name="postingdate" style="width: 120px;" class="easyui-textbox"/>
+                   </td>
+           
+	               <td>
+                      <a href="#" class="easyui-linkbutton" iconCls="icon-search" id="btnSearch1" data-options="plain:true" onclick="javascript:getAQLRuleInfoSearche();">查询</a>	
+                      &nbsp; <a href="#" class="easyui-linkbutton" iconCls="icon-reset" id="btnResets3" data-options="plain:true">重置</a>
+                   </td>   
+
+	               
+	               <td>
+	                   <div id="showAQLRuleInfo"><span id="showVendor" style="margin: 0;padding: 0;vertical-align:3px;width:250px; "></span></div>
+	               </td>
+	           </tr>
+	       	 </table>
+	       </form>
+       <div style="height:85%;max-height: 85%;padding-left:20px;padding-right:20px;">
+       		<table id="AQLRuleInfoDetails_tab" class='easyui-datagrid' rownumbers="true"></table>
+       </div>
+    </div>
+    
+   
+
+
+    <div id="enditTab" class="easyui-dialog" style="width: 480px;height: 450px;" closed="true" align="center" data-options="modal: true,
+				buttons: [{
+					text:'保存',
+					iconCls:'icon-ok',
+					handler:function(){
+						savaStation();
+						
+					}
+				},{
+					text:'取消',
+					iconCls:'icon-no',
+					handler:function(){
+						setDataNull();
+						$('#enditTab').dialog('close');	
+					}
+				},{
+                    text:'帮助',
+                    iconCls:'icon-help',
+                    id:'save3',
+                    handler:function(){
+                       printConfig(); 
+                    }
+                }]">
+        <form id="fmStation" method="post" style="padding:30px 20px 10px 25px;">
+            <table border="0">
+                <tr style="height: 35px;">
+                    <td> 模板名称：</td>         
+	                    <td>
+	                       <input id="TemplateName" editable="false" name="TemplateName" style="width: 200px;" class="easyui-searchbox"  required="required" data-options="prompt:'请点击选择',missingMessage:'该选项为必填信息',searcher:searchTemplateName"/><span style="color: red ">*</span>
+	                    </td>
+                </tr>
+
+                 <tr style="height: 35px;">
+                    <td align="right">供应商：</td>         
+	                    <td>   
+	                     <input id="VendorCode" editable="false" name="VendorCode" style="width: 200px;" class="easyui-searchbox"  required="required" data-options="prompt:'请点击选择',missingMessage:'该选项为必填信息',searcher:searchVendorCode"/><span style="color: red ">*</span>
+	                    </td>
+                </tr>
+                
+                <tr style="height: 35px;">
+                    <td>供应商：</td>         
+	                  <td>                             
+	            		<label for="byProduct">按产品:</label>
+	            		<input name="isversion" type='radio' value="0" checked='checked' id='byProduct'/>
+	            		<label for="byType">按产品类型 :</label>
+	            		<input name="isversion" type='radio' value="1" id='byType'/>      
+                                                                     
+                     </td>    
+                </tr>
+
+                <tr style="height: 35px;">
+                    <td>产品编码：</td>
+                    <td>
+                        <input id="txtMaterialCode" editable="false" name="txtMaterialCode" style="width: 200px;" class="easyui-searchbox"  required="required" data-options="prompt:'请点击选择',missingMessage:'该选项为必填信息',searcher:doSearch"/><span style="color: red ">*</span>
+                    </td>
+                </tr>
+                
+                
+                <tr style="height: 35px;">
+                    <td>检验水平：</td>         
+	                    <td>
+	                        <select id="testLevel" name="postingdate" style="width: 200px;" class="easyui-combobox"  required="required" data-options="missingMessage:'该选项为必填信息'"></select>
+	                    </td>
+                    <td style="color: red ">*</td>
+                </tr>
+
+                <tr style="height: 35px;">
+                    <td>AQL规则：</td>
+                    <td>
+                        <input id="AQLRule" editable="false" name="AQLRule" style="width: 200px;" class="easyui-searchbox"  required="required" data-options="prompt:'请点击选择',missingMessage:'该选项为必填信息',searcher:searchAQLRuleInfo"/><span style="color: red ">*</span>
+                    </td>
+                </tr>
+                
+                <tr style="height: 35px;">
+                    <td>检验项：</td>         
+	                    <td>
+	                        <select id="inspectionItem" name="postingdate" style="width: 200px;" class="easyui-combobox"  required="required" data-options="missingMessage:'该选项为必填信息'"></select>
+	                    </td>
+                    <td style="color: red ">*</td>
+                </tr>      
+            </table>
+        </form>
+    </div>
+</body>
+
+</html>

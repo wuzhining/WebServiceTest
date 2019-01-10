@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="common/IplantCompent/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="common/IplantCompent/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="common/IplantCompent/Demo/demo.css">
+    <script src="common/IplantCompent/jquery.min.js" type="text/javascript"></script>
+    <script src="common/IplantCompent/jquery.easyui.min.js" type="text/javascript"></script>
+    <script src="system/rootJs/test2.js" type="text/javascript"></script>
+</head>
+<body>
+   <div>
+       <table>
+           <tr>
+               <td>
+                                                             服务编号： 
+               </td>
+               <td>
+                 <input id="txtServerNo" name="postingdate" style="width: 250px;" class="easyui-textbox" />
+              
+                   <a href="#" id='btntest' class="easyui-linkbutton"  iconCls="icon-save" onclick="testServer();">测试</a>
+                   <a href="#" id='btnclear' class="easyui-linkbutton" iconCls="icon-save" onclick="clearControlValue();">清空</a>
+                   
+                </td>
+           </tr>
+           <tr>
+               <td>输入参数:</td>
+               <td>
+                  <input id="txtInputParam" style="width:850px; height:200px;" class="easyui-textbox" data-options="multiline:true" />
+               </td>
+           </tr>
+           <tr>
+               <td>头部信息:</td>
+               <td>
+                  <input id="txtHeaderInfo" style="width:850px; height:200px;" class="easyui-textbox" data-options="multiline:true" />
+               </td>
+           </tr>
+           <tr>
+               <td>返回数据:</td>
+               <td>
+                  <input id="txtReturnData" style="width: 850px; height:200px;" class="easyui-textbox" data-options="multiline:true" />
+               </td>
+           </tr>
+       </table>
+   </div>
+</body>
+</html>

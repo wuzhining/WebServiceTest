@@ -1,0 +1,1158 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="">
+	<!-- MES 返工管理 -->
+
+
+
+	<!-- 维修方法 -->
+	<!-- 查询维修方法树结构 -->
+	<select id="queryMaintenanceMethodsTree" parameterType="hashmap"
+		resultType="java.util.HashMap">
+		SELECT
+		MT_FUN_CD AS ST_C_CD,
+		MT_FUN_NM AS ST_C_NM,
+		PRNT_CD AS ST_P_CD,
+		PRNT_NM AS ST_P_NM
+		FROM
+		<include refid="mes_1"></include>
+		R_MES_MT_FUN_DTL_T
+		<where>
+			<if test="PRNT_CD!=null and PRNT_CD!='' ">
+				AND PRNT_CD='${PRNT_CD}'
+			</if>
+			<if test="MT_FUN_CD!=null and MT_FUN_CD!='' ">
+				AND MT_FUN_CD='${MT_FUN_CD}'
+			</if>
+				AND USE_YN='Y'
+		</where>
+		UNION 
+		SELECT
+		    PRNT_CD   AS ST_P_CD,
+		    PRNT_NM   AS ST_P_NM,
+		    'N/A'     AS ST_C_CD,
+		    '0'      AS ST_C_NM
+		    FROM MES1.R_MES_MT_FUN_MST_T
+		    <where>
+			<if test="PRNT_CD!=null and PRNT_CD!='' ">
+				AND PRNT_CD='${PRNT_CD}'
+			</if>
+			<if test="MT_FUN_CD!=null and MT_FUN_CD!='' ">
+				AND MT_FUN_CD='${MT_FUN_CD}'
+			</if>
+				AND USE_YN='Y'
+		</where>
+	</select>
+
+	<!-- 查询缺陷代码树结构 -->
+	<select id="queryDefectcodeTree" parameterType="hashmap"
+		resultType="java.util.HashMap">
+		SELECT
+		MT_DEF_CD AS ST_C_CD,
+		MT_DEF_NM AS ST_C_NM,
+		PRNT_CD AS ST_P_CD,
+		PRNT_NM AS ST_P_NM
+		FROM
+		<include refid="mes_1"></include>
+		R_MES_MT_DEF_DTL_T
+		<where>
+			<if test="PRNT_CD!=null and PRNT_CD!='' ">
+				AND PRNT_CD='${PRNT_CD}'
+			</if>
+			<if test="MT_DEF_CD!=null and MT_DEF_CD!='' ">
+				AND MT_DEF_CD='${MT_DEF_CD}'
+			</if>
+				AND USE_YN='Y'
+		</where>
+		UNION 
+		SELECT
+		    PRNT_CD   AS ST_P_CD,
+		    PRNT_NM   AS ST_P_NM,
+		    'N/A'     AS ST_C_CD,
+		    '0'      AS ST_C_NM
+		    FROM MES1.R_MES_MT_DEF_MST_T
+		    <where>
+			<if test="PRNT_CD!=null and PRNT_CD!='' ">
+				AND PRNT_CD='${PRNT_CD}'
+			</if>
+			<if test="MT_FUN_CD!=null and MT_FUN_CD!='' ">
+				AND MT_FUN_CD='${MT_FUN_CD}'
+			</if>
+				AND USE_YN='Y'
+		</where>
+	</select>
+
+	<!-- 查询维修方法 -->
+	<select id="queryMaintenanceMethodsMain" parameterType="hashmap"
+		resultType="java.util.HashMap">
+		<include refid="oraclePagingFileTop"></include>
+		FCT_CD,
+		PRNT_CD,
+		PRNT_NM,
+		MR_YN,
+		USE_YN,
+		MO,
+		USR_DFN_1,
+		USR_DFN_2,
+		USR_DFN_3,
+		USR_DFN_4,
+		USR_DFN_5,
+		CRT_ID,
+		CRT_IP,
+		TO_CHAR(CRT_DT,'YYYY-MM-DD
+		HH24:MI:SS') AS
+		CRT_DT,
+		UPT_ID,
+		UPT_IP,
+		TO_CHAR(UPT_DT,'YYYY-MM-DD
+		HH24:MI:SS') AS
+		UPT_DT
+		FROM
+		<include refid="mes_1"></include>
+		R_MES_MT_FUN_MST_T
+		<include refid="oraclePagingFileBottom"></include>
+	</select>
+	<select id="queryMaintenanceMethodsMain_COUNT" parameterType="hashmap"
+		resultType="java.util.HashMap">
+		SELECT
+		COUNT(*) AS ROWS_COUNT
+		FROM
+		<include refid="mes_1"></include>
+		R_MES_MT_FUN_MST_T
+	</select>
+	<!-- 批量新增维修方法 -->
+	<insert id="insertMaintenanceMethodsMainY" parameterType="java.util.HashMap">
+		INSERT INTO MES1.R_MES_MT_FUN_MST_T
+		  (
+		   FCT_CD,
+		   PRNT_CD,
+		   PRNT_NM,
+		   MR_YN,
+		   USE_YN,
+		   MO,
+		   USR_DFN_1,
+		   USR_DFN_2,
+		   USR_DFN_3,
+		   USR_DFN_4,
+		   USR_DFN_5,
+		   CRT_ID,
+		   CRT_IP,
+		   CRT_DT
+		   )
+		VALUES
+		  (
+		   '${FCT_CD}',
+		   '${PRNT_CD}',
+		   '${PRNT_NM}',
+		   '${MR_YN}',
+		   '${USE_YN}',
+		   '${MO}',
+		   '${USR_DFN_1}',
+		   '${USR_DFN_2}',
+		   '${USR_DFN_3}',
+		   '${USR_DFN_4}',
+		   '${USR_DFN_5}',
+		   '${F_USE_CD}',
+		   '${CRT_IP}',
+		   SYSDATE
+		  )
+	</insert>
+	<!-- 批量修改维修方法 -->
+	<update id="updateMaintenanceMethodsMain" parameterType="hashmap">
+		<foreach collection="list" item="item" index="index" open="begin" close=";end;"
+			separator=";">
+			UPDATE
+			<include refid="mes_1"></include>
+			R_MES_MT_FUN_MST_T
+			<set>
+				<if test=" item.FCT_CD !=null and item.FCT_CD !='' ">
+					FCT_CD='${item.FCT_CD}',
+				</if>
+				<if test=" item.PRNT_CD !=null and item.PRNT_CD !='' ">
+					PRNT_CD='${item.PRNT_CD}',
+				</if>
+				<if test=" item.PRNT_NM !=null and item.PRNT_NM !='' ">
+					PRNT_NM='${item.PRNT_NM}',
+				</if>
+				<if test=" item.MR_YN !=null and item.MR_YN !='' ">
+					MR_YN='${item.MR_YN}',
+				</if>
+				<if test=" item.USE_YN !=null and item.USE_YN !='' ">
+					USE_YN='${item.USE_YN}',
+				</if>
+				<if test=" item.MO !=null and item.MO !='' ">
+					MO='${item.MO}',
+				</if>
+				<if test=" item.USR_DFN_1 !=null and item.USR_DFN_1 !='' ">
+					USR_DFN_1='${item.USR_DFN_1}',
+				</if>
+				<if test=" item.USR_DFN_2 !=null and item.USR_DFN_2 !='' ">
+					USR_DFN_2='${item.USR_DFN_2}',
+				</if>
+				<if test=" item.USR_DFN_3 !=null and item.USR_DFN_3 !='' ">
+					USR_DFN_3='${item.USR_DFN_3}',
+				</if>
+				<if test=" item.USR_DFN_4 !=null and item.USR_DFN_4 !='' ">
+					USR_DFN_4='${item.USR_DFN_4}',
+				</if>
+				<if test=" item.USR_DFN_5 !=null and item.USR_DFN_5 !='' ">
+					USR_DFN_5='${item.USR_DFN_5}',
+				</if>
+				<if test=" item.UPT_IP !=null and item.UPT_IP !='' ">
+					UPT_IP='${item.UPT_IP}',
+				</if>
+				CRT_ID='${F_USE_CD}',
+				CRT_DT=SYSDATE
+			</set>
+			<where>
+				PRNT_CD='${PRNT_CD}'
+			</where>
+		</foreach>
+	</update>
+	<!-- 删除维修方法 -->
+	<delete id="deleteMaintenanceMethodsMain" parameterType="hashmap">
+		DELETE FROM
+		MES1.R_MES_MT_FUN_MST_T WHERE PRNT_CD='${PRNT_CD}'
+	</delete>
+
+
+	<!-- 缺陷代码维护 -->
+	<!-- 查询缺陷代码 -->
+	<select id="queryDefectcodeMain" parameterType="hashmap"
+		resultType="java.util.HashMap">
+		<include refid="oraclePagingFileTop"></include>
+		FCT_CD,
+		PRNT_CD,
+		PRNT_NM,
+		MR_YN,
+		USE_YN,
+		MO,
+		USR_DFN_1,
+		USR_DFN_2,
+		USR_DFN_3,
+		USR_DFN_4,
+		USR_DFN_5,
+		CRT_ID,
+		CRT_IP,
+		TO_CHAR(CRT_DT,'YYYY-MM-DD
+		HH24:MI:SS') AS
+		CRT_DT,
+		UPT_ID,
+		UPT_IP,
+		TO_CHAR(UPT_DT,'YYYY-MM-DD
+		HH24:MI:SS') AS
+		UPT_DT
+		FROM
+		<include refid="mes_1"></include>
+		R_MES_MT_DEF_MST_T
+		<where>
+			1=1
+			<if test="MT_DEF_CD !=null and MT_DEF_CD !='' ">
+				and PRNT_CD='${PRNT_CD}'
+			</if>
+		</where>
+		<include refid="oraclePagingFileBottom"></include>
+	</select>
+	<select id="queryDefectcodeMain_COUNT" parameterType="hashmap"
+		resultType="java.util.HashMap">
+		SELECT
+		COUNT(*) AS ROWS_COUNT
+		FROM
+		<include refid="mes_1"></include>
+		R_MES_MT_DEF_MST_T
+		<where>
+			1=1
+			<if test="MT_DEF_CD !=null and MT_DEF_CD !='' ">
+				and PRNT_CD='${PRNT_CD}'
+			</if>
+		</where>
+	</select>
+	<!-- 新增缺陷代码 -->
+	<insert id="insertDefectcodeMain" parameterType="java.util.HashMap">
+		INSERT INTO
+		MES1.R_MES_MT_DEF_MST_T
+		(
+		FCT_CD,
+		PRNT_CD,
+		PRNT_NM,
+		MR_YN,
+		USE_YN,
+		MO,
+		USR_DFN_1,
+		USR_DFN_2,
+		USR_DFN_3,
+		USR_DFN_4,
+		USR_DFN_5,
+		CRT_ID,
+		CRT_IP,
+		CRT_DT
+		)
+		VALUES
+		(
+		'${FCT_CD}',
+		'${PRNT_CD}',
+		'${PRNT_NM}',
+		'${MR_YN}',
+		'${USE_YN}',
+		'${MO}',
+		'${USR_DFN_1}',
+		'${USR_DFN_2}',
+		'${USR_DFN_3}',
+		'${USR_DFN_4}',
+		'${USR_DFN_5}',
+		'${F_USE_CD}',
+		'${CRT_IP}',
+		SYSDATE
+		)
+	</insert>
+	<!-- 修改缺陷代码 -->
+	<update id="updateDefectcodeMain" parameterType="hashmap">
+		<foreach collection="list" item="item" index="index" open="begin" close=";end;"
+			separator=";">
+			UPDATE
+			<include refid="mes_1"></include>
+			R_MES_MT_DEF_MST_T
+			<set>
+				<if test=" item.FCT_CD !=null and item.FCT_CD !='' ">
+					FCT_CD='${item.FCT_CD}',
+				</if>
+				<if test=" item.PRNT_CD !=null and item.PRNT_CD !='' ">
+					PRNT_CD='${item.PRNT_CD}',
+				</if>
+				<if test=" item.PRNT_NM !=null and item.PRNT_NM !='' ">
+					PRNT_NM='${item.PRNT_NM}',
+				</if>
+				<if test=" item.MR_YN !=null and item.MR_YN !='' ">
+					MR_YN='${item.MR_YN}',
+				</if>
+				<if test=" item.USE_YN !=null and item.USE_YN !='' ">
+					USE_YN='${item.USE_YN}',
+				</if>
+				<if test=" item.MO !=null and item.MO !='' ">
+					MO='${item.MO}',
+				</if>
+				<if test=" item.USR_DFN_1 !=null and item.USR_DFN_1 !='' ">
+					USR_DFN_1='${item.USR_DFN_1}',
+				</if>
+				<if test=" item.USR_DFN_2 !=null and item.USR_DFN_2 !='' ">
+					USR_DFN_2='${item.USR_DFN_2}',
+				</if>
+				<if test=" item.USR_DFN_3 !=null and item.USR_DFN_3 !='' ">
+					USR_DFN_3='${item.USR_DFN_3}',
+				</if>
+				<if test=" item.USR_DFN_4 !=null and item.USR_DFN_4 !='' ">
+					USR_DFN_4='${item.USR_DFN_4}',
+				</if>
+				<if test=" item.USR_DFN_5 !=null and item.USR_DFN_5 !='' ">
+					USR_DFN_5='${item.USR_DFN_5}',
+				</if>
+				<if test=" item.UPT_IP !=null and item.UPT_IP !='' ">
+					UPT_IP='${item.UPT_IP}',
+				</if>
+				CRT_ID='${F_USE_CD}',
+				CRT_DT=SYSDATE}
+			</set>
+			<where>
+				PRNT_CD='${PRNT_CD}'
+			</where>
+		</foreach>
+	</update>
+	<!-- 删除缺陷代码 -->
+	<delete id="deleteDefectcodeMain" parameterType="hashmap">
+		DELETE FROM
+		<include refid="mes_1"></include>
+		R_MES_MT_DEF_MST_T WHERE PRNT_CD='${PRNT_CD}'
+	</delete>
+
+
+	<!-- 维修方法明细 -->
+	<!-- 查询维修方法明细 -->
+	<select id="queryMaintenanceMethods" parameterType="hashmap"
+		resultType="java.util.HashMap">
+		<include refid="oraclePagingFileTop"></include>
+		FCT_CD,
+		T5.FT_NM AS FCT_NM,
+		MT_FUN_CD,
+		MT_FUN_NM,
+		MT_FUN_ST,
+		PRNT_CD,
+		PRNT_NM,
+		T2.USE_YN,
+		MO,
+		USR_DFN_1,
+		USR_DFN_2,
+		USR_DFN_3,
+		USR_DFN_4,
+		USR_DFN_5,
+		T2.CRT_ID,
+		T2.CRT_IP,
+		TO_CHAR(T2.CRT_DT,'YYYY-MM-DD HH24:MI:SS') AS
+		CRT_DT,
+		T2.UPT_ID,
+		T2.UPT_IP,
+		TO_CHAR(T2.UPT_DT,'YYYY-MM-DD HH24:MI:SS') AS
+		UPT_DT
+		FROM
+		<include refid="mes_1"></include>
+		R_MES_MT_FUN_DTL_T T2
+		LEFT JOIN iplant1.C_IPLANT_F1_T T5 ON T2.FCT_CD = T5.FT_CD
+		<where>
+			1=1
+			<if test="MT_FUN_NM !=null and MT_FUN_NM !='' ">
+				and MT_FUN_NM LIKE '%${MT_FUN_NM}%'
+			</if>
+			<if test="PRNT_CD !=null and PRNT_CD !='' ">
+				and PRNT_CD = '${PRNT_CD}'
+			</if>
+		</where>
+		<include refid="oraclePagingFileBottom"></include>
+	</select>
+	<select id="queryMaintenanceMethods_COUNT" parameterType="hashmap"
+		resultType="java.util.HashMap">
+		SELECT
+		COUNT(*) AS ROWS_COUNT
+		FROM
+		<include refid="mes_1"></include>
+		R_MES_MT_FUN_DTL_T
+		<where>
+			1=1
+			<if test="MT_FUN_NM !=null and MT_FUN_NM !='' ">
+				and MT_FUN_NM LIKE '%${MT_FUN_NM}%'
+			</if>
+			<if test="PRNT_CD !=null and PRNT_CD !='' ">
+				and PRNT_CD = '${PRNT_CD}'
+			</if>
+		</where>
+	</select>
+	<!-- 批量新增维修方法明细 -->
+	<insert id="insertMaintenanceMethods" parameterType="hashmap">
+		INSERT INTO
+		<include refid="mes_1"></include>
+		R_MES_MT_FUN_DTL_T
+		(
+		FCT_CD,
+		MT_FUN_CD,
+		MT_FUN_NM,
+		MT_FUN_ST,
+		PRNT_CD,
+		PRNT_NM,
+		USE_YN,
+		MO,
+		USR_DFN_1,
+		USR_DFN_2,
+		USR_DFN_3,
+		USR_DFN_4,
+		USR_DFN_5,
+		CRT_ID,
+		CRT_IP,
+		CRT_DT
+		)
+		(
+		<foreach collection="list" item="item" index="index"
+			separator="union all">
+			SELECT
+			'${item.FCT_CD}',
+			'${item.MT_FUN_CD}',
+			'${item.MT_FUN_NM}',
+			'${item.MT_FUN_ST}',
+			'${item.PRNT_CD}',
+			'${item.PRNT_NM}',
+			'${item.USE_YN}',
+			'${item.MO}',
+			'${item.USR_DFN_1}',
+			'${item.USR_DFN_2}',
+			'${item.USR_DFN_3}',
+			'${item.USR_DFN_4}',
+			'${item.USR_DFN_5}',
+			'${F_USE_CD}',
+			'${item.CRT_IP}',
+			SYSDATE
+			FROM DUAL
+		</foreach>
+		)
+	</insert>
+	<!-- 批量修改维修方法明细 -->
+	<update id="updateMaintenanceMethods" parameterType="hashmap">
+		<foreach collection="list" item="item" index="index" open="begin" close=";end;"
+			separator=";">
+			UPDATE
+			<include refid="mes_1"></include>
+			R_MES_MT_FUN_DTL_T
+			<set>
+				<if test=" item.FCT_CD !=null and item.FCT_CD !='' ">
+					FCT_CD='${item.FCT_CD}',
+				</if>
+				<if test=" item.MT_FUN_CD !=null and item.MT_FUN_CD !='' ">
+					MT_FUN_CD='${item.MT_FUN_CD}',
+				</if>
+				<if test=" item.MT_FUN_NM !=null and item.MT_FUN_NM !='' ">
+					MT_FUN_NM='${item.MT_FUN_NM}',
+				</if>
+				<if test=" item.MT_FUN_ST !=null and item.MT_FUN_ST !='' ">
+					MT_FUN_ST='${item.MT_FUN_ST}',
+				</if>
+				<if test=" item.PRNT_CD !=null and item.PRNT_CD !='' ">
+					PRNT_CD='${item.PRNT_CD}',
+				</if>
+				<if test=" item.PRNT_NM !=null and item.PRNT_NM !='' ">
+					PRNT_NM='${item.PRNT_NM}',
+				</if>
+				<if test=" item.USE_YN !=null and item.USE_YN !='' ">
+					USE_YN='${item.USE_YN}',
+				</if>
+				<if test=" item.MO !=null and item.MO !='' ">
+					MO='${item.MO}',
+				</if>
+				<if test=" item.USR_DFN_1 !=null and item.USR_DFN_1 !='' ">
+					USR_DFN_1='${item.USR_DFN_1}',
+				</if>
+				<if test=" item.USR_DFN_2 !=null and item.USR_DFN_2 !='' ">
+					USR_DFN_2='${item.USR_DFN_2}',
+				</if>
+				<if test=" item.USR_DFN_3 !=null and item.USR_DFN_3 !='' ">
+					USR_DFN_3='${item.USR_DFN_3}',
+				</if>
+				<if test=" item.USR_DFN_4 !=null and item.USR_DFN_4 !='' ">
+					USR_DFN_4='${item.USR_DFN_4}',
+				</if>
+				<if test=" item.USR_DFN_5 !=null and item.USR_DFN_5 !='' ">
+					USR_DFN_5='${item.USR_DFN_5}',
+				</if>
+				<if test=" item.UPT_IP !=null and item.UPT_IP !='' ">
+					UPT_IP='${item.UPT_IP}',
+				</if>
+				CRT_ID='${F_USE_CD}',
+				CRT_DT=SYSDATE
+			</set>
+			<where>
+				MT_FUN_CD='${item.MT_FUN_CD}'
+			</where>
+		</foreach>
+	</update>
+	<!-- 删除维修方法明细 -->
+	<delete id="deleteMaintenanceMethods" parameterType="hashmap">
+		DELETE FROM MES1.R_MES_MT_FUN_DTL_T 
+		<where>
+			<if test="MT_FUN_CD!=null and MT_FUN_CD!=''">
+			 	AND MT_FUN_CD='${MT_FUN_CD}'
+			</if> 
+			<if test="PRNT_CD!=null and PRNT_CD!=''">
+			 	AND PRNT_CD='${PRNT_CD}'
+			</if> 
+		</where>
+	</delete>
+
+
+	<!-- 缺陷代码维护明细 -->
+	<!-- 查询缺陷代码明细 -->
+	<select id="queryDefectcode" parameterType="hashmap" resultType="java.util.HashMap">
+		<include refid="oraclePagingFileTop"></include>
+			FCT_CD,
+			T5.FT_NM AS FCT_NM,
+			MT_DEF_CD,
+			MT_DEF_NM,
+			MT_DEF_ST,
+			PRNT_CD,
+			PRNT_NM,
+			T2.USE_YN,
+			MO,
+			USR_DFN_1,
+			USR_DFN_2,
+			USR_DFN_3,
+			USR_DFN_4,
+			USR_DFN_5,
+			T2.CRT_ID,
+			T2.CRT_IP,
+			TO_CHAR(T2.CRT_DT,'YYYY-MM-DD HH24:MI:SS') AS
+			CRT_DT,
+			T2.UPT_ID,
+			T2.UPT_IP,
+			TO_CHAR(T2.UPT_DT,'YYYY-MM-DD HH24:MI:SS') AS
+			UPT_DT
+		FROM
+		MES1.R_MES_MT_DEF_DTL_T T2
+		LEFT JOIN IPLANT1.C_IPLANT_F1_T T5 ON T2.FCT_CD = T5.FT_CD
+		<where>1=1
+			<if test="MT_DEF_NM !=null and MT_DEF_NM !='' ">
+				AND MT_DEF_NM='${MT_DEF_NM}'
+			</if>
+			<if test="MT_DEF_CD !=null and MT_DEF_CD !='' ">
+				AND MT_DEF_CD='${MT_DEF_CD}'
+			</if>
+			<if test="PRNT_CD!=null and PRNT_CD!=''">
+				AND PRNT_CD='${PRNT_CD}'
+			</if>
+		</where>
+		<include refid="oraclePagingFileBottom"></include>
+	</select>
+	<select id="queryDefectcode_COUNT" parameterType="hashmap"
+		resultType="java.util.HashMap">
+		SELECT
+		COUNT(*) AS ROWS_COUNT
+		FROM
+		<include refid="mes_1"></include>
+		R_MES_MT_DEF_DTL_T
+		<where>
+			1=1
+			<if test="MT_DEF_CD !=null and MT_DEF_CD !='' ">
+				and MT_DEF_CD='${MT_DEF_CD}'
+			</if>
+		</where>
+	</select>
+	<!-- 新增缺陷代码明细 -->
+	<insert id="insertDefectcode" parameterType="hashmap">
+		INSERT INTO
+		<include refid="mes_1"></include>
+		R_MES_MT_DEF_DTL_T
+		(
+		FCT_CD,
+		MT_DEF_CD,
+		MT_DEF_NM,
+		MT_DEF_ST,
+		PRNT_CD,
+		PRNT_NM,
+		USE_YN,
+		MO,
+		USR_DFN_1,
+		USR_DFN_2,
+		USR_DFN_3,
+		USR_DFN_4,
+		USR_DFN_5,
+		CRT_ID,
+		CRT_IP,
+		CRT_DT
+		)
+		(
+		<foreach collection="list" item="item" index="index"
+			separator="union all">
+			SELECT
+			'${item.FCT_CD}',
+			'${item.MT_DEF_CD}',
+			'${item.MT_DEF_NM}',
+			'${item.MT_DEF_ST}',
+			'${item.PRNT_CD}',
+			'${item.PRNT_NM}',
+			'${item.USE_YN}',
+			'${item.MO}',
+			'${item.USR_DFN_1}',
+			'${item.USR_DFN_2}',
+			'${item.USR_DFN_3}',
+			'${item.USR_DFN_4}',
+			'${item.USR_DFN_5}',
+			'${F_USE_CD}',
+			'${item.CRT_IP}',
+			SYSDATE
+			FROM DUAL
+		</foreach>
+		)
+	</insert>
+	<!-- 修改缺陷代码明细 -->
+	<update id="updateDefectcode" parameterType="hashmap">
+		<foreach collection="list" item="item" index="index" open="begin" close=";end;"
+			separator=";">
+			UPDATE
+			<include refid="mes_1"></include>
+			R_MES_MT_DEF_DTL_T
+			<set>
+				<if test=" item.FCT_CD !=null and item.FCT_CD !='' ">
+					FCT_CD='${item.FCT_CD}',
+				</if>
+				<if test=" item.MT_DEF_CD !=null and item.MT_DEF_CD !='' ">
+					MT_DEF_CD='${item.MT_DEF_CD}',
+				</if>
+				<if test=" item.MT_DEF_NM !=null and item.MT_DEF_NM !='' ">
+					MT_DEF_NM='${item.MT_DEF_NM}',
+				</if>
+				<if test=" item.MT_DEF_ST !=null and item.MT_DEF_ST !='' ">
+					MT_DEF_ST='${item.MT_DEF_ST}',
+				</if>
+				<if test=" item.PRNT_CD !=null and item.PRNT_CD !='' ">
+					PRNT_CD='${item.PRNT_CD}',
+				</if>
+				<if test=" item.PRNT_NM !=null and item.PRNT_NM !='' ">
+					PRNT_NM='${item.PRNT_NM}',
+				</if>
+				<if test=" item.USE_YN !=null and item.USE_YN !='' ">
+					USE_YN='${item.USE_YN}',
+				</if>
+				<if test=" item.MO !=null and item.MO !='' ">
+					MO='${item.MO}',
+				</if>
+				<if test=" item.USR_DFN_1 !=null and item.USR_DFN_1 !='' ">
+					USR_DFN_1='${item.USR_DFN_1}',
+				</if>
+				<if test=" item.USR_DFN_2 !=null and item.USR_DFN_2 !='' ">
+					USR_DFN_2='${item.USR_DFN_2}',
+				</if>
+				<if test=" item.USR_DFN_3 !=null and item.USR_DFN_3 !='' ">
+					USR_DFN_3='${item.USR_DFN_3}',
+				</if>
+				<if test=" item.USR_DFN_4 !=null and item.USR_DFN_4 !='' ">
+					USR_DFN_4='${item.USR_DFN_4}',
+				</if>
+				<if test=" item.USR_DFN_5 !=null and item.USR_DFN_5 !='' ">
+					USR_DFN_5='${item.USR_DFN_5}',
+				</if>
+				UPT_ID='${F_USE_CD}',
+				<if test=" item.UPT_IP !=null and item.UPT_IP !='' ">
+					UPT_IP='${item.UPT_IP}',
+				</if>
+				UPT_DT=SYSDATE
+			</set>
+			<where>
+				MT_DEF_CD='${item.MT_DEF_CD}'
+			</where>
+		</foreach>
+	</update>
+	<!-- 删除缺陷代码明细 -->
+	<delete id="deleteDefectcode" parameterType="hashmap">
+		DELETE FROM
+		MES1.R_MES_MT_DEF_DTL_T
+		<where>
+			<if test="MT_DEF_CD!=null and MT_DEF_CD!=''">
+				AND MT_DEF_CD='${MT_DEF_CD}'
+			</if>
+			<if test="PRNT_CD!=null and PRNT_CD!=''">
+				AND PRNT_CD='${PRNT_CD}'
+			</if>
+		</where>
+	</delete>
+
+
+
+
+	<!-- 维修职责 -->
+	<!-- 查询维修职责 -->
+	<select id="search_MaintenanceDuties" parameterType="hashmap"
+		resultType="java.util.HashMap">
+		<include refid="oraclePagingFileTop"></include>
+			  FCT_CD,T5.FT_NM AS FCT_NM, MT_POST_CD, MT_POST_NM, T2.USE_YN, MO,USR_DFN_1, USR_DFN_2,
+		      USR_DFN_3, USR_DFN_4,USR_DFN_5, T2.CRT_ID,
+		      T2.CRT_IP, TO_CHAR(T2.CRT_DT,'YYYY-MM-DD HH24:MI:SS') AS CRT_DT, T2.UPT_ID, T2.UPT_IP, TO_CHAR(T2.UPT_DT,'YYYY-MM-DD HH24:MI:SS') AS UPT_DT
+			FROM MES1.R_MES_MT_POST_T T2
+			LEFT JOIN iplant1.C_IPLANT_F1_T T5 ON T2.FCT_CD = T5.FT_CD
+		<where> 1=1
+			<if test="MT_POST_NM!=null and MT_POST_NM!='' ">
+				AND MT_POST_NM = '${MT_POST_NM}'
+			</if>
+		</where>
+		<include refid="oraclePagingFileBottom"></include>
+	</select>
+	<!-- 查询维修职责COUNT -->
+	<select id="search_MaintenanceDuties_count" parameterType="hashmap"
+		resultType="java.util.HashMap">
+		SELECT
+			COUNT(*)
+		FROM MES1.R_MES_MT_POST_T
+		<where> 1=1
+			<if test="MT_POST_NM!=null and MT_POST_NM!='' ">
+				AND MT_POST_NM = '${MT_POST_NM}'
+			</if>
+		</where>
+	</select>
+	<!-- 新增维修职责 -->
+	<insert id="add_MaintenanceDuties" parameterType="java.util.List">
+		INSERT INTO
+		MES1.R_MES_MT_POST_T
+		(
+			FCT_CD, MT_POST_CD, MT_POST_NM, USE_YN, MO,USR_DFN_1, USR_DFN_2,
+		    USR_DFN_3, USR_DFN_4,USR_DFN_5, CRT_ID,
+		    CRT_IP, CRT_DT
+		)
+		(
+		<foreach collection="list" item="item" index="index"
+			separator="union all">
+			SELECT
+				'${item.FCT_CD}', '${item.MT_POST_CD}', '${item.MT_POST_NM}', 
+				'${item.USE_YN}', '${item.MO}',
+				'${item.USR_DFN_1}', '${item.USR_DFN_2}', '${item.USR_DFN_3}','${item.USR_DFN_4}',
+				'${item.USR_DFN_5}', '${F_USE_CD}', '${item.CRT_IP}', SYSDATE
+			FROM DUAL
+		</foreach>
+		)
+	</insert>
+	<!-- 修改维修职责 -->
+	<update id="update_MaintenanceDuties" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" open="begin" close=";end;"
+			separator=";">
+			UPDATE MES1.R_MES_MT_POST_T
+			<set>
+				<if test="item.FCT_CD!=null and item.FCT_CD!='' ">FCT_CD = '${item.FCT_CD}',</if>
+				<if test="item.MT_POST_CD!=null and item.MT_POST_CD!='' ">MT_POST_CD = '${item.MT_POST_CD}',</if>
+				<if test="item.MT_POST_NM!=null and item.MT_POST_NM!='' ">MT_POST_NM = '${item.MT_POST_NM}',</if>
+				<if test="item.USE_YN!=null and item.USE_YN!='' ">USE_YN = '${item.USE_YN}',</if>
+				<if test="item.MO!=null and item.MO!='' " >MO = '${item.MO}',</if>
+				<if test="item.USR_DFN_1!=null and item.USR_DFN_1!='' ">USR_DFN_1 = '${item.USR_DFN_1}',</if>
+				<if test="item.USR_DFN_2!=null and item.USR_DFN_2!='' ">USR_DFN_2 = '${item.USR_DFN_2}',</if>
+				<if test="item.USR_DFN_3!=null and item.USR_DFN_3!='' ">USR_DFN_3 = '${item.USR_DFN_3}',</if>
+				<if test="item.USR_DFN_4!=null and item.USR_DFN_4!='' ">USR_DFN_4 = '${item.USR_DFN_4}',</if>
+				<if test="item.USR_DFN_5!=null and item.USR_DFN_5!='' ">USR_DFN_5 = '${item.USR_DFN_5}',</if>
+				UPT_ID = '${F_USE_CD}',
+				<if test="item.UPT_IP!=null and item.UPT_IP!='' ">UPT_IP = '${item.UPT_IP}',</if>
+				UPT_DT = SYSDATE
+			</set>
+			WHERE MT_POST_CD = '${item.MT_POST_CD}'
+		</foreach>
+	</update>
+	<!-- 删除维修职责 -->
+	<delete id="delete_MaintenanceDuties" parameterType="hashmap">
+		DELETE MES1.R_MES_MT_POST_T
+		WHERE MT_POST_CD = '${MT_POST_CD}'
+	</delete>
+
+
+	<!-- 维修原因录入明细 -->
+	<!-- 查询维修原因 -->
+	<select id="search_MaintenanceReason" parameterType="hashmap"
+		resultType="java.util.HashMap">
+		<include refid="oraclePagingFileTop"></include>
+		     FCT_CD,
+		     T5.FT_NM AS FCT_NM,
+		     MT_CAUSE_CD,
+		     MT_CAUSE_NM,
+		     PRNT_CD,
+		     PRNT_NM,
+		     T2.USE_YN,
+		     MO,
+		     USR_DFN_1,
+		     USR_DFN_2,
+		     USR_DFN_3,
+		     USR_DFN_4,
+		     USR_DFN_5,
+		     T2.CRT_ID,
+		     T2.CRT_IP,
+		     TO_CHAR(T2.CRT_DT, 'YYYY-MM-DD HH24:MI:SS') AS CRT_DT,
+		     T2.UPT_ID,
+		     T2.UPT_IP,
+		     TO_CHAR(T2.UPT_DT, 'YYYY-MM-DD HH24:MI:SS') AS UPT_DT
+		FROM MES1.R_MES_MT_CS_DTL_T T2
+		LEFT JOIN iplant1.C_IPLANT_F1_T T5
+		ON T2.FCT_CD = T5.FT_CD
+		<where>1=1
+			<if test="PRNT_CD!=null and PRNT_CD!='' ">
+				AND PRNT_CD = '${PRNT_CD}'
+			</if>
+			<if test="MT_CAUSE_CD!=null and MT_CAUSE_CD!='' ">
+				AND MT_CAUSE_CD = '${MT_CAUSE_CD}'
+			</if>
+		</where>
+		<include refid="oraclePagingFileBottom"></include>
+	</select>
+	<!-- 查询维修原因COUNT -->
+	<select id="search_MaintenanceReason_count" parameterType="hashmap"
+		resultType="java.util.HashMap">
+		SELECT
+		COUNT(*)
+		FROM MES1.R_MES_MT_CS_DTL_T
+		<where>
+			1=1
+			<if test="MT_CAUSE_NM!=null and MT_CAUSE_NM!='' ">
+			 	AND MT_CAUSE_NM like '%${MT_CAUSE_NM}%'
+			</if>
+			<if test="PRNT_CD!=null and PRNT_CD!='' ">
+				AND PRNT_CD = '${PRNT_CD}'
+			</if>
+			<if test="MT_CAUSE_CD!=null and MT_CAUSE_CD!='' ">
+				AND MT_CAUSE_CD = '${MT_CAUSE_CD}'
+			</if>
+		</where>
+	</select>
+	<!-- 新增维修原因 -->
+	<insert id="add_MaintenanceReason" parameterType="java.util.List">
+		INSERT INTO MES1.R_MES_MT_CS_DTL_T
+		(
+		FCT_CD, MT_CAUSE_CD, MT_CAUSE_NM, PRNT_CD, PRNT_NM,
+		USE_YN, MO, USR_DFN_1, USR_DFN_2, USR_DFN_3,
+		USR_DFN_4, USR_DFN_5, CRT_ID, CRT_IP, CRT_DT
+		)
+		(
+		<foreach collection="list" item="item" index="index"
+			separator="union all">
+			SELECT 
+			'${item.FCT_CD}', '${item.MT_CAUSE_CD}', '${item.MT_CAUSE_NM}', '${item.PRNT_CD}',
+			'${item.PRNT_NM}', '${item.USE_YN}', '${item.MO}',
+			'${item.USR_DFN_1}', '${item.USR_DFN_2}',
+			'${item.USR_DFN_3}', '${item.USR_DFN_4}', '${item.USR_DFN_5}', '${F_USE_CD}',
+			'${item.CRT_IP}', SYSDATE
+			 FROM DUAL
+		</foreach>
+		)
+	</insert>
+	<!-- 修改维修原因 -->
+	<update id="update_MaintenanceReason" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" open="begin" close=";end;"
+			separator=";">
+			UPDATE MES1.R_MES_MT_CS_DTL_T
+			<set>
+				<if test="item.FCT_CD!=null and item.FCT_CD!='' ">FCT_CD =
+					'${item.FCT_CD}',</if>
+				<if test="item.MT_CAUSE_CD!=null and item.MT_CAUSE_CD!='' ">MT_CAUSE_CD
+					= '${item.MT_CAUSE_CD}',</if>
+				<if test="item.MT_CAUSE_NM!=null and item.MT_CAUSE_NM!='' ">MT_CAUSE_NM
+					= '${item.MT_CAUSE_NM}',</if>
+				<if test="item.PRNT_CD!=null">PRNT_CD = '${item.PRNT_CD}',</if>
+				<if test="item.PRNT_NM!=null">PRNT_NM = '${item.PRNT_NM}',</if>
+				<if test="item.USE_YN!=null and item.USE_YN!='' ">USE_YN =
+					'${item.USE_YN}',</if>
+				<if test="item.MO!=null">MO = '${item.MO}',</if>
+				<if test="item.USR_DFN_1!=null">USR_DFN_1 = '${item.USR_DFN_1}',
+				</if>
+				<if test="item.USR_DFN_2!=null">USR_DFN_2 = '${item.USR_DFN_2}',
+				</if>
+				<if test="item.USR_DFN_3!=null">USR_DFN_3 = '${item.USR_DFN_3}',
+				</if>
+				<if test="item.USR_DFN_4!=null">USR_DFN_4 = '${item.USR_DFN_4}',
+				</if>
+				<if test="item.USR_DFN_5!=null">USR_DFN_5 = '${item.USR_DFN_5}',
+				</if>
+				UPT_ID = '${F_USE_CD}',
+				<if test="item.UPT_IP!=null">UPT_IP = '${item.UPT_IP}',</if>
+				UPT_DT = SYSDATE
+			</set>
+			<where>
+				MT_CAUSE_CD = '${item.MT_CAUSE_CD}'
+			</where>
+		</foreach>
+	</update>
+	<!-- 删除维修原因 -->
+	<delete id="delete_MaintenanceReason" parameterType="hashmap">
+		DELETE MES1.R_MES_MT_CS_DTL_T
+		<where>
+			<if test="MT_CAUSE_CD!=null and MT_CAUSE_CD!=''">
+				AND MT_CAUSE_CD = '${MT_CAUSE_CD}'
+			</if>
+			<if test="PRNT_CD!=null and PRNT_CD!=''">
+				AND PRNT_CD	='${PRNT_CD}'	
+			</if>
+		</where>
+	</delete>
+
+	<!-- 维修原因主表 架构查询 -->
+	<select id="search_MaintenanceReasonFramework" parameterType="hashmap"
+		resultType="java.util.HashMap">
+		SELECT
+		    MT_CAUSE_CD AS ST_C_CD,
+		    MT_CAUSE_NM AS ST_C_NM,
+		    PRNT_CD AS ST_P_CD,
+		    PRNT_NM AS ST_P_NM
+		FROM
+		    MES1.R_MES_MT_CS_DTL_T
+		<where>
+			<if test="MT_CAUSE_NM!=null and MT_CAUSE_NM!='' ">
+					AND MT_CAUSE_NM like '%${MT_CAUSE_NM}%'
+			</if>
+			<if test="PRNT_CD!=null and PRNT_CD!='' ">
+					AND PRNT_CD = '${PRNT_CD}'
+			</if>
+					AND USE_YN='Y'
+		</where>
+		UNION
+		SELECT 
+		   PRNT_CD   AS ST_P_CD,
+		   PRNT_NM   AS ST_P_NM,
+		   'N/A'     AS ST_C_CD,
+		    '0'      AS ST_C_NM
+		FROM MES1.R_MES_MT_CS_MST_T 
+		<where>
+			<if test="PRNT_NM!=null and PRNT_NM!='' ">
+				AND PRNT_NM like '%${PRNT_NM}%'
+			</if>
+			<if test="PRNT_CD!=null and PRNT_CD!='' ">
+				AND PRNT_CD ='${PRNT_CD}'
+			</if>
+			    AND USE_YN='Y'
+		</where>
+	</select>
+	<!-- 维修原因主表 架构新增 -->
+	<insert id="add_MaintenanceReasonFramework" parameterType="java.util.HashMap">
+		INSERT INTO MES1.R_MES_MT_CS_MST_T
+		(
+		FCT_CD, PRNT_CD, PRNT_NM, MR_YN, USE_YN, MO,
+		USR_DFN_1, USR_DFN_2, USR_DFN_3, USR_DFN_4,
+		USR_DFN_5, CRT_ID, CRT_IP, CRT_DT
+		)
+		VALUES
+		(
+		'${FCT_CD}', '${PRNT_CD}', '${PRNT_NM}', '${MR_YN}', '${USE_YN}', '${MO}',
+		'${USR_DFN_1}', '${USR_DFN_2}', '${USR_DFN_3}', '${USR_DFN_4}',
+		'${USR_DFN_5}', '${F_USE_CD}', '${CRT_IP}', SYSDATE
+		)
+	</insert>
+	<!-- 维修原因主表 架构修改 -->
+	<update id="update_MaintenanceReasonFramework" parameterType="java.util.List">
+	</update>
+	<!-- 维修原因主表 架构删除 -->
+	<delete id="delete_MaintenanceReasonFramework" parameterType="hashmap">
+		DELETE MES1.R_MES_MT_CS_MST_T
+		WHERE
+		PRNT_CD = '${PRNT_CD}'
+	</delete>
+
+	<!-- 故障代码维护 -->
+	<!-- 查询故障代码 -->
+	<select id="search_FaultCode" parameterType="hashmap"
+		resultType="java.util.HashMap">
+		<include refid="oraclePagingFileTop"></include>
+		FCT_CD,T5.FT_NM AS FCT_NM, MT_FT_CD, MT_FT_NM, MT_FT_ST, PRNT_CD,
+		PRNT_NM, T2.USE_YN, MO, USR_DFN_1, USR_DFN_2,
+		USR_DFN_3, USR_DFN_4, USR_DFN_5, T2.CRT_ID, T2.CRT_IP,
+		TO_CHAR(T2.CRT_DT,'YYYY-MM-DD HH24:MI:SS') AS CRT_DT, T2.UPT_ID, T2.UPT_IP, TO_CHAR(T2.UPT_DT,'YYYY-MM-DD HH24:MI:SS') AS UPT_DT
+		FROM MES1.R_MES_MT_FT_DTL_T T2
+		LEFT JOIN iplant1.C_IPLANT_F1_T T5 ON T2.FCT_CD = T5.FT_CD
+		<where>
+			1=1
+			<if test="MT_FT_NM!=null and MT_FT_NM!='' ">
+			    AND	MT_FT_NM like '%${MT_FT_NM}%'
+			</if>
+			<if test="PRNT_CD!=null and PRNT_CD!='' ">
+				AND PRNT_CD = '${PRNT_CD}'
+			</if>
+		</where>
+		<include refid="oraclePagingFileBottom"></include>
+	</select>
+	<!-- 查询故障代码COUNT -->
+	<select id="search_FaultCode_count" parameterType="hashmap"
+		resultType="java.util.HashMap">
+		SELECT
+		COUNT(*)
+		FROM MES1.R_MES_MT_FT_DTL_T
+		<where> 1=1
+			AND MT_FT_NM like '%${MT_FT_NM}%'
+		</where>
+	</select>
+	<!-- 新增故障代码 -->
+	<insert id="add_FaultCode" parameterType="java.util.List">
+		INSERT INTO
+		MES1.R_MES_MT_FT_DTL_T
+		(
+		FCT_CD, MT_FT_CD, MT_FT_NM, MT_FT_ST, PRNT_CD,
+		PRNT_NM, USE_YN, MO, USR_DFN_1, USR_DFN_2,
+		USR_DFN_3, USR_DFN_4, USR_DFN_5, CRT_ID,
+		CRT_IP, CRT_DT
+		)
+		(
+		<foreach collection="list" item="item" index="index"
+			separator="union all">
+			SELECT
+			'${item.FCT_CD}', '${item.MT_FT_CD}', '${item.MT_FT_NM}', '${item.MT_FT_ST}',
+			'${item.PRNT_CD}',
+			'${item.PRNT_NM}', '${item.USE_YN}', '${item.MO}', '${item.USR_DFN_1}',
+			'${item.USR_DFN_2}',
+			'${item.USR_DFN_3}', '${item.USR_DFN_4}', '${item.USR_DFN_5}', '${F_USE_CD}',
+			'${item.CRT_IP}', SYSDATE
+			FROM DUAL
+		</foreach>
+		)
+	</insert>
+	<!-- 修改故障代码 -->
+	<update id="update_FaultCode" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index"
+			separator=";">
+			UPDATE MES1.R_MES_MT_FT_DTL_T
+			<set>
+				<if test="item.FCT_CD!=null and item.FCT_CD!='' ">FCT_CD = '${item.FCT_CD}',</if>
+				<if test="item.MT_FT_CD!=null and item.MT_FT_CD!='' ">MT_FT_CD = '${item.MT_FT_CD}',</if>
+				<if test="item.MT_FT_NM!=null and item.MT_FT_NM!='' ">MT_FT_NM = '${item.MT_FT_NM}',</if>
+				<if test="item.MT_FT_ST!=null">MT_FT_ST = '${item.MT_FT_ST}',</if>
+				<if test="item.PRNT_CD!=null and item.PRNT_CD!='' ">PRNT_CD = '${item.PRNT_CD}',</if>
+				<if test="item.PRNT_NM!=null">PRNT_NM = '${item.PRNT_NM}',</if>
+				<if test="item.USE_YN!=null and item.USE_YN!='' ">USE_YN = '${item.USE_YN}',</if>
+				<if test="item.MO!=null">MO = '${item.MO}',</if>
+				<if test="item.USR_DFN_1!=null">USR_DFN_1 = '${item.USR_DFN_1}',</if>
+				<if test="item.USR_DFN_2!=null">USR_DFN_2 = '${item.USR_DFN_2}',</if>
+				<if test="item.USR_DFN_3!=null">USR_DFN_3 = '${item.USR_DFN_3}',</if>
+				<if test="item.USR_DFN_4!=null">USR_DFN_4 = '${item.USR_DFN_4}',</if>
+				<if test="item.USR_DFN_5!=null">USR_DFN_5 = '${item.USR_DFN_5}',</if>
+				UPT_ID = '${F_USE_CD}',
+				<if test="item.UPT_IP!=null">UPT_IP = '${item.UPT_IP}',</if>
+				UPT_DT = SYSDATE
+			</set>
+			<where>
+				MT_FT_CD = '${item.MT_FT_CD}'
+			</where>
+		</foreach>
+	</update>
+	<!-- 删除故障代码 -->
+	<delete id="delete_FaultCode" parameterType="hashmap">
+		DELETE MES1.R_MES_MT_FT_DTL_T
+		<where>
+			<if test="MT_FT_CD!=null and MT_FT_CD!=''">
+		 		AND MT_FT_CD = '${MT_FT_CD}'
+		 	</if>
+		 	<if test="PRNT_CD!=null and PRNT_CD!=''">
+		 		AND PRNT_CD = '${PRNT_CD}'
+		 	</if>
+		</where>
+		
+	</delete>
+
+	<!-- 故障代码主表 架构查询 -->
+	<select id="search_FaultCodeFramework" parameterType="hashmap"
+		resultType="java.util.HashMap">
+		SELECT
+			MT_FT_CD AS ST_C_CD,
+			MT_FT_NM AS ST_C_NM,
+			PRNT_CD AS ST_P_CD,
+			PRNT_NM AS ST_P_NM
+		FROM
+			MES1.R_MES_MT_FT_DTL_T
+		<where>
+			<if test="MT_FT_NM!=null and MT_FT_NM!='' ">
+				AND MT_FT_NM like '%${MT_FT_NM}%'
+			</if>
+			<if test="PRNT_CD!=null and PRNT_CD!='' ">
+				AND PRNT_CD = '${PRNT_CD}'
+			</if>
+			    AND USE_YN='Y'
+		</where>
+		UNION
+		SELECT 
+		   PRNT_CD   AS ST_P_CD,
+		   PRNT_NM   AS ST_P_NM,
+		   'N/A'     AS ST_C_CD,
+		    '0'      AS ST_C_NM
+		FROM MES1.R_MES_MT_FT_MST_T
+		<where>
+			<if test="PRNT_NM!=null and PRNT_NM!='' ">
+				AND PRNT_NM like '%${PRNT_NM}%'
+			</if>
+			<if test="PRNT_CD!=null and PRNT_CD!='' ">
+				AND PRNT_CD = '${PRNT_CD}'
+			</if>
+			    AND USE_YN='Y'
+		</where>
+	</select>
+	<!-- 故障代码主表 架构新增 -->
+	<insert id="add_FaultCodeFramework" parameterType="java.util.HashMap">
+		INSERT INTO
+		MES1.R_MES_MT_FT_MST_T
+		(
+		FCT_CD, PRNT_CD, PRNT_NM, MR_YN, USE_YN, MO,
+		USR_DFN_1, USR_DFN_2, USR_DFN_3, USR_DFN_4,
+		USR_DFN_5, CRT_ID, CRT_IP, CRT_DT
+		)
+		VALUES
+		( '${FCT_CD}', '${PRNT_CD}', '${PRNT_NM}', '${MR_YN}', '${USE_YN}',
+		'${MO}',
+		'${USR_DFN_1}', '${USR_DFN_2}', '${USR_DFN_3}', '${USR_DFN_4}',
+		'${USR_DFN_5}', '${F_USE_CD}', '${CRT_IP}', SYSDATE
+		)
+	</insert>
+	<!-- 故障代码主表 架构修改 -->
+	<update id="update_FaultCodeFramework" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index"
+			separator=";">
+		</foreach>
+	</update>
+	<!-- 故障代码主表 架构删除 -->
+	<delete id="delete_FaultCodeFramework" parameterType="hashmap">
+		DELETE MES1.R_MES_MT_FT_MST_T
+		WHERE PRNT_CD = '${PRNT_CD}'
+	</delete>
+
+	<!-- 查询维修原因主表父节点 -->
+	<select id="search_MaintenanceReasonFrameworkFather" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT PRNT_CD,PRNT_NM FROM MES1.R_MES_MT_CS_MST_T ORDER BY CRT_DT DESC
+	</select>
+
+</mapper>

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>IPQC工位02</title>
+		<link rel="stylesheet" type="text/css" href="../../../../common/IplantCompent/themes/default/easyui.css">
+		<link rel="stylesheet" type="text/css" href="../../../../common/IplantCompent/themes/icon.css">
+		<link rel="stylesheet" type="text/css" href="../../../../common/IplantCompent/Demo/demo.css">
+		<script src="../../../../common/IplantCompent/jquery.min.js" type="text/javascript"></script>
+		<script src="../../../../common/IplantCompent/jquery.easyui.min.js" type="text/javascript"></script>
+		<script src="../../../../common/IplantCommon/DataRequest.js" type="text/javascript"></script>
+		<script src="../../../../common/IplantCommon/CommonUtil.js" type="text/javascript"></script>
+		<script src="js/OQCposition.js" type="text/javascript"></script>
+		<script type="text/javascript"></script>
+		<meta charset="utf-8" />
+	</head>
+
+	<body style="padding: 0; margin: 0;">
+		<div style="height:100%;width:100%" class="easyui-layout" fit="true">
+			<div region="north" style="height:250px">
+				<form id="fmStation" method="post" style="height:112px">
+					<div style="margin-top:10px;width:801px;height:25px;background-color:#ECF2FB;border:1px solid #95B8E7; border-bottom:none;line-height: 25px;border-top-left-radius:8px;border-top-right-radius:8px;">
+	  					<span><strong style="color:#2F8CFE;float:left">作业指示信息</strong></span>
+	  					<span id='showMessageInfo' class='divspan' style='width:300px;float:left;margin-left:20px'></span>
+	  					<input type="hidden" id="insp_id">
+	  					<input type="hidden" id="insp_fcd">
+	  					<input type="hidden" id="insp_wcd">
+	  					<input type="hidden" id="insp_item">
+	 		 		</div>
+					<div style="width:800px;height:auto;border:2px solid #ECECEC" >
+						<table border="0" cellspacing="5" cellpadding="0" style="border-collapse:separate;border-spacing:10px;height: auto;">
+							<tr>
+								<td style="width:16%;background-color:#F3F3EF;text-align:right">作业指示编码:</td>
+								<td style="width: 20%;" >
+									<input id="WO_NO" name="postingdate" class="easyui-textbox" disabled="disabled" />
+								</td>
+								<td style="width:11%;background-color:#F3F3EF;text-align:right">物料编码:</td>
+								<td style="width: 20%;" >
+									<input id="MaterialCodes" name="postingdate" class="easyui-textbox" disabled="disabled" />
+								</td>
+								<td style="width:11%;background-color:#F3F3EF;text-align:right">工单:</td>
+								<td style="width: 20%;" >
+									<input id="workOrder" name="postingdate" class="easyui-textbox" disabled="disabled" />
+								</td>
+							</tr>
+							<tr>	
+								<td style="background-color:#F3F3EF;text-align:right">计划量:</td>
+								<td>
+									<input id="PlanProductCount" name="postingdate" class="easyui-textbox" disabled="disabled" />
+								</td>
+								<td style="background-color:#F3F3EF;text-align:right">通过数:</td>
+								<td>
+									<input id="passNum" name="postingdate"  class="easyui-textbox" disabled="disabled" />
+								</td>
+								<td style="background-color:#F3F3EF;text-align:right">不合格数:</td>
+								<td>
+									<input id="failNum" name="postingdate"  class="easyui-textbox" disabled="disabled" />
+								</td>
+							</tr>
+							<tr>
+								<td style="background-color:#F3F3EF;text-align:right">线别:</td>
+								<td>
+									<input id="Line_Cd" name="postingdate"  class="easyui-textbox" disabled="disabled" />
+								</td>
+							</tr>
+						</table>
+					</div>
+				</form>
+					
+				<div style="width:400px;height:80px;margin-top:40px;border:2px solid #ECECEC"> 	
+					<table border="0" cellspacing="4" cellpadding="0" style="border-collapse:separate;border-spacing:10px;width:400px;">
+						<tr>
+							<td style="width:25%;background-color:#F3F3EF;text-align:right">ENTER SN：</td>
+							<td style="width:31%">
+								<input id="search_ENTERSN" name="postingdate" class="easyui-textbox"/>
+							</td>
+							<td>
+								<button id='LotCheck' style='height:auto' hidden="true" type="button" class="easyui-linkbutton" disabled = 'disabled'>打开LOT抽检</button>
+							</td>
+						</tr>
+						<tr>
+							<td style="background-color:#F3F3EF;text-align:right">当前 SN：</td>
+							<td>
+								<input id="search_SN" name="postingdate" class="easyui-textbox" disabled="disabled" />
+							</td>
+						</tr>
+					</table>
+				</div>
+            </div>
+	           
+	        <div region="center" style="margin-top:10px;">  	
+            	<div style="width:100%;height:25px;background-color:#ECF2FB;border:1px solid #95B8E7; border-bottom:none;line-height: 25px;border-top-left-radius:8px;border-top-right-radius:8px;">
+    				<span><strong style="color:#2F8CFE;">工位产能明细表</strong></span>
+  		 		</div>
+  		 		
+				<table style="height: auto;max-height: 94%;width:100%" id="OQCposition_tab" class='easyui-datagrid' rownumbers="true">
+          		</table>
+	         </div>  
+		</div>
+		
+		<!--LOT抽检弹框  -->
+	<div id="LOTChecked" class="easyui-dialog" style="width: 1220px;height: auto;" closed="true" >
+	<div style="padding:10px;">
+			<div id="LOTNum" style="font-size: 14px;line-height: 14px;padding-left:180px"></div>
+			<div id="LOTData" style="font-size: 14px;line-height: 14px;padding-left:180px;margin-top:10px"></div>
+			<div style="margin-top:10px">
+				<table cellspacing="0" cellpadding="4">
+					<tr>
+						<td colspan="2">
+							<span id='showMessageInfo2' class='divspan' style='width:300px;float:left;margin-left:20px'></span>
+						</td>
+					</tr>
+					<tr>
+						<td style="text-align:right;width:70px">LOT号:</td>
+						<td>
+							<input id="LOTCode" style="width:300px" disabled="disabled" class="easyui-textbox"/>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2" style="padding-left:35px">
+							<label>
+								批量数:<input id="BatchNum" style="width:70px;" disabled="disabled" class="easyui-textbox"/>
+							</label>
+							<label>
+								抽检数:<input id="SpotCheckNum" style="width:70px;" disabled="disabled" class="easyui-textbox"/>
+							</label>
+							<label>
+								已抽数:<input id="SpotCheckNumYet" style="width:70px;" disabled="disabled" class="easyui-textbox"/>
+							</label>
+						</td>
+					</tr>
+					<tr>
+						<td style="text-align:right;">扫描SN:</td>
+						<td><input id="SNNum" style="width:300px" class="easyui-textbox"/></td>
+					</tr>
+				</table>
+					
+			</div>
+			<div style="margin-top:10px;margin-bottom:10px">
+				<button type="button" style="width:50px;margin-left:40px" id='pass' class="easyui-linkbutton" >PASS</button>
+				<button type="button" style="width:50px;margin-left:20px" id='fail' class="easyui-linkbutton">FAIL</button>
+				<div style="margin-top:20px">抽检清单:</div>
+			</div>
+			<table region='center' id="SamplingList" style="height: 280px;max-height: 300px;margin-top:10px" id="df" class='easyui-datagrid' rownumbers="true"></table>
+		</div>
+	</div>
+	
+		<!-- Fail原因录入弹框 --> 
+	<div id="FailCause" class="easyui-dialog easyui-layout" style="width: 700px;height: 350px;" closed="true" data-options="modal: true,
+				buttons: [{
+					text:'添加',
+					iconCls:'icon-add',
+                    handler:function(){
+						saveUserMes();
+					}
+				},{
+					text:'完成',
+					iconCls:'icon-save',
+                    handler:function(){
+						saveOK();
+					}
+				}]">
+		<div region="east" data-options="split:true" title="缺陷类型" style="width: 220px;height:340px;">
+			<ul id="dd" class="easyui-tree"></ul>
+		</div>		
+		
+        <form id="fmFailedMes" method="post" style="padding:30px 20px 10px 40px;" region="center">
+        	<div id="LOTNum" style="font-size: 14px;line-height: 14px;padding-left:180px"></div>
+            <table border="0">
+                <tr style="height: 35px;">
+                    <td>缺陷代码：</td>
+                    <td>
+                        <input id="faildNum" name="postingdate" style="width: 200px;" maxlength="16" class="easyui-textbox"/>
+                    </td>
+                    <td>
+                    	<button type="button" style="width:50px;" id="getTree" class="easyui-linkbutton">GET</button>
+                    </td>
+                </tr>
+                <tr style="height: 35px;">
+                    <td>抽检项目：</td>
+                    <td>
+                        <input id="checkProject" name="postingdate" style="width: 200px;" editable="false" class="easyui-combobox"></input>
+                    </td>
+                </tr>
+                <tr style="height: 35px;">
+                    <td>位置：</td>
+                    <td>
+                        <input id="place" name="postingdate" style="width: 200px;" editable="false" class="easyui-combobox"></input>
+                    </td>
+                </tr>
+                <tr style="height: 35px;">
+                    <td>料号：</td>
+                    <td>
+                         <input id="partNum" name="postingdate" style="width: 200px;" editable="false" class="easyui-combobox"></input>
+                    </td>
+                </tr>
+                <tr style="height: 35px;">
+                    <td>描述：</td>
+                    <td>
+                        <input id="description" name="postingdate" style="width: 200px;" maxlength="16" class="easyui-textbox"/>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    
+     
+	</body>
+
+</html>
+ 

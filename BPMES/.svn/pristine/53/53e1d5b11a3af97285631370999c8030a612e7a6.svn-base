@@ -1,0 +1,735 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ifss>
+
+	<!--====================================SMT管理========================================-->
+    <!-- 查询SMT站位信息 -->  
+	<ifs ifs_code="ST00001" ifs_name="查询SMT站位信息 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="querySmtStationInfo" biz_method="" serial_no="1" biz_name="querySmtStationInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- 新增SMT站位信息 -->  
+	<ifs ifs_code="ST00002" ifs_name="新增SMT站位信息 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertSmtStationInfo" biz_method="" serial_no="1" biz_name="insertSmtStationInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- 修改SMT站位信息 -->  
+	<ifs ifs_code="ST00003" ifs_name="修改SMT站位信息 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateSmtStationInfo" biz_method="" serial_no="1" biz_name="updateSmtStationInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- 删除SMT站位信息 -->  
+	<ifs ifs_code="ST00004" ifs_name="删除SMT站位信息 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteSmtStationInfo" biz_method="" serial_no="1" biz_name="deleteSmtStationInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    <!-- 查询SMT站位明细表信息 -->
+    <ifs ifs_code="ST00010" ifs_name="查询SMT站位明细表信息  " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="querySmtStationDetailedInfo" biz_method="" serial_no="1" biz_name="querySmtStationDetailedInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- 新增SMT站位明细表信息 -->
+    <ifs ifs_code="ST00011" ifs_name="新增SMT站位明细表信息  " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertSmtStationDetailedInfo" biz_method="" serial_no="1" biz_name="insertSmtStationDetailedInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- 修改SMT站位明细表信息 -->
+    <ifs ifs_code="ST00012" ifs_name="修改SMT站位明细表信息  " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateSmtStationDetailedInfo" biz_method="" serial_no="1" biz_name="updateSmtStationDetailedInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- 删除SMT站位明细表信息 -->
+    <ifs ifs_code="ST00013" ifs_name="删除SMT站位明细表信息  " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteSmtStationDetailedInfo" biz_method="" serial_no="1" biz_name="deleteSmtStationDetailedInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    <!-- 查询飞达信息维护 -->
+     <ifs ifs_code="ST00021" ifs_name="查询飞达信息维护   " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryFeederInformationMaintenance" biz_method="" serial_no="1" biz_name="queryFeederInformationMaintenance" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- 新增飞达信息维护 -->
+     <ifs ifs_code="ST00022" ifs_name="新增飞达信息维护   " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertFeederInformationMaintenance" biz_method="" serial_no="1" biz_name="insertFeederInformationMaintenance" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- 修改飞达信息维护 -->
+     <ifs ifs_code="ST00023" ifs_name="修改飞达信息维护   " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateFeederInformationMaintenance" biz_method="" serial_no="1" biz_name="updateFeederInformationMaintenance" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- 删除飞达信息维护 -->
+     <ifs ifs_code="ST00024" ifs_name="删除飞达信息维护   " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteFeederInformationMaintenance" biz_method="" serial_no="1" biz_name="deleteFeederInformationMaintenance" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    <!-- 飞达绑定关系维护查询-->
+     <ifs ifs_code="ST00025" ifs_name="飞达绑定关系维护查询" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryFeederBindingRelationship" biz_method="" serial_no="1" biz_name="queryFeederBindingRelationship" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- 飞达绑定关系维护新增-->
+     <ifs ifs_code="ST00026" ifs_name="飞达绑定关系维护新增 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertFeederBindingRelationship" biz_method="" serial_no="1" biz_name="insertFeederBindingRelationship" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- 飞达绑定关系维护修改-->
+     <ifs ifs_code="ST00027" ifs_name="飞达绑定关系维护修改 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateFeederBindingRelationship" biz_method="" serial_no="1" biz_name="updateFeederBindingRelationship" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- 飞达绑定关系维护删除-->
+     <ifs ifs_code="ST00028" ifs_name="飞达绑定关系维护删除" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteFeederBindingRelationship" biz_method="" serial_no="1" biz_name="deleteFeederBindingRelationship" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    
+    <!-- 钢网信息维护查询-->
+    <ifs ifs_code="ST00029" ifs_name="钢网信息维护查询" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryNetworkInformationMaintenance" biz_method="" serial_no="1" biz_name="queryNetworkInformationMaintenance" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- 钢网信息维护新增-->
+    <ifs ifs_code="ST00030" ifs_name="钢网信息维护新增" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertNetworkInformationMaintenance" biz_method="" serial_no="1" biz_name="insertNetworkInformationMaintenance" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- 钢网信息维护修改-->
+    <ifs ifs_code="ST00031" ifs_name="钢网信息维护修改" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateNetworkInformationMaintenance" biz_method="" serial_no="1" biz_name="updateNetworkInformationMaintenance" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- 钢网信息维护删除-->
+    <ifs ifs_code="ST00032" ifs_name="钢网信息维护删除" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteNetworkInformationMaintenance" biz_method="" serial_no="1" biz_name="deleteNetworkInformationMaintenance" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    
+    <!-- 钢网产品维护查询-->
+    <ifs ifs_code="ST00033" ifs_name="钢网产品维护查询" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="querySteelNetProductMaintenance" biz_method="" serial_no="1" biz_name="querySteelNetProductMaintenance" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- 钢网产品维护新增-->
+    <ifs ifs_code="ST00034" ifs_name="钢网产品维护新增" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertSteelNetProductMaintenance" biz_method="" serial_no="1" biz_name="insertSteelNetProductMaintenance" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- 钢网产品维护修改-->
+    <ifs ifs_code="ST00035" ifs_name="钢网产品维护修改" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateSteelNetProductMaintenance" biz_method="" serial_no="1" biz_name="updateSteelNetProductMaintenance" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- 钢网产品维护删除-->
+    <ifs ifs_code="ST00036" ifs_name="钢网产品维护删除" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteSteelNetProductMaintenance" biz_method="" serial_no="1" biz_name="deleteSteelNetProductMaintenance" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    <!-- 查询飞达状态信息-->
+     <ifs ifs_code="ST00037" ifs_name="查询飞达状态信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryFeederState" biz_method="" serial_no="1" biz_name="queryFeederState" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- 查询钢网状态信息-->
+     <ifs ifs_code="ST00038" ifs_name="查询钢网状态信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="querySteelNetState" biz_method="" serial_no="1" biz_name="querySteelNetState" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    
+    <!-- 飞达绑定记录表查询 -->
+     <ifs ifs_code="ST00039" ifs_name="飞达绑定记录表查询" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryFeederBindingRecord" biz_method="" serial_no="1" biz_name="queryFeederBindingRecord" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- 飞达绑定记录表新增 -->
+    <ifs ifs_code="ST00040" ifs_name="飞达绑定记录表新增" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertFeederBindingRecord" biz_method="" serial_no="1" biz_name="insertFeederBindingRecord" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    <!-- SMT上料表查询 -->
+    <ifs ifs_code="ST00041" ifs_name="SMT上料表查询" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="querySmtFeedingTable" biz_method="" serial_no="1" biz_name="querySmtFeedingTable" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- SMT上料表新增 -->
+    <ifs ifs_code="ST00042" ifs_name="SMT上料表新增" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertSmtFeedingTable" biz_method="" serial_no="1" biz_name="insertSmtFeedingTable" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- SMT上料表修改 -->
+    <ifs ifs_code="ST00043" ifs_name="SMT上料表修改" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateSmtFeedingTable" biz_method="" serial_no="1" biz_name="updateSmtFeedingTable" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- SMT上料表删除 -->
+    <ifs ifs_code="ST00044" ifs_name="SMT上料表删除" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteSmtFeedingTable" biz_method="" serial_no="1" biz_name="deleteSmtFeedingTable" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    <!-- SMT上料记录表查询 -->
+    <ifs ifs_code="ST00045" ifs_name="SMT上料记录表查询" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="querySmtFeedingRecordTable" biz_method="" serial_no="1" biz_name="querySmtFeedingRecordTable" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- SMT上料记录表新增 -->
+    <ifs ifs_code="ST00046" ifs_name="SMT上料记录表新增" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertSmtFeedingRecordTable" biz_method="" serial_no="1" biz_name="insertSmtFeedingRecordTable" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- SMT上料记录表修改 -->
+    <ifs ifs_code="ST00047" ifs_name="SMT上料记录修改" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateSmtFeedingRecordTable" biz_method="" serial_no="1" biz_name="updateSmtFeedingRecordTable" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- SMT上料记录表删除 -->
+    <ifs ifs_code="ST00048" ifs_name="SMT上料记录表删除" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteSmtFeedingRecordTable" biz_method="" serial_no="1" biz_name="deleteSmtFeedingRecordTable" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    <!-- SMT叫料表查询 -->
+    <ifs ifs_code="ST00049" ifs_name="SMT叫料表查询" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="querySmtMaterial" biz_method="" serial_no="1" biz_name="querySmtMaterial" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- SMT叫料表修改 -->
+    <ifs ifs_code="ST00091" ifs_name="SMT叫料表修改" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateSmtMaterial" biz_method="" serial_no="1" biz_name="updateSmtMaterial" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    
+    <!-- 叫料预警参数设置查询 -->
+    <ifs ifs_code="ST00050" ifs_name="叫料预警参数设置查询 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryCallAlarmParameterSetting" biz_method="" serial_no="1" biz_name="queryCallAlarmParameterSetting" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- 叫料预警参数设置新增 -->
+    <ifs ifs_code="ST00051" ifs_name="叫料预警参数设置新增 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertCallAlarmParameterSetting" biz_method="" serial_no="1" biz_name="insertCallAlarmParameterSetting" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- 叫料预警参数设置修改 -->
+    <ifs ifs_code="ST00052" ifs_name="叫料预警参数设置修改 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateCallAlarmParameterSetting" biz_method="" serial_no="1" biz_name="updateCallAlarmParameterSetting" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- 叫料预警参数设置删除 -->
+    <ifs ifs_code="ST00053" ifs_name="叫料预警参数设置删除 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteCallAlarmParameterSetting" biz_method="" serial_no="1" biz_name="deleteCallAlarmParameterSetting" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    <!-- 钢网产品验证记录查询 -->
+    <ifs ifs_code="ST00054" ifs_name="钢网产品验证记录查询 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="querySteelNetProductVerificationRecord" biz_method="" serial_no="1" biz_name="querySteelNetProductVerificationRecord" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- 钢网产品验证记录新增 -->
+    <ifs ifs_code="ST00055" ifs_name="钢网产品验证记录新增 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertSteelNetProductVerificationRecord" biz_method="" serial_no="1" biz_name="insertSteelNetProductVerificationRecord" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- 钢网产品验证记录修改 -->
+    <ifs ifs_code="ST00056" ifs_name="钢网产品验证记录修改 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateSteelNetProductVerificationRecord" biz_method="" serial_no="1" biz_name="updateSteelNetProductVerificationRecord" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- 钢网产品验证记录删除 -->
+    <ifs ifs_code="ST00057" ifs_name="钢网产品验证记录删除 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteSteelNetProductVerificationRecord" biz_method="" serial_no="1" biz_name="deleteSteelNetProductVerificationRecord" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+   	  <!-- SMT转产退料 -->
+    <ifs ifs_code="ST00058" ifs_name="SMT转产退料  " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="R_ME_ST_RETURN_MAT_P" biz_method="" serial_no="1" biz_name="R_ME_ST_RETURN_MAT_P" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    <!-- SMT批量退料，单个退料 -->
+    <ifs ifs_code="ST00059" ifs_name="SMT批量退料，单个退料  " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="R_MES_RTN_MAT_P" biz_method="" serial_no="1" biz_name="R_MES_RTN_MAT_P" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+   
+    
+    <!-- 生产退料表查询-->
+    <ifs ifs_code="ST00060" ifs_name="生产退料表查询 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryProductionReturnTable" biz_method="" serial_no="1" biz_name="queryProductionReturnTable" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- 生产退料表新增-->
+    <ifs ifs_code="ST00061" ifs_name="生产退料表新增 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertProductionReturnTable" biz_method="" serial_no="1" biz_name="insertProductionReturnTable" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- 生产退料表修改-->
+    <ifs ifs_code="ST00062" ifs_name="生产退料表修改 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateProductionReturnTable" biz_method="" serial_no="1" biz_name="updateProductionReturnTable" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- 生产退料表删除-->
+    <ifs ifs_code="ST00063" ifs_name="生产退料表删除 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteProductionReturnTable" biz_method="" serial_no="1" biz_name="deleteProductionReturnTable" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    <!-- SMT库存操作历史记录表查询 -->
+     <ifs ifs_code="ST00064" ifs_name="SMT库存操作历史记录表查询 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryInventoryOperationHistory" biz_method="" serial_no="1" biz_name="queryInventoryOperationHistory" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- SMT库存操作历史记录表新增 -->
+     <ifs ifs_code="ST00065" ifs_name="SMT库存操作历史记录表新增 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertInventoryOperationHistory" biz_method="" serial_no="1" biz_name="insertInventoryOperationHistory" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- SMT库存操作历史记录表修改 -->
+     <ifs ifs_code="ST00066" ifs_name="SMT库存操作历史记录表修改 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateInventoryOperationHistory" biz_method="" serial_no="1" biz_name="updateInventoryOperationHistory" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- SMT库存操作历史记录表删除 -->
+     <ifs ifs_code="ST00067" ifs_name="SMT库存操作历史记录表删除 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteInventoryOperationHistory" biz_method="" serial_no="1" biz_name="deleteInventoryOperationHistory" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    <!-- SMT物料使用记录表查询 -->
+    <ifs ifs_code="ST00068" ifs_name="SMT物料使用记录表查询 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryMaterialUsageRecordSheet" biz_method="" serial_no="1" biz_name="queryMaterialUsageRecordSheet" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- SMT物料使用记录表新增 -->
+    <ifs ifs_code="ST00069" ifs_name="SMT物料使用记录表新增 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertMaterialUsageRecordSheet" biz_method="" serial_no="1" biz_name="insertMaterialUsageRecordSheet" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- SMT物料使用记录表修改 -->
+    <ifs ifs_code="ST00070" ifs_name="SMT物料使用记录表修改 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateMaterialUsageRecordSheet" biz_method="" serial_no="1" biz_name="updateMaterialUsageRecordSheet" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- SMT物料使用记录表删除 -->
+    <ifs ifs_code="ST00071" ifs_name="SMT物料使用记录表删除 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteMaterialUsageRecordSheet" biz_method="" serial_no="1" biz_name="deleteMaterialUsageRecordSheet" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    <!-- SMT接收料库存查询  -->
+    <ifs ifs_code="ST00072" ifs_name="SMT接收料库存查询 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="querySmtReceivingStock" biz_method="" serial_no="1" biz_name="querySmtReceivingStock" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- SMT接收料库存新增  -->
+    <ifs ifs_code="ST00073" ifs_name="SMT接收料库存新增 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertSmtReceivingStock" biz_method="" serial_no="1" biz_name="insertSmtReceivingStock" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- SMT接收料库存修改  -->
+    <ifs ifs_code="ST00074" ifs_name="SMT接收料库存修改 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateSmtReceivingStock" biz_method="" serial_no="1" biz_name="updateSmtReceivingStock" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- SMT接收料库存删除  -->
+    <ifs ifs_code="ST00075" ifs_name="SMT接收料库存删除" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteSmtReceivingStock" biz_method="" serial_no="1" biz_name="deleteSmtReceivingStock" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+      <!-- 工单条码关系 绑定查询 -->
+    <ifs ifs_code="ST00076" ifs_name="工单条码关系 绑定查询" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="querySNBinding" biz_method="" serial_no="1" biz_name="querySNBinding" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    	  <!-- 删除工单条码关系绑定 -->
+    <ifs ifs_code="ST00077" ifs_name=" 删除工单条码关系绑定 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteSNBinding" biz_method="" serial_no="1" biz_name="deleteSNBinding" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    	
+	     <!-- 插入工单条码绑定信息 -->
+    <ifs ifs_code="ST00078" ifs_name="插入工单条码绑定信息 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertSNBinding" biz_method="" serial_no="1" biz_name="insertSNBinding" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+      <!--更新工单条码绑定 -->
+    <ifs ifs_code="ST00079" ifs_name="更新工单条码绑定" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateSNBinding" biz_method="" serial_no="1" biz_name="updateSNBinding" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!--  插入工单条码绑定关系记录表-->
+     <ifs ifs_code="ST00080" ifs_name="插入工单条码绑定关系记录表" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertSNBindingHis" biz_method="" serial_no="1" biz_name="insertSNBindingHis" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+     <!-- 查询作业指示号对应的拼板数量 -->
+     <ifs ifs_code="ST00081" ifs_name="查询作业指示号对应的拼板数量" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryPANEL_QTYByWO_MO" biz_method="" serial_no="1" biz_name="queryPANEL_QTYByWO_MO" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+     <!-- 生成绑定关系号码 -->
+     <ifs ifs_code="ST00082" ifs_name="生成绑定关系号码" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryBIND_NO" biz_method="" serial_no="1" biz_name="queryBIND_NO" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- SMT接料管理 -->
+    <ifs ifs_code="ST00083" ifs_name="SMT接料管理 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateSmtFeedingJieLiao" biz_method="" serial_no="1" biz_name="updateSmtFeedingJieLiao" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    <!-- 库存历史记录表操作上料Feeding -->
+    <ifs ifs_code="ST00084" ifs_name="库存历史记录表操作上料Feeding" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertMatHistoryFeeding" biz_method="" serial_no="1" biz_name="insertMatHistoryFeeding" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    <!-- 库存历史记录表操作退料Feed -->
+    <ifs ifs_code="ST00085" ifs_name="库存历史记录表操作退料Feed" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertMatHistoryFeed" biz_method="" serial_no="1" biz_name="insertMatHistoryFeed" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    <!-- SMT解绑站位 -->
+    <ifs ifs_code="ST00086" ifs_name="SMT解绑站位  " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="R_STACK_CD_P" biz_method="" serial_no="1" biz_name="R_STACK_CD_P" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    
+    <!-- AGV 查询 -->
+    <ifs ifs_code="ST00087" ifs_name="AGV 查询  " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryAGVs" biz_method="" serial_no="1" biz_name="queryAGVs" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- AGV 新增 -->
+    <ifs ifs_code="ST00088" ifs_name="AGV 新增  " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertAGVs" biz_method="" serial_no="1" biz_name="insertAGVs" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- AGV 修改 -->
+    <ifs ifs_code="ST00089" ifs_name="AGV 修改 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateAGVs" biz_method="" serial_no="1" biz_name="updateAGVs" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- AGV 删除 -->
+    <ifs ifs_code="ST00090" ifs_name="AGV 删除" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteAGVs" biz_method="" serial_no="1" biz_name="deleteAGVs" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    <!-- AGV运行路线表 查询 -->
+    <ifs ifs_code="ST00092" ifs_name="AGV运行路线表 查询  " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryAGVRuns" biz_method="" serial_no="1" biz_name="queryAGVRuns" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- AGV运行路线表 新增 -->
+    <ifs ifs_code="ST00093" ifs_name="AGV运行路线表 新增  " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertAGVRuns" biz_method="" serial_no="1" biz_name="insertAGVRuns" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- AGV运行路线表 修改 -->
+    <ifs ifs_code="ST00094" ifs_name="AGV运行路线表 修改 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateAGVRuns" biz_method="" serial_no="1" biz_name="updateAGVRuns" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- AGV运行路线表 删除 -->
+    <ifs ifs_code="ST00095" ifs_name="AGV运行路线表 删除" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteAGVRuns" biz_method="" serial_no="1" biz_name="deleteAGVRuns" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    
+    <!-- AGV状态 查询-->
+     <ifs ifs_code="ST00096" ifs_name="AGV状态 查询" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryAgvState" biz_method="" serial_no="1" biz_name="queryAgvState" biz_type="3" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- AGV状态 新增-->
+     <ifs ifs_code="ST00097" ifs_name="AGV状态 新增" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertAgvState" biz_method="" serial_no="1" biz_name="insertAgvState" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- AGV状态 修改-->
+     <ifs ifs_code="ST00098" ifs_name="AGV状态 修改" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateAgvState" biz_method="" serial_no="1" biz_name="updateAgvState" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    
+    
+    <!-- 设备栈位对应 查询 -->
+    <ifs ifs_code="ST00100" ifs_name="设备栈位对应 查询" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryDeviceStackBit" biz_method="" serial_no="1" biz_name="queryDeviceStackBit" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+	<!-- 设备栈位对应  新增 -->
+	<ifs ifs_code="ST00101" ifs_name="设备栈位对应 新增" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertDeviceStackBit" biz_method="" serial_no="1" biz_name="insertDeviceStackBit" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+	<!-- 设备栈位对应  修改 -->
+	
+	<ifs ifs_code="ST00102" ifs_name="设备栈位对应 修改" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateDeviceStackBit" biz_method="" serial_no="1" biz_name="updateDeviceStackBit" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+	<!-- 设备栈位对应  删除 -->
+    <ifs ifs_code="ST00103" ifs_name="设备栈位对应 删除" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteDeviceStackBit" biz_method="" serial_no="1" biz_name="deleteDeviceStackBit" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    <!-- 作业指示释放验证栈位明细维护是否全部是该BOM下的料 -->
+    <ifs ifs_code="ST00104" ifs_name="释放验证栈位明细维护是否全部是该BOM下的料" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryCheckIsPosit" biz_method="" serial_no="1" biz_name="queryCheckIsPosit" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    
+    <!-- 设备OEE新增 -->
+	<ifs ifs_code="ST00105" ifs_name="设备OEE新增" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertOeeNewInfo" biz_method="" serial_no="1" biz_name="insertOeeNewInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+	<!-- H_MES_RHSG_MST_T 新增 -->
+	<ifs ifs_code="ST00106" ifs_name="H_MES_RHSG_MST_T 新增" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertRhsgMstInfo" biz_method="" serial_no="1" biz_name="insertRhsgMstInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+	<!-- H_MES_RHSG_DTL_T 新增 -->
+    <ifs ifs_code="ST00107" ifs_name="H_MES_RHSG_DTL_T 新增 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertRhsgDtlInfo" biz_method="" serial_no="1" biz_name="insertRhsgDtlInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    
+    <!-- 通过机器编码查询工单信息-->
+	<ifs ifs_code="ST00108" ifs_name="通过机器编码查询工单信息 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryWO_NObyET_CD" biz_method="" serial_no="1" biz_name="queryWO_NObyET_CD" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+	<!-- 查询未完成上料的物料-->
+    <ifs ifs_code="ST00109" ifs_name="查询未完成上料的物料" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryETNotfeedingmaterial" biz_method="" serial_no="1" biz_name="queryETNotfeedingmaterial" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    <!--拆分时生成物料唯一码 -->
+     <ifs ifs_code="ST00110" ifs_name="拆分时生成物料唯一码" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryMaterialNniqueCode" biz_method="" serial_no="1" biz_name="queryMaterialNniqueCode" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    
+    <!-- 工位未扫描到SN时-->
+    <ifs ifs_code="ST00111" ifs_name="工位未扫描到SN时" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryNotBar" biz_method="" serial_no="1" biz_name="queryNotBar" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    <!-- 初始化加载工单SN追溯信息-->
+    <ifs ifs_code="ST00112" ifs_name="初始化加载工单SN追溯信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryInitializeLoad" biz_method="" serial_no="1" biz_name="queryInitializeLoad" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    <!-- SMT-->
+    <ifs ifs_code="ST00113" ifs_name="SMT" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryGetMaterial" biz_method="" serial_no="1" biz_name="queryGetMaterial" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    <!-- 存储过程 工位移动-->
+     <ifs ifs_code="ST00114" ifs_name="存储过程 工位移动" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryStoredPprocedureStationMovement" biz_method="" serial_no="1" biz_name="queryStoredPprocedureStationMovement" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    <!-- 工位解绑 -->
+     <ifs ifs_code="ST00115" ifs_name="工位解绑" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteStationRelease" biz_method="" serial_no="1" biz_name="deleteStationRelease" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    <!-- R_MES_AUTO_TEST_T -->
+     <ifs ifs_code="ST00116" ifs_name="R_MES_AUTO_TEST_T" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertR_MES_AUTO_TEST_T" biz_method="" serial_no="1" biz_name="insertR_MES_AUTO_TEST_T" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+     <!-- 查询agv运行路线 -->
+     <ifs ifs_code="ST00117" ifs_name="查询agv运行路线" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryAgvroad" biz_method="" serial_no="1" biz_name="queryAgvroad" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    <!-- SMT栈位维护 审核 -->
+    <ifs ifs_code="ST00121" ifs_name="SMT栈位维护 审核" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="SMT_STACK_EXAMINE" biz_method="" serial_no="1" biz_name="SMT_STACK_EXAMINE" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    <!-- SMT栈位物料维护 材料下拉框 -->
+    <ifs ifs_code="ST00122" ifs_name="SMT栈位物料维护 材料下拉框" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="querySmtStackMatCommobox" biz_method="" serial_no="1" biz_name="querySmtStackMatCommobox" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    <!-- 通过栈位查询得到该栈位区域还有几个料没上 -->
+    <ifs ifs_code="ST00123" ifs_name="通过栈位查询得到该栈位区域还有几个料没上" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="R_STACK_TABLE_P" biz_method="" serial_no="1" biz_name="R_STACK_TABLE_P" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    <!-- 组装段上料验证 -->
+    <ifs ifs_code="ST00124" ifs_name="组装段上料验证" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="assy_checkmat" biz_method="" serial_no="1" biz_name="assy_checkmat" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    <!-- 组装投料 -->
+    <ifs ifs_code="ST00125" ifs_name="组装投料" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="assy_feeding_mat" biz_method="" serial_no="1" biz_name="assy_feeding_mat" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+     <!-- 判断飞达是否绑定 -->
+   <ifs ifs_code="ST00126" ifs_name="判断飞达是否绑定" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="checkFeedIfBangding" biz_method="" serial_no="1" biz_name="checkFeedIfBangding" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    <!-- 验证栈位是否绑定物料、飞达 -->
+    <ifs ifs_code="ST00127" ifs_name="验证栈位是否绑定物料、飞达" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="R_STACK_CHECK_P" biz_method="" serial_no="1" biz_name="R_STACK_CHECK_P" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+</ifss>

@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<engines>
+	<!-- A.2 基础资料管理 -->
+    <!-- A2.1.1 仓库类别信息 -->
+	<!-- 查询仓库类别 -->
+	<engine engine_code="" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="" >
+	</engine>
+	
+	<!-- 查询托盘信息 -->
+	<engine engine_code="TrayInfoQuery" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="TrayInfoQuery" >
+	</engine>
+	
+	<!-- 新增托盘信息 -->
+	<engine engine_code="TrayInfoInsert" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="TrayInfoInsert" >
+	</engine>
+	
+	<!-- 修改托盘信息 -->
+	<engine engine_code="TrayInfoUpdate" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="TrayInfoUpdate" >
+	</engine>
+	
+	<!-- 删除托盘信息 -->
+	<engine engine_code="TrayInfoDelete" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="TrayInfoDelete" >
+	</engine>
+	
+	<!-- 查询仓库信息 -->
+	<engine engine_code="WarehouseInfoQuery" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="WarehouseInfoQuery" >
+	</engine>
+	
+	<!-- 新增仓库信息 -->
+	<engine engine_code="WarehouseInfoInsert" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="WarehouseInfoInsert" >
+	</engine>
+	
+	<!-- 修改仓库信息 -->
+	<engine engine_code="WarehouseInfoUpdate" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="WarehouseInfoUpdate" >
+	</engine>
+	
+	<!-- 删除仓库信息 -->
+	<engine engine_code="WarehouseInfoDelete" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="WarehouseInfoDelete" >
+	</engine>
+	
+	<!-- 查询计量单位信息 -->
+	<engine engine_code="queryWMSUnitInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryWMSUnitInfo" >
+	</engine>
+	
+	<!-- 删除计量单位信息 -->
+	<engine engine_code="unitInfoDelete" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="unitInfoDelete" >
+	</engine>
+	
+	<!-- 修改计量单位信息 -->
+	<engine engine_code="unitInfoUpdate" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="unitInfoUpdate" >
+	</engine>
+	
+	<!-- 新增计量单位信息 -->
+	<engine engine_code="unitInfoInsert" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="unitInfoInsert" >
+	</engine>
+	
+	<!-- 查询仓库类别 -->
+	<engine engine_code="WarehouseTypeInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="WarehouseTypeInfo" >
+	</engine>
+	
+	<!-- 修改仓库类别 -->
+	<engine engine_code="WarehouseTypeInfoUpdate" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="WarehouseTypeInfoUpdate" >
+	</engine>
+	
+	<!-- 新增仓库类别 -->
+	<engine engine_code="WarehouseTypeInfoInsert" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="WarehouseTypeInfoInsert" >
+	</engine>
+	
+	<!-- 删除仓库类别 -->
+	<engine engine_code="WarehouseTypeInfoDelete" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="WarehouseTypeInfoDelete" >
+	</engine>
+	<!-- 查询货架信息 -->
+	<engine engine_code="GoodsShelfInfoQuery" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="GoodsShelfInfoQuery" >
+	</engine>
+	<!-- 删除货架信息 -->
+	<engine engine_code="GoodsShelfInfoDelete" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="GoodsShelfInfoDelete" >
+	</engine>
+	<!-- 修改货架信息 -->
+	<engine engine_code="GoodsShelfInfoUpdate" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="GoodsShelfInfoUpdate" >
+	</engine>
+	<!-- 修改储区信息 -->
+	<engine engine_code="StorageInfoInfoUpdate" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="StorageInfoInfoUpdate" >
+	</engine>
+	<!-- 查询储区信息 -->
+	<engine engine_code="StorageInfoQuery" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="StorageInfoQuery" >
+	</engine>
+	<!-- 删除储区信息 -->
+	<engine engine_code="StorageInfoInfoDelete" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="StorageInfoInfoDelete" >
+	</engine>
+	<!-- 新增货架信息 -->
+	<engine engine_code="GoodsShelfInfoInsert" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="GoodsShelfInfoInsert" >
+	</engine>
+	<!-- 新增储区信息 -->
+	<engine engine_code="StorageInfoInsert" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="StorageInfoInsert" >
+	</engine>
+	<!-- 查询货位树形结构 -->
+	<engine engine_code="PositionMenuInfoQuery" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="PositionMenuInfoQuery" >
+	</engine>
+	<!-- 查询储区树形结构 -->
+	<engine engine_code="StoreMenuInfoQuery" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="StoreMenuInfoQuery" >
+	</engine>
+	<!-- 查询货架树形结构 -->
+	<engine engine_code="ShelfMenuInfoQuery" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="ShelfMenuInfoQuery" >
+	</engine>
+	<!-- 查询货架的货位信息 -->
+	<engine engine_code="queryShelfPositionInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryShelfPositionInfo" >
+	</engine>
+	<!-- 下拉框使用仓库数据 -->
+	<engine engine_code="ComboBoxWarehouseInfoQuery" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="ComboBoxWarehouseInfoQuery" >
+	</engine>
+	<!-- 下拉框查询出储区信息 -->
+	<engine engine_code="ComboBoxStorageInfoQuery" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="ComboBoxStorageInfoQuery" >
+	</engine>
+	<!-- 查询表单模板数据 -->
+	 <engine engine_code="FormTemplateInfoQuery" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="FormTemplateInfoQuery" >
+	</engine> 
+	
+	<!-- 标签管理 -->
+	<!-- 查询标签管理信息 -->
+	 <engine engine_code="queryBarcodeRule" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryBarcodeRule" >
+	</engine>
+	<!-- 查询标签管理信息 -->
+	 <engine engine_code="insertBarcodeRule" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertBarcodeRule" >
+	</engine>
+	<!-- 查询标签管理信息 -->
+	 <engine engine_code="updateBarcodeRule" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateBarcodeRule" >
+	</engine>
+	<!-- 查询标签管理信息 -->
+	 <engine engine_code="deleteBarcodeRule" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteBarcodeRule" >
+	</engine>
+	<!-- 标签管理树形结构 -->
+	 <engine engine_code="queryBarcodeRuleTree" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryBarcodeRuleTree" >
+	</engine>
+
+	<!-- 抽样方案 -->
+	<!-- 查询 抽样标准信息 -->
+	 <engine engine_code="querySampleStandInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querySampleStandInfo" >
+	</engine> 
+	<engine engine_code="querySamplePlanInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querySamplePlanInfo" >
+	</engine>
+	 <engine engine_code="InsertSamplePlanInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="InsertSamplePlanInfo" >
+	</engine> 
+	 <engine engine_code="UpdateSamplePlanInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="UpdateSamplePlanInfo" >
+	</engine> 
+	<engine engine_code="DeleteSamplePlanInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="DeleteSamplePlanInfo" >
+	</engine> 
+		
+	<!-- 查询货位信息表的货架引用-->
+	<engine engine_code="querySelftMarites" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querySelftMarites" >
+	</engine> 
+	
+	<!-- 物料分类管理 -->
+	<!-- 查询物料分类管理标准 -->
+	<engine engine_code="querymateriaDivideStand" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querymateriaDivideStand" >
+	</engine> 	
+	<!-- 查询物料分类管理 -->
+	<engine engine_code="querymateriaDivideManage" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querymateriaDivideManage" >
+	</engine>	
+	<!-- 新增物料分类管理 -->
+	<engine engine_code="InsertmateriaDivideManage" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="InsertmateriaDivideManage" >
+	</engine>	
+	<!-- 修改物料分类管理 -->
+	<engine engine_code="UpdatemateriaDivideManage" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="UpdatemateriaDivideManage" >
+	</engine>	
+	<!-- 删除物料分类管理 -->
+	<engine engine_code="DeletemateriaDivideManage" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="DeletemateriaDivideManage" >
+	</engine>
+	
+	<!-- 初始化货位数据-->
+	<engine engine_code="initShelfPosition" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="initShelfPosition" >
+	</engine>
+    
+    <!-- 查询货架编号-->
+	<engine engine_code="queryShelfID" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryShelfID" >
+	</engine>
+	<!-- 查询仓库类别编号-->
+	<engine engine_code="querywarehouseTypeID" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querywarehouseTypeID" >
+	</engine>
+	<!-- 查询仓库编号-->
+	<engine engine_code="querywarehouseID" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querywarehouseID" >
+	</engine>
+	<!-- 查询生成物料分类编号-->
+	<engine engine_code="queryCreatmateriaID" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryCreatmateriaID" >
+	</engine>
+	<!-- 查询生成抽样编号-->
+	<engine engine_code="queryCreateSampleID" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryCreateSampleID" >
+	</engine>
+	<!-- 查询生成托盘编号-->
+	<engine engine_code="CreatTRAY_ID" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="CreatTRAY_ID" >
+	</engine>
+	
+	<!-- 查询仓库唯一码和RFID关联表信息-->
+	<engine engine_code="queryWareHouseRfid" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryWareHouseRfid" >
+	</engine>
+	<!-- 新增仓库唯一码和RFID关联表信息-->
+	<engine engine_code="InsertWareHouseRfid" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="InsertWareHouseRfid" >
+	</engine>
+	<!--修改仓库唯一码和RFID关联表信息-->
+	<engine engine_code="UpdateWareHouseRfid" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="UpdateWareHouseRfid" >
+	</engine>
+	<!-- 删除仓库唯一码和RFID关联表信息-->
+	<engine engine_code="DeleteWareHouseRfid" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="DeleteWareHouseRfid" >
+	</engine>
+	<!-- 查询生成RFID表ID-->
+	<engine engine_code="CreatRFID_ID" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="CreatRFID_ID" >
+	</engine>
+	
+	<!-- 查询仓储出入库中间表信息-->
+	<engine engine_code="queryWMSWCSlink" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryWMSWCSlink" >
+	</engine>
+	<!-- 新增仓储出入库中间表信息-->
+	<engine engine_code="InsertWMSWCSlink" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="InsertWMSWCSlink" >
+	</engine>
+	<!--修改仓储出入库中间表信息息-->
+	<engine engine_code="UpdateWMSWCSlink" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="UpdateWMSWCSlink" >
+	</engine>
+	<!-- 删除仓储出入库中间表信息-->
+	<engine engine_code="DeleteWMSWCSlink" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="DeleteWMSWCSlink" >
+	</engine>
+	<!-- 查询生成仓储出入库中间表信息ID-->
+	<engine engine_code="CreatWMSWCSlink_ID" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="CreatWMSWCSlink_ID" >
+	</engine>
+	<!-- 查询货位信息-->
+	<engine engine_code="CXHW" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="CXHW" >
+	</engine>
+	
+	<!-- 查询仓库库存-->
+	<engine engine_code="queryWarehouseStock" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryWarehouseStock" >
+	</engine>
+	<!-- 查询仓库库存-->
+	<engine engine_code="querySumWarehouseStock" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querySumWarehouseStock" >
+	</engine>
+	<!-- 查询条码追溯记录-->
+	<engine engine_code="queryBARCODEZS" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryBARCODEZS" >
+	</engine>
+	<!-- 查询MES工单领料-->
+	<engine engine_code="queryMESMOll" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryMESMOll" >
+	</engine>
+	<!-- 查询MES工单生产-->
+	<engine engine_code="queryMESMOProduct" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryMESMOProduct" >
+	</engine>
+	<!-- 查询MES工单完工-->
+	<engine engine_code="queryMESMOfinish" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryMESMOfinish" >
+	</engine>
+	<!-- 查询成品仓信息-->
+	<engine engine_code="queryProductWarehouse" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryProductWarehouse" >
+	</engine>
+	<!-- 查询成品仓出入库中间表信息-->
+	<engine engine_code="queryCPProduct" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryCPProduct" >
+	</engine>
+	<!-- 新增仓储出入库中间表信息-->
+	<engine engine_code="InsertCPProduct" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="InsertCPProduct" >
+	</engine>
+	<!-- 修改仓储出入库中间表信息息-->
+	<engine engine_code="UpdateCPProduct" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="UpdateCPProduct" >
+	</engine>
+	<!-- 删除仓储出入库中间表信息-->
+	<engine engine_code="DeleteCPProduct" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="DeleteCPProduct" >
+	</engine>
+	
+	<!-- 更新库位信息表-->
+	<engine engine_code="UpdatePOSINFO" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="UpdatePOSINFO" >
+	</engine>
+	
+	<!-- 查询成品仓操作信息-->
+	<engine engine_code="queryProductlinkInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryProductlinkInfo" >
+	</engine>
+	<!-- 查询成品仓已完成操作信息-->
+	<engine engine_code="queryProductlinkInfoFinish" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryProductlinkInfoFinish" >
+	</engine>
+	
+	<!--查询包装箱列表信息-->
+	<engine engine_code="queryContainer" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryContainer" >
+	</engine>
+	<!-- 新增包装箱列表信息-->
+	<engine engine_code="InsertContainer" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="InsertContainer" >
+	</engine>
+	<!-- 修改包装箱列表信息息-->
+	<engine engine_code="UpdateContainer" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="UpdateContainer" >
+	</engine>
+	<!-- 删除包装箱列表信息-->
+	<engine engine_code="DeleteContainer" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="DeleteContainer" >
+	</engine>
+	<!-- 获得包装箱id-->
+	<engine engine_code="GetidContainer" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="GetidContainer" >
+	</engine>
+	
+	<!--查询包装箱标签信息-->
+	<engine engine_code="queryContdoc" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryContdoc" >
+	</engine>
+	<!-- 新增包装箱标签信息-->
+	<engine engine_code="InsertContdoc" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="InsertContdoc" >
+	</engine>
+	<!-- 修改包装箱标签信息-->
+	<engine engine_code="UpdateContdoc" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="UpdateContdoc" >
+	</engine>
+	<!-- 删除包装箱标签信息-->
+	<engine engine_code="DeleteContdoc" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="DeleteContdoc" >
+	</engine>
+	<!-- 获得包装箱标签id-->
+	<engine engine_code="GetidContdoc" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="GetidContdoc" >
+	</engine>
+	
+	<!--查询包装箱内容信息-->
+	<engine engine_code="queryContlev" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryContlev" >
+	</engine>
+	<!-- 新增包装箱内容信息-->
+	<engine engine_code="InsertContlev" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="InsertContlev" >
+	</engine>
+	<!-- 修改包装箱内容信息-->
+	<engine engine_code="UpdateContlev" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="UpdateContlev" >
+	</engine>
+	<!-- 删除包装箱内容信息-->
+	<engine engine_code="DeleteContlev" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="DeleteContlev" >
+	</engine>
+	<!-- 获得包装箱内容id-->
+	<engine engine_code="GetidContlev" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="GetidContlev" >
+	</engine>
+</engines>

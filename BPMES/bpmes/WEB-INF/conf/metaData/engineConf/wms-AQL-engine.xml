@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<engines>
+	<!-- AQL抽样模块 -->
+	<!-- 查询AQL抽样规则 -->
+	<engine engine_code="QueryAQLRuleList" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="QueryAQLRuleList" >
+	</engine>
+	
+	<!-- 修改AQL抽样规则 -->
+	<engine engine_code="AQLRuleListInfoUpdate" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="AQLRuleListInfoUpdate" >
+	</engine>
+	
+	<!-- 新增AQL抽样规则 -->
+	<engine engine_code="AQLRuleListInfoInsert" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="AQLRuleListInfoInsert" >
+	</engine>
+	
+	<!-- 删除AQL抽样规则-->
+	<engine engine_code="AQLRuleListInfoDelete" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="AQLRuleListInfoDelete" >
+	</engine>
+	
+	<!-- 查询检验项列表 -->
+	<engine engine_code="QueryAQLSample" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="QueryAQLSample" >
+	</engine>
+	
+	<!-- 修改检验项列表 -->
+	<engine engine_code="AQLSampleInfoUpdate" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="AQLSampleInfoUpdate" >
+	</engine>
+	
+	<!-- 新增检验项列表 -->
+	<engine engine_code="AQLSampleInfoInsert" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="AQLSampleInfoInsert" >
+	</engine>
+	
+	<!-- 删除检验项列表 -->
+	<engine engine_code="AQLSampleInfoDelete" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="AQLSampleInfoDelete" >
+	</engine>
+	
+	<!-- 查询检AQL抽样规则列表 -->
+	<engine engine_code="QueryAQLRuleMember" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="QueryAQLRuleMember" >
+	</engine>
+	
+	<!-- 修改AQL抽样规则列表 -->
+	<engine engine_code="AQLRuleMemberInfoUpdate" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="AQLRuleMemberInfoUpdate" >
+	</engine>
+	
+	<!-- 新增AQL抽样规则列表列表 -->
+	<engine engine_code="AQLRuleMemberInfoInsert" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="AQLRuleMemberInfoInsert" >
+	</engine>
+	
+	<!-- 删除AQL抽样规则列表列表 -->
+	<engine engine_code="AQLRuleMemberInfoDelete" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="AQLRuleMemberInfoDelete" >
+	</engine>
+	
+	<!-- 客诉列表模块 -->
+	<!-- 查询客诉列表-->
+	<engine engine_code="QueryCustomerlist" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="QueryCustomerlist" >
+	</engine>
+	
+	<!-- 修改客诉列表 -->
+	<engine engine_code="CustomerlistUpdate" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="CustomerlistUpdate" >
+	</engine>
+	
+	<!-- 新增客诉列表 -->
+	<engine engine_code="CustomerlistInsert" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="CustomerlistInsert" >
+	</engine>
+	
+	<!-- 删除客诉列表 -->
+	<engine engine_code="CustomerlistDelete" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="CustomerlistDelete" >
+	</engine>
+</engines> 

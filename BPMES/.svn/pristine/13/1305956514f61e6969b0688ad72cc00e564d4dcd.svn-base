@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ifss>
+ <!-- 1  工单条码管理 -->
+	<!-- 工单条码查询 -->
+
+	<ifs ifs_code="MES_S000001" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryMoBC" biz_method="" serial_no="1" biz_name="queryMoBC" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<ifs ifs_code="S0000016" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryOneMoBCInfo" biz_method="" serial_no="1" biz_name="queryOneMoBCInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 工单条码新增 -->
+	<ifs ifs_code="MES_S000002" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertMoBC" biz_method="" serial_no="1" biz_name="insertMoBC" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 工单条码修改 -->
+	<ifs ifs_code="MES_S000003" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateMoBC" biz_method="" serial_no="1" biz_name="updateMoBC" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 工单条码删除 -->
+	<ifs ifs_code="MES_S000004" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteMoBC" biz_method="" serial_no="1" biz_name="deleteMoBC" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+
+ <!-- 2  物料条码管理 -->
+	<!-- 物料条码查询 -->
+
+	<ifs ifs_code="S0000005" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryItemBC" biz_method="" serial_no="1" biz_name="queryItemBC" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 物料条码新增 -->
+	<ifs ifs_code="S0000006" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertItemBC" biz_method="" serial_no="1" biz_name="insertItemBC" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 物料条码修改 -->
+	<ifs ifs_code="S0000007" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateItemBC" biz_method="" serial_no="1" biz_name="updateItemBC" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 物料条码删除 -->
+	<ifs ifs_code="S0000008" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteItemBC" biz_method="" serial_no="1" biz_name="deleteItemBC" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+ <!-- 3  原材料条码管理 -->
+	<!-- 原材料条码查询 -->
+	<ifs ifs_code="S0000009" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryMatBC" biz_method="" serial_no="1" biz_name="queryMatBC" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 原材料条码新增 -->
+	<ifs ifs_code="S0000010" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertMatBC" biz_method="" serial_no="1" biz_name="insertMatBC" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 原材料条码修改 -->
+	<ifs ifs_code="S0000011" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateMatBC" biz_method="" serial_no="1" biz_name="updateMatBC" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 原材料条码删除 -->
+	<ifs ifs_code="S0000012" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteMatBC" biz_method="" serial_no="1" biz_name="deleteMatBC" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	 <!-- 图片保存浏览 -->
+    <!-- 查询图片保存路径 -->
+    <ifs ifs_code="D000065" ifs_name="查询图片保存路径" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="fileSavePathQuery" biz_method="" serial_no="1" biz_name="fileSavePathQuery" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    <!-- 新增图片保存路径-->
+    <ifs ifs_code="D000066" ifs_name="新增图片保存路径" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="fileSavePathInsert" biz_method="" serial_no="1" biz_name="fileSavePathInsert" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    <!-- 删除图片保存路径 -->
+    <ifs ifs_code="D000067" ifs_name="删除图片保存路径" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="fileSavePathDelete" biz_method="" serial_no="1" biz_name="fileSavePathDelete" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    <!-- 修改图片保存路径 -->
+    <ifs ifs_code="D000068" ifs_name="修改图片保存路径" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="fileSavePathUpdate" biz_method="" serial_no="1" biz_name="fileSavePathUpdate" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+     <!-- 查询工单条码序列 -->
+     <ifs ifs_code="S0000013" ifs_name="查询工单条码序列" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="querySN_NO" biz_method="" serial_no="1" biz_name="querySN_NO" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+	
+	<!-- BOX生成 -->
+	<ifs ifs_code="S0000014" ifs_name="生成BOX条码序列" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryBox_ID" biz_method="" serial_no="1" biz_name="queryBox_ID" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    <!-- 卡板生成 -->
+	<ifs ifs_code="S0000015" ifs_name="生成卡板条码序列" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryPLT_ID" biz_method="" serial_no="1" biz_name="queryPLT_ID" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    <!-- 查询托盘RFID绑定 -->
+     <ifs ifs_code="S0000020" ifs_name="查询托盘RFID绑定   " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryTrayInformationMaintenance" biz_method="" serial_no="1" biz_name="queryTrayInformationMaintenance" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- 新增托盘RFID绑定 -->
+     <ifs ifs_code="S0000017" ifs_name="新增托盘RFID绑定   " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertTrayInformationMaintenance" biz_method="" serial_no="1" biz_name="insertTrayInformationMaintenance" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- 修改托盘RFID绑定 -->
+     <ifs ifs_code="S0000018" ifs_name="修改托盘RFID绑定   " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateTrayInformationMaintenance" biz_method="" serial_no="1" biz_name="updateTrayInformationMaintenance" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <!-- 删除托盘RFID绑定 -->
+     <ifs ifs_code="S0000019" ifs_name="删除托盘RFID绑定   " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteTrayInformationMaintenance" biz_method="" serial_no="1" biz_name="deleteTrayInformationMaintenance" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    <!-- 版本管理 -->
+    <ifs ifs_code="S0000020" ifs_name="查询版本信息表    " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryVersionInfo" biz_method="" serial_no="1" biz_name="queryVersionInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    <!-- 获取服务器时间 -->
+     <ifs ifs_code="S0000021" ifs_name="获取服务器时间 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryGetTime" biz_method="" serial_no="1" biz_name="queryGetTime" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+     <!-- 生成条码 -->
+     <ifs ifs_code="S0000022" ifs_name="生成条码 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryGetCode" biz_method="" serial_no="1" biz_name="queryGetCode" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    
+    <!-- 载具信息维护 -->
+    
+     <!-- 查询载具信息-->
+     <ifs ifs_code="S0000023" ifs_name="查询载具信息 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="query_R_MES_CARE_T_Info" biz_method="" serial_no="1" biz_name="query_R_MES_CARE_T_Info" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs>
+    <!-- 批量插入载具信息-->
+    <ifs ifs_code="S0000024" ifs_name="批量插入载具信息 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insert_R_MES_CARE_T_Info" biz_method="" serial_no="1" biz_name="insert_R_MES_CARE_T_Info" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs>
+     
+
+     
+     
+     
+     
+     <!-- 批量删除载具信息 -->
+     <ifs ifs_code="S0000025" ifs_name="批量删除载具信息 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="delete_R_MES_CARE_T_Info" biz_method="" serial_no="1" biz_name="delete_R_MES_CARE_T_Info" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs>
+     <!-- 批量修改载具信息-->
+     <ifs ifs_code="S0000026" ifs_name="批量修改载具信息 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="update_R_MES_CARE_T_Info" biz_method="" serial_no="1" biz_name="update_R_MES_CARE_T_Info" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs>
+     
+      
+     <!-- 系统参数配置   查询-->
+     <ifs ifs_code="S0000027" ifs_name="系统参数配置   查询 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="querySystemParameterConfiguration" biz_method="" serial_no="1" biz_name="querySystemParameterConfiguration" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs>
+      
+      <!-- 系统参数配置   修改-->
+     <ifs ifs_code="S0000028" ifs_name="系统参数配置   修改 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateSystemParameterConfiguration" biz_method="" serial_no="1" biz_name="updateSystemParameterConfiguration" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs>
+     
+      <!-- 系统参数配置   新增-->
+     <ifs ifs_code="S0000029" ifs_name="系统参数配置   新增 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertSystemParameterConfiguration" biz_method="" serial_no="1" biz_name="insertSystemParameterConfiguration" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs>
+     
+      <!-- 系统参数配置   删除-->
+     <ifs ifs_code="S0000030" ifs_name="系统参数配置   删除 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteSystemParameterConfiguration" biz_method="" serial_no="1" biz_name="deleteSystemParameterConfiguration" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs>
+      
+      
+    <!-- 载具绑定    START-->
+	<!-- 载具绑定 主  查询-->
+	<ifs ifs_code="S0000031" ifs_name="载具绑定 主  查询" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryCarrierBinding" biz_method="" serial_no="1" biz_name="queryCarrierBinding" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 载具绑定 主  新增-->
+	<ifs ifs_code="S0000032" ifs_name="载具绑定 主  新增" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertCarrierBinding" biz_method="" serial_no="1" biz_name="insertCarrierBinding" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 载具绑定 主  修改-->
+	<ifs ifs_code="S0000033" ifs_name="载具绑定 主  修改" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateCarrierBinding" biz_method="" serial_no="1" biz_name="updateCarrierBinding" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 载具绑定 主  删除-->
+	<ifs ifs_code="S0000034" ifs_name="载具绑定 主  删除" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteCarrierBinding" biz_method="" serial_no="1" biz_name="deleteCarrierBinding" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 载具绑定 明细  查询-->
+	<ifs ifs_code="S0000035" ifs_name="载具绑定 明细  查询" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryCarrierBindingDetailed" biz_method="" serial_no="1" biz_name="queryCarrierBindingDetailed" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 载具绑定 明细  新增-->
+	<ifs ifs_code="S0000036" ifs_name="载具绑定 明细  新增" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertCarrierBindingDetailed" biz_method="" serial_no="1" biz_name="insertCarrierBindingDetailed" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 载具绑定查询    END-->
+	
+	     
+       <!-- 批量插入载具信息打印明细-->
+    <ifs ifs_code="S0000037" ifs_name="批量插入载具信息打印明细 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insert_R_MES_CarrierCode_prin_T_Info" biz_method="" serial_no="1" biz_name="insert_R_MES_CarrierCode_prin_T_Info" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs>  
+	
+    <!--查询载具打印信息 -->
+    <ifs ifs_code="S0000038" ifs_name="查询载具打印信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="query_R_MES_CarrierCode_prin_T" biz_method="" serial_no="1" biz_name="query_R_MES_CarrierCode_prin_T" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs>   
+      
+      <!-- 验证产线是否存在主单 -->
+	<ifs ifs_code="S0000039" ifs_name="验证产线是否存在主单" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="VerifyLineCheckProductMo" biz_method="" serial_no="1" biz_name="VerifyLineCheckProductMo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+      
+      
+       <!-- 载具信息详细查询 -->
+	<ifs ifs_code="S0000040" ifs_name="载具信息详细查询" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="query_R_MES_CARRIERCODE_PRIN_T_Info" biz_method="" serial_no="1" biz_name="query_R_MES_CARRIERCODE_PRIN_T_Info" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+</ifss>

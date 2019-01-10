@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<engines>
+	<!-- L6  标签管理 -->
+	<!-- L6.1 标签种类信息-->	   
+	<!-- 查询标签种类信息 1-->
+	<engine engine_code="queryLabelTypeInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryLabelTypeInfo" >
+	</engine>
+	<!-- 新增标签种类 -->
+	<engine engine_code="insertLabelTypeInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertLabelTypeInfo" >
+	</engine>
+	<!-- 删除标签种类 -->
+	<engine engine_code="deleteLabelTypeInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteLabelTypeInfo" >
+	</engine>
+	<!-- 修改标签种类 -->
+	<engine engine_code="updateLabelTypeInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateLabelTypeInfo" >
+	</engine>
+	
+	<!-- L6.2 标签设置信息-->	   
+	<!-- 查询标签设置信息 1-->
+	<engine engine_code="queryLabelSetInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryLabelSetInfo" >
+	</engine>
+	<!-- 新增标签设置 -->
+	<engine engine_code="insertLabelSetInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertLabelSetInfo" >
+	</engine>
+	<!-- 删除标签设置 -->
+	<engine engine_code="deleteLabelSetInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteLabelSetInfo" >
+	</engine>
+	<!-- 修改标签设置 -->
+	<engine engine_code="updateLabelSetInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateLabelSetInfo" >
+	</engine>
+	
+	<!-- L6.3 标签变量信息-->	   
+	<!-- 查询标签变量信息 1-->
+	<engine engine_code="queryLabelVariateInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryLabelVariateInfo" >
+	</engine>
+	<!-- 新增标签变量 -->
+	<engine engine_code="insertLabelVariateInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertLabelVariateInfo" >
+	</engine>
+	<!-- 删除标签变量 -->
+	<engine engine_code="deleteLabelVariateInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteLabelVariateInfo" >
+	</engine>
+	<!-- 修改标签变量 -->
+	<engine engine_code="updateLabelVariateInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateLabelVariateInfo" >
+	</engine>
+	<!-- 查询变量种类 -->
+	<engine engine_code="queryLabelVariateComb" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryLabelVariateComb" >
+	</engine>
+	
+	<!-- L6.4 标签变量关联信息 -->	   
+	<!-- 查询标签变量关联信息 1-->
+	<engine engine_code="queryLabelVariateRelevanceInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryLabelVariateRelevanceInfo" >
+	</engine>
+	<!-- 新增标签变量关联 -->
+	<engine engine_code="insertLabelVariateRelevanceInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertLabelVariateRelevanceInfo" >
+	</engine>
+	<!-- 删除标签变量关联 -->
+	<engine engine_code="deleteLabelVariateRelevanceInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteLabelVariateRelevanceInfo" >
+	</engine>
+	<!-- 修改标签变量关联 -->
+	<engine engine_code="updateLabelVariateRelevanceInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateLabelVariateRelevanceInfo" >
+	</engine>
+	
+	<!-- L6.5标签预览信息 -->	   
+	<!-- 查询标签预览信息 1 -->
+	<engine engine_code="queryLabelPreviewInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryLabelPreviewInfo" >
+	</engine>
+	<!-- 新增标签预览 -->
+	<engine engine_code="insertLabelPreviewInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertLabelPreviewInfo" >
+	</engine>
+	<!-- 删除标签预览 -->
+	<engine engine_code="deleteLabelPreviewInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteLabelPreviewInfo" >
+	</engine>
+	<!-- 修改标签预览 -->
+	<engine engine_code="updateLabelPreviewInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateLabelPreviewInfo" >
+	</engine>
+	
+	<!-- L6.6作业组逻辑信息 -->	   
+	<!-- 查询作业组逻辑信息 1 -->
+	<engine engine_code="queryTaskTeamLogicInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryTaskTeamLogicInfo" >
+	</engine>
+	<!-- 新增作业组逻辑 -->
+	<engine engine_code="insertTaskTeamLogicInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertTaskTeamLogicInfo" >
+	</engine>
+	<!-- 删除作业组逻辑 -->
+	<engine engine_code="deleteTaskTeamLogicInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteTaskTeamLogicInfo" >
+	</engine>
+	<!-- 修改作业组逻辑 -->
+	<engine engine_code="updateTaskTeamLogicInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateTaskTeamLogicInfo" >
+	</engine>
+	
+	<!-- L6.7作业维护信息 -->	   
+	<!-- 查询作业维护信息 1 -->
+	<engine engine_code="queryTaskVindicateInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryTaskVindicateInfo" >
+	</engine>
+	<!-- 新增作业维护 -->
+	<engine engine_code="insertTaskVindicateInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertTaskVindicateInfo" >
+	</engine>
+	<!-- 删除作业维护 -->
+	<engine engine_code="deleteTaskVindicateInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteTaskVindicateInfo" >
+	</engine>
+	<!-- 修改作业维护 -->
+	<engine engine_code="updateTaskVindicateInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateTaskVindicateInfo" >
+	</engine>
+	
+	<!-- L6.8作业组与作业关系表信息 -->	   
+	<!-- 查询作业组与作业关系表信息 1 -->
+	<engine engine_code="queryTeamAndTaskInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryTeamAndTaskInfo" >
+	</engine>
+	<!-- 新增作业组与作业关系 -->
+	<engine engine_code="insertTeamAndTaskInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertTeamAndTaskInfo" >
+	</engine>
+	<!-- 删除作业组与作业关系 -->
+	<engine engine_code="deleteTeamAndTaskInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteTeamAndTaskInfo" >
+	</engine>
+	<!-- 修改作业组与作业关系 -->
+	<engine engine_code="updateTeamAndTaskInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateTeamAndTaskInfo" >
+	</engine>
+	
+	<!-- L6.9作业资源关系表信息 -->	   
+	<!-- 查询作业资源关系表信息 1 -->
+	<engine engine_code="queryTaskResourcesInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryTaskResourcesInfo" >
+	</engine>
+	<!-- 新增作业资源关系 -->
+	<engine engine_code="insertTaskResourcesInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertTaskResourcesInfo" >
+	</engine>
+	<!-- 删除作业资源关系 -->
+	<engine engine_code="deleteTaskResourcesInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteTaskResourcesInfo" >
+	</engine>
+	<!-- 修改作业资源关系 --> 
+	<engine engine_code="updateTaskResourcesInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateTaskResourcesInfo" >
+	</engine>
+	
+	<!-- L7.0作业组资源关系表信息 -->	 
+	<!-- 查询作业组资源关系表信息 1 --> 
+	<engine engine_code="queryTaskTeamResourcesInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryTaskTeamResourcesInfo" >
+	</engine>
+	<!-- 新增作业组资源关系 -->
+	<engine engine_code="insertTaskTeamResourcesInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertTaskTeamResourcesInfo" >
+	</engine>
+	<!-- 删除作业组资源关系 -->
+	<engine engine_code="deleteTaskTeamResourcesInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteTaskTeamResourcesInfo" >
+	</engine>
+	<!-- 修改作业组资源关系 -->
+	<engine engine_code="updateTaskTeamResourcesInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateTaskTeamResourcesInfo" >
+	</engine>
+
+</engines>

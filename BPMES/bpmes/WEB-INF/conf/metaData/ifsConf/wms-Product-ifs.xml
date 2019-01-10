@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ifss>
+	<!-- 德富莱产品信息模块 -->
+	<!-- 查询产品类型-->
+	<ifs ifs_code="WMS_PR00001" ifs_name="查询产品类型" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="ItemGroupInfo" biz_method="" serial_no="1" biz_name="ItemGroupInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 修改产品类型-->
+	<ifs ifs_code="WMS_PR00002" ifs_name="修改产品" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="ItemGroupInfoUpdate" biz_method="" serial_no="1" biz_name="ItemGroupInfoUpdate" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 新增产品类型-->
+	<ifs ifs_code="WMS_PR00003" ifs_name="新增产品类型" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="ItemGroupInfoInsert" biz_method="" serial_no="1" biz_name="ItemGroupInfoInsert" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 删除产品类型 -->
+	<ifs ifs_code="WMS_PR00004" ifs_name="删除产品类型" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="ItemGroupInfoDelete" biz_method="" serial_no="1" biz_name="ItemGroupInfoDelete" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+</ifss>

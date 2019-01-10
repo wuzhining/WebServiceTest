@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<engines>
+	<!-- MES 工单管理  -->
+    
+    <!-- 工单维护 -->
+    
+    <!-- 查询工单维护 -->
+	<engine engine_code="queryWorkorderMaintain" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryWorkorderMaintain" >
+	</engine>
+	<!-- 新增工单维护 -->
+	<engine engine_code="insertWorkorderMaintain" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="insertWorkorderMaintain" >
+	</engine>
+	<!-- 单个新增工单维护 -->
+	<engine engine_code="insertWorkorderMaintainSingle" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="insertWorkorderMaintainSingle" >
+	</engine>
+	<!-- 修改工单维护 -->
+	<engine engine_code="updateWorkorderMaintain" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="updateWorkorderMaintain" >
+	</engine>
+	<!-- 删除工单维护 -->
+	<engine engine_code="deleteWorkorderMaintain" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="deleteWorkorderMaintain" >
+	</engine>
+	<!-- 生产工单BOM -->
+	<engine engine_code="savaWorkorderBOM" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="savaWorkorderBOM" >
+	</engine>
+	
+	<!-- 工单属性 -->
+	<!-- 查询工单属性 -->
+	<engine engine_code="querySingleattribute" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querySingleattribute" >
+	</engine>
+	<!-- 新增工单属性 -->
+	<engine engine_code="insertSingleattribute" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="insertSingleattribute" >
+	</engine>
+	<!-- 修改工单属性 -->
+	<engine engine_code="updateSingleattribute" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="updateSingleattribute" >
+	</engine>
+	<!-- 删除工单属性 -->
+	<engine engine_code="deleteSingleattribute" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="deleteSingleattribute" >
+	</engine>
+	
+	<!-- 工单属性 值-->
+	<!-- 查询工单属性值 -->
+	<engine engine_code="querySingleattributevalue" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querySingleattributevalue" >
+	</engine>
+	<!-- 新增工单属性 值-->
+	<engine engine_code="insertSingleattributevalue" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="insertSingleattributevalue" >
+	</engine>
+	<!-- 修改工单属性 值-->
+	<engine engine_code="updateSingleattributevalue" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="updateSingleattributevalue" >
+	</engine>
+	<!-- 删除工单属性 值-->
+	<engine engine_code="deleteSingleattributevalue" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="deleteSingleattributevalue" >
+	</engine>
+	
+	<!-- 作业指示表 -->
+	<!-- 查询作业指示 -->
+	<engine engine_code="queryOperationindication" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryOperationindication" >
+	</engine>
+	<!-- 新增作业指示 -->
+	<engine engine_code="insertOperationindication" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="insertOperationindication" >
+	</engine>
+	<!-- 修改作业指示 -->
+	<engine engine_code="updateOperationindication" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="updateOperationindication" >
+	</engine>
+	<!-- 批量新增作业指示 -->
+	<engine engine_code="batchinsertOperationindication" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="batchinsertOperationindication" >
+	</engine>
+	<!-- 批量修改作业指示 -->
+	<engine engine_code="batchupdateOperationindication" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="batchupdateOperationindication" >
+	</engine>
+	<!-- 删除作业指示 -->
+	<engine engine_code="deleteOperationindication" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="deleteOperationindication" >
+	</engine>
+	
+	<!-- 作业指示物料信息 -->
+	<!-- 查询作业指示物料信息 -->
+	<engine engine_code="queryOperationindicationmateriel" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryOperationindicationmateriel" >
+	</engine>
+	<!-- 新增作业指示物料信息 -->
+	<engine engine_code="insertOperationindicationmateriel" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="insertOperationindicationmateriel" >
+	</engine>
+	<!-- 修改作业指示物料信息 -->
+	<engine engine_code="updateOperationindicationmateriel" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="updateOperationindicationmateriel" >
+	</engine>
+	<!-- 批量新增作业指示物料信息 -->
+	<engine engine_code="batchinsertOperationindicationmateriel" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="batchinsertOperationindicationmateriel" >
+	</engine>
+	<engine engine_code="createWO_NOIfno" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="createWO_NOIfno" >
+	</engine>
+	
+	<!-- 批量修改作业指示物料信息 -->
+	<engine engine_code="batchupdateOperationindicationmateriel" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="batchupdateOperationindicationmateriel" >
+	</engine>
+	<!-- 删除作业指示物料信息 -->
+	<engine engine_code="deleteOperationindicationmateriel" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="deleteOperationindicationmateriel" >
+	</engine>
+	
+	<!-- 工单物料信息 -->
+	<!-- 查询工单物料信息APP -->
+	<engine engine_code="querySinglematerialAPP" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querySinglematerialAPP" >
+	</engine>
+	<!-- 新增工单物料信息 -->
+	<engine engine_code="insertSinglematerial" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="insertSinglematerial" >
+	</engine>
+	<!-- 修改工单物料信息 -->
+	<engine engine_code="updateSinglematerial" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="updateSinglematerial" >
+	</engine>
+	<!-- 批量新增工单物料信息 -->
+	<engine engine_code="batchinsertSinglematerial" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="batchinsertSinglematerial" >
+	</engine>
+	<!-- 批量修改工单物料信息 -->
+	<engine engine_code="batchupdateSinglematerial" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="batchupdateSinglematerial" >
+	</engine>
+	<!-- 删除工单物料信息 -->
+	<engine engine_code="deleteSinglematerial" engine_name="" engine_type="4" page_mode="2" engine_cate="1" attr1="deleteSinglematerial" >
+	</engine>
+	<!-- 查询工单状态 -->
+	<engine engine_code="querySinglestate" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querySinglestate" >
+	</engine>
+	<!-- 查询工单物料信息 -->
+	<engine engine_code="querySinglematerial" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querySinglematerial" >
+	</engine>
+	<!-- 查询工单条码信息 -->
+	<engine engine_code="querySingleBAR_CODE" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querySingleBAR_CODE" >
+	</engine>
+	<!-- 生成排产BOM -->
+	<engine engine_code="savaSchedulingBOM" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="savaSchedulingBOM" >
+	</engine>
+	<!-- 根据工单信息生成BOM以及工单工序 -->
+	<engine engine_code="savaWorkingBOM" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="savaWorkingBOM" >
+	</engine>
+	
+	<!-- 单个删除作业指示 -->
+	<engine engine_code="deleteOperationindicationsingle" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteOperationindicationsingle" >
+	</engine>
+	<!-- 判断排产数量 -->
+	<engine engine_code="judgeSchedulingNumber" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="judgeSchedulingNumber" >
+	</engine>
+	
+	<!-- 查询可排产信息 -->
+	<engine engine_code="queryProductionScheduleInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryProductionScheduleInfo" >
+	</engine>
+	
+	<!-- 一条产线只能存在一个工单生产 -->
+	<engine engine_code="queryIsCheckLinecdExists" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryIsCheckLinecdExists" >
+	</engine>
+	
+	<!-- 获取数据字典中工单类型 -->
+	<engine engine_code="queryDataDictionaryMoType" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryDataDictionaryMoType" >
+	</engine>
+	
+	<!-- 查询没被关联的作业指示 -->
+	<engine engine_code="queryNotUnion" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryNotUnion" >
+	</engine>
+	
+	
+	<!-- R_MES_PLAN_PAMRM_T 查询 -->
+	<engine engine_code="queryPlanPamrm" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryPlanPamrm" >
+	</engine>
+	<!-- R_MES_PLAN_PAMRM_T 修改 -->
+	<engine engine_code="updatePlanPamrm" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updatePlanPamrm" >
+	</engine>
+	<!-- R_MES_PLAN_PAMRM_T 新增 -->
+	<engine engine_code="insertPlanPamrm" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertPlanPamrm" >
+	</engine>
+	<!-- R_MES_PLAN_PAMRM_T 删除 -->
+	<engine engine_code="deletePlanPamrm" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deletePlanPamrm" >
+	</engine>
+	
+	<!-- 查询甘特图信息-->
+	<engine engine_code="queryGanttChart" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryGanttChart" >
+	</engine>
+	
+	<!-- 根据产线查找工单-->
+	<engine engine_code="queryProductionlineSearchWorksheet" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryProductionlineSearchWorksheet" >
+	</engine>
+	
+	<!-- 作业指示主次单状态修改-->
+	<engine engine_code="updateByMoNoState" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateByMoNoState" >
+	</engine>
+	
+	<!--给仓库传输数据-->
+	<engine engine_code="queryMoDataList" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryMoDataList"></engine>
+	
+	<!-- 同步仓库物料信息数据 -->
+	<engine engine_code="SYNCHRONIZATION_W_DATA" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="SYNCHRONIZATION_W_DATA"></engine>
+	
+	<!-- PDA接口 -->
+	<!-- 查询工单对应的产品和版本号 -->
+	<engine engine_code="queryProductAndVersion" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryProductAndVersion" >
+	</engine>
+	
+	<!-- 通过产品编码和版本号查询查出物料编码 -->
+    <engine engine_code="queryItemcd" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryItemcd" >
+	</engine>
+	
+
+    <!--工单叫料和工序叫料 领料新增 -->
+    <engine engine_code="WorkOrdCallMaterial" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="WorkOrdCallMaterial" >
+	</engine>
+	
+	
+	<!-- 通过产品编码查询查出工序对应的工序信息 -->
+    <engine engine_code="queryProcedure" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryProcedure" >
+	</engine>
+	
+	<!-- 通过产品编码和工序查询查出对应的物料信息 -->
+    <engine engine_code="queryMateriel" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryMateriel" >
+	</engine>
+	
+</engines>

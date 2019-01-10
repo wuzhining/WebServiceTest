@@ -1,0 +1,28 @@
+{
+    "RESPONSE": [
+        {
+            "RESPONSE_DATA": [
+                {
+                    "bad_reason": "机器坏",
+                    "bad_rate": 45
+                },
+                {
+                    "bad_reason": "换线",
+                    "bad_rate": 26.5
+                },
+                {
+                    "bad_reason": "软件问题",
+                    "bad_rate": 8.5
+                },
+                {
+                    "bad_reason": "视觉不良",
+                    "bad_rate": 6.2
+                },
+                {
+                    "bad_reason": "其他",
+                    "bad_rate": 13.8
+                }
+            ]
+        }
+    ]
+}

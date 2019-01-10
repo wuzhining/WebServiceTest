@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="">
+
+	<!-- 德富莱包装信息列表模块 -->
+	<!-- 查询包装信息列表-->
+	<select id="queryContainer" parameterType="hashmap"
+		resultType="java.util.HashMap">
+		<include refid="oraclePagingFileTop"></include>
+		container_id,container_name,container_length,container_width,container_height,
+		container_selfweight,container_maxfillweight,container_status,container_mixshoporders,
+		container_mixitems,TO_CHAR(CONTAINER_CREATEDT,'YYYY-MM-DD HH24:MI:SS') AS container_createdt,
+		to_char(container_modifydt,'YYYY-MM-DD HH24:MI:SS') as container_modifydt,
+		container_modifyby,container_createby,container_desc from wms1.wms_container
+		<where>
+		   1=1
+		   <if test="CONTAINER_NAME !=null and CONTAINER_NAME !='' "> 
+	    		   AND CONTAINER_NAME like '%${CONTAINER_NAME}%'      	 
+		   </if>
+		</where>
+		ORDER BY CONTAINER_CREATEDT DESC
+		<include refid="oraclePagingFileBottom"></include>
+	</select>
+
+	<!-- 修改包装信息列表-->
+	<update id="UpdateContainer" parameterType="java.util.HashMap">		
+			update wms1.wms_container
+			<set>
+				<if test="CONTAINER_NAME !=null  ">
+					CONTAINER_NAME='${CONTAINER_NAME}',
+				</if>
+				<if test="CONTAINER_LENGTH !=null ">
+					CONTAINER_LENGTH='${CONTAINER_LENGTH}',
+				</if>
+				<if test="CONTAINER_WIDTH !=null ">
+					CONTAINER_WIDTH='${CONTAINER_WIDTH}',
+				</if>
+				<if test="CONTAINER_HEIGHT !=null ">
+					CONTAINER_HEIGHT='${CONTAINER_HEIGHT}',
+				</if>
+				<if test="CONTAINER_SELFWEIGHT !=null ">
+					CONTAINER_SELFWEIGHT='${CONTAINER_SELFWEIGHT}',
+				</if>
+				<if test="CONTAINER_MAXFILLWEIGHT !=null ">
+					CONTAINER_MAXFILLWEIGHT='${CONTAINER_MAXFILLWEIGHT}',
+				</if>
+				<if test="CONTAINER_STATUS !=null ">
+					CONTAINER_STATUS='${CONTAINER_STATUS}',
+				</if>
+				<if test="CONTAINER_MIXSHOPORDERS !=null ">
+					CONTAINER_MIXSHOPORDERS='${CONTAINER_MIXSHOPORDERS}',
+				</if>
+				<if test="CONTAINER_MIXITEMS !=null ">
+					CONTAINER_MIXITEMS='${CONTAINER_MIXITEMS}',
+				</if>
+				<if test="CONTAINER_DESC !=null ">
+					CONTAINER_DESC='${CONTAINER_DESC}',
+				</if>
+				<if test="F_USE_CD !=null">
+					CONTAINER_MODIFYBY='${F_USE_CD}',
+				</if>
+				CONTAINER_MODIFYDT= SYSDATE
+			</set>
+			<where>
+				CONTAINER_ID='${CONTAINER_ID}'
+			</where>		
+	</update>
+
+	<!-- 新增包装信息列表-->
+	<insert id="InsertContainer" parameterType="hashmap">
+		insert into wms1.wms_container
+		(
+		CONTAINER_ID,
+		CONTAINER_NAME,
+		CONTAINER_LENGTH,
+		CONTAINER_WIDTH,
+		CONTAINER_HEIGHT,
+		CONTAINER_SELFWEIGHT,
+		CONTAINER_MAXFILLWEIGHT,
+		CONTAINER_STATUS,
+		CONTAINER_MIXSHOPORDERS,
+		CONTAINER_MIXITEMS,
+		CONTAINER_CREATEDT,
+		CONTAINER_CREATEBY,
+		CONTAINER_DESC
+		)
+     VALUES
+		(		
+			'${CONTAINER_ID}',
+			'${CONTAINER_NAME}',
+			'${CONTAINER_LENGTH}',
+			'${CONTAINER_WIDTH}',
+			'${CONTAINER_HEIGHT}',
+			'${CONTAINER_SELFWEIGHT}',
+			'${CONTAINER_MAXFILLWEIGHT}',
+			'${CONTAINER_STATUS}',
+			'${CONTAINER_MIXSHOPORDERS}',
+			'${CONTAINER_MIXITEMS}',
+			SYSDATE,
+			'${F_USE_CD}',
+            '${CONTAINER_DESC}'
+		)
+	</insert>
+
+	<!-- 删除包装信息列表 -->
+	<delete id="DeleteContainer" parameterType="hashmap">
+
+		delete wms1.wms_container
+		<where>
+			CONTAINER_ID='${CONTAINER_ID}'
+		</where>
+	</delete>
+	
+	<!-- 获得包装箱id-->
+	<select id="GetidContainer" parameterType="hashmap" resultType="java.util.HashMap"> 
+	   SELECT wms1.containerid.nextval AS CONTAINER_ID FROM DUAL
+	</select>
+</mapper>

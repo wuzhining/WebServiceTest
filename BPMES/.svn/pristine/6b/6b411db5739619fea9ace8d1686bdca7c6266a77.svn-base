@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<engines>
+	<!-- 1.1 数据字典管理 -->
+	<!-- 查询数据字典信息 -->
+	<engine engine_code="queryEquipmentList" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryEquipmentList" >
+	</engine>
+	
+	<!-- 新增数据字典信息 -->
+	<engine engine_code="insertEquipmentList" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertEquipmentList" >
+	</engine>	
+	
+	<!-- 删除数据字典信息 -->
+	<engine engine_code="deleteEquipmentList" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteEquipmentList" >
+	</engine>
+	
+	<!-- 修改数据字典信息 -->
+	<engine engine_code="updateEquipmentList" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateEquipmentList" >
+	</engine>
+	
+	<!-- 查询设备类型下拉框信息 -->
+	<engine engine_code="queryEqType" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryEqType" >
+	</engine>
+	
+	<!-- 查询产线名称下拉框信息 -->
+	<engine engine_code="queryProduName" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryProduName" >
+	</engine>
+	
+	<!-- 查询设备状态下拉框信息 -->
+	<engine engine_code="queryEqState" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryEqState" >
+	</engine>
+	
+	<!-- 查询保养项目下拉框信息 -->
+	<engine engine_code="stationName" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="stationName" >
+	</engine>
+	
+	<!-- 查询工位名称下拉框信息 -->
+	<engine engine_code="stationNames" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="stationNames" >
+	</engine>
+</engines>

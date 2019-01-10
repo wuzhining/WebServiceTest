@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<podiums>
+    <!-- 流程业务接口统一入口-->
+   <podium podium_code="processDispatch" podium_name="流程业务接口统一入口" podium_class="com.iPlant.frame.activiti.ProcessEngineManager" podium_method="dispatch" attr1="" attr2=""/>
+    <!-- 发起流程-->
+	<podium podium_code="startProcessInstance" podium_name="发起流程" podium_class="com.iPlant.mes.common.activiti.ProcessBusiManager" podium_method="startProcessInstance" attr1="" attr2=""/>
+   <!-- 添加或更新业务数据 -->
+	<podium podium_code="saveOrUpdateBusiData" podium_name="添加或更新业务数据" podium_class="com.iPlant.mes.common.activiti.ProcessBusiManager" podium_method="saveOrUpdateBusiData" attr1="" attr2=""/>
+	<!-- 加业务数据节点信息 -->
+	<podium podium_code="saveBusiDataNode" podium_name="添加业务数据节点信息" podium_class="com.iPlant.mes.common.activiti.ProcessBusiManager" podium_method="saveBusiDataNode" attr1="" attr2=""/>
+	<!-- 认领任务 -->
+	<podium podium_code="claimTask" podium_name="认领任务" podium_class="com.iPlant.mes.common.activiti.ProcessBusiManager" podium_method="claimTask" attr1="" attr2=""/>
+	<!-- 获取表单配置 -->
+	<podium podium_code="getFormKey" podium_name="获取表单配置" podium_class="com.iPlant.mes.common.activiti.ProcessBusiManager" podium_method="getFormKey" attr1="" attr2=""/>
+	<!-- 驳回待办任务 -->
+	<podium podium_code="rejectTask" podium_name="驳回待办任务" podium_class="com.iPlant.mes.common.activiti.ProcessBusiManager" podium_method="rejectTask" attr1="" attr2=""/>
+	<!-- 提交任务 -->
+	<podium podium_code="completeTask" podium_name="提交任务" podium_class="com.iPlant.mes.common.activiti.ProcessBusiManager" podium_method="completeTask" attr1="" attr2=""/>
+	<!--业务作废  -->
+	<podium podium_code="deleteBusiData" podium_name="业务作废" podium_class="com.iPlant.mes.common.activiti.ProcessBusiManager" podium_method="deleteBusiData" attr1="" attr2=""/>
+	<!--挂起业务  -->
+	<podium podium_code="suspendBiz" podium_name="挂起业务" podium_class="com.iPlant.mes.common.activiti.ProcessBusiManager" podium_method="suspendBiz" attr1="" attr2=""/>
+	<!-- 判断是否可以受理 -->
+	<podium podium_code="allowAcceptance" podium_name="判断是否可以受理" podium_class="com.iPlant.mes.common.activiti.ProcessBusiManager" podium_method="allowAcceptance" attr1="" attr2=""/>
+</podiums>

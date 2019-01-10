@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ifss>
+
+	<!-- SMT车间生产信息看板 -->
+	<ifs ifs_code="MES_XK001" ifs_name="SMT车间生产信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryAllSMTKanban" biz_method="" serial_no="1" biz_name="queryAllSMTKanban" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- SMT车间生产汇总 -->
+	<ifs ifs_code="MES_XK002" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="sumSMTKanban" biz_method="" serial_no="1" biz_name="sumSMTKanban" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 每条SMT生产效率圆柱视图 -->
+	<ifs ifs_code="MES_XK003" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="yuazhuSMTKanban" biz_method="" serial_no="1" biz_name="yuazhuSMTKanban" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 不良明细统计 -->
+	<ifs ifs_code="MES_XK004" ifs_name="" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="NGSMTKanban" biz_method="" serial_no="1" biz_name="NGSMTKanban" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+
+
+	
+
+	
+</ifss>

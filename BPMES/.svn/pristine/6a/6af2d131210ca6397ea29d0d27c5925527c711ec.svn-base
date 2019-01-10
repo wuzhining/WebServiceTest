@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SMT图形统计</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <link rel="stylesheet" type="text/css" href="../../common/IplantCompent/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../../common/IplantCompent/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="../../common/IplantCompent/Demo/demo.css">
+    <script src="../../common/IplantCompent/jquery.min.js" type="text/javascript"></script>
+    <script src="../../common/IplantCompent/jquery.easyui.min.js" type="text/javascript"></script>
+    <script src="../../common/IplantCommon/DataRequest.js" type="text/javascript"></script>
+    <script src="../../common/IplantCommon/CommonUtil.js" type="text/javascript"></script>
+    <script src="js/jquery-1.11.2.min.js"></script>
+	<script src="js/jquery.dialogBox.js"></script>
+	<script src="js/jquery.cookie.js"></script>
+    <script src="js/echarts.min.js"></script>
+    <script src="scripts/TimeObjectUtil.js"></script>
+    <script src="js/screen_map.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/jquery.dialogbox.css">
+    <script type="text/javascript">
+    </script>
+  </head>
+  <body style="margin:0px;width:100%;height:100%;overflow: hidden;padding:0;" >
+	<div style="height:100%;width:100%;" class="easyui-layout" >
+		<div id="container1" style="width:100%;height:50%;margin:2px 0px 0px 2px;">
+   			<div id="mapMerRate" style="width:50%;height:500px;display:inline-block;">
+   				<div id="mapMerRateMap" style="width:100%;height:300px;background-color:white;"></div>
+   				<div id="mapMerRatetab" style="width:100%;height:198px;background-color:white;"></div>
+   			</div>
+   	        <div id="mapPlanRate" style="width:49%;height:500px;display:inline-block;">
+   	        	<div id="mapPlanRateMap" style="width:100%;height:300px;"></div>
+   				<div id="mapPlanRatetab" style="width:100%;height:198px;"></div>
+   	        </div>
+   		</div>
+   		<div id="container2" style="width:100%;height:50%;margin:2px 0px 0px 2px;">
+   			<div id="mapDefectSort" style="width:50%;height:500px;display:inline-block;"></div>
+   	        <div id="mapProductExc" style="width:25%;height:500px;display:inline-block;"></div>
+   	        <div id="mapStopExc" style="width:24%;height:500px;display:inline-block;"></div>
+   		</div>
+	</div>
+  </body>
+</html>

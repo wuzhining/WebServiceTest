@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<podiums>
+	<!-- 查询抽检项目树结构信息 -->
+	<podium podium_code="querySamplingProjectTree"  podium_name="查询抽检项目树结构信息" podium_class="com.iPlant.mes.common.ImesTreeNode" podium_method="samplingProjectTree" attr1="" attr2=""/>
+</podiums>
+ 

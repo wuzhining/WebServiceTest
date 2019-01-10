@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="">
+
+	<!-- ===================================MSD等级列表================================== -->	
+    <!-- 查询MES工单完工-->
+	<select id="MSDRankListSelect" parameterType="hashmap" resultType="java.util.HashMap"> 
+	    SELECT T.EID,T.ISENCAP,T.TOTALEXPOSEMINUTE,T.STORAGE_TIME,
+		T.HUM_GRADE,T.ENCAPSTAUTS,T.CRT_ID,T.UPT_ID,
+		TO_CHAR(T.CRT_DT,'YYYY-MM-DD HH24:MI:SS') AS CRT_DT,
+		TO_CHAR(T.UPT_DT,'YYYY-MM-DD HH24:MI:SS') AS UPT_DT
+		FROM WMS1.WMS_MSD_ENCAPSULATION T	
+	    <where>
+			1=1
+			<if test="HUM_GRADE !=null and HUM_GRADE !='' "> 
+ 		    	AND T.HUM_GRADE LIKE '%${HUM_GRADE}%'
+			</if>
+		</where>
+		ORDER BY T.CRT_DT DESC 
+	</select>
+	
+	<insert id="MSDRankListInsert" parameterType="java.util.List">
+		INSERT INTO WMS1.WMS_MSD_ENCAPSULATION T
+	                       (
+	                     	T.EID,
+	                     	T.TOTALEXPOSEMINUTE,
+	                     	T.STORAGE_TIME,
+	                     	T.HUM_GRADE,
+	                     	T.ENCAPSTAUTS,
+	                     	T.ISENCAP,
+	                     	T.CRT_DT,
+	                     	T.CRT_ID
+							)
+					    VALUES
+					       (
+					        wms1.msd_ranklist_seq.nextval,
+						    '${TOTALEXPOSEMINUTE}',
+						    '${STORAGE_TIME}',
+						    '${HUM_GRADE}',
+						    '${ENCAPSTAUTS}',
+						    '1',	
+							SYSDATE,												    
+							'${F_USE_CD}'
+					        ) 
+	</insert>
+	
+	<update id="MSDRankListUpdate" parameterType="java.util.HashMap">
+		UPDATE WMS1.WMS_MSD_ENCAPSULATION T
+		<set>
+			HUM_GRADE = '${HUM_GRADE}',
+			TOTALEXPOSEMINUTE = '${TOTALEXPOSEMINUTE}',
+			ENCAPSTAUTS = '${ENCAPSTAUTS}',
+			STORAGE_TIME = '${STORAGE_TIME}',
+			UPT_ID = '${F_USE_CD}',
+			UPT_DT = SYSDATE
+		</set>
+		<where>
+			EID = '${EID}'
+		</where>
+	</update>
+	
+	<!-- 删除看板类型 -->
+	<delete id="MSDRankListDelete" parameterType="hashmap">
+		DELETE FROM WMS1.WMS_MSD_ENCAPSULATION T 
+		WHERE EID IN 
+		<foreach item="item" collection="list" open="(" separator="," close=")"> 
+			 #{item.EID}
+      	</foreach>
+	</delete>
+	
+	
+	<!-- ===================================MSD容器列表================================== -->	
+    <!-- 查询-->
+	<select id="ContainerListSelect" parameterType="hashmap" resultType="java.util.HashMap"> 
+	    SELECT T.CONTAINERLIST_ID,T.CONTAINER_NAME,T.CONTAINER_CODE,T.CONTAINER_TYPE,
+	    T.MAXNUM,T.ALREADYNUM,T.MAXLIMIT,T.MINLIMIT,T.REMARK,T.CRT_ID,T.UPT_ID,
+		TO_CHAR(T.CRT_DT,'YYYY-MM-DD HH24:MI:SS') AS CRT_DT,
+		TO_CHAR(T.UPT_DT,'YYYY-MM-DD HH24:MI:SS') AS UPT_DT
+		FROM WMS1.WMS_MSD_CONTAINERLIST T	
+	    <where>
+			1=1
+			<if test="CONTAINER_CODE !=null and CONTAINER_CODE !='' "> 
+ 		    	AND T.CONTAINER_CODE LIKE '%${CONTAINER_CODE}%'
+			</if>
+			<if test="CONTAINER_TYPE !=null and CONTAINER_TYPE !='' "> 
+ 		    	AND T.CONTAINER_TYPE = '${CONTAINER_TYPE}'
+			</if>
+		</where>
+		ORDER BY T.CRT_DT DESC 
+	</select>
+	
+	<insert id="ContainerListInsert" parameterType="java.util.List">
+		INSERT INTO WMS1.WMS_MSD_CONTAINERLIST T
+	                       (
+	                     	T.CONTAINERLIST_ID,
+	                     	T.CONTAINER_NAME,
+	                     	T.CONTAINER_CODE,
+	                     	T.CONTAINER_TYPE,
+	                     	T.ALREADYNUM,
+	                     	T.MAXNUM,
+	                     	T.MAXLIMIT,
+	                     	T.MINLIMIT,
+	                     	T.REMARK,
+	                     	T.CRT_DT,
+	                     	T.CRT_ID
+							)
+					    VALUES
+					       (
+					        wms1.msd_ranklist_seq.nextval,
+						    '${CONTAINER_NAME}',
+						    '${CONTAINER_CODE}',
+						    '${CONTAINER_TYPE}',
+						    '0',
+						    '${MAXNUM}',
+						    '${MAXLIMIT}',
+						    '${MINLIMIT}',
+						    '${REMARK}',	
+							SYSDATE,												    
+							'${F_USE_CD}'
+					        ) 
+	</insert>
+	
+	<update id="ContainerListUpdate" parameterType="java.util.HashMap">
+		UPDATE WMS1.WMS_MSD_CONTAINERLIST T
+		<set>
+			T.CONTAINER_NAME = '${CONTAINER_NAME}',
+           	T.CONTAINER_CODE = '${CONTAINER_CODE}',
+           	T.CONTAINER_TYPE = '${CONTAINER_TYPE}',
+           	T.MAXNUM = '${MAXNUM}',
+           	T.MAXLIMIT = '${MAXLIMIT}',
+           	T.MINLIMIT = '${MINLIMIT}',
+           	T.REMARK = '${REMARK}',
+			UPT_ID = '${F_USE_CD}',
+			UPT_DT = SYSDATE
+		</set>
+		<where>
+			CONTAINERLIST_ID = '${CONTAINERLIST_ID}'
+		</where>
+	</update>
+	
+	<delete id="ContainerListDelete" parameterType="hashmap">
+		DELETE FROM WMS1.WMS_MSD_CONTAINERLIST T 
+		WHERE CONTAINERLIST_ID IN 
+		<foreach item="item" collection="list" open="(" separator="," close=")"> 
+			 #{item.CONTAINERLIST_ID}
+      	</foreach>
+	</delete>
+</mapper>

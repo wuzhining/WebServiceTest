@@ -1,0 +1,632 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ifss>
+    <!-- A9   设备管理-->
+    <!-- A9.1 设备操作明细信息-->
+    <!-- 查询设备操作明细信息-->
+	<ifs ifs_code="T000001" ifs_name="查询设备操作明细信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryEquipmentOp" biz_method="" serial_no="1" biz_name="queryEquipmentOp" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+    <!-- 新增设备操作明细信息 -->
+	<ifs ifs_code="T000002" ifs_name="新增设备操作明细信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertEquipmentOp" biz_method="" serial_no="1" biz_name="insertEquipmentOp" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 修改设备操作明细信息-->
+	<ifs ifs_code="T000003" ifs_name="修改设备操作明细信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateEquipmentOp" biz_method="" serial_no="1" biz_name="updateEquipmentOp" biz_type="3" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 删除设备操作明细信息-->
+	<ifs ifs_code="T000004" ifs_name="删除设备操作明细信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteEquipmentOp" biz_method="" serial_no="1" biz_name="deleteEquipmentOp" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- A9.2  设备状态-->
+	<!-- 查询设备状态信息 -->
+	<ifs ifs_code="T000005" ifs_name="查询设备状态信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryEquipmentStatus" biz_method="" serial_no="1" biz_name="queryEquipmentStatus" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 新增设备状态信息 -->
+	<ifs ifs_code="T000006" ifs_name="新增设备状态信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertEquipmentStatus" biz_method="" serial_no="1" biz_name="insertEquipmentStatus" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 修改设备状态信息-->
+	<ifs ifs_code="T000007" ifs_name="修改设备状态信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateEquipmentStatus" biz_method="" serial_no="1" biz_name="updateEquipmentStatus" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 删除设备状态信息-->
+	<ifs ifs_code="T000008" ifs_name="删除设备状态信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteEquipmentStatus" biz_method="" serial_no="1" biz_name="deleteEquipmentStatus" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- A9.3  设备状态明细信息-->
+	<!-- 查询设备状态明细信息 -->
+	<ifs ifs_code="T000009" ifs_name="查询设备状态明细信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryEquipmentStatusDetail" biz_method="" serial_no="1" biz_name="queryEquipmentStatusDetail" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 新增设备状态明细信息 -->
+	<ifs ifs_code="T0000010" ifs_name="新增设备状态明细信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertEquipmentStatusDetail" biz_method="" serial_no="1" biz_name="insertEquipmentStatusDetail" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 修改设备状态明细信息-->
+	<ifs ifs_code="T000011" ifs_name="修改设备状态明细信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateEquipmentStatusDetail" biz_method="" serial_no="1" biz_name="updateEquipmentStatusDetail" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 删除设备状态明细信息--> 
+	<ifs ifs_code="T000012" ifs_name="删除设备状态明细信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteEquipmentStatusDetail" biz_method="" serial_no="1" biz_name="deleteEquipmentStatusDetail" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 查询设备操作上下机信息--> 
+	<ifs ifs_code="T000013" ifs_name="查询设备操作上下机信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryEquipmentOpMachine" biz_method="" serial_no="1" biz_name="queryEquipmentOpMachine" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 操作信息表-->
+	<!-- 查询操作信息表 -->
+	<ifs ifs_code="T000014" ifs_name="查询操作信息表" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryOperationInfo" biz_method="" serial_no="1" biz_name="queryOperationInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 新增操作信息表 -->
+	<ifs ifs_code="T000015" ifs_name="新增操作信息表" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertOperationInfo" biz_method="" serial_no="1" biz_name="insertOperationInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 修改操作信息表-->
+	<ifs ifs_code="T000016" ifs_name="修改操作信息表" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateOperationInfo" biz_method="" serial_no="1" biz_name="updateOperationInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 删除操作信息表--> 
+	<ifs ifs_code="T000017" ifs_name="删除操作信息表" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteOperationInfo" biz_method="" serial_no="1" biz_name="deleteOperationInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>	
+	
+	<!-- 停机刷卡数据更新接口-->
+	<ifs ifs_code="T000018" ifs_name="停机刷卡数据更新" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertStopCardInfo" biz_method="" serial_no="1" biz_name="insertStopCardInfo" biz_type="3" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 查询设备操作未结束信息-->
+	<ifs ifs_code="T000019" ifs_name="查询设备操作未结束信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryEquipmentNoStop" biz_method="" serial_no="1" biz_name="queryEquipmentNoStop" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>					
+	
+	<!-- 设备停机操作明细表-->
+	<!-- 查询设备停机操作明细表 -->
+	<ifs ifs_code="T000020" ifs_name="查询设备停机操作明细表" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryEquipmentStopStatus" biz_method="" serial_no="1" biz_name="queryEquipmentStopStatus" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 新增设备停机操作明细表 -->
+	<ifs ifs_code="T000021" ifs_name="新增设备停机操作明细表" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertEquipmentStopStatus" biz_method="" serial_no="1" biz_name="insertEquipmentStopStatus" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 修改设备停机操作明细表-->
+	<ifs ifs_code="T000022" ifs_name="修改设备停机操作明细表" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateEquipmentStopStatus" biz_method="" serial_no="1" biz_name="updateEquipmentStopStatus" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 删除设备停机操作明细表--> 
+	<ifs ifs_code="T000023" ifs_name="删除设备停机操作明细表" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteEquipmentStopStatus" biz_method="" serial_no="1" biz_name="deleteEquipmentStopStatus" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>	
+	
+	<!-- 更新下机-->
+	<ifs ifs_code="T000024" ifs_name="更新下机" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateEquipmentEndOp" biz_method="" serial_no="1" biz_name="updateEquipmentEndOp" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>	
+	
+	<!-- 设备维修运行主表-->
+	<!-- 查询设备维修运行主表 -->
+	<ifs ifs_code="T000025" ifs_name="查询设备维修运行主表" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryEquipmentWx" biz_method="" serial_no="1" biz_name="queryEquipmentWx" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 新增设备维修运行主表 -->
+	<ifs ifs_code="T000026" ifs_name="新增设备维修运行主表" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertEquipmentWx" biz_method="" serial_no="1" biz_name="insertEquipmentWx" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 修改设备维修运行主表-->
+	<ifs ifs_code="T000027" ifs_name="修改设备维修运行主表" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateEquipmentWx" biz_method="" serial_no="1" biz_name="updateEquipmentWx" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 删除设备维修运行主表--> 
+	<ifs ifs_code="T000028" ifs_name="删除设备维修运行主表" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteEquipmentWx" biz_method="" serial_no="1" biz_name="deleteEquipmentWx" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	
+	<!-- 维修项目等级档-->
+	<!-- 查询维修项目等级档 -->
+	<ifs ifs_code="T000029" ifs_name="查询维修项目等级档" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryEquipmentLev" biz_method="" serial_no="1" biz_name="queryEquipmentLev" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 新增维修项目等级档 -->
+	<ifs ifs_code="T000030" ifs_name="新增维修项目等级档" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertEquipmentLev" biz_method="" serial_no="1" biz_name="insertEquipmentLev" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 修改维修项目等级档-->
+	<ifs ifs_code="T000031" ifs_name="修改维修项目等级档" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateEquipmentLev" biz_method="" serial_no="1" biz_name="updateEquipmentLev" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 删除维修项目等级档--> 
+	<ifs ifs_code="T000032" ifs_name="删除维修项目等级档" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteEquipmentLev" biz_method="" serial_no="1" biz_name="deleteEquipmentLev" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>	
+	
+	<!-- 设备维修单生成 -->
+	<ifs ifs_code="T000033" ifs_name="生成设备维修单" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="createRepairNum" biz_method="" serial_no="1" biz_name="createRepairNum" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>	
+	<!-- 维修项目单号生成 -->
+	<ifs ifs_code="T000034" ifs_name="查询维修项目等级档id" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="quipmentLevid" biz_method="" serial_no="1" biz_name="quipmentLevid" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>		
+	<!-- 设备需求单号生成 -->
+	<ifs ifs_code="T000035" ifs_name="设备需求单号生成" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="createDemandNum" biz_method="" serial_no="1" biz_name="createDemandNum" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>	
+	
+	<!-- 样机试用-->
+	<!-- 查询样机试用信息 -->
+	<ifs ifs_code="T000036" ifs_name="查询样机试用信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryEquipTest" biz_method="" serial_no="1" biz_name="queryEquipTest" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 新增样机试用信息 -->
+	<ifs ifs_code="T000037" ifs_name="新增样机试用信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertEquipTest" biz_method="" serial_no="1" biz_name="insertEquipTest" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 修改样机试用信息-->
+	<ifs ifs_code="T000038" ifs_name="修改样机试用信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateEquipTest" biz_method="" serial_no="1" biz_name="updateEquipTest" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 删除样机试用信息--> 
+	<ifs ifs_code="T000039" ifs_name="删除样机试用信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteEquipTest" biz_method="" serial_no="1" biz_name="deleteEquipTest" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 设备上线-->
+	<!-- 查询设备上线信息 -->
+	<ifs ifs_code="T000040" ifs_name="查询设备上线信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryEquipOnline" biz_method="" serial_no="1" biz_name="queryEquipOnline" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 新增被上线信息 -->
+	<ifs ifs_code="T000041" ifs_name="新增设备上线信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertEquipOnline" biz_method="" serial_no="1" biz_name="insertEquipOnline" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 修改设备上线信息-->
+	<ifs ifs_code="T000042" ifs_name="修改设备上线信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateEquipOnline" biz_method="" serial_no="1" biz_name="updateEquipOnline" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 删除设备上线信息--> 
+	<ifs ifs_code="T000043" ifs_name="删除设备上线信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteEquipOnline" biz_method="" serial_no="1" biz_name="deleteEquipOnline" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>	
+	
+	<!-- 查询设备上线明细信息 -->
+	<ifs ifs_code="T000044" ifs_name="查询设备上线明细信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryEquipOnlineMx" biz_method="" serial_no="1" biz_name="queryEquipOnlineMx" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 新增设备上线明细信息 -->
+	<ifs ifs_code="T000045" ifs_name="新增设备上线明细信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertEquipOnlineMx" biz_method="" serial_no="1" biz_name="insertEquipOnlineMx" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 修改设备上线明细信息-->
+	<ifs ifs_code="T000046" ifs_name="修改设备上线明细信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateEquipOnlineMx" biz_method="" serial_no="1" biz_name="updateEquipOnlineMx" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 删除设备上线明细信息--> 
+	<ifs ifs_code="T000047" ifs_name="删除设备上线明细信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteEquipOnlineMx" biz_method="" serial_no="1" biz_name="deleteEquipOnlineMx" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+    <!-- 查询档案类别信息 -->
+    <ifs ifs_code="T000048" ifs_name="查询档案类别信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryFileType" biz_method="" serial_no="1" biz_name="queryFileType" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+    <!-- 新增档案类别信息 -->
+    <ifs ifs_code="T000049" ifs_name="新增档案类别信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertFileType" biz_method="" serial_no="1" biz_name="insertFileType" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+    <!-- 修改档案类别信息 -->
+    <ifs ifs_code="T000050" ifs_name="修改档案类别信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateFileType" biz_method="" serial_no="1" biz_name="updateFileType" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+    <!-- 删除档案类别信息 -->
+    <ifs ifs_code="T000051" ifs_name="删除档案类别信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteFileType" biz_method="" serial_no="1" biz_name="deleteFileType" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>	
+	<!-- 生成维修项目等级档id -->
+	<ifs ifs_code="T000052" ifs_name="生成维修项目等级档id" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="fileTypeid" biz_method="" serial_no="1" biz_name="fileTypeid" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>	
+	<!-- 生成维修项目等级档id -->
+	<ifs ifs_code="T000052" ifs_name="生成维修项目等级档id" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="fileTypeid" biz_method="" serial_no="1" biz_name="fileTypeid" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 设备需求-->
+	<!-- 查询设备需求信息 -->
+	<ifs ifs_code="T000056" ifs_name="查询设备需求信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryEquipRequire" biz_method="" serial_no="1" biz_name="queryEquipRequire" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 新增设备需求信息 -->
+	<ifs ifs_code="T000057" ifs_name="新增设备需求信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertEquipRequire" biz_method="" serial_no="1" biz_name="insertEquipRequire" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 修改设备需求信息-->
+	<ifs ifs_code="T000058" ifs_name="修改设备需求信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateEquipRequire" biz_method="" serial_no="1" biz_name="updateEquipRequire" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 删除设备需求信息--> 
+	<ifs ifs_code="T000059" ifs_name="删除设备需求信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteEquipRequire" biz_method="" serial_no="1" biz_name="deleteEquipRequire" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 审核设备需求信息--> 
+	<ifs ifs_code="T000060" ifs_name="审核设备需求信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="setEquipRequire" biz_method="" serial_no="1" biz_name="setEquipRequire" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	 <!-- 设备档案 -->
+	<!-- 查询设备档案信息 -->
+    <ifs ifs_code="T000061" ifs_name="查询设备档案信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+		   <ifs_biz biz_code="queryEquipmentFile" biz_method="" serial_no="1" biz_name="queryEquipmentFile" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+    <!-- 新增设备档案信息 -->
+    <ifs ifs_code="T000062" ifs_name="新增设备档案信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertEquipmentFile" biz_method="" serial_no="1" biz_name="insertEquipmentFile" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+    <!-- 新增设备档案信息 -->
+    <ifs ifs_code="T000063" ifs_name="新增设备档案信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateEquipmentFile" biz_method="" serial_no="1" biz_name="updateEquipmentFile" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+    <!-- 删除设备档案信息 -->
+    <ifs ifs_code="T000064" ifs_name="删除设备档案信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteEquipmentFile" biz_method="" serial_no="1" biz_name="deleteEquipmentFile" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>	
+	<!--模具信息-->
+	<!-- 查询模具信息 -->
+	<ifs ifs_code="T000065" ifs_name="查询信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+	    <Bizes>
+	        <ifs_biz biz_code="queryMouldInfo" biz_method="" serial_no="1" biz_name="queryMouldInfo" biz_type="1" biz_cate="1" attr1="" />
+	    </Bizes>
+	</ifs>
+	<!-- 新增模具信息 -->
+	<ifs ifs_code="T000066" ifs_name="新增模具信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertMouldInfo" biz_method="" serial_no="1" biz_name="insertMouldInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 修改模具信息-->
+	<ifs ifs_code="T000067" ifs_name="修改模具信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateMouldInfo" biz_method="" serial_no="1" biz_name="updateMouldInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 删除模具信息--> 
+	<ifs ifs_code="T000068" ifs_name="删除模具信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteMouldInfo" biz_method="" serial_no="1" biz_name="deleteMouldInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<ifs ifs_code="T000069" ifs_name="查询待选物料信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryMaterialInfo" biz_method="" serial_no="1" biz_name="queryMaterialInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<ifs ifs_code="T000070" ifs_name="查询模具与产品映射明细信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryMouldDetail" biz_method="" serial_no="1" biz_name="queryMouldDetail" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<ifs ifs_code="T000071" ifs_name="删除模具与产品映射明细信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteMouldDetailInfo" biz_method="" serial_no="1" biz_name="deleteMouldDetailInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<ifs ifs_code="T000072" ifs_name="插入模具与产品映射明细信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertMouldDetailInfo" biz_method="" serial_no="1" biz_name="insertMouldDetailInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!--物料档案信息-->
+	<!-- 查询物料编码 -->
+	<ifs ifs_code="T000073" ifs_name="查询物料编码" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+	    <Bizes>
+	        <ifs_biz biz_code="queryMatterCode" biz_method="" serial_no="1" biz_name="queryMatterCode" biz_type="1" biz_cate="1" attr1="" />
+	    </Bizes>
+	</ifs>
+	<!-- 查询物料档案信息 -->
+	<ifs ifs_code="T000074" ifs_name="查询物料档案信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+	    <Bizes>
+	        <ifs_biz biz_code="queryMatterFile" biz_method="" serial_no="1" biz_name="queryMatterFile" biz_type="1" biz_cate="1" attr1="" />
+	    </Bizes>
+	</ifs>
+	<!-- 新增物料档案信息 -->
+	<ifs ifs_code="T000075" ifs_name="新增物料档案信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertMatterFile" biz_method="" serial_no="1" biz_name="insertMatterFile" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 修改物料档案信息-->
+	<ifs ifs_code="T000076" ifs_name="修改物料档案信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateMatterFile" biz_method="" serial_no="1" biz_name="updateMatterFile" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 删除物料档案信息--> 
+	<ifs ifs_code="T000077" ifs_name="删除物料档案信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteMatterFile" biz_method="" serial_no="1" biz_name="deleteMatterFile" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!--设备状态信息-->
+	<!-- 查询设备状态信息 -->
+	<ifs ifs_code="T000078" ifs_name="查询设备状态信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+	    <Bizes>
+	        <ifs_biz biz_code="queryState" biz_method="" serial_no="1" biz_name="queryState" biz_type="1" biz_cate="1" attr1="" />
+	    </Bizes>
+	</ifs>
+	<!-- 新增设备状态信息 -->
+	<ifs ifs_code="T000079" ifs_name="新增设备状态信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertState" biz_method="" serial_no="1" biz_name="insertState" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 修改设备状态信息-->
+	<ifs ifs_code="T000080" ifs_name="修改设备状态信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateState" biz_method="" serial_no="1" biz_name="updateState" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 删除设备状态信息--> 
+	<ifs ifs_code="T000081" ifs_name="删除设备状态信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteState" biz_method="" serial_no="1" biz_name="deleteState" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<ifs ifs_code="T000082" ifs_name="查询设备状态记录信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+	    <Bizes>
+	        <ifs_biz biz_code="queryStateRecord" biz_method="" serial_no="1" biz_name="queryStateRecord" biz_type="1" biz_cate="1" attr1="" />
+	    </Bizes>
+	</ifs>
+	<!-- 新增设备状态记录信息 -->
+	<ifs ifs_code="T000083" ifs_name="新增设备状态记录信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertStateRecord" biz_method="" serial_no="1" biz_name="insertStateRecord" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 修改设备状态记录信息-->
+	<ifs ifs_code="T000084" ifs_name="修改设备状态记录信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateStateRecord" biz_method="" serial_no="1" biz_name="updateStateRecord" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 删除设备状态记录信息--> 
+	<ifs ifs_code="T000085" ifs_name="删除设备状态记录信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteStateRecord" biz_method="" serial_no="1" biz_name="deleteStateRecord" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!--采集设备信息-->
+	<!-- 查询采集设备信息 -->
+	<ifs ifs_code="T000086" ifs_name="查询采集设备信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+	    <Bizes>
+	        <ifs_biz biz_code="queryDeviceCollect" biz_method="" serial_no="1" biz_name="queryDeviceCollect" biz_type="1" biz_cate="1" attr1="" />
+	    </Bizes>
+	</ifs>
+	<!-- 新增采集设备信息 -->
+	<ifs ifs_code="T000087" ifs_name="新增采集设备信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertDeviceCollect" biz_method="" serial_no="1" biz_name="insertDeviceCollect" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 修改采集设备信息-->
+	<ifs ifs_code="T000088" ifs_name="修改采集设备信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateDeviceCollect" biz_method="" serial_no="1" biz_name="updateDeviceCollect" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 删除采集设备信息--> 
+	<ifs ifs_code="T000089" ifs_name="删除采集设备信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteDeviceCollect" biz_method="" serial_no="1" biz_name="deleteDeviceCollect" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<ifs ifs_code="T000090" ifs_name="查询可用的模具" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryUseMould" biz_method="" serial_no="1" biz_name="queryUseMould" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<ifs ifs_code="T000091" ifs_name="查询模具状态历史信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+	    <Bizes>
+	        <ifs_biz biz_code="queryDieStatehs" biz_method="" serial_no="1" biz_name="queryDieStatehs" biz_type="1" biz_cate="1" attr1="" />
+	    </Bizes>
+	</ifs>
+	<ifs ifs_code="T000092" ifs_name="查询模具状态信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+	    <Bizes>
+	        <ifs_biz biz_code="queryDieState" biz_method="" serial_no="1" biz_name="queryDieState" biz_type="1" biz_cate="1" attr1="" />
+	    </Bizes>
+	</ifs>
+	<ifs ifs_code="T000093" ifs_name="更新设备上线信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+	    <Bizes>
+	        <ifs_biz biz_code="updateDeviceOnline" biz_method="" serial_no="1" biz_name="updateDeviceOnline" biz_type="1" biz_cate="1" attr1="" />
+	    </Bizes>
+	</ifs>
+	
+	<!-- 设备下线-->
+	<!-- 查询设备下线信息 -->
+	<ifs ifs_code="T000094" ifs_name="查询设备下线信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryEquipOffline" biz_method="" serial_no="1" biz_name="queryEquipOffline" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 新增被下线信息 -->
+	<ifs ifs_code="T000095" ifs_name="新增设备下线信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertEquipOffline" biz_method="" serial_no="1" biz_name="insertEquipOffline" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 修改设备下线信息-->
+	<ifs ifs_code="T000096" ifs_name="修改设备下线信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateEquipOffline" biz_method="" serial_no="1" biz_name="updateEquipOffline" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 删除设备下线信息--> 
+	<ifs ifs_code="T000097" ifs_name="删除设备下线信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteEquipOffline" biz_method="" serial_no="1" biz_name="deleteEquipOffline" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>	
+	
+	<!-- 查询设备下线明细信息 -->
+	<ifs ifs_code="T000098" ifs_name="查询设备下线明细信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryEquipOfflineMx" biz_method="" serial_no="1" biz_name="queryEquipOfflineMx" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 新增设备下线明细信息 -->
+	<ifs ifs_code="T000099" ifs_name="新增设备下线明细信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertEquipOfflineMx" biz_method="" serial_no="1" biz_name="insertEquipOfflineMx" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 修改设备下线明细信息-->
+	<ifs ifs_code="T000100" ifs_name="修改设备下线明细信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateEquipOfflineMx" biz_method="" serial_no="1" biz_name="updateEquipOfflineMx" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 删除设备下线明细信息--> 
+	<ifs ifs_code="T000101" ifs_name="删除设备下线明细信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteEquipOfflineMx" biz_method="" serial_no="1" biz_name="deleteEquipOfflineMx" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 更新设备采集数据--> 
+	<ifs ifs_code="T000102" ifs_name="更新设备采集数据" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateMachineDropData" biz_method="" serial_no="1" biz_name="updateMachineDropData" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+ </ifss>

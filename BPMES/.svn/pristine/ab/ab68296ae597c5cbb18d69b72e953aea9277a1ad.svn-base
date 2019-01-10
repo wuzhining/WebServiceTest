@@ -1,0 +1,36 @@
+{
+    "RESPONSE": [
+        {
+            "RESPONSE_DATA": [
+                {
+                    "station_name": "Carton",
+                    "wip_value": 45
+                },
+                {
+                    "station_name": "PCA_Repair",
+                    "wip_value": 10
+                },
+                 {
+                    "station_name": "OBA",
+                    "wip_value": 60
+                },
+                {
+                    "station_name": "PCBA",
+                    "wip_value": 80
+                },
+                {
+                    "station_name": "BlueTooth_GPS_Test",
+                    "wip_value": 30
+                },
+                {
+                    "station_name": "WIFI_TEST",
+                    "wip_value": 20
+                },
+                {
+                    "station_name": "BF_TEST",
+                    "wip_value": 70
+                }       
+            ]
+        }
+    ]
+}

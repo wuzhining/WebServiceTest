@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="">
+
+	<!-- 产品追溯管理     START -->
+	<!-- 根据工单号查询产品基础信息 -->
+  <select id="queryProductInfo" parameterType="hashmap" resultType="java.util.HashMap">
+	<!--   <include refid="oraclePagingFileTop"></include> -->
+	SELECT T3.WO_NO,
+       T3.MO_NO,
+       T3.ITEM_CD,
+       T3.ITEM_NM,
+       T3.CURR_ROUT_CD,
+       T3.ASMBLY_PROCS,
+       T3.COUNT_PROCDE,
+       T3.CRT_DT
+  FROM (SELECT T.WO_NO,
+               T.MO_NO,
+               T.ITEM_CD,
+               T.ITEM_NM,
+               T.CURR_ROUT_CD,
+               (SELECT ROUTE_NAME
+                  FROM MES1.R_MES_PRF_CONF_T T1
+                 WHERE T1.ROUTE_CD = T.CURR_ROUT_CD) ASMBLY_PROCS,
+               COUNT(T.CURR_ROUT_CD) COUNT_PROCDE,
+               TO_CHAR(T2.CRT_DT, 'yyyy-mm-dd hh:mm:ss') CRT_DT
+          FROM R_MES_WIP_DETAIL_T T, R_MES_WO_T T2
+         WHERE T.WO_NO = T2.WO_NO
+         GROUP BY T.WO_NO,
+                  T.MO_NO,
+                  T.ITEM_CD,
+                  T.ITEM_NM,
+                  T.CURR_ROUT_CD,
+                  T2.CRT_DT
+        UNION
+        SELECT T.WO_NO,
+               T.MO_NO,
+               T.ITEM_CD,
+               T.ITEM_NM,
+               T.CURR_ROUT_CD,
+               (SELECT ROUTE_NAME
+                  FROM MES1.R_MES_PRF_CONF_T T1
+                 WHERE T1.ROUTE_CD = T.CURR_ROUT_CD) ASMBLY_PROCS,
+               COUNT(T.CURR_ROUT_CD) COUNT_PROCDE,
+               TO_CHAR(T2.CRT_DT, 'yyyy-mm-dd hh:mm:ss') CRT_DT
+          FROM R_MES_ZZ_WIP_DETAIL_T T, R_MES_WO_T T2
+         WHERE T.WO_NO = T2.WO_NO
+         GROUP BY T.WO_NO,
+                  T.MO_NO,
+                  T.ITEM_CD,
+                  T.ITEM_NM,
+                  T.CURR_ROUT_CD,
+                  T2.CRT_DT) T3,
+       MES1.R_MES_PROCESS_BOM_DETAILED_T T4
+
+	<where> T3.ITEM_CD = T4.PROD_CODE
+		<if test="WO_NO!=null and WO_NO!='' ">
+   			AND  T3.WO_NO ='${WO_NO}'
+		</if>
+	</where>
+ GROUP BY T3.WO_NO,
+          T3.MO_NO,
+          T3.ITEM_CD,
+          T3.ITEM_NM,
+          T3.CURR_ROUT_CD,
+          T3.ASMBLY_PROCS,
+          T3.COUNT_PROCDE,
+          T3.CRT_DT
+   
+<!-- 	<include refid="oraclePagingFileBottom"></include> -->
+  </select>
+ <!-- 工单信息总数 -->
+ <!--   <select id="queryProductInfo_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+	  SELECT COUNT(*) AS ROWS_COUNT
+    FROM (SELECT T1.WO_NO, T1.MO_NO, T1.ITEM_CD, T1.ITEM_NM, T2.CRT_DT
+            FROM R_MES_WIP_T T1, R_MES_WO_T T2
+           WHERE T1.WO_NO = T2.WO_NO) A1
+    LEFT JOIN MES1.R_MES_PROCESS_BOM_T T3
+      ON A1.ITEM_CD = T3.PROD_CODE
+    LEFT JOIN MES1.R_MES_PROCESS_BOM_DETAILED_T T4
+      ON A1.ITEM_CD = T4.PROD_CODE 
+			<where> 
+		<if test="WO_NO!=null and WO_NO!='' ">
+   			AND  A1.WO_NO ='${WO_NO}'
+		</if>
+		<if test="PRF_NAME!=null and PRF_NAME!=''">
+			
+		</if>
+	</where>
+   GROUP BY A1.WO_NO,
+            A1.MO_NO,
+            A1.ITEM_CD,
+            A1.ITEM_NM,
+            A1.CRT_DT,
+            T4.ASMBLY_PROCS
+  	</select> -->
+ <!-- 产品信息 -->
+   <select id="queryProducdsInfo" parameterType="hashmap" resultType="java.util.HashMap">
+	 SELECT A1.WO_NO,
+         A1.MO_NO,
+         A1.ITEM_CD,
+         A1.ITEM_NM,
+        TO_CHAR(A1.CRT_DT, 'yyyy-mm-dd hh:mm:ss')CRT_DT,
+         T4.ASMBLY_PROCS,
+         T4.SEQ,
+         T4.BOM_CD,
+         T4.BOM_NM,
+         T4.UNIT_QTY,
+         T4.VERSION
+    FROM (SELECT T1.WO_NO, T1.MO_NO, T1.ITEM_CD, T1.ITEM_NM, T2.CRT_DT
+            FROM R_MES_WIP_T T1, R_MES_WO_T T2
+           WHERE T1.WO_NO = T2.WO_NO) A1
+    LEFT JOIN MES1.R_MES_PROCESS_BOM_T T3
+      ON A1.ITEM_CD = T3.PROD_CODE
+    LEFT JOIN MES1.R_MES_PROCESS_BOM_DETAILED_T T4
+      ON A1.ITEM_CD = T4.PROD_CODE
+      <where>
+			<if test="WO_NO!=null and WO_NO!='' ">
+	   		AND  A1.WO_NO = '${WO_NO}'
+			</if>
+			<if test="ASMBLY_PROCS!=null and ASMBLY_PROCS!=''">
+		    AND T4.ASMBLY_PROCS ='${ASMBLY_PROCS}'
+			</if>
+			<if test="PROD_CODE!=null and PROD_CODE!=''">
+		    AND A1.ITEM_CD ='${PROD_CODE}'
+			</if>
+     </where>
+   GROUP BY A1.WO_NO,
+            A1.MO_NO,
+            A1.ITEM_CD,
+            A1.ITEM_NM,
+            A1.CRT_DT,
+            T4.ASMBLY_PROCS,
+            T4.SEQ,
+            T4.BOM_CD,
+            T4.BOM_NM,
+            T4.UNIT_QTY,
+            T4.VERSION
+         
+	
+  	</select>
+ <!-- 工单信息 -->
+   <select id="queryProducdsMoInfo" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT A2.WO_NO,
+       A2.ITEM_CD,
+       A2.ITEM_NM,
+       (SELECT ROUTE_NAME
+          FROM MES1.R_MES_PRF_CONF_T
+         WHERE ROUTE_CD = A2.CURR_ROUT_CD) ROUTE_NAME,
+       TO_CHAR(A2.BEGINDAT, 'yyyy-mm-dd hh:mm:ss')BEGINDAT,
+       TO_CHAR(A2.PLAN_END_DT, 'yyyy-mm-dd hh:mm:ss')PLAN_END_DT
+  FROM (SELECT R.WO_NO,
+               R.ITEM_CD,
+               R.ITEM_NM,
+               ('SMT-' ||
+               MAX(SUBSTR(R.CURR_ROUT_CD, LENGTH(R.CURR_ROUT_CD) - 2, 3))) CURR_ROUT_CD,
+               MIN(R.CRT_DT) BEGINDAT,
+               MAX(R.PLAN_END_DT) PLAN_END_DT
+          FROM (SELECT T1.WO_NO,
+                       T1.ITEM_CD,
+                       T1.ITEM_NM,
+                       T1.CURR_ROUT_CD,
+                       (SELECT A1.ROUTE_NAME
+                          FROM MES1.R_MES_PRF_CONF_T A1
+                         WHERE A1.ROUTE_CD = T1.CURR_ROUT_CD) ASMBLY_PROCS,
+                       NVL(T2.PROD_STRT_DT, T2.PLAN_STRT_DT) PROD_STRT_DT,
+                       T2.PLAN_END_DT,
+                       T1.CRT_DT
+                  FROM R_MES_WO_T T2, R_MES_WIP_T T1
+                 WHERE T1.WO_NO = T2.WO_NO(+)
+                UNION
+                SELECT T1.WO_NO,
+                       T1.ITEM_CD,
+                       T1.ITEM_NM,
+                       (SELECT A1.ROUTE_NAME
+                          FROM MES1.R_MES_PRF_CONF_T A1
+                         WHERE A1.ROUTE_CD = T1.CURR_ROUT_CD) ASMBLY_PROCS,
+                       T1.CURR_ROUT_CD,
+                       NVL(T2.PROD_STRT_DT, T2.PLAN_STRT_DT) PROD_STRT_DT,
+                       T2.PLAN_END_DT,
+                       T1.CRT_DT
+                  FROM R_MES_WO_T T2, MES1.R_MES_ZZ_WIP_T T1
+                 WHERE T1.WO_NO = T2.WO_NO(+)) R
+         GROUP BY R.WO_NO, R.ITEM_CD, R.ITEM_NM) A2
+		<where>1=1
+			<if test="WO_NO!=null and WO_NO!='' ">
+   				AND A2.WO_NO = '${WO_NO}'
+		</if>
+		</where>
+
+  	</select>
+</mapper>

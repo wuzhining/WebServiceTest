@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="">      
+
+		<!-- 1.1 数据字典管理 -->		
+	<!-- 查询设备列表信息 -->
+	<select id="queryEquipmentq" parameterType="hashmap" resultType="java.util.HashMap">
+		  <include refid="oraclePagingFileTop"></include>
+	  	T1.ET_CD,T1.ET_NM,T1.ET_QT,T1.ET_UT,T1.ET_PL,T1.DICT_IT,T3.ROUT_NAME ROUT_CD,T2.FACTORY_ID,T2.MANUFACTURER,T2.SUPPLIER,T2.ASSET_NUMBER,T2.AOI_IP,
+     	T2.DBA_NAME,T2.LOGIN_NAME,T2.PW,T2.EQ_CR_DT, TO_CHAR(T2.EQ_BUY,'YYYY-MM-DD') EQ_BUY,
+     	TO_CHAR(T1.CRT_DT,'YYYY-MM-DD') CRT_DT,T1.ET_ST,T1.ET_TT FROM IPLANT1.C_IPLANT_E2_T  T1
+     	 	  left join R_MES_ROUTE_DEF_T T3 on T1.ROUT_CD=T3.ROUT_CD left join
+	     C_IPLANT_E5_T T2  on T2.ET_CD=T1.ET_CD		  
+	     <where> 1=1
+		  	<if test="type!='' and type!=null and flag!='true'">and DICT_IT like '%${type}%'</if>
+		  	<if test="code!='' and code!=null and flag!='true'">and T1.ET_CD like '%${code}%'</if>
+		  	<if test="name!='' and name!=null and flag!='true'">and ET_NM like '%${name}%'</if>
+		  <!-- 全字匹配 -->
+		  <if test="type!='' and type!=null and flag=='true'">and DICT_IT = '${type}'</if>
+		  <if test="code!='' and code!=null and flag=='true'">and T1.ET_CD = '${code}'</if>
+		  <if test="name!='' and name!=null and flag=='true'">and ET_NM = '${name}'</if>
+		  </where> 
+		   <include refid="oraclePagingFileBottom"></include> 
+	</select>
+	
+	<!-- 设备列表分页总数 -->
+	<select id="queryEquipmentq_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+	SELECT COUNT(1) ROWS_COUNT from IPLANT1.C_IPLANT_E2_T  T1
+     	 	  left join R_MES_ROUTE_DEF_T T3 on T1.ROUT_CD=T3.ROUT_CD left join
+	     C_IPLANT_E5_T T2  on T2.ET_CD=T1.ET_CD		  
+		  <where> 1=1
+		  	<if test="type!='' and type!=null and flag!='true'">and DICT_IT like '%${type}%'</if>
+		  	<if test="code!='' and code!=null and flag!='true'">and T1.ET_CD like '%${code}%'</if>
+		  	<if test="name!='' and name!=null and flag!='true'">and ET_NM like '%${name}%'</if>
+		  <!-- 全字匹配 -->
+		  <if test="type!='' and type!=null and flag=='true'">and DICT_IT = '${type}'</if>
+		  <if test="code!='' and code!=null and flag=='true'">and T1.ET_CD = '${code}'</if>
+		  <if test="name!='' and name!=null and flag=='true'">and ET_NM = '${name}'</if>
+		  </where>
+		  
+	</select>
+	
+	<!-- 删除设备列表 -->
+	<delete id="deleteEquipmentList" parameterType="hashmap">
+		DELETE FROM IPLANT1.C_IPLANT_E2_T 
+		<where>
+			ET_CD IN
+		</where> 
+		<foreach collection="list"  index="index" item="item" open="(" separator="," close=")"  >
+       					#{item.ET_CD}
+      				</foreach>
+	</delete>
+	
+	<!-- 修改关联设备厂商 -->
+	<delete id="updateEquipmentFactory" parameterType="hashmap">
+		update C_IPLANT_E5_T 
+		<set>
+		<if test="FACTORY_ID!=null and FACTORY_ID!= '' ">
+		FACTORY_ID='${FACTORY_ID}',
+		</if>
+		<if test="MANUFACTURER!=null and MANUFACTURER!= '' ">
+		MANUFACTURER='${MANUFACTURER}',
+		</if>
+		<if test="SUPPLIER!=null and SUPPLIER!='' ">
+		SUPPLIER='${SUPPLIER}',
+		</if>
+		<if test="ASSET_NUMBER!=null and ASSET_NUMBER!= ''">
+		ASSET_NUMBER='${ASSET_NUMBER}',
+		</if>
+		<if test="AOI_IP!=null and AOI_IP!= '' ">
+		AOI_IP='${AOI_IP}',
+		</if>
+		<if test="DBA_NAME!=null and DBA_NAME!= '' ">
+		DBA_NAME='${DBA_NAME}',
+		</if>
+		<if test="LOGIN_NAME!=null and LOGIN_NAME!= '' ">
+		LOGIN_NAME='${LOGIN_NAME}',
+		</if>
+		<if test="PW!=null and PW!='' ">
+		PW='${PW}',
+		</if>
+		<if test="EQ_CR_DT!=null and EQ_CR_DT!= '' ">
+		EQ_CR_DT=to_date('${EQ_CR_DT}','yyyy-mm-dd'),
+		</if>
+		<if test="EQ_BUY!=null and EQ_BUY!= '' ">
+		EQ_BUY=to_date('${EQ_BUY}','yyyy-mm-dd')
+		</if>
+		</set>
+		<where>
+		ET_CD='${ET_CD}'
+		</where>
+	</delete>
+	
+	
+		<!-- 删除关联设备厂商 -->
+	<delete id="deleteEquipmentFactory" parameterType="hashmap">
+		DELETE FROM  C_IPLANT_E5_T
+		<where>
+			ET_CD IN
+		</where> 
+		<foreach collection="list"  index="index" item="item" open="(" separator="," close=")"  >
+       					#{item.ET_CD}
+      				</foreach>
+	</delete>
+	
+	<!-- 新增设备列表 -->
+	<insert id="insertEquipmentList" parameterType="hashmap">
+	INSERT INTO iplant1.C_IPLANT_E2_T(ET_CD,ET_NM,ET_UT,DICT_IT ,ET_TT,ET_ST,ROUT_CD,CRT_DT,ET_QT)
+	values('${ET_CD}','${ET_NM}','${ET_UT}','${DICT_IT}' ,'${ET_TT}','${ET_ST}','${ROUT_CD}',to_date('${CRT_DT}','yyyy-mm-dd'),'${ET_QT}')
+	</insert>
+	
+		<!-- 新增关联设备厂商列表 -->
+	<insert id="insertEquipmentFactory" parameterType="hashmap">
+	<selectKey resultType="int" keyProperty="F_ID" order="BEFORE"> 
+            SELECT SQU_FAC.NEXTVAL FROM DUAL 
+        </selectKey>
+	insert into C_IPLANT_E5_T(F_ID,FACTORY_ID,MANUFACTURER,SUPPLIER,ASSET_NUMBER,AOI_IP,DBA_NAME,LOGIN_NAME,PW,ET_CD,EQ_CR_DT,EQ_BUY) 
+	values(
+	'${F_ID}',
+	'${FACTORY_ID}','${MANUFACTURER}','${SUPPLIER}','${ASSET_NUMBER}','${AOI_IP}','${DBA_NAME}',
+	'${LOGIN_NAME}','${PW}','${ET_CD}',
+	to_date('${EQ_CR_DT}','yyyy-mm-dd'),
+	to_date('${EQ_BUY}','yyyy-mm-dd')
+	)
+	</insert>
+	
+	
+	<!-- 修改设备列表 -->
+	<update id="updateEquipmentList" parameterType="hashmap">
+		update iplant1.C_IPLANT_E2_T 
+		<set>
+			<if test="ET_NM!=null and ET_NM!='' ">
+				 ET_NM='${ET_NM}',<!-- 设备名称 -->
+			</if>
+			<if test="ET_UT!=null and ET_UT!='' ">
+				ET_UT='${ET_UT}',<!-- 设备型号 -->
+			</if>
+			<if test="DICT_IT!=null and DICT_IT!='' ">
+				DICT_IT='${DICT_IT}',<!-- 设备类型 -->
+			</if>
+			<if test="ET_TT!=null and ET_TT!='' ">
+				ET_TT='${ET_TT}', <!-- 产线名称 -->
+			</if>
+			<if test="ET_ST!=null and ET_ST!='' ">
+				ET_ST='${ET_ST}',<!-- 设备状态 -->
+			</if>
+			<if test="ROUT_CD!=null and ROUT_CD!='' ">
+				ROUT_CD='${ROUT_CD}', <!-- 工位名称 -->
+			</if>
+			<if test="ET_PL!=null and ET_PL!='' ">
+				ET_PL='${ET_PL}', <!--备注 -->
+			</if>
+			<if test="CRT_DT!=null and CRT_DT!='' ">
+				CRT_DT=to_date('${CRT_DT}','yyyy-mm-dd') <!--生产日期 -->
+			</if>
+		</set>
+		where ET_CD='${ET_CD}'
+	</update>
+	
+	
+	<!-- 设备类型下拉框 -->
+	<select id="queryEqType" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT DISTINCT DICT_NM  from iplant1.C_IPLANT_DM_T   
+	</select>
+	
+		<!-- 点检设备类型下拉框 -->
+	<select id="queryEqType1" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT DISTINCT T2.DICT_IT_NM FROM IPLANT1.C_IPLANT_C6_T T1
+		LEFT JOIN IPLANT1.C_IPLANT_DD_T T2 ON T1.DICT_IT=T2.DICT_IT
+		LEFT JOIN IPLANT1.C_IPLANT_DD_T T3 ON T1.CK_TY=T3.DICT_IT   
+	</select>
+	
+	<!-- 产线名称下拉框 -->
+	<select id="queryProduName" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT DISTINCT ET_TT  from iplant1.C_IPLANT_E2_T  
+	</select>
+	
+	<!-- 设备状态下拉框 -->
+	<select id="queryEqState" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT DISTINCT ET_MT  from iplant1.C_IPLANT_E2_T  
+	</select>
+	
+		<!-- 保养项目下拉框 -->
+	<select id="stationName" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT DISTINCT KB_NM  from tpm2.h_tpm_m1_t  
+	</select>
+	
+		<!-- 工位名称下拉框 -->
+	<select id="stationNames" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT DISTINCT ROUT_CD  from iplant1.C_IPLANT_E2_T  
+	</select>
+ </mapper>

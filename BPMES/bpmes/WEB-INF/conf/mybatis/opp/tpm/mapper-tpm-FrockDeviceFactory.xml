@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="">       
+		<!-- 1.1 数据字典管理 -->		
+		<!-- 查询工装设备历史信息 -->
+	<select id="queryFrockDeviceFactory" parameterType="hashmap" resultType="java.util.HashMap">
+	    <include refid="oraclePagingFileTop"></include>  
+	    FT_CD,FT_MD,FT_TYPE,PL_NM,FT_ST,FT_EP,to_char(FT_OT,'yyyy-mm-dd HH24:Mi:SS') FT_OT,FT_AL,
+	    to_char(CR_DT,'yyyy-mm-dd HH24:Mi:SS') CR_DT, CL_NM,DS_LS,USE_NU,SUPPLIER,SD_LF,CR_LS ,
+	    to_char(CM_DT,'yyyy-mm-dd HH24:Mi:SS') CM_DT	 
+		  FROM TPM1.R_TPM_FD_F 
+		 <where>1=1
+		 <if test="CL_NM!=null and CL_NM!='' and flag!='true'">
+		 and CL_NM like '%${CL_NM}%'
+		 </if>
+		  <if test="FT_CD!=null and FT_CD!='' and flag!='true'">
+		 and FT_CD like '%${FT_CD}%'
+		 </if>
+		 <if test="FT_MD!=null and FT_MD!='' and flag!='true'">
+		 and FT_MD like '%${FT_MD}%'
+		 </if>
+		 <if test="DS_LS!=null and DS_LS!='' and flag!='true'">
+		 and DS_LS like '%${DS_LS}%'
+		 </if>
+		 <if test="FT_ST!=null and FT_ST!='' and flag!='true'">
+		 and FT_ST like '%${FT_ST}%'
+		 </if>
+		 <if test="FT_TYPE!=null and FT_TYPE!='' and flag!='true'">
+		 and FT_TYPE like '%${FT_TYPE}%'
+		 </if>
+		  <if test="FT_EP!=null and FT_EP!='' and flag!='true'">
+		 and FT_EP like '%${FT_EP}%'
+		 </if>
+		 <if test="CM_DT1!=null and CM_DT1!='' and CM_DT2!=null and CM_DT2!='' and flag!='true'">
+		 and CM_DT  between to_date('${CM_DT1}','yyyy-mm-dd HH24:Mi:SS') and
+		   to_date('${CM_DT2}','yyyy-mm-dd HH24:Mi:SS')
+		 </if>
+		 <!-- 全字匹配 -->
+		   <if test="CL_NM!=null and CL_NM!='' and flag=='true'">
+		 and CL_NM = '${CL_NM}'
+		 </if>
+		    <if test="FT_CD!=null and FT_CD!='' and flag=='true'">
+		 and FT_CD = '${FT_CD}'
+		 </if>
+		 <if test="FT_MD!=null and FT_MD!='' and flag=='true'">
+		 and FT_MD = '${FT_MD}'
+		 </if>
+		 <if test="DS_LS!=null and DS_LS!='' and flag=='true'">
+		 and DS_LS = '${DS_LS}'
+		 </if>
+		 <if test="FT_ST!=null and FT_ST!='' and flag=='true'">
+		 and FT_ST = '${FT_ST}'
+		 </if>
+		 <if test="FT_TYPE!=null and FT_TYPE!='' and flag=='true'">
+		 and FT_TYPE = '${FT_TYPE}'
+		 </if>
+		 <if test="FT_EP!=null and FT_EP!='' and flag=='true'">
+		 and FT_EP = '${FT_EP}'
+		 </if>
+		 <if test="CM_DT1!=null and CM_DT1!='' and CM_DT2!=null and CM_DT2!='' and flag=='true'">
+		 and CM_DT  between to_date('${CM_DT1}','yyyy-mm-dd HH24:Mi:SS') and
+		   to_date('${CM_DT2}','yyyy-mm-dd HH24:Mi:SS')
+		 </if>
+		 </where>
+		     <include refid="oraclePagingFileBottom"></include>   	
+	</select>
+	
+	<!-- 工装设备历史分页总数 -->
+	<select id="queryFrockDeviceFactory_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+	  	 
+		SELECT COUNT(1) ROWS_COUNT  from TPM1.R_TPM_FD_F   
+		 <where>1=1
+		<if test="CL_NM!=null and CL_NM!='' and flag!='true'">
+		 and CL_NM like '%${CL_NM}%'
+		 </if>
+		 <if test="FT_CD!=null and FT_CD!='' and flag!='true'">
+		 and FT_CD like '%${FT_CD}%'
+		 </if>
+		 <if test="FT_MD!=null and FT_MD!='' and flag!='true'">
+		 and FT_MD like '%${FT_MD}%'
+		 </if>
+		 <if test="DS_LS!=null and DS_LS!='' and flag!='true'">
+		 and DS_LS like '%${DS_LS}%'
+		 </if>
+		 <if test="FT_ST!=null and FT_ST!='' and flag!='true'">
+		 and FT_ST like '%${FT_ST}%'
+		 </if>
+		 <if test="FT_TYPE!=null and FT_TYPE!='' and flag!='true'">
+		 and FT_TYPE like '%${FT_TYPE}%'
+		 </if>
+		 <if test="CM_DT1!=null and CM_DT1!='' and CM_DT2!=null and CM_DT2!='' and flag!='true'">
+		 and CM_DT  between to_date('${CM_DT1}','yyyy-mm-dd HH24:Mi:SS') and
+		   to_date('${CM_DT2}','yyyy-mm-dd HH24:Mi:SS')
+		 </if>
+		 <!-- 全字匹配 -->
+		<if test="CL_NM!=null and CL_NM!='' and flag=='true'">
+		 and CL_NM = '${CL_NM}'
+		 </if>
+		 <if test="FT_CD!=null and FT_CD!='' and flag=='true'">
+		 and FT_CD = '${FT_CD}'
+		 </if>
+		 <if test="FT_MD!=null and FT_MD!='' and flag=='true'">
+		 and FT_MD = '${FT_MD}'
+		 </if>
+		 <if test="DS_LS!=null and DS_LS!='' and flag=='true'">
+		 and DS_LS = '${DS_LS}'
+		 </if>
+		 <if test="FT_ST!=null and FT_ST!='' and flag=='true'">
+		 and FT_ST = '${FT_ST}'
+		 </if>
+		 <if test="FT_TYPE!=null and FT_TYPE!='' and flag=='true'">
+		 and FT_TYPE = '${FT_TYPE}'
+		 </if>
+		 <if test="CM_DT1!=null and CM_DT1!='' and CM_DT2!=null and CM_DT2!='' and flag=='true'">
+		 and CM_DT  between to_date('${CM_DT1}','yyyy-mm-dd HH24:Mi:SS') and
+		   to_date('${CM_DT2}','yyyy-mm-dd HH24:Mi:SS')
+		 </if>  
+		 </where>
+	</select>
+ </mapper>

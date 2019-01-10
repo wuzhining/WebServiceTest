@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<engines>
+	<!-- A.1 MSD管理 -->
+	
+    <!-- =========================================MSD等级列表======================================= --> 
+	<!-- 查询信息 -->
+	<engine engine_code="MSDRankListSelect" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="MSDRankListSelect" >
+	</engine>
+	<!-- 新增 -->
+	<engine engine_code="MSDRankListInsert" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="MSDRankListInsert" >
+	</engine>
+	<!-- 修改 -->
+	<engine engine_code="MSDRankListUpdate" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="MSDRankListUpdate" >
+	</engine>	
+	<!-- 删除 -->
+	<engine engine_code="MSDRankListDelete" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="MSDRankListDelete" >
+	</engine>
+	
+	<!-- =========================================MSD容器列表======================================= -->
+	<!-- 查询信息 -->
+	<engine engine_code="ContainerListSelect" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="ContainerListSelect" >
+	</engine>
+	<!-- 新增 -->
+	<engine engine_code="ContainerListInsert" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="ContainerListInsert" >
+	</engine>
+	<!-- 修改 -->
+	<engine engine_code="ContainerListUpdate" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="ContainerListUpdate" >
+	</engine>	
+	<!-- 删除 -->
+	<engine engine_code="ContainerListDelete" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="ContainerListDelete" >
+	</engine> 	
+	
+</engines>

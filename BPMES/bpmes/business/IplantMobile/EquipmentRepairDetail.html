@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="../../common/IplantCompent/themes/metro/easyui.css">
+	<link rel="stylesheet" type="text/css" href="../../common/IplantCompent/themes/mobile.css">
+	<link rel="stylesheet" type="text/css" href="../../common/IplantCompent/themes/icon.css">
+	<script src="../../common/IplantCompent/jquery.min.js" type="text/javascript"></script>
+	<script src="../../common/IplantCompent/jquery.easyui.min.js" type="text/javascript"></script>
+	<script src="../../common/IplantCompent/jquery.easyui.mobile.js" type="text/javascript"></script>
+	<script src="js/DataRequest.js" type="text/javascript"></script>
+    <script src="js/EquipmentRepairDetai.js" type="text/javascript"></script>
+    <style type="text/css">
+    @media screen and (orientation: portrait) {
+      body {
+          width : 100% ;
+          height : 100% ;
+          /* overflow : hidden; */
+          position: relative;
+      }
+      #print{
+         position : absolute ;
+         top : 0 ; 
+         left : 0 ;
+         width : 100% ;
+         height : 100% ;
+            
+      }
+} 
+	@media screen and (orientation: landscape) {
+        body {
+          width : 100% ;
+         height : 100% ;
+         position: relative;
+           }
+         #print{
+            position : absolute ;
+            top : 0 ; 
+            left : 0 ;
+            width : 100% ;
+            height : 100% ;
+            
+         }
+  }
+	/*.datagrid-mask-msg {
+		background: #fff url(image/loading.gif) no-repeat scroll 5px center;
+		color: #000000;
+		font-family: "微软雅黑";
+		font-weight: 300;
+		font-size: 14px;
+		/*transform-origin: center;*/
+ 			/*$('.datagrid-mask-msg').css('background-image','image/loading.gif')*/
+}*/
+  .pagination{
+	width: 100%;
+	position: fixed;
+	left: 0;
+	bottom: 0;
+}	
+    </style>
+</head>
+<body>
+		
+	<div class="easyui-navpanel" >
+		<div id="print">
+		    <div id="hh" style="margin: 0;padding: 0; width: 100%;overflow-x: auto;">
+					<div class="m-toolbar" style="padding:2px 0;">
+						<table border="0" cellspacing="0" cellpadding="0">
+							<tr>
+								<td >
+									<div style="width: 70px;">维修单号:</div>
+								</td>
+								<td><input id='maintenanceOrder'  class="easyui-combobox comCode" data-options=" plain:true" style="width: 130px;margin-left: -20px;" />
+								</td>
+								<td >
+									<div style="width: 70px;">设备编号:</div>
+								</td>
+								<td>
+									<input id='equipCode'  class="easyui-combobox equCode" data-options=" plain:true " style="width: 70px; " >
+								</td>
+								<td >	
+									<div style="width: 70px;">开始时间:</div>
+								</td>
+								<td>
+									<a href="#" class="easyui-datebox dateStart" data-options=" plain:true " style="width: 100px; " ></a>
+								</td>
+								<td >	
+									<div style="width: 70px;">结束时间:</div>
+								</td>
+								<td>
+									<a href="#" class="easyui-datebox dateEnd" data-options=" plain:true " style="width: 100px;" ></a>
+								</td>
+								<td>	
+									<a type="button" class="easyui-linkbutton " id="linkbtn" data-options=" plain:true,outline:true " 
+										style="background-color: #5ab7f3;margin-left: 5px;height: 30px;width: 60px; color: #000000;">查询</a>
+								</td>
+							</tr>
+						</table>		
+					</div>
+				</div> 
+			
+			<table id="dg" class="easyui-datagrid" data-options="scrollbarSize: 0, singleSelect:true, fitColumns:true, fit:true, border:true," toolbar = '#hh' ></table>
+    	</div>  
+	</div>
+
+	
+	
+</body>
+</html>
