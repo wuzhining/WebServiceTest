@@ -6,54 +6,54 @@
 		url-pattern='/DflDipWebService' />
 		<!-- 生产状态 -->
 	<endpoint name='ScadaPrdsts'
-		implementation='org.mes.jax.service.ScadaPrdstsService'
+		implementation='org.mes.jax.service.impl.ScadaPrdstsService'
 		url-pattern='/ScadaPrdstsService' />
 		<!-- 良品数 -->
 	<endpoint name='ScadaGoodqty'
-		implementation='org.mes.jax.service.ScadaGoodqtyService'
+		implementation='org.mes.jax.service.impl.ScadaGoodqtyService'
 		url-pattern='/ScadaGoodqtyService' />
 		<!-- 不良品数 -->
 	<endpoint name='ScadaBadqty'
-		implementation='org.mes.jax.service.ScadaBadqtyService'
+		implementation='org.mes.jax.service.impl.ScadaBadqtyService'
 		url-pattern='/ScadaBadqtyService' />
 		<!-- 生产数量 -->
 	<endpoint name='ScadaProdqty'
-		implementation='org.mes.jax.service.ScadaProdqtyService'
+		implementation='org.mes.jax.service.impl.ScadaProdqtyService'
 		url-pattern='/ScadaProdqtyService' />
 		<!-- 当前生产时长 -->
 	<endpoint name='ScadaProddura'
-		implementation='org.mes.jax.service.ScadaProdduraService'
+		implementation='org.mes.jax.service.impl.ScadaProdduraService'
 		url-pattern='/ScadaProdduraService' />
 		<!-- 转产时长 -->
 	<endpoint name='ScadaConvdura'
-		implementation='org.mes.jax.service.ScadaConvduraService'
+		implementation='org.mes.jax.service.impl.ScadaConvduraService'
 		url-pattern='/ScadaConvduraService' />
 		<!-- 总生产时长 -->
 	<endpoint name='ScadaTproddura'
-		implementation='org.mes.jax.service.ScadaTprodduraService'
+		implementation='org.mes.jax.service.impl.ScadaTprodduraService'
 		url-pattern='/ScadaTprodduraService' />
 		<!-- 当前停机时长 -->
 	<endpoint name='ScadaDowntime'
-		implementation='org.mes.jax.service.ScadaDowntimeService'
+		implementation='org.mes.jax.service.impl.ScadaDowntimeService'
 		url-pattern='/ScadaDowntimeService' />
 		<!-- 总停机时长 -->
 	<endpoint name='ScadaTdowntime'
-		implementation='org.mes.jax.service.ScadaTdowntimeService'
+		implementation='org.mes.jax.service.impl.ScadaTdowntimeService'
 		url-pattern='/ScadaTdowntimeService' />
 		<!-- 标准产能 -->
 	<endpoint name='ScadaStdcap'
-		implementation='org.mes.jax.service.ScadaStdcapService'
+		implementation='org.mes.jax.service.impl.ScadaStdcapService'
 		url-pattern='/ScadaStdcapService' />
 		<!-- 生产节拍 -->
 	<endpoint name='ScadaTakt'
-		implementation='org.mes.jax.service.ScadaTaktService'
+		implementation='org.mes.jax.service.impl.ScadaTaktService'
 		url-pattern='/ScadaTaktService' />
 		<!-- 温度 -->
 	<endpoint name='ScadaTemper'
-		implementation='org.mes.jax.service.ScadaTemperService'
+		implementation='org.mes.jax.service.impl.ScadaTemperService'
 		url-pattern='/ScadaTemperService' />
 		<!-- 压力 -->
 	<endpoint name='ScadaPress'
-		implementation='org.mes.jax.service.ScadaPressService'
+		implementation='org.mes.jax.service.impl.ScadaPressService'
 		url-pattern='/ScadaPressService' />
 </endpoints>

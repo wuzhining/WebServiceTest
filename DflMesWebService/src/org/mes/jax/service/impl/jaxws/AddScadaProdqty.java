@@ -7,10 +7,10 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlRootElement(name = "scadaPrdstsService", namespace = "http://impl.service.jax.mes.org/")
+@XmlRootElement(name = "addScadaProdqty", namespace = "http://impl.service.jax.mes.org/")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "scadaPrdstsService", namespace = "http://impl.service.jax.mes.org/")
-public class ScadaPrdstsService {
+@XmlType(name = "addScadaProdqty", namespace = "http://impl.service.jax.mes.org/")
+public class AddScadaProdqty {
 
     @XmlElement(name = "arg0", namespace = "")
     private Object arg0;

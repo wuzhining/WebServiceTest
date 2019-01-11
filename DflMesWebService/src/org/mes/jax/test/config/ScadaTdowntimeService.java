@@ -17,7 +17,7 @@ import javax.xml.ws.ResponseWrapper;
  * Generated source version: 2.2
  * 
  */
-@WebService(name = "ScadaTdowntimeService", targetNamespace = "http://service.jax.mes.org/")
+@WebService(name = "ScadaTdowntimeService", targetNamespace = "http://impl.service.jax.mes.org/")
 @XmlSeeAlso({
     ObjectFactory.class
 })
@@ -32,10 +32,10 @@ public interface ScadaTdowntimeService {
      */
     @WebMethod
     @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "doService", targetNamespace = "http://service.jax.mes.org/", className = "org.sunny.client.config.DoService")
-    @ResponseWrapper(localName = "doServiceResponse", targetNamespace = "http://service.jax.mes.org/", className = "org.sunny.client.config.DoServiceResponse")
-    @Action(input = "http://service.jax.mes.org/ScadaTdowntimeService/doServiceRequest", output = "http://service.jax.mes.org/ScadaTdowntimeService/doServiceResponse")
-    public String doService(
+    @RequestWrapper(localName = "addScadaTdowntime", targetNamespace = "http://impl.service.jax.mes.org/", className = "org.mes.jax.test.config.AddScadaTdowntime")
+    @ResponseWrapper(localName = "addScadaTdowntimeResponse", targetNamespace = "http://impl.service.jax.mes.org/", className = "org.mes.jax.test.config.AddScadaTdowntimeResponse")
+    @Action(input = "http://impl.service.jax.mes.org/ScadaTdowntimeService/addScadaTdowntimeRequest", output = "http://impl.service.jax.mes.org/ScadaTdowntimeService/addScadaTdowntimeResponse")
+    public String addScadaTdowntime(
         @WebParam(name = "arg0", targetNamespace = "")
         Object arg0);
 

@@ -17,14 +17,14 @@ import javax.xml.ws.WebServiceFeature;
  * Generated source version: 2.2
  * 
  */
-@WebServiceClient(name = "ScadaDowntimeServiceService", targetNamespace = "http://service.jax.mes.org/", wsdlLocation = "http://localhost:8091/DflMesWebService/ScadaDowntimeService?wsdl")
+@WebServiceClient(name = "ScadaDowntimeServiceService", targetNamespace = "http://impl.service.jax.mes.org/", wsdlLocation = "http://localhost:8091/DflMesWebService/ScadaDowntimeService?wsdl")
 public class ScadaDowntimeServiceService
     extends Service
 {
 
     private final static URL SCADADOWNTIMESERVICESERVICE_WSDL_LOCATION;
     private final static WebServiceException SCADADOWNTIMESERVICESERVICE_EXCEPTION;
-    private final static QName SCADADOWNTIMESERVICESERVICE_QNAME = new QName("http://service.jax.mes.org/", "ScadaDowntimeServiceService");
+    private final static QName SCADADOWNTIMESERVICESERVICE_QNAME = new QName("http://impl.service.jax.mes.org/", "ScadaDowntimeServiceService");
 
     static {
         URL url = null;
@@ -69,7 +69,7 @@ public class ScadaDowntimeServiceService
      */
     @WebEndpoint(name = "ScadaDowntimeServicePort")
     public ScadaDowntimeService getScadaDowntimeServicePort() {
-        return super.getPort(new QName("http://service.jax.mes.org/", "ScadaDowntimeServicePort"), ScadaDowntimeService.class);
+        return super.getPort(new QName("http://impl.service.jax.mes.org/", "ScadaDowntimeServicePort"), ScadaDowntimeService.class);
     }
 
     /**
@@ -81,7 +81,7 @@ public class ScadaDowntimeServiceService
      */
     @WebEndpoint(name = "ScadaDowntimeServicePort")
     public ScadaDowntimeService getScadaDowntimeServicePort(WebServiceFeature... features) {
-        return super.getPort(new QName("http://service.jax.mes.org/", "ScadaDowntimeServicePort"), ScadaDowntimeService.class, features);
+        return super.getPort(new QName("http://impl.service.jax.mes.org/", "ScadaDowntimeServicePort"), ScadaDowntimeService.class, features);
     }
 
     private static URL __getWsdlLocation() {

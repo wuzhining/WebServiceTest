@@ -17,14 +17,14 @@ import javax.xml.ws.WebServiceFeature;
  * Generated source version: 2.2
  * 
  */
-@WebServiceClient(name = "ScadaStdcapServiceService", targetNamespace = "http://service.jax.mes.org/", wsdlLocation = "http://localhost:8091/DflMesWebService/ScadaStdcapService?wsdl")
+@WebServiceClient(name = "ScadaStdcapServiceService", targetNamespace = "http://impl.service.jax.mes.org/", wsdlLocation = "http://localhost:8091/DflMesWebService/ScadaStdcapService?wsdl")
 public class ScadaStdcapServiceService
     extends Service
 {
 
     private final static URL SCADASTDCAPSERVICESERVICE_WSDL_LOCATION;
     private final static WebServiceException SCADASTDCAPSERVICESERVICE_EXCEPTION;
-    private final static QName SCADASTDCAPSERVICESERVICE_QNAME = new QName("http://service.jax.mes.org/", "ScadaStdcapServiceService");
+    private final static QName SCADASTDCAPSERVICESERVICE_QNAME = new QName("http://impl.service.jax.mes.org/", "ScadaStdcapServiceService");
 
     static {
         URL url = null;
@@ -69,7 +69,7 @@ public class ScadaStdcapServiceService
      */
     @WebEndpoint(name = "ScadaStdcapServicePort")
     public ScadaStdcapService getScadaStdcapServicePort() {
-        return super.getPort(new QName("http://service.jax.mes.org/", "ScadaStdcapServicePort"), ScadaStdcapService.class);
+        return super.getPort(new QName("http://impl.service.jax.mes.org/", "ScadaStdcapServicePort"), ScadaStdcapService.class);
     }
 
     /**
@@ -81,7 +81,7 @@ public class ScadaStdcapServiceService
      */
     @WebEndpoint(name = "ScadaStdcapServicePort")
     public ScadaStdcapService getScadaStdcapServicePort(WebServiceFeature... features) {
-        return super.getPort(new QName("http://service.jax.mes.org/", "ScadaStdcapServicePort"), ScadaStdcapService.class, features);
+        return super.getPort(new QName("http://impl.service.jax.mes.org/", "ScadaStdcapServicePort"), ScadaStdcapService.class, features);
     }
 
     private static URL __getWsdlLocation() {

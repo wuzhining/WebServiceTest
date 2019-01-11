@@ -17,7 +17,7 @@ import javax.xml.ws.ResponseWrapper;
  * Generated source version: 2.2
  * 
  */
-@WebService(name = "ScadaPressService", targetNamespace = "http://service.jax.mes.org/")
+@WebService(name = "ScadaPressService", targetNamespace = "http://impl.service.jax.mes.org/")
 @XmlSeeAlso({
     ObjectFactory.class
 })
@@ -32,10 +32,10 @@ public interface ScadaPressService {
      */
     @WebMethod
     @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "doService", targetNamespace = "http://service.jax.mes.org/", className = "org.sunny.client.config.DoService")
-    @ResponseWrapper(localName = "doServiceResponse", targetNamespace = "http://service.jax.mes.org/", className = "org.sunny.client.config.DoServiceResponse")
-    @Action(input = "http://service.jax.mes.org/ScadaPressService/doServiceRequest", output = "http://service.jax.mes.org/ScadaPressService/doServiceResponse")
-    public String doService(
+    @RequestWrapper(localName = "addScadaPress", targetNamespace = "http://impl.service.jax.mes.org/", className = "org.mes.jax.test.config.AddScadaPress")
+    @ResponseWrapper(localName = "addScadaPressResponse", targetNamespace = "http://impl.service.jax.mes.org/", className = "org.mes.jax.test.config.AddScadaPressResponse")
+    @Action(input = "http://impl.service.jax.mes.org/ScadaPressService/addScadaPressRequest", output = "http://impl.service.jax.mes.org/ScadaPressService/addScadaPressResponse")
+    public String addScadaPress(
         @WebParam(name = "arg0", targetNamespace = "")
         Object arg0);
 

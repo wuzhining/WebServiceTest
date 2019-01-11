@@ -17,14 +17,14 @@ import javax.xml.ws.WebServiceFeature;
  * Generated source version: 2.2
  * 
  */
-@WebServiceClient(name = "ScadaTprodduraServiceService", targetNamespace = "http://service.jax.mes.org/", wsdlLocation = "http://localhost:8091/DflMesWebService/ScadaTprodduraService?wsdl")
+@WebServiceClient(name = "ScadaTprodduraServiceService", targetNamespace = "http://impl.service.jax.mes.org/", wsdlLocation = "http://localhost:8091/DflMesWebService/ScadaTprodduraService?wsdl")
 public class ScadaTprodduraServiceService
     extends Service
 {
 
     private final static URL SCADATPRODDURASERVICESERVICE_WSDL_LOCATION;
     private final static WebServiceException SCADATPRODDURASERVICESERVICE_EXCEPTION;
-    private final static QName SCADATPRODDURASERVICESERVICE_QNAME = new QName("http://service.jax.mes.org/", "ScadaTprodduraServiceService");
+    private final static QName SCADATPRODDURASERVICESERVICE_QNAME = new QName("http://impl.service.jax.mes.org/", "ScadaTprodduraServiceService");
 
     static {
         URL url = null;
@@ -69,7 +69,7 @@ public class ScadaTprodduraServiceService
      */
     @WebEndpoint(name = "ScadaTprodduraServicePort")
     public ScadaTprodduraService getScadaTprodduraServicePort() {
-        return super.getPort(new QName("http://service.jax.mes.org/", "ScadaTprodduraServicePort"), ScadaTprodduraService.class);
+        return super.getPort(new QName("http://impl.service.jax.mes.org/", "ScadaTprodduraServicePort"), ScadaTprodduraService.class);
     }
 
     /**
@@ -81,7 +81,7 @@ public class ScadaTprodduraServiceService
      */
     @WebEndpoint(name = "ScadaTprodduraServicePort")
     public ScadaTprodduraService getScadaTprodduraServicePort(WebServiceFeature... features) {
-        return super.getPort(new QName("http://service.jax.mes.org/", "ScadaTprodduraServicePort"), ScadaTprodduraService.class, features);
+        return super.getPort(new QName("http://impl.service.jax.mes.org/", "ScadaTprodduraServicePort"), ScadaTprodduraService.class, features);
     }
 
     private static URL __getWsdlLocation() {

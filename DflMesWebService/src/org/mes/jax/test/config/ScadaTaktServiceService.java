@@ -17,14 +17,14 @@ import javax.xml.ws.WebServiceFeature;
  * Generated source version: 2.2
  * 
  */
-@WebServiceClient(name = "ScadaTaktServiceService", targetNamespace = "http://service.jax.mes.org/", wsdlLocation = "http://localhost:8091/DflMesWebService/ScadaTaktService?wsdl")
+@WebServiceClient(name = "ScadaTaktServiceService", targetNamespace = "http://impl.service.jax.mes.org/", wsdlLocation = "http://localhost:8091/DflMesWebService/ScadaTaktService?wsdl")
 public class ScadaTaktServiceService
     extends Service
 {
 
     private final static URL SCADATAKTSERVICESERVICE_WSDL_LOCATION;
     private final static WebServiceException SCADATAKTSERVICESERVICE_EXCEPTION;
-    private final static QName SCADATAKTSERVICESERVICE_QNAME = new QName("http://service.jax.mes.org/", "ScadaTaktServiceService");
+    private final static QName SCADATAKTSERVICESERVICE_QNAME = new QName("http://impl.service.jax.mes.org/", "ScadaTaktServiceService");
 
     static {
         URL url = null;
@@ -69,7 +69,7 @@ public class ScadaTaktServiceService
      */
     @WebEndpoint(name = "ScadaTaktServicePort")
     public ScadaTaktService getScadaTaktServicePort() {
-        return super.getPort(new QName("http://service.jax.mes.org/", "ScadaTaktServicePort"), ScadaTaktService.class);
+        return super.getPort(new QName("http://impl.service.jax.mes.org/", "ScadaTaktServicePort"), ScadaTaktService.class);
     }
 
     /**
@@ -81,7 +81,7 @@ public class ScadaTaktServiceService
      */
     @WebEndpoint(name = "ScadaTaktServicePort")
     public ScadaTaktService getScadaTaktServicePort(WebServiceFeature... features) {
-        return super.getPort(new QName("http://service.jax.mes.org/", "ScadaTaktServicePort"), ScadaTaktService.class, features);
+        return super.getPort(new QName("http://impl.service.jax.mes.org/", "ScadaTaktServicePort"), ScadaTaktService.class, features);
     }
 
     private static URL __getWsdlLocation() {

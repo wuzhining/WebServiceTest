@@ -17,7 +17,7 @@ import javax.xml.ws.ResponseWrapper;
  * Generated source version: 2.2
  * 
  */
-@WebService(name = "ScadaStdcapService", targetNamespace = "http://service.jax.mes.org/")
+@WebService(name = "ScadaStdcapService", targetNamespace = "http://impl.service.jax.mes.org/")
 @XmlSeeAlso({
     ObjectFactory.class
 })
@@ -32,10 +32,10 @@ public interface ScadaStdcapService {
      */
     @WebMethod
     @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "doService", targetNamespace = "http://service.jax.mes.org/", className = "org.sunny.client.config.DoService")
-    @ResponseWrapper(localName = "doServiceResponse", targetNamespace = "http://service.jax.mes.org/", className = "org.sunny.client.config.DoServiceResponse")
-    @Action(input = "http://service.jax.mes.org/ScadaStdcapService/doServiceRequest", output = "http://service.jax.mes.org/ScadaStdcapService/doServiceResponse")
-    public String doService(
+    @RequestWrapper(localName = "addScadaStdcap", targetNamespace = "http://impl.service.jax.mes.org/", className = "org.mes.jax.test.config.AddScadaStdcap")
+    @ResponseWrapper(localName = "addScadaStdcapResponse", targetNamespace = "http://impl.service.jax.mes.org/", className = "org.mes.jax.test.config.AddScadaStdcapResponse")
+    @Action(input = "http://impl.service.jax.mes.org/ScadaStdcapService/addScadaStdcapRequest", output = "http://impl.service.jax.mes.org/ScadaStdcapService/addScadaStdcapResponse")
+    public String addScadaStdcap(
         @WebParam(name = "arg0", targetNamespace = "")
         Object arg0);
 

@@ -6,7 +6,5 @@ import javax.jws.WebService;
 @WebService
 public interface IScadaProdqtyService {
 	@WebMethod
-	public String scadaProdqtyService(Object data);
-
 	public String addScadaProdqty(Object data);
 }

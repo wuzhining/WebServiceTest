@@ -17,14 +17,14 @@ import javax.xml.ws.WebServiceFeature;
  * Generated source version: 2.2
  * 
  */
-@WebServiceClient(name = "ScadaPressServiceService", targetNamespace = "http://service.jax.mes.org/", wsdlLocation = "http://localhost:8091/DflMesWebService/ScadaPressService?wsdl")
+@WebServiceClient(name = "ScadaPressServiceService", targetNamespace = "http://impl.service.jax.mes.org/", wsdlLocation = "http://localhost:8091/DflMesWebService/ScadaPressService?wsdl")
 public class ScadaPressServiceService
     extends Service
 {
 
     private final static URL SCADAPRESSSERVICESERVICE_WSDL_LOCATION;
     private final static WebServiceException SCADAPRESSSERVICESERVICE_EXCEPTION;
-    private final static QName SCADAPRESSSERVICESERVICE_QNAME = new QName("http://service.jax.mes.org/", "ScadaPressServiceService");
+    private final static QName SCADAPRESSSERVICESERVICE_QNAME = new QName("http://impl.service.jax.mes.org/", "ScadaPressServiceService");
 
     static {
         URL url = null;
@@ -69,7 +69,7 @@ public class ScadaPressServiceService
      */
     @WebEndpoint(name = "ScadaPressServicePort")
     public ScadaPressService getScadaPressServicePort() {
-        return super.getPort(new QName("http://service.jax.mes.org/", "ScadaPressServicePort"), ScadaPressService.class);
+        return super.getPort(new QName("http://impl.service.jax.mes.org/", "ScadaPressServicePort"), ScadaPressService.class);
     }
 
     /**
@@ -81,7 +81,7 @@ public class ScadaPressServiceService
      */
     @WebEndpoint(name = "ScadaPressServicePort")
     public ScadaPressService getScadaPressServicePort(WebServiceFeature... features) {
-        return super.getPort(new QName("http://service.jax.mes.org/", "ScadaPressServicePort"), ScadaPressService.class, features);
+        return super.getPort(new QName("http://impl.service.jax.mes.org/", "ScadaPressServicePort"), ScadaPressService.class, features);
     }
 
     private static URL __getWsdlLocation() {

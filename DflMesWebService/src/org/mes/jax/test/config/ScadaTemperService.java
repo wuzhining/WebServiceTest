@@ -17,7 +17,7 @@ import javax.xml.ws.ResponseWrapper;
  * Generated source version: 2.2
  * 
  */
-@WebService(name = "ScadaTemperService", targetNamespace = "http://service.jax.mes.org/")
+@WebService(name = "ScadaTemperService", targetNamespace = "http://impl.service.jax.mes.org/")
 @XmlSeeAlso({
     ObjectFactory.class
 })
@@ -32,10 +32,10 @@ public interface ScadaTemperService {
      */
     @WebMethod
     @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "doService", targetNamespace = "http://service.jax.mes.org/", className = "org.sunny.client.config.DoService")
-    @ResponseWrapper(localName = "doServiceResponse", targetNamespace = "http://service.jax.mes.org/", className = "org.sunny.client.config.DoServiceResponse")
-    @Action(input = "http://service.jax.mes.org/ScadaTemperService/doServiceRequest", output = "http://service.jax.mes.org/ScadaTemperService/doServiceResponse")
-    public String doService(
+    @RequestWrapper(localName = "addScadaTemper", targetNamespace = "http://impl.service.jax.mes.org/", className = "org.mes.jax.test.config.AddScadaTemper")
+    @ResponseWrapper(localName = "addScadaTemperResponse", targetNamespace = "http://impl.service.jax.mes.org/", className = "org.mes.jax.test.config.AddScadaTemperResponse")
+    @Action(input = "http://impl.service.jax.mes.org/ScadaTemperService/addScadaTemperRequest", output = "http://impl.service.jax.mes.org/ScadaTemperService/addScadaTemperResponse")
+    public String addScadaTemper(
         @WebParam(name = "arg0", targetNamespace = "")
         Object arg0);
 

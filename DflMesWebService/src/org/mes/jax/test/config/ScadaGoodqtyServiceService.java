@@ -17,14 +17,14 @@ import javax.xml.ws.WebServiceFeature;
  * Generated source version: 2.2
  * 
  */
-@WebServiceClient(name = "ScadaGoodqtyServiceService", targetNamespace = "http://service.jax.mes.org/", wsdlLocation = "http://localhost:8091/DflMesWebService/ScadaGoodqtyService?wsdl")
+@WebServiceClient(name = "ScadaGoodqtyServiceService", targetNamespace = "http://impl.service.jax.mes.org/", wsdlLocation = "http://localhost:8091/DflMesWebService/ScadaGoodqtyService?wsdl")
 public class ScadaGoodqtyServiceService
     extends Service
 {
 
     private final static URL SCADAGOODQTYSERVICESERVICE_WSDL_LOCATION;
     private final static WebServiceException SCADAGOODQTYSERVICESERVICE_EXCEPTION;
-    private final static QName SCADAGOODQTYSERVICESERVICE_QNAME = new QName("http://service.jax.mes.org/", "ScadaGoodqtyServiceService");
+    private final static QName SCADAGOODQTYSERVICESERVICE_QNAME = new QName("http://impl.service.jax.mes.org/", "ScadaGoodqtyServiceService");
 
     static {
         URL url = null;
@@ -69,7 +69,7 @@ public class ScadaGoodqtyServiceService
      */
     @WebEndpoint(name = "ScadaGoodqtyServicePort")
     public ScadaGoodqtyService getScadaGoodqtyServicePort() {
-        return super.getPort(new QName("http://service.jax.mes.org/", "ScadaGoodqtyServicePort"), ScadaGoodqtyService.class);
+        return super.getPort(new QName("http://impl.service.jax.mes.org/", "ScadaGoodqtyServicePort"), ScadaGoodqtyService.class);
     }
 
     /**
@@ -81,7 +81,7 @@ public class ScadaGoodqtyServiceService
      */
     @WebEndpoint(name = "ScadaGoodqtyServicePort")
     public ScadaGoodqtyService getScadaGoodqtyServicePort(WebServiceFeature... features) {
-        return super.getPort(new QName("http://service.jax.mes.org/", "ScadaGoodqtyServicePort"), ScadaGoodqtyService.class, features);
+        return super.getPort(new QName("http://impl.service.jax.mes.org/", "ScadaGoodqtyServicePort"), ScadaGoodqtyService.class, features);
     }
 
     private static URL __getWsdlLocation() {

@@ -17,7 +17,7 @@ import javax.xml.ws.ResponseWrapper;
  * Generated source version: 2.2
  * 
  */
-@WebService(name = "ScadaPrdstsService", targetNamespace = "http://service.jax.mes.org/")
+@WebService(name = "ScadaPrdstsService", targetNamespace = "http://impl.service.jax.mes.org/")
 @XmlSeeAlso({
     ObjectFactory.class
 })
@@ -32,10 +32,10 @@ public interface ScadaPrdstsService {
      */
     @WebMethod
     @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "doService", targetNamespace = "http://service.jax.mes.org/", className = "org.sunny.client.config.DoService")
-    @ResponseWrapper(localName = "doServiceResponse", targetNamespace = "http://service.jax.mes.org/", className = "org.sunny.client.config.DoServiceResponse")
-    @Action(input = "http://service.jax.mes.org/ScadaPrdstsService/doServiceRequest", output = "http://service.jax.mes.org/ScadaPrdstsService/doServiceResponse")
-    public String doService(
+    @RequestWrapper(localName = "addScadaPrdsts", targetNamespace = "http://impl.service.jax.mes.org/", className = "org.mes.jax.test.config.AddScadaPrdsts")
+    @ResponseWrapper(localName = "addScadaPrdstsResponse", targetNamespace = "http://impl.service.jax.mes.org/", className = "org.mes.jax.test.config.AddScadaPrdstsResponse")
+    @Action(input = "http://impl.service.jax.mes.org/ScadaPrdstsService/addScadaPrdstsRequest", output = "http://impl.service.jax.mes.org/ScadaPrdstsService/addScadaPrdstsResponse")
+    public String addScadaPrdsts(
         @WebParam(name = "arg0", targetNamespace = "")
         Object arg0);
 
