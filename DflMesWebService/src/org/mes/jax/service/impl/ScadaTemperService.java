@@ -1,4 +1,4 @@
-package org.mes.jax.service;
+package org.mes.jax.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,18 +7,20 @@ import javax.jws.WebService;
 
 import org.codehaus.jackson.map.ObjectMapper;
 import org.mes.jax.model.ScadaTemper;
+import org.mes.jax.service.IScadaTemperService;
 import org.mes.jax.utils.DBHelper;
 
 /**
  * 温度
+ * 
  * @author wuzhining
  *
  */
 @WebService
-public class ScadaTemperService implements IScadaWebService {
+public class ScadaTemperService implements IScadaTemperService {
 
 	@Override
-	public String doService(Object data) {
+	public String scadaTemperService(Object data) {
 		String message = null;
 		try {
 			message = addScadaTemper(data);
@@ -28,7 +30,8 @@ public class ScadaTemperService implements IScadaWebService {
 		return message;
 	}
 
-	private String addScadaTemper(Object data) {
+	@Override
+	public String addScadaTemper(Object data) {
 		List<Object> list = new ArrayList<Object>();
 		try {
 			if (data != null) {

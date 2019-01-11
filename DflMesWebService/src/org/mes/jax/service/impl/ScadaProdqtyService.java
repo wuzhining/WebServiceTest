@@ -1,4 +1,4 @@
-package org.mes.jax.service;
+package org.mes.jax.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,27 +7,31 @@ import javax.jws.WebService;
 
 import org.codehaus.jackson.map.ObjectMapper;
 import org.mes.jax.model.ScadaProdqty;
+import org.mes.jax.service.IScadaProdqtyService;
 import org.mes.jax.utils.DBHelper;
+
 /**
  * 生产数量webservice
+ * 
  * @author wuzhining
  *
  */
 @WebService
-public class ScadaProdqtyService implements IScadaWebService {
+public class ScadaProdqtyService implements IScadaProdqtyService {
 
 	@Override
-	public String doService(Object data) {
+	public String scadaProdqtyService(Object data) {
 		String message = null;
 		try {
-			message = addScadaProdQty(data);
+			message = addScadaProdqty(data);
 		} catch (Exception e) {
 			message = "提交数据时发生错误！";
 		}
 		return message;
 	}
 
-	private String addScadaProdQty(Object data) {
+	@Override
+	public String addScadaProdqty(Object data) {
 		List<Object> list = new ArrayList<Object>();
 		try {
 			if (data != null) {

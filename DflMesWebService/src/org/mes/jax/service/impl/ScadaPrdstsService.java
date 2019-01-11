@@ -1,4 +1,4 @@
-package org.mes.jax.service;
+package org.mes.jax.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +8,7 @@ import javax.jws.WebService;
 
 import org.codehaus.jackson.map.ObjectMapper;
 import org.mes.jax.model.ScadaPrdsts;
+import org.mes.jax.service.IScadaPrdstsService;
 import org.mes.jax.utils.DBHelper;
 /**
  * 生产状态webservice
@@ -15,10 +16,10 @@ import org.mes.jax.utils.DBHelper;
  *
  */
 @WebService
-public class ScadaPrdstsService implements IScadaWebService {
+public class ScadaPrdstsService implements IScadaPrdstsService {
  
-	@WebMethod
-	public String doService(Object data) {
+	@Override
+	public String scadaPrdstsService (Object data) {
 		String message=null;
 		try {
 			message=addScadaPrdsts(data);
@@ -28,7 +29,7 @@ public class ScadaPrdstsService implements IScadaWebService {
 		return message;
 	}
 
-	private String addScadaPrdsts(Object data) {
+	public String addScadaPrdsts(Object data) {
 		List<Object> list = new ArrayList<Object>();
 		try {
 			// 反序列化json字符串

@@ -1,4 +1,4 @@
-package org.mes.jax.service;
+package org.mes.jax.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,18 +8,20 @@ import javax.jws.WebService;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.mes.jax.model.ScadaPress;
 import org.mes.jax.model.ScadaTemper;
+import org.mes.jax.service.IScadaPressService;
 import org.mes.jax.utils.DBHelper;
 
 /**
  * 压力
+ * 
  * @author wuzhining
  *
  */
 @WebService
-public class ScadaPressService implements IScadaWebService {
+public class ScadaPressService implements IScadaPressService {
 
 	@Override
-	public String doService(Object data) {
+	public String scadaPressService(Object data) {
 		String message = null;
 		try {
 			message = addScadaPress(data);
@@ -29,7 +31,8 @@ public class ScadaPressService implements IScadaWebService {
 		return message;
 	}
 
-	private String addScadaPress(Object data) {
+	@Override
+	public String addScadaPress(Object data) {
 		List<Object> list = new ArrayList<Object>();
 		try {
 			if (data != null) {

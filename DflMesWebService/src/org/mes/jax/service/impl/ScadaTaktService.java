@@ -1,4 +1,4 @@
-package org.mes.jax.service;
+package org.mes.jax.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,18 +7,20 @@ import javax.jws.WebService;
 
 import org.codehaus.jackson.map.ObjectMapper;
 import org.mes.jax.model.ScadaTakt;
+import org.mes.jax.service.IScadaTaktService;
 import org.mes.jax.utils.DBHelper;
 
 /**
  * 生产节拍
+ * 
  * @author wuzhining
  *
  */
 @WebService
-public class ScadaTaktService implements IScadaWebService {
+public class ScadaTaktService implements IScadaTaktService {
 
 	@Override
-	public String doService(Object data) {
+	public String scadaTaktService(Object data) {
 		String message = null;
 		try {
 			message = addScadaTakt(data);
@@ -28,7 +30,8 @@ public class ScadaTaktService implements IScadaWebService {
 		return message;
 	}
 
-	private String addScadaTakt(Object data) {
+	@Override
+	public String addScadaTakt(Object data) {
 		List<Object> list = new ArrayList<Object>();
 		try {
 			if (data != null) {

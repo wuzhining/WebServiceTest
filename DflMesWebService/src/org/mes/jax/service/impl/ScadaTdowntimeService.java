@@ -1,4 +1,4 @@
-package org.mes.jax.service;
+package org.mes.jax.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,18 +7,20 @@ import javax.jws.WebService;
 
 import org.codehaus.jackson.map.ObjectMapper;
 import org.mes.jax.model.ScadaTdowntime;
+import org.mes.jax.service.IScadaTdowntimeService;
 import org.mes.jax.utils.DBHelper;
 
 /**
  * 总停机时长
+ * 
  * @author wuzhining
  *
  */
 @WebService
-public class ScadaTdowntimeService implements IScadaWebService {
+public class ScadaTdowntimeService implements IScadaTdowntimeService {
 
 	@Override
-	public String doService(Object data) {
+	public String scadaTdowntimeService(Object data) {
 		String message = null;
 		try {
 			message = addScadaTdowntime(data);
@@ -28,7 +30,8 @@ public class ScadaTdowntimeService implements IScadaWebService {
 		return message;
 	}
 
-	private String addScadaTdowntime(Object data) {
+	@Override
+	public String addScadaTdowntime(Object data) {
 		List<Object> list = new ArrayList<Object>();
 		try {
 			if (data != null) {
