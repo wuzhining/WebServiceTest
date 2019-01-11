@@ -56,4 +56,8 @@
 	<endpoint name='ScadaPress'
 		implementation='org.mes.jax.service.impl.ScadaPressService'
 		url-pattern='/ScadaPressService' />
+		<!-- 设备监控 -->
+	<endpoint name='MachineListener'
+		implementation='org.mes.jax.service.impl.MachineListener'
+		url-pattern='/MachineListener' />
 </endpoints>

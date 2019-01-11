@@ -12,7 +12,7 @@ import org.mes.jax.test.config.ScadaTemperServiceService;
 
 /**
  * @Author wuzhining
- * @create in 2019-1-9
+ * @create in 2019-1-11
  **/
 public class TestScadaTemperService {
 
@@ -38,6 +38,6 @@ public class TestScadaTemperService {
         result = servicePort.addScadaTemper(jsonData);
         Assert.assertNotNull("测试温度接口返回null,测试失败", result);
 //        Assert.assertEquals("数据保存成功！", result, "测试成功！");
-        System.out.println(result);
+//        System.out.println(result);
 	}
 }

@@ -12,7 +12,7 @@ import org.mes.jax.test.config.ScadaBadqtyServiceService;
 
 /**
  * @Author wuzhining
- * @create in 2019-1-9
+ * @create in 2019-1-11
  **/
 public class TestScadaBadqtyService {
 
@@ -36,6 +36,6 @@ public class TestScadaBadqtyService {
 		ScadaBadqtyService  servicePort= new ScadaBadqtyServiceService().getScadaBadqtyServicePort();
         result = servicePort.addScadaBadqty(jsonData);
         Assert.assertNotNull("测试温度接口返回null,测试失败", result);
-        System.out.println(result);
+//        System.out.println(result);
 	}
 }

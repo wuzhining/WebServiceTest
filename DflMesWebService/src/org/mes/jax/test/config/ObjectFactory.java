@@ -24,8 +24,8 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
-    private final static QName _AddScadaTprodduraResponse_QNAME = new QName("http://impl.service.jax.mes.org/", "addScadaTprodduraResponse");
-    private final static QName _AddScadaTproddura_QNAME = new QName("http://impl.service.jax.mes.org/", "addScadaTproddura");
+    private final static QName _GetMachineParam_QNAME = new QName("http://impl.service.jax.mes.org/", "getMachineParam");
+    private final static QName _GetMachineParamResponse_QNAME = new QName("http://impl.service.jax.mes.org/", "getMachineParamResponse");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: org.mes.jax.test.config
@@ -35,37 +35,37 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link AddScadaTprodduraResponse }
+     * Create an instance of {@link GetMachineParamResponse }
      * 
      */
-    public AddScadaTprodduraResponse createAddScadaTprodduraResponse() {
-        return new AddScadaTprodduraResponse();
+    public GetMachineParamResponse createGetMachineParamResponse() {
+        return new GetMachineParamResponse();
     }
 
     /**
-     * Create an instance of {@link AddScadaTproddura }
+     * Create an instance of {@link GetMachineParam }
      * 
      */
-    public AddScadaTproddura createAddScadaTproddura() {
-        return new AddScadaTproddura();
+    public GetMachineParam createGetMachineParam() {
+        return new GetMachineParam();
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link AddScadaTprodduraResponse }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetMachineParam }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://impl.service.jax.mes.org/", name = "addScadaTprodduraResponse")
-    public JAXBElement<AddScadaTprodduraResponse> createAddScadaTprodduraResponse(AddScadaTprodduraResponse value) {
-        return new JAXBElement<AddScadaTprodduraResponse>(_AddScadaTprodduraResponse_QNAME, AddScadaTprodduraResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://impl.service.jax.mes.org/", name = "getMachineParam")
+    public JAXBElement<GetMachineParam> createGetMachineParam(GetMachineParam value) {
+        return new JAXBElement<GetMachineParam>(_GetMachineParam_QNAME, GetMachineParam.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link AddScadaTproddura }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetMachineParamResponse }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://impl.service.jax.mes.org/", name = "addScadaTproddura")
-    public JAXBElement<AddScadaTproddura> createAddScadaTproddura(AddScadaTproddura value) {
-        return new JAXBElement<AddScadaTproddura>(_AddScadaTproddura_QNAME, AddScadaTproddura.class, null, value);
+    @XmlElementDecl(namespace = "http://impl.service.jax.mes.org/", name = "getMachineParamResponse")
+    public JAXBElement<GetMachineParamResponse> createGetMachineParamResponse(GetMachineParamResponse value) {
+        return new JAXBElement<GetMachineParamResponse>(_GetMachineParamResponse_QNAME, GetMachineParamResponse.class, null, value);
     }
 
 }

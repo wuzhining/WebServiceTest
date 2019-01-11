@@ -12,7 +12,7 @@ import org.mes.jax.test.config.ScadaGoodqtyServiceService;
 
 /**
  * @Author wuzhining
- * @create in 2019-1-9
+ * @create in 2019-1-11
  **/
 public class TestScadaGoodqtyService {
 
