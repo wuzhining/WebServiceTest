@@ -1,10 +1,12 @@
 package org.mes.jax.service;
 
 import javax.jws.WebMethod;
+import javax.jws.WebService;
 
-public interface IMachineListener {
+@WebService
+public interface IDflDipService {
 	@WebMethod
-	public String getMachineParam();
+	public String doService(Object data);
 	@WebMethod
 	public String StartService();
 	@WebMethod

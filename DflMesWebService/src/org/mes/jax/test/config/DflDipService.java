@@ -2,6 +2,7 @@
 package org.mes.jax.test.config;
 
 import javax.jws.WebMethod;
+import javax.jws.WebParam;
 import javax.jws.WebResult;
 import javax.jws.WebService;
 import javax.xml.bind.annotation.XmlSeeAlso;
@@ -16,12 +17,27 @@ import javax.xml.ws.ResponseWrapper;
  * Generated source version: 2.2
  * 
  */
-@WebService(name = "MachineListener", targetNamespace = "http://impl.service.jax.mes.org/")
+@WebService(name = "DflDipService", targetNamespace = "http://impl.service.jax.mes.org/")
 @XmlSeeAlso({
     ObjectFactory.class
 })
-public interface MachineListener {
+public interface DflDipService {
 
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns java.lang.String
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "doService", targetNamespace = "http://impl.service.jax.mes.org/", className = "org.mes.jax.test.config.DoService")
+    @ResponseWrapper(localName = "doServiceResponse", targetNamespace = "http://impl.service.jax.mes.org/", className = "org.mes.jax.test.config.DoServiceResponse")
+    @Action(input = "http://impl.service.jax.mes.org/DflDipService/doServiceRequest", output = "http://impl.service.jax.mes.org/DflDipService/doServiceResponse")
+    public String doService(
+        @WebParam(name = "arg0", targetNamespace = "")
+        Object arg0);
 
     /**
      * 
@@ -32,7 +48,7 @@ public interface MachineListener {
     @WebResult(targetNamespace = "")
     @RequestWrapper(localName = "StopService", targetNamespace = "http://impl.service.jax.mes.org/", className = "org.mes.jax.test.config.StopService")
     @ResponseWrapper(localName = "StopServiceResponse", targetNamespace = "http://impl.service.jax.mes.org/", className = "org.mes.jax.test.config.StopServiceResponse")
-    @Action(input = "http://impl.service.jax.mes.org/MachineListener/StopServiceRequest", output = "http://impl.service.jax.mes.org/MachineListener/StopServiceResponse")
+    @Action(input = "http://impl.service.jax.mes.org/DflDipService/StopServiceRequest", output = "http://impl.service.jax.mes.org/DflDipService/StopServiceResponse")
     public String stopService();
 
     /**
@@ -44,7 +60,7 @@ public interface MachineListener {
     @WebResult(targetNamespace = "")
     @RequestWrapper(localName = "SetTimeService", targetNamespace = "http://impl.service.jax.mes.org/", className = "org.mes.jax.test.config.SetTimeService")
     @ResponseWrapper(localName = "SetTimeServiceResponse", targetNamespace = "http://impl.service.jax.mes.org/", className = "org.mes.jax.test.config.SetTimeServiceResponse")
-    @Action(input = "http://impl.service.jax.mes.org/MachineListener/SetTimeServiceRequest", output = "http://impl.service.jax.mes.org/MachineListener/SetTimeServiceResponse")
+    @Action(input = "http://impl.service.jax.mes.org/DflDipService/SetTimeServiceRequest", output = "http://impl.service.jax.mes.org/DflDipService/SetTimeServiceResponse")
     public String setTimeService();
 
     /**
@@ -56,7 +72,7 @@ public interface MachineListener {
     @WebResult(targetNamespace = "")
     @RequestWrapper(localName = "SetTaktService", targetNamespace = "http://impl.service.jax.mes.org/", className = "org.mes.jax.test.config.SetTaktService")
     @ResponseWrapper(localName = "SetTaktServiceResponse", targetNamespace = "http://impl.service.jax.mes.org/", className = "org.mes.jax.test.config.SetTaktServiceResponse")
-    @Action(input = "http://impl.service.jax.mes.org/MachineListener/SetTaktServiceRequest", output = "http://impl.service.jax.mes.org/MachineListener/SetTaktServiceResponse")
+    @Action(input = "http://impl.service.jax.mes.org/DflDipService/SetTaktServiceRequest", output = "http://impl.service.jax.mes.org/DflDipService/SetTaktServiceResponse")
     public String setTaktService();
 
     /**
@@ -68,7 +84,7 @@ public interface MachineListener {
     @WebResult(targetNamespace = "")
     @RequestWrapper(localName = "StartService", targetNamespace = "http://impl.service.jax.mes.org/", className = "org.mes.jax.test.config.StartService")
     @ResponseWrapper(localName = "StartServiceResponse", targetNamespace = "http://impl.service.jax.mes.org/", className = "org.mes.jax.test.config.StartServiceResponse")
-    @Action(input = "http://impl.service.jax.mes.org/MachineListener/StartServiceRequest", output = "http://impl.service.jax.mes.org/MachineListener/StartServiceResponse")
+    @Action(input = "http://impl.service.jax.mes.org/DflDipService/StartServiceRequest", output = "http://impl.service.jax.mes.org/DflDipService/StartServiceResponse")
     public String startService();
 
     /**
@@ -80,7 +96,7 @@ public interface MachineListener {
     @WebResult(targetNamespace = "")
     @RequestWrapper(localName = "SetID", targetNamespace = "http://impl.service.jax.mes.org/", className = "org.mes.jax.test.config.SetID")
     @ResponseWrapper(localName = "SetIDResponse", targetNamespace = "http://impl.service.jax.mes.org/", className = "org.mes.jax.test.config.SetIDResponse")
-    @Action(input = "http://impl.service.jax.mes.org/MachineListener/SetIDRequest", output = "http://impl.service.jax.mes.org/MachineListener/SetIDResponse")
+    @Action(input = "http://impl.service.jax.mes.org/DflDipService/SetIDRequest", output = "http://impl.service.jax.mes.org/DflDipService/SetIDResponse")
     public String setID();
 
     /**
@@ -92,19 +108,7 @@ public interface MachineListener {
     @WebResult(targetNamespace = "")
     @RequestWrapper(localName = "SetIP", targetNamespace = "http://impl.service.jax.mes.org/", className = "org.mes.jax.test.config.SetIP")
     @ResponseWrapper(localName = "SetIPResponse", targetNamespace = "http://impl.service.jax.mes.org/", className = "org.mes.jax.test.config.SetIPResponse")
-    @Action(input = "http://impl.service.jax.mes.org/MachineListener/SetIPRequest", output = "http://impl.service.jax.mes.org/MachineListener/SetIPResponse")
+    @Action(input = "http://impl.service.jax.mes.org/DflDipService/SetIPRequest", output = "http://impl.service.jax.mes.org/DflDipService/SetIPResponse")
     public String setIP();
-
-    /**
-     * 
-     * @return
-     *     returns java.lang.String
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "getMachineParam", targetNamespace = "http://impl.service.jax.mes.org/", className = "org.mes.jax.test.config.GetMachineParam")
-    @ResponseWrapper(localName = "getMachineParamResponse", targetNamespace = "http://impl.service.jax.mes.org/", className = "org.mes.jax.test.config.GetMachineParamResponse")
-    @Action(input = "http://impl.service.jax.mes.org/MachineListener/getMachineParamRequest", output = "http://impl.service.jax.mes.org/MachineListener/getMachineParamResponse")
-    public String getMachineParam();
 
 }

@@ -2,7 +2,7 @@
 <endpoints
 	xmlns='http://java.sun.com/xml/ns/jax-ws/ri/runtime' version='2.0'>
 	<endpoint name='DflDip'
-		implementation='org.mes.jax.service.DflDipService'
+		implementation='org.mes.jax.service.impl.DflDipService'
 		url-pattern='/DflDipWebService' />
 		<!-- 生产状态 -->
 	<endpoint name='ScadaPrdsts'

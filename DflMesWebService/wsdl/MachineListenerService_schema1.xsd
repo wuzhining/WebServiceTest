@@ -1,9 +1,93 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <xs:schema version="1.0" targetNamespace="http://impl.service.jax.mes.org/" xmlns:tns="http://impl.service.jax.mes.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
+  <xs:element name="SetID" type="tns:SetID"/>
+
+  <xs:element name="SetIDResponse" type="tns:SetIDResponse"/>
+
+  <xs:element name="SetIP" type="tns:SetIP"/>
+
+  <xs:element name="SetIPResponse" type="tns:SetIPResponse"/>
+
+  <xs:element name="SetTaktService" type="tns:SetTaktService"/>
+
+  <xs:element name="SetTaktServiceResponse" type="tns:SetTaktServiceResponse"/>
+
+  <xs:element name="SetTimeService" type="tns:SetTimeService"/>
+
+  <xs:element name="SetTimeServiceResponse" type="tns:SetTimeServiceResponse"/>
+
+  <xs:element name="StartService" type="tns:StartService"/>
+
+  <xs:element name="StartServiceResponse" type="tns:StartServiceResponse"/>
+
+  <xs:element name="StopService" type="tns:StopService"/>
+
+  <xs:element name="StopServiceResponse" type="tns:StopServiceResponse"/>
+
   <xs:element name="getMachineParam" type="tns:getMachineParam"/>
 
   <xs:element name="getMachineParamResponse" type="tns:getMachineParamResponse"/>
+
+  <xs:complexType name="SetID">
+    <xs:sequence/>
+  </xs:complexType>
+
+  <xs:complexType name="SetIDResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="SetTimeService">
+    <xs:sequence/>
+  </xs:complexType>
+
+  <xs:complexType name="SetTimeServiceResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="StartService">
+    <xs:sequence/>
+  </xs:complexType>
+
+  <xs:complexType name="StartServiceResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="SetIP">
+    <xs:sequence/>
+  </xs:complexType>
+
+  <xs:complexType name="SetIPResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="SetTaktService">
+    <xs:sequence/>
+  </xs:complexType>
+
+  <xs:complexType name="SetTaktServiceResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="StopService">
+    <xs:sequence/>
+  </xs:complexType>
+
+  <xs:complexType name="StopServiceResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
 
   <xs:complexType name="getMachineParam">
     <xs:sequence/>
