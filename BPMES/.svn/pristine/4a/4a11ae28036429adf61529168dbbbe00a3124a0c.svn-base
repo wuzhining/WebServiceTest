@@ -1,0 +1,943 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="">
+ 
+  <!-- 查询盘点任务ID-->
+	<select id="inventoryTaskIdQuery" parameterType="hashmap" resultType="java.util.HashMap"> 
+		       select   IPLANT1.CREATE_TYPE_SN_P.GET_SN_P('B','ITN')  AS INVENTORY_TASK_ID FROM DUAL							
+	</select>
+	
+	 <!-- 查询盘点任务信息-->
+	<select id="inventoryTaskQuery" parameterType="hashmap" resultType="java.util.HashMap"> 
+		  <include refid="oraclePagingFileTop"></include>	
+		   			   t.inventory_no,
+				       t.bill_type,
+				       t1.dict_it_nm as bill_type_nm,
+				       t.inventory_id,
+				       t.status,
+				       t2.dict_it_nm as status_nm,
+				       t.store_id,
+				       t4.store_name,
+				       t.area_id,
+				       t5.area_name,
+				       t.shelf_id,
+				       t6.shelf_name,
+				       t.location_id,
+				       t7.location_name,
+				       TO_CHAR(T.INVENTORY_BEGIN, 'YYYY-MM-DD HH24:MI:SS') AS INVENTORY_BEGIN, 
+                       TO_CHAR(T.INVENTORY_END, 'YYYY-MM-DD HH24:MI:SS') AS INVENTORY_END,
+				       t3.dict_it_nm as inventory_status_nm,
+				       IPLANT1.F_GET_USER_NAME(T.CRT_ID) AS CRT_NM,
+				       TO_CHAR(t.Crt_Dt, 'YYYY-MM-DD HH24:MI:SS') AS Crt_Dt,
+				       IPLANT1.F_GET_USER_NAME(T.adt_id) AS ADT_NM,
+				       TO_CHAR(t.adt_dt, 'YYYY-MM-DD HH24:MI:SS') AS ADT_Dt 
+				  from WMS1.r_wms_inventory_t t
+				  left join WMS1.C_WMS_BASIC_DD_T T1
+				    on t.bill_type = t1.DICT_IT
+				  left join WMS1.C_WMS_BASIC_DD_T T2
+				    on t.status = t2.DICT_IT
+				  left join WMS1.C_WMS_BASIC_DD_T T3
+				    on t.inventory_status = t3.DICT_IT
+				  left join wms1.c_wms_store_t t4
+				    on t.store_id = t4.store_id
+				  left join wms1.c_wms_area_t t5
+				    on t.area_id = t5.area_id
+				  left join wms1.c_wms_shelf_t t6
+				    on t.shelf_id = t6.shelf_id
+				  left join wms1.c_wms_location_t t7
+				    on t.location_id = t7.location_id
+
+	       where 1=1
+		<if test="InventoryTaskNo !=null and InventoryTaskNo !='' ">
+			AND T.inventory_no like '%${InventoryTaskNo}%'
+		</if>
+		<if test="qStore !=null and qStore !='' ">
+			AND T.store_id = '${qStore}'
+		</if>
+		<if test="qProDtBegin !=null and qProDtBegin !='' "> AND T.CRT_DT &gt;= to_date('${qProDtBegin}','yyyy-mm-dd')</if>
+		<if test="qProDtEnd !=null and qProDtEnd !='' "> AND T.CRT_DT &lt;= to_date('${qProDtEnd}','yyyy-mm-dd') </if>
+			
+		ORDER BY T.Crt_Dt DESC
+		  <include refid="oraclePagingFileBottom"></include>
+	</select>
+	
+	
+		<!-- 查询盘点任务信息总数 -->
+	<select id="inventoryTaskQuery_COUNT" parameterType="hashmap"
+		resultType="java.util.HashMap">
+		SELECT COUNT(1) AS ROWS_COUNT from WMS1.r_wms_inventory_t t
+				  left join WMS1.C_WMS_BASIC_DD_T T1
+				    on t.bill_type = t1.DICT_IT
+				  left join WMS1.C_WMS_BASIC_DD_T T2
+				    on t.status = t2.DICT_IT
+				  left join WMS1.C_WMS_BASIC_DD_T T3
+				    on t.inventory_status = t3.DICT_IT
+				  left join wms1.c_wms_store_t t4
+				    on t.store_id = t4.store_id
+				  left join wms1.c_wms_area_t t5
+				    on t.area_id = t5.area_id
+				  left join wms1.c_wms_shelf_t t6
+				    on t.shelf_id = t6.shelf_id
+				  left join wms1.c_wms_location_t t7
+				    on t.location_id = t7.location_id
+
+	       where 1=1
+		<if test="InventoryTaskNo !=null and InventoryTaskNo !='' ">
+			AND T.inventory_no like '%${InventoryTaskNo}%'
+		</if>
+		<if test="qStore !=null and qStore !='' ">
+			AND T.store_id = '${qStore}'
+		</if>
+		<if test="qProDtBegin !=null and qProDtBegin !='' "> AND T.CRT_DT &gt;= to_date('${qProDtBegin}','yyyy-mm-dd')</if>
+		<if test="qProDtEnd !=null and qProDtEnd !='' "> AND T.CRT_DT &lt;= to_date('${qProDtEnd}','yyyy-mm-dd') </if>
+	</select>
+	
+	<!-- 查询盘点任务标签信息-->
+	<select id="inventoryTaskSnQuery" parameterType="hashmap" resultType="java.util.HashMap"> 
+		  <include refid="oraclePagingFileTop"></include>	
+				   SERIAL_NUMBER,
+			       t.material_id,
+			       t.material_name,
+			       t.cust_no,
+			       t.cust_name,
+			       t.supplier_id,
+			       t.supplier_name,
+			       t.spec_model,
+			       t.before_qty,
+			       t.inventory_qty,
+			       t.unit_id,
+			       t.unit_name,
+			       t.store_id,
+			       t4.store_name,
+			       t.area_id,
+			       t5.area_name,
+			       t.shelf_id,
+			       t6.shelf_name,
+			       t.location_id,
+			       t7.location_name,
+			       t.LOT_NO,
+			       t.CARTON_NO,
+			       TO_CHAR(t.ARRIVAL_DATE, 'YYYY-MM-DD HH24:MI:SS') AS ARRIVAL_DATE,
+			       TO_CHAR(t.PRODUCT_DATE, 'YYYY-MM-DD HH24:MI:SS') AS PRODUCT_DATE,
+			       TO_CHAR(t.VALIDITY_DATE, 'YYYY-MM-DD HH24:MI:SS') AS VALIDITY_DATE,
+			       IPLANT1.F_GET_USER_NAME(T.CRT_ID) AS CRT_NM,
+				   TO_CHAR(t.Crt_Dt, 'YYYY-MM-DD HH24:MI:SS') AS Crt_Dt
+			       
+			  from wms1.R_WMS_INVENTORY_SN_T t
+			  left join wms1.c_wms_store_t t4
+			    on t.store_id = t4.store_id
+			  left join wms1.c_wms_area_t t5
+			    on t.area_id = t5.area_id
+			  left join wms1.c_wms_shelf_t t6
+			    on t.shelf_id = t6.shelf_id
+			  left join wms1.c_wms_location_t t7
+			    on t.location_id = t7.location_id
+			    where  1=1
+			AND T.INVENTORY_NO = '${INVENTORY_NO}'
+		  <include refid="oraclePagingFileBottom"></include>
+	</select>
+	
+	
+		<!-- 查询盘点任务标签信息总数 -->
+	<select id="inventoryTaskSnQuery_COUNT" parameterType="hashmap"
+		resultType="java.util.HashMap">
+		SELECT COUNT(1) AS ROWS_COUNT from wms1.R_WMS_INVENTORY_SN_T t
+         		 
+          	     where 1=1
+			AND T.INVENTORY_NO = '${INVENTORY_NO}'
+	</select>
+	
+	<!-- 查询盘点任务明细信息-->
+	<select id="inventoryDetailQuery" parameterType="hashmap" resultType="java.util.HashMap"> 
+		  <include refid="oraclePagingFileTop"></include>	
+				   t.material_id,
+			       t.material_name,
+			       t.cust_no,
+			       t.cust_name,
+			       t.supplier_id,
+			       t.supplier_name,
+			       t.spec_model,
+			       t.before_qty,
+			       t.inventory_qty,
+			       t.unit_id,
+			       t.unit_name,
+			       t.store_id,
+			       t4.store_name,
+			       t.area_id,
+			       t5.area_name,
+			       t.shelf_id,
+			       t6.shelf_name,
+			       t.location_id,
+			       t7.location_name,
+			       IPLANT1.F_GET_USER_NAME(T.CRT_ID) AS CRT_NM,
+				   TO_CHAR(t.Crt_Dt, 'YYYY-MM-DD HH24:MI:SS') AS Crt_Dt
+			       
+			  from wms1.r_wms_inventory_detail_t t
+			  left join wms1.c_wms_store_t t4
+			    on t.store_id = t4.store_id
+			  left join wms1.c_wms_area_t t5
+			    on t.area_id = t5.area_id
+			  left join wms1.c_wms_shelf_t t6
+			    on t.shelf_id = t6.shelf_id
+			  left join wms1.c_wms_location_t t7
+			    on t.location_id = t7.location_id
+			    where  1=1
+			AND T.INVENTORY_NO = '${INVENTORY_NO}'
+		  <include refid="oraclePagingFileBottom"></include>
+	</select>
+	
+	<!-- 查询盘点任务明细信息分页总数 -->
+	<select id="inventoryDetailQuery_COUNT" parameterType="hashmap"
+		resultType="java.util.HashMap">
+		SELECT COUNT(1) AS ROWS_COUNT from wms1.r_wms_inventory_detail_t t
+			   
+			    where  1=1
+			AND T.INVENTORY_NO = '${INVENTORY_NO}'
+		
+	</select>
+	
+		<!-- 新增盘点任务-->
+	 <select id="InsertInvTask" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap">	
+		{call IPLANT1.WMS_INVENTORY_MANAGE.INVENTORY_INSERT('${InventoryTaskId}','${InvPlanId}','${InvStore}','${InvArea}','${InvShelf}','${InvLocation}','${F_USE_CD}',
+					#{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=InvCheckInResult},
+    				#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, 
+    				#{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},
+    				#{ROWS_COUNT,jdbcType=INTEGER,mode=OUT,javaType=Integer})}
+	
+  	</select>
+  	
+  <!-- 审核盘点任务-->
+	 <select id="CheckInvTask" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap">	
+		{call IPLANT1.WMS_INVENTORY_MANAGE.wms_inventoryTask_CHECK('${INVENTORY_TASK_ID}',
+					#{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=InvCheckInResult},
+    				#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, 
+    				#{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},
+    				#{ROWS_COUNT,jdbcType=INTEGER,mode=OUT,javaType=Integer})}
+	
+  	</select>
+  
+  	<!-- 删除盘点任务 -->
+	<delete id="DeleteInvTask" parameterType="hashmap" >
+		BEGIN
+		DELETE FROM WMS1.R_WMS_INVENTORY_T T1 WHERE T1.INVENTORY_NO = '${INVENTORY_NO}';
+		DELETE FROM WMS1.R_WMS_INVENTORY_DETAIL_T T2 WHERE T2.INVENTORY_NO = '${INVENTORY_NO}';
+		DELETE FROM WMS1.R_WMS_INVENTORY_SN_T T3 WHERE T3.INVENTORY_NO = '${INVENTORY_NO}';
+		DELETE FROM WMS1.R_WMS_INVENTORY_CARTON_T T4 WHERE T4.INVENTORY_NO = '${INVENTORY_NO}';
+		END;
+	</delete>   
+	
+	<!-- 查询盘点计划-->
+	<select id="queryInvPlan" parameterType="hashmap" resultType="java.util.HashMap"> 
+		  <include refid="oraclePagingFileTop"></include>	
+			   t.inventory_id,
+		       t.inventory_type,
+		       T.INVENTORY_STORE,
+       		   T4.STORE_NAME AS INVENTORY_STORE_NAME,
+		       t3.dict_it_nm as inventory_type_nm,
+		       TO_CHAR(t.begin_date,'YYYY-MM-DD HH24:MI:SS') AS begin_date,
+		       TO_CHAR(t.end_date,'YYYY-MM-DD HH24:MI:SS') AS end_date,
+		       IPLANT1.F_GET_USER_NAME(T.CRT_ID) AS CRT_NM,
+		       TO_CHAR(t.Crt_Dt,'YYYY-MM-DD HH24:MI:SS') AS Crt_Dt
+       
+			   from wms1.R_WMS_INVENTORY_PLAN_T t
+			   LEFT JOIN WMS1.C_WMS_BASIC_DD_T T3
+			     ON T.INVENTORY_TYPE = T3.DICT_IT
+			   LEFT JOIN WMS1.C_WMS_STORE_T T4
+			     ON T.INVENTORY_STORE=T4.STORE_ID
+	       where 1=1
+		<if test="InventoryPlanNo !=null and InventoryPlanNo !='' ">
+			AND T.inventory_id like '%${InventoryPlanNo}%'
+		</if>
+		<if test="qStore !=null and qStore !='' ">
+			AND T.INVENTORY_STORE = '${qStore}'
+		</if>
+		order by t.Crt_Dt desc
+		<if test="qProDtBegin !=null and qProDtBegin !='' "> AND T.CRT_DT &gt;= to_date('${qProDtBegin}','yyyy-mm-dd')</if>
+		<if test="qProDtEnd !=null and qProDtEnd !='' "> AND T.CRT_DT &lt;= to_date('${qProDtEnd}','yyyy-mm-dd') </if>
+			
+		  <include refid="oraclePagingFileBottom"></include>
+	</select>
+	<!-- 查询盘点计划信息分页总数 -->
+	<select id="queryInvPlan_COUNT" parameterType="hashmap"
+		resultType="java.util.HashMap">
+		SELECT COUNT(1) AS ROWS_COUNT from wms1.R_WMS_INVENTORY_PLAN_T t
+			   LEFT JOIN WMS1.C_WMS_BASIC_DD_T T3
+			     ON T.INVENTORY_TYPE = T3.DICT_IT
+			   LEFT JOIN WMS1.C_WMS_STORE_T T4
+			     ON T.INVENTORY_STORE=T4.STORE_ID
+	       where 1=1
+		<if test="InventoryPlanNo !=null and InventoryPlanNo !='' ">
+			AND T.inventory_id like '%${InventoryPlanNo}%'
+		</if>
+		<if test="qStore !=null and qStore !='' ">
+			AND T.INVENTORY_STORE = '${qStore}'
+		</if>
+		<if test="qProDtBegin !=null and qProDtBegin !='' "> AND T.CRT_DT &gt;= to_date('${qProDtBegin}','yyyy-mm-dd')</if>
+		<if test="qProDtEnd !=null and qProDtEnd !='' "> AND T.CRT_DT &lt;= to_date('${qProDtEnd}','yyyy-mm-dd') </if>
+	</select>
+	
+	
+	<!-- 新增盘点计划-->
+	<insert id="addInvPlan" parameterType="java.util.List" > 
+		    insert into wms1.r_wms_inventory_plan_t
+			  (inventory_id, inventory_type, inventory_store, begin_date, end_date, crt_id, crt_dt)
+			values
+			 ('${INVENTORY_ID}', '${INVENTORY_TYPE}', '${INVENTORY_STORE}', to_date('${START_DATE}','yyyy-mm-dd hh24:mi:ss'), to_date('${END_DATE}','yyyy-mm-dd hh24:mi:ss'), '${F_USE_CD}', sysdate)	
+	</insert>
+	 <!-- 查询盘点计划ID-->
+	<select id="queryInvPlanId" parameterType="hashmap" resultType="java.util.HashMap"> 
+		         select   IPLANT1.CREATE_TYPE_SN_P.GET_SN_P('B','ITP')  AS InvPlan_No FROM DUAL					
+	</select>
+	<!-- 查询下拉盘点类型-->
+	<select id="queryComboxInvType" parameterType="hashmap" resultType="java.util.HashMap"> 
+		SELECT T1.DICT_IT as INVENTORY_TYPE, T1.DICT_IT_NM as INVENTORY_TYPE_NAME
+		  FROM WMS1.C_WMS_BASIC_DD_T T1
+		 WHERE 1 = 1
+		   AND T1.DICT_CD = 'WINVENTORY'
+			
+	</select>
+	<!-- 查询下拉盘点状态-->
+	<select id="queryComboxInvStatus" parameterType="hashmap" resultType="java.util.HashMap"> 
+			SELECT T1.DICT_IT AS INVENTORY_STATUS, T1.DICT_IT_NM AS INVENTORY_STATUS_NAME
+			  FROM WMS1.C_WMS_BASIC_DD_T T1
+			 WHERE 1 = 1
+			   AND T1.DICT_CD = 'WINVENTORYSTATUS'
+	</select>
+	<!-- 查询下拉盘点计划ID-->
+	<select id="queryComboxInvPlan" parameterType="hashmap" resultType="java.util.HashMap"> 
+			SELECT T.INVENTORY_ID,t.inventory_store FROM WMS1.R_WMS_INVENTORY_PLAN_T T 
+            WHERE T.END_DATE >= SYSDATE
+	</select>
+	<!-- 根据盘点计划单号查询所选盘点仓库信息-->
+	<select id="queryStoreInvPlan" parameterType="hashmap" resultType="java.util.HashMap"> 
+			SELECT T.STORE_ID, T.STORE_NAME
+             FROM WMS1.C_WMS_STORE_T T
+            WHERE t.store_id = (SELECT t1.INVENTORY_STORE
+                                  FROM WMS1.R_WMS_INVENTORY_PLAN_T T1
+                                 where t1.inventory_id = '${INVENTORY_ID}')
+	</select>
+	<!-- 删除盘点计划 -->
+	<select id="DeleteInvPlan" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap" >
+		{call IPLANT1.WMS_INVENTORY_MANAGE.INVENTORY_PLAN_DEL('${InvPlanId}',
+					#{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=InvCheckInResult},
+    				#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, 
+    				#{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},
+    				#{ROWS_COUNT,jdbcType=INTEGER,mode=OUT,javaType=Integer})}
+	</select>   
+    <!-- pda查询盘点任务信息-->
+	<select id="inventoryTaskPda" parameterType="hashmap" resultType="java.util.HashMap"> 
+         SELECT		     T.INVENTORY_NO,
+						 T.AREA_ID,
+						 T5.AREA_NAME,
+						 T.SHELF_ID,
+						 T6.SHELF_NAME,
+						 T.LOCATION_ID,
+						 T7.LOCATION_NAME
+						
+						  FROM WMS1.R_WMS_INVENTORY_T T
+						  LEFT JOIN WMS1.C_WMS_AREA_T T5
+						    ON T.AREA_ID = T5.AREA_ID
+						  LEFT JOIN WMS1.C_WMS_SHELF_T T6
+						    ON T.SHELF_ID = T6.SHELF_ID
+						  LEFT JOIN WMS1.C_WMS_LOCATION_T T7
+						    ON T.LOCATION_ID = T7.LOCATION_ID
+						 WHERE 1 = 1
+						   AND T.STATUS <![CDATA[<>]]> 'WORDERSTATUS-03'
+						   AND T.STORE_ID  = '${STORE_ID}'
+	</select>
+	<!-- pda根据货位查询盘点单下所有该货位的物料条码信息-->
+	<select id="inventoryTaskSnPda" parameterType="hashmap" resultType="java.util.HashMap"> 
+				  select   t.SERIAL_NUMBER,
+					       t.before_qty,
+					       t.inventory_qty,
+					       t.unit_name,
+					       t.LOT_NO,
+					       t.CARTON_NO,
+					       t.AREA_ID,
+                 	      (CASE WHEN t.location_id is null then 'N/A' ELSE t.location_id END) AS LOCATION_ID
+					  from wms1.R_WMS_INVENTORY_SN_T t
+					 where 1 = 1
+		<if test="INVENTORY_NO !=null and INVENTORY_NO !='' ">
+			AND T.INVENTORY_NO = '${INVENTORY_NO}'
+		</if>
+		<if test="LOCATION_ID !=null and LOCATION_ID !='' ">
+			AND T.location_id = '${LOCATION_ID}'
+		</if>
+		<if test="AREA_ID !=null and AREA_ID !='' ">
+			AND T.AREA_ID = '${AREA_ID}'
+		</if>
+		<if test="MATERIAL_ID !=null and MATERIAL_ID !='' ">
+			AND T.MATERIAL_ID = '${MATERIAL_ID}'
+		</if>
+	</select>
+	<!-- pda根据货位查询盘点单下所有该货位的物料明细信息-->
+	<select id="inventoryTaskDetailPda" parameterType="hashmap" resultType="java.util.HashMap"> 
+	     select   t.material_id,
+                  t.material_name,   
+                  SUM(t.before_qty) AS before_qty,
+                  SUM(t.inventory_qty) AS inventory_qty,
+                  t.unit_name
+                 
+                  from wms1.R_WMS_INVENTORY_DETAIL_T t
+                  where 1 = 1
+		<if test="INVENTORY_NO !=null and INVENTORY_NO !='' ">
+			AND T.INVENTORY_NO = '${INVENTORY_NO}'
+		</if>
+		<if test="LOCATION_ID !=null and LOCATION_ID !='' ">
+			AND T.location_id = '${LOCATION_ID}'
+		</if>
+		<if test="AREA_ID !=null and AREA_ID !='' ">
+			AND T.AREA_ID = '${AREA_ID}'
+		</if>
+		 GROUP BY t.material_id, t.material_name, t.unit_name
+	</select>
+	 <!-- pda扫描标签进行盘点-->
+	 <select id="InvBarcodePda" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap">	
+		{call IPLANT1.WMS_INVENTORY_MANAGE.INVENTORY_INV('${INVENTORYTASKID}','${INVBARCORE}','${USERID}',
+					#{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=InvCheckInResult},
+    				#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, 
+    				#{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},
+    				#{ROWS_COUNT,jdbcType=INTEGER,mode=OUT,javaType=Integer})}
+	
+  	</select>
+  	
+  	 <resultMap id="InvCheckInResult" type="java.util.HashMap">
+			<result property="SERIAL_NUMBER" column="SERIAL_NUMBER"/>
+			<result property="MATERIAL_ID" column="MATERIAL_ID"/>
+			<result property="LOCATION_ID" column="LOCATION_ID"/>
+			<result property="QTY" column="QTY"/>
+	</resultMap>
+	  	 
+	
+	
+    <!-- pda修改盘点单标签盘点数量-->
+	 
+	<select id="InvQtyPdaUpdate" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap">	
+		{call IPLANT1.WMS_INVENTORY_MANAGE.INVENTORY_UPQTY('${INVENTORY_NO}','${INVENTORYQTY}','${SERIALNUMBER}','${USERID}',
+					#{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=InvCheckInResult},
+    				#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, 
+    				#{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},
+    				#{ROWS_COUNT,jdbcType=INTEGER,mode=OUT,javaType=Integer})}
+	
+  	</select>
+	<!-- pda修改货位或者区域的盘点明细状态-->
+	<update id="InvStaPdaUpdate" parameterType="hashmap">
+	    begin
+	    update WMS1.r_wms_inventory_t t set t.inventory_status='WINVENTORYSTATUS-02',ADT_ID='${USERID}',ADT_DT=SYSDATE where t.inventory_no='${INVENTORY_NO}';
+		update wms1.R_WMS_INVENTORY_DETAIL_T set STATUS=1   
+		where INVENTORY_NO='${INVENTORY_NO}'  
+		<if test="LOCATION_ID !=null and LOCATION_ID !='' ">
+			AND location_id = '${LOCATION_ID}'
+		</if>
+		<if test="AREA_ID !=null and AREA_ID !='' ">
+			AND AREA_ID = '${AREA_ID}'
+		</if>;
+		end;
+		</update>
+	<!--pda盘点结束(修改盘点状态)-->
+	<update id="InvEndPdaUpdate" parameterType="hashmap">
+		update wms1.R_WMS_INVENTORY_DETAIL_T set STATUS=2   
+		where INVENTORY_NO='${INVENTORY_NO}'  
+		<if test="LOCATION_ID !=null and LOCATION_ID !='' ">
+			AND location_id = '${LOCATION_ID}'
+		</if>
+		<if test="AREA_ID !=null and AREA_ID !='' ">
+			AND AREA_ID = '${AREA_ID}'
+		</if>
+	</update>
+	<!-- 查询当前盘点时间之前仓库所有未处理完入库单-->
+	<select id="InvInStoreQuery" parameterType="hashmap" resultType="java.util.HashMap"> 
+	<include refid="oraclePagingFileTop"></include>	
+	 		    a.bill_id,a.bill_type_nm,a.stauts_nm,a.crt_dt from ( select
+		        distinct (t.instore_no) as bill_id,
+                t2.dict_it_nm as bill_type_nm,
+                t3.dict_it_nm as stauts_nm,
+                TO_CHAR(t1.crt_dt, 'YYYY-MM-DD HH24:MI:SS') as crt_dt
+		  from wms1.R_WMS_INSTORE_DETAIL_T t
+		  left join wms1.R_WMS_INSTORE_T t1
+		    on t1.instore_no = t.instore_no
+		  left join WMS1.C_WMS_BASIC_DD_T T2
+		    on t1.bill_type = t2.DICT_IT
+		  left join WMS1.C_WMS_BASIC_DD_T T3
+    		on t1.status = t3.DICT_IT
+		  <where>1=1
+		    and t1.status <![CDATA[<>]]> 'WORDERSTATUS-03'
+		   <if test="STROE_ID !=null and STROE_ID !='' ">AND t.store_id = '${STROE_ID}'</if>
+		  <if test="STARTDATE !=null and STARTDATE !='' ">and t1.crt_dt <![CDATA[<]]> to_date('${STARTDATE}', 'YYYY-MM-DD HH24:MI:SS')</if>
+		  </where>
+		   ) A  order by a.crt_dt desc
+		   <include refid="oraclePagingFileBottom"></include>
+	</select>
+	<select id="InvInStoreQuery_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+	    select sum(A.ROWS_COUNT) AS ROWS_COUNT
+  		from (SELECT COUNT(1) AS ROWS_COUNT from wms1.R_WMS_INSTORE_DETAIL_T t
+		  left join wms1.R_WMS_INSTORE_T t1
+		  on t1.instore_no = t.instore_no
+	   <where>1=1
+		   <if test="STROE_ID !=null and STROE_ID !='' ">AND t.store_id = '${STROE_ID}'</if>
+		  <if test="STARTDATE !=null and STARTDATE !='' ">and t1.crt_dt <![CDATA[<]]> to_date('${STARTDATE}', 'YYYY-MM-DD HH24:MI:SS')</if>
+		  </where>
+      	) A
+	</select>
+	<!-- 查询当前盘点时间之前仓库所有未处理完出库单-->
+	<select id="InvOutStoreQuery" parameterType="hashmap" resultType="java.util.HashMap"> 
+	<include refid="oraclePagingFileTop"></include>	
+	                   a.bill_id,a.bill_type_nm,a.stauts_nm,a.crt_dt from ( select
+		               t.prodpicking_no as bill_id,
+      
+				       t2.dict_it_nm as bill_type_nm,
+				       t3.dict_it_nm as STAUTS_NM,
+				       TO_CHAR(t.crt_dt, 'YYYY-MM-DD HH24:MI:SS') as crt_dt
+				  from wms1.R_WMS_PROPICKING_T t
+				  left join WMS1.C_WMS_BASIC_DD_T T2
+				    on t.bill_type = t2.DICT_IT
+				  left join WMS1.C_WMS_BASIC_DD_T T3
+				    on t.status = t3.DICT_IT
+				  where t.status <![CDATA[<>]]> 'WORDERSTATUS-03' 
+				   <if test="STROE_ID !=null and STROE_ID !='' ">AND t.store_id = '${STROE_ID}'</if>
+		  		   <if test="STARTDATE !=null and STARTDATE !='' ">and t.crt_dt <![CDATA[<]]> to_date('${STARTDATE}', 'YYYY-MM-DD HH24:MI:SS')</if> 
+				union all
+				
+				select t.NPICKING_NO as bill_id,
+				      
+				       t2.dict_it_nm as bill_type_nm,
+				       t3.dict_it_nm as STAUTS_NM,
+				       TO_CHAR(t.crt_dt, 'YYYY-MM-DD HH24:MI:SS') as crt_dt
+				  from wms1.R_WMS_NPICKING_T t
+				  left join WMS1.C_WMS_BASIC_DD_T T2
+				    on t.bill_type = t2.DICT_IT
+				  left join WMS1.C_WMS_BASIC_DD_T T3
+				    on t.status = t3.DICT_IT
+				  where t.status <![CDATA[<>]]> 'WORDERSTATUS-03'  
+		          <if test="STROE_ID !=null and STROE_ID !='' ">AND t.store_id = '${STROE_ID}'</if>
+		  		  <if test="STARTDATE !=null and STARTDATE !='' ">and t.crt_dt <![CDATA[<]]> to_date('${STARTDATE}', 'YYYY-MM-DD HH24:MI:SS')</if> 
+		   ) A  order by a.crt_dt desc
+		   <include refid="oraclePagingFileBottom"></include>
+		         
+	</select>
+	<select id="InvOutStoreQuery_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+	    select sum(A.ROWS_COUNT) AS ROWS_COUNT
+  		from (SELECT COUNT(1) AS ROWS_COUNT from wms1.R_WMS_PROPICKING_T  t
+	   <where>1=1
+	   and t.status <![CDATA[<>]]> 'WORDERSTATUS-03' 
+		   <if test="STROE_ID !=null and STROE_ID !='' ">AND t.store_id = '${STROE_ID}'</if>
+		  <if test="STARTDATE !=null and STARTDATE !='' ">and t.crt_dt <![CDATA[<]]> to_date('${STARTDATE}', 'YYYY-MM-DD HH24:MI:SS')</if>
+		  </where>
+	    union all 
+	    SELECT COUNT(1) AS ROWS_COUNT from wms1.R_WMS_NPICKING_T t
+		 
+	    <where>1=1
+	    and t.status <![CDATA[<>]]> 'WORDERSTATUS-03' 
+		   <if test="STROE_ID !=null and STROE_ID !='' ">AND t.store_id = '${STROE_ID}'</if>
+		  <if test="STARTDATE !=null and STARTDATE !='' ">and t.crt_dt <![CDATA[<]]> to_date('${STARTDATE}', 'YYYY-MM-DD HH24:MI:SS')</if>
+		  </where>
+      	) A
+	</select>
+	<!-- 查询当前盘点时间之前仓库所有未处理完退货单-->
+	<select id="InvReturnQuery" parameterType="hashmap" resultType="java.util.HashMap"> 
+	<include refid="oraclePagingFileTop"></include>	
+	                   a.bill_id,a.bill_type_nm,a.stauts_nm,a.crt_dt from (  select
+		               distinct (t.REJECT_NO) as BILL_ID,
+                	   t1.status,
+		                t2.dict_it_nm as bill_type_nm,
+		                t3.dict_it_nm as stauts_nm,
+		                t.store_id,
+		                TO_CHAR(t1.crt_dt, 'YYYY-MM-DD HH24:MI:SS') as crt_dt
+				  from wms1.R_WMS_REJECT_DETAIL_T t
+				  left join wms1.R_WMS_REJECT_T t1
+				    on t1.REJECT_NO = t.REJECT_NO
+				  left join WMS1.C_WMS_BASIC_DD_T T2
+				    on t1.bill_type = t2.DICT_IT
+				  left join WMS1.C_WMS_BASIC_DD_T T3
+				    on t1.status = t3.DICT_IT
+				 WHERE 1 = 1
+				 and  t1.status <![CDATA[<>]]> 'WORDERSTATUS-03' 
+		  		   <if test="STARTDATE !=null and STARTDATE !='' ">and t1.crt_dt <![CDATA[<]]> to_date('${STARTDATE}', 'YYYY-MM-DD HH24:MI:SS')</if> 
+				) A  order by a.crt_dt desc
+		   <include refid="oraclePagingFileBottom"></include>
+		         
+	</select>
+		
+	<select id="InvReturnQuery_COUNT" parameterType="hashmap"
+		resultType="java.util.HashMap">
+		SELECT COUNT(1) AS ROWS_COUNT  from wms1.R_WMS_REJECT_DETAIL_T t
+				  left join wms1.R_WMS_REJECT_T t1
+				    on t1.REJECT_NO = t.REJECT_NO
+	       where 1=1
+	       and  t1.status <![CDATA[<>]]> 'WORDERSTATUS-03' 
+		  		   <if test="STARTDATE !=null and STARTDATE !='' ">and t1.crt_dt <![CDATA[<]]> to_date('${STARTDATE}', 'YYYY-MM-DD HH24:MI:SS')</if> 
+	</select>
+	<!-- 查询当前盘点时间之前仓库所有未处理完退料单-->
+	<select id="InvReturnMatQuery" parameterType="hashmap" resultType="java.util.HashMap"> 
+	<include refid="oraclePagingFileTop"></include>	
+	                   a.bill_id,a.bill_type_nm,a.stauts_nm,a.crt_dt from (    select
+		               distinct (t.RETURN_NO) as BILL_ID,
+		                     t1.status,
+		                    t2.dict_it_nm as bill_type_nm,
+		                    t3.dict_it_nm as stauts_nm,
+		                    t.store_id,
+		                    TO_CHAR(t1.crt_dt, 'YYYY-MM-DD HH24:MI:SS') as crt_dt
+		          from wms1.R_KITTING_RETURN_DETAIL_T t
+		          left join wms1.R_KITTING_RETURN_T t1
+		            on t1.RETURN_NO = t.RETURN_NO
+		          left join WMS1.C_WMS_BASIC_DD_T T2
+		            on t1.bill_type = t2.DICT_IT
+		          left join WMS1.C_WMS_BASIC_DD_T T3
+		            on t1.status = t3.DICT_IT
+		         WHERE 1 = 1
+				 and  t1.status <![CDATA[<>]]> 'WORDERSTATUS-03' 
+				 <if test="STROE_ID !=null and STROE_ID !='' ">AND t.store_id = '${STROE_ID}'</if>
+		  		   <if test="STARTDATE !=null and STARTDATE !='' ">and t1.crt_dt <![CDATA[<]]> to_date('${STARTDATE}', 'YYYY-MM-DD HH24:MI:SS')</if> 
+			      ) A  order by a.crt_dt desc	
+		   <include refid="oraclePagingFileBottom"></include>
+	</select>
+		
+	<select id="InvReturnMatQuery_COUNT" parameterType="hashmap"
+		resultType="java.util.HashMap">
+		SELECT COUNT(1) AS ROWS_COUNT from(select distinct (t.RETURN_NO) from wms1.R_KITTING_RETURN_DETAIL_T t
+		          left join wms1.R_KITTING_RETURN_T t1
+		            on t1.RETURN_NO = t.RETURN_NO
+	       where 1=1
+	       and  t1.status <![CDATA[<>]]> 'WORDERSTATUS-03' 
+	       <if test="STROE_ID !=null and STROE_ID !='' ">AND t.store_id = '${STROE_ID}'</if>
+		  		   <if test="STARTDATE !=null and STARTDATE !='' ">and t1.crt_dt <![CDATA[<]]> to_date('${STARTDATE}', 'YYYY-MM-DD HH24:MI:SS')</if> 
+		  		   )
+	</select>
+	<!-- 查询当前盘点时间之前仓库所有未处理完调拨单-->
+	<select id="InvAllocationQuery" parameterType="hashmap" resultType="java.util.HashMap"> 
+	<include refid="oraclePagingFileTop"></include>	
+	             a.bill_id,a.bill_type_nm,a.stauts_nm,a.crt_dt from ( select
+		        distinct (t.ALLOCATE_NO) as bill_id,
+                                t2.dict_it_nm as bill_type_nm,
+                                t3.dict_it_nm as stauts_nm,
+                                
+                                TO_CHAR(t1.crt_dt, 'YYYY-MM-DD HH24:MI:SS') as crt_dt
+                  from wms1.R_WMS_ALLOCATE_DETAIL_T t
+                  left join wms1.R_WMS_ALLOCATE_T t1
+                    on t1.ALLOCATE_NO = t.ALLOCATE_NO
+                  left join WMS1.C_WMS_BASIC_DD_T T2
+                    on t1.bill_type = t2.DICT_IT
+                  left join WMS1.C_WMS_BASIC_DD_T T3
+                    on t1.status = t3.DICT_IT
+		  <where>1=1
+		    and t1.status <![CDATA[<>]]> 'WORDERSTATUS-03'
+		   <if test="STROE_ID !=null and STROE_ID !='' ">AND t.store_id = '${STROE_ID}'</if>
+		  <if test="STARTDATE !=null and STARTDATE !='' ">and t1.crt_dt <![CDATA[<]]> to_date('${STARTDATE}', 'YYYY-MM-DD HH24:MI:SS')</if>
+		  </where>
+		        ) A  order by a.crt_dt desc
+		   <include refid="oraclePagingFileBottom"></include>
+	</select>
+	<select id="InvAllocationQuery_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+	    select sum(A.ROWS_COUNT) AS ROWS_COUNT
+  		from (SELECT COUNT(1) AS ROWS_COUNT from wms1.R_WMS_ALLOCATE_DETAIL_T t
+                  left join wms1.R_WMS_ALLOCATE_T t1
+                    on t1.ALLOCATE_NO = t.ALLOCATE_NO
+	   <where>1=1
+		   <if test="STROE_ID !=null and STROE_ID !='' ">AND t.store_id = '${STROE_ID}'</if>
+		  <if test="STARTDATE !=null and STARTDATE !='' ">and t1.crt_dt <![CDATA[<]]> to_date('${STARTDATE}', 'YYYY-MM-DD HH24:MI:SS')</if>
+		  </where>
+	     
+      	) A
+	</select>
+	<!-- 盘点任务审核-->
+	<update id="InvTaskCheck" parameterType="hashmap">
+		update wms1.R_WMS_INVENTORY_T set STATUS='WORDERSTATUS-02' 
+		where 1=1 
+		<if test="INVENTORY_NO !=null and INVENTORY_NO !='' ">
+			AND INVENTORY_NO = '${INVENTORY_NO}'  
+		</if>
+	</update>
+	<!-- 盘点任务结束-->
+	<update id="InvTaskEnd" parameterType="hashmap">
+		update wms1.R_WMS_INVENTORY_T set STATUS='WORDERSTATUS-03' 
+		where 1=1 
+		<if test="INVENTORY_NO !=null and INVENTORY_NO !='' ">
+			AND INVENTORY_NO = '${INVENTORY_NO}'  
+		</if>
+	</update>
+	
+	
+     <!-- 盘点盈亏结算-->
+	 <select id="InvBreakeven" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap">	
+		{call IPLANT1.WMS_INVENTORY_MANAGE.INVENTORY_BREAKEVEN('${INVENTORY_NO}','${F_USE_CD}',
+					#{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=InvCheckInResult},
+    				#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, 
+    				#{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},
+    				#{ROWS_COUNT,jdbcType=INTEGER,mode=OUT,javaType=Integer})}
+	
+  	</select>
+  	<!-- 盘点明细查询(盘点入库与盘点出库单)-->
+	<select id="InvInOutStore" parameterType="hashmap" resultType="java.util.HashMap"> 
+		   <include refid="oraclePagingFileTop"></include>
+		     T.INSTORE_NO AS BILL_ID,T4.DICT_IT_NM AS BILL_TYPE_NM,T3.DICT_IT_NM AS STATUSNM,T.SOURCE_NO,IPLANT1.F_GET_USER_NAME(T.CRT_ID) as CRT_ID,to_char(T.CRT_DT,'yyyy-mm-dd') as CRT_DT FROM WMS1.R_WMS_INSTORE_T T 
+	         LEFT JOIN WMS1.C_WMS_BASIC_DD_T T3
+					 ON T.STATUS = T3.DICT_IT
+	         LEFT JOIN WMS1.C_WMS_BASIC_DD_T T4
+					 ON T.BILL_TYPE = T4.DICT_IT
+	         WHERE T.BILL_TYPE='WMINSTORE-07' 
+	         <if test="InvDetailsNo !=null and InvDetailsNo !='' ">AND t.instore_no like '${InvDetailsNo}%'</if>
+	         <if test="qProDtBegin !=null and qProDtBegin !='' "> AND T.CRT_DT &gt;= to_date('${qProDtBegin}','yyyy-mm-dd')</if>
+			 <if test="qProDtEnd !=null and qProDtEnd !='' "> AND T.CRT_DT &lt;= to_date('${qProDtEnd}','yyyy-mm-dd') </if>
+	         union all
+	         
+	         SELECT T1.NPICKING_NO,T4.DICT_IT_NM AS BILL_TYPE_NM,T3.DICT_IT_NM AS STATUSNM,T1.SOURCE_NO,IPLANT1.F_GET_USER_NAME(T1.CRT_ID) as CRT_ID,to_char(T1.CRT_DT,'yyyy-mm-dd') as CRT_DT  FROM WMS1.R_WMS_NPICKING_T T1
+	         LEFT JOIN WMS1.C_WMS_BASIC_DD_T T3
+					 ON T1.STATUS = T3.DICT_IT
+	         LEFT JOIN WMS1.C_WMS_BASIC_DD_T T4
+					 ON T1.BILL_TYPE = T4.DICT_IT 
+	         WHERE T1.BILL_TYPE='WOUTSTORE-07' 
+         
+	         <if test="InvDetailsNo !=null and InvDetailsNo !='' ">AND t1.npicking_no like '${InvDetailsNo}%'</if>
+	         <if test="qProDtBegin !=null and qProDtBegin !='' "> AND T1.CRT_DT &gt;= to_date('${qProDtBegin}','yyyy-mm-dd')</if>
+		<if test="qProDtEnd !=null and qProDtEnd !='' "> AND T1.CRT_DT &lt;= to_date('${qProDtEnd}','yyyy-mm-dd') </if>
+		   <include refid="oraclePagingFileBottom"></include>
+	</select>
+	<select id="InvInOutStore_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+	select COUNT(1) AS ROWS_COUNT
+  		from (select 
+  		T.INSTORE_NO AS BILL_ID,T4.DICT_IT_NM AS BILL_TYPE_NM,T3.DICT_IT_NM AS STATUSNM,T.SOURCE_NO,IPLANT1.F_GET_USER_NAME(T.CRT_ID) as CRT_ID,to_char(T.CRT_DT,'yyyy-mm-dd') as CRT_DT FROM WMS1.R_WMS_INSTORE_T T 
+	         LEFT JOIN WMS1.C_WMS_BASIC_DD_T T3
+					 ON T.STATUS = T3.DICT_IT
+	         LEFT JOIN WMS1.C_WMS_BASIC_DD_T T4
+					 ON T.BILL_TYPE = T4.DICT_IT
+	         WHERE T.BILL_TYPE='WMINSTORE-07' 
+	         <if test="InvDetailsNo !=null and InvDetailsNo !='' ">AND t.instore_no like '${InvDetailsNo}%'</if>
+	         <if test="qProDtBegin !=null and qProDtBegin !='' "> AND T.CRT_DT &gt;= to_date('${qProDtBegin}','yyyy-mm-dd')</if>
+			 <if test="qProDtEnd !=null and qProDtEnd !='' "> AND T.CRT_DT &lt;= to_date('${qProDtEnd}','yyyy-mm-dd') </if>
+	         union all
+	         
+	         SELECT T1.NPICKING_NO,T4.DICT_IT_NM AS BILL_TYPE_NM,T3.DICT_IT_NM AS STATUSNM,T1.SOURCE_NO,IPLANT1.F_GET_USER_NAME(T1.CRT_ID) as CRT_ID,to_char(T1.CRT_DT,'yyyy-mm-dd') as CRT_DT  FROM WMS1.R_WMS_NPICKING_T T1
+	         LEFT JOIN WMS1.C_WMS_BASIC_DD_T T3
+					 ON T1.STATUS = T3.DICT_IT
+	         LEFT JOIN WMS1.C_WMS_BASIC_DD_T T4
+					 ON T1.BILL_TYPE = T4.DICT_IT 
+	         WHERE T1.BILL_TYPE='WOUTSTORE-07' 
+         
+	         <if test="InvDetailsNo !=null and InvDetailsNo !='' ">AND t1.npicking_no like '${InvDetailsNo}%'</if>
+	         <if test="qProDtBegin !=null and qProDtBegin !='' "> AND T1.CRT_DT &gt;= to_date('${qProDtBegin}','yyyy-mm-dd')</if>
+		<if test="qProDtEnd !=null and qProDtEnd !='' "> AND T1.CRT_DT &lt;= to_date('${qProDtEnd}','yyyy-mm-dd') </if>
+  		) A
+	</select>
+	<!-- 盘点明细查询(盘点入库与盘点出库单明细)-->
+	<select id="InvInOutStoreDetail" parameterType="hashmap" resultType="java.util.HashMap"> 
+		   <include refid="oraclePagingFileTop"></include>
+		       T.MATERIAL_ID,
+		       T.MATERIAL_NAME,
+		       T.SUPPLIER_NAME,
+		       T.CUST_NAME,
+		       T.INSTORE_QTY   AS INOUTQTY,
+		       T.REAL_QTY      AS REALINOUTQTY
+		
+		  FROM WMS1.R_WMS_INSTORE_DETAIL_T T
+		where t.INSTORE_NO = '${BILL_ID}'
+		UNION ALL
+		
+		SELECT T1.MATERIAL_ID,
+		       T1.MATERIAL_NAME,
+		       T1.SUPPLIER_NAME,
+		       T1.CUST_NAME,
+		       T1.NPICKING_QTY  AS INOUTQTY,
+		       T1.PICKED_QTY    AS REALINOUTQTY
+		  FROM WMS1.R_WMS_NPICKING_DETAIL_T T1
+		where t1.npicking_no = '${BILL_ID}'
+         
+		   <include refid="oraclePagingFileBottom"></include>
+	</select>
+	<select id="InvInOutStoreDetail_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+	select COUNT(1) AS ROWS_COUNT
+  		from (select 
+  		T.MATERIAL_ID,
+		       T.MATERIAL_NAME,
+		       T.SUPPLIER_NAME,
+		       T.CUST_NAME,
+		       T.INSTORE_QTY   AS INOUTQTY,
+		       T.REAL_QTY      AS REALINOUTQTY
+		
+		  FROM WMS1.R_WMS_INSTORE_DETAIL_T T
+		where t.INSTORE_NO = '${BILL_ID}'
+		UNION ALL
+		
+		SELECT T1.MATERIAL_ID,
+		       T1.MATERIAL_NAME,
+		       T1.SUPPLIER_NAME,
+		       T1.CUST_NAME,
+		       T1.NPICKING_QTY  AS INOUTQTY,
+		       T1.PICKED_QTY    AS REALINOUTQTY
+		  FROM WMS1.R_WMS_NPICKING_DETAIL_T T1
+		where t1.npicking_no = '${BILL_ID}'
+  		) A
+	</select>
+	<!-- 盘点明细查询(盘点入库与盘点出库单条码明细)-->
+	<select id="InvInOutStoreSn" parameterType="hashmap" resultType="java.util.HashMap"> 
+		   <include refid="oraclePagingFileTop"></include>
+		                   T1.SERIAL_NUMBER,
+					       CASE
+					         WHEN IPLANT1.GET_INSTORE_PARENT_F(SERIAL_NUMBER, 'INSTORE') =
+					              SERIAL_NUMBER THEN
+					          'N/A'
+					         ELSE
+					          IPLANT1.GET_INSTORE_PARENT_F(SERIAL_NUMBER, 'INSTORE')
+					       END AS LAST_CARTON,
+					       T1.MATERIAL_ID,
+					       T1.MATERIAL_NAME,
+					       T1.CUST_NO,
+					       T1.SUPPLIER_NAME,
+					       T1.QTY,
+					       T1.STORE_ID,
+					       T2.STORE_NAME,
+					       T1.AREA_ID,
+					       T3.AREA_NAME,
+					       T1.SHELF_ID,
+					       T4.SHELF_NAME,
+					       T1.LOCATION_ID,
+					       T5.LOCATION_NAME,
+					       T1.LOT_NO
+					
+					  FROM WMS1.R_WMS_INSTORE_SN_T T1
+					  LEFT JOIN WMS1.C_WMS_STORE_T T2
+					    ON T1.STORE_ID = T2.STORE_ID
+					  LEFT JOIN WMS1.C_WMS_AREA_T T3
+					    ON T1.AREA_ID = T3.AREA_ID
+					  LEFT JOIN WMS1.C_WMS_SHELF_T T4
+					    ON T1.SHELF_ID = T4.SHELF_ID
+					  LEFT JOIN WMS1.C_WMS_LOCATION_T T5
+					    ON T1.LOCATION_ID = T5.LOCATION_ID
+					
+					 WHERE 1 = 1
+					   AND T1.INSTORE_NO = '${BILL_ID}'
+					UNION ALL
+					SELECT T1.SERIAL_NUMBER,
+					       CASE
+					         WHEN IPLANT1.GET_INSTORE_PARENT_F(SERIAL_NUMBER, 'YALLOCATION') =
+					              SERIAL_NUMBER THEN
+					          'N/A'
+					         ELSE
+					          IPLANT1.GET_INSTORE_PARENT_F(SERIAL_NUMBER, 'YALLOCATION')
+					       END AS LAST_CARTON,
+					       T1.MATERIAL_ID,
+					       T1.MATERIAL_NAME,
+					       T1.CUST_NO,
+					       T1.SUPPLIER_NAME,
+					       T1.QTY,
+					       T1.STORE_ID,
+					       T2.STORE_NAME,
+					       T1.AREA_ID,
+					       T3.AREA_NAME,
+					       T1.SHELF_ID,
+					       T4.SHELF_NAME,
+					       T1.LOCATION_ID,
+					       T5.LOCATION_NAME,
+					       T1.LOT_NO
+					
+					  FROM WMS1.R_WMS_NPICKING_SN_T T1
+					  LEFT JOIN WMS1.C_WMS_STORE_T T2
+					    ON T1.STORE_ID = T2.STORE_ID
+					  LEFT JOIN WMS1.C_WMS_AREA_T T3
+					    ON T1.AREA_ID = T3.AREA_ID
+					  LEFT JOIN WMS1.C_WMS_SHELF_T T4
+					    ON T1.SHELF_ID = T4.SHELF_ID
+					  LEFT JOIN WMS1.C_WMS_LOCATION_T T5
+					    ON T1.LOCATION_ID = T5.LOCATION_ID
+					
+					 WHERE 1 = 1
+					   AND T1.NPICKING_NO = '${BILL_ID}'
+
+		   <include refid="oraclePagingFileBottom"></include>
+	</select>
+	<select id="InvInOutStoreSn_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+	select COUNT(1) AS ROWS_COUNT
+  		from (select 
+  		T1.SERIAL_NUMBER,
+					       CASE
+					         WHEN IPLANT1.GET_INSTORE_PARENT_F(SERIAL_NUMBER, 'INSTORE') =
+					              SERIAL_NUMBER THEN
+					          'N/A'
+					         ELSE
+					          IPLANT1.GET_INSTORE_PARENT_F(SERIAL_NUMBER, 'INSTORE')
+					       END AS LAST_CARTON,
+					       T1.MATERIAL_ID,
+					       T1.MATERIAL_NAME,
+					       T1.CUST_NO,
+					       T1.SUPPLIER_NAME,
+					       T1.QTY,
+					       T1.STORE_ID,
+					       T2.STORE_NAME,
+					       T1.AREA_ID,
+					       T3.AREA_NAME,
+					       T1.SHELF_ID,
+					       T4.SHELF_NAME,
+					       T1.LOCATION_ID,
+					       T5.LOCATION_NAME,
+					       T1.LOT_NO
+					
+					  FROM WMS1.R_WMS_INSTORE_SN_T T1
+					  LEFT JOIN WMS1.C_WMS_STORE_T T2
+					    ON T1.STORE_ID = T2.STORE_ID
+					  LEFT JOIN WMS1.C_WMS_AREA_T T3
+					    ON T1.AREA_ID = T3.AREA_ID
+					  LEFT JOIN WMS1.C_WMS_SHELF_T T4
+					    ON T1.SHELF_ID = T4.SHELF_ID
+					  LEFT JOIN WMS1.C_WMS_LOCATION_T T5
+					    ON T1.LOCATION_ID = T5.LOCATION_ID
+					
+					 WHERE 1 = 1
+					   AND T1.INSTORE_NO = '${BILL_ID}'
+					UNION ALL
+					SELECT T1.SERIAL_NUMBER,
+					       CASE
+					         WHEN IPLANT1.GET_INSTORE_PARENT_F(SERIAL_NUMBER, 'YALLOCATION') =
+					              SERIAL_NUMBER THEN
+					          'N/A'
+					         ELSE
+					          IPLANT1.GET_INSTORE_PARENT_F(SERIAL_NUMBER, 'YALLOCATION')
+					       END AS LAST_CARTON,
+					       T1.MATERIAL_ID,
+					       T1.MATERIAL_NAME,
+					       T1.CUST_NO,
+					       T1.SUPPLIER_NAME,
+					       T1.QTY,
+					       T1.STORE_ID,
+					       T2.STORE_NAME,
+					       T1.AREA_ID,
+					       T3.AREA_NAME,
+					       T1.SHELF_ID,
+					       T4.SHELF_NAME,
+					       T1.LOCATION_ID,
+					       T5.LOCATION_NAME,
+					       T1.LOT_NO
+					
+					  FROM WMS1.R_WMS_NPICKING_SN_T T1
+					  LEFT JOIN WMS1.C_WMS_STORE_T T2
+					    ON T1.STORE_ID = T2.STORE_ID
+					  LEFT JOIN WMS1.C_WMS_AREA_T T3
+					    ON T1.AREA_ID = T3.AREA_ID
+					  LEFT JOIN WMS1.C_WMS_SHELF_T T4
+					    ON T1.SHELF_ID = T4.SHELF_ID
+					  LEFT JOIN WMS1.C_WMS_LOCATION_T T5
+					    ON T1.LOCATION_ID = T5.LOCATION_ID
+					
+					 WHERE 1 = 1
+					   AND T1.NPICKING_NO = '${BILL_ID}'
+
+  		) A
+	</select>
+ 
+	<!-- 针对于系统内错乱货位扫描标签返回数据-->
+	<select id="InvDamageBarcode" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap">	
+		{call IPLANT1.WMS_INVENTORY_MANAGE.INVENTORY_DAMAGE_MATERIAL('${BARCODE}',
+					#{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=InvCheckInResult},
+    				#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, 
+    				#{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},
+    				#{ROWS_COUNT,jdbcType=INTEGER,mode=OUT,javaType=Integer})}
+	
+  	</select>
+  	<!-- 针对于系统内错乱货位的条码进行库内移位功能-->
+	<select id="InvDamage" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap">	
+		{call IPLANT1.WMS_INVENTORY_MANAGE.INVENTORY_DAMAGE('${INVENTORYNO}','${ALMATS}','${NEWSTOREID}','${NEWAREAID}','${NEWLOCATIONID}','${USER_ID}',
+					#{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=InvCheckInResult},
+    				#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, 
+    				#{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},
+    				#{ROWS_COUNT,jdbcType=INTEGER,mode=OUT,javaType=Integer})}
+	
+  	</select>
+</mapper>

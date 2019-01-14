@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<engines>
+	<!-- 物料交易    采购入库单 -->
+	<engine engine_code="queryPoList" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryPoList" ></engine>
+	<engine engine_code="poInitListQuery" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="poInitListQuery" ></engine>
+	<engine engine_code="poBarcodeQuery" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="poBarcodeQuery" ></engine>
+	<engine engine_code="poDataListQuery" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="poDataListQuery" ></engine>
+	<engine engine_code="poDataManager" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="poDataManager" ></engine>
+	<engine engine_code="materialInfoByCode" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="materialInfoByCode" ></engine>
+	<engine engine_code="poApplyManager" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="poApplyManager" ></engine>
+	<engine engine_code="poarrival" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="poarrival" ></engine>
+	<engine engine_code="deleteArrivalList" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteArrivalList" ></engine>
+	<engine engine_code="checkBarcodeMaterial" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="checkBarcodeMaterial" ></engine>
+	<engine engine_code="aoListByArrvialNo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="aoListByArrvialNo" ></engine>
+	<engine engine_code="aoListByArrvialNoOther" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="aoListByArrvialNoOther" ></engine>
+	<engine engine_code="udPrintTimesByBarcode" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="udPrintTimesByBarcode" ></engine>
+	<engine engine_code="materialSnInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="materialSnInfo" ></engine>
+	<engine engine_code="deleteArrivalAndSn" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteArrivalAndSn" ></engine>
+	<engine engine_code="noApplyPoList" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="noApplyPoList" ></engine>
+	<engine engine_code="queryProdpickingNo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryProdpickingNo" ></engine>
+	<engine engine_code="queryPropickingList" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryPropickingList" ></engine>
+	<engine engine_code="queryPropickingDetail" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryPropickingDetail" ></engine>
+	<engine engine_code="queryPropickingDetails" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryPropickingDetails" ></engine>
+	<engine engine_code="insertPropicking" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertPropicking" ></engine>
+	<engine engine_code="updatePropicking" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updatePropicking" ></engine>
+	<engine engine_code="insertPropickingDetail" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertPropickingDetail" ></engine>
+	<engine engine_code="updatePropickingDetail" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updatePropickingDetail" ></engine>
+	<engine engine_code="deletePropickingDetail" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deletePropickingDetail" ></engine>
+	<engine engine_code="deletePropickingData" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deletePropickingData" ></engine>
+	<engine engine_code="updateNpickingDetail" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateNpickingDetail" ></engine>
+	<engine engine_code="deleteNpickingDetail" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteNpickingDetail" ></engine>
+	<engine engine_code="deleteNpickingData" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteNpickingData" ></engine>
+	<engine engine_code="insertMoInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertMoInfo" ></engine>
+	<engine engine_code="queryMaterialExist" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryMaterialExist" ></engine>
+	<engine engine_code="applyPropickingStatus" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="applyPropickingStatus" ></engine>
+	<engine engine_code="insertIpcPropickingDetail" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertIpcPropickingDetail" ></engine>
+	<engine engine_code="insertIpcMoInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertIpcMoInfo" ></engine>
+	<engine engine_code="queryPropickingSn" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryPropickingSn" ></engine>
+	<engine engine_code="ipcTestUrl" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="ipcTestUrl" ></engine>
+	<engine engine_code="createPropicking" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="createPropicking" ></engine>
+	<engine engine_code="materialInitQuery" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="materialInitQuery" ></engine>
+	<engine engine_code="materialListQuery" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="materialListQuery" ></engine>
+	<engine engine_code="materialInitByCode" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="materialInitByCode" ></engine>
+	<engine engine_code="materialinitAn" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="materialinitAn" ></engine>
+	<engine engine_code="materialinitIn" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="materialinitIn" ></engine>
+	<engine engine_code="queryNpickingList" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryNpickingList" ></engine>
+	<engine engine_code="queryNpickingDetail" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryNpickingDetail" ></engine>
+	<engine engine_code="queryNpickingDetailByNo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryNpickingDetailByNo" ></engine>
+	<engine engine_code="insertNpicking" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertNpicking" ></engine>
+	<engine engine_code="updateNpicking" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateNpicking" ></engine>
+	<engine engine_code="insertNpickingDetail" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertNpickingDetail" ></engine>
+	<engine engine_code="npickingInsertG" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="npickingInsertG" ></engine>
+	<engine engine_code="noProduceInsertG" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="noProduceInsertG" ></engine>
+	<engine engine_code="queryArrivalList" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryArrivalList" ></engine>
+	<engine engine_code="materialInfoByMS" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="materialInfoByMS" ></engine>
+	<engine engine_code="existsMaterialStore" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="existsMaterialStore" ></engine>
+	<engine engine_code="deleteMaterialStore" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteMaterialStore" ></engine>
+	<engine engine_code="materialinitDel" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="materialinitDel" ></engine>
+	<!-- 物料交易   工单领料信息 -->
+	<engine engine_code="moDataListQuery" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="moDataListQuery" ></engine>
+	<!-- pda 查询IQC质检单号 -->
+    <engine engine_code="queryIqcNo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryIqcNo" ></engine>
+    <!-- pda 根据IQC质检单号查询质检单物料信息 -->
+    <engine engine_code="queryMatIqcNo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryMatIqcNo" ></engine>
+     <!-- pda 根据物料条码查询IQC质检单号 -->
+    <engine engine_code="querySerNoIqcNo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querySerNoIqcNo" ></engine>
+	<!-- pda 查询IQC质检单号 -->
+    <engine engine_code="queryIqcNo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryIqcNo" ></engine>
+    <!-- pda 根据IQC质检单号查询质检单物料信息 -->
+    <engine engine_code="queryMatIqcNo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryMatIqcNo" ></engine>
+     <!-- pda 根据物料条码查询IQC质检单号 -->
+    <engine engine_code="querySerNoIqcNo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querySerNoIqcNo" ></engine>
+	<!-- 查询IQC质检详情 -->
+    <engine engine_code="queryIQCcheck" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryIQCcheck" ></engine>
+    <!-- 查询无条码IQC质检详情  -->
+    <engine engine_code="queryIQCcheckNum" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryIQCcheckNum" ></engine>
+	<!-- PDA IQC质检 -->
+    <engine engine_code="IQCcheck" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="IQCcheck" ></engine>
+    <!-- PDA 入库单详情 -->
+    <engine engine_code="queryInstoreinfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryInstoreinfo" ></engine>
+    <!-- PDA 入库上架 -->
+    <engine engine_code="PDAInstore" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="PDAInstore" ></engine>
+    <!-- PDA传入条码输出入库单 -->
+    <engine engine_code="PDABarcodetobill" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="PDABarcodetobill" ></engine>
+    <!-- 查询未入库完的所有入库单 -->
+    <engine engine_code="queryNobillinfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryNobillinfo" ></engine>
+    <!-- 查询IQC质检单- -->
+    <engine engine_code="queryIQC" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryIQC" ></engine>
+    <!-- 查询IQC质检单明细 -->
+    <engine engine_code="queryIQCDetail" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryIQCDetail" ></engine>
+    <!-- 查询入库单明细 -->
+    <engine engine_code="queryInputDetail" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryInputDetail" ></engine>
+    <!-- 查询入库单条码明细 -->
+    <engine engine_code="queryInputSNDetail" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryInputSNDetail" ></engine>
+	<engine engine_code="openUNPACKING" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="openUNPACKING" ></engine>
+
+	<!--  返料上架原位置-->
+	<engine engine_code="matiralpackage" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="matiralpackage" ></engine>
+	<!-- 返料上架下拉仓库 -->
+	<engine engine_code="packagestoreid" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="packagestoreid" ></engine>
+	<!-- 返料上架仓库下的区域 -->
+	<engine engine_code="packagearea" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="packagearea" ></engine>
+
+    <!-- 查询下架单 -->
+    <engine engine_code="queryMatDown" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryMatDown" ></engine>
+    <!-- 查询下架单明细 -->
+    <engine engine_code="queryMatDownDetail" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryMatDownDetail" ></engine>
+     <!-- 查询拆包明细 -->
+    <engine engine_code="queryopenpackageDetail" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryopenpackageDetail" ></engine>
+    <engine engine_code="queryMaterialToBarcode" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryMaterialToBarcode" ></engine>
+    <engine engine_code="queryPonoDetail" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryPonoDetail" ></engine>
+    <engine engine_code="packageserialnember" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="packageserialnember" ></engine>
+    <engine engine_code="querysernumbersn" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querysernumbersn" ></engine>
+
+    <!--  库内移位-->
+    <!--  根据标签返回物料信息-->
+    <engine engine_code="queryMaterialToBarcode" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryMaterialToBarcode" ></engine>
+     <!-- 库内移位-->
+    <engine engine_code="PDAmaterialMove" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="PDAmaterialMove" ></engine>
+    
+     <!--  库存管理-->
+    <!--  仓库库存汇总-->
+    <engine engine_code="queryMaterialSum" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryMaterialSum" ></engine>
+    <!--  仓库库存非条码详细-->
+    <engine engine_code="queryNBMaterialDetail" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryNBMaterialDetail" ></engine>
+    <!--  仓库库存条码详细-->
+    <engine engine_code="queryMaterialDetail" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryMaterialDetail" ></engine>
+    
+    
+    <!--  新增成品入库外箱表-->
+    <engine engine_code="insertProductInC" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertProductInC" ></engine>
+    <!--  新增成品入库主表-->
+    <engine engine_code="insertProductInT" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertProductInT" ></engine>
+    <!--  新增成品入库明细表-->
+    <engine engine_code="insertProductInD" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertProductInD" ></engine>
+    <!--  新增成品入库条码表-->
+    <engine engine_code="insertProductInB" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertProductInB" ></engine>
+    <!--  新增成品IQC外箱表-->
+    <engine engine_code="insertProductIQCC" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertProductIQCC" ></engine>
+    <!--  新增成品入库主表-->
+    <engine engine_code="insertProductIQCT" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertProductIQCT" ></engine>
+    <!--  新增成品入库明细表-->
+    <engine engine_code="insertProductIQCD" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertProductIQCD" ></engine>
+    <!--  新增成品IQC条码表-->
+    <engine engine_code="insertProductIQCB" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertProductIQCB" ></engine>
+    
+    <!-- PDA传入条码输出成品质检单 -->
+    <engine engine_code="PDABarcodeToIqcBill" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="PDABarcodeToIqcBill" ></engine>
+    <!-- 拆包返料上架 -->
+    <engine engine_code="packinput" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="packinput" ></engine>
+    
+    <!-- 待处理仓入库 -->
+    <!-- 待处理仓入库 申请-->
+    <engine engine_code="PDAproductInstore" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="PDAproductInstore" ></engine>
+    <!-- PDA扫描条码返回工单-->
+    <engine engine_code="queryBarcodeToMonumber" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryBarcodeToMonumber" ></engine>
+     <!-- 待处理仓质检-->
+    <engine engine_code="PDAproductIqc" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="PDAproductIqc" ></engine>
+    <!-- PDA扫描外箱条码返回条码信息-->
+    <engine engine_code="queryCattonToMes" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryCattonToMes" ></engine>
+    
+    <!-- 成品仓入库 -->
+    <!-- 成品仓入库上架 -->
+    <engine engine_code="PDAproductTostore" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="PDAproductTostore" ></engine>
+    <!-- PDA扫描条码返回质检状态-->
+    <engine engine_code="queryBarcodeToStatus" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryBarcodeToStatus" ></engine>
+    
+    <!-- 待处理仓入仓查询-->
+	<!-- 待处理仓入仓主表查询-->
+    <engine engine_code="troProductQuery" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="troProductQuery" ></engine>
+    <!-- 待处理仓入仓明细表查询-->
+    <engine engine_code="troProductDetailQuery" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="troProductDetailQuery" ></engine>
+    <!-- 待处理仓入仓条码表查询-->
+    <engine engine_code="troProductSNQuery" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="troProductSNQuery" ></engine>
+    
+     <!-- 待处理仓质检查询-->
+	<!-- 待处理仓质检主表查询-->
+    <engine engine_code="productIqcQuery" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="productIqcQuery" ></engine>
+    <!-- 待处理仓质检明细表查询-->
+    <engine engine_code="productIqcDetailQuery" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="productIqcDetailQuery" ></engine>
+    <!-- 待处理仓质检条码表查询-->
+    <engine engine_code="productIqcSnQuery" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="productIqcSnQuery" ></engine>
+    
+    <!-- 成品仓入仓查询-->
+	<!-- 成品仓入仓主表查询-->
+    <engine engine_code="ProductQuery" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="ProductQuery" ></engine>
+    <!-- 成品仓入仓明细表查询-->
+    <engine engine_code="ProductDetailQuery" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="ProductDetailQuery" ></engine>
+    <!-- 成品仓入仓条码表查询-->
+    <engine engine_code="ProductSNQuery" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="ProductSNQuery" ></engine>
+    
+     <!-- 线边仓入仓查询-->
+	<!-- 线边仓入仓主表查询-->
+    <engine engine_code="linesiloInstoreQuery" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="linesiloInstoreQuery" ></engine>
+    <!-- 线边仓入仓明细表查询-->
+    <engine engine_code="linesiloInstoreDetailQuery" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="linesiloInstoreDetailQuery" ></engine>
+    <!-- 线边仓入仓条码表查询-->
+    <engine engine_code="linesiloInstoreSNQuery" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="linesiloInstoreSNQuery" ></engine>
+    
+    <!--  线边仓库存管理-->
+    <!--  线边仓仓库库存汇总-->
+    <engine engine_code="querykitMaterialSum" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querykitMaterialSum" ></engine>
+    <!-- 仓库库存非条码详细-->
+    <engine engine_code="queryNBkitMaterialDetail" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryNBkitMaterialDetail" ></engine>
+    <!-- 仓库库存条码详细-->
+    <engine engine_code="querykitMaterialDetail" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querykitMaterialDetail" ></engine>
+    
+    
+    <!-- 供应商退货-->
+    <!--  查询退货单-->
+    <engine engine_code="queryRejectBill" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryRejectBill" ></engine>
+    <!--  查询退货单详情-->
+    <engine engine_code="queryRejectinfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryRejectinfo" ></engine>
+    <!--  退货出库-->
+    <engine engine_code="queryRejectToUPStatus" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryRejectToUPStatus" ></engine>
+    <!--  根据传入的标签返回退货单号-->
+    <engine engine_code="queryBarcodeToReject" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryBarcodeToReject" ></engine>
+    
+    
+	 <!--  PDA 来料IQC质检扫描条码得到质检单号-->
+    <engine engine_code="queryIqcNoPda" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryIqcNoPda" ></engine>
+    
+    
+    <!-- 采购退货-->
+	<!-- 采购退货单主表查询-->
+    <engine engine_code="rejectMainQuery" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="rejectMainQuery" ></engine>
+    <!-- 采购退货单明细表查询-->
+    <engine engine_code="rejectDetailQuery" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="rejectDetailQuery" ></engine>
+    <!-- 采购退货单条码表查询-->
+    <engine engine_code="rejectSNQuery" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="rejectSNQuery" ></engine>
+    
+    <!-- 成品期初入库-->
+    <engine engine_code="initWarehouseStore" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="initWarehouseStore" ></engine>
+    <!--  查询传入仓库区域下的货位数量-->
+    <engine engine_code="queryLocationCount" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryLocationCount" ></engine>
+     <!-- PDA扫描外箱条码返回条码信息-->
+    <engine engine_code="queryBarcodeToMonumberinit" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryBarcodeToMonumberinit" ></engine>
+    <!-- 库存扫描标签返回物料编码-->
+    <engine engine_code="queryBarcodeToMaterial" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryBarcodeToMaterial" ></engine>
+    
+    <!-- PDA仓库库存条码详细-->
+    <engine engine_code="queryPDAMaterialDetail" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryPDAMaterialDetail" ></engine>
+    <!-- PDA仓库库存汇总-->
+    <engine engine_code="queryPDAMaterialSum" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryPDAMaterialSum" ></engine>
+    
+    <!-- 扫描货位标签返回位置信息-->
+    <engine engine_code="queryBarcodeToPosition" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryBarcodeToPosition" ></engine>
+    
+    <!-- 判断成品期初入库单是否能删除-->
+    <engine engine_code="querydeleteStatus" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querydeleteStatus" ></engine>
+    <!-- 根据入仓单删除成品-->
+    <engine engine_code="deleteProBillData" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteProBillData" ></engine>
+    <!-- 工控机根据入仓单删除成品-->
+    <engine engine_code="deleteGKJProBillData" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteGKJProBillData" ></engine>
+    <!-- 建大领料清点: pda扫描领料单查询领料单信息-->
+    <engine engine_code="pickBillPda" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="pickBillPda" ></engine>
+    <!-- 建大领料清点-->
+    <engine engine_code="pickBillOut" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="pickBillOut" ></engine>
+    
+    <!-- 成品下架推荐库位-->
+    <engine engine_code="productRecondLocation" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="productRecondLocation" ></engine>
+    <!-- 原料库内检验物料查询-->
+    <engine engine_code="MatInsideIqcQuery" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="MatInsideIqcQuery" ></engine>
+    <!-- 原料库内检验单生成-->
+    <engine engine_code="MatInsideIqcBilld" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="MatInsideIqcBilld" ></engine>
+    <!-- 原料库内检验单删除-->
+    <engine engine_code="MatInsideIqcBillDelete" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="MatInsideIqcBillDelete" ></engine>
+    <!-- 原料库内检验单质检-->
+    <engine engine_code="MatInsideIqc" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="MatInsideIqc" ></engine>
+    <!-- 成品库内检验物料查询-->
+    <engine engine_code="MatInsideProIqcQuery" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="MatInsideProIqcQuery" ></engine>
+    <!-- 成品库内检验单生成-->
+    <engine engine_code="ProInsideIqcBilld" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="ProInsideIqcBilld" ></engine>
+    <!--  PDA 成品质检扫描条码得到质检单号-->
+    <engine engine_code="queryProIqcNoPda" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryProIqcNoPda" ></engine>
+    <!-- 成品库内检验单质检-->
+    <engine engine_code="ProInsideIqc" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="ProInsideIqc" ></engine>
+    <!-- 查询库内质检单明细-->
+    <engine engine_code="queryInsideIQCDetail" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryInsideIQCDetail" ></engine>
+    
+    <!-- 委外退料来料 -->
+	<!-- 新增委外退料来料单 -->
+    <engine engine_code="insertoutofreturn" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertoutofreturn" ></engine>
+    <!-- 审核委外退料来料单-->
+    <engine engine_code="outofreturnApplyManager" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="outofreturnApplyManager" ></engine>
+    
+    <!-- 立库上架 -->
+	<!-- 查询是否存在此托盘号 -->
+    <engine engine_code="CheckTrap" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="CheckTrap" ></engine>
+    <!-- 立库来料上架-->
+    <engine engine_code="lkinputStore" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="lkinputStore" ></engine>
+    <!-- 向立库发送指令-->
+    <engine engine_code="WMStoWCS" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="WMStoWCS" ></engine>
+    <!-- 查找最近的货位-->
+    <engine engine_code="queryNearLocationInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryNearLocationInfo" ></engine>
+
+    <!-- 立库下架 -->
+    <engine engine_code="wmslk_materia_out" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="wmslk_materia_out" ></engine>
+    <!-- 立库拣料 -->
+    <engine engine_code="wmslk_materia_picking" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="wmslk_materia_picking" ></engine>
+    <!-- 立库出库 -->
+    <engine engine_code="wmslk_materia_output" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="wmslk_materia_output" ></engine>
+
+    
+    <!-- 立库出库查看 -->
+	<!-- 查询立库货位 -->
+    <engine engine_code="querylkLocation" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querylkLocation" ></engine>
+    <!-- 查询货位对应的托盘信息-->
+    <engine engine_code="queryTpInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryTpInfo" ></engine>
+    <!-- 查询托盘内包含物料标签-->
+    <engine engine_code="queryMaterialOfTp" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryMaterialOfTp" ></engine>
+ 	<!-- 立库返料上架扫描托盘查询 -->
+    <engine engine_code="lk_flsj_query" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="lk_flsj_query" ></engine>
+    <!-- 立库返料上架 -->
+    <engine engine_code="lk_flsj" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="lk_flsj" ></engine>
+	
+	
+	
+	<!-- 查询库存信息标签-->
+    <engine engine_code="querystotet" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querystotet" ></engine>
+</engines>

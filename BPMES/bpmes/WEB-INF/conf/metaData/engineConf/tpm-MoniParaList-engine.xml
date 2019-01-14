@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<engines>
+	<!-- 1.1 监控参数列表-->
+	<!-- 查询参数信息 -->
+	<engine engine_code="queryMoniParaList" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryMoniParaList" >
+	</engine>
+	
+	<!-- 修改参数信息 -->
+	<engine engine_code="updateMoniParaList" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateMoniParaList" >
+	</engine>
+	
+	<!-- 删除参数信息 -->
+	<engine engine_code="deleteMoniParaList" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteMoniParaList" >
+	</engine>
+	
+	<!-- 新增参数信息 -->
+	<engine engine_code="insertMoniParaList" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertMoniParaList" >
+	</engine>
+	
+</engines>

@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<engines>
+	<!-- 1.1 数据字典管理 -->
+	 <!-- 查询采集日志信息 -->
+	<engine engine_code="queryScadaLog" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryScadaLog" >
+	</engine>
+	
+	 <!-- 采集监控大屏 -->
+	<engine engine_code="queryScadaBigScreen" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryScadaBigScreen" >
+	</engine>
+</engines>

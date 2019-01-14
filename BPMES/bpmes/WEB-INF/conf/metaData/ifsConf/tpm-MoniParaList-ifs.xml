@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ifss>
+    
+    <!-- 1.1 监控参数列表-->
+    <!-- 查询参数信息 -->
+	<ifs ifs_code="SCD00005" ifs_name="查询接口信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryMoniParaList" biz_method="" serial_no="1" biz_name="queryMoniParaList" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 修改参数信息 -->
+	<ifs ifs_code="SCD00006" ifs_name="修改接口信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateMoniParaList" biz_method="" serial_no="1" biz_name="updateMoniParaList" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	 <!-- 删除参数信息 -->
+    <ifs ifs_code="SCD00007" ifs_name="删除接口字典" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteMoniParaList" biz_method="" serial_no="1" biz_name="deleteMoniParaList" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 新增参数信息 -->
+    <ifs ifs_code="SCD00008" ifs_name="新增接口字典" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertMoniParaList" biz_method="" serial_no="1" biz_name="insertMoniParaList" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+</ifss>

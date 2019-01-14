@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<engines>
+
+	<!-- ======工单退料管理====== -->
+	<!-- 查询工单退料信息 -->
+	<engine engine_code="queryArrivalingOrderTemplet" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryArrivalingOrderTemplet" >
+	</engine>
+</engines>

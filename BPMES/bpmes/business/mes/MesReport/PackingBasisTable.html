@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>包装规则头表</title>
+    <link rel="stylesheet" type="text/css" href="../../../common/IplantCompent/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../../../common/IplantCompent/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="../../../common/IplantCompent/Demo/demo.css">
+    <script src="../../../common/IplantCompent/jquery.min.js" type="text/javascript"></script>
+    <script src="../../../common/IplantCompent/jquery.easyui.min.js" type="text/javascript"></script>
+    <script src="../../../common/IplantCommon/DataRequest.js" type="text/javascript"></script>
+    <script src="../../../common/IplantCommon/CommonUtil.js" type="text/javascript"></script>
+    <script src="../../../common/IplantCommon/OutPutExcel.js" type="text/javascript"></script>
+    <script src="js/PackingBasisTable.js" type="text/javascript"></script>
+</head>
+<body style="padding: 0;margin: 0;">
+	<div style="height:100%;width:100%;" class="easyui-layout" fit="true">
+		<div region='north' style="width: auto; height: 60px; background: linear-gradient(rgb(255, 255, 255) 0px, rgba(149, 184, 231, 0.28) 100%);">
+	      	<div region='north' style="width: auto; height: 30px;background: linear-gradient(rgb(255, 255, 255) 0px, rgba(149, 184, 231, 0.28) 100%);">
+	            <table style="width: auto; height:100%;" cellspacing="0" border="0">
+					<tr>
+						<td>
+	                       <a id="btnAdd" href="#" class="easyui-linkbutton add" iconCls="icon-add" data-options="plain:true" >增加</a>
+                   		   <a id="btnSave" href="#" class="easyui-linkbutton save" iconCls="icon-save" data-options="plain:true" >保存</a>
+                           <a id="btnDelete" href="#" class="easyui-linkbutton delete" iconCls="icon-remove" data-options="plain:true">删除</a>
+                           <a id="btnExprt" href="#" class="easyui-linkbutton exprt" iconCls="icon-print" data-options="plain:true">导出</a>
+							<span id='showMessageInfo' class='divspan' style='width:300px;'></span>
+						</td>
+					</tr>
+	             </table>
+	             <form id="nanan">
+		             <table>
+			            <tr>
+			            	<td>规则编号：</td>
+		                    <td>
+		                        <input id="serachRULE_CD" name="postingdate" style="width: 200px;" class="easyui-textbox"/>
+		                    </td>
+			            	<td>规则名称：</td>
+		                    <td>
+		                        <input id="serachRULE_NAME" name="postingdate" style="width: 200px;" class="easyui-textbox"/>
+		                    </td>
+		                    <td>
+		                       <a id="btnSearch" href="#" class="easyui-linkbutton search" iconCls="icon-search" data-options="plain:true">查询</a>
+		                       <a href="#" class="easyui-linkbutton" iconCls="icon-reset" id="btnResets" data-options="plain:true">重置</a>
+		                    </td>
+		                </tr>
+		              </table>
+	              </form>
+	          </div>
+          </div>
+          
+          <div region='center' style='width:100%'>
+          	  <table style="height:auto;max-height:40%;width:100%" id="BindOfCarrier_tab" class='easyui-datagrid' rownumbers="true"></table>
+          	  
+	          <div style="margin-top:5px;width:100%;height:25px;background-color:#ECF2FB;border:1px solid #95B8E7; border-bottom:none;line-height: 25px;border-top-left-radius:8px;border-top-right-radius:8px;">
+   					<span><strong style="color:#2F8CFE;">包装规则编码：</strong></span>
+   					<span id="header-bottom" style="color:red;"></span>
+   					<span><strong style="color:#2F8CFE;">包装规则明细表</strong></span>
+   					<span id='showMessageInfoBottom' class='divspan' style='width:300px;float:left;margin-left:10px'></span>
+   					<span style="float:right;margin-right:100px">
+   						 <a id="btnAdd1" href="#" class="easyui-linkbutton add" iconCls="icon-add" data-options="plain:true" >增加</a>
+                   		 <a id="btnDelete1" href="#" class="easyui-linkbutton delete" iconCls="icon-remove" data-options="plain:true">删除</a>
+                         <a id="btnUpdate1" href="#" class="easyui-linkbutton update" iconCls="icon-edit" data-options="plain:true">修改</a>
+                         <a href="#" class="easyui-linkbutton" iconCls="icon-print" id="btnExprt1" data-options="plain:true">导出</a>
+   					</span>
+	     	  </div>
+   	  		  <table region='center' style="width:100%;height: auto;max-height: 55%" id="sysRule_tab" class='easyui-treegrid' rownumbers="true"></table>
+   	  	  </div>
+     </div>
+      <div id="enditTabupload" class="easyui-dialog" style="width: 600px;height: 300px;" closed="true" data-options="modal: true,
+				buttons: [{
+					text:'提交',
+					iconCls:'icon-ok',
+					handler:function(){
+						ImportStation();
+					}
+				},{
+					text:'取消',
+					iconCls:'icon-no',
+					handler:function(){
+						<!-- setDataNull(); -->
+						$('#enditTab').dialog('close');
+					}
+				}]">
+				
+			  <FORM id ="importUplod" action="/iTaurus/iPlant_ImgUpload" method="post" enctype="multipart/form-data" style="padding:10px 20px 10px 40px;" target="ifm">  
+     				  <table border="1" width="500" cellpadding="4" cellspacing="2" bordercolor="#9BD7FF">  
+          					<tr>
+          						<td width="100%" colspan="2">  
+                                  	  文件： <input name="txtPHOTO" id="txtPHOTO" type="file"  />
+        					  	</td>
+          					</tr>  
+       					    <tr>
+             				    <td>
+            						<input name="FILE_BELONG" id="FILE_BELONG" size="40" type="hidden"/> 
+           							<input name="FILE_CLS" id = "FILE_CLS" size="40" type="hidden"/> 
+            						<input name="FILE_TYPE" id = "FILE_TYPE" size="40" type="hidden"/> 
+           							<input name="importType" id = "importType" size="40" value='1' type="hidden"/>
+           						    <input name="IFS" id = "IFS" size="40" type="hidden"/>
+         						 </td>
+        				   </tr>
+        			</table>  
+    		  </FORM>		
+     </div>
+      <iframe id='ifm' name='ifm' style="display:none"/></iframe>
+      <!-- 产品引用弹出框-->
+	 <div id="editTabProcess" class="easyui-dialog" style="width: 800px;height: 350px;" closed="true" >
+		<div style="padding:10px;">
+			<div id="ProcessTitle" style="padding-left:150px; font-weight:bold; font-size:16px" ></div>
+			<div id='ruleCd' style='display:none'></div>
+			<div region='north' id='tbsearch' style="width: auto; height: 30px;background: linear-gradient(rgb(255, 255, 255) 0px, rgba(149, 184, 231, 0.28) 100%);">
+				<table style="width: auto; height:100%;" cellspacing="0" border="0">
+                    <tr>
+                      <td>
+                         <a href="#" class="easyui-linkbutton add" iconCls="icon-add" id="btnProcessAdd" data-options="plain:true">添加</a>
+                        <a href="#" class="easyui-linkbutton save" iconCls="icon-save" id="btnProcessSave" data-options="plain:true">保存</a> 
+                       	 <a href="#" class="easyui-linkbutton delete" iconCls="icon-remove" id="btnProcessDelete" data-options="plain:true">删除</a>
+                         <span id='showProcessInfo' class='divspan' style='width:300px;'></span>
+                      </td>
+                    </tr>
+	            </table>
+		    </div>
+			<table region='center' id="process_tab" style="height: 480px;max-height: 240px"  class='easyui-datagrid' rownumbers="true"></table>
+		 </div>
+	  </div>
+	<!-- 产品编码选择窗口-->
+	<div id="addMaterialDetails" class="easyui-dialog" style="width: 600px; height: 400px;" align="center" data-options="modal:'true',closed:'true',buttons:'#addMaterialDetails-buttons'">
+		<form id="searchMaterialForm">
+			<table style="height: 15%; width: 500px; align: center; padding-top: 20px;">
+				<tr>
+					   <td>产品编码:
+					   <input id="searchITEM_CD" class="easyui-textbox" style="width: 90px;" name="postingdate" /></td>
+					    <td>产品名称:
+					   <input id="searchITEM_NM" class="easyui-textbox" style="width: 90px;" name="postingdate" />
+					</td>
+					   <td> <a href="#" class="easyui-linkbutton" iconCls="icon-search" id="btnSearch1" data-options="plain:true">查询</a></td>
+					   <td><div id="showMaterialDiv"> <span id="showMaterial" style="margin: 0; padding: 0; vertical-align: 3px; width: 250px;"></span> </div></td>
+				</tr>
+			</table>
+		</form>
+		<div style="height: 85%; max-height: 85%; padding-left: 20px; padding-right: 20px;"><table id="materialDetails_tab" class='easyui-datagrid' rownumbers="true"></table></div>
+	</div>
+	
+	 <!-- 底部新增按钮弹出框 -->
+	  <div id="enditTabBOM" class="easyui-dialog" style="width: 360px;height: 340px;" closed="true" data-options="modal: true,
+				buttons: [{
+					text:'保存',
+					iconCls:'icon-ok',
+					handler:function(){
+						saveDataGridProcess(); 
+					}
+				},{
+					text:'取消',
+					iconCls:'icon-no',
+					handler:function(){
+						$('#enditTabBOM').dialog('close');	
+					}
+				}]">
+		<div align="left"><tr><td >带<span style="color: red">*</span> 为必填项</td></tr></div>
+        <form id="fmCustom" method="post" style="padding:25px 10px 10px 20px;">
+            <table border="0">
+                <tr style="height: 35px;display: none;">
+                    <td>父级菜单：</td>
+                    <td>
+                        <input id="ST_P_CD" name="postingdate" style="width: 200px;" class="easyui-textbox" >
+                    </td>
+                </tr>
+                <tr style="height: 35px;">
+                    <td>包装容器名称：</td>
+                    <td>
+                        <input id="PACK_NAME" name="postingdate" style="width: 200px;" class="easyui-textbox" required="required" data-options="missingMessage:'该选项为必填信息'"/>
+                    <span style="color: red">*</span></td>
+                </tr>
+                <tr style="height: 35px;">
+                    <td>下层数量：</td>
+                    <td>
+                        <input id="BYTE_NUM" name="postingdate" style="width: 200px;" class="easyui-textbox"  required="required" data-options="missingMessage:'该选项为必填信息'"/>
+                    <span style="color: red">*</span></td>
+                </tr>
+                <tr style="height: 35px;">
+                    <td>单位：</td>
+                    <td>
+                        <input id="UNIT" name="postingdate" style="width: 200px;" class="easyui-textbox" required="required" data-options="missingMessage:'该选项为必填信息'"/>
+                    <span style="color: red">*</span></td>
+                    </td>
+                </tr>
+                 <tr style="height: 35px;">
+                    <td>上限值：</td>
+                    <td>
+                        <input id="UPPER_LIMIT" name="postingdate" style="width: 200px;" class="easyui-textbox"  required="required" data-options="missingMessage:'该选项为必填信息'"/>
+                    <span style="color: red">*</span></td>
+                </tr>
+                 <tr style="height: 35px;">
+                    <td>下限值：</td>
+                    <td>
+                        <input id="LOWER_LIMIT" name="postingdate" style="width: 200px;" class="easyui-textbox"  required="required" data-options="missingMessage:'该选项为必填信息'"/>
+                    <span style="color: red">*</span></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+   
+	<input type="hidden" name="ST_C_CD" id="ST_C_CD" value=""/>
+	<input type="hidden" id="BOT_NUM" name="postingdate" value=""/>
+</body>
+
+</html>

@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ifss>
+	<!-- A.2 盘点模块 -->
+	<!-- 查询盘点任务ID-->
+	<ifs ifs_code="WMS_ITD00001" ifs_name="查询盘点任务ID" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="inventoryTaskIdQuery" biz_method="" serial_no="1" biz_name="inventoryTaskIdQuery" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 查询盘点任务信息-->
+	<ifs ifs_code="WMS_ITD00002" ifs_name="查询盘点任务信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="inventoryTaskQuery" biz_method="" serial_no="1" biz_name="inventoryTaskQuery" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 查询盘点任务标签信息-->
+	<ifs ifs_code="WMS_ITD00003" ifs_name="查询盘点任务标签信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="inventoryTaskSnQuery" biz_method="" serial_no="1" biz_name="inventoryTaskSnQuery" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 查询盘点任务明细信息-->
+	<ifs ifs_code="WMS_ITD00004" ifs_name="查询盘点明细信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="inventoryDetailQuery" biz_method="" serial_no="1" biz_name="inventoryDetailQuery" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 新增盘点任务-->
+	<ifs ifs_code="WMS_ITD00005" ifs_name="新增盘点任务" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="InsertInvTask" biz_method="" serial_no="1" biz_name="InsertInvTask" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 删除盘点任务-->
+	<ifs ifs_code="WMS_ITD00006" ifs_name="删除盘点任务" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="DeleteInvTask" biz_method="" serial_no="1" biz_name="DeleteInvTask" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 审核盘点任务-->
+	<ifs ifs_code="WMS_ITD00007" ifs_name="审核盘点任务" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="CheckInvTask" biz_method="" serial_no="1" biz_name="CheckInvTask" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 查询盘点计划-->
+	<ifs ifs_code="WMS_ITD00008" ifs_name="查询盘点计划" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryInvPlan" biz_method="" serial_no="1" biz_name="queryInvPlan" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 新增盘点计划-->
+	<ifs ifs_code="WMS_ITD00009" ifs_name="新增盘点计划" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="addInvPlan" biz_method="" serial_no="1" biz_name="addInvPlan" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 查询盘点计划ID-->
+	<ifs ifs_code="WMS_ITD00010" ifs_name="查询盘点计划ID" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryInvPlanId" biz_method="" serial_no="1" biz_name="queryInvPlanId" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 查询下拉盘点类型-->
+	<ifs ifs_code="WMS_ITD00011" ifs_name="查询下拉盘点类型" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryComboxInvType" biz_method="" serial_no="1" biz_name="queryComboxInvType" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 查询下拉盘点状态-->
+	<ifs ifs_code="WMS_ITD00012" ifs_name="查询下拉盘点状态" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryComboxInvStatus" biz_method="" serial_no="1" biz_name="queryComboxInvStatus" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 查询下拉盘点计划ID-->
+	<ifs ifs_code="WMS_ITD00013" ifs_name="查询下拉盘点计划ID" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryComboxInvPlan" biz_method="" serial_no="1" biz_name="queryComboxInvPlan" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 根据盘点计划单号查询所选盘点仓库信息-->
+	<ifs ifs_code="WMS_ITD00014" ifs_name="查询下拉盘点计划ID" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryStoreInvPlan" biz_method="" serial_no="1" biz_name="queryStoreInvPlan" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 删除盘点计划-->
+	<ifs ifs_code="WMS_ITD00015" ifs_name="删除盘点计划" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="DeleteInvPlan" biz_method="" serial_no="1" biz_name="DeleteInvPlan" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- pda查询盘点任务信息-->
+	<ifs ifs_code="WMS_ITD00016" ifs_name="pda查询盘点任务信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="inventoryTaskPda" biz_method="" serial_no="1" biz_name="inventoryTaskPda" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- pda根据货位查询盘点单下所有该货位的物料条码信息-->
+	<ifs ifs_code="WMS_ITD00017" ifs_name="pda根据货位查询盘点单下所有该货位的物料条码信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="inventoryTaskSnPda" biz_method="" serial_no="1" biz_name="inventoryTaskSnPda" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- pda扫描标签进行盘点-->
+	<ifs ifs_code="WMS_ITD00018" ifs_name="pda扫描标签进行盘点" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="InvBarcodePda" biz_method="" serial_no="1" biz_name="InvBarcodePda" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- pda修改盘点单标签盘点数量-->
+	<ifs ifs_code="WMS_ITD00019" ifs_name="pda修改盘点单标签盘点数量" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="InvQtyPdaUpdate" biz_method="" serial_no="1" biz_name="InvQtyPdaUpdate" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- pda修改货位或者区域的盘点明细状态-->
+	<ifs ifs_code="WMS_ITD00020" ifs_name="pda修改货位或者区域的盘点明细状态" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="InvStaPdaUpdate" biz_method="" serial_no="1" biz_name="InvStaPdaUpdate" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 查询当前盘点时间之前仓库所有未处理完入库单-->
+	<ifs ifs_code="WMS_ITD00021" ifs_name="查询当前盘点时间之前仓库所有未处理完入库单" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="InvInStoreQuery" biz_method="" serial_no="1" biz_name="InvInStoreQuery" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!--pda盘点结束(修改盘点状态)-->
+	<ifs ifs_code="WMS_ITD00022" ifs_name="pda盘点结束" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="InvEndPdaUpdate" biz_method="" serial_no="1" biz_name="InvEndPdaUpdate" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 查询当前盘点时间之前仓库所有未处理完出库单-->
+	<ifs ifs_code="WMS_ITD00023" ifs_name="查询当前盘点时间之前仓库所有未处理完出库单" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="InvOutStoreQuery" biz_method="" serial_no="1" biz_name="InvOutStoreQuery" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 查询当前盘点时间之前仓库所有未处理完退货单-->
+	<ifs ifs_code="WMS_ITD00024" ifs_name="查询当前盘点时间之前仓库所有未处理完退货单" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="InvReturnQuery" biz_method="" serial_no="1" biz_name="InvReturnQuery" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 查询当前盘点时间之前仓库所有未处理完调拨单-->
+	<ifs ifs_code="WMS_ITD00025" ifs_name="查询当前盘点时间之前仓库所有未处理完调拨单" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="InvAllocationQuery" biz_method="" serial_no="1" biz_name="InvAllocationQuery" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 盘点任务审核-->
+	<ifs ifs_code="WMS_ITD00026" ifs_name="盘点任务审核" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="InvTaskCheck" biz_method="" serial_no="1" biz_name="InvTaskCheck" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 盘点任务结束-->
+	<ifs ifs_code="WMS_ITD00027" ifs_name="盘点任务结束" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="InvTaskEnd" biz_method="" serial_no="1" biz_name="InvTaskEnd" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 盘点盈亏结算-->
+	<ifs ifs_code="WMS_ITD00028" ifs_name="盘点盈亏结算" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="InvBreakeven" biz_method="" serial_no="1" biz_name="InvBreakeven" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 查询当前盘点时间之前仓库所有未处理完退料单-->
+	<ifs ifs_code="WMS_ITD00029" ifs_name="查询当前盘点时间之前仓库所有未处理完退货单" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="InvReturnMatQuery" biz_method="" serial_no="1" biz_name="InvReturnMatQuery" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 盘点明细查询(盘点入库与盘点出库单)-->
+	<ifs ifs_code="WMS_ITD00030" ifs_name="盘点明细查询" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="InvInOutStore" biz_method="" serial_no="1" biz_name="InvInOutStore" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 盘点明细查询(盘点入库与盘点出库单明细)-->
+	<ifs ifs_code="WMS_ITD00031" ifs_name="盘点明细查询" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="InvInOutStoreDetail" biz_method="" serial_no="1" biz_name="InvInOutStoreDetail" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 盘点明细查询(盘点入库与盘点出库单条码明细)-->
+	<ifs ifs_code="WMS_ITD00032" ifs_name="盘点明细查询" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="InvInOutStoreSn" biz_method="" serial_no="1" biz_name="InvInOutStoreSn" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- pda根据货位查询盘点单下所有该货位的物料明细信息-->
+	<ifs ifs_code="WMS_ITD00033" ifs_name="pda根据货位查询盘点单下所有该货位的物料明细信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="inventoryTaskDetailPda" biz_method="" serial_no="1" biz_name="inventoryTaskDetailPda" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 针对于系统内错乱货位扫描标签返回数据-->
+	<ifs ifs_code="WMS_ITD00034" ifs_name="针对于系统内错乱货位扫描标签返回数据" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="InvDamageBarcode" biz_method="" serial_no="1" biz_name="InvDamageBarcode" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 针对于系统内错乱货位的条码进行库内移位功能-->
+	<ifs ifs_code="WMS_ITD00035" ifs_name="针对于系统内错乱货位的条码进行库内移位功能" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="InvDamage" biz_method="" serial_no="1" biz_name="InvDamage" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+</ifss>

@@ -1,0 +1,838 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="">
+
+	<!-- 调拨模块 -->
+	<!-- 查找内部调拨单信息 -->
+	<select id="InAllocationQuery" parameterType="hashmap" resultType="java.util.HashMap">
+		<include refid="oraclePagingFileTop"></include>
+		T1.ALLOCATION_ID,
+		T1.TO_WAREHOUSE_ID,
+		T1.TO_WAREHOUSE_NAME,
+		T1.ALLOCATION_STATUS,
+		T1.IQC_PASSED,
+		T1.FOR_WAREHOUSE_ID,
+		T1.FOR_WAREHOUSE_NAME,
+		T1.ALLOCATION_TYPE,
+		T1.CREATER_ID,
+		T4.EMP_NM AS CREATER_NAME,
+		TO_CHAR(T1.CREATER_DATE,'YYYY-MM-DD HH24:MI:SS') AS CREATER_DATE
+
+		FROM WMS1.WMS_ALLOCATION T1
+		LEFT JOIN (SELECT T2.USE_CD, T3.EMP_NM
+			               FROM IPLANT1.C_IPLANT_U1_T T2
+			               LEFT JOIN IPLANT1.C_IPLANT_E1_T T3
+			                 ON T2.EMP_NO = T3.EMP_CD) T4
+			    ON T1.CREATER_ID = T4.USE_CD
+		where 1=1
+		<if test="ALLOCATION_ID !=null and ALLOCATION_ID !='' ">
+			AND ALLOCATION_ID like '%${ALLOCATION_ID}%'
+		</if>
+		<if test="TO_WAREHOUSE_ID !=null and TO_WAREHOUSE_ID !='' ">
+			AND TO_WAREHOUSE_ID like '%${TO_WAREHOUSE_ID}%'
+		</if>
+		AND ALLOCATION_TYPE ='内部调拨'
+		order by CREATER_DATE DESC
+		<include refid="oraclePagingFileBottom"></include>
+	</select>
+
+	<!-- 查找内部调拨单信息分页总数 -->
+	<select id="InAllocationQuery_COUNT" parameterType="hashmap"
+		resultType="java.util.HashMap">
+		SELECT COUNT(1) AS ROWS_COUNT FROM WMS1.WMS_ALLOCATION T1
+		LEFT JOIN (SELECT T2.USE_CD, T3.EMP_NM
+			               FROM IPLANT1.C_IPLANT_U1_T T2
+			               LEFT JOIN IPLANT1.C_IPLANT_E1_T T3
+			                 ON T2.EMP_NO = T3.EMP_CD) T4
+			    ON T1.CREATER_ID = T4.USE_CD
+		where 1=1
+		<if test="ALLOCATION_ID !=null and ALLOCATION_ID !='' ">
+			AND ALLOCATION_ID like '%${ALLOCATION_ID}%'
+		</if>
+		<if test="TO_WAREHOUSE_ID !=null and TO_WAREHOUSE_ID !='' ">
+			AND TO_WAREHOUSE_ID like '%${TO_WAREHOUSE_ID}%'
+		</if>
+		AND ALLOCATION_TYPE ='内部调拨'
+	</select>
+
+	<!-- 查找内部调拨单详细信息 -->
+	<select id="InAllocationDetailQuery" parameterType="hashmap"
+		resultType="java.util.HashMap">
+		<include refid="oraclePagingFileTop"></include>
+		A.MATERIA_ID,
+		A.MATERIA_NAME,
+		A.UNIT,
+		A.PACKAGE_CAPACITY,
+		A.BARCODE,
+		A.PACKAGE_UNIT,
+		(A.FOR_STORE_NAME||A.FOR_SHELF_NAME||A.FOR_POSITION_NAME) AS FOR_LIBRARY,
+		(A.TO_STORE_NAME||A.TO_SHELF_NAME||A.TO_POSITION_NAME) AS TO_LIBRARY
+		from WMS1.WMS_ALLOCATION B
+		INNER JOIN WMS1.wms_allot_detail A ON A.ALLOCATION_ID=B.ALLOCATION_ID
+		<if test="ALLOCATION_ID !=null and ALLOCATION_ID !='' ">
+			AND B.ALLOCATION_ID = '${ALLOCATION_ID}'
+		</if>
+		AND B.ALLOCATION_TYPE ='内部调拨'
+		<include refid="oraclePagingFileBottom"></include>
+	</select>
+	
+	<!-- 查找内部调拨单详细信息分页总数 -->
+	<select id="InAllocationDetailQuery_COUNT" parameterType="hashmap"
+		resultType="java.util.HashMap">
+		SELECT COUNT(1) AS ROWS_COUNT from WMS1.WMS_ALLOCATION B
+		INNER JOIN WMS1.wms_allot_detail A ON A.ALLOCATION_ID=B.ALLOCATION_ID
+		<if test="ALLOCATION_ID !=null and ALLOCATION_ID !='' ">
+			AND B.ALLOCATION_ID = '${ALLOCATION_ID}'
+		</if>
+		AND B.ALLOCATION_TYPE ='内部调拨'
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<!-- 查找外部调拨单信息 -->
+	<select id="OutAllocationQuery" parameterType="hashmap" resultType="java.util.HashMap">
+		<include refid="oraclePagingFileTop"></include>
+		T1.ALLOCATION_ID,
+		T1.TO_WAREHOUSE_ID,
+		T1.TO_WAREHOUSE_NAME,
+		T1.ALLOCATION_STATUS,
+		T1.IQC_PASSED,
+		T1.ALLOCATION_TYPE,
+		T1.CREATER_ID,
+		TO_CHAR(T1.CREATER_DATE,'YYYY-MM-DD HH24:MI:SS') CREATER_DATE,
+		T4.EMP_NM AS CREATER_NAME
+		FROM WMS1.WMS_ALLOCATION  T1
+		LEFT JOIN (SELECT T2.USE_CD, T3.EMP_NM
+			               FROM IPLANT1.C_IPLANT_U1_T T2
+			               LEFT JOIN IPLANT1.C_IPLANT_E1_T T3
+			                 ON T2.EMP_NO = T3.EMP_CD) T4
+			    ON T1.CREATER_ID = T4.USE_CD
+		where 1=1
+		<if test="ALLOCATION_ID !=null and ALLOCATION_ID !='' ">
+			AND ALLOCATION_ID like '%${ALLOCATION_ID}%'
+		</if>
+		<if test="TO_WAREHOUSE_ID !=null and TO_WAREHOUSE_ID !='' ">
+			AND TO_WAREHOUSE_ID like '%${TO_WAREHOUSE_ID}%'
+		</if>
+		AND ALLOCATION_TYPE ='外部调拨'
+		order by CREATER_DATE DESC
+		<include refid="oraclePagingFileBottom"></include>
+	</select>
+
+	<!-- 查找外部调拨单信息分页总数 -->
+	<select id="OutAllocationQuery_COUNT" parameterType="hashmap"
+		resultType="java.util.HashMap">
+		SELECT COUNT(1) AS ROWS_COUNT FROM WMS1.WMS_ALLOCATION T1
+		LEFT JOIN (SELECT T2.USE_CD, T3.EMP_NM
+			               FROM IPLANT1.C_IPLANT_U1_T T2
+			               LEFT JOIN IPLANT1.C_IPLANT_E1_T T3
+			                 ON T2.EMP_NO = T3.EMP_CD) T4
+			    ON T1.CREATER_ID = T4.USE_CD
+		where 1=1
+		<if test="ALLOCATION_ID !=null and ALLOCATION_ID !='' ">
+			AND ALLOCATION_ID like '%${ALLOCATION_ID}%'
+		</if>
+		<if test="TO_WAREHOUSE_ID !=null and TO_WAREHOUSE_ID !='' ">
+			AND TO_WAREHOUSE_ID like '%${TO_WAREHOUSE_ID}%'
+		</if>
+		AND ALLOCATION_TYPE ='外部调拨'
+	</select>
+
+	<!-- 查找外部调拨单详细信息 -->
+	<select id="OutAllocationDetailQuery" parameterType="hashmap"
+		resultType="java.util.HashMap">
+		<include refid="oraclePagingFileTop"></include>
+		A.MATERIA_ID,
+		A.MATERIA_NAME,
+		A.UNIT,
+		A.PACKAGE_CAPACITY,
+		A.BARCODE,
+		A.PACKAGE_UNIT,
+		(A.TO_STORE_NAME||A.TO_SHELF_NAME||A.TO_POSITION_NAME) AS TO_LIBRARY
+		from WMS1.WMS_ALLOCATION B
+		INNER JOIN WMS1.wms_allot_detail A ON A.ALLOCATION_ID=B.ALLOCATION_ID
+		<if test="ALLOCATION_ID !=null and ALLOCATION_ID !='' ">
+			AND B.ALLOCATION_ID = '${ALLOCATION_ID}'
+		</if>
+		AND B.ALLOCATION_TYPE ='外部调拨'
+		<include refid="oraclePagingFileBottom"></include>
+	</select>
+	
+	<!-- 查找外部调拨单详细信息分页总数 -->
+	<select id="OutAllocationDetailQuery_COUNT" parameterType="hashmap"
+		resultType="java.util.HashMap">
+		SELECT COUNT(1) AS ROWS_COUNT from WMS1.WMS_ALLOCATION B
+		INNER JOIN WMS1.wms_allot_detail A ON A.ALLOCATION_ID=B.ALLOCATION_ID
+		<if test="ALLOCATION_ID !=null and ALLOCATION_ID !='' ">
+			AND B.ALLOCATION_ID = '${ALLOCATION_ID}'
+		</if>
+		AND B.ALLOCATION_TYPE ='外部调拨'
+	</select>
+	
+	<!-- PDA 内部调拨扫描物料标签接口  -->
+	<select id="InAllMateriaPda" parameterType="hashmap"
+		resultType="java.util.HashMap">
+				     T1.BARCODE,
+			         T1.MATERIA_ID,
+			         T1.MATERIA_NAME,
+			         T1.UNIT_NAME,
+			         T1.PACKAGE_CAPACITY,
+			         T2.WAREHOUSE_ID,
+			         T2.STORE_ID,
+			         T2.SHELF_ID,
+			         T2.POSITION_ID 
+			         FROM WMS1.WMS_M_PACKAGE T1
+			         LEFT JOIN WMS1.WMS_M_POSITION T2
+			         ON   T1.BARCODE=T2.BARCODE
+			         WHERE 1=1
+		<if test="BARCODE !=null and BARCODE !='' ">
+			AND T1.BARCODE = '${BARCODE}'
+		</if>
+		AND B.ALLOCATION_TYPE ='外部调拨'
+	</select>
+	
+	
+	<!-- PDA 查询内部调拨单序列ID-->
+	<select id="InAllIdQuery" parameterType="hashmap" resultType="java.util.HashMap"> 
+		       SELECT 'ITD'||(IPLANT1.TRANS_10TO34_FUN(IPLANT1.IN_ALL_SEQ.NEXTVAL, 4)) AS ALLOCATION_ID FROM DUAL					
+	</select>
+	
+	<!-- 新增内部调拨单 -->	
+	<insert id="insertInAll" parameterType="hashmap" > 
+	    		INSERT INTO 
+	    			WMS1.WMS_ALLOCATION
+	    				(
+	    				 ALLOCATION_ID,
+						 TO_WAREHOUSE_ID,
+						 ALLOCATION_STATUS,
+						 ALLOCATION_TYPE,
+						 CREATER_ID,
+						 CREATER_DATE
+  						)
+  					 VALUES
+  						(
+  						 '${ALLOCATION_ID}',
+						 '${TO_WAREHOUSE_ID}',
+						 '${ALLOCATION_STATUS}',
+						 '${ALLOCATION_TYPE}',
+						 '${CREATER_ID}',
+						 SYSDATE
+  						 )
+	</insert> 
+	
+	<!-- 新增内部调拨单明细 -->	
+	<insert id="insertInAllDetail" parameterType="hashmap" > 
+	    		INSERT INTO 
+	    			WMS1.WMS_ALLOT_DETAIL
+	    				(
+	    				 BILL_CD,
+						 MATERIA_ID,
+						 MATERIA_NAME,
+						 FOR_WAREHOUSE_ID,
+						 TO_WAREHOUSE_ID,
+						 BARCODE,
+						 FOR_STORE_ID,
+						 TO_STORE_ID,
+						 FOR_SHELF_ID,
+						 TO_SHELF_ID,
+						 FOR_POSITION_ID,
+						 TO_POSITION_ID,
+						 PACKAGE_CAPACITY,
+						 PACKAGE_UNIT
+  						)
+  					 VALUES
+  						(
+  						 '${BILL_CD}',
+						 '${MATERIA_ID}',
+						 '${MATERIA_NAME}',
+						 '${FOR_WAREHOUSE_ID}',
+						 '${TO_WAREHOUSE_ID}',
+						 '${BARCODE}',
+						 '${TO_WAREHOUSE_ID}',
+						 '${FOR_STORE_ID}',
+						 '${TO_STORE_ID}',
+						 '${FOR_SHELF_ID}',
+						 '${TO_SHELF_ID}',
+						 '${FOR_POSITION_ID}',
+						 '${TO_POSITION_ID}',
+						 '${PACKAGE_CAPACITY}',
+						 '${PACKAGE_UNIT}'
+  						 )
+	</insert> 
+	<!-- 调拨出库下架-->
+	 <select id="AllocateOutput" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap">	
+		{call IPLANT1.WMS_AL_MANAGE.wms_materia_al_down('${BARCODES}','${TOWAREHOUSEID}','${USERID}',
+					#{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=checkInResult},
+    				#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, 
+    				#{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},
+    				#{ROWS_COUNT,jdbcType=INTEGER,mode=OUT,javaType=Integer})}
+	
+  	</select>
+  	
+  	<!-- 扫描标签返回数据-->
+	 <select id="AllocateBarcodeToMat" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap">	
+		{call IPLANT1.WMS_AL_MANAGE.wms_down_to_material('${BARCODE}',
+					#{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=checkInResult},
+    				#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, 
+    				#{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},
+    				#{ROWS_COUNT,jdbcType=INTEGER,mode=OUT,javaType=Integer})}
+	
+  	</select>
+  	
+  	<!-- 原料调拨查询仓库-->
+	<select id="queryAllocationStore" parameterType="hashmap" resultType="java.util.HashMap"> 
+		  SELECT STORE_ID,STORE_NAME,STORE_TYPE_ID FROM WMS1.C_WMS_STORE_T
+		  <where> 1=1
+		     AND STORE_TYPE_ID IN ('WSTORE-01','WSTORE-05','WSTORE-03')
+		     <if test="STORE_ID !=null and STORE_ID !='' "> AND STORE_ID='${STORE_ID}'</if>
+	     </where>   
+	</select>
+  	<!-- 原料调拨查询目标仓库-->
+	<select id="queryTargetStore" parameterType="hashmap" resultType="java.util.HashMap"> 
+	    <if test="STORE_TYPE_ID =='WSTORE-01'">
+		  SELECT STORE_ID,STORE_NAME FROM WMS1.C_WMS_STORE_T
+		  <where> 
+		       STORE_TYPE_ID IN ('WSTORE-01','WSTORE-05')
+		       AND STORE_ID !='${STORE_ID}'
+	     </where> 
+	     </if> 
+	     <if test="STORE_TYPE_ID =='WSTORE-03'">
+		  SELECT STORE_ID,STORE_NAME FROM WMS1.C_WMS_STORE_T
+		  <where> 
+		       STORE_TYPE_ID IN ('WSTORE-03','WSTORE-05')
+		       AND STORE_ID !='${STORE_ID}'
+	     </where> 
+	     </if> 
+	     <if test="STORE_TYPE_ID =='WSTORE-05'">
+		  SELECT STORE_ID,STORE_NAME FROM WMS1.C_WMS_STORE_T
+		  <where> 
+		       STORE_ID !='${STORE_ID}'
+		       AND STORE_TYPE_ID IN ('WSTORE-01','WSTORE-05','WSTORE-03')
+	     </where> 
+	     </if>  
+	</select>
+	
+	<!-- 查询无条码物料位置详情-->
+	<select id="queryMaterialLocation" parameterType="hashmap" resultType="java.util.HashMap"> 
+		  SELECT   T.MATERIAL_ID,
+			       T.MATERIAL_NAME,
+			       T.SUPPLIER_ID,
+			       T.SUPPLIER_NAME,
+			       T.QTY,
+			       T.UNIT_ID,
+			       T.UNIT_NAME,
+			       T.STORE_ID,
+			       T1.LABEL_TYPE
+			    FROM WMS1.R_WMS_STORE_DETAIL_T T 
+			    LEFT JOIN IPLANT1.C_IPLANT_M3_T T1 ON T.MATERIAL_ID=T1.MATERIAL_ID
+		  <where> 
+		       T1.LABEL_TYPE='WMLABEL-01'
+		       <if test="MATERIAL_ID !=null and MATERIAL_ID !='' "> AND T.MATERIAL_ID='${MATERIAL_ID}'</if>
+               
+	     </where>   
+	</select>
+	
+	<!-- 查询未完成调拨单-->
+	<select id="queryAllocationBill" parameterType="hashmap" resultType="java.util.HashMap"> 
+		  SELECT   
+		         ALLOCATE_NO
+			FROM WMS1.R_WMS_ALLOCATE_T  
+		  <where> 
+		       STATUS !='WORDERSTATUS-03'
+	     </where>   
+	</select>
+	
+	<!-- 调拨入库上架-->
+	 <select id="AllocateInput" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap">	
+		{call IPLANT1.WMS_AL_MANAGE.wms_materia_al_up('${BARCODES}','${ALLOCATENO}','${TOWAREHOUSEID}','${TOAREAID}','${TOSHELFID}','${TOLOCATIONID}','${USERID}',
+					#{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=checkInResult},
+    				#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, 
+    				#{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},
+    				#{ROWS_COUNT,jdbcType=INTEGER,mode=OUT,javaType=Integer})}
+	
+  	</select>
+  	
+  	<!-- 查询调拨单详情-->
+	<select id="queryAllocationBillDetail" parameterType="hashmap" resultType="java.util.HashMap"> 
+		 SELECT '0' AS FLAG,CC.ALLOCATE_NO,CC.SERIAL_NUMBER,CC.MATERIAL_ID,CC.MATERIAL_NAME,CC.LOT_NO,T3.UNIT_ID ,T3.UNIT_NAME,CC.IN_STORE,T4.STORE_NAME AS IN_STORE_NAME,CC.QTY
+            FROM (SELECT TT.LARAGE_CARTON AS SERIAL_NUMBER,TT.ALLOCATE_NO,TT.MATERIAL_ID,TT.MATERIAL_NAME,TT.LOT_NO,TT.IN_STORE,SUM(TT.QTY) AS QTY
+				    FROM (SELECT SERIAL_NUMBER,
+				                       ALLOCATE_NO,
+				                       MATERIAL_ID,
+				                       MATERIAL_NAME,
+				                       SUPPLIER_ID,
+				                       SUPPLIER_NAME,
+				                       QTY,
+				                       CARTON_NO,
+				                       IPLANT1.GET_INSTORE_PARENT_F(SERIAL_NUMBER,'YALLOCATION') AS LARAGE_CARTON,
+				                       STORE_ID,
+				                       AREA_ID,
+				                       SHELF_ID,
+				                       LOCATION_ID,
+				                       IN_STORE,
+				                       LOT_NO,
+				                       ARRIVAL_DATE,
+				                       PRODUCT_DATE,
+				                       VALIDITY_DATE,
+				                       SPEC_MODEL
+				                  FROM WMS1.R_WMS_ALLOCATE_SN_T
+				                  WHERE 1=1
+				                  AND ALLOCATE_NO = '${ALLOCATE_NO}'
+				                  AND CARTON_NO !='N/A' 
+				                  AND ALLOCATE_ID IS NULL)TT
+				      GROUP BY TT.LARAGE_CARTON,TT.ALLOCATE_NO,TT.MATERIAL_ID,TT.MATERIAL_NAME,TT.LOT_NO,TT.IN_STORE)CC
+          LEFT JOIN WMS1.R_WMS_ALLOCATE_DETAIL_T T3
+          ON CC.ALLOCATE_NO = T3.ALLOCATE_NO
+          AND CC.MATERIAL_ID = T3.MATERIAL_ID 
+          LEFT JOIN WMS1.C_WMS_STORE_T T4
+	      ON CC.IN_STORE=T4.STORE_ID
+    UNION ALL
+		    SELECT '0' AS FLAG,T1.ALLOCATE_NO, T1.SERIAL_NUMBER, T1.MATERIAL_ID, T1.MATERIAL_NAME, T1.LOT_NO, T3.UNIT_ID, T3.UNIT_NAME,T1.IN_STORE,T4.STORE_NAME AS IN_STORE_NAME,T1.QTY 
+		    FROM WMS1.R_WMS_ALLOCATE_SN_T T1 
+		    LEFT JOIN WMS1.R_WMS_ALLOCATE_DETAIL_T T3 ON T1.ALLOCATE_NO=T3.ALLOCATE_NO AND T1.MATERIAL_ID=T3.MATERIAL_ID
+		    LEFT JOIN WMS1.C_WMS_STORE_T T4 ON T1.IN_STORE=T4.STORE_ID
+		    WHERE 
+		       T1.ALLOCATE_NO='${ALLOCATE_NO}' 
+		       AND T1.ALLOCATE_ID IS NULL 
+		       AND T1.CARTON_NO ='N/A'
+	UNION ALL
+	 SELECT '1' AS FLAG,CC.ALLOCATE_NO,CC.SERIAL_NUMBER,CC.MATERIAL_ID,CC.MATERIAL_NAME,CC.LOT_NO,T3.UNIT_ID ,T3.UNIT_NAME,CC.IN_STORE,T4.STORE_NAME AS IN_STORE_NAME,CC.QTY
+            FROM (SELECT TT.LARAGE_CARTON AS SERIAL_NUMBER,TT.ALLOCATE_NO,TT.MATERIAL_ID,TT.MATERIAL_NAME,TT.LOT_NO,TT.IN_STORE,SUM(TT.QTY) AS QTY
+				    FROM (SELECT SERIAL_NUMBER,
+				                       ALLOCATE_NO,
+				                       MATERIAL_ID,
+				                       MATERIAL_NAME,
+				                       SUPPLIER_ID,
+				                       SUPPLIER_NAME,
+				                       QTY,
+				                       CARTON_NO,
+				                       IPLANT1.GET_INSTORE_PARENT_F(SERIAL_NUMBER,'YALLOCATION') AS LARAGE_CARTON,
+				                       STORE_ID,
+				                       AREA_ID,
+				                       SHELF_ID,
+				                       LOCATION_ID,
+				                       IN_STORE,
+				                       LOT_NO,
+				                       ARRIVAL_DATE,
+				                       PRODUCT_DATE,
+				                       VALIDITY_DATE,
+				                       SPEC_MODEL
+				                  FROM WMS1.R_WMS_ALLOCATE_SN_T
+				                  WHERE 1=1
+				                  AND ALLOCATE_NO = '${ALLOCATE_NO}'
+				                  AND CARTON_NO !='N/A' 
+				                  AND ALLOCATE_ID IS NOT NULL)TT
+				      GROUP BY TT.LARAGE_CARTON,TT.ALLOCATE_NO,TT.MATERIAL_ID,TT.MATERIAL_NAME,TT.LOT_NO,TT.IN_STORE)CC
+          LEFT JOIN WMS1.R_WMS_ALLOCATE_DETAIL_T T3
+          ON CC.ALLOCATE_NO = T3.ALLOCATE_NO
+          AND CC.MATERIAL_ID = T3.MATERIAL_ID 
+          LEFT JOIN WMS1.C_WMS_STORE_T T4
+	      ON CC.IN_STORE=T4.STORE_ID
+    UNION ALL
+		    SELECT '1' AS FLAG,T1.ALLOCATE_NO, T1.SERIAL_NUMBER, T1.MATERIAL_ID, T1.MATERIAL_NAME, T1.LOT_NO, T3.UNIT_ID, T3.UNIT_NAME,T1.IN_STORE,T4.STORE_NAME AS IN_STORE_NAME,T1.QTY 
+		    FROM WMS1.R_WMS_ALLOCATE_SN_T T1 
+		    LEFT JOIN WMS1.R_WMS_ALLOCATE_DETAIL_T T3 ON T1.ALLOCATE_NO=T3.ALLOCATE_NO AND T1.MATERIAL_ID=T3.MATERIAL_ID
+		    LEFT JOIN WMS1.C_WMS_STORE_T T4 ON T1.IN_STORE=T4.STORE_ID
+		    WHERE 
+		       T1.ALLOCATE_NO='${ALLOCATE_NO}' 
+		       AND T1.ALLOCATE_ID IS NOT NULL 
+		       AND T1.CARTON_NO ='N/A'	       
+		    
+	</select>
+	
+	<!-- 成品调拨出库-->
+	<!-- 成品调拨出库下架-->
+	 <select id="AllocateProOutput" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap">	
+		{call IPLANT1.WMS_AL_MANAGE.wms_product_al_down('${BARCODES}','${TOWAREHOUSEID}','${USERID}',
+					#{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=checkInResult},
+    				#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, 
+    				#{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},
+    				#{ROWS_COUNT,jdbcType=INTEGER,mode=OUT,javaType=Integer})}
+	
+  	</select>
+  	
+  	<!-- 扫描标签返回成品数据-->
+	 <select id="AllocateBarcodeToPro" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap">	
+		{call IPLANT1.WMS_AL_MANAGE.wms_down_to_product('${BARCODE}',
+					#{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=checkInResult},
+    				#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, 
+    				#{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},
+    				#{ROWS_COUNT,jdbcType=INTEGER,mode=OUT,javaType=Integer})}
+	
+  	</select>
+  	
+  	<!-- 成品调拨查询仓库-->
+	<select id="queryAllocationProStore" parameterType="hashmap" resultType="java.util.HashMap"> 
+		  SELECT STORE_ID,STORE_NAME FROM WMS1.C_WMS_STORE_T
+		  <where> 
+		       STORE_TYPE_ID IN ('WSTORE-03','WSTORE-05')
+	     </where>   
+	</select>
+  	<!-- 成品调拨查询目标仓库-->
+	<select id="queryTargetProStore" parameterType="hashmap" resultType="java.util.HashMap"> 
+		  SELECT STORE_ID,STORE_NAME FROM WMS1.C_WMS_STORE_T
+		  <where> 
+		       STORE_TYPE_ID IN ('WSTORE-03','WSTORE-05')
+		       AND STORE_ID !='${STORE_ID}'
+	     </where>   
+	</select>
+	
+	
+	<!-- 成品调拨入库-->
+	<!-- 查询未完成成品调拨单-->
+	<select id="queryProAllocationBill" parameterType="hashmap" resultType="java.util.HashMap"> 
+		  SELECT   
+		         ALLOCATION_NO AS ALLOCATE_NO
+			FROM WMS1.R_WMS_PRODALLOCATION_T  
+		  <where> 
+		       STATUS !='WORDERSTATUS-03'
+	     </where>   
+	</select>
+	
+	<!-- 成品调拨入库上架-->
+	 <select id="AllocateProInput" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap">	
+		{call IPLANT1.WMS_AL_MANAGE.wms_product_al_up('${BARCODES}','${ALLOCATENO}','${TOWAREHOUSEID}','${TOAREAID}','${TOSHELFID}','${TOLOCATIONID}','${USERID}',
+					#{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=checkInResult},
+    				#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, 
+    				#{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},
+    				#{ROWS_COUNT,jdbcType=INTEGER,mode=OUT,javaType=Integer})}
+	
+  	</select>
+  	
+  	<!-- 查询成品调拨单详情-->
+	<select id="queryProAllocationBillDetail" parameterType="hashmap" resultType="java.util.HashMap"> 
+		 SELECT CC.ALLOCATION_NO AS ALLOCATE_NO,CC.SERIAL_NUMBER,CC.PRODUCT_NO,CC.PRODUCT_NAME,CC.LOT_NO,T3.UNIT_ID ,T3.UNIT_NAME,CC.IN_STORE,T4.STORE_NAME AS IN_STORE_NAME,CC.QTY
+            FROM (SELECT TT.LARAGE_CARTON AS SERIAL_NUMBER,TT.ALLOCATION_NO,TT.PRODUCT_NO,TT.PRODUCT_NAME,TT.LOT_NO,TT.IN_STORE,SUM(TT.QTY) AS QTY
+	            FROM (SELECT SERIAL_NUMBER,
+	                               ALLOCATION_NO,
+	                               PRODUCT_NO,
+	                               PRODUCT_NAME,
+	                               CUST_NO,
+	                               CUST_NAME,
+	                               QTY,
+	                               CARTON_NO,
+	                               IPLANT1.GET_INSTORE_PARENT_F(SERIAL_NUMBER,'CALLOCATION') AS LARAGE_CARTON,
+	                               STORE_ID,
+	                               AREA_ID,
+	                               SHELF_ID,
+	                               LOCATION_ID,
+	                               IN_STORE,
+	                               LOT_NO,
+	                               PACKAGE_DATE
+	                               PRODUCT_DATE,
+	                               VALIDITY_DATE
+	                          FROM WMS1.R_WMS_PRODALLOCATION_SN_T
+	                          WHERE 1=1
+	                          AND ALLOCATION_NO = '${ALLOCATE_NO}'
+	                          AND CARTON_NO !='N/A' 
+	                          AND ALLOCATION_ID IS NULL)TT
+	              GROUP BY TT.LARAGE_CARTON,TT.ALLOCATION_NO,TT.PRODUCT_NO,TT.PRODUCT_NAME,TT.LOT_NO,TT.IN_STORE)CC
+	          LEFT JOIN WMS1.R_WMS_PRODALLOCATION_DETAIL_T T3
+	          ON CC.ALLOCATION_NO = T3.ALLOCATION_NO
+	          AND CC.PRODUCT_NO = T3.PRODUCT_NO 
+	          LEFT JOIN WMS1.C_WMS_STORE_T T4
+	          ON CC.IN_STORE=T4.STORE_ID
+    UNION ALL
+	        SELECT T1.ALLOCATION_NO, T1.SERIAL_NUMBER, T1.PRODUCT_NO, T1.PRODUCT_NAME, T1.LOT_NO, T3.UNIT_ID, T3.UNIT_NAME,T1.IN_STORE,T4.STORE_NAME AS IN_STORE_NAME,T1.QTY 
+	        FROM WMS1.R_WMS_PRODALLOCATION_SN_T T1 
+	        LEFT JOIN WMS1.R_WMS_PRODALLOCATION_DETAIL_T T3 ON T1.ALLOCATION_NO=T3.ALLOCATION_NO AND T1.PRODUCT_NO=T3.PRODUCT_NO
+	        LEFT JOIN WMS1.C_WMS_STORE_T T4 ON T1.IN_STORE=T4.STORE_ID
+	        WHERE 
+	           T1.ALLOCATION_NO='${ALLOCATE_NO}' 
+	           AND T1.ALLOCATION_ID IS NULL 
+	           AND T1.CARTON_NO ='N/A'
+	</select>
+	
+	
+	<!-- 原料调拨 -->
+	<!-- 原料调拨单主表查询 -->
+	<select id="matAllocationBillQuery" parameterType="hashmap" resultType="java.util.HashMap">
+		<include refid="oraclePagingFileTop" />
+			   T1.ALLOCATE_NO, 
+		       T1.BILL_TYPE,
+		       T2.DICT_IT_NM AS BILL_TYPE_NM,
+		       T1.STATUS,
+		       T3.DICT_IT_NM AS STATUS_NM,
+		       IPLANT1.F_GET_USER_NAME(T1.CRT_ID) AS CRT_ID,
+		       TO_CHAR(T1.CRT_DT,'YYYY-MM-DD HH24:MI:SS')  AS CRT_DT,
+		       ADT_ID, 
+		       ADT_DT
+		  FROM WMS1.R_WMS_ALLOCATE_T T1
+		  LEFT JOIN WMS1.C_WMS_BASIC_DD_T T2 ON T1.BILL_TYPE=T2.DICT_IT
+		  LEFT JOIN WMS1.C_WMS_BASIC_DD_T T3 ON T1.STATUS=T3.DICT_IT 
+		<where>
+		     1=1
+		    <if test="ALLOCATE_NO !=null and ALLOCATE_NO !='' "> AND T1.ALLOCATE_NO = '${ALLOCATE_NO}'</if>
+		    <if test="queryCrtDtBegin !=null and queryCrtDtBegin !='' "> AND T1.CRT_DT &gt;= to_date('${queryCrtDtBegin}'|| ' 00:00:00','yyyy-MM-dd HH24:mi:ss')</if>
+			<if test="queryCrtDtEnd !=null and queryCrtDtEnd !='' "> AND T1.CRT_DT &lt;= to_date('${queryCrtDtEnd}'|| ' 23:59:59','yyyy-MM-dd HH24:mi:ss') </if>
+		</where>
+		ORDER BY T1.CRT_DT DESC
+		<include refid="oraclePagingFileBottom" />
+	</select>
+	<select id="matAllocationBillQuery_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT COUNT(1) AS ROWS_COUNT 
+		  FROM WMS1.R_WMS_ALLOCATE_T T1
+		  LEFT JOIN WMS1.C_WMS_BASIC_DD_T T2 ON T1.BILL_TYPE=T2.DICT_IT
+		  LEFT JOIN WMS1.C_WMS_BASIC_DD_T T3 ON T1.STATUS=T3.DICT_IT 
+		<where>
+		     1=1
+		    <if test="ALLOCATE_NO !=null and ALLOCATE_NO !='' "> AND T1.ALLOCATE_NO = '${ALLOCATE_NO}'</if>
+		    <if test="queryCrtDtBegin !=null and queryCrtDtBegin !='' "> AND T1.CRT_DT &gt;= to_date('${queryCrtDtBegin}'|| ' 00:00:00','yyyy-MM-dd HH24:mi:ss')</if>
+			<if test="queryCrtDtEnd !=null and queryCrtDtEnd !='' "> AND T1.CRT_DT &lt;= to_date('${queryCrtDtEnd}'|| ' 23:59:59','yyyy-MM-dd HH24:mi:ss') </if>
+		</where>
+	</select>
+	
+	<!-- 原料调拨单明细表查询 -->
+	<select id="matAllocationDetailQuery" parameterType="hashmap" resultType="java.util.HashMap">
+		<include refid="oraclePagingFileTop" />
+			    T1.ALLOCATE_NO,
+				T1.MATERIAL_ID,
+				T1.MATERIAL_NAME,
+				T1.SUPPLIER_ID,
+				T1.SUPPLIER_NAME,
+				T1.SPEC_MODEL,
+				T1.ALLOCATE_QTY,
+				T1.UNIT_ID,
+				T1.UNIT_NAME,
+				T1.STORE_ID,
+				T2.STORE_NAME,
+				T1.IN_STORE,
+				T3.STORE_NAME AS IN_STORE_NAME
+		  FROM WMS1.R_WMS_ALLOCATE_DETAIL_T T1
+		  LEFT JOIN WMS1.C_WMS_STORE_T T2 ON T1.STORE_ID=T2.STORE_ID
+		  LEFT JOIN WMS1.C_WMS_STORE_T T3 ON T1.IN_STORE=T3.STORE_ID
+		<where>
+		     1=1
+		    <if test="ALLOCATE_NO !=null and ALLOCATE_NO !='' "> AND ALLOCATE_NO = '${ALLOCATE_NO}'</if>
+		</where>
+		<include refid="oraclePagingFileBottom" />
+	</select>
+	<select id="matAllocationDetailQuery_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT COUNT(1) AS ROWS_COUNT 
+		    FROM WMS1.R_WMS_ALLOCATE_DETAIL_T T1
+		  LEFT JOIN WMS1.C_WMS_STORE_T T2 ON T1.STORE_ID=T2.STORE_ID
+		  LEFT JOIN WMS1.C_WMS_STORE_T T3 ON T1.IN_STORE=T3.STORE_ID
+		<where>
+		     1=1
+		    <if test="ALLOCATE_NO !=null and ALLOCATE_NO !='' "> AND ALLOCATE_NO = '${ALLOCATE_NO}'</if>
+		</where>
+	</select>
+	
+	<!-- 原料调拨单条码表查询 -->
+	<select id="matAllocationSNQuery" parameterType="hashmap" resultType="java.util.HashMap">
+		<include refid="oraclePagingFileTop" />
+			    T1.SERIAL_NUMBER,
+				T1.ALLOCATE_NO,
+				T1.MATERIAL_ID,
+				T1.MATERIAL_NAME,
+				T1.SUPPLIER_ID,
+				T1.SUPPLIER_NAME,
+				T1.SPEC_MODEL,
+				T1.CUST_NO,
+				T1.QTY,
+				T1.UNIT_ID,
+				T1.UNIT_NAME,
+				T1.CARTON_NO,
+				T1.STORE_ID,
+				T2.STORE_NAME,
+				T1.AREA_ID,
+				T3.AREA_NAME,
+				T1.SHELF_ID,
+				T4.SHELF_NAME,
+				T1.LOCATION_ID,
+				T5.LOCATION_NAME,
+				T1.IN_STORE,
+				T6.STORE_NAME AS IN_STORE_NAME,
+				T1.IN_AREA,
+				T7.AREA_NAME AS IN_AREA_NAME,
+				T1.IN_SHELF,
+				T8.SHELF_NAME AS IN_SHELF_NAME,
+				T1.IN_LOCATION,
+				T9.LOCATION_NAME AS IN_LOCATION_NAME,
+				T1.LOT_NO,
+				T1.ARRIVAL_DATE,
+				T1.PRODUCT_DATE,
+				T1.VALIDITY_DATE,
+		       IPLANT1.F_GET_USER_NAME(T1.ALLOCATE_ID) AS ALLOCATE_ID,
+		       TO_CHAR(ALLOCATE_DT,'YYYY-MM-DD HH24:MI:SS')  AS ALLOCATE_DT
+		  FROM WMS1.R_WMS_ALLOCATE_SN_T T1
+		  LEFT JOIN WMS1.C_WMS_STORE_T T2 ON T1.STORE_ID=T2.STORE_ID
+		  LEFT JOIN WMS1.C_WMS_AREA_T T3 ON T1.AREA_ID=T3.AREA_ID
+		  LEFT JOIN WMS1.C_WMS_SHELF_T T4 ON T1.SHELF_ID=T4.SHELF_ID
+		  LEFT JOIN WMS1.C_WMS_LOCATION_T T5 ON T1.LOCATION_ID=T5.LOCATION_ID
+		  LEFT JOIN WMS1.C_WMS_STORE_T T6 ON T1.IN_STORE=T6.STORE_ID
+		  LEFT JOIN WMS1.C_WMS_AREA_T T7 ON T1.IN_AREA=T7.AREA_ID
+		  LEFT JOIN WMS1.C_WMS_SHELF_T T8 ON T1.IN_SHELF=T8.SHELF_ID
+		  LEFT JOIN WMS1.C_WMS_LOCATION_T T9 ON T1.IN_LOCATION=T9.LOCATION_ID
+		<where>
+		     1=1
+		    <if test="ALLOCATE_NO !=null and ALLOCATE_NO !='' "> AND T1.ALLOCATE_NO = '${ALLOCATE_NO}'</if>
+		</where>
+		<include refid="oraclePagingFileBottom" />
+	</select>
+	<select id="matAllocationSNQuery_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT COUNT(1) AS ROWS_COUNT 
+		   FROM WMS1.R_WMS_ALLOCATE_SN_T T1
+		  LEFT JOIN WMS1.C_WMS_STORE_T T2 ON T1.STORE_ID=T2.STORE_ID
+		  LEFT JOIN WMS1.C_WMS_AREA_T T3 ON T1.AREA_ID=T3.AREA_ID
+		  LEFT JOIN WMS1.C_WMS_SHELF_T T4 ON T1.SHELF_ID=T4.SHELF_ID
+		  LEFT JOIN WMS1.C_WMS_LOCATION_T T5 ON T1.LOCATION_ID=T5.LOCATION_ID
+		  LEFT JOIN WMS1.C_WMS_STORE_T T6 ON T1.IN_STORE=T6.STORE_ID
+		  LEFT JOIN WMS1.C_WMS_AREA_T T7 ON T1.IN_AREA=T7.AREA_ID
+		  LEFT JOIN WMS1.C_WMS_SHELF_T T8 ON T1.IN_SHELF=T8.SHELF_ID
+		  LEFT JOIN WMS1.C_WMS_LOCATION_T T9 ON T1.IN_LOCATION=T9.LOCATION_ID
+		<where>
+		     1=1
+		    <if test="ALLOCATE_NO !=null and ALLOCATE_NO !='' "> AND T1.ALLOCATE_NO = '${ALLOCATE_NO}'</if>
+		</where>
+	</select>
+	
+	
+	<!-- 成品调拨 -->
+	<!-- 成品调拨单主表查询 -->
+	<select id="proAllocationBillQuery" parameterType="hashmap" resultType="java.util.HashMap">
+		<include refid="oraclePagingFileTop" />
+			   T1.ALLOCATION_NO, 
+		       T1.BILL_TYPE,
+		       T2.DICT_IT_NM AS BILL_TYPE_NM,
+		       T1.STATUS,
+		       T3.DICT_IT_NM AS STATUS_NM,
+		       IPLANT1.F_GET_USER_NAME(T1.CRT_ID) AS CRT_ID,
+		       TO_CHAR(T1.CRT_DT,'YYYY-MM-DD HH24:MI:SS')  AS CRT_DT,
+		       ADT_ID, 
+		       ADT_DT
+		  FROM WMS1.R_WMS_PRODALLOCATION_T T1
+		  LEFT JOIN WMS1.C_WMS_BASIC_DD_T T2 ON T1.BILL_TYPE=T2.DICT_IT
+		  LEFT JOIN WMS1.C_WMS_BASIC_DD_T T3 ON T1.STATUS=T3.DICT_IT 
+		<where>
+		     1=1
+		    <if test="ALLOCATION_NO !=null and ALLOCATION_NO !='' "> AND T1.ALLOCATION_NO = '${ALLOCATION_NO}'</if>
+		    <if test="queryCrtDtBegin !=null and queryCrtDtBegin !='' "> AND T1.CRT_DT &gt;= to_date('${queryCrtDtBegin}'|| ' 00:00:00','yyyy-MM-dd HH24:mi:ss')</if>
+			<if test="queryCrtDtEnd !=null and queryCrtDtEnd !='' "> AND T1.CRT_DT &lt;= to_date('${queryCrtDtEnd}'|| ' 23:59:59','yyyy-MM-dd HH24:mi:ss') </if>
+		</where>
+		ORDER BY T1.CRT_DT DESC
+		<include refid="oraclePagingFileBottom" />
+	</select>
+	<select id="proAllocationBillQuery_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT COUNT(1) AS ROWS_COUNT 
+		  FROM WMS1.R_WMS_PRODALLOCATION_T T1
+		  LEFT JOIN WMS1.C_WMS_BASIC_DD_T T2 ON T1.BILL_TYPE=T2.DICT_IT
+		  LEFT JOIN WMS1.C_WMS_BASIC_DD_T T3 ON T1.STATUS=T3.DICT_IT 
+		<where>
+		     1=1
+		    <if test="ALLOCATION_NO !=null and ALLOCATION_NO !='' "> AND T1.ALLOCATION_NO = '${ALLOCATION_NO}'</if>
+		    <if test="queryCrtDtBegin !=null and queryCrtDtBegin !='' "> AND T1.CRT_DT &gt;= to_date('${queryCrtDtBegin}'|| ' 00:00:00','yyyy-MM-dd HH24:mi:ss')</if>
+			<if test="queryCrtDtEnd !=null and queryCrtDtEnd !='' "> AND T1.CRT_DT &lt;= to_date('${queryCrtDtEnd}'|| ' 23:59:59','yyyy-MM-dd HH24:mi:ss') </if>
+		</where>
+	</select>
+	
+	<!-- 成品调拨单明细表查询 -->
+	<select id="proAllocationDetailQuery" parameterType="hashmap" resultType="java.util.HashMap">
+		<include refid="oraclePagingFileTop" />
+			    T1.ALLOCATION_NO,
+				T1.PRODUCT_NO,
+				T1.PRODUCT_NAME,
+				T1.CUST_NO,
+				T1.CUST_NAME,
+				T1.TOTAL_CARTON,
+				T1.ALLOCATION_QTY,
+				T1.UNIT_ID,
+				T1.UNIT_NAME,
+				T1.STORE_ID,
+				T2.STORE_NAME,
+				T1.IN_STORE,
+				T3.STORE_NAME AS IN_STORE_NAME
+		  FROM WMS1.R_WMS_PRODALLOCATION_DETAIL_T T1
+		  LEFT JOIN WMS1.C_WMS_STORE_T T2 ON T1.STORE_ID=T2.STORE_ID
+		  LEFT JOIN WMS1.C_WMS_STORE_T T3 ON T1.IN_STORE=T3.STORE_ID
+		<where>
+		     1=1
+		    <if test="ALLOCATION_NO !=null and ALLOCATION_NO !='' "> AND ALLOCATION_NO = '${ALLOCATION_NO}'</if>
+		</where>
+		<include refid="oraclePagingFileBottom" />
+	</select>
+	<select id="proAllocationDetailQuery_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT COUNT(1) AS ROWS_COUNT 
+		    FROM WMS1.R_WMS_PRODALLOCATION_DETAIL_T T1
+		  LEFT JOIN WMS1.C_WMS_STORE_T T2 ON T1.STORE_ID=T2.STORE_ID
+		  LEFT JOIN WMS1.C_WMS_STORE_T T3 ON T1.IN_STORE=T3.STORE_ID
+		<where>
+		     1=1
+		    <if test="ALLOCATION_NO !=null and ALLOCATION_NO !='' "> AND ALLOCATION_NO = '${ALLOCATION_NO}'</if>
+		</where>
+	</select>
+	
+	<!-- 成品调拨单条码表查询 -->
+	<select id="proAllocationSNQuery" parameterType="hashmap" resultType="java.util.HashMap">
+		<include refid="oraclePagingFileTop" />
+			    T1.SERIAL_NUMBER,
+				T1.ALLOCATION_NO,
+				T1.PRODUCT_NO,
+				T1.PRODUCT_NAME,
+				T1.CUST_NO,
+				T1.CUST_NAME,
+				T1.QTY,
+				T1.UNIT_ID,
+				T1.UNIT_NAME,
+				T1.CARTON_NO,
+				T1.STORE_ID,
+				T2.STORE_NAME,
+				T1.AREA_ID,
+				T3.AREA_NAME,
+				T1.SHELF_ID,
+				T4.SHELF_NAME,
+				T1.LOCATION_ID,
+				T5.LOCATION_NAME,
+				T1.IN_STORE,
+				T6.STORE_NAME AS IN_STORE_NAME,
+				T1.IN_AREA,
+				T7.AREA_NAME AS IN_AREA_NAME,
+				T1.IN_SHELF,
+				T8.SHELF_NAME AS IN_SHELF_NAME,
+				T1.IN_LOCATION,
+				T9.LOCATION_NAME AS IN_LOCATION_NAME,
+				T1.LOT_NO,
+				T1.PACKAGE_DATE,
+				T1.PRODUCT_DATE,
+				T1.VALIDITY_DATE,
+		        IPLANT1.F_GET_USER_NAME(T1.ALLOCATION_ID) AS ALLOCATION_ID,
+		        TO_CHAR(ALLOCATION_DT,'YYYY-MM-DD HH24:MI:SS')  AS ALLOCATION_DT
+		  FROM WMS1.R_WMS_PRODALLOCATION_SN_T T1
+		  LEFT JOIN WMS1.C_WMS_STORE_T T2 ON T1.STORE_ID=T2.STORE_ID
+		  LEFT JOIN WMS1.C_WMS_AREA_T T3 ON T1.AREA_ID=T3.AREA_ID
+		  LEFT JOIN WMS1.C_WMS_SHELF_T T4 ON T1.SHELF_ID=T4.SHELF_ID
+		  LEFT JOIN WMS1.C_WMS_LOCATION_T T5 ON T1.LOCATION_ID=T5.LOCATION_ID
+		  LEFT JOIN WMS1.C_WMS_STORE_T T6 ON T1.IN_STORE=T6.STORE_ID
+		  LEFT JOIN WMS1.C_WMS_AREA_T T7 ON T1.IN_AREA=T7.AREA_ID
+		  LEFT JOIN WMS1.C_WMS_SHELF_T T8 ON T1.IN_SHELF=T8.SHELF_ID
+		  LEFT JOIN WMS1.C_WMS_LOCATION_T T9 ON T1.IN_LOCATION=T9.LOCATION_ID
+		<where>
+		     1=1
+		    <if test="ALLOCATION_NO !=null and ALLOCATION_NO !='' "> AND T1.ALLOCATION_NO = '${ALLOCATION_NO}'</if>
+		</where>
+		<include refid="oraclePagingFileBottom" />
+	</select>
+	<select id="proAllocationSNQuery_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT COUNT(1) AS ROWS_COUNT 
+		   FROM WMS1.R_WMS_PRODALLOCATION_SN_T T1
+		  LEFT JOIN WMS1.C_WMS_STORE_T T2 ON T1.STORE_ID=T2.STORE_ID
+		  LEFT JOIN WMS1.C_WMS_AREA_T T3 ON T1.AREA_ID=T3.AREA_ID
+		  LEFT JOIN WMS1.C_WMS_SHELF_T T4 ON T1.SHELF_ID=T4.SHELF_ID
+		  LEFT JOIN WMS1.C_WMS_LOCATION_T T5 ON T1.LOCATION_ID=T5.LOCATION_ID
+		  LEFT JOIN WMS1.C_WMS_STORE_T T6 ON T1.IN_STORE=T6.STORE_ID
+		  LEFT JOIN WMS1.C_WMS_AREA_T T7 ON T1.IN_AREA=T7.AREA_ID
+		  LEFT JOIN WMS1.C_WMS_SHELF_T T8 ON T1.IN_SHELF=T8.SHELF_ID
+		  LEFT JOIN WMS1.C_WMS_LOCATION_T T9 ON T1.IN_LOCATION=T9.LOCATION_ID
+		<where>
+		     1=1
+		    <if test="ALLOCATION_NO !=null and ALLOCATION_NO !='' "> AND T1.ALLOCATION_NO = '${ALLOCATION_NO}'</if>
+		</where>
+	</select>
+</mapper>

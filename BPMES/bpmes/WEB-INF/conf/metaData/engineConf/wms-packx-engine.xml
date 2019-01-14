@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<engines>
+	<engine engine_code="queryDetailsn" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryDetailsn" ></engine>
+		<!-- 查询多物料是否启用-->
+	<engine engine_code="wcartonmore" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="wcartonmore" >
+	</engine>
+	<engine engine_code="materialpackage" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="materialpackage" ></engine>
+	<!-- 查询条码物料信息-->
+	<engine engine_code="querypackagesernum" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querypackagesernum" >
+	</engine>
+	<engine engine_code="queryisorwaixiang" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryisorwaixiang" >
+	</engine>
+	<!-- 查看是不是最顶层外箱-->
+	<engine engine_code="nextcartonisna" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="nextcartonisna" >
+	</engine>
+	<!-- 来料装箱的删除-->
+	<engine engine_code="deletecartonno" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deletecartonno" >
+	</engine>
+	<!-- 来料装箱s是否可以移出-->
+	<engine engine_code="isordelete" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="isordelete" >
+	</engine>
+	<engine engine_code="queryCrushnono" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryCrushnono" >
+	</engine>
+	<engine engine_code="querysn0" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querysn0" >
+	</engine>
+	<engine engine_code="queryCrusn" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryCrusn" >
+	</engine>
+	<engine engine_code="queryRECYCLE" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryRECYCLE" >
+	</engine>
+	<engine engine_code="bianstatus" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="bianstatus" >
+	</engine>
+	<engine engine_code="querystatus" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querystatus" >
+	</engine>
+	<engine engine_code="zuixiaoqty" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="zuixiaoqty" >
+	</engine>
+    <engine engine_code="KittingRecyle" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="KittingRecyle" >
+	</engine>
+	<engine engine_code="querykittingsn" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querykittingsn" >
+	</engine>
+	<engine engine_code="pdakittingcrush" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="pdakittingcrush" >
+	</engine>
+	<engine engine_code="pdacrushinput" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="pdacrushinput" >
+	</engine>
+	<engine engine_code="crushinputsn" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="crushinputsn" >
+	</engine>
+	<engine engine_code="serchshipping" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="serchshipping" >
+	</engine>
+	<engine engine_code="serchshippingmingxi" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="serchshippingmingxi" >
+	</engine>
+	<engine engine_code="savenodan" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="savenodan" >
+	</engine>
+	<engine engine_code="updatesono" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updatesono" >
+	</engine>
+	<engine engine_code="queryARRIVALcarton" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryARRIVALcarton" >
+	</engine>
+    <engine engine_code="shippingONOFFSN" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="shippingONOFFSN" >
+	</engine>
+	 <engine engine_code="cbudacarton" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="cbudacarton" >
+	</engine>
+	 <engine engine_code="shippingONOFFSNS" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="shippingONOFFSNS" >
+	</engine>
+    <engine engine_code="opencartonno" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="opencartonno" >
+	</engine>
+	<engine engine_code="shippingquery" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="shippingquery" >
+	</engine>
+		<engine engine_code="shippingoput" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="shippingoput" >
+	</engine>
+	<engine engine_code="querysono" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querysono" >
+	</engine>
+	<engine engine_code="queryshinppingdetel" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryshinppingdetel" >
+	</engine>
+	<engine engine_code="queryshinpp" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryshinpp" >
+	</engine>
+	<engine engine_code="queryshinppcaton" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryshinppcaton" >
+	</engine>
+	<engine engine_code="shippingoutser" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="shippingoutser" >
+	</engine>
+	<engine engine_code="deleteshipping" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteshipping" >
+	</engine>
+	<engine engine_code="storecaton" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="storecaton" >
+	</engine>
+	<engine engine_code="querystoreser" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querystoreser" >
+	</engine>
+	<engine engine_code="comstorePACKAGE" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="comstorePACKAGE" >
+	</engine>
+	<engine engine_code="snshippingdetail" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="snshippingdetail" >
+	</engine>
+	<engine engine_code="deletesono" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deletesono" >
+	</engine>
+	
+	<!-- 验证设备是否为碎料机 -->
+	<engine engine_code="queryEquipmentType" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryEquipmentType" >
+	</engine>
+	 <!--工控机: 库内装箱查询物料信息 --> 
+	<engine engine_code="MatIpcQquery" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="MatIpcQquery" >
+	</engine>
+	<!--工控机: 库内拆包--> 
+	<engine engine_code="InsidePacIpc" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="InsidePacIpc" >
+	</engine>
+    <engine engine_code="shippingqueryWarehouse" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="shippingqueryWarehouse" >
+	</engine>
+	    <engine engine_code="shippingqueryinput" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="shippingqueryinput" >
+	</engine>
+	    <engine engine_code="shippinginput" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="shippinginput" >
+	</engine>
+	<engine engine_code="shippingISNAcarton" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="shippingISNAcarton" >
+	</engine>
+    <engine engine_code="KITTINGUNPACKQTY" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="KITTINGUNPACKQTY" >
+	</engine>
+	  <engine engine_code="queryserINSTORE" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryserINSTORE" >
+	</engine>
+	<engine engine_code="chaopenpack" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="chaopenpack" >
+	</engine>
+		<engine engine_code="queryXSDataList" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryXSDataList" >
+	</engine>
+	<engine engine_code="scBORROW" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="scBORROW" >
+	</engine>
+	<engine engine_code="queryBORROW" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryBORROW" >
+	</engine>
+		<engine engine_code="queryBORROWCOMPANY" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryBORROWCOMPANY" >
+	</engine>
+	<engine engine_code="insertBORROW" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertBORROW" >
+	</engine>
+	<engine engine_code="SHBORROW" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="SHBORROW" >
+	</engine>
+	<engine engine_code="UPDATETOBORROW" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="UPDATETOBORROW" >
+	</engine>
+	<engine engine_code="DELETEBORROW" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="DELETEBORROW" >
+	</engine>
+		<engine engine_code="notyongBORROW" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="notyongBORROW" >
+	</engine>
+		<engine engine_code="InitListQueryBORROW" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="InitListQueryBORROW" >
+	</engine>
+		<engine engine_code="insertarrivoBORROW" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertarrivoBORROW" >
+	</engine>
+	<engine engine_code="applynotBORROW" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="applynotBORROW" >
+	</engine>
+    <engine engine_code="stoBORROWstore" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="stoBORROWstore" >
+	</engine>
+	  <engine engine_code="queryborrowshipin" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryborrowshipin" >
+	</engine>
+	 <engine engine_code="borrowshipininsert" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="borrowshipininsert" >
+	</engine>
+	 <engine engine_code="borrowupdatesono" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="borrowupdatesono" >
+	</engine>
+	<engine engine_code="materialListborrow" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="materialListborrow" >
+	</engine>
+		<engine engine_code="queryshinppingborrow" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryshinppingborrow" >
+	</engine>
+		<engine engine_code="querystoreidborrowtj" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querystoreidborrowtj" >
+	</engine>
+	<engine engine_code="borrowoutput" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="borrowoutput" >
+	</engine>
+	<engine engine_code="querytjborroWarehouse" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querytjborroWarehouse" >
+	</engine>
+	
+	
+	<!-- 委外退料入库相关功能 -->
+	<!-- 新增委外退料入库 -->
+	<!-- 查询委外退料来料单信息 -->
+	<engine engine_code="InitListQueryOutofReturn" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="InitListQueryOutofReturn" >
+	</engine>
+	<!-- 查询委外退料领料单信息 -->
+	<engine engine_code="queryPICKED" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryPICKED" >
+	</engine>
+</engines>

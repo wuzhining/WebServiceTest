@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<engines>
+	<!-- 1.1 数据字典管理 -->
+	 <!-- 查询监控参数列表信息 -->
+	<engine engine_code="queryScadaParam" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryScadaParam" >
+	</engine>
+	
+	<!-- 查询监控参数配置信息 -->
+	<engine engine_code="queryScadaParamConfig" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryScadaParamConfig" >
+	</engine>
+	
+	<!-- 新增数据字典信息 -->
+	<engine engine_code="insertScadaParamConfig" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertScadaParamConfig" >
+	</engine>	
+	
+		<!-- 修改数据字典信息 -->
+	<engine engine_code="updateScadaParamConfig" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateScadaParamConfig" >
+	</engine>
+	
+	<!-- 删除数据字典信息 -->
+	<engine engine_code="deleteScadaParamConfig" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteScadaParamConfig" >
+	</engine>
+</engines>

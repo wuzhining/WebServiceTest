@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<engines>
+    <!-- 建大数据库访问  -->
+    <engine engine_code="queryPoDataList" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryPoDataList" ></engine>
+    <engine engine_code="queryMoDataList" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryMoDataList" ></engine>
+    <engine engine_code="queryTWDataList" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryTWDataList" ></engine>
+    
+</engines>

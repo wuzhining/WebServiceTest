@@ -1,0 +1,502 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="">
+    <!-- 半成品管理-->
+	<!-- 半成品质检 -->
+	<select id="semiproductIqc" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap">
+		
+		{call IPLANT1.WMS_PRODUCT_MANAGE.wms_semiproduct_iqc('${BARCODES}','${USER_ID}',
+					#{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=checkInResult},
+    				#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, 
+    				#{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},
+    				#{ROWS_COUNT,jdbcType=INTEGER,mode=OUT,javaType=Integer})}
+	
+	</select>
+	
+	<!-- 半成品质检扫描标签返回信息-->
+	<select id="semiproductIqcBarcode" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap">
+		
+		{call IPLANT1.WMS_PRODUCT_MANAGE.wms_semiproduct_iqc_barcode('${BARCODE}',
+					#{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=checkInResult},
+    				#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, 
+    				#{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},
+    				#{ROWS_COUNT,jdbcType=INTEGER,mode=OUT,javaType=Integer})}
+	
+	</select>
+	
+	<!-- 半成品报废 -->
+	<select id="semiproductScrap" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap">
+		
+		{call IPLANT1.WMS_PRODUCT_MANAGE.wms_semiproduct_scrap('${BARCODES}','${USER_ID}',
+					#{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=checkInResult},
+    				#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, 
+    				#{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},
+    				#{ROWS_COUNT,jdbcType=INTEGER,mode=OUT,javaType=Integer})}
+	
+	</select>
+	
+	<!-- 半成品报废扫描标签返回信息-->
+	<select id="semiproductScrapBarcode" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap">
+		
+		{call IPLANT1.WMS_PRODUCT_MANAGE.wms_semiproduct_scrap_barcode('${BARCODE}',
+					#{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=checkInResult},
+    				#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, 
+    				#{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},
+    				#{ROWS_COUNT,jdbcType=INTEGER,mode=OUT,javaType=Integer})}
+	
+	</select>
+	
+	<!-- 半成品装箱 -->
+	<select id="semiproductPacking" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap">
+		
+		{call IPLANT1.WMS_PRODUCT_MANAGE.wms_semiproduct_packing('${BARCODES}','${USER_ID}',
+					#{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=checkInResult},
+    				#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, 
+    				#{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},
+    				#{ROWS_COUNT,jdbcType=INTEGER,mode=OUT,javaType=Integer})}
+	
+	</select>
+	
+	<!-- 半成品装箱扫描标签返回信息-->
+	<select id="semiproductPackingBarcode" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap">
+		
+		{call IPLANT1.WMS_PRODUCT_MANAGE.wms_packing_barcode('${BARCODE}',
+					#{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=checkInResult},
+    				#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, 
+    				#{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},
+    				#{ROWS_COUNT,jdbcType=INTEGER,mode=OUT,javaType=Integer})}
+	
+	</select>
+	
+	<!-- 半成品箱检 -->
+	<select id="semiproductPackingCheck" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap">
+		
+		{call IPLANT1.WMS_PRODUCT_MANAGE.wms_semiproduct_fqc('${BARCODES}','${INSTORENO}','${USER_ID}',
+					#{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=checkInResult},
+    				#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, 
+    				#{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},
+    				#{ROWS_COUNT,jdbcType=INTEGER,mode=OUT,javaType=Integer})}
+	
+	</select>
+	
+	<!-- 半成品箱检扫描标签返回信息-->
+	<select id="semiproductPackingCheckBarcode" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap">
+		
+		{call IPLANT1.WMS_PRODUCT_MANAGE.wms_fqc_barcode('${BARCODE}',
+					#{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=checkInResult},
+    				#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, 
+    				#{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},
+    				#{ROWS_COUNT,jdbcType=INTEGER,mode=OUT,javaType=Integer})}
+	
+	</select>
+	
+  <!-- 查询半成品装箱-->
+  <select id="querySemiproductPacking" parameterType="hashmap" resultType="java.util.HashMap">
+		<if test="CARTON_NO ==null or CARTON_NO =='' ">
+	    SELECT CARTON_NO AS ST_C_CD, NEXT_CARTON AS ST_P_CD, TOTAL_SN, CARTON_STATUS,EMP_NO,PACKAGE_DATE,PRODUCT_NO,PRODUCT_NAME,CUST_NO,LAB_RANGE,MO_NO ,QTY FROM(
+	    
+		SELECT T0.SERIAL_NUMBER AS CARTON_NO,
+               T0.CARTON_NO AS NEXT_CARTON,
+               1 AS TOTAL_SN,
+               NULL AS CARTON_STATUS,
+               '' AS EMP_NO,
+               '' AS PACKAGE_DATE,
+               T0.PRODUCT_NO,
+               T0.PRODUCT_NAME,
+               T0.CUST_NO,
+               1 AS LAB_RANGE,
+               T0.MO_NO,
+               T0.QTY
+          FROM WMS1.R_PENDING_SN_T T0
+         <where>
+            T0.CARTON_NO != 'N/A' 
+            AND CARTON_NO LIKE 'MB%'
+		   <if test="MO_NO !=null and MO_NO !='' "> AND T.MO_NO = '${MO_NO}'</if>
+         </where>
+		
+		UNION ALL 
+		
+		SELECT DISTINCT T0.CARTON_NO,
+                        T0.NEXT_CARTON,
+                        T0.TOTAL_SN,
+                        CASE T0.CARTON_STATUS
+                          WHEN 1 THEN
+                           '锁定'
+                          WHEN 0 THEN
+                           '开放'
+                          ELSE
+                           '其他'
+                        END CARTON_STATUS,
+                        IPLANT1.F_GET_USER_NAME(T0.EMP_NO) AS EMP_NO,
+                        TO_CHAR(T0.PACKAGE_DATE, 'YYYY-MM-DD HH24:MI:SS') AS PACKAGE_DATE,
+                        PRODUCT_NO,
+                        PRODUCT_NAME,
+                        CUST_NO,
+                        LAB_RANGE,
+                        MO_NO,
+                        CARTON_QTY AS QTY
+          FROM WMS1.R_PENDING_CARTON_T T0
+          <where>
+            AND CARTON_NO LIKE 'MB%'
+		   <if test="MO_NO !=null and MO_NO !='' "> AND T.MO_NO = '${MO_NO}'</if>
+         </where>
+<!--           START WITH T0.CARTON_NO IN (SELECT T0.CARTON_NO -->
+<!--                                        FROM WMS1.R_PENDING_SN_T T0 -->
+<!--                                      ) -->
+<!--           CONNECT BY T0.CARTON_NO = PRIOR T0.NEXT_CARTON -->
+		
+		)
+	</if>
+	
+	<if test="CARTON_NO !=null and CARTON_NO !='' ">
+	   SELECT DISTINCT CARTON_NO     AS ST_C_CD,
+                NEXT_CARTON   AS ST_P_CD,
+                TOTAL_SN,
+                CARTON_STATUS,
+                EMP_NO,
+                PACKAGE_DATE,
+                PRODUCT_NO,
+                PRODUCT_NAME,
+                CUST_NO,
+                LAB_RANGE,
+                MO_NO,
+                QTY
+  FROM (
+  SELECT T0.SERIAL_NUMBER AS CARTON_NO,
+               T0.CARTON_NO AS NEXT_CARTON,
+               1 AS TOTAL_SN,
+               NULL AS CARTON_STATUS,
+               '' AS EMP_NO,
+               '' AS PACKAGE_DATE,
+               T0.PRODUCT_NO,
+               T0.PRODUCT_NAME,
+               T0.CUST_NO,
+               1 AS LAB_RANGE,
+               T0.MO_NO,
+               T0.QTY
+          FROM WMS1.R_PENDING_SN_T T0
+         WHERE 
+            T0.CARTON_NO IN
+               (SELECT CARTON_NO
+                  FROM WMS1.R_PENDING_CARTON_T
+                 START WITH 
+                 <if test="CARTON_NO !=null and CARTON_NO !='' "> T0.CARTON_NO= '${CARTON_NO}'</if>
+                CONNECT BY PRIOR CARTON_NO = NEXT_CARTON)
+                 <if test="MO_NO !=null and MO_NO !='' "> AND T0.MO_NO= '${MO_NO}'</if>
+        UNION ALL
+        
+        SELECT DISTINCT T00.CARTON_NO,
+                        T00.NEXT_CARTON,
+                        T00.TOTAL_SN,
+                        T00.CARTON_STATUS,
+                        T00.EMP_NO,
+                        T00.PACKAGE_DATE,
+                        T00.PRODUCT_NO,
+                        T00.PRODUCT_NAME,
+                        T00.CUST_NO,
+                        T00.LAB_RANGE,
+                        T00.MO_NO,
+                        T00.QTY
+          FROM (SELECT T0.CARTON_NO,
+                       T0.NEXT_CARTON,
+                       T0.TOTAL_SN,
+                       CASE T0.CARTON_STATUS
+                         WHEN 1 THEN
+                          '锁定'
+                         WHEN 0 THEN
+                          '开放'
+                         ELSE
+                          '其他'
+                       END CARTON_STATUS,
+                       IPLANT1.F_GET_USER_NAME(T0.EMP_NO) AS EMP_NO,
+                       TO_CHAR(T0.PACKAGE_DATE, 'YYYY-MM-DD HH24:MI:SS') AS PACKAGE_DATE,
+                       T0.PRODUCT_NO,
+                       T0.PRODUCT_NAME,
+                       T0.CUST_NO,
+                       T0.LAB_RANGE,
+                       T0.MO_NO,
+                       T0.CARTON_QTY AS QTY
+                  FROM WMS1.R_PENDING_CARTON_T T0
+                 START WITH 
+                 <if test="CARTON_NO !=null and CARTON_NO !='' "> T0.CARTON_NO= '${CARTON_NO}'</if>
+                CONNECT BY T0.CARTON_NO = PRIOR T0.NEXT_CARTON
+                 <if test="MO_NO !=null and MO_NO !='' "> AND T0.MO_NO= '${MO_NO}'</if>
+                ) T00
+                
+        UNION ALL
+        
+        
+        SELECT DISTINCT T000.CARTON_NO,
+                        T000.NEXT_CARTON,
+                        T000.TOTAL_SN,
+                        T000.CARTON_STATUS,
+                        T000.EMP_NO,
+                        T000.PACKAGE_DATE,
+                        T000.PRODUCT_NO,
+                        T000.PRODUCT_NAME,
+                        T000.CUST_NO,
+                        T000.LAB_RANGE,
+                        T000.MO_NO,
+                        T000.QTY
+          FROM (
+                
+                SELECT  T0.CARTON_NO,
+                        T0.NEXT_CARTON,
+                        T0.TOTAL_SN,
+                        CASE T0.CARTON_STATUS
+                          WHEN 1 THEN
+                           '锁定'
+                          WHEN 0 THEN
+                           '开放'
+                          ELSE
+                           '其他'
+                        END CARTON_STATUS,
+                        IPLANT1.F_GET_USER_NAME(T0.EMP_NO) AS EMP_NO,
+                        TO_CHAR(T0.PACKAGE_DATE, 'YYYY-MM-DD HH24:MI:SS') AS PACKAGE_DATE,
+                        T0.PRODUCT_NO,
+                        T0.PRODUCT_NAME,
+                        T0.CUST_NO,
+                        T0.LAB_RANGE,
+                        T0.MO_NO,
+                        T0.CARTON_QTY AS QTY
+                  FROM WMS1.R_PENDING_CARTON_T T0
+                 START WITH
+                  <if test="CARTON_NO !=null and CARTON_NO !='' "> T0.CARTON_NO= '${CARTON_NO}'</if>
+                CONNECT BY PRIOR CARTON_NO = NEXT_CARTON
+                  <if test="MO_NO !=null and MO_NO !='' "> AND T0.MO_NO= '${MO_NO}'</if>
+                ) T000)
+	</if>
+  </select>
+  
+  <!-- 半成品继续装箱-->
+	<select id="semiproductPackingagain" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap">
+		
+		{call IPLANT1.WMS_PRODUCT_MANAGE.wms_packing_unit('${PACKBARCODE}','${BARCODES}','${USER_ID}',
+					#{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=checkInResult},
+    				#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, 
+    				#{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},
+    				#{ROWS_COUNT,jdbcType=INTEGER,mode=OUT,javaType=Integer})}
+	
+	</select>
+	
+	<!-- 半成品装箱移除-->
+	<select id="semiproductPackingdelete" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap">
+		
+		{call IPLANT1.WMS_PRODUCT_MANAGE.wms_packing_delete('${DETBARCODE}',
+					#{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=checkInResult},
+    				#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, 
+    				#{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},
+    				#{ROWS_COUNT,jdbcType=INTEGER,mode=OUT,javaType=Integer})}
+	
+	</select>
+	
+	<!-- 半成品生产入库单 -->
+	<select id="semiproductInstore" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap">
+		
+		{call IPLANT1.WMS_PRODUCT_MANAGE.wms_semiproduct_instore('${BARCODES}','${USER_ID}',
+					#{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=checkInResult},
+    				#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, 
+    				#{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},
+    				#{ROWS_COUNT,jdbcType=INTEGER,mode=OUT,javaType=Integer})}
+	
+	</select>
+	
+	<!-- 半成品生产入库单扫描标签返回信息-->
+	<select id="semiproductInstoreBarcode" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap">
+		
+		{call IPLANT1.WMS_PRODUCT_MANAGE.wms_instore_barcode('${BARCODE}',
+					#{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=checkInResult},
+    				#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, 
+    				#{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},
+    				#{ROWS_COUNT,jdbcType=INTEGER,mode=OUT,javaType=Integer})}
+	
+	</select>
+	
+	<!-- 半成品删除判断-->
+  <select id="querySemiproductDeleteCount" parameterType="hashmap" resultType="java.util.HashMap">
+  
+      SELECT COUNT(1)  AS  ROWS_COUNT FROM WMS1.R_WMS_ARRIVAL_CARTON_T
+		WHERE 1=1 AND NEXT_CARTON='N/A' 
+		AND CARTON_NO='${CARTON_NO}'
+		   
+  </select>
+  
+  <!-- 装箱是否移除-->
+	<select id="semiproductBarcodeCheck" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap">
+		
+		{call IPLANT1.WMS_PRODUCT_MANAGE.wms_semiproduct_yndelete('${BARCODE}',
+					#{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=checkInResult},
+    				#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, 
+    				#{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},
+    				#{ROWS_COUNT,jdbcType=INTEGER,mode=OUT,javaType=Integer})}
+	
+	</select>
+	
+	<!-- 半成品条码补打-->
+	<select id="semiproductBarcodeReplay" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap">
+		
+		{call IPLANT1.WMS_PRODUCT_MANAGE.wms_barcode_replay('${BARCODE}',
+					#{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=checkInResult},
+    				#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, 
+    				#{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},
+    				#{ROWS_COUNT,jdbcType=INTEGER,mode=OUT,javaType=Integer})}
+	
+	</select>
+	
+	
+	<!-- 成品拆包、拆箱、合箱-->
+	<!-- 成品拆包 -->
+	<select id="productpacking" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap">
+		
+		{call IPLANT1.WMS_PRODUCT_MANAGE.wms_product_unpacking('${BARCODE}','${OUTQTY}','${USERID}',
+					#{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=checkInResult},
+    				#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, 
+    				#{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},
+    				#{ROWS_COUNT,jdbcType=INTEGER,mode=OUT,javaType=Integer})}
+	
+	</select>
+	
+	<!-- 成品拆包扫描标签返回信息-->
+	<select id="productpackingBarcode" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap">
+		
+		{call IPLANT1.WMS_PRODUCT_MANAGE.wms_product_unpacking_barcode('${BARCODE}',
+					#{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=checkInResult},
+    				#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, 
+    				#{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},
+    				#{ROWS_COUNT,jdbcType=INTEGER,mode=OUT,javaType=Integer})}
+	
+	</select>
+	
+	<!-- 成品拆箱 -->
+	<select id="productremove" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap">
+		
+		{call IPLANT1.WMS_PRODUCT_MANAGE.wms_product_unpacking('${BARCODES}','${USERID}',
+					#{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=checkInResult},
+    				#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, 
+    				#{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},
+    				#{ROWS_COUNT,jdbcType=INTEGER,mode=OUT,javaType=Integer})}
+	
+	</select>
+	
+	<!-- 成品拆箱扫描标签返回信息-->
+	<select id="productremoveBarcode" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap">
+		
+		{call IPLANT1.WMS_PRODUCT_MANAGE.wms_product_unpacking_barcode('${BARCODE}','${CARTONNO}',
+					#{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=checkInResult},
+    				#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, 
+    				#{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},
+    				#{ROWS_COUNT,jdbcType=INTEGER,mode=OUT,javaType=Integer})}
+	
+	</select>
+	
+	<!-- 成品合箱 -->
+	<select id="productunit" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap">
+		
+		{call IPLANT1.WMS_PRODUCT_MANAGE.wms_product_unpacking('${BARCODES}','${USERID}',
+					#{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=checkInResult},
+    				#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, 
+    				#{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},
+    				#{ROWS_COUNT,jdbcType=INTEGER,mode=OUT,javaType=Integer})}
+	
+	</select>
+	
+	<!-- 成品合箱扫描标签返回信息-->
+	<select id="productunitBarcode" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap">
+		
+		{call IPLANT1.WMS_PRODUCT_MANAGE.wms_product_unpacking_barcode('${BARCODE}','${CARTONNO}',
+					#{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=checkInResult},
+    				#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, 
+    				#{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},
+    				#{ROWS_COUNT,jdbcType=INTEGER,mode=OUT,javaType=Integer})}
+	
+	</select>
+	
+	<!-- 成品拆包条码补打-->
+	<select id="productReplayBarcode" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap">
+		
+		{call IPLANT1.WMS_PRODUCT_MANAGE.wms_product_barcode_replay('${BARCODE}',
+					#{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=checkInResult},
+    				#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, 
+    				#{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},
+    				#{ROWS_COUNT,jdbcType=INTEGER,mode=OUT,javaType=Integer})}
+	
+	</select>
+	
+	<!-- 成品拆箱上架-->
+	<!-- 成品拆箱上架-->
+	<select id="packingToReturn" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap">
+		
+		{call IPLANT1.WMS_PRODUCT_MANAGE.wms_packing_increatbill('${BARCODES}','${STOREID}','${AREAID}','${SHELFID}','${POSITIONID}','${USERID}',
+					#{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=checkInResult},
+    				#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, 
+    				#{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},
+    				#{ROWS_COUNT,jdbcType=INTEGER,mode=OUT,javaType=Integer})}
+	
+	</select>
+	
+	<!-- 成品拆箱上架(查询标签信息)-->
+	<select id="queryPackingToReturn" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap">
+		
+		{call IPLANT1.WMS_PRODUCT_MANAGE.wms_packing_increatbill_bar('${BARCODE}',
+					#{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=checkInResult},
+    				#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, 
+    				#{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},
+    				#{ROWS_COUNT,jdbcType=INTEGER,mode=OUT,javaType=Integer})}
+	
+	</select>
+	
+	<!-- 成品拆箱下架-->
+	<!-- 成品拆箱下架-->
+	<select id="returnToPacking" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap">
+		
+		{call IPLANT1.WMS_PRODUCT_MANAGE.wms_packing_outcreatbill('${BARCODES}','${USERID}',
+					#{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=checkInResult},
+    				#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, 
+    				#{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},
+    				#{ROWS_COUNT,jdbcType=INTEGER,mode=OUT,javaType=Integer})}
+	
+	</select>
+	
+	<!-- 成品拆箱下架(查询标签信息)-->
+	<select id="queryreturnToPacking" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap">
+		
+		{call IPLANT1.WMS_PRODUCT_MANAGE.wms_packing_outcreatbill_bar('${BARCODE}',
+					#{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=checkInResult},
+    				#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, 
+    				#{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},
+    				#{ROWS_COUNT,jdbcType=INTEGER,mode=OUT,javaType=Integer})}
+	
+	</select>
+	
+	<!-- -->
+	<select id="getTaskWork" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap">
+		{call  "[dbo]"."[sp_IF_GetWorkTaskState]"@wh('${TaskId}',
+					#{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=checkInResult},
+    				#{pState,jdbcType=VARCHAR,mode=OUT,javaType=String}, 
+    				#{pMsg,jdbcType=VARCHAR,mode=OUT,javaType=String},
+    				#{ROWS_COUNT,jdbcType=INTEGER,mode=OUT,javaType=Integer})}
+	
+	</select>
+	
+	<!-- 半成品入库扫描标签返回信息-->
+	<select id="semiproductIptBarcode" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap">
+		
+		{call IPLANT1.WMS_PRODUCT_MANAGE.wms_semiproduct_repeat_init('${BARCODE}',
+					#{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=checkInResult},
+    				#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, 
+    				#{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},
+    				#{ROWS_COUNT,jdbcType=INTEGER,mode=OUT,javaType=Integer})}
+	
+	</select>
+	
+	<!-- 半成品入库 -->
+	<select id="semiproductIpt" parameterType="hashmap" statementType="CALLABLE" resultType="java.util.HashMap">
+		
+		{call IPLANT1.WMS_PRODUCT_MANAGE.wms_semiproduct_input_init('${BARCODES}','${STOREID}','${AREAID}','${SHELFID}','${POSITIONID}','${USERID}',
+					#{RC1,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=checkInResult},
+    				#{errorCode,jdbcType=VARCHAR,mode=OUT,javaType=String}, 
+    				#{errorMessage,jdbcType=VARCHAR,mode=OUT,javaType=String},
+    				#{ROWS_COUNT,jdbcType=INTEGER,mode=OUT,javaType=Integer})}
+	
+	</select>
+</mapper>

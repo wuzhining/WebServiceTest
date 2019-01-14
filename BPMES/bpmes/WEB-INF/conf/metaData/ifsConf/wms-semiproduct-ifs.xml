@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ifss>
+	<!-- 半成品管理-->
+	<!-- 半成品质检 -->
+	<ifs ifs_code="WMS_SE00001" ifs_name="半成品质检" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="semiproductIqc" biz_method="" serial_no="1" biz_name="semiproductIqc" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 半成品质检扫描标签返回信息 -->
+	<ifs ifs_code="WMS_SE00002" ifs_name="半成品质检扫描标签返回信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="semiproductIqcBarcode" biz_method="" serial_no="1" biz_name="semiproductIqcBarcode" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 半成品报废 -->
+	<ifs ifs_code="WMS_SE00003" ifs_name="半成品报废" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="semiproductScrap" biz_method="" serial_no="1" biz_name="semiproductScrap" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 半成品报废扫描标签返回信息 -->
+	<ifs ifs_code="WMS_SE00004" ifs_name="半成品报废扫描标签返回信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="semiproductScrapBarcode" biz_method="" serial_no="1" biz_name="semiproductScrapBarcode" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 半成品装箱 -->
+	<ifs ifs_code="WMS_SE00005" ifs_name="半成品装箱" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="semiproductPacking" biz_method="" serial_no="1" biz_name="semiproductPacking" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 半成品装箱扫描标签返回信息 -->
+	<ifs ifs_code="WMS_SE00006" ifs_name="半成品装箱扫描标签返回信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="semiproductPackingBarcode" biz_method="" serial_no="1" biz_name="semiproductPackingBarcode" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 半成品箱检 -->
+	<ifs ifs_code="WMS_SE00007" ifs_name="半成品箱检" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="semiproductPackingCheck" biz_method="" serial_no="1" biz_name="semiproductPackingCheck" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 半成品箱检扫描标签返回信息 -->
+	<ifs ifs_code="WMS_SE00008" ifs_name="半成品箱检扫描标签返回信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="semiproductPackingCheckBarcode" biz_method="" serial_no="1" biz_name="semiproductPackingCheckBarcode" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 查询半成品装箱 -->
+	<ifs ifs_code="WMS_SE00009" ifs_name="查询半成品装箱" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="querySemiproductPacking" biz_method="" serial_no="1" biz_name="querySemiproductPacking" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 半成品继续装箱 -->
+	<ifs ifs_code="WMS_SE00010" ifs_name="半成品继续装箱" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="semiproductPackingagain" biz_method="" serial_no="1" biz_name="semiproductPackingagain" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 半成品装箱移除 -->
+	<ifs ifs_code="WMS_SE00011" ifs_name="半成品装箱移除" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="semiproductPackingdelete" biz_method="" serial_no="1" biz_name="semiproductPackingdelete" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 半成品生产入库单 -->
+	<ifs ifs_code="WMS_SE00012" ifs_name="半成品生产入库单" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="semiproductInstore" biz_method="" serial_no="1" biz_name="semiproductInstore" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 半成品生产入库单扫描标签返回信息 -->
+	<ifs ifs_code="WMS_SE00013" ifs_name="半成品生产入库单扫描标签返回信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="semiproductInstoreBarcode" biz_method="" serial_no="1" biz_name="semiproductInstoreBarcode" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 半成品删除判断 -->
+	<ifs ifs_code="WMS_SE00014" ifs_name="半成品删除判断" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="querySemiproductDeleteCount" biz_method="" serial_no="1" biz_name="querySemiproductDeleteCount" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!--  装箱是否移除-->
+	<ifs ifs_code="WMS_SE00015" ifs_name=" 装箱是否移除" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="semiproductBarcodeCheck" biz_method="" serial_no="1" biz_name="semiproductBarcodeCheck" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!--  半成品补打-->
+	<ifs ifs_code="WMS_SE00016" ifs_name=" 半成品补打" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="semiproductBarcodeReplay" biz_method="" serial_no="1" biz_name="semiproductBarcodeReplay" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	
+	<!-- 成品拆包、拆箱、合箱-->
+	<!-- 成品拆包 -->
+	<ifs ifs_code="WMS_SE00017" ifs_name="成品拆包" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="productpacking" biz_method="" serial_no="1" biz_name="productpacking" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 成品拆包扫描标签返回信息 -->
+	<ifs ifs_code="WMS_SE00018" ifs_name="成品拆包扫描标签返回信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="productpackingBarcode" biz_method="" serial_no="1" biz_name="productpackingBarcode" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 成品拆箱 -->
+	<ifs ifs_code="WMS_SE00019" ifs_name="成品拆箱" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="productremove" biz_method="" serial_no="1" biz_name="productremove" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 成品拆箱扫描标签返回信息 -->
+	<ifs ifs_code="WMS_SE00020" ifs_name="成品拆箱扫描标签返回信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="productremoveBarcode" biz_method="" serial_no="1" biz_name="productremoveBarcode" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 成品合箱 -->
+	<ifs ifs_code="WMS_SE00021" ifs_name="成品合箱" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="productunit" biz_method="" serial_no="1" biz_name="productunit" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 成品合箱扫描标签返回信息 -->
+	<ifs ifs_code="WMS_SE00022" ifs_name="成品合箱扫描标签返回信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="productunitBarcode" biz_method="" serial_no="1" biz_name="productunitBarcode" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 成品拆包条码补打 -->
+	<ifs ifs_code="WMS_SE00023" ifs_name="成品拆包条码补打" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="productReplayBarcode" biz_method="" serial_no="1" biz_name="productReplayBarcode" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 成品拆箱上架-->
+	<!-- 成品拆箱上架-->
+	<ifs ifs_code="WMS_SE00024" ifs_name="成品拆箱上架" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="packingToReturn" biz_method="" serial_no="1" biz_name="packingToReturn" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 成品拆箱上架(查询标签信息) -->
+	<ifs ifs_code="WMS_SE00025" ifs_name="成品拆箱上架(查询标签信息)" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryPackingToReturn" biz_method="" serial_no="1" biz_name="queryPackingToReturn" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 成品拆箱下架-->
+	<!-- 成品拆箱下架-->
+	<ifs ifs_code="WMS_SE00026" ifs_name="成品拆箱下架" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="returnToPacking" biz_method="" serial_no="1" biz_name="returnToPacking" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 成品拆箱下架(查询标签信息) -->
+	<ifs ifs_code="WMS_SE00027" ifs_name="成品拆箱下架(查询标签信息)" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryreturnToPacking" biz_method="" serial_no="1" biz_name="queryreturnToPacking" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!--  -->
+	<ifs ifs_code="WMS_SE00028" ifs_name="成品拆箱下架(查询标签信息)" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="getTaskWork" biz_method="" serial_no="1" biz_name="getTaskWork" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	
+	<!-- 半成品入库 -->
+	<ifs ifs_code="WMS_SE00029" ifs_name="半成品入库" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="semiproductIpt" biz_method="" serial_no="1" biz_name="semiproductIpt" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 半成品入库扫描标签返回信息 -->
+	<ifs ifs_code="WMS_SE00030" ifs_name="半成品入库扫描标签返回信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="semiproductIptBarcode" biz_method="" serial_no="1" biz_name="semiproductIptBarcode" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+</ifss>

@@ -1,0 +1,108 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>盘点计划</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="../../../common/IplantCompent/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../../../common/IplantCompent/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="../../../common/IplantCompent/Demo/demo.css">
+    <script src="../../../common/IplantCompent/jquery.min.js" type="text/javascript"></script>
+    <script src="../../../common/IplantCompent/jquery.easyui.min.js" type="text/javascript"></script>
+    <script src="../../../common/IplantCommon/DataRequest.js" type="text/javascript"></script>
+    <script src="../../../common/IplantCommon/CommonUtil.js" type="text/javascript"></script>
+    <script src="js/InventoryPlan.js" type="text/javascript"></script>
+</head>
+<body style="padding: 0;margin: 0;">
+     	<div style="height:100%;width:100%" class="easyui-layout" fit="true">
+         <div region='north' id="tbsearch" style="width: auto;height:38px;padding-top:5px;">
+              <table>
+              	<tr>
+					<td>盘点计划单号：</td>
+	                    <td>
+	                        <input id="InventoryPlanNo" name="qProdpickingNo" style="width: 120px;" class="easyui-textbox"  data-options="panelHeight:'auto'"/>
+	                    </td>
+	                    <td align="center" valign="center">仓库：</td>
+                    	<td align="center" valign="center"><input id="qStore" name="qStore" style="width: 120px;" class="easyui-combobox"/></td>
+                    	<td>单据创建日期：</td>
+                    	<td><input id="qProDtBegin" name="qProDtBegin" class="easyui-datebox"  style="width:120px;" />&nbsp;到&nbsp;<input id="qProDtEnd" name="qProDtEnd" style="width: 120px;" class="easyui-datebox" /></td>
+                    	<td>&nbsp;&nbsp;
+                       		<a href="#" id="btnSearch"><img src="../../../common/IplantCompent/themes/icons/icon_search.png" style="width:70px;height:26px;vertical-align:middle;"/></a>	
+                       		&nbsp;&nbsp;<a href="#" id="btnResetss"><img src="../../../common/IplantCompent/themes/icons/icon_reset.png" style="width:70px;height:26px;vertical-align:middle;"/></a>	
+                    	</td>
+            	</tr>   
+        	</table>
+        </div>
+		<div region="center" style="width:100%" style="border:0">
+            <div region='north' id='tb' style="width: auto; height: auto;">
+                 <table style="width: auto; height:100%;" cellspacing="0" border="0">
+                    <tr>
+                      <td><a id="btnAdd" href="#" class="easyui-linkbutton add"
+							iconCls="icon-add" data-options="plain:true"
+							onclick="closeOpen(1);">新增</a> <a id="btnDelete" href="#"
+							class="easyui-linkbutton delete" iconCls="icon-remove"
+							data-options="plain:true" onclick="deleteInvPlan();">删除</a>
+							<span id='showMessageInfo'
+							class='divspan' style='width: 300px;'></span></td>
+                    </tr>
+               	</table>
+            </div>
+            <table style="height:auto;max-height:97%" id="InventoryPlan_tab" class='easyui-datagrid' rownumbers="true"></table>
+		</div>
+    </div>
+     
+     
+     
+     	<div id="enditTab" class="easyui-dialog" title="新增盘点计划" style="width: 645px;height: 350px;overflow:-Scroll;overflow-y:hidden" closed="true" data-options="modal:true" buttons="#dlg-buttons">
+		<form id="fmDeptMes" method="post"
+			style="padding:10px 20px 10px 20px;">
+			
+			<table >
+				<tr style="height: 35px;">
+					<td width="320px">
+					<label>盘点单号:&nbsp;</label><input id="INVENTORY_ID" name="postingdate" style="width: 160px;" class="easyui-textbox"  />
+					<span class="text-span">&nbsp;</span>
+					</td>
+					<td width="320px" align="right" >
+                    	<label>盘点类型:&nbsp;</label><input id="INVENTORY_TYPE" name="postingdate"
+						style="width: 160px;" class="easyui-combobox" required="required"
+						data-options="missingMessage:'该选项为必填信息'" /><span class="text-span">*</span>
+                    </td>
+				</tr>
+				
+				<tr style="height: 35px;">
+					<td width="50%">
+					<label>开始时间:&nbsp;</label><input id="StartDATE" name="postingdate"
+						style="width: 160px;" class="easyui-datetimebox" 
+						required="required" data-options="missingMessage:'该选项为必填信息'"/>
+						<span class="text-span">*</span>
+					</td>
+					<td width="320px" align="right" >
+                    	<label>结束时间:&nbsp;</label><input id="EndDATE" name="postingdate"
+						style="width: 160px;" class="easyui-datetimebox" required="required"
+						data-options="missingMessage:'该选项为必填信息'" /><span class="text-span">*</span>
+                    </td>
+				</tr>
+				
+				
+				<tr style="height: 35px;">
+					<td width="50%">
+					<label>盘点仓库:&nbsp;</label><input id="INVENTORY_STORE" name="postingdate"
+						style="width: 160px;" class="easyui-combobox" required="required"
+						data-options="missingMessage:'该选项为必填信息'" />
+						<span class="text-span">*</span>
+					</td>
+					<!-- <td width="50%" align="right" >
+                    	<label>盘点周期:&nbsp;</label><input id="INVENTORY_CYCLE" name="postingdate" style="width: 160px;" class="easyui-combobox"/><span class="text-span">*</span>
+                    </td> -->
+				</tr>
+			</table>
+
+		</form>
+
+	</div>
+	<div id="dlg-buttons">
+		<a href="#" onclick="javascript:setDataNull()"><img src="../../../common/RootImages/cancel.png" style="width:80px;height:28px;vertical-align:middle;"/></a>
+		&nbsp;&nbsp;<a href="#" onclick="javascript:saveInventoryPlan()"><img src="../../../common/RootImages/save-ok.png" style="width:80px;height:28px;vertical-align:middle;"/></a>
+	</div>
+</body>
+</html>

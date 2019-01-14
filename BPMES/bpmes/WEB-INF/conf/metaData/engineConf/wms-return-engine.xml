@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<engines>
+
+	<!-- ======工单退料管理====== -->
+	<!-- 查询工单退料信息 -->
+	<engine engine_code="queryOrderReturn" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryOrderReturn" >
+	</engine>
+
+	<!-- ======非工单退料管理====== -->
+	<!-- 查询非工单退料信息 -->
+	<engine engine_code="queryNonOrderReturn" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryNonOrderReturn" >
+	</engine>
+
+	<!-- 工单结存退料管理 -->
+	<!-- 生成结存物料条码 -->
+	<engine engine_code="queryMaterialReturnSign" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryMaterialReturnSign" >
+	</engine>
+	<!-- 新增物料结存信息到明细表 -->
+	<engine engine_code="insertKittingSurplusDetail" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertKittingSurplusDetail" >
+	</engine>
+	<!-- 新增物料结存信息到条码表 -->
+	<engine engine_code="insertKittingSurplusSN" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertKittingSurplusSN" >
+	</engine>
+	<!-- 查询物料结存信息条码表 -->
+	<engine engine_code="queryKittingSurplusSN" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryKittingSurplusSN" >
+	</engine>
+	<!-- 生成结存物料条码 -->
+	<engine engine_code="queryKittingSurplusMaterialLabel" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryKittingSurplusMaterialLabel" >
+	</engine>
+	<!-- 生成结存物料条码 -->
+	<engine engine_code="queryKittingSurplusAll" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryKittingSurplusAll" >
+	</engine>
+	<!-- 查询物料结存信息列表明细 -->
+	<engine engine_code="queryListReturnSurplus" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryListReturnSurplus" >
+	</engine>
+	<!-- 查询领料单信息 -->
+	<engine engine_code="queryListPickingOrder" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryListPickingOrder" >
+	</engine>
+	
+	<!-- ===工单退料管理=== -->
+	<!-- 查询退料单主表 -->
+	<engine engine_code="queryReturnOrderMaster" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryReturnOrderMaster" >
+	</engine>
+	<!-- 查询退料单明细 -->
+	<engine engine_code="queryReturnOrderDetail" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryReturnOrderDetail" >
+	</engine>
+	<!-- 查询退料信息 -->
+	<engine engine_code="queryReturnMaterialDetail" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryReturnMaterialDetail" >
+	</engine>
+	<!-- 工单退料单新增 -->
+	<engine engine_code="insertReturnOrderInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertReturnOrderInfo" >
+	</engine>
+	<!-- 工单退料单删除 -->
+	<engine engine_code="deleteReturnOrderInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteReturnOrderInfo" >
+	</engine>
+	<!-- 工单退料单审核 -->
+	<engine engine_code="updateReturnOrderInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateReturnOrderInfo" >
+	</engine>
+	<!-- 工单退料质检 -->
+	<engine engine_code="queryReturnOrderCheck" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryReturnOrderCheck" >
+	</engine>
+	<!-- 工单退料上架 -->
+	<engine engine_code="insertReturnOrderInput" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertReturnOrderInput" >
+	</engine>
+	<!-- 工单退料质检单查询 -->
+	<engine engine_code="queryReturnCheckOrder" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryReturnCheckOrder" >
+	</engine>
+	<!-- 工单退料质检信息查询  -->
+	<engine engine_code="queryReturnCheckOrderInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryReturnCheckOrderInfo" >
+	</engine>
+	<!-- 根据物料标签查询入库单号  -->
+	<engine engine_code="queryReturnMaterialForInstoreNo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryReturnMaterialForInstoreNo" >
+	</engine>
+	<!-- 查询入库单号List -->
+	<engine engine_code="queryReturnMaterialInstoreNoList" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryReturnMaterialInstoreNoList" >
+	</engine>
+	<!-- 查询待上架物料List  -->
+	<engine engine_code="queryPrepareReturnMaterialList" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryPrepareReturnMaterialList" >
+	</engine>
+	<!-- 查询入库单号的质检结果  -->
+	<engine engine_code="queryReturnMaterialCheckResult" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryReturnMaterialCheckResult" >
+	</engine>
+	<!-- 查询结存标签补打  -->
+	<engine engine_code="querySurplusSN" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querySurplusSN" >
+	</engine>
+	<!-- 查询物料管控类型  -->
+	<engine engine_code="queryMaterialControlType" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryMaterialControlType" >
+	</engine>
+	<!-- 查询特定仓  -->
+	<engine engine_code="queryStoreByContional" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryStoreByContional" >
+	</engine>
+	<!-- 查询特定区域  -->
+	<engine engine_code="queryAreaByContional" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryAreaByContional" >
+	</engine>
+	<!-- 查询特定货架  -->
+	<engine engine_code="queryShelfByContional" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryShelfByContional" >
+	</engine>
+	<!-- 查询特定货位  -->
+	<engine engine_code="queryLocationByContional" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryLocationByContional" >
+	</engine>
+	<!-- 修改退料单信息  -->
+	<engine engine_code="updateExistReturnOrderInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateExistReturnOrderInfo" >
+	</engine>
+	
+	<!-- =====控制品仓退货 ===== -->
+	<!-- 查询生产不良退货信息 -->
+	<engine engine_code="queryProductRejectOrderInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryProductRejectOrderInfo" >
+	</engine>
+	<!-- 查询生产不良退货单信息 -->
+	<engine engine_code="queryProductRejectOrderDetailInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryProductRejectOrderDetailInfo" >
+	</engine>
+	<!-- 查询生产不良退货物料信息 -->
+	<engine engine_code="queryProductRejectMaterialInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryProductRejectMaterialInfo" >
+	</engine>
+	<!-- 新增生产不良退货单信息 -->
+	<engine engine_code="insertRejectOrderInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertRejectOrderInfo" >
+	</engine>
+	<!-- 修改生产不良退货单信息 -->
+	<engine engine_code="updateRejectOrderInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateRejectOrderInfo" >
+	</engine>
+	<!-- 审核生产不良退货单信息 -->
+	<engine engine_code="checkRejectOrderInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="checkRejectOrderInfo" >
+	</engine>
+	<!-- 删除生产不良退货单信息 -->
+	<engine engine_code="deleteRejectOrderInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteRejectOrderInfo" >
+	</engine>
+	<!-- 生产不良退货操作信息 -->
+	<engine engine_code="operateRejectOrderInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="operateRejectOrderInfo" >
+	</engine>
+	
+	<!-- 验证是否存在此批次号信息 -->
+	<engine engine_code="queryExistsLotNo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryExistsLotNo" >
+	</engine>
+	
+	<!-- =====线变仓投料 ===== -->
+	<!-- 验证工单下物料是否存在 -->
+	<engine engine_code="queryExistsMaterialOfMono" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryExistsMaterialOfMono" >
+	</engine>
+	<!-- 投料操作 -->
+	<engine engine_code="queryCanFeedingMaterial" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryCanFeedingMaterial" >
+	</engine>
+	<!-- 查询可投料数量 -->
+	<engine engine_code="queryCanFeedingNumber" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryCanFeedingNumber" >
+	</engine>
+	<!-- 查询线变仓投料主表 -->
+	<engine engine_code="queryKittingFeedingDetail" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryKittingFeedingDetail" >
+	</engine>
+	<!-- 查询线变仓投料明细 -->
+	<engine engine_code="queryKittingFeedingSnDetail" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryKittingFeedingSnDetail" >
+	</engine>
+	<!-- 查询线变仓投料明细 -->
+	<engine engine_code="queryExistsMachineForFeeding" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryExistsMachineForFeeding" >
+	</engine>
+	
+	<!-- 查询物料详细信息 -->
+	<engine engine_code="queryMaterialInfoWithCode" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryMaterialInfoWithCode" >
+	</engine>
+	<!-- 查询工单分组结存信息 -->
+	<engine engine_code="querySurplusInfoWithMono" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querySurplusInfoWithMono" >
+	</engine>
+	<!-- 查询余料结存中最后一次投料的批次号 -->
+	<engine engine_code="queryLotnoWithFeedingLast" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryLotnoWithFeedingLast" >
+	</engine>
+	
+	<!-- mes系統中获取工单信息 -->
+	<!-- 按条件查询工单集合 -->
+	<engine engine_code="queryMONOList" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryMONOList" >
+	</engine>
+	<!-- 按条件查询工单  -->
+	<engine engine_code="queryMONOinfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryMONOinfo" >
+	</engine>
+</engines>

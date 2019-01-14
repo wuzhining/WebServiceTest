@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="">       
+		<!-- 1.1 数据字典管理 -->		
+		<!-- 查询接口列表信息 -->
+	<select id="queryScadaApi" parameterType="hashmap" resultType="java.util.HashMap">
+	    <include refid="oraclePagingFileTop"></include>  	 
+		 API_ID,API_NAME,API_DESC,API_ADDR from SCADA_API
+		 <where>1=1
+		 <if test="TYPECODE!=null and TYPECODE!='' and flag!='true'">
+		 and TYPECODE like '%${TYPECODE}%'
+		 </if>
+		 </where>
+		     <include refid="oraclePagingFileBottom"></include>   	
+	</select>
+	
+	<!-- 接口列表分页总数 -->
+	<select id="queryScadaApi_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+	  	 
+		SELECT COUNT(1) ROWS_COUNT  from SCADA_API   
+		 <where>1=1
+		 <if test="TYPECODE!=null and TYPECODE!='' and flag!='true'">
+		 and TYPECODE like '%${TYPECODE}%'
+		 </if>
+		 </where>
+	</select>
+
+	
+	<!-- 查询接口配置信息 -->
+	<select id="queryScadaApiConfig" parameterType="hashmap" resultType="java.util.HashMap">
+	    <include refid="oraclePagingFileTop"></include>  	 
+		 CFG_ID,CFG_CD,CFG_IP,CFG_NAME,CFG_ADDR,CFG_CREATOR,TO_CHAR(CFG_CREATDATE,'YYYY-MM-DD HH24:Mi:SS') CFG_CREATDATE,
+		 CFG_MODIFIER,TO_CHAR(CFG_MODIFYDATE,'YYYY-MM-DD HH24:Mi:SS') CFG_MODIFYDATE from SCADA_API_CONFIG
+		 <where>1=1
+		 <if test="CFG_IP!=null and CFG_IP!=''">
+		 and CFG_IP = '${CFG_IP}'
+		 </if>
+		 </where>
+		     <include refid="oraclePagingFileBottom"></include>   	
+	</select>
+	
+	<!-- 接口配置分页总数 -->
+	<select id="queryScadaApiConfig_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+	  	 
+		SELECT COUNT(1) ROWS_COUNT  from SCADA_API_CONFIG   
+		 <where>1=1
+		 <if test="TYPECODE!=null and TYPECODE!='' and flag!='true'">
+		 and TYPECODE like '%${TYPECODE}%'
+		 </if>
+		 </where>
+	</select>
+	<!-- 新增接口配置-->
+	 <insert id="insertScadaApiConfig" parameterType="hashmap">
+		insert into SCADA_API_CONFIG(CFG_ID,CFG_CD,CFG_IP,CFG_NAME,CFG_ADDR,CFG_CREATOR,CFG_CREATDATE)
+		<selectKey resultType="int" keyProperty="CFG_ID" order="BEFORE"> 
+            SELECT CONFIG_SQU.NEXTVAL FROM DUAL 
+        </selectKey>
+		values('${CFG_ID}','${CFG_CD}','${CFG_IP}','${CFG_NAME}','${CFG_ADDR}','${F_USE_CD}',sysdate)
+	</insert>  
+	
+	   <!-- 删除接口配置--> 
+	      <delete id="deleteScadaApiConfig" parameterType="hashmap">
+	            DELETE SCADA_API_CONFIG
+	             	where
+	             		CFG_ID IN
+	             	<foreach collection="list"  index="index" item="item" open="(" separator="," close=")"  >
+       					#{item.CFG_ID}
+      				</foreach>
+	    </delete>    
+	    <!-- 修改接口配置 -->
+	      <update id="updateScadaApiConfig" parameterType="hashmap">
+	    	update SCADA_API_CONFIG
+	    	<set>
+	    		<if test="CFG_CD!=null and CFG_CD!= ''">CFG_CD='${CFG_CD}',</if>
+	    		<if test="CFG_IP!=null and CFG_IP!= ''">CFG_IP='${CFG_IP}',</if>
+	    		<if test="CFG_NAME!=null and CFG_NAME!= ''">CFG_NAME='${CFG_NAME}',</if>
+	    		<if test="CFG_ADDR!=null and CFG_ADDR!= ''">CFG_ADDR='${CFG_ADDR}',</if>
+	    		CFG_MODIFIER='${F_USE_CD}',
+	    		CFG_MODIFYDATE=sysdate
+	    	</set>
+	    	where CFG_ID='${CFG_ID}'
+	    </update>  
+
+ </mapper>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="">       
+		<!-- 1.1 数据字典管理 -->		
+		 <!-- 查询采集日志信息 -->
+	<select id="queryScadaLog" parameterType="hashmap" resultType="java.util.HashMap">
+				select prm_id,
+				prm_cd,
+				prm_ip,
+				prm_no,
+				prm_desc,
+				prm_goodqty,
+				prm_badqty,
+				prm_prodqty,
+				prm_proddura,
+				prm_convdura,
+				prm_tproddura,
+				prm_downtime,
+				prm_tdowntime,
+				prm_timeunit,
+				prm_stdcap,
+				prm_takt,
+				prm_temper,
+				prm_press,
+				prm_sn,
+				to_char(prm_time,'yyyy-mm-dd hh:mm:ss') prm_time,
+				prm_emp
+				from scada_prdparam
+				where prm_cd = '${prm_cd}' order by prm_time desc
+	</select>
+	 <!-- 采集监控大屏 -->
+	<select id="queryScadaBigScreen" parameterType="hashmap" resultType="java.util.HashMap">
+				SELECT PRM_ID,
+				PRM_CD,
+				PRM_IP,
+				PRM_NO,
+				PRM_DESC,
+				PRM_GOODQTY,
+				PRM_BADQTY,
+				PRM_PRODQTY,
+				PRM_PRODDURA,
+				PRM_CONVDURA,
+				PRM_TPRODDURA,
+				PRM_DOWNTIME,
+				PRM_TDOWNTIME,
+				PRM_TIMEUNIT,
+				PRM_STDCAP,
+				PRM_TAKT,
+				PRM_TEMPER,
+				PRM_PRESS,
+				PRM_SN,
+				TO_CHAR(PRM_TIME,'YYYY-MM-DD HH:MM:SS') PRM_TIME,
+				PRM_EMP,
+				 ET_NM,
+				 ET_CD
+        FROM iplant1.C_IPLANT_E2_T left join scada_prdparam
+        on ET_CD=prm_cd 
+	</select>
+ </mapper>

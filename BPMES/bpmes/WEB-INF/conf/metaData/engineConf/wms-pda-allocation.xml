@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<engines>
+	<!-- A.2 pda 仓库调拨模块 -->
+
+	<!--新增盘点任务 -->
+	<engine engine_code="InsertInvTask" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="InsertInvTask" ></engine>
+	
+	<!--PDA 内部调拨扫描物料标签接口  -->
+	<engine engine_code="InAllMateriaPda" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="InAllMateriaPda" ></engine>
+	
+	<!--PDA 查询内部调拨单序列ID  -->
+	<engine engine_code="InAllIdQuery" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="InAllIdQuery" ></engine>
+	
+	<!--PDA 内部调拨下架  -->
+	<engine engine_code="AllMaterialOut" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="AllMaterialOut" ></engine>
+	
+</engines>

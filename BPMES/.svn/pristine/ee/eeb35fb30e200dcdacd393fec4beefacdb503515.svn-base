@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="">       
+		<!-- 1.1 数据字典管理 -->		
+		 <!-- 查询监控参数列表信息 -->
+	<select id="queryScadaParam" parameterType="hashmap" resultType="java.util.HashMap">
+		<include refid="oraclePagingFileTop"></include> 
+		 PARAM_ID,PARAM_NAME,PARAM_DESC,PARAM_VALAREA from SCADA_Param
+		 <include refid="oraclePagingFileBottom"></include>
+	</select>
+	
+	<!-- 监控参数列表分页总数 -->
+	 <select id="queryScadaParam_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+	  	 
+		SELECT COUNT(1) ROWS_COUNT  from SCADA_Param   
+		 <where>1=1
+		 <if test="TYPECODE!=null and TYPECODE!='' and flag!='true'">
+		 and TYPECODE like '%${TYPECODE}%'
+		 </if>
+		 </where>
+	</select> 
+
+	
+	<!-- 查询监控参数配置信息 -->
+	<select id="queryScadaParamConfig" parameterType="hashmap" resultType="java.util.HashMap">
+	    <include refid="oraclePagingFileTop"></include>  	 
+		 SET_ID,SET_CD,SET_IP,SET_NAME,SET_PARAM,SET_CREATOR,TO_CHAR(SET_CREATDATE,'YYYY-MM-DD HH24:Mi:SS') SET_CREATDATE,
+		 SET_MODIFIER,TO_CHAR(SET_MODIFYDATE,'YYYY-MM-DD HH24:Mi:SS') SET_MODIFYDATE from SCADA_PARAM_SET
+		 <where>1=1
+		 <if test="TYPECODE!=null and TYPECODE!='' and flag!='true'">
+		 and TYPECODE like '%${TYPECODE}%'
+		 </if>
+		 </where>
+		     <include refid="oraclePagingFileBottom"></include>   	
+	</select>
+	
+	<!-- 监控参数配置分页总数 -->
+	<select id="queryScadaParamConfig_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+	  	 
+		SELECT COUNT(1) ROWS_COUNT  from SCADA_PARAM_SET   
+		 <where>1=1
+		 <if test="TYPECODE!=null and TYPECODE!='' and flag!='true'">
+		 and TYPECODE like '%${TYPECODE}%'
+		 </if>
+		 </where>
+	</select>
+	<!-- 新增监控参数配置-->
+ 	 <insert id="insertScadaParamConfig" parameterType="hashmap">
+		insert into SCADA_PARAM_SET(SET_ID,SET_CD,SET_IP,SET_NAME,SET_PARAM,SET_CREATOR,SET_CREATDATE)
+		<selectKey resultType="int" keyProperty="SET_ID" order="BEFORE"> 
+            SELECT SCADA_PARAM_SQU.NEXTVAL FROM DUAL 
+        </selectKey>
+		values('${SET_ID}','${SET_CD}','${SET_IP}','${SET_NAME}','${SET_PARAM}','${F_USE_CD}',sysdate)
+	</insert>   
+	
+	   <!-- 删除监控参数配置--> 
+	       <delete id="deleteScadaParamConfig" parameterType="hashmap">
+	            DELETE SCADA_PARAM_SET
+	             	where
+	             		SET_ID IN
+	             	<foreach collection="list"  index="index" item="item" open="(" separator="," close=")"  >
+       					#{item.SET_ID,jdbcType=INTEGER}
+      				</foreach>
+	    </delete>    
+	    <!-- 修改监控参数配置 -->
+	       <update id="updateScadaParamConfig" parameterType="hashmap">
+	    	update SCADA_PARAM_SET
+	    	<set>
+	    		<if test="SET_CD!=null and SET_CD!= ''">SET_CD='${SET_CD}',</if>
+	    		<if test="SET_IP!=null and SET_IP!= ''">SET_IP='${SET_IP}',</if>
+	    		<if test="SET_NAME!=null and SET_NAME!= ''">SET_NAME='${SET_NAME}',</if>
+	    		<if test="SET_PARAM!=null and SET_PARAM!= ''">SET_PARAM='${SET_PARAM}',</if>
+	    		SET_MODIFIER='${F_USE_CD}',
+	    		SET_MODIFYDATE=sysdate
+	    	</set>
+	    	where SET_ID='${SET_ID}'
+	    </update>   
+
+ </mapper>

@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ifss>
+<!-- 出货记录表 -->
+<!-- 出货记录汇总 -->
+    <ifs ifs_code="WMS_REP00001" ifs_name="出货记录汇总" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+        <Bizes>
+             <ifs_biz biz_code="queryProOutputSum" biz_method="" serial_no="1" biz_name="queryProOutputSum" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs>
+<!-- 出货记录详情 -->
+    <ifs ifs_code="WMS_REP00002" ifs_name="出货记录详情" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+        <Bizes>
+             <ifs_biz biz_code="queryProOutputDetail" biz_method="" serial_no="1" biz_name="queryProOutputDetail" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs>
+    
+  
+<!-- 收发存汇总表 -->
+<!-- 收发存物料汇总表-->
+    <ifs ifs_code="WMS_REP00003" ifs_name="收发存物料汇总表" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+        <Bizes>
+             <ifs_biz biz_code="queryReceiveMat" biz_method="" serial_no="1" biz_name="queryReceiveMat" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs>
+<!-- 收发存物料入库汇总表-->
+    <ifs ifs_code="WMS_REP00004" ifs_name="收发存物料入库汇总表" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+        <Bizes>
+             <ifs_biz biz_code="queryReceiveInStore" biz_method="" serial_no="1" biz_name="queryReceiveInStore" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs>
+<!-- 收发存物料出库汇总表-->
+    <ifs ifs_code="WMS_REP00005" ifs_name="收发存物料入库汇总表" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+        <Bizes>
+             <ifs_biz biz_code="queryReceiveOutStore" biz_method="" serial_no="1" biz_name="queryReceiveOutStore" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs>
+   
+
+<!-- 物料追溯-->
+<!-- 物料追溯来料报表-->
+     <ifs ifs_code="WMS_REP00006" ifs_name="物料追溯来料报表" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+        <Bizes>
+             <ifs_biz biz_code="queryMaterialArrival" biz_method="" serial_no="1" biz_name="queryMaterialArrival" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs>
+ <!-- 物料追溯质检单追溯-->
+     <ifs ifs_code="WMS_REP00007" ifs_name="物料追溯质检单追溯" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+        <Bizes>
+             <ifs_biz biz_code="queryMaterialIQC" biz_method="" serial_no="1" biz_name="queryMaterialIQC" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs>
+<!-- 物料追溯入库单追溯-->
+    <ifs ifs_code="WMS_REP00008" ifs_name="物料追溯入库单追溯" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+        <Bizes>
+             <ifs_biz biz_code="queryMaterialInput" biz_method="" serial_no="1" biz_name="queryMaterialInput" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs> 
+<!-- 物料追溯拆包追溯-->
+    <ifs ifs_code="WMS_REP00009" ifs_name="物料追溯拆包追溯" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+        <Bizes>
+             <ifs_biz biz_code="queryMaterialPackage" biz_method="" serial_no="1" biz_name="queryMaterialPackage" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs>
+<!-- 物料追溯领料单追溯-->
+    <ifs ifs_code="WMS_REP00010" ifs_name="物料追溯领料单追溯" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+        <Bizes>
+             <ifs_biz biz_code="queryMaterialPicking" biz_method="" serial_no="1" biz_name="queryMaterialPicking" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs>
+<!-- 物料追溯投料追溯-->
+    <ifs ifs_code="WMS_REP00011" ifs_name="物料追溯投料追溯" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+        <Bizes>
+             <ifs_biz biz_code="queryMaterialFeeding" biz_method="" serial_no="1" biz_name="queryMaterialFeeding" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs>
+<!-- 物料追溯退料单追溯-->
+    <ifs ifs_code="WMS_REP00012" ifs_name="物料追溯退料单追溯" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+        <Bizes>
+             <ifs_biz biz_code="queryMaterialReturn" biz_method="" serial_no="1" biz_name="queryMaterialReturn" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs>
+<!-- 物料追溯借出单追溯-->
+    <ifs ifs_code="WMS_REP00013" ifs_name="物料追溯借出单追溯" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+        <Bizes>
+             <ifs_biz biz_code="queryMaterialLoan" biz_method="" serial_no="1" biz_name="queryMaterialLoan" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs>
+     
+<!-- 查询已完结的下架单-->
+    <ifs ifs_code="WMS_REP00014" ifs_name="查询已完结的下架单" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+        <Bizes>
+             <ifs_biz biz_code="queryFinMaterialDown" biz_method="" serial_no="1" biz_name="queryFinMaterialDown" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs>
+     
+<!-- 查询已完结的下架单明细-->
+    <ifs ifs_code="WMS_REP00015" ifs_name="查询已完结的下架单明细" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+        <Bizes>
+             <ifs_biz biz_code="queryFinMaterialDownDetail" biz_method="" serial_no="1" biz_name="queryFinMaterialDownDetail" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs>
+     
+    <!-- 成品追溯来料报表-->
+     <ifs ifs_code="WMS_REP00101" ifs_name="成品追溯来料报表" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+        <Bizes>
+             <ifs_biz biz_code="queryProductAscend" biz_method="" serial_no="1" biz_name="queryProductAscend" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs>
+     <ifs ifs_code="WMS_REP00102" ifs_name="投料明细" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+        <Bizes>
+             <ifs_biz biz_code="queryAscendFeeding" biz_method="" serial_no="1" biz_name="queryAscendFeeding" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs>
+     <ifs ifs_code="WMS_REP00103" ifs_name="领料明细" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+        <Bizes>
+             <ifs_biz biz_code="queryAscendProdpicking" biz_method="" serial_no="1" biz_name="queryAscendProdpicking" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs>
+     <ifs ifs_code="WMS_REP00104" ifs_name="入库明细" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+        <Bizes>
+             <ifs_biz biz_code="queryAscendInstore" biz_method="" serial_no="1" biz_name="queryAscendInstore" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs>
+     <ifs ifs_code="WMS_REP00105" ifs_name="质检明细" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+        <Bizes>
+             <ifs_biz biz_code="queryAscendIQC" biz_method="" serial_no="1" biz_name="queryAscendIQC" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs>
+     <ifs ifs_code="WMS_REP00106" ifs_name="来料明细" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+        <Bizes>
+             <ifs_biz biz_code="queryAscendArrival" biz_method="" serial_no="1" biz_name="queryAscendArrival" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs>
+     <ifs ifs_code="WMS_REP00107" ifs_name="产品入出库" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+        <Bizes>
+             <ifs_biz biz_code="queryAscendInOut" biz_method="" serial_no="1" biz_name="queryAscendInOut" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs>
+     
+     <!-- 产品追溯来料报表-->
+     <ifs ifs_code="WMS_REP00201" ifs_name="产品追溯来料报表" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+        <Bizes>
+             <ifs_biz biz_code="queryBillAscend" biz_method="" serial_no="1" biz_name="queryBillAscend" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs>
+     <ifs ifs_code="WMS_REP00202" ifs_name="制令单详细信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+        <Bizes>
+             <ifs_biz biz_code="queryAscendMo" biz_method="" serial_no="1" biz_name="queryAscendMo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs>
+     <ifs ifs_code="WMS_REP00203" ifs_name="领料单信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+        <Bizes>
+             <ifs_biz biz_code="queryAscendProd" biz_method="" serial_no="1" biz_name="queryAscendProd" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs>
+     <ifs ifs_code="WMS_REP00204" ifs_name="领料单详细信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+        <Bizes>
+             <ifs_biz biz_code="queryAscendProdInfo" biz_method="" serial_no="1" biz_name="queryAscendProdInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs>
+     <ifs ifs_code="WMS_REP00205" ifs_name="投料单信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+        <Bizes>
+             <ifs_biz biz_code="queryAscendFeed" biz_method="" serial_no="1" biz_name="queryAscendFeed" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs>
+     <ifs ifs_code="WMS_REP00206" ifs_name="投料单详细信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+        <Bizes>
+             <ifs_biz biz_code="queryAscendProdInfo" biz_method="" serial_no="1" biz_name="queryAscendProdInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs>
+     <ifs ifs_code="WMS_REP00207" ifs_name="退料单信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+        <Bizes>
+             <ifs_biz biz_code="queryAscendReturn" biz_method="" serial_no="1" biz_name="queryAscendReturn" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs>
+     <ifs ifs_code="WMS_REP00208" ifs_name="退料单详细信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+        <Bizes>
+             <ifs_biz biz_code="queryAscendReturnInfo" biz_method="" serial_no="1" biz_name="queryAscendReturnInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<ifs ifs_code="WMS_REP00209" ifs_name="入库单信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+        <Bizes>
+             <ifs_biz biz_code="queryAscendInput" biz_method="" serial_no="1" biz_name="queryAscendInput" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs>
+     <ifs ifs_code="WMS_REP00210" ifs_name="入库单详细信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+        <Bizes>
+             <ifs_biz biz_code="queryAscendInputInfo" biz_method="" serial_no="1" biz_name="queryAscendInputInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs>
+     <ifs ifs_code="WMS_REP00211" ifs_name="出库单信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+        <Bizes>
+             <ifs_biz biz_code="queryAscendOut" biz_method="" serial_no="1" biz_name="queryAscendOut" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs>
+     <ifs ifs_code="WMS_REP00212" ifs_name="出库单详细信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+        <Bizes>
+             <ifs_biz biz_code="queryAscendOutInfo" biz_method="" serial_no="1" biz_name="queryAscendOutInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs>
+     <ifs ifs_code="WMS_REP00213" ifs_name="退货单信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+        <Bizes>
+             <ifs_biz biz_code="queryAscendLost" biz_method="" serial_no="1" biz_name="queryAscendLost" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs>
+     <ifs ifs_code="WMS_REP00214" ifs_name="退货单详细信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+        <Bizes>
+             <ifs_biz biz_code="queryAscendLostInfo" biz_method="" serial_no="1" biz_name="queryAscendLostInfo" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs>
+     
+     
+     <!-- 仓库库存报表 -->
+     <!-- 查询标签具体信息 -->
+     <ifs ifs_code="WMS_REP00215" ifs_name="查询标签具体信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+        <Bizes>
+             <ifs_biz biz_code="queryWhBarcode" biz_method="" serial_no="1" biz_name="queryWhBarcode" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs>
+     
+     <!-- 备料看板 -->
+     <ifs ifs_code="WMS_REP00216" ifs_name="备料看板" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+        <Bizes>
+             <ifs_biz biz_code="queryBeiLiao" biz_method="" serial_no="1" biz_name="queryBeiLiao" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs>
+</ifss>

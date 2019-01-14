@@ -1,0 +1,2263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="">
+<!-- 出货记录表 -->
+<!-- 出货记录汇总 -->
+	<select id="queryProOutputSum" parameterType="hashmap" resultType="java.util.HashMap">
+	<include refid="oraclePagingFileTop" />
+			    TT.*,
+		        T5.UNIT_NAME
+		      FROM
+		         (SELECT  
+		           COUNT(*) AS COUN,
+		           T.CRT_DT,
+		           T.CUST_NO,
+		           T.MO_NO,
+		           T.PRODUCT_NAME,
+		           T.PRODUCT_NO,
+		           SUM(T.QTY) AS QTY,
+		           T.LOT_NO
+		         FROM
+		            (
+		             SELECT
+		              AA.*,
+		              TO_CHAR(T2.CRT_DT,'YYYY-MM-DD') AS CRT_DT
+		             FROM
+		             (SELECT
+		                T1.SHIPPING_NO, 
+		                T1.SERIAL_NUMBER,
+		                T1.CUST_NO,
+		                T3.MO_NO,
+		                T1.MATERIAL_ID AS PRODUCT_NO,
+		                T1.MATERIAL_NAME AS PRODUCT_NAME,
+		                T1.QTY,
+		                T1.LOT_NO
+		             FROM WMS1.R_WMS_SHIPPING_SN_T T1
+		             LEFT JOIN WMS1.R_WMS_STORE_SN_T T3 ON T1.SERIAL_NUMBER=T3.SERIAL_NUMBER
+		             WHERE T1.CARTON_NO='N/A'
+		             
+		             UNION ALL
+		             SELECT 
+		               A.SHIPPING_NO,
+		               A.CARTON_NO AS SERIAL_NUMBER,
+		               A.CUST_NO,
+		               A.MO_NO,
+		               A.PRODUCT_NO,
+		               A.PRODUCT_NAME,
+		               SUM(A.QTY) AS QTY,
+		               A.LOT_NO
+		              FROM
+		             (SELECT 
+		                A1.SHIPPING_NO,
+		                A1.SERIAL_NUMBER,
+		                A1.CUST_NO,
+		                A2.MO_NO,
+		                A1.MATERIAL_ID AS PRODUCT_NO,
+		                A1.MATERIAL_NAME AS PRODUCT_NAME,
+		                A1.QTY,
+		                IPLANT1.GET_INSTORE_PARENT_F(A1.CARTON_NO,'OUTSTORE') AS CARTON_NO,
+		                A1.LOT_NO
+		             FROM WMS1.R_WMS_SHIPPING_SN_T A1
+		             LEFT JOIN WMS1.R_WMS_STORE_SN_T A2 ON A1.SERIAL_NUMBER=A2.SERIAL_NUMBER
+		             WHERE A1.CARTON_NO!='N/A')A
+		             GROUP BY 
+		               A.SHIPPING_NO,
+		               A.CARTON_NO,
+		               A.CUST_NO,
+		               A.MO_NO,
+		               A.PRODUCT_NO,
+		               A.PRODUCT_NAME,
+		               A.LOT_NO)AA
+		             
+		             LEFT JOIN WMS1.R_WMS_SHIPPING_T T2 ON AA.SHIPPING_NO=T2.SHIPPING_NO
+		             )T
+		             
+		          <where>1=1
+			       <if test="BEG_DATE !=null and BEG_DATE !='' "> AND T.CRT_DT <![CDATA[>=]]> '${BEG_DATE}'</if>
+	               <if test="END_DATE !=null and END_DATE !='' "> AND T.CRT_DT <![CDATA[<=]]> '${END_DATE}'</if> 
+		           <if test="CUST_NO !=null and CUST_NO !='' "> AND T.CUST_NO = '${CUST_NO}'</if>
+		           <if test="PRODUCT_NAME !=null and PRODUCT_NAME !='' "> AND T.PRODUCT_NAME = '${PRODUCT_NAME}'</if>
+		           <if test="PRODUCT_NO !=null and PRODUCT_NO !='' "> AND T.PRODUCT_NO = '${PRODUCT_NO}'</if>
+		         </where>
+		             GROUP BY  T.CRT_DT,
+		                       T.CUST_NO,
+		                       T.MO_NO,
+		                       T.PRODUCT_NAME,
+		                       T.PRODUCT_NO,
+		                       T.LOT_NO)TT
+		          LEFT JOIN IPLANT1.C_IPLANT_M3_T T4 ON TT.PRODUCT_NO=T4.MATERIAL_ID
+		          LEFT JOIN WMS1.C_WMS_UNIT_T T5 ON T4.UNIT_ID=T5.UNIT_ID     
+	<include refid="oraclePagingFileBottom" />
+    </select>
+    
+    <select id="queryProOutputSum_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+            SELECT COUNT(*) AS ROWS_COUNT
+	         FROM 
+	           (   
+	             SELECT
+	               TT.*,
+		        T5.UNIT_NAME
+		      FROM
+		         (SELECT  
+		           COUNT(*) AS COUN,
+		           T.CRT_DT,
+		           T.CUST_NO,
+		           T.MO_NO,
+		           T.PRODUCT_NAME,
+		           T.PRODUCT_NO,
+		           SUM(T.QTY) AS QTY,
+		           T.LOT_NO
+		         FROM
+		            (
+		             SELECT
+		              AA.*,
+		              TO_CHAR(T2.CRT_DT,'YYYY-MM-DD') AS CRT_DT
+		             FROM
+		             (SELECT
+		                T1.SHIPPING_NO, 
+		                T1.SERIAL_NUMBER,
+		                T1.CUST_NO,
+		                T3.MO_NO,
+		                T1.MATERIAL_ID AS PRODUCT_NO,
+		                T1.MATERIAL_NAME AS PRODUCT_NAME,
+		                T1.QTY,
+		                T1.LOT_NO
+		             FROM WMS1.R_WMS_SHIPPING_SN_T T1
+		             LEFT JOIN WMS1.R_WMS_STORE_SN_T T3 ON T1.SERIAL_NUMBER=T3.SERIAL_NUMBER
+		             WHERE T1.CARTON_NO='N/A'
+		             
+		             UNION ALL
+		             SELECT 
+		               A.SHIPPING_NO,
+		               A.CARTON_NO AS SERIAL_NUMBER,
+		               A.CUST_NO,
+		               A.MO_NO,
+		               A.PRODUCT_NO,
+		               A.PRODUCT_NAME,
+		               SUM(A.QTY) AS QTY,
+		               A.LOT_NO
+		              FROM
+		             (SELECT 
+		                A1.SHIPPING_NO,
+		                A1.SERIAL_NUMBER,
+		                A1.CUST_NO,
+		                A2.MO_NO,
+		                A1.MATERIAL_ID AS PRODUCT_NO,
+		                A1.MATERIAL_NAME AS PRODUCT_NAME,
+		                A1.QTY,
+		                IPLANT1.GET_INSTORE_PARENT_F(A1.CARTON_NO,'OUTSTORE') AS CARTON_NO,
+		                A1.LOT_NO
+		             FROM WMS1.R_WMS_SHIPPING_SN_T A1
+		             LEFT JOIN WMS1.R_WMS_STORE_SN_T A2 ON A1.SERIAL_NUMBER=A2.SERIAL_NUMBER
+		             WHERE A1.CARTON_NO!='N/A')A
+		             GROUP BY 
+		               A.SHIPPING_NO,
+		               A.CARTON_NO,
+		               A.CUST_NO,
+		               A.MO_NO,
+		               A.PRODUCT_NO,
+		               A.PRODUCT_NAME,
+		               A.LOT_NO)AA
+		             
+		             LEFT JOIN WMS1.R_WMS_SHIPPING_T T2 ON AA.SHIPPING_NO=T2.SHIPPING_NO
+		             )T
+		             
+		          <where>1=1
+		           <if test="BEG_DATE !=null and BEG_DATE !='' "> AND T.CRT_DT <![CDATA[>=]]> '${BEG_DATE}'</if>
+	               <if test="END_DATE !=null and END_DATE !='' "> AND T.CRT_DT <![CDATA[<=]]> '${END_DATE}'</if> 
+		           <if test="CUST_NO !=null and CUST_NO !='' "> AND T.CUST_NO = '${CUST_NO}'</if>
+		           <if test="PRODUCT_NAME !=null and PRODUCT_NAME !='' "> AND T.PRODUCT_NAME = '${PRODUCT_NAME}'</if>
+		           <if test="PRODUCT_NO !=null and PRODUCT_NO !='' "> AND T.PRODUCT_NO = '${PRODUCT_NO}'</if>
+		         </where>
+		             GROUP BY  T.CRT_DT,
+		                       T.CUST_NO,
+		                       T.MO_NO,
+		                       T.PRODUCT_NAME,
+		                       T.PRODUCT_NO,
+		                       T.LOT_NO)TT
+		          LEFT JOIN IPLANT1.C_IPLANT_M3_T T4 ON TT.PRODUCT_NO=T4.MATERIAL_ID
+		          LEFT JOIN WMS1.C_WMS_UNIT_T T5 ON T4.UNIT_ID=T5.UNIT_ID     
+	           )
+    </select>
+    
+<!-- 出货记录标签详情 -->
+	<select id="queryProOutputDetail" parameterType="hashmap" resultType="java.util.HashMap">
+	<include refid="oraclePagingFileTop" />
+			      TT.*,
+			      T4.STORE_NAME,
+			      T5.AREA_NAME,
+			      T6.SHELF_NAME,
+			      T7.LOCATION_NAME
+			      FROM
+			      (
+			      
+			      SELECT
+			            T1.SO_NO,
+			            T1.SERIAL_NUMBER,
+			            T1.CUST_NO,
+			            T3.MO_NO,
+			            T1.MATERIAL_ID AS PRODUCT_NO,
+			            T1.MATERIAL_NAME AS PRODUCT_NAME,
+			            T1.QTY,
+			            T1.LOT_NO,
+			            T1.STORE_ID,
+			            T1.AREA_ID,
+			            T1.SHELF_ID,
+			            T1.LOCATION_ID,
+			            TO_CHAR(T2.CRT_DT,'YYYY-MM-DD') AS CRT_DT
+			         FROM WMS1.R_WMS_SHIPPING_SN_T T1
+			         LEFT JOIN WMS1.R_WMS_STORE_SN_T T3 ON T1.SERIAL_NUMBER=T3.SERIAL_NUMBER
+			         LEFT JOIN WMS1.R_WMS_SHIPPING_T T2 ON T1.SHIPPING_NO=T2.SHIPPING_NO
+			         WHERE 1=1
+			            AND T1.CARTON_NO ='N/A'
+			         UNION ALL
+			      SELECT
+			          AA.SO_NO,
+			          AA.CARTON_NO AS SERIAL_NUMBER,
+			          AA.CUST_NO,
+			          AA.MO_NO,
+			          AA.PRODUCT_NO,
+			          AA.PRODUCT_NAME,
+			          SUM(AA.QTY) AS QTY,
+			          AA.LOT_NO,
+			          AA.STORE_ID,
+			          AA.AREA_ID,
+			          AA.SHELF_ID,
+			          AA.LOCATION_ID,
+			          AA.CRT_DT
+			        FROM 
+			         (SELECT 
+			            A1.SO_NO,
+			            A1.SERIAL_NUMBER,
+			            A1.MATERIAL_ID AS PRODUCT_NO,
+			            A3.MO_NO,
+			            A1.CUST_NO,
+			            A1.MATERIAL_NAME AS PRODUCT_NAME,
+			            A1.QTY,
+			            A1.LOT_NO,
+			            IPLANT1.GET_INSTORE_PARENT_F(A1.CARTON_NO,'OUTSTORE') AS CARTON_NO,
+			            A1.STORE_ID,
+			            A1.AREA_ID,
+			            A1.SHELF_ID,
+			            A1.LOCATION_ID,
+			            TO_CHAR(A2.CRT_DT,'YYYY-MM-DD') AS CRT_DT
+			         FROM WMS1.R_WMS_SHIPPING_SN_T A1
+			         LEFT JOIN WMS1.R_WMS_STORE_SN_T A3 ON A1.SERIAL_NUMBER=A3.SERIAL_NUMBER
+			         LEFT JOIN WMS1.R_WMS_SHIPPING_T A2 ON A1.SHIPPING_NO=A2.SHIPPING_NO
+			         WHERE 1=1
+			            AND A1.CARTON_NO !='N/A')AA
+			         GROUP BY
+			           AA.SO_NO,
+			           AA.CARTON_NO,
+			           AA.CUST_NO,
+			           AA.MO_NO,
+			           AA.PRODUCT_NO,
+			           AA.PRODUCT_NAME,
+			           AA.LOT_NO,
+			           AA.STORE_ID,
+			           AA.AREA_ID,
+			           AA.SHELF_ID,
+			           AA.LOCATION_ID,
+			           AA.CRT_DT  
+			         
+			         )TT
+			         LEFT JOIN WMS1.C_WMS_STORE_T T4 ON TT.STORE_ID=T4.STORE_ID
+			         LEFT JOIN WMS1.C_WMS_AREA_T T5 ON TT.AREA_ID=T5.AREA_ID
+			         LEFT JOIN WMS1.C_WMS_SHELF_T T6 ON TT.SHELF_ID=T6.SHELF_ID
+			         LEFT JOIN WMS1.C_WMS_LOCATION_T T7 ON TT.LOCATION_ID=T7.LOCATION_ID
+			 <where>1=1
+				   <if test="CRT_DT !=null and CRT_DT !='' "> AND TT.CRT_DT ='${CRT_DT}'</if>
+				   <if test="CUST_NO !=null and CUST_NO !='' "> AND TT.CUST_NO = '${CUST_NO}'</if>
+				   <if test="PRODUCT_NAME !=null and PRODUCT_NAME !='' "> AND TT.PRODUCT_NAME = '${PRODUCT_NAME}'</if>
+				   <if test="PRODUCT_NO !=null and PRODUCT_NO !='' "> AND TT.PRODUCT_NO = '${PRODUCT_NO}'</if>
+				   <if test="LOT_NO !=null and LOT_NO !='' "> AND TT.LOT_NO = '${LOT_NO}'</if>
+				   <if test="MO_NO !=null and MO_NO !='' "> AND TT.MO_NO = '${MO_NO}'</if>
+		    </where>
+	<include refid="oraclePagingFileBottom" />
+    </select>
+    
+    <select id="queryProOutputDetail_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+            SELECT COUNT(*) AS ROWS_COUNT
+	         FROM
+			(SELECT	
+				TT.*
+			      FROM
+			      (
+			      
+			      SELECT
+			            T1.SO_NO,
+			            T1.SERIAL_NUMBER,
+			            T1.CUST_NO,
+			            T3.MO_NO,
+			            T1.MATERIAL_ID AS PRODUCT_NO,
+			            T1.MATERIAL_NAME AS PRODUCT_NAME,
+			            T1.QTY,
+			            T1.LOT_NO,
+			            T1.STORE_ID,
+			            T1.AREA_ID,
+			            T1.SHELF_ID,
+			            T1.LOCATION_ID,
+			            TO_CHAR(T2.CRT_DT,'YYYY-MM-DD') AS CRT_DT
+			         FROM WMS1.R_WMS_SHIPPING_SN_T T1
+			         LEFT JOIN WMS1.R_WMS_STORE_SN_T T3 ON T1.SERIAL_NUMBER=T3.SERIAL_NUMBER
+			         LEFT JOIN WMS1.R_WMS_SHIPPING_T T2 ON T1.SHIPPING_NO=T2.SHIPPING_NO
+			         WHERE 1=1
+			            AND T1.CARTON_NO ='N/A'
+			         UNION ALL
+			      SELECT
+			          AA.SO_NO,
+			          AA.CARTON_NO AS SERIAL_NUMBER,
+			          AA.CUST_NO,
+			          AA.MO_NO,
+			          AA.PRODUCT_NO,
+			          AA.PRODUCT_NAME,
+			          SUM(AA.QTY) AS QTY,
+			          AA.LOT_NO,
+			          AA.STORE_ID,
+			          AA.AREA_ID,
+			          AA.SHELF_ID,
+			          AA.LOCATION_ID,
+			          AA.CRT_DT
+			        FROM 
+			         (SELECT 
+			            A1.SO_NO,
+			            A1.SERIAL_NUMBER,
+			            A1.MATERIAL_ID AS PRODUCT_NO,
+			            A3.MO_NO,
+			            A1.CUST_NO,
+			            A1.MATERIAL_NAME AS PRODUCT_NAME,
+			            A1.QTY,
+			            A1.LOT_NO,
+			            IPLANT1.GET_INSTORE_PARENT_F(A1.CARTON_NO,'OUTSTORE') AS CARTON_NO,
+			            A1.STORE_ID,
+			            A1.AREA_ID,
+			            A1.SHELF_ID,
+			            A1.LOCATION_ID,
+			            TO_CHAR(A2.CRT_DT,'YYYY-MM-DD') AS CRT_DT
+			         FROM WMS1.R_WMS_SHIPPING_SN_T A1
+			         LEFT JOIN WMS1.R_WMS_STORE_SN_T A3 ON A1.SERIAL_NUMBER=A3.SERIAL_NUMBER
+			         LEFT JOIN WMS1.R_WMS_SHIPPING_T A2 ON A1.SHIPPING_NO=A2.SHIPPING_NO
+			         WHERE 1=1
+			            AND A1.CARTON_NO !='N/A')AA
+			         GROUP BY
+			           AA.SO_NO,
+			           AA.CARTON_NO,
+			           AA.CUST_NO,
+			           AA.MO_NO,
+			           AA.PRODUCT_NO,
+			           AA.PRODUCT_NAME,
+			           AA.LOT_NO,
+			           AA.STORE_ID,
+			           AA.AREA_ID,
+			           AA.SHELF_ID,
+			           AA.LOCATION_ID,
+			           AA.CRT_DT  
+			         
+			         )TT
+			         LEFT JOIN WMS1.C_WMS_STORE_T T4 ON TT.STORE_ID=T4.STORE_ID
+			         LEFT JOIN WMS1.C_WMS_AREA_T T5 ON TT.AREA_ID=T5.AREA_ID
+			         LEFT JOIN WMS1.C_WMS_SHELF_T T6 ON TT.SHELF_ID=T6.SHELF_ID
+			         LEFT JOIN WMS1.C_WMS_LOCATION_T T7 ON TT.LOCATION_ID=T7.LOCATION_ID
+			 <where>1=1
+				   <if test="CRT_DT !=null and CRT_DT !='' "> AND TT.CRT_DT ='${CRT_DT}'</if>
+				   <if test="CUST_NO !=null and CUST_NO !='' "> AND TT.CUST_NO = '${CUST_NO}'</if>
+				   <if test="PRODUCT_NAME !=null and PRODUCT_NAME !='' "> AND TT.PRODUCT_NAME = '${PRODUCT_NAME}'</if>
+				   <if test="PRODUCT_NO !=null and PRODUCT_NO !='' "> AND TT.PRODUCT_NO = '${PRODUCT_NO}'</if>
+				   <if test="LOT_NO !=null and LOT_NO !='' "> AND TT.LOT_NO = '${LOT_NO}'</if>
+				   <if test="MO_NO !=null and MO_NO !='' "> AND TT.MO_NO = '${MO_NO}'</if>
+		    </where>)
+    </select>
+
+
+<!-- 收发存汇总表 -->
+<!-- 收发存物料汇总表-->
+	<select id="queryReceiveMat" parameterType="hashmap" resultType="java.util.HashMap">
+	<include refid="oraclePagingFileTop" />
+	      CC.MATERIAL_ID,
+          B1.MATERIAL_NAME,
+          B2.UNIT_NAME,
+          B1.SPEC_MODEL,
+          (CASE 
+             WHEN B3.QTY IS NULL THEN 0
+             ELSE B3.QTY 
+          END ) AS INIT_QTY,
+          CC.INQTY,
+          CC.OUTQTY,
+          ((CASE 
+             WHEN B3.QTY IS NULL THEN 0
+             ELSE B3.QTY 
+          END )+CC.INQTY)-CC.OUTQTY AS REAL_QTY
+   FROM
+   (
+   SELECT TT.MATERIAL_ID,
+          SUM(TT.INQTY) AS INQTY,
+          SUM(TT.OUTQTY) AS OUTQTY
+      FROM       
+             ((SELECT T.MATERIAL_ID,
+                     SUM(T.QTY) AS INQTY,
+                     0 AS OUTQTY
+              FROM WMS1.R_WMS_INSTORE_SN_T T
+              LEFT JOIN WMS1.R_WMS_INSTORE_T T2 ON T2.INSTORE_NO = T.INSTORE_NO
+              <where> 1 = 1
+		              AND T2.STATUS IN ('WORDERSTATUS-03','WORDERSTATUS-02')
+		      <if test="STORE_ID !=null and STORE_ID !='' "> 
+		              AND T.STORE_ID = '${STORE_ID}'
+		      </if>
+		      <if test="MATERIAL_ID !=null and MATERIAL_ID !='' "> 
+		              AND T.MATERIAL_ID LIKE '%${MATERIAL_ID}%'
+		      </if>
+			  <if test="qProDtBegin !=null and qProDtBegin !='' "> 
+					  AND TO_CHAR(T2.ADT_DT, 'YYYY-MM-DD') <![CDATA[>=]]> '${qProDtBegin}'
+			  </if>
+			  <if test="qProDtEnd !=null and qProDtEnd !='' "> 
+					  AND TO_CHAR(T2.ADT_DT, 'YYYY-MM-DD') <![CDATA[<=]]> '${qProDtEnd}'
+			  </if>
+			  </where>
+              GROUP BY T.MATERIAL_ID)
+          UNION ALL
+              (SELECT A.MATERIAL_ID,
+                      0 AS INQTY,
+                      SUM(A.QTY) AS OUTQTY
+               FROM (
+                        SELECT T1.MATERIAL_ID,
+                               (CASE
+                                   WHEN SUM(T1.QTY) IS NULL THEN 0
+                                   ELSE SUM(T1.QTY)
+                                END) AS QTY
+                        FROM WMS1.R_WMS_PROPICKING_SN_T T1
+                        LEFT JOIN WMS1.R_WMS_PROPICKING_T T2 ON T2.PRODPICKING_NO = T1.PRODPICKING_NO
+                        <where> 1 = 1
+		                        AND T2.STATUS IN ('WORDERSTATUS-03','WORDERSTATUS-02')
+		                <if test="STORE_ID !=null and STORE_ID !='' "> 
+		                        AND T1.STORE_ID = '${STORE_ID}'
+		                </if>
+		                <if test="MATERIAL_ID !=null and MATERIAL_ID !='' "> 
+		                        AND T1.MATERIAL_ID LIKE '%${MATERIAL_ID}%'
+		                </if>
+					    <if test="qProDtBegin !=null and qProDtBegin !='' "> 
+					            AND TO_CHAR(T2.ADT_DT, 'YYYY-MM-DD') <![CDATA[>=]]> '${qProDtBegin}'
+					    </if>
+					    <if test="qProDtEnd !=null and qProDtEnd !='' "> 
+					            AND TO_CHAR(T2.ADT_DT, 'YYYY-MM-DD') <![CDATA[<=]]> '${qProDtEnd}'
+					    </if>
+					    </where>
+                              GROUP BY T1.MATERIAL_ID 
+                      UNION ALL
+                          SELECT T1.MATERIAL_ID,
+                                   (CASE
+                                       WHEN SUM(T1.QTY) IS NULL THEN 0
+                                       ELSE SUM(T1.QTY)
+                                    END) AS QTY
+                           FROM WMS1.R_WMS_NPICKING_SN_T T1
+                           LEFT JOIN WMS1.R_WMS_NPICKING_T T2 ON T2.NPICKING_NO = T1.NPICKING_NO
+                           <where> 1 = 1
+		                           AND T2.STATUS IN ('WORDERSTATUS-03','WORDERSTATUS-02')
+		                   <if test="STORE_ID !=null and STORE_ID !='' "> 
+		                           AND T1.STORE_ID = '${STORE_ID}'
+		                   </if>
+		                   <if test="MATERIAL_ID !=null and MATERIAL_ID !='' "> 
+		                           AND T1.MATERIAL_ID LIKE '%${MATERIAL_ID}%'
+		                   </if>
+					       <if test="qProDtBegin !=null and qProDtBegin !='' "> 
+					               AND TO_CHAR(T2.ADT_DT, 'YYYY-MM-DD') <![CDATA[>=]]> '${qProDtBegin}'
+					       </if>
+					       <if test="qProDtEnd !=null and qProDtEnd !='' "> 
+					               AND TO_CHAR(T2.ADT_DT, 'YYYY-MM-DD') <![CDATA[<=]]> '${qProDtEnd}'
+					       </if>
+					       </where>   
+                              GROUP BY T1.MATERIAL_ID
+                       UNION ALL
+                          SELECT T1.MATERIAL_ID,
+                                   (CASE
+                                       WHEN SUM(T1.QTY) IS NULL THEN 0
+                                       ELSE SUM(T1.QTY)
+                                    END) AS QTY
+                           FROM WMS1.R_WMS_SHIPPING_SN_T T1
+                           LEFT JOIN WMS1.R_WMS_SHIPPING_T T2 ON T2.SHIPPING_NO = T1.SHIPPING_NO
+                          <where> 1 = 1
+		                          AND T2.STATUS IN ('WORDERSTATUS-03','WORDERSTATUS-02')
+		                  <if test="STORE_ID !=null and STORE_ID !='' "> 
+		                          AND T1.STORE_ID = '${STORE_ID}'
+		                  </if>
+		                  <if test="MATERIAL_ID !=null and MATERIAL_ID !='' "> 
+		                          AND T1.MATERIAL_ID LIKE '%${MATERIAL_ID}%'
+		                  </if>
+					      <if test="qProDtBegin !=null and qProDtBegin !='' "> 
+					              AND TO_CHAR(T2.ADT_DT, 'YYYY-MM-DD') <![CDATA[>=]]> '${qProDtBegin}'
+					      </if> 
+					      <if test="qProDtEnd !=null and qProDtEnd !='' "> 
+					              AND TO_CHAR(T2.ADT_DT, 'YYYY-MM-DD') <![CDATA[<=]]> '${qProDtEnd}'
+					      </if>
+					      </where>    
+                              GROUP BY T1.MATERIAL_ID
+                              ) A
+                      GROUP BY A.MATERIAL_ID))TT
+                      GROUP BY TT.MATERIAL_ID)CC
+                      LEFT JOIN IPLANT1.C_IPLANT_M3_T B1 ON CC.MATERIAL_ID=B1.MATERIAL_ID
+                      LEFT JOIN WMS1.C_WMS_UNIT_T B2 ON B1.UNIT_ID=B2.UNIT_ID
+                      LEFT JOIN
+                         (
+                           SELECT MATERIAL_ID,
+                                  (CASE 
+                                    WHEN SUM(QTY)IS NULL THEN 0
+                                    ELSE SUM(QTY) 
+                                   END )AS QTY
+                            FROM WMS1.R_WMS_INIT_DETAIL_T 
+                            <where> 1 = 1
+		                    <if test="STORE_ID !=null and STORE_ID !='' "> 
+		                          AND STORE_ID = '${STORE_ID}'
+		                    </if>
+		                    <if test="MATERIAL_ID !=null and MATERIAL_ID !='' "> 
+		                          AND MATERIAL_ID LIKE '%${MATERIAL_ID}%'
+		                  </if>
+		                    <if test="qProDtBegin !=null and qProDtBegin !='' "> 
+					              AND TO_CHAR(INIT_DATE, 'YYYY-MM-DD') <![CDATA[=]]> '${qProDtBegin}'
+					        </if> 
+		                    </where>
+                            GROUP BY MATERIAL_ID
+                         )B3 ON CC.MATERIAL_ID=B3.MATERIAL_ID
+	<include refid="oraclePagingFileBottom" />
+    </select>
+    
+    <select id="queryReceiveMat_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+            SELECT COUNT(*) AS ROWS_COUNT
+	         FROM (
+	         SELECT   CC.MATERIAL_ID,
+			          B1.MATERIAL_NAME,
+			          B2.UNIT_NAME,
+			          B1.SPEC_MODEL,
+			          (CASE 
+			             WHEN B3.QTY IS NULL THEN 0
+			             ELSE B3.QTY 
+			          END ) AS INIT_QTY,
+			          CC.INQTY,
+			          CC.OUTQTY,
+			          ((CASE 
+			             WHEN B3.QTY IS NULL THEN 0
+			             ELSE B3.QTY 
+			          END )+CC.INQTY)-CC.OUTQTY AS REAL_QTY
+			   FROM
+			   (
+			   SELECT TT.MATERIAL_ID,
+			          SUM(TT.INQTY) AS INQTY,
+			          SUM(TT.OUTQTY) AS OUTQTY
+			      FROM       
+			             ((SELECT T.MATERIAL_ID,
+			                     SUM(T.QTY) AS INQTY,
+			                     0 AS OUTQTY
+			              FROM WMS1.R_WMS_INSTORE_SN_T T
+			              LEFT JOIN WMS1.R_WMS_INSTORE_T T2 ON T2.INSTORE_NO = T.INSTORE_NO
+			              <where> 1 = 1
+					              AND T2.STATUS IN ('WORDERSTATUS-03','WORDERSTATUS-02')
+					      <if test="STORE_ID !=null and STORE_ID !='' "> 
+					              AND T.STORE_ID = '${STORE_ID}'
+					      </if>
+					      <if test="MATERIAL_ID !=null and MATERIAL_ID !='' "> 
+		                           AND T.MATERIAL_ID LIKE '%${MATERIAL_ID}%'
+		                   </if>
+						  <if test="qProDtBegin !=null and qProDtBegin !='' "> 
+								  AND TO_CHAR(T2.ADT_DT, 'YYYY-MM-DD') <![CDATA[>=]]> '${qProDtBegin}'
+						  </if>
+						  <if test="qProDtEnd !=null and qProDtEnd !='' "> 
+								  AND TO_CHAR(T2.ADT_DT, 'YYYY-MM-DD') <![CDATA[<=]]> '${qProDtEnd}'
+						  </if>
+						  </where>
+			              GROUP BY T.MATERIAL_ID)
+			          UNION ALL
+			              (SELECT A.MATERIAL_ID,
+			                      0 AS INQTY,
+			                      SUM(A.QTY) AS OUTQTY
+			               FROM (
+			                        SELECT T1.MATERIAL_ID,
+			                               (CASE
+			                                   WHEN SUM(T1.QTY) IS NULL THEN 0
+			                                   ELSE SUM(T1.QTY)
+			                                END) AS QTY
+			                        FROM WMS1.R_WMS_PROPICKING_SN_T T1
+			                        LEFT JOIN WMS1.R_WMS_PROPICKING_T T2 ON T2.PRODPICKING_NO = T1.PRODPICKING_NO
+			                        <where> 1 = 1
+					                        AND T2.STATUS IN ('WORDERSTATUS-03','WORDERSTATUS-02')
+					                <if test="STORE_ID !=null and STORE_ID !='' "> 
+					                        AND T1.STORE_ID = '${STORE_ID}'
+					                </if>
+					                <if test="MATERIAL_ID !=null and MATERIAL_ID !='' "> 
+		                                    AND T1.MATERIAL_ID LIKE '%${MATERIAL_ID}%'
+		                            </if>
+								    <if test="qProDtBegin !=null and qProDtBegin !='' "> 
+								            AND TO_CHAR(T2.ADT_DT, 'YYYY-MM-DD') <![CDATA[>=]]> '${qProDtBegin}'
+								    </if>
+								    <if test="qProDtEnd !=null and qProDtEnd !='' "> 
+								            AND TO_CHAR(T2.ADT_DT, 'YYYY-MM-DD') <![CDATA[<=]]> '${qProDtEnd}'
+								    </if>
+								    </where>
+			                              GROUP BY T1.MATERIAL_ID 
+			                      UNION ALL
+			                          SELECT T1.MATERIAL_ID,
+			                                   (CASE
+			                                       WHEN SUM(T1.QTY) IS NULL THEN 0
+			                                       ELSE SUM(T1.QTY)
+			                                    END) AS QTY
+			                           FROM WMS1.R_WMS_NPICKING_SN_T T1
+			                           LEFT JOIN WMS1.R_WMS_NPICKING_T T2 ON T2.NPICKING_NO = T1.NPICKING_NO
+			                           <where> 1 = 1
+					                           AND T2.STATUS IN ('WORDERSTATUS-03','WORDERSTATUS-02')
+					                   <if test="STORE_ID !=null and STORE_ID !='' "> 
+					                           AND T1.STORE_ID = '${STORE_ID}'
+					                   </if>
+					                   <if test="MATERIAL_ID !=null and MATERIAL_ID !='' "> 
+		                                       AND T1.MATERIAL_ID LIKE '%${MATERIAL_ID}%'
+		                               </if>
+								       <if test="qProDtBegin !=null and qProDtBegin !='' "> 
+								               AND TO_CHAR(T2.ADT_DT, 'YYYY-MM-DD') <![CDATA[>=]]> '${qProDtBegin}'
+								       </if>
+								       <if test="qProDtEnd !=null and qProDtEnd !='' "> 
+								               AND TO_CHAR(T2.ADT_DT, 'YYYY-MM-DD') <![CDATA[<=]]> '${qProDtEnd}'
+								       </if>
+								       </where>   
+			                              GROUP BY T1.MATERIAL_ID
+			                       UNION ALL
+			                          SELECT T1.MATERIAL_ID,
+			                                   (CASE
+			                                       WHEN SUM(T1.QTY) IS NULL THEN 0
+			                                       ELSE SUM(T1.QTY)
+			                                    END) AS QTY
+			                           FROM WMS1.R_WMS_SHIPPING_SN_T T1
+			                           LEFT JOIN WMS1.R_WMS_SHIPPING_T T2 ON T2.SHIPPING_NO = T1.SHIPPING_NO
+			                          <where> 1 = 1
+					                          AND T2.STATUS IN ('WORDERSTATUS-03','WORDERSTATUS-02')
+					                  <if test="STORE_ID !=null and STORE_ID !='' "> 
+					                          AND T1.STORE_ID = '${STORE_ID}'
+					                  </if>
+					                  <if test="MATERIAL_ID !=null and MATERIAL_ID !='' "> 
+		                                      AND T1.MATERIAL_ID LIKE '%${MATERIAL_ID}%'
+		                              </if>
+								      <if test="qProDtBegin !=null and qProDtBegin !='' "> 
+								              AND TO_CHAR(T2.ADT_DT, 'YYYY-MM-DD') <![CDATA[>=]]> '${qProDtBegin}'
+								      </if> 
+								      <if test="qProDtEnd !=null and qProDtEnd !='' "> 
+								              AND TO_CHAR(T2.ADT_DT, 'YYYY-MM-DD') <![CDATA[<=]]> '${qProDtEnd}'
+								      </if>
+								      </where>    
+			                              GROUP BY T1.MATERIAL_ID
+			                              ) A
+			                      GROUP BY A.MATERIAL_ID))TT
+			                      GROUP BY TT.MATERIAL_ID)CC
+			                      LEFT JOIN IPLANT1.C_IPLANT_M3_T B1 ON CC.MATERIAL_ID=B1.MATERIAL_ID
+			                      LEFT JOIN WMS1.C_WMS_UNIT_T B2 ON B1.UNIT_ID=B2.UNIT_ID
+			                      LEFT JOIN
+			                         (
+			                           SELECT MATERIAL_ID,
+			                                  (CASE 
+			                                    WHEN SUM(QTY)IS NULL THEN 0
+			                                    ELSE SUM(QTY) 
+			                                   END )AS QTY
+			                            FROM WMS1.R_WMS_INIT_DETAIL_T 
+			                            <where> 1 = 1
+					                    <if test="STORE_ID !=null and STORE_ID !='' "> 
+					                          AND STORE_ID = '${STORE_ID}'
+					                    </if>
+					                    <if test="MATERIAL_ID !=null and MATERIAL_ID !='' "> 
+		                                    AND MATERIAL_ID LIKE '%${MATERIAL_ID}%'
+		                                </if>
+					                    <if test="qProDtBegin !=null and qProDtBegin !='' "> 
+								              AND TO_CHAR(INIT_DATE, 'YYYY-MM-DD') <![CDATA[=]]> '${qProDtBegin}'
+								        </if> 
+					                    </where>
+			                            GROUP BY MATERIAL_ID
+			                         )B3 ON CC.MATERIAL_ID=B3.MATERIAL_ID)
+    </select>
+    
+	<!-- 收发存物料入库汇总表-->
+	<select id="queryReceiveInStore" parameterType="hashmap" resultType="java.util.HashMap">
+	<include refid="oraclePagingFileTop" />
+	       TT.*,
+	       B1.SPEC_MODEL,
+	       B2.UNIT_NAME,
+	       B4.DICT_IT_NM AS BILL_TYPE,
+	       TO_CHAR(B3.ADT_DT,'YYYY-MM-DD') AS ADT_DT,
+	       F_GET_USER_NAME(B3.CRT_ID) AS CRT_ID
+	FROM 
+	  (SELECT 
+	     COUNT(1) AS COU, 
+	     INSTORE_NO,
+	     MATERIAL_ID,
+	     MATERIAL_NAME,
+	     SUPPLIER_ID,
+	     CUST_NO,
+	     LOT_NO,
+	     SUM(QTY) AS QTY
+	  FROM WMS1.R_WMS_INSTORE_SN_T
+	  <where> 1=1
+	     <if test="MATERIAL_ID !=null and MATERIAL_ID !='' "> 
+			 AND MATERIAL_ID = '${MATERIAL_ID}'
+		 </if>
+	     <if test="STORE_ID !=null and STORE_ID !='' "> 
+			 AND STORE_ID = '${STORE_ID}'
+		 </if>
+	  </where>
+	  GROUP BY INSTORE_NO,
+	           MATERIAL_ID,
+	           MATERIAL_NAME,
+	           SUPPLIER_ID,
+	           CUST_NO,
+	           LOT_NO)TT
+	 LEFT JOIN IPLANT1.C_IPLANT_M3_T B1 ON TT.MATERIAL_ID=B1.MATERIAL_ID
+	 LEFT JOIN WMS1.C_WMS_UNIT_T B2 ON B1.UNIT_ID=B2.UNIT_ID
+	 LEFT JOIN WMS1.R_WMS_INSTORE_T B3 ON TT.INSTORE_NO=B3.INSTORE_NO
+	 LEFT JOIN WMS1.C_WMS_BASIC_DD_T B4 ON B3.BILL_TYPE=B4.DICT_IT
+	 <where> 
+	        B3.STATUS IN ('WORDERSTATUS-03','WORDERSTATUS-02')
+	     <if test="qProDtBegin !=null and qProDtBegin !='' "> 
+			AND TO_CHAR(B3.ADT_DT, 'YYYY-MM-DD') <![CDATA[>=]]> '${qProDtBegin}'
+		 </if> 
+		 <if test="qProDtEnd !=null and qProDtEnd !='' "> 
+			AND TO_CHAR(B3.ADT_DT, 'YYYY-MM-DD') <![CDATA[<=]]> '${qProDtEnd}'
+		 </if>
+	 </where>
+	<include refid="oraclePagingFileBottom" />
+    </select>
+    <select id="queryReceiveInStore_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+            SELECT COUNT(*) AS ROWS_COUNT
+	         FROM (
+	         SELECT    TT.*,
+				       B1.SPEC_MODEL,
+				       B2.UNIT_NAME,
+				       B4.DICT_IT_NM AS BILL_TYPE,
+				       TO_CHAR(B3.ADT_DT,'YYYY-MM-DD') AS ADT_DT,
+				       F_GET_USER_NAME(B3.CRT_ID) AS CRT_ID
+				FROM 
+				  (SELECT 
+				     COUNT(1) AS COU, 
+				     INSTORE_NO,
+				     MATERIAL_ID,
+				     MATERIAL_NAME,
+				     SUPPLIER_ID,
+				     CUST_NO,
+				     LOT_NO,
+				     SUM(QTY) AS QTY
+				  FROM WMS1.R_WMS_INSTORE_SN_T
+				  <where> 1=1
+				     <if test="MATERIAL_ID !=null and MATERIAL_ID !='' "> 
+						 AND MATERIAL_ID = '${MATERIAL_ID}'
+					 </if>
+				     <if test="STORE_ID !=null and STORE_ID !='' "> 
+						 AND STORE_ID = '${STORE_ID}'
+					 </if>
+				  </where>
+				  GROUP BY INSTORE_NO,
+				           MATERIAL_ID,
+				           MATERIAL_NAME,
+				           SUPPLIER_ID,
+				           CUST_NO,
+				           LOT_NO)TT
+				 LEFT JOIN IPLANT1.C_IPLANT_M3_T B1 ON TT.MATERIAL_ID=B1.MATERIAL_ID
+				 LEFT JOIN WMS1.C_WMS_UNIT_T B2 ON B1.UNIT_ID=B2.UNIT_ID
+				 LEFT JOIN WMS1.R_WMS_INSTORE_T B3 ON TT.INSTORE_NO=B3.INSTORE_NO
+				 LEFT JOIN WMS1.C_WMS_BASIC_DD_T B4 ON B3.BILL_TYPE=B4.DICT_IT
+				 <where> 
+				        B3.STATUS IN ('WORDERSTATUS-03','WORDERSTATUS-02')
+				     <if test="qProDtBegin !=null and qProDtBegin !='' "> 
+						AND TO_CHAR(B3.ADT_DT, 'YYYY-MM-DD') <![CDATA[>=]]> '${qProDtBegin}'
+					 </if> 
+					 <if test="qProDtEnd !=null and qProDtEnd !='' "> 
+						AND TO_CHAR(B3.ADT_DT, 'YYYY-MM-DD') <![CDATA[<=]]> '${qProDtEnd}'
+					 </if>
+				 </where> )
+    </select>
+    
+    <!-- 收发存物料出库汇总表-->
+	<select id="queryReceiveOutStore" parameterType="hashmap" resultType="java.util.HashMap">
+	<include refid="oraclePagingFileTop" />
+			     CC.*
+			FROM
+				(SELECT TT.*,
+				       B1.SPEC_MODEL,
+				       B2.UNIT_NAME,
+				       B4.DICT_IT_NM AS BILL_TYPE,
+				       TO_CHAR(B3.ADT_DT,'YYYY-MM-DD') AS ADT_DT,
+				       F_GET_USER_NAME(B3.CRT_ID) AS CRT_ID
+				FROM 
+				  (SELECT 
+				     COUNT(1) AS COU, 
+				     PRODPICKING_NO AS OUTSTORE_NO,
+				     MATERIAL_ID,
+				     MATERIAL_NAME,
+				     SUPPLIER_ID,
+				     CUST_NO,
+				     LOT_NO,
+				     SUM(QTY) AS QTY
+				  FROM WMS1.R_WMS_PROPICKING_SN_T
+				  <where> 1=1
+				     <if test="MATERIAL_ID !=null and MATERIAL_ID !='' "> 
+						 AND MATERIAL_ID = '${MATERIAL_ID}'
+					 </if>
+				     <if test="STORE_ID !=null and STORE_ID !='' "> 
+						 AND STORE_ID = '${STORE_ID}'
+					 </if>
+				  </where>
+				  GROUP BY PRODPICKING_NO,
+				           MATERIAL_ID,
+				           MATERIAL_NAME,
+				           SUPPLIER_ID,
+				           CUST_NO,
+				           LOT_NO)TT
+				 LEFT JOIN IPLANT1.C_IPLANT_M3_T B1 ON TT.MATERIAL_ID=B1.MATERIAL_ID
+				 LEFT JOIN WMS1.C_WMS_UNIT_T B2 ON B1.UNIT_ID=B2.UNIT_ID
+				 LEFT JOIN WMS1.R_WMS_PROPICKING_T B3 ON TT.OUTSTORE_NO=B3.PRODPICKING_NO
+				 LEFT JOIN WMS1.C_WMS_BASIC_DD_T B4 ON B3.BILL_TYPE=B4.DICT_IT
+				 <where> 
+				        B3.STATUS IN ('WORDERSTATUS-03','WORDERSTATUS-02')
+				     <if test="qProDtBegin !=null and qProDtBegin !='' "> 
+						AND TO_CHAR(B3.ADT_DT, 'YYYY-MM-DD') <![CDATA[>=]]> '${qProDtBegin}'
+					 </if> 
+					 <if test="qProDtEnd !=null and qProDtEnd !='' "> 
+						AND TO_CHAR(B3.ADT_DT, 'YYYY-MM-DD') <![CDATA[<=]]> '${qProDtEnd}'
+					 </if>
+				 </where>
+				 
+				 UNION ALL
+				 
+				 SELECT TT.*,
+				       B1.SPEC_MODEL,
+				       B2.UNIT_NAME,
+				       B4.DICT_IT_NM AS BILL_TYPE,
+				       TO_CHAR(B3.ADT_DT,'YYYY-MM-DD') AS ADT_DT,
+				       F_GET_USER_NAME(B3.CRT_ID) AS CRT_ID
+				FROM 
+				  (SELECT 
+				     COUNT(1) AS COU, 
+				     NPICKING_NO AS OUTSTORE_NO,
+				     MATERIAL_ID,
+				     MATERIAL_NAME,
+				     SUPPLIER_ID,
+				     CUST_NO,
+				     LOT_NO,
+				     SUM(QTY) AS QTY
+				  FROM WMS1.R_WMS_NPICKING_SN_T
+				  <where> 1=1
+				     <if test="MATERIAL_ID !=null and MATERIAL_ID !='' "> 
+						 AND MATERIAL_ID = '${MATERIAL_ID}'
+					 </if>
+				     <if test="STORE_ID !=null and STORE_ID !='' "> 
+						 AND STORE_ID = '${STORE_ID}'
+					 </if>
+				  </where>
+				  GROUP BY NPICKING_NO,
+				           MATERIAL_ID,
+				           MATERIAL_NAME,
+				           SUPPLIER_ID,
+				           CUST_NO,
+				           LOT_NO)TT
+				 LEFT JOIN IPLANT1.C_IPLANT_M3_T B1 ON TT.MATERIAL_ID=B1.MATERIAL_ID
+				 LEFT JOIN WMS1.C_WMS_UNIT_T B2 ON B1.UNIT_ID=B2.UNIT_ID
+				 LEFT JOIN WMS1.R_WMS_NPICKING_T B3 ON TT.OUTSTORE_NO=B3.NPICKING_NO
+				 LEFT JOIN WMS1.C_WMS_BASIC_DD_T B4 ON B3.BILL_TYPE=B4.DICT_IT
+				 <where> 
+				        B3.STATUS IN ('WORDERSTATUS-03','WORDERSTATUS-02')
+				     <if test="qProDtBegin !=null and qProDtBegin !='' "> 
+						AND TO_CHAR(B3.ADT_DT, 'YYYY-MM-DD') <![CDATA[>=]]> '${qProDtBegin}'
+					 </if> 
+					 <if test="qProDtEnd !=null and qProDtEnd !='' "> 
+						AND TO_CHAR(B3.ADT_DT, 'YYYY-MM-DD') <![CDATA[<=]]> '${qProDtEnd}'
+					 </if>
+				 </where>
+				 
+				 UNION ALL
+				 
+				 SELECT TT.*,
+				       B1.SPEC_MODEL,
+				       B2.UNIT_NAME,
+				       B4.DICT_IT_NM AS BILL_TYPE,
+				       TO_CHAR(B3.ADT_DT,'YYYY-MM-DD') AS ADT_DT,
+				       F_GET_USER_NAME(B3.CRT_ID) AS CRT_ID
+				FROM 
+				  (SELECT
+				     COUNT(1) AS COU,  
+				     SHIPPING_NO AS OUTSTORE_NO,
+				     MATERIAL_ID,
+				     MATERIAL_NAME,
+				     'N/A'SUPPLIER_ID,
+				     CUST_NO,
+				     LOT_NO,
+				     SUM(QTY) AS QTY
+				  FROM WMS1.R_WMS_SHIPPING_SN_T
+				  <where> 1=1
+				     <if test="MATERIAL_ID !=null and MATERIAL_ID !='' "> 
+						 AND MATERIAL_ID = '${MATERIAL_ID}'
+					 </if>
+				     <if test="STORE_ID !=null and STORE_ID !='' "> 
+						 AND STORE_ID = '${STORE_ID}'
+					 </if>
+				  </where>
+				  GROUP BY SHIPPING_NO,
+				           MATERIAL_ID,
+				           MATERIAL_NAME,
+				           CUST_NO,
+				           LOT_NO)TT
+				 LEFT JOIN IPLANT1.C_IPLANT_M3_T B1 ON TT.MATERIAL_ID=B1.MATERIAL_ID
+				 LEFT JOIN WMS1.C_WMS_UNIT_T B2 ON B1.UNIT_ID=B2.UNIT_ID
+				 LEFT JOIN WMS1.R_WMS_SHIPPING_T B3 ON TT.OUTSTORE_NO=B3.SHIPPING_NO
+				 LEFT JOIN WMS1.C_WMS_BASIC_DD_T B4 ON B3.BILL_TYPE=B4.DICT_IT
+				 <where> 
+				        B3.STATUS IN ('WORDERSTATUS-03','WORDERSTATUS-02')
+				     <if test="qProDtBegin !=null and qProDtBegin !='' "> 
+						AND TO_CHAR(B3.ADT_DT, 'YYYY-MM-DD') <![CDATA[>=]]> '${qProDtBegin}'
+					 </if> 
+					 <if test="qProDtEnd !=null and qProDtEnd !='' "> 
+						AND TO_CHAR(B3.ADT_DT, 'YYYY-MM-DD') <![CDATA[<=]]> '${qProDtEnd}'
+					 </if>
+				 </where>
+				 )CC
+	<include refid="oraclePagingFileBottom" />
+    </select>
+    <select id="queryReceiveOutStore_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+            SELECT COUNT(*) AS ROWS_COUNT
+	         FROM (
+	         SELECT     CC.*
+			FROM
+				(SELECT TT.*,
+				       B1.SPEC_MODEL,
+				       B2.UNIT_NAME,
+				       B4.DICT_IT_NM AS BILL_TYPE,
+				       TO_CHAR(B3.ADT_DT,'YYYY-MM-DD') AS ADT_DT,
+				       F_GET_USER_NAME(B3.CRT_ID) AS CRT_ID
+				FROM 
+				  (SELECT
+				     COUNT(1) AS COU,  
+				     PRODPICKING_NO AS OUTSTORE_NO,
+				     MATERIAL_ID,
+				     MATERIAL_NAME,
+				     SUPPLIER_ID,
+				     CUST_NO,
+				     LOT_NO,
+				     SUM(QTY) AS QTY
+				  FROM WMS1.R_WMS_PROPICKING_SN_T
+				  <where> 1=1
+				     <if test="MATERIAL_ID !=null and MATERIAL_ID !='' "> 
+						 AND MATERIAL_ID = '${MATERIAL_ID}'
+					 </if>
+				     <if test="STORE_ID !=null and STORE_ID !='' "> 
+						 AND STORE_ID = '${STORE_ID}'
+					 </if>
+				  </where>
+				  GROUP BY PRODPICKING_NO,
+				           MATERIAL_ID,
+				           MATERIAL_NAME,
+				           SUPPLIER_ID,
+				           CUST_NO,
+				           LOT_NO)TT
+				 LEFT JOIN IPLANT1.C_IPLANT_M3_T B1 ON TT.MATERIAL_ID=B1.MATERIAL_ID
+				 LEFT JOIN WMS1.C_WMS_UNIT_T B2 ON B1.UNIT_ID=B2.UNIT_ID
+				 LEFT JOIN WMS1.R_WMS_PROPICKING_T B3 ON TT.OUTSTORE_NO=B3.PRODPICKING_NO
+				 LEFT JOIN WMS1.C_WMS_BASIC_DD_T B4 ON B3.BILL_TYPE=B4.DICT_IT
+				 <where> 
+				        B3.STATUS IN ('WORDERSTATUS-03','WORDERSTATUS-02')
+				     <if test="qProDtBegin !=null and qProDtBegin !='' "> 
+						AND TO_CHAR(B3.ADT_DT, 'YYYY-MM-DD') <![CDATA[>=]]> '${qProDtBegin}'
+					 </if> 
+					 <if test="qProDtEnd !=null and qProDtEnd !='' "> 
+						AND TO_CHAR(B3.ADT_DT, 'YYYY-MM-DD') <![CDATA[<=]]> '${qProDtEnd}'
+					 </if>
+				 </where>
+				 
+				 UNION ALL
+				 
+				 SELECT TT.*,
+				       B1.SPEC_MODEL,
+				       B2.UNIT_NAME,
+				       B4.DICT_IT_NM AS BILL_TYPE,
+				       TO_CHAR(B3.ADT_DT,'YYYY-MM-DD') AS ADT_DT,
+				       F_GET_USER_NAME(B3.CRT_ID) AS CRT_ID
+				FROM 
+				  (SELECT 
+				     COUNT(1) AS COU, 
+				     NPICKING_NO AS OUTSTORE_NO,
+				     MATERIAL_ID,
+				     MATERIAL_NAME,
+				     SUPPLIER_ID,
+				     CUST_NO,
+				     LOT_NO,
+				     SUM(QTY) AS QTY
+				  FROM WMS1.R_WMS_NPICKING_SN_T
+				  <where> 1=1
+				     <if test="MATERIAL_ID !=null and MATERIAL_ID !='' "> 
+						 AND MATERIAL_ID = '${MATERIAL_ID}'
+					 </if>
+				     <if test="STORE_ID !=null and STORE_ID !='' "> 
+						 AND STORE_ID = '${STORE_ID}'
+					 </if>
+				  </where>
+				  GROUP BY NPICKING_NO,
+				           MATERIAL_ID,
+				           MATERIAL_NAME,
+				           SUPPLIER_ID,
+				           CUST_NO,
+				           LOT_NO)TT
+				 LEFT JOIN IPLANT1.C_IPLANT_M3_T B1 ON TT.MATERIAL_ID=B1.MATERIAL_ID
+				 LEFT JOIN WMS1.C_WMS_UNIT_T B2 ON B1.UNIT_ID=B2.UNIT_ID
+				 LEFT JOIN WMS1.R_WMS_NPICKING_T B3 ON TT.OUTSTORE_NO=B3.NPICKING_NO
+				 LEFT JOIN WMS1.C_WMS_BASIC_DD_T B4 ON B3.BILL_TYPE=B4.DICT_IT
+				 <where> 
+				        B3.STATUS IN ('WORDERSTATUS-03','WORDERSTATUS-02')
+				     <if test="qProDtBegin !=null and qProDtBegin !='' "> 
+						AND TO_CHAR(B3.ADT_DT, 'YYYY-MM-DD') <![CDATA[>=]]> '${qProDtBegin}'
+					 </if> 
+					 <if test="qProDtEnd !=null and qProDtEnd !='' "> 
+						AND TO_CHAR(B3.ADT_DT, 'YYYY-MM-DD') <![CDATA[<=]]> '${qProDtEnd}'
+					 </if>
+				 </where>
+				 
+				 UNION ALL
+				 
+				 SELECT TT.*,
+				       B1.SPEC_MODEL,
+				       B2.UNIT_NAME,
+				       B4.DICT_IT_NM AS BILL_TYPE,
+				       TO_CHAR(B3.ADT_DT,'YYYY-MM-DD') AS ADT_DT,
+				       F_GET_USER_NAME(B3.CRT_ID) AS CRT_ID
+				FROM 
+				  (SELECT 
+				      COUNT(1) AS COU, 
+				     SHIPPING_NO AS OUTSTORE_NO,
+				     MATERIAL_ID,
+				     MATERIAL_NAME,
+				     'N/A'SUPPLIER_ID,
+				     CUST_NO,
+				     LOT_NO,
+				     SUM(QTY) AS QTY
+				  FROM WMS1.R_WMS_SHIPPING_SN_T
+				  <where> 1=1
+				     <if test="MATERIAL_ID !=null and MATERIAL_ID !='' "> 
+						 AND MATERIAL_ID = '${MATERIAL_ID}'
+					 </if>
+				     <if test="STORE_ID !=null and STORE_ID !='' "> 
+						 AND STORE_ID = '${STORE_ID}'
+					 </if>
+				  </where>
+				  GROUP BY SHIPPING_NO,
+				           MATERIAL_ID,
+				           MATERIAL_NAME,
+				           CUST_NO,
+				           LOT_NO)TT
+				 LEFT JOIN IPLANT1.C_IPLANT_M3_T B1 ON TT.MATERIAL_ID=B1.MATERIAL_ID
+				 LEFT JOIN WMS1.C_WMS_UNIT_T B2 ON B1.UNIT_ID=B2.UNIT_ID
+				 LEFT JOIN WMS1.R_WMS_SHIPPING_T B3 ON TT.OUTSTORE_NO=B3.SHIPPING_NO
+				 LEFT JOIN WMS1.C_WMS_BASIC_DD_T B4 ON B3.BILL_TYPE=B4.DICT_IT
+				 <where> 
+				        B3.STATUS IN ('WORDERSTATUS-03','WORDERSTATUS-02')
+				     <if test="qProDtBegin !=null and qProDtBegin !='' "> 
+						AND TO_CHAR(B3.ADT_DT, 'YYYY-MM-DD') <![CDATA[>=]]> '${qProDtBegin}'
+					 </if> 
+					 <if test="qProDtEnd !=null and qProDtEnd !='' "> 
+						AND TO_CHAR(B3.ADT_DT, 'YYYY-MM-DD') <![CDATA[<=]]> '${qProDtEnd}'
+					 </if>
+				 </where>
+				 )CC )
+    </select>
+    
+    <!-- 物料追溯-->
+    <!-- 物料追溯来料报表-->
+	<select id="queryMaterialArrival" parameterType="hashmap" resultType="java.util.HashMap">
+	<include refid="oraclePagingFileTop" />
+	TT.*
+	  FROM
+		 (SELECT T.SERIAL_NUMBER,
+	       T.ARRIVAL_NO,
+	       T.MATERIAL_ID,
+	       T.SUPPLIER_ID,
+	       T.QTY,
+	       T2.UNIT_NAME AS UNIT_ID,
+	       T.LOT_NO,
+	       F_GET_USER_NAME(T1.CRT_ID) AS CRT_ID,
+	       TO_CHAR(T1.CRT_DT,'YYYY-MM-DD') AS CRT_DT,
+	       T1.PO_NO
+	 FROM WMS1.R_WMS_ARRIVAL_SN_T T
+	 LEFT JOIN WMS1.R_WMS_ARRIVAL_T T1 ON T.ARRIVAL_NO=T1.ARRIVAL_NO
+	 LEFT JOIN WMS1.C_WMS_UNIT_T T2 ON T.UNIT_ID=T2.UNIT_ID  
+	 UNION ALL 
+	 SELECT T1.SERIAL_NUMBER,
+	        T3.ARRIVAL_NO,
+	        T1.MATERIAL_ID,
+	        T1.SUPPLIER_ID,
+	        T1.QTY,
+	        T6.UNIT_NAME AS UNIT_ID,
+	        T1.LOT_NO,
+	        F_GET_USER_NAME(T4.CRT_ID) AS CRT_ID,
+	        TO_CHAR(T4.CRT_DT,'YYYY-MM-DD') AS CRT_DT,
+	        T4.PO_NO 
+	 FROM WMS1.R_WMS_STORE_SN_T T1 
+	 LEFT JOIN WMS1.R_WMS_UNPACKING_SN_T T3 ON T1.SERIAL_NUMBER=T3.UNPACK_SERIAL
+	 LEFT JOIN WMS1.R_WMS_ARRIVAL_T T4 ON T3.ARRIVAL_NO=T4.ARRIVAL_NO 
+	 LEFT JOIN IPLANT1.C_IPLANT_M3_T T5 ON T1.MATERIAL_ID=T5.MATERIAL_ID
+	 LEFT JOIN WMS1.C_WMS_UNIT_T T6 ON T1.UNIT_ID=T6.UNIT_ID 
+	 WHERE 1=1 
+	 AND T5.GRP_ID NOT IN ('1','2')
+	 AND NOT EXISTS(SELECT SERIAL_NUMBER FROM WMS1.R_WMS_ARRIVAL_SN_T T2 WHERE T1.SERIAL_NUMBER=T2.SERIAL_NUMBER))TT
+	 <where>1=1
+	   <if test="SERIAL_NUMBER !=null and SERIAL_NUMBER !='' "> AND TT.SERIAL_NUMBER = '${SERIAL_NUMBER}'</if>
+	   <if test="MATERIAL_ID !=null and MATERIAL_ID !='' "> AND TT.MATERIAL_ID = '${MATERIAL_ID}'</if>
+	   <if test="PO_NO !=null and PO_NO !='' "> AND TT.PO_NO = '${PO_NO}'</if>
+	   <if test="LOT_NO !=null and LOT_NO !='' "> AND TT.LOT_NO = '${LOT_NO}'</if>
+	   <if test="queryCrtDtBegin !=null and queryCrtDtBegin !='' "> AND TT.CRT_DT <![CDATA[>=]]> '${queryCrtDtBegin}'</if>
+	   <if test="queryCrtDtEnd !=null and queryCrtDtEnd !='' "> AND TT.CRT_DT <![CDATA[<=]]> '${queryCrtDtEnd}'</if> 
+	 </where>
+	 ORDER BY TT.CRT_DT DESC
+	<include refid="oraclePagingFileBottom" />
+    </select>
+    
+    <select id="queryMaterialArrival_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+            SELECT COUNT(*) AS ROWS_COUNT
+	         FROM 
+	           (   
+	             SELECT
+	               TT.*
+	              FROM
+					 (SELECT T.SERIAL_NUMBER,
+				       T.ARRIVAL_NO,
+				       T.MATERIAL_ID,
+				       T.SUPPLIER_ID,
+				       T.QTY,
+				       T.UNIT_ID,
+				       T.LOT_NO,
+				       T1.CRT_ID,
+				       TO_CHAR(T1.CRT_DT,'YYYY-MM-DD') AS CRT_DT,
+				       T1.PO_NO
+				 FROM WMS1.R_WMS_ARRIVAL_SN_T T
+				 LEFT JOIN WMS1.R_WMS_ARRIVAL_T T1 ON T.ARRIVAL_NO=T1.ARRIVAL_NO  
+				 UNION ALL 
+				 SELECT T1.SERIAL_NUMBER,
+				        T3.ARRIVAL_NO,
+				        T1.MATERIAL_ID,
+				        T1.SUPPLIER_ID,
+				        T1.QTY,
+				        T1.UNIT_ID,
+				        T1.LOT_NO,
+				        T4.CRT_ID,
+				        TO_CHAR(T4.CRT_DT,'YYYY-MM-DD') AS CRT_DT,
+				        T4.PO_NO 
+				 FROM WMS1.R_WMS_STORE_SN_T T1 
+				 LEFT JOIN WMS1.R_WMS_UNPACKING_SN_T T3 ON T1.SERIAL_NUMBER=T3.UNPACK_SERIAL
+				 LEFT JOIN WMS1.R_WMS_ARRIVAL_T T4 ON T3.ARRIVAL_NO=T4.ARRIVAL_NO 
+				 LEFT JOIN IPLANT1.C_IPLANT_M3_T T5 ON T1.MATERIAL_ID=T5.MATERIAL_ID 
+				 WHERE 1=1 
+				 AND T5.GRP_ID NOT IN ('1','2')
+				 AND NOT EXISTS(SELECT SERIAL_NUMBER FROM WMS1.R_WMS_ARRIVAL_SN_T T2 WHERE T1.SERIAL_NUMBER=T2.SERIAL_NUMBER))TT
+	 <where>1=1
+	   <if test="SERIAL_NUMBER !=null and SERIAL_NUMBER !='' "> AND TT.SERIAL_NUMBER = '${SERIAL_NUMBER}'</if>
+	   <if test="MATERIAL_ID !=null and MATERIAL_ID !='' "> AND TT.MATERIAL_ID = '${MATERIAL_ID}'</if>
+	   <if test="PO_NO !=null and PO_NO !='' "> AND TT.PO_NO = '${PO_NO}'</if>
+	   <if test="LOT_NO !=null and LOT_NO !='' "> AND TT.LOT_NO = '${LOT_NO}'</if>
+	   <if test="queryCrtDtBegin !=null and queryCrtDtBegin !='' "> AND TT.CRT_DT <![CDATA[>=]]> '${queryCrtDtBegin}'</if>
+	   <if test="queryCrtDtEnd !=null and queryCrtDtEnd !='' "> AND TT.CRT_DT <![CDATA[<=]]> '${queryCrtDtEnd}'</if> 
+	 </where>)
+    </select>
+    
+    <!-- 物料追溯质检单追溯-->
+	<select id="queryMaterialIQC" parameterType="hashmap" resultType="java.util.HashMap">
+	<include refid="oraclePagingFileTop" />
+		   T.SERIAL_NUMBER,
+	       T.IQC_NO,
+	       T4.DICT_IT_NM AS BILL_TYPE,
+	       T.QTY,
+	       T.QTY AS PASS_QTY,
+	       CASE
+	        WHEN T.QC_STATUS=0 THEN '未检'
+	        WHEN T.QC_STATUS=1 THEN '合格'
+	        WHEN T.QC_STATUS=2 THEN '不合格'
+	        WHEN T.QC_STATUS=3 THEN '特采'
+	        ELSE '未检'
+	       END AS QC_STATUS,
+	       CASE
+	        WHEN T1.QC_STATUS=0 THEN '未检'
+	        WHEN T1.QC_STATUS=1 THEN '合格'
+	        WHEN T1.QC_STATUS=2 THEN '不合格'
+	        WHEN T1.QC_STATUS=3 THEN '特采'
+	        ELSE '未检'
+	       END AS BILL_STATUS,
+	       F_GET_USER_NAME(T3.CRT_ID) AS CRT_ID,
+	       TO_CHAR(T3.CRT_DT,'YYYY-MM-DD') AS CRT_DT
+	  FROM WMS1.R_WMS_IQC_SN_T T
+	  LEFT JOIN WMS1.R_WMS_IQC_DETAIL_T T1 ON T.IQC_NO=T1.IQC_NO AND T.MATERIAL_ID=T1.MATERIAL_ID
+	  LEFT JOIN WMS1.R_WMS_IQC_T T3 ON T.IQC_NO=T3.IQC_NO
+	  LEFT JOIN WMS1.C_WMS_BASIC_DD_T T4 ON T3.BILL_TYPE=T4.DICT_IT
+	 <where>1=1
+	   <if test="SERIAL_NUMBER !=null and SERIAL_NUMBER !='' "> AND T.SERIAL_NUMBER = '${SERIAL_NUMBER}'</if>
+	 </where>
+	<include refid="oraclePagingFileBottom" />
+    </select>
+    
+    <select id="queryMaterialIQC_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+            SELECT COUNT(*) AS ROWS_COUNT
+	         FROM 
+	           (   
+	             SELECT
+	               T.SERIAL_NUMBER,
+			       T.IQC_NO,
+			       T.QTY,
+			       T.QTY AS PASS_QTY,
+			       CASE
+			        WHEN T.QC_STATUS=0 THEN '未检'
+			        WHEN T.QC_STATUS=1 THEN '合格'
+			        WHEN T.QC_STATUS=2 THEN '不合格'
+			        WHEN T.QC_STATUS=3 THEN '特采'
+			        ELSE '未检'
+			       END AS QC_STATUS,
+			       CASE
+			        WHEN T1.QC_STATUS=0 THEN '未检'
+			        WHEN T1.QC_STATUS=1 THEN '合格'
+			        WHEN T1.QC_STATUS=2 THEN '不合格'
+			        WHEN T1.QC_STATUS=3 THEN '特采'
+			        ELSE '未检'
+			       END AS BILL_STATUS,
+			       T3.CRT_ID,
+			       TO_CHAR(T3.CRT_DT,'YYYY-MM-DD') AS CRT_DT
+			  FROM WMS1.R_WMS_IQC_SN_T T
+			  LEFT JOIN WMS1.R_WMS_IQC_DETAIL_T T1 ON T.IQC_NO=T1.IQC_NO AND T.MATERIAL_ID=T1.MATERIAL_ID
+			  LEFT JOIN WMS1.R_WMS_IQC_T T3 ON T.IQC_NO=T3.IQC_NO 
+			 <where>1=1
+			   <if test="SERIAL_NUMBER !=null and SERIAL_NUMBER !='' "> AND T.SERIAL_NUMBER = '${SERIAL_NUMBER}'</if>
+			 </where>)
+    </select>
+    
+    <!-- 物料追溯入库单追溯-->
+	<select id="queryMaterialInput" parameterType="hashmap" resultType="java.util.HashMap">
+	<include refid="oraclePagingFileTop" />
+		       T.INSTORE_NO,
+		       T7.DICT_IT_NM AS BILL_TYPE,
+		       T.SERIAL_NUMBER,
+		       T.QTY,
+		       T3.STORE_NAME AS STORE_ID,
+		       T4.AREA_NAME AS AREA_ID,
+		       T5.SHELF_NAME AS SHELF_ID,
+		       T6.LOCATION_NAME AS LOCATION_ID,
+		       F_GET_USER_NAME(T.ONSHELF_ID) AS ONSHELF_ID,
+		       TO_CHAR(T.ONSHELF_DT,'YYYY-MM-DD') AS ONSHELF_DT,
+		       F_GET_USER_NAME(T1.CRT_ID) AS CRT_ID,
+		       TO_CHAR(T1.CRT_DT,'YYYY-MM-DD') AS CRT_DT,
+		       T2.DICT_IT_NM AS STATUS
+		FROM WMS1.R_WMS_INSTORE_SN_T T
+		LEFT JOIN WMS1.R_WMS_INSTORE_T T1 ON T.INSTORE_NO=T1.INSTORE_NO
+		LEFT JOIN WMS1.C_WMS_BASIC_DD_T T2 ON T1.STATUS=T2.DICT_IT
+		LEFT JOIN WMS1.C_WMS_STORE_T T3 ON T.STORE_ID=T3.STORE_ID
+		LEFT JOIN WMS1.C_WMS_AREA_T T4 ON T.AREA_ID=T4.AREA_ID
+		LEFT JOIN WMS1.C_WMS_SHELF_T T5 ON T.SHELF_ID=T5.SHELF_ID
+		LEFT JOIN WMS1.C_WMS_LOCATION_T T6 ON T.LOCATION_ID=T6.LOCATION_ID
+		LEFT JOIN WMS1.C_WMS_BASIC_DD_T T7 ON T1.BILL_TYPE=T7.DICT_IT
+	 <where>1=1
+	   <if test="SERIAL_NUMBER !=null and SERIAL_NUMBER !='' "> AND T.SERIAL_NUMBER = '${SERIAL_NUMBER}'</if>
+	 </where>
+	<include refid="oraclePagingFileBottom" />
+    </select>
+    
+    <select id="queryMaterialInput_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+            SELECT COUNT(*) AS ROWS_COUNT
+	         FROM 
+	           (   
+	             SELECT
+	               T.INSTORE_NO,
+		       T.SERIAL_NUMBER,
+		       T.QTY,
+		       T.STORE_ID,
+		       T.AREA_ID,
+		       T.SHELF_ID,
+		       T.LOCATION_ID,
+		       T.ONSHELF_ID,
+		       TO_CHAR(T.ONSHELF_DT,'YYYY-MM-DD') AS ONSHELF_DT,
+		       T1.CRT_ID,
+		       TO_CHAR(T1.CRT_DT,'YYYY-MM-DD') AS CRT_DT,
+		       T2.DICT_IT_NM AS STATUS
+		FROM WMS1.R_WMS_INSTORE_SN_T T
+		LEFT JOIN WMS1.R_WMS_INSTORE_T T1 ON T.INSTORE_NO=T1.INSTORE_NO
+		LEFT JOIN WMS1.C_WMS_BASIC_DD_T T2 ON T1.STATUS=T2.DICT_IT
+			 <where>1=1
+			   <if test="SERIAL_NUMBER !=null and SERIAL_NUMBER !='' "> AND T.SERIAL_NUMBER = '${SERIAL_NUMBER}'</if>
+			 </where>)
+    </select>
+    
+    <!-- 物料追溯拆包追溯-->
+	<select id="queryMaterialPackage" parameterType="hashmap" resultType="java.util.HashMap">
+	<include refid="oraclePagingFileTop" />
+		        T.SERIAL_NUMBER,
+		        T.QTY,
+		        T.AFTER_QTY,
+		        T.UNPACK_SERIAL,
+		        T.UNPACK_QTY,
+		        F_GET_USER_NAME(T.UNPACK_ID) AS UNPACK_ID,
+		        TO_CHAR(T.UNPACK_DT,'YYYY-MM-DD') AS UNPACK_DT
+		  FROM WMS1.R_WMS_UNPACKING_SN_T T
+	 <where>1=1
+	   <if test="SERIAL_NUMBER !=null and SERIAL_NUMBER !='' "> AND T.SERIAL_NUMBER = '${SERIAL_NUMBER}'</if>
+	 </where>
+	<include refid="oraclePagingFileBottom" />
+    </select>
+    
+    <select id="queryMaterialPackage_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+            SELECT COUNT(*) AS ROWS_COUNT
+	         FROM 
+	           (   
+	         SELECT
+	            T.SERIAL_NUMBER,
+		        T.QTY,
+		        T.AFTER_QTY,
+		        T.UNPACK_SERIAL,
+		        T.UNPACK_QTY,
+		        T.UNPACK_ID,
+		        TO_CHAR(T.UNPACK_DT,'YYYY-MM-DD') AS UNPACK_DT
+		  FROM WMS1.R_WMS_UNPACKING_SN_T T
+			 <where>1=1
+			   <if test="SERIAL_NUMBER !=null and SERIAL_NUMBER !='' "> AND T.SERIAL_NUMBER = '${SERIAL_NUMBER}'</if>
+			 </where>)
+    </select>
+    
+    <!-- 物料追溯领料单追溯-->
+	<select id="queryMaterialPicking" parameterType="hashmap" resultType="java.util.HashMap">
+	<include refid="oraclePagingFileTop" />
+		 TT.*
+		 FROM
+		 (SELECT T.NPICKING_NO AS PRODPICKING_NO,
+		       T.SERIAL_NUMBER,
+		       'N/A'AS MO_NO,
+		       T6.DICT_IT_NM AS BILL_TYPE,
+		       T.QTY,
+		       T2.STORE_NAME AS STORE_ID,
+		       T3.AREA_NAME AS AREA_ID,
+		       T4.SHELF_NAME AS SHELF_ID,
+		       T5.LOCATION_NAME AS LOCATION_ID,
+		       F_GET_USER_NAME(T1.ADT_ID) AS ADT_ID,
+               TO_CHAR(T1.ADT_DT,'YYYY-MM-DD') AS ADT_DT 
+		  FROM WMS1.R_WMS_NPICKING_SN_T T
+		  LEFT JOIN WMS1.R_WMS_NPICKING_T T1 ON T.NPICKING_NO=T1.NPICKING_NO
+		  LEFT JOIN WMS1.C_WMS_STORE_T T2 ON T.STORE_ID=T2.STORE_ID
+		  LEFT JOIN WMS1.C_WMS_AREA_T T3 ON T.AREA_ID=T3.AREA_ID
+		  LEFT JOIN WMS1.C_WMS_SHELF_T T4 ON T.SHELF_ID=T4.SHELF_ID
+		  LEFT JOIN WMS1.C_WMS_LOCATION_T T5 ON T.LOCATION_ID=T5.LOCATION_ID
+		  LEFT JOIN WMS1.C_WMS_BASIC_DD_T T6 ON T1.BILL_TYPE=T6.DICT_IT
+		UNION ALL
+		SELECT T.PRODPICKING_NO,
+		       T.SERIAL_NUMBER,
+		       T1.SOURCE_NO,
+		       T6.DICT_IT_NM AS BILL_TYPE,
+		       T.QTY,
+		       T2.STORE_NAME AS STORE_ID,
+		       T3.AREA_NAME AS AREA_ID,
+		       T4.SHELF_NAME AS SHELF_ID,
+		       T5.LOCATION_NAME AS LOCATION_ID,
+		       F_GET_USER_NAME(T1.ADT_ID) AS ADT_ID,
+               TO_CHAR(T1.ADT_DT,'YYYY-MM-DD') AS ADT_DT 
+		  FROM WMS1.R_WMS_PROPICKING_SN_T T
+		  LEFT JOIN WMS1.R_WMS_PROPICKING_T T1 ON T.PRODPICKING_NO=T1.PRODPICKING_NO
+		  LEFT JOIN WMS1.C_WMS_STORE_T T2 ON T.STORE_ID=T2.STORE_ID
+		  LEFT JOIN WMS1.C_WMS_AREA_T T3 ON T.AREA_ID=T3.AREA_ID
+		  LEFT JOIN WMS1.C_WMS_SHELF_T T4 ON T.SHELF_ID=T4.SHELF_ID
+		  LEFT JOIN WMS1.C_WMS_LOCATION_T T5 ON T.LOCATION_ID=T5.LOCATION_ID
+		  LEFT JOIN WMS1.C_WMS_BASIC_DD_T T6 ON T1.BILL_TYPE=T6.DICT_IT
+		  )TT  
+	 <where>1=1
+	   <if test="SERIAL_NUMBER !=null and SERIAL_NUMBER !='' "> AND TT.SERIAL_NUMBER = '${SERIAL_NUMBER}'</if>
+	 </where>
+	<include refid="oraclePagingFileBottom" />
+    </select>
+    
+    <select id="queryMaterialPicking_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+            SELECT COUNT(*) AS ROWS_COUNT
+	         FROM 
+	           (   
+	         SELECT
+	          TT.*
+				 FROM
+				 (SELECT T.NPICKING_NO AS PRODPICKING_NO,
+				       T.SERIAL_NUMBER,
+				       'N/A'AS MO_NO,
+				       T1.BILL_TYPE,
+				       T.QTY,
+				       T.STORE_ID,
+				       T.AREA_ID,
+				       T.SHELF_ID,
+				       T.LOCATION_ID,
+				       T1.ADT_ID,
+                       TO_CHAR(T1.ADT_DT,'YYYY-MM-DD') AS ADT_DT  
+				  FROM WMS1.R_WMS_NPICKING_SN_T T
+				  LEFT JOIN WMS1.R_WMS_NPICKING_T T1 ON T.NPICKING_NO=T1.NPICKING_NO
+				UNION ALL
+				SELECT T.PRODPICKING_NO,
+				       T.SERIAL_NUMBER,
+				       T1.SOURCE_NO,
+				       T1.BILL_TYPE,
+				       T.QTY,
+				       T.STORE_ID,
+				       T.AREA_ID,
+				       T.SHELF_ID,
+				       T.LOCATION_ID,
+				       T1.ADT_ID,
+                       TO_CHAR(T1.ADT_DT,'YYYY-MM-DD') AS ADT_DT 
+				  FROM WMS1.R_WMS_PROPICKING_SN_T T
+				  LEFT JOIN WMS1.R_WMS_PROPICKING_T T1 ON T.PRODPICKING_NO=T1.PRODPICKING_NO)TT  
+		<where>1=1
+		    <if test="SERIAL_NUMBER !=null and SERIAL_NUMBER !='' "> AND TT.SERIAL_NUMBER = '${SERIAL_NUMBER}'</if>
+		</where>)
+    </select>
+    
+    <!-- 物料追溯投料追溯-->
+	<select id="queryMaterialFeeding" parameterType="hashmap" resultType="java.util.HashMap">
+	<include refid="oraclePagingFileTop" />
+		       T.SERIAL_NUMBER,
+		       T.FEED_ID,
+		       T.MO_NO,
+		       T.DO_NO,
+		       T.TOTAL_QTY,
+		       T.MACHINE_NO,
+		       F_GET_USER_NAME(T.EMP_NO) AS EMP_NO,
+		       TO_CHAR(T.FEED_DT,'YYYY-MM-DD') AS FEED_DT 
+		 FROM WMS1.R_KITTING_FEEDING_SN_T T       
+	 <where>1=1
+	   <if test="SERIAL_NUMBER !=null and SERIAL_NUMBER !='' "> AND T.SERIAL_NUMBER = '${SERIAL_NUMBER}'</if>
+	 </where>
+	<include refid="oraclePagingFileBottom" />
+    </select>
+    
+    <select id="queryMaterialFeeding_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+            SELECT COUNT(*) AS ROWS_COUNT
+	         FROM 
+	           (   
+	         SELECT T.SERIAL_NUMBER,
+		       T.FEED_ID,
+		       T.MO_NO,
+		       T.DO_NO,
+		       T.TOTAL_QTY,
+		       T.MACHINE_NO,
+		       T.EMP_NO,
+		       TO_CHAR(T.FEED_DT,'YYYY-MM-DD') AS FEED_DT 
+		 FROM WMS1.R_KITTING_FEEDING_SN_T T
+			 <where>1=1
+			   <if test="SERIAL_NUMBER !=null and SERIAL_NUMBER !='' "> AND T.SERIAL_NUMBER = '${SERIAL_NUMBER}'</if>
+			 </where>)
+    </select>
+    
+    <!-- 物料追溯退料单追溯-->
+	<select id="queryMaterialReturn" parameterType="hashmap" resultType="java.util.HashMap">
+	<include refid="oraclePagingFileTop" />
+		       T.SERIAL_NUMBER,
+		       T4.DICT_IT_NM AS BILL_TYPE,
+		       T.RETURN_NO,
+		       T.RETURN_QTY,
+		       T3.STORE_NAME AS STORE_ID,
+		       T2.DICT_IT_NM AS REASON_TYPE,
+		       F_GET_USER_NAME(T1.CRT_ID) AS CRT_ID,
+		       TO_CHAR(T1.CRT_DT,'YYYY-MM-DD') AS CRT_DT
+		 FROM WMS1.R_KITTING_RETURN_SN_T T
+		 LEFT JOIN WMS1.R_KITTING_RETURN_T T1 ON T.RETURN_NO=T1.RETURN_NO 
+		 LEFT JOIN WMS1.C_WMS_BASIC_DD_T T2 ON T1.REASON_TYPE=T2.DICT_IT
+		 LEFT JOIN WMS1.C_WMS_BASIC_DD_T T4 ON T1.BILL_TYPE=T4.DICT_IT
+		 LEFT JOIN WMS1.C_WMS_STORE_T T3 ON T.STORE_ID=T3.STORE_ID  
+	 <where>1=1
+	   <if test="SERIAL_NUMBER !=null and SERIAL_NUMBER !='' "> AND T.SERIAL_NUMBER = '${SERIAL_NUMBER}'</if>
+	 </where>
+	<include refid="oraclePagingFileBottom" />
+    </select>
+    
+    <select id="queryMaterialReturn_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+            SELECT COUNT(*) AS ROWS_COUNT
+	         FROM 
+	           (   
+	         SELECT T.SERIAL_NUMBER,
+		       T.RETURN_NO,
+		       T.RETURN_QTY,
+		       T.STORE_ID,
+		       T1.REASON_TYPE,
+		       T1.CRT_ID,
+		       TO_CHAR(T1.CRT_DT,'YYYY-MM-DD') AS CRT_DT
+		 FROM WMS1.R_KITTING_RETURN_SN_T T
+		 LEFT JOIN WMS1.R_KITTING_RETURN_T T1 ON T.RETURN_NO=T1.RETURN_NO 
+			 <where>1=1
+			   <if test="SERIAL_NUMBER !=null and SERIAL_NUMBER !='' "> AND T.SERIAL_NUMBER = '${SERIAL_NUMBER}'</if>
+			 </where>)
+    </select>
+    
+    <!-- 物料追溯借出单追溯-->
+	<select id="queryMaterialLoan" parameterType="hashmap" resultType="java.util.HashMap">
+	<include refid="oraclePagingFileTop" />
+		       T1.SO_NO,
+		       T3.DICT_IT_NM AS BORROW_TYPE,
+		       T2.SOURCE_NAME,
+		       T1.QTY AS BAR_QTY,
+		       T2.QTY,
+		       T4.STORE_NAME,
+		       T5.AREA_NAME,
+		       T6.SHELF_NAME,
+		       T7.LOCATION_NAME,
+		       T1.CUST_NO,
+		       TO_CHAR(T2.BORROW_DATE,'YYYY-MM-DD') AS BORROW_DATE,
+		       TO_CHAR(T2.RETURN_DATE,'YYYY-MM-DD') AS RETURN_DATE
+		FROM WMS1.R_WMS_SHIPPING_SN_T T1
+		LEFT JOIN WMS1.R_WMS_BORROW_T T2 ON T1.SO_NO=T2.BORROW
+		LEFT JOIN WMS1.C_WMS_BASIC_DD_T T3 ON T2.BORROW_TYPE=T3.DICT_IT
+		LEFT JOIN WMS1.C_WMS_STORE_T T4 ON T1.STORE_ID=T4.STORE_ID
+		LEFT JOIN WMS1.C_WMS_AREA_T T5 ON T1.AREA_ID=T5.AREA_ID
+		LEFT JOIN WMS1.C_WMS_SHELF_T T6 ON T1.SHELF_ID=T6.SHELF_ID
+		LEFT JOIN WMS1.C_WMS_LOCATION_T T7 ON T1.LOCATION_ID=T7.LOCATION_ID 
+	 <where>1=1
+	   <if test="SERIAL_NUMBER !=null and SERIAL_NUMBER !='' "> AND T1.SERIAL_NUMBER = '${SERIAL_NUMBER}'</if>
+	 </where>
+	<include refid="oraclePagingFileBottom" />
+    </select>
+    
+    <select id="queryMaterialLoan_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+            SELECT COUNT(*) AS ROWS_COUNT
+	         FROM 
+	           (   
+	         SELECT T1.SO_NO,
+			       T3.DICT_IT_NM AS BORROW_TYPE,
+			       T2.SOURCE_NAME,
+			       T1.QTY AS BAR_QTY,
+			       T2.QTY,
+			       T4.STORE_NAME,
+			       T5.AREA_NAME,
+			       T6.SHELF_NAME,
+			       T7.LOCATION_NAME,
+			       T1.CUST_NO,
+			       TO_CHAR(T2.BORROW_DATE,'YYYY-MM-DD') AS BORROW_DATE,
+		           TO_CHAR(T2.RETURN_DATE,'YYYY-MM-DD') AS RETURN_DATE
+			FROM WMS1.R_WMS_SHIPPING_SN_T T1
+			LEFT JOIN WMS1.R_WMS_BORROW_T T2 ON T1.SO_NO=T2.BORROW
+			LEFT JOIN WMS1.C_WMS_BASIC_DD_T T3 ON T2.BORROW_TYPE=T3.DICT_IT
+			LEFT JOIN WMS1.C_WMS_STORE_T T4 ON T1.STORE_ID=T4.STORE_ID
+			LEFT JOIN WMS1.C_WMS_AREA_T T5 ON T1.AREA_ID=T5.AREA_ID
+			LEFT JOIN WMS1.C_WMS_SHELF_T T6 ON T1.SHELF_ID=T6.SHELF_ID
+			LEFT JOIN WMS1.C_WMS_LOCATION_T T7 ON T1.LOCATION_ID=T7.LOCATION_ID 
+			 <where>1=1
+			   <if test="SERIAL_NUMBER !=null and SERIAL_NUMBER !='' "> AND T1.SERIAL_NUMBER = '${SERIAL_NUMBER}'</if>
+			 </where>)
+    </select>
+    
+    <!-- 查询已完结下架单(领料主表) -->
+    <select id="queryFinMaterialDown" parameterType="hashmap" resultType="java.util.HashMap">
+    	<include refid="oraclePagingFileTop"></include>
+		     HH.* 
+		  FROM 
+		   (SELECT 
+		       T.PRODPICKING_NO AS SOURCE_NO,
+		       T1.DICT_IT_NM AS BILL_TYPE,
+		       T.STATUS,
+               T2.DICT_IT_NM AS  STATUSNM,
+               IPLANT1.F_GET_USER_NAME(T.CRT_ID) AS CRT_ID,
+               TO_CHAR(T.CRT_DT, 'YYYY-MM-DD HH24:MI:SS') AS CRT_DT
+            FROM WMS1.R_WMS_PROPICKING_T T LEFT JOIN WMS1.C_WMS_BASIC_DD_T T1 ON T.BILL_TYPE = T1.DICT_IT
+        LEFT JOIN WMS1.C_WMS_BASIC_DD_T T2 ON T.STATUS = T2.DICT_IT
+      	<where> 1=1
+      	    AND T.STATUS ='WORDERSTATUS-03'
+			<if test="SOURCE_NO !=null and SOURCE_NO !='' ">  AND T.PRODPICKING_NO LIKE '%${SOURCE_NO}%'</if>
+	  	</where> 
+	  	UNION ALL 
+		 SELECT 
+			  T2.NPICKING_NO AS SOURCE_NO,
+			  T3.DICT_IT_NM AS BILL_TYPE,
+			  T2.STATUS,
+	          T4.DICT_IT_NM AS  STATUSNM,
+	          IPLANT1.F_GET_USER_NAME(T2.CRT_ID) AS CRT_ID,
+	          TO_CHAR(T2.CRT_DT, 'YYYY-MM-DD HH24:MI:SS') AS CRT_DT 
+         FROM WMS1.R_WMS_NPICKING_T T2 LEFT JOIN WMS1.C_WMS_BASIC_DD_T T3 ON T2.BILL_TYPE = T3.DICT_IT
+         LEFT JOIN WMS1.C_WMS_BASIC_DD_T T4 ON T2.STATUS = T4.DICT_IT
+		 <where> 1=1
+		    AND T2.STATUS ='WORDERSTATUS-03'
+			<if test="SOURCE_NO !=null and SOURCE_NO !='' ">  AND T2.NPICKING_NO LIKE '%${SOURCE_NO}%'</if>
+	  	</where> ) HH
+	  	<where> 1=1
+			<if test="CRT_ID !=null and CRT_ID !='' ">  AND HH.CRT_ID LIKE '${CRT_ID}%'</if>
+			<if test="queryCrtDtBegin !=null and queryCrtDtBegin !='' "> AND HH.CRT_DT <![CDATA[>=]]> '${queryCrtDtBegin}'</if>
+	        <if test="queryCrtDtEnd !=null and queryCrtDtEnd !='' "> AND HH.CRT_DT <![CDATA[<=]]> '${queryCrtDtEnd}'</if> 
+	  	</where>
+	  	ORDER BY HH.CRT_DT DESC
+      	<include refid="oraclePagingFileBottom"></include>
+    </select>
+    
+    <select id="queryFinMaterialDown_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+	    SELECT COUNT(1) AS ROWS_COUNT FROM (
+	       SELECT 
+		       T.PRODPICKING_NO AS SOURCE_NO,
+		       T1.DICT_IT_NM AS BILL_TYPE,
+		       T.STATUS,
+               T2.DICT_IT_NM AS  STATUSNM,
+               IPLANT1.F_GET_USER_NAME(T.CRT_ID) AS CRT_ID,
+               TO_CHAR(T.CRT_DT, 'YYYY-MM-DD HH24:MI:SS') AS CRT_DT
+            FROM WMS1.R_WMS_PROPICKING_T T LEFT JOIN WMS1.C_WMS_BASIC_DD_T T1 ON T.BILL_TYPE = T1.DICT_IT
+        LEFT JOIN WMS1.C_WMS_BASIC_DD_T T2 ON T.STATUS = T2.DICT_IT
+      	<where> 1=1
+      	    AND T.STATUS ='WORDERSTATUS-03'
+			<if test="SOURCE_NO !=null and SOURCE_NO !='' ">  AND T.PRODPICKING_NO LIKE '%${SOURCE_NO}%'</if>
+	  	</where> 
+	  	UNION ALL 
+		 SELECT 
+			  T2.NPICKING_NO AS SOURCE_NO,
+			  T3.DICT_IT_NM AS BILL_TYPE,
+			  T2.STATUS,
+	          T4.DICT_IT_NM AS  STATUSNM,
+	          IPLANT1.F_GET_USER_NAME(T2.CRT_ID) AS CRT_ID,
+	          TO_CHAR(T2.CRT_DT, 'YYYY-MM-DD HH24:MI:SS') AS CRT_DT 
+         FROM WMS1.R_WMS_NPICKING_T T2 LEFT JOIN WMS1.C_WMS_BASIC_DD_T T3 ON T2.BILL_TYPE = T3.DICT_IT
+         LEFT JOIN WMS1.C_WMS_BASIC_DD_T T4 ON T2.STATUS = T4.DICT_IT
+		 <where> 1=1
+		    AND T2.STATUS ='WORDERSTATUS-03'
+			<if test="SOURCE_NO !=null and SOURCE_NO !='' ">  AND T2.NPICKING_NO LIKE '%${SOURCE_NO}%'</if>
+	  	</where>  
+      	) A
+      	<where> 1=1
+			<if test="CRT_ID !=null and CRT_ID !='' ">  AND A.CRT_ID LIKE '%${CRT_ID}%'</if>
+			<if test="queryCrtDtBegin !=null and queryCrtDtBegin !='' "> AND A.CRT_DT <![CDATA[>=]]> '${queryCrtDtBegin}'</if>
+	        <if test="queryCrtDtEnd !=null and queryCrtDtEnd !='' "> AND A.CRT_DT <![CDATA[<=]]> '${queryCrtDtEnd}'</if> 
+	  	</where>
+	</select>
+	
+	<!-- 查询下架单明细 -->
+    <select id="queryFinMaterialDownDetail" parameterType="hashmap" resultType="java.util.HashMap">
+    	<include refid="oraclePagingFileTop"></include>
+          SOURCE_NO,
+		  SERIAL_NUMBER,
+		  MATERIAL_ID,
+		  MATERIAL_NAME,
+		  SUPPLIER_ID,
+		  SUPPLIER_NAME,
+		  SPEC_MODEL,
+		  ONOFF_QTY,
+		  LOT_NO
+		FROM WMS2.H_WMS_ONOFFSHELF_SN_T T
+      	<where> 1=1
+      	    AND T.ONOFF_STATUS='1'
+			<if test="SOURCE_NO !=null and SOURCE_NO !='' ">  AND T.SOURCE_NO = '${SOURCE_NO}'</if>
+	  	</where> 
+      	<include refid="oraclePagingFileBottom"></include>
+    </select>
+    
+    <select id="queryFinMaterialDownDetail_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+	    SELECT 
+	       COUNT(1) AS ROWS_COUNT 
+	    FROM WMS2.H_WMS_ONOFFSHELF_SN_T T
+      	<where> 1=1
+      	    AND T.ONOFF_STATUS='1'
+			<if test="SOURCE_NO !=null and SOURCE_NO !='' ">  AND T.SOURCE_NO = '${SOURCE_NO}'</if>
+	  	</where> 
+	</select>
+	
+    <!-- 成品追溯来料报表-->
+	<select id="queryProductAscend" parameterType="hashmap" resultType="java.util.HashMap">
+		<include refid="oraclePagingFileTop" />
+		TT.* FROM(SELECT T1.SERIAL_NUMBER,
+		       T1.MATERIAL_ID,
+		       T1.MATERIAL_NAME,
+		       T1.QTY,
+		       CASE
+                WHEN T1.OFFSHELF_STATUS =0 THEN '未下架'
+                WHEN T1.OFFSHELF_STATUS=1 THEN '已下架'
+                WHEN T1.OFFSHELF_STATUS=2 THEN '出库'
+                WHEN T1.OFFSHELF_STATUS=3 THEN '退货中'
+                ELSE '未下架'
+               END AS OFFSHELF_STATUS,
+		       T1.CUST_NO,
+		       T1.CARTON_NO,
+		       T4.CUS_NM AS CUST_NAME,
+		       T5.SO_NO,
+		       T1.UNIT_ID,
+       		   T3.UNIT_NAME,
+       		   T2.GRP_ID,
+       		   F_GET_USER_NAME(T7.ONSHELF_ID) AS CRT_ID,
+		       TO_CHAR(T7.ONSHELF_DT,'YYYY-MM-DD') AS CRT_DT,
+		       T1.LOT_NO
+		  FROM WMS1.R_WMS_STORE_SN_T T1
+		       LEFT JOIN IPLANT1.C_IPLANT_M3_T T2 ON T1.MATERIAL_ID = T2.MATERIAL_ID
+		       LEFT JOIN WMS1.C_WMS_UNIT_T T3 ON T1.UNIT_ID = T3.UNIT_ID
+		       LEFT JOIN IPLANT1.C_IPLANT_C3_T T4 ON T1.CUST_NO = T4.CUS_CD
+		       LEFT JOIN WMS1.R_WMS_SHIPPENDING_SN_T T5 ON T1.SERIAL_NUMBER = T5.SERIAL_NUMBER
+		       LEFT JOIN WMS1.R_WMS_STORE_CARTON_T T6 ON T1.CARTON_NO=T6.CARTON_NO
+		       LEFT JOIN WMS1.R_WMS_INSTORE_SN_T T7 ON T1.SERIAL_NUMBER=T7.SERIAL_NUMBER)TT
+		 <where> TT.GRP_ID IN ('1','2')
+		   <if test="qSerialNumber !=null and qSerialNumber !='' "> AND TT.SERIAL_NUMBER = '${qSerialNumber}'</if>
+		   <if test="qMaterialId  !=null and qMaterialId !='' "> AND TT.MATERIAL_ID = '${qMaterialId}'</if>
+		   <if test="qSoNo !=null and qSoNo !='' "> AND TT.SO_NO = '${qSoNo}'</if>
+		   <if test="qLotNo !=null and qLotNo !='' "> AND TT.LOT_NO = '${qLotNo}'</if>
+		   <if test="qProDtBegin !=null and qProDtBegin !='' "> AND TT.CRT_DT <![CDATA[>=]]> '${qProDtBegin}'</if>
+		   <if test="qProDtEnd !=null and qProDtEnd !='' "> AND TT.CRT_DT <![CDATA[<=]]> '${qProDtEnd}'</if>
+		 </where>
+		 <if test="qCartonNo !=null and qCartonNo !='' "> START WITH T6.CARTON_NO = #{qCartonNo} CONNECT BY PRIOR T6.CARTON_NO = T6.NEXT_CARTON</if>
+		 ORDER BY TT.CRT_DT DESC
+		<include refid="oraclePagingFileBottom" />
+    </select>
+    <select id="queryProductAscend_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+    	SELECT COUNT(1) AS ROWS_COUNT FROM WMS1.R_WMS_STORE_SN_T T1 LEFT JOIN IPLANT1.C_IPLANT_M3_T T2 ON T1.MATERIAL_ID = T2.MATERIAL_ID LEFT JOIN WMS1.C_WMS_UNIT_T T3 ON T1.UNIT_ID = T3.UNIT_ID LEFT JOIN IPLANT1.C_IPLANT_C3_T T4 ON T1.CUST_NO = T4.CUS_CD LEFT JOIN WMS1.R_WMS_SHIPPENDING_SN_T T5 ON T1.SERIAL_NUMBER = T5.SERIAL_NUMBER LEFT JOIN WMS1.R_WMS_STORE_CARTON_T T6 ON T1.CARTON_NO=T6.CARTON_NO LEFT JOIN WMS1.R_WMS_INSTORE_SN_T T7 ON T1.SERIAL_NUMBER=T7.SERIAL_NUMBER
+		 <where> T2.GRP_ID IN ('1','2')
+		   <if test="qSerialNumber !=null and qSerialNumber !='' "> AND T1.SERIAL_NUMBER = '${qSerialNumber}'</if>
+		   <if test="qMaterialId  !=null and qMaterialId !='' "> AND T1.MATERIAL_ID = '${qMaterialId}'</if>
+		   <if test="qSoNo !=null and qSoNo !='' "> AND T5.SO_NO = '${qSoNo}'</if>
+		   <if test="qLotNo !=null and qLotNo !='' "> AND T1.LOT_NO = '${qLotNo}'</if>
+		   <if test="qProDtBegin !=null and qProDtBegin !='' "> AND T7.ONSHELF_DT <![CDATA[>=]]> '${qProDtBegin}'</if>
+		   <if test="qProDtEnd !=null and qProDtEnd !='' "> AND T7.ONSHELF_DT <![CDATA[<=]]> '${qProDtEnd}'</if> 
+		 </where>
+		 <if test="qCartonNo !=null and qCartonNo !='' "> START WITH T6.CARTON_NO = #{qCartonNo} CONNECT BY PRIOR T6.CARTON_NO = T6.NEXT_CARTON</if>
+    </select>
+
+    <select id="queryAscendFeeding" parameterType="hashmap" resultType="java.util.HashMap">
+		<include refid="oraclePagingFileTop" />
+		T.SERIAL_NUMBER,
+        T.FEED_ID,
+        T.MO_NO,
+        T.DO_NO,
+        T.TOTAL_QTY,
+        T.MACHINE_NO,
+        F_GET_USER_NAME(T.EMP_NO) AS EMP_NO,
+        TO_CHAR(T.FEED_DT,'YYYY-MM-DD') AS FEED_DT from WMS1.R_KITTING_FEEDING_SN_T T
+		<where> 1=1
+		   <if test="moNo !=null and moNo !='' "> AND T.MO_NO = '${moNo}'</if>
+		</where>
+		<include refid="oraclePagingFileBottom" />
+    </select>
+    <select id="queryAscendFeeding_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+    	SELECT COUNT(1) AS ROWS_COUNT FROM WMS1.R_KITTING_FEEDING_SN_T T
+		 <where> 1=1
+		   <if test="moNo !=null and moNo !='' "> AND T.MO_NO = '${moNo}'</if>
+		 </where>
+    </select>
+    
+    <select id="queryAscendProdpicking" parameterType="hashmap" resultType="java.util.HashMap">
+		<include refid="oraclePagingFileTop" />
+		T.PRODPICKING_NO,
+       	T.SERIAL_NUMBER,
+       	T1.SOURCE_NO,
+       	T6.DICT_IT_NM AS BILL_TYPE,
+       	T.QTY,
+       	T2.STORE_NAME AS STORE_ID,
+       	T3.AREA_NAME AS AREA_ID,
+       	T4.SHELF_NAME AS SHELF_ID,
+       	T5.LOCATION_NAME AS LOCATION_ID,
+       	F_GET_USER_NAME (T1.ADT_ID) AS ADT_ID,
+       	TO_CHAR (T1.ADT_DT, 'YYYY-MM-DD') AS ADT_DT
+  		FROM WMS1.R_WMS_PROPICKING_SN_T T
+    	LEFT JOIN WMS1.R_WMS_PROPICKING_T T1 ON T.PRODPICKING_NO = T1.PRODPICKING_NO
+       	LEFT JOIN WMS1.C_WMS_STORE_T T2 ON T.STORE_ID = T2.STORE_ID
+       	LEFT JOIN WMS1.C_WMS_AREA_T T3 ON T.AREA_ID = T3.AREA_ID
+       	LEFT JOIN WMS1.C_WMS_SHELF_T T4 ON T.SHELF_ID = T4.SHELF_ID
+       	LEFT JOIN WMS1.C_WMS_LOCATION_T T5 ON T.LOCATION_ID = T5.LOCATION_ID
+       	LEFT JOIN WMS1.C_WMS_BASIC_DD_T T6 ON T1.BILL_TYPE = T6.DICT_IT 
+		<where> 1=1
+			<if test="moNo !=null and moNo !='' "> AND T1.SOURCE_NO = '${moNo}'</if>
+		</where>
+		<include refid="oraclePagingFileBottom" />
+    </select>
+    <select id="queryAscendProdpicking_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+    	SELECT COUNT(1) AS ROWS_COUNT FROM WMS1.R_WMS_PROPICKING_SN_T T LEFT JOIN WMS1.R_WMS_PROPICKING_T T1 ON T.PRODPICKING_NO = T1.PRODPICKING_NO
+		 <where> 1=1
+		   <if test="moNo !=null and moNo !='' "> AND T1.SOURCE_NO = '${moNo}'</if>
+		 </where>
+    </select>
+    
+    <select id="queryAscendInstore" parameterType="hashmap" resultType="java.util.HashMap">
+		<include refid="oraclePagingFileTop" />
+		T.INSTORE_NO,
+       	T7.DICT_IT_NM AS BILL_TYPE,
+       	T.SERIAL_NUMBER,
+       	T.QTY,
+       	T3.STORE_NAME AS STORE_ID,
+       	T4.AREA_NAME AS AREA_ID,
+       	T5.SHELF_NAME AS SHELF_ID,
+       	T6.LOCATION_NAME AS LOCATION_ID,
+       	F_GET_USER_NAME (T.ONSHELF_ID) AS ONSHELF_ID,
+       	TO_CHAR (T.ONSHELF_DT, 'YYYY-MM-DD') AS ONSHELF_DT,
+       	F_GET_USER_NAME (T1.CRT_ID) AS CRT_ID,
+       	TO_CHAR (T1.CRT_DT, 'YYYY-MM-DD') AS CRT_DT,
+       	T2.DICT_IT_NM AS STATUS
+  		FROM WMS1.R_WMS_INSTORE_SN_T T
+       	LEFT JOIN WMS1.R_WMS_INSTORE_T T1 ON T.INSTORE_NO = T1.INSTORE_NO
+       	LEFT JOIN WMS1.C_WMS_BASIC_DD_T T2 ON T1.STATUS = T2.DICT_IT
+       	LEFT JOIN WMS1.C_WMS_STORE_T T3 ON T.STORE_ID = T3.STORE_ID
+       	LEFT JOIN WMS1.C_WMS_AREA_T T4 ON T.AREA_ID = T4.AREA_ID
+       	LEFT JOIN WMS1.C_WMS_SHELF_T T5 ON T.SHELF_ID = T5.SHELF_ID
+       	LEFT JOIN WMS1.C_WMS_LOCATION_T T6 ON T.LOCATION_ID = T6.LOCATION_ID
+       	LEFT JOIN WMS1.C_WMS_BASIC_DD_T T7 ON T1.BILL_TYPE = T7.DICT_IT
+		<where> 1=1
+			<if test="moNo !=null and moNo !='' "> AND T1.SOURCE_NO = '${moNo}'</if>
+		</where>
+		<include refid="oraclePagingFileBottom" />
+    </select>
+    <select id="queryAscendInstore_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+    	SELECT COUNT(1) AS ROWS_COUNT FROM WMS1.R_WMS_PROPICKING_SN_T T LEFT JOIN WMS1.R_WMS_PROPICKING_T T1 ON T.PRODPICKING_NO = T1.PRODPICKING_NO
+		 <where> 1=1
+		   <if test="moNo !=null and moNo !='' "> AND T1.SOURCE_NO = '${moNo}'</if>
+		 </where>
+    </select>
+    
+    <select id="queryAscendIQC" parameterType="hashmap" resultType="java.util.HashMap">
+		<include refid="oraclePagingFileTop" />
+		T.SERIAL_NUMBER,
+	       T.IQC_NO,
+	       T4.DICT_IT_NM AS BILL_TYPE,
+	       T.QTY,
+	       T.QTY AS PASS_QTY,
+	       CASE
+	        WHEN T.QC_STATUS=0 THEN '未检'
+	        WHEN T.QC_STATUS=1 THEN '合格'
+	        WHEN T.QC_STATUS=2 THEN '不合格'
+	        WHEN T.QC_STATUS=3 THEN '特采'
+	        ELSE '未检'
+	       END AS QC_STATUS,
+	       CASE
+	        WHEN T1.QC_STATUS=0 THEN '未检'
+	        WHEN T1.QC_STATUS=1 THEN '合格'
+	        WHEN T1.QC_STATUS=2 THEN '不合格'
+	        WHEN T1.QC_STATUS=3 THEN '特采'
+	        ELSE '未检'
+	       END AS BILL_STATUS,
+	       F_GET_USER_NAME(T3.CRT_ID) AS CRT_ID,
+	       TO_CHAR(T3.CRT_DT,'YYYY-MM-DD') AS CRT_DT
+		  FROM WMS1.R_WMS_IQC_SN_T T
+		  LEFT JOIN WMS1.R_WMS_IQC_DETAIL_T T1 ON T.IQC_NO=T1.IQC_NO AND T.MATERIAL_ID=T1.MATERIAL_ID
+		  LEFT JOIN WMS1.R_WMS_IQC_T T3 ON T.IQC_NO=T3.IQC_NO
+		  LEFT JOIN WMS1.C_WMS_BASIC_DD_T T4 ON T3.BILL_TYPE=T4.DICT_IT
+		<where> 1=1
+		   <if test="serialNumber !=null and serialNumber !='' "> AND T.SERIAL_NUMBER = '${serialNumber}'</if>
+		</where>
+		<include refid="oraclePagingFileBottom" />
+    </select>
+    <select id="queryAscendIQC_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+    	SELECT COUNT(1) AS ROWS_COUNT FROM WMS1.R_WMS_IQC_SN_T T
+		<where> 1=1
+		   <if test="serialNumber !=null and serialNumber !='' "> AND T.SERIAL_NUMBER = '${serialNumber}'</if>
+		</where>
+    </select>
+    
+    <select id="queryAscendArrival" parameterType="hashmap" resultType="java.util.HashMap">
+		<include refid="oraclePagingFileTop" />
+			T.SERIAL_NUMBER,
+	       	T.ARRIVAL_NO,
+	       	T.MATERIAL_ID,
+	       	T.SUPPLIER_ID,
+	       	T.QTY,
+	       	T2.UNIT_NAME AS UNIT_ID,
+	       	T.LOT_NO,
+	       	F_GET_USER_NAME(T1.CRT_ID) AS CRT_ID,
+	       	TO_CHAR(T1.CRT_DT,'YYYY-MM-DD') AS CRT_DT,
+	       	T1.PO_NO
+			FROM WMS1.R_WMS_ARRIVAL_SN_T T
+			LEFT JOIN WMS1.R_WMS_ARRIVAL_T T1 ON T.ARRIVAL_NO=T1.ARRIVAL_NO
+			LEFT JOIN WMS1.C_WMS_UNIT_T T2 ON T.UNIT_ID=T2.UNIT_ID  
+			LEFT JOIN WMS1.R_WMS_INSTORE_SN_T T3 ON T.SERIAL_NUMBER=T3.SERIAL_NUMBER
+		<where> 1=1
+		   <if test="moNo !=null and moNo !='' "> AND T3.MO_NO = '${moNo}'</if>
+		</where>
+		<include refid="oraclePagingFileBottom" />
+    </select>
+    <select id="queryAscendArrival_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+    	SELECT COUNT(1) AS ROWS_COUNT FROM WMS1.R_WMS_ARRIVAL_SN_T T
+    	LEFT JOIN WMS1.R_WMS_ARRIVAL_T T1 ON T.ARRIVAL_NO=T1.ARRIVAL_NO
+		LEFT JOIN WMS1.C_WMS_UNIT_T T2 ON T.UNIT_ID=T2.UNIT_ID  
+		LEFT JOIN WMS1.R_WMS_INSTORE_SN_T T3 ON T.SERIAL_NUMBER=T3.SERIAL_NUMBER
+		<where> 1=1
+		   <if test="moNo !=null and moNo !='' "> AND T3.MO_NO = '${moNo}'</if>
+		</where>
+    </select>
+    
+    <select id="queryAscendInOut" parameterType="hashmap" resultType="java.util.HashMap">
+		<include refid="oraclePagingFileTop" />
+		* FROM (SELECT '入库' AS STATUS ,I.SERIAL_NUMBER,I.CARTON_NO,I.LOT_NO,I.INSTORE_NO AS PAGE_NO,TO_CHAR(I.ONSHELF_DT,'YYYY-MM-DD') AS H_TIME,F_GET_USER_NAME (I.ONSHELF_ID) AS CRT_ID FROM WMS1.R_WMS_INSTORE_SN_T I 
+		UNION ALL
+		SELECT '出库' AS STATUS,S.SERIAL_NUMBER,S.CARTON_NO,S.LOT_NO,S.SHIPPING_NO AS PAGE_NO,TO_CHAR(S.CRT_DT,'YYYY-MM-DD') AS H_TIME,F_GET_USER_NAME (S.CRT_ID) AS CRT_ID FROM WMS1.R_WMS_SHIPPING_SN_T S ) T
+		<where> 1=1
+		   <if test="serialNumber !=null and serialNumber !='' "> AND T.SERIAL_NUMBER = '${serialNumber}'</if>
+		</where>
+		<include refid="oraclePagingFileBottom" />
+    </select>
+    <select id="queryAscendInOut_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+    	SELECT COUNT(1) AS ROWS_COUNT FROM (SELECT I.SERIAL_NUMBER FROM WMS1.R_WMS_INSTORE_SN_T I 
+		UNION ALL
+		SELECT S.SERIAL_NUMBER FROM WMS1.R_WMS_SHIPPING_SN_T S ) T
+		<where> 1=1
+		   <if test="serialNumber !=null and serialNumber !='' "> AND T.SERIAL_NUMBER = '${serialNumber}'</if>
+		</where>
+    </select>
+    
+    <!-- 产品追溯 -->
+    <select id="queryBillAscend" parameterType="hashmap" resultType="java.util.HashMap">
+		<include refid="oraclePagingFileTop" />
+        T.MO_NO,
+        T.BILL_TYPE,
+        T.MECHINE_NO,
+        T.BOM_CD,
+        T.CUST_NO,
+        T.CUST_NUMBER,
+        T.MODEL_NO,
+        T.MATERIAL_ID,
+        T.UNIT_CD,
+        T.M_QTY,
+        T.P_QTY,
+        T.T_QTY,
+        F_GET_USER_NAME(T.CRT_ID) AS CRT_ID,
+        TO_CHAR(T.CRT_DT,'YYYY-MM-DD') AS CRT_DT FROM WMS1.TEMP_MO_T T
+		<where> 1=1
+		    <choose>
+                <when test="qSerialNumber ==null or qSerialNumber ==''">
+                    <choose>
+		                <when test="qMaterialId ==null or qMaterialId ==''">
+		                     AND 1=1
+		                </when>
+		                <otherwise>
+		                     AND T.MATERIAL_ID = '${qMaterialId}'
+		                </otherwise>
+		            </choose>
+                </when>
+                <otherwise>
+                    <choose>
+		                <when test="qMaterialId ==null or qMaterialId ==''">
+		                     AND T.MATERIAL_ID IN(SELECT MATERIAL_ID FROM WMS1.TEMP_MO_SN_T WHERE SERIAL_NUMBER='${qSerialNumber}')
+		                </when>
+		                <otherwise>
+		                     AND (T.MATERIAL_ID = '${qMaterialId}' orT.MATERIAL_ID IN(SELECT MATERIAL_ID FROM WMS1.TEMP_MO_SN_T WHERE SERIAL_NUMBER='${qSerialNumber}'))
+		                </otherwise>
+		            </choose>
+                </otherwise>
+            </choose>
+            <!-- 
+		   <if test="qSerialNumber !=null and qSerialNumber !='' "> AND T.MATERIAL_ID IN(SELECT MATERIAL_ID FROM WMS1.TEMP_MO_SN_T WHERE SERIAL_NUMBER='${qSerialNumber}')</if>
+		   <if test="qMaterialId !=null and qMaterialId !='' "> AND T.MATERIAL_ID = '${qMaterialId}'</if> -->
+		</where>
+		<include refid="oraclePagingFileBottom" />
+    </select>
+    <select id="queryBillAscend_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+    	SELECT COUNT(1) AS ROWS_COUNT FROM WMS1.TEMP_MO_T T
+		<where> 1=1
+		   	<choose>
+                <when test="qSerialNumber ==null or qSerialNumber ==''">
+                    <choose>
+		                <when test="qMaterialId ==null or qMaterialId ==''">
+		                     AND 1=1
+		                </when>
+		                <otherwise>
+		                     AND T.MATERIAL_ID = '${qMaterialId}'
+		                </otherwise>
+		            </choose>
+                </when>
+                <otherwise>
+                    <choose>
+		                <when test="qMaterialId ==null or qMaterialId ==''">
+		                     AND T.MATERIAL_ID IN(SELECT MATERIAL_ID FROM WMS1.TEMP_MO_SN_T WHERE SERIAL_NUMBER='${qSerialNumber}')
+		                </when>
+		                <otherwise>
+		                     AND (T.MATERIAL_ID = '${qMaterialId}' orT.MATERIAL_ID IN(SELECT MATERIAL_ID FROM WMS1.TEMP_MO_SN_T WHERE SERIAL_NUMBER='${qSerialNumber}'))
+		                </otherwise>
+		            </choose>
+                </otherwise>
+            </choose>
+		</where>
+    </select>
+    <!-- 制令单 -->
+    <select id="queryAscendMo" parameterType="hashmap" resultType="java.util.HashMap">
+		<include refid="oraclePagingFileTop" />
+		T.SERIAL_NUMBER,T.MO_NO,T.QTY,T.STORE_ID,T.AREA_ID,T.SHELF_ID,T.LOCATION_ID,T.MATERIAL_ID FROM WMS1.TEMP_MO_SN_T T
+		<where> 1=1
+		   <if test="moNo !=null and moNo !='' "> AND T.MO_NO = '${moNo}'</if>
+		</where>
+		<include refid="oraclePagingFileBottom" />
+    </select>
+    <select id="queryAscendMo_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+    	SELECT COUNT(1) AS ROWS_COUNT FROM WMS1.TEMP_MO_SN_T T
+		<where> 1=1
+		   <if test="moNo !=null and moNo !='' "> AND T.MO_NO = '${moNo}'</if>
+		</where>
+    </select>
+    <!-- 领料 -->
+    <select id="queryAscendProd" parameterType="hashmap" resultType="java.util.HashMap">
+		<include refid="oraclePagingFileTop" />
+		T.PRODPICKING_NO,
+		T.BILL_TYPE,
+		T.SOURCE_NO,
+		T.STORE_ID,
+		T.STATUS,
+		F_GET_USER_NAME(T.CRT_ID) AS CRT_ID,
+        TO_CHAR(T.CRT_DT,'YYYY-MM-DD') AS CRT_DT,
+        NVL(T1.PRODPICKING_QTY,0) AS QTY,
+        T1.MATERIAL_ID,T1.UNIT_ID,T1.UNIT_NAME,
+        NVL((SELECT SUM(OFF_QTY) 
+        FROM WMS1.R_WMS_OFFSHELF_SN_T WHERE SERIAL_NUMBER IN(SELECT D.SERIAL_NUMBER FROM WMS1.R_WMS_PROPICKING_SN_T D WHERE T.PRODPICKING_NO=D.PRODPICKING_NO)),0) AS P_QTY,
+        NVL(T1.PICKED_QTY,0) AS T_QTY FROM WMS1.R_WMS_PROPICKING_T T LEFT JOIN WMS1.R_WMS_PROPICKING_DETAIL_T T1 ON T.PRODPICKING_NO=T1.PRODPICKING_NO
+		<where> 1=1
+		    <if test="serialNumber !=null and serialNumber !='' "> AND T.PRODPICKING_NO = (SELECT PRODPICKING_NO FROM WMS1.R_WMS_PROPICKING_SN_T WHERE SERIAL_NUMBER='${qSerialNumber}')</if>
+		   	<if test="qMaterialId !=null and qMaterialId !='' "> AND T1.MATERIAL_ID = '${qMaterialId}'</if>
+		</where>
+		<include refid="oraclePagingFileBottom" />
+    </select>
+    <select id="queryAscendProd_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+    	SELECT COUNT(1) AS ROWS_COUNT FROM WMS1.R_WMS_PROPICKING_T T LEFT JOIN WMS1.R_WMS_PROPICKING_DETAIL_T T1 ON T.PRODPICKING_NO=T1.PRODPICKING_NO
+		<where> 1=1
+		    <if test="serialNumber !=null and serialNumber !='' "> AND T.PRODPICKING_NO = (SELECT PRODPICKING_NO FROM WMS1.R_WMS_PROPICKING_SN_T WHERE SERIAL_NUMBER='${qSerialNumber}')</if>
+		   	<if test="qMaterialId !=null and qMaterialId !='' "> AND T1.MATERIAL_ID = '${qMaterialId}'</if>
+		</where>
+    </select>
+    <select id="queryAscendProdInfo" parameterType="hashmap" resultType="java.util.HashMap">
+		<include refid="oraclePagingFileTop" />
+		T.SERIAL_NUMBER,T.PRODPICKING_NO AS MO_NO,T.QTY,T1.STORE_ID,T1.AREA_ID,T1.SHELF_ID,T1.LOCATION_ID,T.MATERIAL_ID FROM  WMS1.R_WMS_PROPICKING_SN_T T LEFT JOIN WMS1.R_WMS_STORE_SN_T T1 ON T.SERIAL_NUMBER=T1.SERIAL_NUMBER
+		<where> 1=1
+		   <if test="moNo !=null and moNo !='' "> AND T.PRODPICKING_NO = '${moNo}'</if>
+		</where>
+		<include refid="oraclePagingFileBottom" />
+    </select>
+    <select id="queryAscendProdInfo_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+    	SELECT COUNT(1) AS ROWS_COUNT FROM  WMS1.R_WMS_PROPICKING_SN_T T
+		<where> 1=1
+		   <if test="moNo !=null and moNo !='' "> AND T.PRODPICKING_NO = '${moNo}'</if>
+		</where>
+    </select>
+    <!-- 投料 -->
+    <select id="queryAscendFeed" parameterType="hashmap" resultType="java.util.HashMap">
+		<include refid="oraclePagingFileTop" />
+		T.FEED_ID,T.MO_NO,T.DO_NO,T.MATERIAL_ID,T.MATERIAL_NAME,T.SUPPLIER_ID,T.SUPPLIER_NAME,T.SPEC_MODEL,F_GET_USER_NAME(T.EMP_NO) AS CRT_ID,T.MACHINE_NO,T.TOTAL_QTY,T.UNIT_ID,T.UNIT_NAME FROM  WMS1.R_KITTING_FEEDING_DETAIL_T T
+		<where> 1=1
+		   	<if test="serialNumber !=null and serialNumber !='' "> AND T.FEED_ID = (SELECT FEED_ID FROM WMS1.R_KITTING_FEEDING_SN_T WHERE SERIAL_NUMBER='${qSerialNumber}')</if>
+		   	<if test="qMaterialId !=null and qMaterialId !='' "> AND T.MATERIAL_ID = '${qMaterialId}'</if>
+		</where>
+		<include refid="oraclePagingFileBottom" />
+    </select>
+    <select id="queryAscendFeed_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+    	SELECT COUNT(1) AS ROWS_COUNT FROM  WMS1.R_KITTING_FEEDING_DETAIL_T T
+		<where> 1=1
+		   <if test="serialNumber !=null and serialNumber !='' "> AND T.FEED_ID = (SELECT FEED_ID FROM WMS1.R_KITTING_FEEDING_SN_T WHERE SERIAL_NUMBER='${qSerialNumber}')</if>
+		   	<if test="qMaterialId !=null and qMaterialId !='' "> AND T.MATERIAL_ID = '${qMaterialId}'</if>
+		</where>
+    </select>
+    <select id="queryAscendFeedInfo" parameterType="hashmap" resultType="java.util.HashMap">
+		<include refid="oraclePagingFileTop" />
+		T.SERIAL_NUMBER,T.FEED_ID AS MO_NO,T.TOTAL_QTY AS QTY,T1.STORE_ID,T1.AREA_ID,T1.SHELF_ID,T1.LOCATION_ID,T.MATERIAL_ID FROM  WMS1.R_KITTING_FEEDING_SN_T T LEFT JOIN WMS1.R_WMS_STORE_SN_T T1 ON T.SERIAL_NUMBER=T1.SERIAL_NUMBER
+		<where> 1=1
+		   <if test="moNo !=null and moNo !='' "> AND T.FEED_ID = '${moNo}'</if>
+		</where>
+		<include refid="oraclePagingFileBottom" />
+    </select>
+    <select id="queryAscendFeedInfo_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+    	SELECT COUNT(1) AS ROWS_COUNT FROM  WMS1.R_KITTING_FEEDING_SN_T T
+		<where> 1=1
+		   <if test="moNo !=null and moNo !='' "> AND T.FEED_ID = '${moNo}'</if>
+		</where>
+    </select>
+    <!-- 退料 -->
+    <select id="queryAscendReturn" parameterType="hashmap" resultType="java.util.HashMap">
+		<include refid="oraclePagingFileTop" />
+		T.RETURN_NO,T.BILL_TYPE,T.SOURCE_NO,T.STATUS,T.REASON_TYPE,F_GET_USER_NAME(T.CRT_ID) AS CRT_ID,TO_CHAR(T.CRT_DT,'YYYY-MM-DD') AS CRT_DT,T1.RETURN_QTY,T1.MATERIAL_ID,NVL((SELECT SUM(RETURN_QTY FROM WMS1.R_KITTING_RETURN_SN_T R WHERE T.RETURN_NO = R.RETURN_NO)),0) AS QTY,T1.UNIT_ID,T1.UNIT_NAME FROM WMS1.R_KITTING_RETURN_T T LEFT JOIN WMS1.R_KITTING_RETURN_DETAIL_T T1 ON T.RETURN_NO = T1.RETURN_NO
+		<where> 1=1
+		   	<if test="serialNumber !=null and serialNumber !='' "> AND T.RETURN_NO = (SELECT RETURN_NO FROM WMS1.R_KITTING_RETURN_SN_T WHERE SERIAL_NUMBER='${qSerialNumber}')</if>
+		   	<if test="qMaterialId !=null and qMaterialId !='' "> AND T1.MATERIAL_ID = '${qMaterialId}'</if>
+		</where>
+		<include refid="oraclePagingFileBottom" />
+    </select>
+    <select id="queryAscendReturn_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+    	SELECT COUNT(1) AS ROWS_COUNT FROM  WMS1.R_KITTING_FEEDING_DETAIL_T T
+		<where> 1=1
+		   <if test="serialNumber !=null and serialNumber !='' "> AND T.FEED_ID = (SELECT FEED_ID FROM WMS1.R_KITTING_FEEDING_SN_T WHERE SERIAL_NUMBER='${qSerialNumber}')</if>
+		   	<if test="qMaterialId !=null and qMaterialId !='' "> AND T.MATERIAL_ID = '${qMaterialId}'</if>
+		</where>
+    </select>
+    <select id="queryAscendReturnInfo" parameterType="hashmap" resultType="java.util.HashMap">
+		<include refid="oraclePagingFileTop" />
+		T.SERIAL_NUMBER,T.RETURN_NO AS MO_NO,T.RETURN_QTY AS QTY,T1.STORE_ID,T1.AREA_ID,T1.SHELF_ID,T1.LOCATION_ID,T.MATERIAL_ID FROM  WMS1.R_KITTING_RETURN_SN_T T LEFT JOIN WMS1.R_WMS_STORE_SN_T T1 ON T.SERIAL_NUMBER=T1.SERIAL_NUMBER
+		<where> 1=1
+		   <if test="moNo !=null and moNo !='' "> AND T.RETURN_NO = '${moNo}'</if>
+		</where>
+		<include refid="oraclePagingFileBottom" />
+    </select>
+    <select id="queryAscendReturnInfo_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+    	SELECT COUNT(1) AS ROWS_COUNT FROM  WMS1.R_KITTING_RETURN_SN_T T
+		<where> 1=1
+		   <if test="moNo !=null and moNo !='' "> AND T.RETURN_NO = '${moNo}'</if>
+		</where>
+    </select>
+    <!-- 入库 -->
+    <select id="queryAscendInput" parameterType="hashmap" resultType="java.util.HashMap">
+		<include refid="oraclePagingFileTop" />
+		T.INSTORE_NO,T.BILL_TYPE,T.SOURCE_NO,T.STATUS,F_GET_USER_NAME(T.CRT_ID) AS CRT_ID,TO_CHAR(T.CRT_DT,'YYYY-MM-DD') AS CRT_DT,T1.INSTORE_QTY,T1.MATERIAL_ID,T1.REAL_QTY,(T1.INSTORE_QTY-T1.REAL_QTY) AS W_QTY FROM WMS1.R_WMS_INSTORE_T T LEFT JOIN WMS1.R_WMS_INSTORE_DETAIL_T T1
+		<where> 1=1
+		   	<if test="serialNumber !=null and serialNumber !='' "> AND T.INSTORE_NO = (SELECT INSTORE_NO FROM WMS1.R_WMS_INSTORE_SN_T WHERE SERIAL_NUMBER='${qSerialNumber}')</if>
+		   	<if test="qMaterialId !=null and qMaterialId !='' "> AND T1.MATERIAL_ID = '${qMaterialId}'</if>
+		</where>
+		<include refid="oraclePagingFileBottom" />
+    </select>
+    <select id="queryAscendInput_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+    	SELECT COUNT(1) AS ROWS_COUNT FROM  WMS1.R_KITTING_FEEDING_DETAIL_T T
+		<where> 1=1
+		   	<if test="serialNumber !=null and serialNumber !='' "> AND T.INSTORE_NO = (SELECT INSTORE_NO FROM WMS1.R_WMS_INSTORE_SN_T WHERE SERIAL_NUMBER='${qSerialNumber}')</if>
+		   	<if test="qMaterialId !=null and qMaterialId !='' "> AND T1.MATERIAL_ID = '${qMaterialId}'</if>
+		</where>
+    </select>
+    <select id="queryAscendInputInfo" parameterType="hashmap" resultType="java.util.HashMap">
+		<include refid="oraclePagingFileTop" />
+		T.SERIAL_NUMBER,T.INSTORE_NO AS MO_NO,T.RETURN_QTY AS QTY,T1.STORE_ID,T1.AREA_ID,T1.SHELF_ID,T1.LOCATION_ID,T.MATERIAL_ID FROM  WMS1.R_WMS_INSTORE_SN_T T LEFT JOIN WMS1.R_WMS_STORE_SN_T T1 ON T.SERIAL_NUMBER=T1.SERIAL_NUMBER
+		<where> 1=1
+		   <if test="moNo !=null and moNo !='' "> AND T.INSTORE_NO = '${moNo}'</if>
+		</where>
+		<include refid="oraclePagingFileBottom" />
+    </select>
+    <select id="queryAscendInputInfo_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+    	SELECT COUNT(1) AS ROWS_COUNT FROM  WMS1.R_WMS_INSTORE_SN_T T
+		<where> 1=1
+		   <if test="moNo !=null and moNo !='' "> AND T.INSTORE_NO = '${moNo}'</if>
+		</where>
+    </select>
+    <!-- 出库 -->
+    <select id="queryAscendOut" parameterType="hashmap" resultType="java.util.HashMap">
+		<include refid="oraclePagingFileTop" />
+		T.SHIPPING_NO,T.STATUS,T.BILL_TYPE,T1.MATERIAL_ID,F_GET_USER_NAME(T.CRT_ID) AS CRT_ID,TO_CHAR(T.CRT_DT,'YYYY-MM-DD') AS CRT_DT,T1.CUST_NO,T1.CUST_NAME,T1.REAL_QTY,T1.REJECT_QTY,NVL((SELECT SUM(QTY) FROM WMS1.R_WMS_STORE_SN_T WHERE OFFSHELF_STATUS=1 AND SERIAL_NUMBER IN(SELECT SERIAL_NUMBER FROM WMS1.R_WMS_SHIPPING_SN_T S WHERE S.SHIPPING_NO=T.SHIPPING_NO)),0) AS D_QTY,T1.SHIPPING_QTY,T1.SHIPPING_STATUS,T1.SO_NO,T1.UNIT_ID,T1.UNIT_NAME,T1.STORE_ID,T1.TOTAL_CARTON FROM WMS1.R_WMS_SHIPPING_T T LEFT JOIN WMS1.R_WMS_SHIPPING_DETAIL_T T1 ON T.SHIPPING_NO=T1.SHIPPING_NO
+		<where> 1=1
+		   	<if test="serialNumber !=null and serialNumber !='' "> AND T.SHIPPING_NO = (SELECT SHIPPING_NO FROM WMS1.R_WMS_SHIPPING_SN_T WHERE SERIAL_NUMBER='${qSerialNumber}')</if>
+			<if test="qMaterialId !=null and qMaterialId !='' "> AND T1.MATERIAL_ID = '${qMaterialId}'</if>
+		</where>
+		<include refid="oraclePagingFileBottom" />
+    </select>
+    <select id="queryAscendOut_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+    	SELECT COUNT(1) AS ROWS_COUNT FROM WMS1.R_WMS_SHIPPING_T T LEFT JOIN WMS1.R_WMS_SHIPPING_DETAIL_T T1 ON T.SHIPPING_NO=T1.SHIPPING_NO
+		<where> 1=1
+		   <if test="serialNumber !=null and serialNumber !='' "> AND T.SHIPPING_NO = (SELECT SHIPPING_NO FROM WMS1.R_WMS_SHIPPING_SN_T WHERE SERIAL_NUMBER='${qSerialNumber}')</if>
+		   	<if test="qMaterialId !=null and qMaterialId !='' "> AND T1.MATERIAL_ID = '${qMaterialId}'</if>
+		</where>
+    </select>
+    <select id="queryAscendOutInfo" parameterType="hashmap" resultType="java.util.HashMap">
+		<include refid="oraclePagingFileTop" />
+		T.SHIPPING_NO,T.SERIAL_NUMBER,T.SO_NO,T.MATERIAL_ID,T.CUST_NAME,T.CUST_NAME,T.QTY,T.UNIT_ID,T.UNIT_NAME,T.CARTON_NO,T.STORE_ID,T.AREA_ID,T.SHELF_ID,T.LOCATION_ID,T.LOT_NO,F_GET_USER_NAME(T.CRT_ID) AS CRT_ID,TO_CHAR(T.CRT_DT,'YYYY-MM-DD') AS CRT_DT FROM WMS1.R_WMS_SHIPPING_SN_T T LEFT JOIN WMS1.R_WMS_STORE_SN_T T1 ON T.SERIAL_NUMBER=T1.SERIAL_NUMBER
+		<where> 1=1
+		   <if test="moNo !=null and moNo !='' "> AND T.SHIPPING_NO = '${moNo}'</if>
+		</where>
+		<include refid="oraclePagingFileBottom" />
+    </select>
+    <select id="queryAscendOutInfo_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+    	SELECT COUNT(1) AS ROWS_COUNT FROM  WMS1.R_WMS_SHIPPING_SN_T T
+		<where> 1=1
+		   <if test="moNo !=null and moNo !='' "> AND T.SHIPPING_NO = '${moNo}'</if>
+		</where>
+    </select>
+    <!-- 退货 -->
+    <select id="queryAscendLost" parameterType="hashmap" resultType="java.util.HashMap">
+		<include refid="oraclePagingFileTop" />
+		SELECT T.REJECT_NO,T.BILL_TYPE,T.SOURCE_NO,T.STATUS,F_GET_USER_NAME(T.CRT_ID) AS CRT_ID,TO_CHAR(T.CRT_DT,'YYYY-MM-DD') AS CRT_DT,T1.REJECT_QTY,T1.ARRIVAL_UNIT_ID AS UNIT_ID,T1.ARRIVAL_UNIT_NAME AS UNIT_NAME,T1.MATERIAL_ID,T1.LOT_NO,T1.MATERIAL_NAME,T1.CUST_NO,T1.CUST_NAME,T1.SERIAL_MESS_NUM,T1.SERIAL_TOTAL_NUM,T1.STORE_ID,T1.SUPPLIER_ID,T1.SUPPLIER_NAME,NVL((SELECT SUM(QTY) FROM WMS1.R_WMS_INSTORE_SN_T WHERE OFFSHELF_STATUS=1 AND SERIAL_NUMBER IN(SELECT SERIAL_NUMBER FROM WMS1.R_WMS_REJECT_SN_T R WHERE R.REJECT_NO=T.REJECT_NO)),0) AS S_QTY FROM WMS1.R_WMS_REJECT_T T LEFT JOIN WMS1.R_WMS_REJECT_DETAIL_T T1 ON T.REJECT_NO=T1.REJECT_NO
+		<where> T.BILL_TYPE=''
+		   	<if test="serialNumber !=null and serialNumber !='' "> AND T.REJECT_NO = (SELECT REJECT_NO FROM WMS1.R_WMS_REJECT_SN_T WHERE SERIAL_NUMBER='${qSerialNumber}')</if>
+		   	<if test="qMaterialId !=null and qMaterialId !='' "> AND T1.MATERIAL_ID = '${qMaterialId}'</if>
+		</where>
+		<include refid="oraclePagingFileBottom" />
+    </select>
+    <select id="queryAscendLost_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+    	SELECT COUNT(1) AS ROWS_COUNT FROM  WMS1.R_WMS_REJECT_T T
+		<where> 1=1
+		   <if test="serialNumber !=null and serialNumber !='' "> AND T.REJECT_NO = (SELECT REJECT_NO FROM WMS1.R_WMS_REJECT_SN_T WHERE SERIAL_NUMBER='${qSerialNumber}')</if>
+		   	<if test="qMaterialId !=null and qMaterialId !='' "> AND T1.MATERIAL_ID = '${qMaterialId}'</if>
+		</where>
+    </select>
+    <select id="queryAscendLostInfo" parameterType="hashmap" resultType="java.util.HashMap">
+		<include refid="oraclePagingFileTop" />
+		T.SERIAL_NUMBER,T.RETURN_NO AS MO_NO,T.RETURN_QTY AS QTY,T1.STORE_ID,T1.AREA_ID,T1.SHELF_ID,T1.LOCATION_ID,T.MATERIAL_ID FROM  WMS1.R_KITTING_RETURN_SN_T T LEFT JOIN WMS1.R_WMS_STORE_SN_T T1 ON T.SERIAL_NUMBER=T1.SERIAL_NUMBER
+		<where> 1=1
+		   <if test="moNo !=null and moNo !='' "> AND T.RETURN_NO = '${moNo}'</if>
+		</where>
+		<include refid="oraclePagingFileBottom" />
+    </select>
+    <select id="queryAscendLostInfo_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+    	SELECT COUNT(1) AS ROWS_COUNT FROM  WMS1.R_KITTING_RETURN_SN_T T
+		<where> 1=1
+		   <if test="moNo !=null and moNo !='' "> AND T.RETURN_NO = '${moNo}'</if>
+		</where>
+    </select>
+   
+   
+    <!-- 仓库库存报表 -->
+    <!-- 查询标签具体信息 -->
+    <select id="queryWhBarcode" parameterType="hashmap" resultType="java.util.HashMap">
+		<include refid="oraclePagingFileTop" />
+				   T1.SERIAL_NUMBER,
+			       T1.MATERIAL_ID,
+			       T1.MATERIAL_NAME,
+			       T1.SUPPLIER_ID,
+			       T1.SUPPLIER_NAME,
+			       T1.QTY,
+			       T1.LOT_NO,
+			       T1.STORE_ID,
+			       T2.STORE_NAME,
+			       T1.AREA_ID,
+			       T3.AREA_NAME,
+			       T1.SHELF_ID,
+			       T4.SHELF_NAME,
+			       T1.LOCATION_ID,
+			       T5.LOCATION_NAME,
+			       CASE 
+			         WHEN T1.OFFSHELF_STATUS =0 THEN '上架'
+			         WHEN T1.OFFSHELF_STATUS =1 THEN '已下架'
+			         WHEN T1.OFFSHELF_STATUS =2 THEN '已出库'
+			         WHEN T1.OFFSHELF_STATUS =3 THEN '退货中'  
+			       END AS  OFFSHELF_STATUS ,
+			       TO_CHAR(T1.INSTORE_DATE,'YYYY-MM-DD') AS INSTORE_DATE
+			FROM WMS1.R_WMS_STORE_SN_T T1
+			LEFT JOIN WMS1.C_WMS_STORE_T T2 ON T1.STORE_ID=T2.STORE_ID
+			LEFT JOIN WMS1.C_WMS_AREA_T T3 ON T1.AREA_ID=T3.AREA_ID
+			LEFT JOIN WMS1.C_WMS_SHELF_T T4 ON T1.SHELF_ID=T4.SHELF_ID
+			LEFT JOIN WMS1.C_WMS_LOCATION_T T5 ON T1.LOCATION_ID=T5.LOCATION_ID
+		   <where> 1=1
+				   <if test="SERIAL_NUMBER !=null and SERIAL_NUMBER !='' "> AND T1.SERIAL_NUMBER LIKE '%${SERIAL_NUMBER}%'</if>
+				   <if test="MATERIAL_ID !=null and MATERIAL_ID !='' "> AND T1.MATERIAL_ID LIKE '%${MATERIAL_ID}%'</if>
+				   <if test="MATERIAL_NAME !=null and MATERIAL_NAME !='' "> AND T1.MATERIAL_NAME LIKE '%${MATERIAL_NAME}%'</if>
+				   <if test="SUPPLIER_NAME !=null and SUPPLIER_NAME !='' "> AND T1.SUPPLIER_NAME LIKE '%${SUPPLIER_NAME}%'</if>
+				   <if test="OFFSHELF_STATUS !=null and OFFSHELF_STATUS !='' "> AND T1.OFFSHELF_STATUS = '${OFFSHELF_STATUS}'</if>
+				   <if test="LOT_NO !=null and LOT_NO !='' "> AND T1.LOT_NO LIKE '%${LOT_NO}%'</if>
+		   </where>
+		   ORDER BY T1.INSTORE_DATE DESC
+		<include refid="oraclePagingFileBottom" />
+    </select>
+    <select id="queryWhBarcode_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+    	SELECT COUNT(1) AS ROWS_COUNT 
+    	    FROM WMS1.R_WMS_STORE_SN_T T1
+			LEFT JOIN WMS1.C_WMS_STORE_T T2 ON T1.STORE_ID=T2.STORE_ID
+			LEFT JOIN WMS1.C_WMS_AREA_T T3 ON T1.AREA_ID=T3.AREA_ID
+			LEFT JOIN WMS1.C_WMS_SHELF_T T4 ON T1.SHELF_ID=T4.SHELF_ID
+			LEFT JOIN WMS1.C_WMS_LOCATION_T T5 ON T1.LOCATION_ID=T5.LOCATION_ID
+		   <where> 1=1
+				   <if test="SERIAL_NUMBER !=null and SERIAL_NUMBER !='' "> AND T1.SERIAL_NUMBER LIKE '%${SERIAL_NUMBER}%'</if>
+				   <if test="MATERIAL_ID !=null and MATERIAL_ID !='' "> AND T1.MATERIAL_ID LIKE '%${MATERIAL_ID}%'</if>
+				   <if test="MATERIAL_NAME !=null and MATERIAL_NAME !='' "> AND T1.MATERIAL_NAME LIKE '%${MATERIAL_NAME}%'</if>
+				   <if test="SUPPLIER_NAME !=null and SUPPLIER_NAME !='' "> AND T1.SUPPLIER_NAME LIKE '%${SUPPLIER_NAME}%'</if>
+				   <if test="OFFSHELF_STATUS !=null and OFFSHELF_STATUS !='' "> AND T1.OFFSHELF_STATUS = '${OFFSHELF_STATUS}'</if>
+				   <if test="LOT_NO !=null and LOT_NO !='' "> AND T1.LOT_NO LIKE '%${LOT_NO}%'</if>
+		   </where>
+    </select> 
+    
+    
+    
+    <!-- 备料看板 -->
+    <!-- 备料练习 -->
+    <!-- ??  -->
+    <select id="queryBeiLiao" parameterType="hashmap" resultType="java.util.HashMap">		
+      SELECT ROWNUM AS SN,DD.* 
+	  FROM(
+	     SELECT TT.*,
+	       CASE 
+	          WHEN MIN >30 THEN 0
+	          ELSE 1 
+	       END AS STATUS
+	
+	         FROM 
+	    (SELECT
+	            T1.PRODPICKING_NO,
+	            T3.LINE_CD,
+	            T3.PD_LN_NM,
+	            T3.MO_NO,
+	            T3.ITEM_NM,
+	            T3.MAT_CD,
+	            T3.MAT_NM,
+	            T3.REQ_QTY,
+	            T1.PRODPICKING_QTY,
+	            TO_CHAR(T2.ADT_DT,'YYYY-MM-DD HH24:MI:SS') AS ADT_DT,
+	            TO_CHAR(T2.CRT_DT,'YYYY-MM-DD HH24:MI:SS') AS CRT_DT,        
+	            CEIL(((TO_DATE(TO_CHAR(T3.PLAN_STRT_DT,'YYYY-MM-DD HH24:MI:SS'),'YYYY-MM-DD HH24:MI:SS'))-(TO_DATE(TO_CHAR(SYSDATE,'YYYY-MM-DD HH24:MI:SS'),'YYYY-MM-DD HH24:MI:SS')))*24*60 ) AS MIN                            
+	      FROM WMS1.R_WMS_PROPICKING_DETAIL_T T1
+	      LEFT JOIN WMS1.R_WMS_PROPICKING_T T2 ON T1.PRODPICKING_NO=T2.PRODPICKING_NO
+	      LEFT JOIN MES1.R_MES_MAT_MO_V@BPMES139 T3 ON T2.SOURCE_NO=T3.WO_NO AND T2.WO_NO=T3.MO_NO AND T1.MATERIAL_ID=T3.MAT_CD
+	      
+	      WHERE T2.CRT_DT &gt;= TRUNC(SYSDATE-7)
+	      AND T2.STATUS !='WORDERSTATUS-03'
+	      AND T2.STORE_ID='DFL1'
+	      )TT  
+	      WHERE 1=1
+	         AND TT.LINE_CD IS NOT NULL 
+	      ORDER BY STATUS,TT.PRODPICKING_NO,TT.CRT_DT)DD		
+
+    </select>
+    
+</mapper>
+

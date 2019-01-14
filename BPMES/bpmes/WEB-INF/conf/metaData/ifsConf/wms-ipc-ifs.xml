@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ifss>
+    <!-- 建大数据库访问  -->
+    <ifs ifs_code="SQL00001" ifs_name="采购单查询" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryPoDataList" biz_method="" serial_no="1" biz_name="queryPoDataList" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <ifs ifs_code="SQL00002" ifs_name="工单查询" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryMoDataList" biz_method="" serial_no="1" biz_name="queryMoDataList" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+    <ifs ifs_code="SQL00003" ifs_name="委外查询" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryTWDataList" biz_method="" serial_no="1" biz_name="queryTWDataList" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+    </ifs>
+  
+   
+</ifss>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>监控参数配置</title>
+    <link rel="stylesheet" type="text/css" href="../../../common/IplantCompent/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../../../common/IplantCompent/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="../../../common/IplantCompent/Demo/demo.css">
+    <script src="../../../common/IplantCompent/jquery.min.js" type="text/javascript"></script>
+    <script src="../../../common/IplantCompent/jquery.easyui.min.js" type="text/javascript"></script>
+    <script src="../../../common/IplantCommon/DataRequest.js" type="text/javascript"></script>
+    <script src="../../../common/IplantCommon/CommonUtil.js" type="text/javascript"></script>
+    <script src="../../../common/IplantCommon/OutPutExcel.js" type="text/javascript"></script>
+    <script src="js/ScadaParamSet.js" type="text/javascript"></script>
+    <script type="text/javascript"></script>
+</head>
+ <style type="text/css">
+    	.input1{
+    		background:#DDDEDD;
+    		width:40px;
+    		height:20px;
+    		
+    	}
+    	
+    	.td1{
+    		padding-top:5px;
+    		text-align:right;
+    	}
+    	
+    	.td2{
+			background:#F1F1F1;    	
+    	}
+    </style>
+<body style="padding: 0;margin: 0;">
+	<div style="height:100%;width:100%" class="easyui-layout" fit="true">
+		<div style="width: auto; height: 30px; background: linear-gradient(rgb(255, 255, 255) 0px, rgba(149, 184, 231, 0.28) 100%);">
+			 <a id="btncheck" href="#" class="easyui-linkbutton" iconCls="icon-search" data-options="plain:true">查看</a>
+			<a href="#" class="easyui-linkbutton add" iconcls="icon-add" id='btnAdd' data-options="plain:true">添加</a>
+            <a href="#" class="easyui-linkbutton update" iconcls="icon-edit" id='btnUpdate' data-options="plain:true">修改</a>
+            <a href="#" class="easyui-linkbutton delete" iconcls="icon-remove" id='btnDelete' data-options="plain:true">删除</a>
+		</div>
+            
+       <div style="width:100%;height:310px;">   
+		<div style="width:50%;height:310px; color:red;float:left;">
+  			 <table  region='center' id="listType_tab" class='easyui-datagrid' style="height: auto; max-height: 100%; padding-top:10px;" iconCls="icon-edit" toolbar="#tbsearch" rownumbers="true"></table>
+  		</div>
+		<div style="width:50%;height:310px;color:red;float:left;">
+			<table  id="listType_tab2" class='easyui-datagrid' style="height: auto; max-height: 100%; padding-top:10px;" iconCls="icon-edit" toolbar="#tbsearch" rownumbers="true"></table>
+		</div>
+	  </div>
+	  
+	  <div style="margin-top:5px;width:auto;height:25px;background-color:#ECF2FB;border:1px solid #95B8E7; border-bottom:none;line-height: 25px;border-top-left-radius:8px;border-top-right-radius:8px;">
+			<span ><strong style="color:#2F8CFE;margin-left:10px">监控参数</strong></span>
+	 </div>
+		<div style="width:100%;height:55%;color:red;margin-bottom:200px;">
+			<table  id="listType_tab3" class='easyui-datagrid' style="height: auto; max-height: 100%; padding-top:10px;" iconCls="icon-edit" toolbar="#tbsearch" rownumbers="true"></table>
+		</div>
+	</div>
+     
+     
+      <div id="enditTab" class="easyui-dialog" style="width: 400px; height: 350px;" closed="true" data-options="modal: true,
+				buttons: [{
+					text:'保存',
+					iconCls:'icon-ok',
+					handler:function(){
+						saveDictItem(); 
+					}
+				},{
+					text:'取消',
+					iconCls:'icon-no',
+					handler:function(){
+                    	$('#enditTab').dialog('close');	
+					}
+				}]">
+        <form id="fmCompany" method="post" style="padding: 10px 20px 10px 40px;">
+            <table border="0">
+                <tr style="height: 35px;">
+                    <td>设备编号：</td>
+                    <td>
+                        <input id="txtListCode" style="width: 200px;" class="easyui-textbox" />
+                    </td>
+                    <td style="color: red "></td>
+                </tr>
+                <tr style="height: 35px;">
+                    <td>设备IP：</td>
+                    <td>
+                        <input id="txtListName" style="width: 200px;" class="easyui-textbox" />
+                    </td>
+                    <td style="color: red "></td>
+                </tr>
+                <tr style="height: 35px;">
+                   <td align='right'>参数名称：</td>
+                   <td>
+                      <input id="assetCode" style="width: 200px;" class="easyui-textbox"/>
+                   </td>   
+                   <td style="color: red "></td>            
+                </tr >
+                  <tr style="height: 35px;">
+                   <td align='right'>参数地址：</td>
+                   <td>
+                      <input id="EquipmentFacCode" style="width: 200px;" class="easyui-textbox" />
+                   </td>    
+                   <td style="color: red "></td>           
+                </tr>
+            </table>
+        </form>
+    </div>
+</body>
+</html>

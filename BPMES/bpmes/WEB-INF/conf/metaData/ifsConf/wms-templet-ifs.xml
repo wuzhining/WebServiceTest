@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ifss>
+
+	<!-- ======工单退料管理====== -->
+	<!-- 查找工单退料信息 -->
+	<ifs ifs_code="WMS_MB00001" ifs_name="查找工单退料信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryArrivalingOrderTemplet" biz_method="" serial_no="1" biz_name="queryArrivalingOrderTemplet" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+</ifss>

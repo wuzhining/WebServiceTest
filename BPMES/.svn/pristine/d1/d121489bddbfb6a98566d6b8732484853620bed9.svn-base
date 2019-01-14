@@ -1,0 +1,141 @@
+/* 启动时加载 */
+/*
+ */
+(function() {
+	function factoryInfo() {
+	OpenFrameAttribute = function (){
+		 var ajaxParam = {
+				 url : '/iPlant_ajax',
+    			 dataType : 'JSON',
+    			 data:{
+    				 IFS : 'B1001'
+    			 },successCallBack : function(data){
+    				 var op = data.RESPONSE[0].RESPONSE_DATA;
+    				 var a1=$("#p1");
+    				 var te1,te2,te3,te4,t5,count=0;
+    				 var a2,a3,a4;
+    					$.each(op,function(n,obj) {
+    						te1=$("<button style='background-color: rgba(241, 196, 15, 1);" +  
+  "box-shadow: 0 5px 20px rgba(241, 196, 15, .5);border:0'>");te2=$("<p>");te3=$("<p>");te4=$("<p>");te5=$("<span>");
+    						a2=$("<div style='width:11%;height:32%;margin-left:8px;float:left;margin-top:8px;" +
+    								"background:#081828;color:white'>");
+    						a3=$("<div style='width:11%;height:32%;float:left;margin-top:8px;" +
+							"background:#081828;' >");
+    						a4=$("<img src='../../../common/RootImages/"+obj.ET_PL+"' width='70' height='60' >");
+    						a4.onclick = scadaLog(4);
+    						a3.append(a4);
+    						if(count<9){
+    							te1.html("0"+ ++count+"#" );
+    						}else{
+    							te1.html(++count+"#" );
+    						}
+    						te5.html("&nbsp;"+obj.ET_NM)
+    						te2.html("&nbsp;运行时间 : "+obj.PRM_PRODDURA);
+    						te3.html("&nbsp;停机时间 : "+obj.PRM_DOWNTIME);
+    						te4.html("&nbsp;稼动率 : "+obj.ET_CD);
+    						a2.append(te1,te5,te2,te3,te4);
+    						a1.append(a2,a3);
+    					});
+    		 }	
+		 	}
+		 iplantAjaxRequest(ajaxParam);
+	}
+	
+	}	
+	scadaLog = function (et_cd){
+		alert(et_cd);
+		/*var ajaxParam = {
+				url : '/iPlant_ajax',
+				dataType : 'JSON',
+				data:{
+					prm_cd : et_cd,
+					IFS : 'O1001'
+				},successCallBack : function(data){
+					var p1,p2,p3,p4,p5,p6,p7,p8,p9,p10,p11,p12,p13,p14,p15,p16,p17,p18,p19;
+					var op = data.RESPONSE[0].RESPONSE_DATA;
+					$("#p").empty();
+					var a1=$("<marquee  height='240' scrollamount='1' direction='up'>");
+					var br;
+					var count=0;
+					$.each(op,function(n,obj) {
+						p1=$("<span>"); p2=$("<span>"); p3=$("<span>"); p4=$("<span>"); p5=$("<span>");
+						p6=$("<span>");p7=$("<span>");p8=$("<span>");p9=$("<span>");p10=$("<span>");
+						p11=$("<span>");p12=$("<span>");p13=$("<span>");p14=$("<span>");p15=$("<span>");
+						p16=$("<span>");p17=$("<span>");p18=$("<span>");p19=$("<span>");
+						p1.html('id: ' +obj.PRM_ID+',&nbsp;');
+						if(obj.PRM_TIME != null){
+							p19.html('inspecttime: ' +obj.PRM_TIME+',&nbsp;' );
+						}
+						if(obj.PRM_CD != null){
+							p2.html('设备ip: '+obj.PRM_CD+',&nbsp;' );
+						}
+						if(obj.PRM_NO != null){
+							p3.html('机器状态编码: '+obj.PRM_NO+',&nbsp;' );
+						}
+						if(obj.PRM_DESC != null){
+							p4.html('机器状态描述: '+obj.PRM_DESC+',&nbsp;');
+						}
+						if(obj.PRM_GOODQTY != null){
+							p5.html('良品数量: '+obj.PRM_GOODQTY+',&nbsp;');
+						}
+						if(obj.PRM_BADQTY != null){
+							p6.html('不良数量: '+obj.PRM_BADQTY+',&nbsp;');
+						}
+						if(obj.PRM_PRODQTY != null){
+							p7.html('生产数量: '+obj.PRM_PRODQTY+',&nbsp;');
+						}
+						if(obj.PRM_PRODDURA != null){
+							p8.html('生产时长: '+obj.PRM_PRODDURA+',&nbsp;');
+						}
+						if(obj.PRM_CONVDURA != null){
+							p9.html('转产时长: '+obj.PRM_CONVDURA+',&nbsp;');
+						}
+						if(obj.PRM_TPRODDURA != null){
+							p10.html('总生产时长: '+obj.PRM_TPRODDURA+',&nbsp;');
+						}
+						if(obj.PRM_DOWNTIME != null){
+							p11.html('停机时长: '+obj.PRM_DOWNTIME+',&nbsp;');
+						}
+						if(obj.PRM_TDOWNTIME != null){
+							p12.html('总停机时长: '+obj.PRM_TDOWNTIME+',&nbsp;');
+						}
+						if(obj.PRM_TIMEUNIT != null){
+							p13.html('时长: '+obj.PRM_TIMEUNIT+',&nbsp;');
+						}
+						if(obj.PRM_STDCAP != null){
+							p14.html('标准产能: '+obj.PRM_STDCAP+',&nbsp;');
+						}
+						if(obj.PRM_TAKT != null){
+							p15.html('生产节拍: '+obj.PRM_TAKT+',&nbsp;');
+						}
+						if(obj.PRM_TEMPER != null){
+							p16.html('温度: '+obj.PRM_TEMPER+',&nbsp;');
+						}
+						if(obj.PRM_PRESS != null){
+							p17.html('压力: '+obj.PRM_PRESS+',&nbsp;');
+						}
+						if(obj.PRM_SN != null){
+							p18.html('产品编码: '+obj.PRM_SN+'&nbsp;');
+						}
+						br=$("<p>");
+						a1.append(p1 ,p19 ,p2 ,p3 ,p4,p5,p6,p7,p8,p9,p10,p11,p12,p13,p14,p15,p16,p17,p18,br);
+					}); 
+					$("#p").append(a1);
+				}
+		}
+		iplantAjaxRequest(ajaxParam);*/
+	}
+	factoryInfo.prototype = {
+		init: function() {
+			$(function() {
+				OpenFrameAttribute();
+				$('#btncheck').click(function(){//查看
+					checkDictItem();
+				});
+			});
+			
+		}
+	}
+	var fcfo = new factoryInfo();
+	fcfo.init();
+})();

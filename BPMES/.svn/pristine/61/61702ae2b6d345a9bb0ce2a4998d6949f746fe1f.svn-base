@@ -1,0 +1,416 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ifss>
+	   <!-- 查询装箱信息-->
+    <ifs ifs_code="WMS_ZX00001" ifs_name="查询采购单来料单物料id" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+        <Bizes>
+             <ifs_biz biz_code="queryDetailsn" biz_method="" serial_no="1" biz_name="queryDetailsn" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs>
+     <!-- 查询多物料是否启用 -->
+	<ifs ifs_code="WMS_ZX00002" ifs_name="查询多物料是否启用" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="wcartonmore" biz_method="" serial_no="1" biz_name="wcartonmore" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	 <ifs ifs_code="WMS_ZX00003" ifs_name="来料装箱操作" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+        <Bizes>
+             <ifs_biz biz_code="materialpackage" biz_method="" serial_no="1" biz_name="materialpackage" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs> 
+     	<!-- 查询条码物料信息 -->
+	<ifs ifs_code="WMS_ZX00004" ifs_name="查询条码物料信息 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="querypackagesernum" biz_method="" serial_no="1" biz_name="querypackagesernum" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	 <ifs ifs_code="WMS_ZX00005" ifs_name="判断是不是外箱" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+    <Bizes>
+      <ifs_biz biz_code="queryisorwaixiang" biz_method="" serial_no="1" biz_name="queryisorwaixiang" biz_type="1" biz_cate="1" attr1="" />
+    </Bizes>
+  </ifs>
+  <ifs ifs_code="WMS_ZX00006" ifs_name="来料装箱的删除" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+    <Bizes>
+      <ifs_biz biz_code="nextcartonisna" biz_method="" serial_no="1" biz_name="nextcartonisna" biz_type="1" biz_cate="1" attr1="" />
+    </Bizes>
+  </ifs>
+   <!-- 来料装箱的删除-->
+  <ifs ifs_code="WMS_ZX00008" ifs_name="来料装箱的删除" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+    <Bizes>
+      <ifs_biz biz_code="deletecartonno" biz_method="" serial_no="1" biz_name="deletecartonno" biz_type="1" biz_cate="1" attr1="" />
+    </Bizes>
+  </ifs>
+    <!-- 来料装箱的删除-->
+  <ifs ifs_code="WMS_ZX00009" ifs_name="来料装箱s是否可以移出" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+    <Bizes>
+      <ifs_biz biz_code="isordelete" biz_method="" serial_no="1" biz_name="isordelete" biz_type="1" biz_cate="1" attr1="" />
+    </Bizes>
+  </ifs>
+     <!-- 水料查询-->
+  <ifs ifs_code="WMS_ZX00010" ifs_name="水口料查询" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+    <Bizes>
+      <ifs_biz biz_code="queryCrushnono" biz_method="" serial_no="1" biz_name="queryCrushnono" biz_type="1" biz_cate="1" attr1="" />
+    </Bizes>
+  </ifs>
+   <!-- 查询拆除新旧条码明细-->
+       <ifs ifs_code="WMS_ZX00011" ifs_name="查询拆除新旧条码明细" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+        <Bizes>
+             <ifs_biz biz_code="querysn0" biz_method="" serial_no="1" biz_name="querysn0" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs>
+      <!-- 投料查询-->
+       <ifs ifs_code="WMS_ZX00012" ifs_name="投料查询" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+        <Bizes>
+             <ifs_biz biz_code="queryCrusn" biz_method="" serial_no="1" biz_name="queryCrusn" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs>
+      <!-- 投料查询-->
+       <ifs ifs_code="WMS_ZX00013" ifs_name="产出查询" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+        <Bizes>
+             <ifs_biz biz_code="queryRECYCLE" biz_method="" serial_no="1" biz_name="queryRECYCLE" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs>
+      <!-- 投料查询-->
+     <ifs ifs_code="WMS_ZX00014" ifs_name="状态查询" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+        <Bizes>
+             <ifs_biz biz_code="querystatus" biz_method="" serial_no="1" biz_name="querystatus" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs>
+     <!-- 完结-->
+       <ifs ifs_code="WMS_ZX00015" ifs_name="完结" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+        <Bizes>
+             <ifs_biz biz_code="bianstatus" biz_method="" serial_no="1" biz_name="bianstatus" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs> 
+      <!-- 查询最小单位-->
+       <ifs ifs_code="WMS_ZX00016" ifs_name="查询最小单位" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+        <Bizes>
+             <ifs_biz biz_code="zuixiaoqty" biz_method="" serial_no="1" biz_name="zuixiaoqty" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs> 
+     <!--水口料产出-->
+       <ifs ifs_code="WMS_ZX00018" ifs_name="水口料产出" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+        <Bizes>
+             <ifs_biz biz_code="KittingRecyle" biz_method="" serial_no="1" biz_name="KittingRecyle" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs> 
+      <!--PDA水口料条码查询-->
+       <ifs ifs_code="WMS_ZX00019" ifs_name="水口料条码查询" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+        <Bizes>
+             <ifs_biz biz_code="querykittingsn" biz_method="" serial_no="1" biz_name="querykittingsn" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs> 
+      <!--PDA碎料单生成-->
+       <ifs ifs_code="WMS_ZX00020" ifs_name="PDA碎料单生成" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+        <Bizes>
+             <ifs_biz biz_code="pdakittingcrush" biz_method="" serial_no="1" biz_name="pdakittingcrush" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs> 
+       <!--水口回收料上架条码查询-->
+       <ifs ifs_code="WMS_ZX00021" ifs_name="水口回收料上架条码查询" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+        <Bizes>
+             <ifs_biz biz_code="pdacrushinput" biz_method="" serial_no="1" biz_name="pdacrushinput" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs> 
+      <!--水口回收料上架条码查询-->
+       <ifs ifs_code="WMS_ZX00022" ifs_name="水口回收料上架条码查询" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+        <Bizes>
+             <ifs_biz biz_code="crushinputsn" biz_method="" serial_no="1" biz_name="crushinputsn" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs> 
+        <!--销售单查询-->
+      <!--水口回收料上架条码查询-->
+       <ifs ifs_code="WMS_ZX00023" ifs_name="销售单查询" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+        <Bizes>
+             <ifs_biz biz_code="serchshipping" biz_method="" serial_no="1" biz_name="serchshipping" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs> 
+      <!--销售单明细-->
+       <ifs ifs_code="WMS_ZX00024" ifs_name="销售单明细" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+        <Bizes>
+             <ifs_biz biz_code="serchshippingmingxi" biz_method="" serial_no="1" biz_name="serchshippingmingxi" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs>
+      <!--出库单形成-->
+       <ifs ifs_code="WMS_ZX00025" ifs_name="出库单形成" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+        <Bizes>
+             <ifs_biz biz_code="savenodan" biz_method="" serial_no="1" biz_name="savenodan" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs>
+       <!--出库单形成-->
+       <ifs ifs_code="WMS_ZX00026" ifs_name="修改时出库单信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+        <Bizes>
+             <ifs_biz biz_code="updatesono" biz_method="" serial_no="1" biz_name="updatesono" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs>
+         <!--外箱打印补打形成-->
+       <ifs ifs_code="WMS_ZX00028" ifs_name="外箱查询" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+        <Bizes>
+             <ifs_biz biz_code="queryARRIVALcarton" biz_method="" serial_no="1" biz_name="queryARRIVALcarton" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs>
+        <!--外箱打印补打形成-->
+       <ifs ifs_code="WMS_ZX00029" ifs_name="外箱查询" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+        <Bizes>
+             <ifs_biz biz_code="shippingONOFFSN" biz_method="" serial_no="1" biz_name="shippingONOFFSN" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs>
+      <!--外箱打印补打形成-->
+       <ifs ifs_code="WMS_ZX00030" ifs_name="外箱补打" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+        <Bizes>
+             <ifs_biz biz_code="cbudacarton" biz_method="" serial_no="1" biz_name="cbudacarton" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs>
+      <!--成品下架-->
+      <ifs ifs_code="WMS_ZX00078" ifs_name="成品下架" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+        <Bizes>
+             <ifs_biz biz_code="shippingONOFFSNS" biz_method="" serial_no="1" biz_name="shippingONOFFSNS" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs> 
+      <!--成品拆箱-->
+       <ifs ifs_code="WMS_ZX00032" ifs_name="成品拆箱" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+        <Bizes>
+             <ifs_biz biz_code="opencartonno" biz_method="" serial_no="1" biz_name="opencartonno" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs>
+      <ifs ifs_code="WMS_ZX00033" ifs_name="成品确定出库条码查询" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+        <Bizes>
+             <ifs_biz biz_code="shippingquery" biz_method="" serial_no="1" biz_name="shippingquery" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs>
+          <ifs ifs_code="WMS_ZX00034" ifs_name="成品出库" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+        <Bizes>
+             <ifs_biz biz_code="shippingoput" biz_method="" serial_no="1" biz_name="shippingoput" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs>
+         <ifs ifs_code="WMS_ZX00035" ifs_name="出库单查询销售单" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+        <Bizes>
+             <ifs_biz biz_code="querysono" biz_method="" serial_no="1" biz_name="querysono" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs>
+          <ifs ifs_code="WMS_ZX00036" ifs_name="出库单条码查询" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+        <Bizes>
+             <ifs_biz biz_code="queryshinppingdetel" biz_method="" serial_no="1" biz_name="queryshinppingdetel" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs>
+          <ifs ifs_code="WMS_ZX00037" ifs_name="出库单出库时根据出库单" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+        <Bizes>
+             <ifs_biz biz_code="queryshinpp" biz_method="" serial_no="1" biz_name="queryshinpp" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs>
+            <ifs ifs_code="WMS_ZX00038" ifs_name="获得当前销售出库单下架条码信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+        <Bizes>
+             <ifs_biz biz_code="queryshinppcaton" biz_method="" serial_no="1" biz_name="queryshinppcaton" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs>
+      <ifs ifs_code="WMS_ZX00039" ifs_name="出库单确定出库扫描条码" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+        <Bizes>
+             <ifs_biz biz_code="shippingoutser" biz_method="" serial_no="1" biz_name="shippingoutser" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs>
+     <ifs ifs_code="WMS_ZX00040" ifs_name="出库单删除" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+        <Bizes>
+             <ifs_biz biz_code="deleteshipping" biz_method="" serial_no="1" biz_name="deleteshipping" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs>
+        <ifs ifs_code="WMS_ZX00041" ifs_name="库内装箱展示" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+        <Bizes>
+             <ifs_biz biz_code="storecaton" biz_method="" serial_no="1" biz_name="storecaton" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs>
+     <ifs ifs_code="WMS_ZX00042" ifs_name="库内装箱条码查询" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+        <Bizes>
+             <ifs_biz biz_code="querystoreser" biz_method="" serial_no="1" biz_name="querystoreser" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs>
+       <ifs ifs_code="WMS_ZX00043" ifs_name="库内装箱" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+        <Bizes>
+             <ifs_biz biz_code="comstorePACKAGE" biz_method="" serial_no="1" biz_name="comstorePACKAGE" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs>
+       <ifs ifs_code="WMS_ZX00044" ifs_name="出库单标签明细" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+        <Bizes>
+             <ifs_biz biz_code="snshippingdetail" biz_method="" serial_no="1" biz_name="snshippingdetail" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs>
+      <ifs ifs_code="WMS_ZX00045" ifs_name="出库单销售单删除" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+        <Bizes>
+             <ifs_biz biz_code="deletesono" biz_method="" serial_no="1" biz_name="deletesono" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs>
+    
+    <!-- 验证设备是否为碎料机 --> 
+     <ifs ifs_code="WMS_ZX00046" ifs_name="验证设备是否为碎料机 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+        <Bizes>
+             <ifs_biz biz_code="queryEquipmentType" biz_method="" serial_no="1" biz_name="queryEquipmentType" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs>
+     <!--工控机: 库内装箱查询物料信息 --> 
+     <ifs ifs_code="WMS_ZX00047" ifs_name="库内装箱查询物料信息 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+        <Bizes>
+             <ifs_biz biz_code="MatIpcQquery" biz_method="" serial_no="1" biz_name="MatIpcQquery" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs>
+     <!--工控机: 库内拆包 --> 
+     <ifs ifs_code="WMS_ZX00048" ifs_name="库内拆包 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+        <Bizes>
+             <ifs_biz biz_code="InsidePacIpc" biz_method="" serial_no="1" biz_name="InsidePacIpc" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs>
+     <ifs ifs_code="WMS_ZX00049" ifs_name="仓库查询" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="shippingqueryWarehouse" biz_method="" serial_no="1" biz_name="shippingqueryWarehouse" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	    <ifs ifs_code="WMS_ZX00050" ifs_name="成品返料上架查询" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="shippingqueryinput" biz_method="" serial_no="1" biz_name="shippingqueryinput" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	 <ifs ifs_code="WMS_ZX00051" ifs_name="成品返料上架" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="shippinginput" biz_method="" serial_no="1" biz_name="shippinginput" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	 <ifs ifs_code="WMS_ZX00052" ifs_name="成品拆箱最外箱查询" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="shippingISNAcarton" biz_method="" serial_no="1" biz_name="shippingISNAcarton" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	 <ifs ifs_code="WMS_ZX00053" ifs_name="水口料未包装数量产出" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="KITTINGUNPACKQTY" biz_method="" serial_no="1" biz_name="KITTINGUNPACKQTY" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<ifs ifs_code="WMS_ZX00054" ifs_name="外箱包装查询条码是否入库" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryserINSTORE" biz_method="" serial_no="1" biz_name="queryserINSTORE" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<ifs ifs_code="WMS_ZX00055" ifs_name="物料拆包" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="chaopenpack" biz_method="" serial_no="1" biz_name="chaopenpack" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<ifs ifs_code="SQL00004" ifs_name="从erp取销售单信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryXSDataList" biz_method="" serial_no="1" biz_name="queryXSDataList" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<ifs ifs_code="WMS_ZX00056" ifs_name="生成借入出单单据编号" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="scBORROW" biz_method="" serial_no="1" biz_name="scBORROW" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<ifs ifs_code="WMS_ZX00057" ifs_name="查询借入出单信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryBORROW" biz_method="" serial_no="1" biz_name="queryBORROW" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<ifs ifs_code="WMS_ZX00058" ifs_name="借入出单公司信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryBORROWCOMPANY" biz_method="" serial_no="1" biz_name="queryBORROWCOMPANY" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<ifs ifs_code="WMS_ZX00059" ifs_name="新增借入借出单信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertBORROW" biz_method="" serial_no="1" biz_name="insertBORROW" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<ifs ifs_code="WMS_ZX00060" ifs_name="审核借入出单" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="SHBORROW" biz_method="" serial_no="1" biz_name="SHBORROW" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<ifs ifs_code="WMS_ZX00061" ifs_name="修改借入出单" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="UPDATETOBORROW" biz_method="" serial_no="1" biz_name="UPDATETOBORROW" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<ifs ifs_code="WMS_ZX00062" ifs_name="删除借入出单" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="DELETEBORROW" biz_method="" serial_no="1" biz_name="DELETEBORROW" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+		<ifs ifs_code="WMS_ZX00063" ifs_name="废弃借入出单" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+	    <ifs_biz biz_code="notyongBORROW" biz_method="" serial_no="1" biz_name="notyongBORROW" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<ifs ifs_code="WMS_ZX00064" ifs_name="查询借入来料单" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+	    <ifs_biz biz_code="InitListQueryBORROW" biz_method="" serial_no="1" biz_name="InitListQueryBORROW" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+		<ifs ifs_code="WMS_ZX00065" ifs_name="新增借入来料" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+	    <ifs_biz biz_code="insertarrivoBORROW" biz_method="" serial_no="1" biz_name="insertarrivoBORROW" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<ifs ifs_code="WMS_ZX00066" ifs_name="借入来料审核驳回" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+	    <ifs_biz biz_code="applynotBORROW" biz_method="" serial_no="1" biz_name="applynotBORROW" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<ifs ifs_code="WMS_ZX00067" ifs_name="借入借出单仓库" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+	    <ifs_biz biz_code="stoBORROWstore" biz_method="" serial_no="1" biz_name="stoBORROWstore" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+		<ifs ifs_code="WMS_ZX00068" ifs_name="查询领料借出单" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+	    <ifs_biz biz_code="queryborrowshipin" biz_method="" serial_no="1" biz_name="queryborrowshipin" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<ifs ifs_code="WMS_ZX00069" ifs_name="生成领料借出单" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+	    <ifs_biz biz_code="borrowshipininsert" biz_method="" serial_no="1" biz_name="borrowshipininsert" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<ifs ifs_code="WMS_ZX00071" ifs_name="修改领料借出单时查询" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+	    <ifs_biz biz_code="borrowupdatesono" biz_method="" serial_no="1" biz_name="borrowupdatesono" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<ifs ifs_code="WMS_ZX00070" ifs_name="新增借入出单物料查询 " ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+	    <ifs_biz biz_code="materialListborrow" biz_method="" serial_no="1" biz_name="materialListborrow" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<ifs ifs_code="WMS_ZX00031" ifs_name="借出单下架时条码查询" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+	    <ifs_biz biz_code="queryshinppingborrow" biz_method="" serial_no="1" biz_name="queryshinppingborrow" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<ifs ifs_code="WMS_ZX00073" ifs_name="借出单下架时推荐库位" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+	    <ifs_biz biz_code="querystoreidborrowtj" biz_method="" serial_no="1" biz_name="querystoreidborrowtj" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<ifs ifs_code="WMS_ZX00074" ifs_name="借出单出库" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+	    <ifs_biz biz_code="borrowoutput" biz_method="" serial_no="1" biz_name="borrowoutput" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<ifs ifs_code="WMS_ZX00075" ifs_name="借出单出库" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+	    <ifs_biz biz_code="querytjborroWarehouse" biz_method="" serial_no="1" biz_name="querytjborroWarehouse" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	
+	<!-- 委外退料入库相关功能 -->
+	<!-- 新增委外退料入库 -->
+	<!-- 查询委外退料来料单信息 -->
+	<ifs ifs_code="WMS_ZX00076" ifs_name="查询委外退料来料单信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+	    <ifs_biz biz_code="InitListQueryOutofReturn" biz_method="" serial_no="1" biz_name="InitListQueryOutofReturn" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 查询委外退料领料单信息 -->
+	<ifs ifs_code="WMS_ZX00077" ifs_name="查询委外退料领料单信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+	    <ifs_biz biz_code="queryPICKED" biz_method="" serial_no="1" biz_name="queryPICKED" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	</ifss>

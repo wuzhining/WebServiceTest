@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="">  	
+		<!-- 查询参数信息 -->
+	<select id="queryMoniParaList" parameterType="hashmap" resultType="java.util.HashMap">
+	    <include refid="oraclePagingFileTop"></include>  	 
+		  PARAM_ID,PARAM_NAME,PARAM_DESC, PARAM_VALAREA,PARAM_CREATOR,
+		 to_char(PARAM_CREATDATE,'yyyy-mm-dd HH24:mi:ss')  PARAM_CREATDATE,
+		 PARAM_MODIFIER,
+		 to_char(PARAM_MODIFYDATE,'yyyy-mm-dd HH24:mi:ss') PARAM_MODIFYDATE,
+		 PARAM_TYPE 
+		 from SCADA_Param  
+		 <where>1=1
+		 <if test="name!=null and name!='' ">
+		 and PARAM_NAME like '%${name}%'
+		 </if>
+		 </where>
+		     <include refid="oraclePagingFileBottom"></include>   	
+	</select>
+	
+	<!-- 参数列表分页总数 -->
+	<select id="queryMoniParaList_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+	SELECT COUNT(1) ROWS_COUNT from SCADA_Param
+		  <where> 1=1 
+		  <if test="PARAM_NAME!=null and PARAM_NAME!='' and flag!='true'">
+		 and PARAM_NAME like '%${name}%'
+		 </if>
+		  </where>
+	</select>
+	
+	<!-- 修改参数信息 -->
+	    <update id="updateMoniParaList" parameterType="hashmap">
+	    	update SCADA_Param
+	    	<set>
+	    		<if test="PARAM_NAME!=null and PARAM_NAME!= ''">PARAM_NAME='${PARAM_NAME}',</if>
+	    		<if test="PARAM_DESC!=null and PARAM_DESC!= ''">PARAM_DESC='${PARAM_DESC}',</if>
+	    		<if test="PARAM_VALAREA!=null and PARAM_VALAREA!= ''">PARAM_VALAREA='${PARAM_VALAREA}',</if>
+	    		<if test="PARAM_TYPE!=null and PARAM_TYPE!= ''">PARAM_TYPE='${PARAM_TYPE}',</if>
+	    		PARAM_MODIFIER = '${F_USE_CD}',
+	    		PARAM_MODIFYDATE = sysdate
+	    	</set>
+	    	where PARAM_ID='${PARAM_ID}'
+	    </update>
+	    
+	    <!-- 删除参数信息--> 
+	    <delete id="deleteMoniParaList" parameterType="hashmap">
+	            DELETE SCADA_Param
+	             	where
+	             		PARAM_ID IN
+	             	<foreach collection="list"  index="index" item="item" open="(" separator="," close=")"  >
+       					#{item.PARAM_ID}
+      				</foreach>
+	    </delete>  
+	    
+	    <!-- 新增参数信息 -->
+	    <insert id="insertMoniParaList" parameterType="hashmap">
+		insert into SCADA_Param(PARAM_ID,PARAM_NAME,PARAM_DESC,PARAM_VALAREA,PARAM_CREATOR,PARAM_CREATDATE,PARAM_TYPE)
+		<selectKey resultType="int" keyProperty="PARAM_ID" order="BEFORE"> 
+            select SCADA_PARAM_SEQ.NEXTVAL from DUAL 
+        </selectKey>
+		values('${PARAM_ID}','${PARAM_NAME}','${PARAM_DESC}','${PARAM_VALAREA}','${F_USE_CD}',sysdate,'${PARAM_TYPE}')
+	</insert>  
+	
+ </mapper>
+ 
+ 
+ 

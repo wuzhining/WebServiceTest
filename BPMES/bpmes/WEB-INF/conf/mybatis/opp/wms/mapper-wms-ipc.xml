@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="">
+    <select id="queryPoDataList" parameterType="hashmap" resultType="java.util.HashMap">
+		<include refid="oraclePagingFileTop"></include>
+		ROW_NUMBER() OVER (ORDER BY A.POID DESC) AS rows,  
+		   A.cPoID AS PO_NO, 
+       CONVERT(varchar(100), A.dPoDate, 20) AS PO_DATE, 
+       B.cinvCode AS MATERIAL_ID, 
+       C.cinvName AS MATERIAL_NAME, 
+       cinvStd AS SPEC_MODEL, 
+			 'WARRIVAL-01' AS BILL_TYPE, 
+	     CAST(iQuantity AS INT) AS QTY,  
+       A.cVenCode AS SUPPLIER_ID, 
+       D.cvenName AS SUPPLIER_NAME, 
+       D.cvenAddress 
+  	   from PO_Pomain A inner join PO_Podetails  B on A.POID=B.POID
+  	   inner join inventory C on B.cinvCode=C.cinvCode 
+  	   inner join Vendor D on A.cVenCode=D.cVenCode
+		<where> 1=1
+			<if test="PO_NO !=null and PO_NO !='' "> AND A.cPoID LIKE '%${PO_NO}%'</if>
+			<if test="qMaterialId !=null and qMaterialId !='' "> AND B.cinvCode LIKE '%${qMaterialId}%'</if>
+			<if test="qSupplierName !=null and qSupplierName !='' "> AND D.cvenName LIKE '%${qSupplierName}%'</if>
+			<if test="qCrtDtBegin !=null and qCrtDtBegin !='' "> AND A.dPoDate &gt;= CONVERT(VARCHAR(10),'${qCrtDtBegin}',110) </if>
+			<if test="qCrtDtEnd !=null and qCrtDtEnd !='' "> AND A.dPoDate &lt;= CONVERT(VARCHAR(10),'${qCrtDtEnd}',110) </if>
+		</where>  
+		<include refid="oraclePagingFileBottom"></include>		
+	</select>
+	<select id="queryPoDataList_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT COUNT(1) AS ROWS_COUNT 
+	   from PO_Pomain A inner join PO_Podetails  B on A.POID=B.POID
+  	   inner join inventory C on B.cinvCode=C.cinvCode 
+  	   inner join Vendor D on A.cVenCode=D.cVenCode
+		<where> 1=1
+			<if test="PO_NO !=null and PO_NO !='' "> AND A.cPoID LIKE '%${PO_NO}%'</if>
+			<if test="qMaterialId !=null and qMaterialId !='' "> AND B.cinvCode LIKE '%${qMaterialId}%'</if>
+			<if test="qSupplierName !=null and qSupplierName !='' "> AND D.cvenName LIKE '%${qSupplierName}%'</if>
+			<if test="qCrtDtBegin !=null and qCrtDtBegin !='' "> AND A.dPoDate &gt;= CONVERT(VARCHAR(10),'${qCrtDtBegin}',110) </if>
+			<if test="qCrtDtEnd !=null and qCrtDtEnd !='' "> AND A.dPoDate &lt;= CONVERT(VARCHAR(10),'${qCrtDtEnd}',110) </if>
+		</where> 
+	</select>
+	<select id="queryMoDataList" parameterType="hashmap" resultType="java.util.HashMap">
+		<include refid="oraclePagingFileTop"></include>
+			   b.wo_no as mo_no,
+		       b.MAT_CD AS MATERIAL_ID,
+		       b.MAT_NM AS MATERIAL_NAME,
+		       b.REQ_QTY AS PRO_QTY,
+		       '011' as T_STORE_ID,
+		       b.CRT_ID,
+		       to_char(b.CRT_DT,'yyyy-mm-dd') as MO_DATE 
+			from R_MES_WO_T  a
+			left join R_MES_REQ_MAT_T b
+			on   a.mo_no=b.mo_no
+			and  a.wo_no=b.wo_no
+		<where> WO_STATE in (7, 8) and b.REQ_QTY &lt;= REQ_PROC_QTY
+			<if test="qMoNo !=null and qMoNo !='' "> AND b.wo_no LIKE '%${qMoNo}%'</if>
+			<!-- <if test="billType !=null and billType !='' "> 
+			    <choose>
+	                <when test="billType =='WOUTSTORE-01'">
+	                      AND T1.PARTQTY &gt; T1.yqty
+	                </when>
+	                <otherwise>
+	                     AND T1.PARTQTY=T1.yqty
+	                </otherwise>
+            	</choose>
+			</if> -->
+			<if test="qMaterialId !=null and qMaterialId !='' "> AND b.MAT_CD LIKE '${qMaterialId}%'</if>
+			<if test="qMoStore !=null and qMoStore !='' "> AND T1.PARTWH = '${qMoStore}'</if>
+			<if test="qMoDtBegin !=null and qMoDtBegin !='' "> AND to_date(b.CRT_DT,'yyyy-mm-dd') &gt;= to_date('${qMoDtEnd}','yyyy-mm-dd')</if>
+			<if test="qMoDtEnd !=null and qMoDtEnd !='' "> AND to_date(b.CRT_DT,'yyyy-mm-dd') &lt;= to_date('${qMoDtEnd}','yyyy-mm-dd')</if>
+		</where>  
+		<include refid="oraclePagingFileBottom"></include>
+	</select>
+	<select id="queryMoDataList_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT COUNT(1) AS ROWS_COUNT from R_MES_WO_T  a
+			left join R_MES_REQ_MAT_T b
+			on   a.mo_no=b.mo_no
+			and  a.wo_no=b.wo_no
+		<where> WO_STATE in (7, 8) and b.REQ_QTY &lt;= REQ_PROC_QTY
+			<if test="qMoNo !=null and qMoNo !='' "> AND b.wo_no LIKE '%${qMoNo}%'</if>
+			<!-- <if test="billType !=null and billType !='' "> 
+			    <choose>
+	                <when test="billType =='WOUTSTORE-01'">
+	                      AND T1.PARTQTY &gt; T1.yqty
+	                </when>
+	                <otherwise>
+	                     AND T1.PARTQTY=T1.yqty
+	                </otherwise>
+            	</choose>
+			</if> -->
+			<if test="qMaterialId !=null and qMaterialId !='' "> AND b.MAT_CD LIKE '${qMaterialId}%'</if>
+			<if test="qMoStore !=null and qMoStore !='' "> AND T1.PARTWH = '${qMoStore}'</if>
+			<if test="qMoDtBegin !=null and qMoDtBegin !='' "> AND to_date(b.CRT_DT,'yyyy-mm-dd') &gt;= to_date('${qMoDtEnd}','yyyy-mm-dd')</if>
+			<if test="qMoDtEnd !=null and qMoDtEnd !='' "> AND to_date(b.CRT_DT,'yyyy-mm-dd') &lt;= to_date('${qMoDtEnd}','yyyy-mm-dd')</if>
+		</where>
+	</select>
+		 
+		 
+		<select id="queryTWDataList" parameterType="hashmap" resultType="java.util.HashMap">
+		<include refid="oraclePagingFileTop"></include>
+		ROW_NUMBER() OVER (ORDER BY T1.tw_dd DESC) AS rows,T1.tw_no AS TW_NO,T1.MRP_NO AS KENTA_NO,T1.ID_NO AS BOM_NO,T1.CUS_NO AS SUPPLIER_ID,T1.prd_no AS MATERIAL_ID,T1.prd_name AS MATERIAL_NAME,T1.BIL_TYPE,'WARRIVAL-04' AS BILL_TYPE,
+		CONVERT(varchar(100), T1.tw_dd, 20) AS TW_DATE,CAST(T1.QTY AS INT) AS QTY,CAST(T1.QTY_RTN AS INT) AS QTY_RTN,T1.WH AS R_STORE,T1.itm AS ITM,T1.USR AS CRT_ID,T1.partwh AS PARTWH,CAST(T1.partqty AS INT) AS PARTQTY FROM vQueryTW T1 
+		<where> 
+			<if test="qTwNo !=null and qTwNo !='' "> AND T1.tw_no LIKE '%${qTwNo}%'</if>
+			<if test="qMaterialId !=null and qMaterialId !='' "> AND T1.prd_no LIKE '%${qMaterialId}%'</if>
+			<if test="qKentaNo !=null and qKentaNo !='' "> AND T1.MRP_NO LIKE '%${qKentaNo}%'</if>
+			<if test="qTwStore !=null and qTwStore !='' "> AND T1.partwh = '${qTwStore}'</if>
+			<if test="qTwCrtDtBegin !=null and qTwCrtDtBegin !='' "> AND T1.tw_dd &gt;= CONVERT(VARCHAR(10),'${qTwCrtDtBegin}',110)</if>
+			<if test="qTwCrtDtEnd !=null and qTwCrtDtEnd !='' "> AND T1.tw_dd &lt;= CONVERT(VARCHAR(10),'${qTwCrtDtEnd}',110)</if>
+		</where>  
+		<include refid="oraclePagingFileBottom"></include>		
+	</select>
+	<select id="queryTWDataList_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+		SELECT COUNT(1) AS ROWS_COUNT FROM vQueryTW  T1 
+		<where> 1=1
+			<if test="qTwNo !=null and qTwNo !='' "> AND T1.tw_no LIKE '%${qTwNo}%'</if>
+			<if test="qMaterialId !=null and qMaterialId !='' "> AND T1.prd_no LIKE '%${qMaterialId}%'</if>
+			<if test="qKentaNo !=null and qKentaNo !='' "> AND T1.MRP_NO LIKE '%${qKentaNo}%'</if>
+			<if test="qTwStore !=null and qTwStore !='' "> AND T1.partwh = '${qTwStore}'</if>
+			<if test="qTwCrtDtBegin !=null and qTwCrtDtBegin !='' "> AND T1.tw_dd &gt;= CONVERT(VARCHAR(10),'${qTwCrtDtBegin}',110)</if>
+			<if test="qTwCrtDtEnd !=null and qTwCrtDtEnd !='' "> AND T1.tw_dd &lt;= CONVERT(VARCHAR(10),'${qTwCrtDtEnd}',110)</if>
+		</where>
+	</select>
+</mapper>
+
+
+

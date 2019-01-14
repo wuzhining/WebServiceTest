@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<engines>
+	<!-- 半成品管理-->
+	<!-- 半成品质检 -->
+	<engine engine_code="semiproductIqc" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="semiproductIqc" >
+	</engine>
+	
+	<!-- 半成品质检扫描标签返回信息 -->
+	<engine engine_code="semiproductIqcBarcode" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="semiproductIqcBarcode" >
+	</engine>
+	
+	<!-- 半成品报废 -->
+	<engine engine_code="semiproductScrap" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="semiproductScrap" >
+	</engine>
+	
+	<!-- 半成品报废扫描标签返回信息 -->
+	<engine engine_code="semiproductScrapBarcode" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="semiproductScrapBarcode" >
+	</engine>
+	
+	<!-- 半成品装箱 -->
+	<engine engine_code="semiproductPacking" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="semiproductPacking" >
+	</engine>
+	
+	<!-- 半成品装箱扫描标签返回信息 -->
+	<engine engine_code="semiproductPackingBarcode" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="semiproductPackingBarcode" >
+	</engine>
+	
+	<!-- 半成品箱检 -->
+	<engine engine_code="semiproductPackingCheck" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="semiproductPackingCheck" >
+	</engine>
+	
+	<!-- 半成品箱检扫描标签返回信息 -->
+	<engine engine_code="semiproductPackingCheckBarcode" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="semiproductPackingCheckBarcode" >
+	</engine>
+	
+	<!-- 查询半成品装箱 -->
+	<engine engine_code="querySemiproductPacking" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querySemiproductPacking" >
+	</engine>
+	
+	<!-- 半成品继续装箱 -->
+	<engine engine_code="semiproductPackingagain" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="semiproductPackingagain" >
+	</engine>
+	
+	<!-- 半成品装箱移除 -->
+	<engine engine_code="semiproductPackingdelete" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="semiproductPackingdelete" >
+	</engine>
+	
+	<!-- 半成品生产入库单 -->
+	<engine engine_code="semiproductInstore" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="semiproductInstore" >
+	</engine>
+	
+	<!-- 半成品生产入库单扫描标签返回信息 -->
+	<engine engine_code="semiproductInstoreBarcode" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="semiproductInstoreBarcode" >
+	</engine>
+	
+	<!-- 半成品删除判断 -->
+	<engine engine_code="querySemiproductDeleteCount" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="querySemiproductDeleteCount" >
+	</engine>
+	
+	<!-- 装箱是否移除 -->
+	<engine engine_code="semiproductBarcodeCheck" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="semiproductBarcodeCheck" >
+	</engine>
+	
+	<!-- 半成品条码补打 -->
+	<engine engine_code="semiproductBarcodeReplay" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="semiproductBarcodeReplay" >
+	</engine>
+	
+	
+	<!-- 成品管理-->
+	<!-- 成品拆包 -->
+	<engine engine_code="productpacking" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="productpacking" >
+	</engine>
+	
+	<!-- 成品拆包扫描标签返回信息 -->
+	<engine engine_code="productpackingBarcode" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="productpackingBarcode" >
+	</engine>
+	
+	<!-- 成品拆箱 -->
+	<engine engine_code="productremove" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="productremove" >
+	</engine>
+	
+	<!-- 成品拆箱扫描标签返回信息 -->
+	<engine engine_code="productremoveBarcode" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="productremoveBarcode" >
+	</engine>
+	
+	<!-- 成品合箱 -->
+	<engine engine_code="productunit" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="productunit" >
+	</engine>
+	
+	<!-- 成品合箱扫描标签返回信息 -->
+	<engine engine_code="productunitBarcode" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="productunitBarcode" >
+	</engine>
+	
+	<!-- 成品拆包条码补打 -->
+	<engine engine_code="productReplayBarcode" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="productReplayBarcode" >
+	</engine>
+	
+	<!-- 成品拆箱下架-->
+	<!-- 成品拆箱下架-->
+	<engine engine_code="packingToReturn" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="packingToReturn" >
+	</engine>
+	
+	<!-- 成品拆箱下架(查询标签信息) -->
+	<engine engine_code="queryPackingToReturn" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryPackingToReturn" >
+	</engine>
+	
+	
+	<!-- 成品拆箱上架-->
+	<!-- 成品拆箱上架-->
+	<engine engine_code="returnToPacking" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="returnToPacking" >
+	</engine>
+	
+	<!-- 成品拆箱上架(查询标签信息) -->
+	<engine engine_code="queryreturnToPacking" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryreturnToPacking" >
+	</engine>
+	
+	<!--  -->
+	<engine engine_code="getTaskWork" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="getTaskWork" >
+	</engine>
+	
+	
+	<!-- 半成品入库扫描标签返回信息 -->
+	<engine engine_code="semiproductIptBarcode" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="semiproductIptBarcode" >
+	</engine>
+	
+	<!--  半成品入库-->
+	<engine engine_code="semiproductIpt" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="semiproductIpt" >
+	</engine>
+</engines>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="">  	
+		<!-- 查询接口信息 -->
+	<select id="queryCollectionList" parameterType="hashmap" resultType="java.util.HashMap">
+	    <include refid="oraclePagingFileTop"></include>  	 
+		  API_ID,API_NAME,API_DESC,API_ADDR,API_CREATOR,
+		 to_char(API_CREATDATE,'yyyy-mm-dd HH24:mi:ss')  API_CREATDATE,
+		 API_MODIFIER,
+		 to_char(API_MODIFYDATE,'yyyy-mm-dd HH24:mi:ss') API_MODIFYDATE 
+		 from SCADA_API  
+		 <where>1=1
+		 <if test="name!=null and name!='' ">
+		 and API_NAME like '%${name}%'
+		 </if>
+		 </where>
+		     <include refid="oraclePagingFileBottom"></include>   	
+	</select>
+	
+	<!-- 接口列表分页总数 -->
+	<select id="queryCollectionList_COUNT" parameterType="hashmap" resultType="java.util.HashMap">
+	SELECT COUNT(1) ROWS_COUNT from SCADA_API
+		  <where> 1=1 
+		  <if test="API_NAME!=null and API_NAME!='' and flag!='true'">
+		 and API_NAME like '%${name}%'
+		 </if>
+		  </where>
+	</select>
+	
+	<!-- 修改接口信息 -->
+	    <update id="updateCollectionList" parameterType="hashmap">
+	    	update SCADA_API
+	    	<set>
+	    		<if test="API_NAME!=null and API_NAME!= ''">API_NAME='${API_NAME}',</if>
+	    		<if test="API_DESC!=null and API_DESC!= ''">API_DESC='${API_DESC}',</if>
+	    		<if test="API_ADDR!=null and API_ADDR!= ''">API_ADDR='${API_ADDR}',</if>
+	    		<!-- <if test="API_CREATOR!=null and API_CREATOR!= ''">API_CREATOR='${API_CREATOR}',</if> -->
+	    		<!-- <if test="API_CREATDATE!=null and API_CREATDATE!= ''">API_CREATDATE = to_date('${API_CREATDATE}','yyyy-mm-dd'),</if> -->
+	    		<!-- <if test="API_MODIFIER!=null and API_MODIFIER!= ''">API_MODIFIER='${API_MODIFIER}',</if> -->
+	    		API_MODIFIER='${F_USE_CD}',
+	    		API_MODIFYDATE = sysdate
+	    	</set>
+	    	where API_ID='${API_ID}'
+	    </update>
+	    
+	    <!-- 删除接口信息--> 
+	    <delete id="deleteCollectionList" parameterType="hashmap">
+	            DELETE SCADA_API
+	             	where
+	             		API_ID IN
+	             	<foreach collection="list"  index="index" item="item" open="(" separator="," close=")"  >
+       					#{item.API_ID}
+      				</foreach>
+	    </delete>  
+	    
+	    <!-- 新增接口信息 -->
+	    <insert id="insertCollectionList" parameterType="hashmap">
+		insert into SCADA_API(API_ID,API_NAME,API_DESC,API_ADDR,API_CREATOR,API_CREATDATE)
+		<selectKey resultType="int" keyProperty="API_ID" order="BEFORE"> 
+            select SCADA_API_SEU.NEXTVAL from DUAL 
+        </selectKey>
+		values('${API_ID}','${API_NAME}','${API_DESC}','${API_ADDR}','${F_USE_CD}',sysdate)
+	</insert>  
+	
+ </mapper>
+ 
+ 
+ 

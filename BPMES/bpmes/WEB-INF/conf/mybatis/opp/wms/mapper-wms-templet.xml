@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="">
+
+	<!-- ======工单退料管理====== -->
+   <!--  查询特定货位 -->
+   <select id="queryArrivalingOrderTemplet" parameterType="hashmap" resultType="java.util.HashMap"> 
+  		    select t1.arrival_no,t1.bill_type,t2.material_id from wms1.r_wms_arrival_t t1
+  		    join wms1.r_wms_arrival_detail_t t2 on t1.arrival_no=t2.arrival_no
+  		    <where>1=1
+  		    <if test="arrivalNo !=null or arrivalNo !='' ">and t1.arrival_no='${arrivalNo}'</if>
+  		    </where>
+   </select>
+</mapper>

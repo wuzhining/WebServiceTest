@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ifss>
+	<!-- A.2 调拨模块 -->
+	<!-- 查找内部调拨单信息 -->
+	<ifs ifs_code="WMS_AL00001" ifs_name="查找内部调拨单信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="InAllocationQuery" biz_method="" serial_no="1" biz_name="InAllocationQuery" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 查找内部调拨单详细信息 -->
+	<ifs ifs_code="WMS_AL00002" ifs_name="查找内部调拨单详细信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="InAllocationDetailQuery" biz_method="" serial_no="1" biz_name="InAllocationDetailQuery" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 查找外部调拨单信息 -->
+	<ifs ifs_code="WMS_AL00003" ifs_name="查找外部调拨单信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="OutAllocationQuery" biz_method="" serial_no="1" biz_name="OutAllocationQuery" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 查找外部调拨单详细信息 -->
+	<ifs ifs_code="WMS_AL00004" ifs_name="查找外部调拨单详细信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="OutAllocationDetailQuery" biz_method="" serial_no="1" biz_name="OutAllocationDetailQuery" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- PDA 内部调拨扫描物料标签接口 -->
+	<ifs ifs_code="WMS_AL00005" ifs_name="PDA 内部调拨扫描物料标签接口" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="InAllMateriaPda" biz_method="" serial_no="1" biz_name="InAllMateriaPda" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- PDA 查询内部调拨单序列ID -->
+	<ifs ifs_code="WMS_AL00006" ifs_name="PDA 内部调拨扫描物料标签接口" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="InAllIdQuery" biz_method="" serial_no="1" biz_name="InAllIdQuery" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	 <!-- PDA物料调拨下架 --> 
+	<ifs ifs_code="WMS_AL00007" ifs_name="PDA物料调拨下架" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="AllMaterialOut" biz_method="" serial_no="1" biz_name="AllMaterialOut" biz_type="3" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 调拨出库-->
+	<!-- 调拨出库下架-->
+	<ifs ifs_code="WMS_AL00008" ifs_name="调拨出库下架" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="AllocateOutput" biz_method="" serial_no="1" biz_name="AllocateOutput" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 扫描标签返回数据-->
+	<ifs ifs_code="WMS_AL00009" ifs_name="扫描标签返回数据" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="AllocateBarcodeToMat" biz_method="" serial_no="1" biz_name="AllocateBarcodeToMat" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 原料调拨查询目标仓库-->
+	<ifs ifs_code="WMS_AL00010" ifs_name="原料调拨查询目标仓库" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryTargetStore" biz_method="" serial_no="1" biz_name="queryTargetStore" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 查询无条码物料位置详情-->
+	<ifs ifs_code="WMS_AL00011" ifs_name="查询无条码物料位置详情" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryMaterialLocation" biz_method="" serial_no="1" biz_name="queryMaterialLocation" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 原料调拨查询仓库-->
+	<ifs ifs_code="WMS_AL00012" ifs_name="原料调拨查询仓库" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryAllocationStore" biz_method="" serial_no="1" biz_name="queryAllocationStore" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 原料调拨入库-->
+	<!-- 查询原料调拨单-->
+	<ifs ifs_code="WMS_AL00013" ifs_name="查询原料调拨单" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryAllocationBill" biz_method="" serial_no="1" biz_name="queryAllocationBill" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 调拨入库上架-->
+	<ifs ifs_code="WMS_AL00014" ifs_name="调拨入库上架" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="AllocateInput" biz_method="" serial_no="1" biz_name="AllocateInput" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 查询调拨单详情-->
+	<ifs ifs_code="WMS_AL00015" ifs_name="查询调拨单详情" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryAllocationBillDetail" biz_method="" serial_no="1" biz_name="queryAllocationBillDetail" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 成品调拨出库-->
+	<!-- 成品调拨出库下架-->
+	<ifs ifs_code="WMS_AL00016" ifs_name="成品调拨出库下架" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="AllocateProOutput" biz_method="" serial_no="1" biz_name="AllocateProOutput" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 扫描标签返回成品数据-->
+	<ifs ifs_code="WMS_AL00017" ifs_name="扫描标签返回成品数据" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="AllocateBarcodeToPro" biz_method="" serial_no="1" biz_name="AllocateBarcodeToPro" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 成品调拨查询仓库-->
+	<ifs ifs_code="WMS_AL00018" ifs_name="成品调拨查询仓库" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryAllocationProStore" biz_method="" serial_no="1" biz_name="queryAllocationProStore" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 成品调拨查询目标仓库-->
+	<ifs ifs_code="WMS_AL00019" ifs_name="成品调拨查询目标仓库" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryTargetProStore" biz_method="" serial_no="1" biz_name="queryTargetProStore" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	
+	<!-- 成品调拨入库-->
+	<!-- 成品调拨入库上架-->
+	<ifs ifs_code="WMS_AL00020" ifs_name="成品调拨入库上架" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="AllocateProInput" biz_method="" serial_no="1" biz_name="AllocateProInput" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!--  查询未完成成品调拨单-->
+	<ifs ifs_code="WMS_AL00021" ifs_name=" 查询未完成成品调拨单" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryProAllocationBill" biz_method="" serial_no="1" biz_name="queryProAllocationBill" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	<!-- 查询成品调拨单详情-->
+	<ifs ifs_code="WMS_AL00022" ifs_name="查询成品调拨单详情" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryProAllocationBillDetail" biz_method="" serial_no="1" biz_name="queryProAllocationBillDetail" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	
+	<!-- 原料调拨-->
+	<!-- 原料调拨单主表查询-->
+    <ifs ifs_code="WMS_AL00023" ifs_name="原料调拨单主表查询" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+        <Bizes>
+             <ifs_biz biz_code="matAllocationBillQuery" biz_method="" serial_no="1" biz_name="matAllocationBillQuery" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs>
+     <!-- 原料调拨明细表查询-->
+     <ifs ifs_code="WMS_AL00024" ifs_name="原料调拨明细表查询" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+        <Bizes>
+             <ifs_biz biz_code="matAllocationDetailQuery" biz_method="" serial_no="1" biz_name="matAllocationDetailQuery" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs>
+     <!-- 原料调拨条码表查询-->
+     <ifs ifs_code="WMS_AL00025" ifs_name="原料调拨条码表查询" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+        <Bizes>
+             <ifs_biz biz_code="matAllocationSNQuery" biz_method="" serial_no="1" biz_name="matAllocationSNQuery" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs>
+     
+     
+     <!-- 成品调拨-->
+	<!-- 成品调拨单主表查询-->
+    <ifs ifs_code="WMS_AL00026" ifs_name="成品调拨单主表查询" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+        <Bizes>
+             <ifs_biz biz_code="proAllocationBillQuery" biz_method="" serial_no="1" biz_name="proAllocationBillQuery" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs>
+     <!-- 成品调拨明细表查询-->
+     <ifs ifs_code="WMS_AL00027" ifs_name="成品调拨明细表查询" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+        <Bizes>
+             <ifs_biz biz_code="proAllocationDetailQuery" biz_method="" serial_no="1" biz_name="proAllocationDetailQuery" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs>
+     <!-- 成品调拨条码表查询-->
+     <ifs ifs_code="WMS_AL00028" ifs_name="成品调拨条码表查询" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+        <Bizes>
+             <ifs_biz biz_code="proAllocationSNQuery" biz_method="" serial_no="1" biz_name="proAllocationSNQuery" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+     </ifs>
+</ifss>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<engines>
+	<!-- A.2 仓库调拨模块 -->
+	<!-- 查找内部调拨单信息 -->
+	<engine engine_code="InAllocationQuery" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="InAllocationQuery" ></engine>
+	
+	<!-- 查找内部调拨单详细信息 -->
+	<engine engine_code="InAllocationDetailQuery" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="InAllocationDetailQuery" ></engine>
+	
+	<!-- 查找外部调拨单信息 -->
+	<engine engine_code="OutAllocationQuery" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="OutAllocationQuery" ></engine>
+	
+	<!-- 查找外部调拨单详细信息 -->
+	<engine engine_code="OutAllocationDetailQuery" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="OutAllocationDetailQuery" ></engine>
+	
+	<!-- 调拨出库-->
+	<!-- 调拨出库下架-->
+	<engine engine_code="AllocateOutput" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="AllocateOutput" ></engine>
+	<!-- 扫描标签返回数据-->
+	<engine engine_code="AllocateBarcodeToMat" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="AllocateBarcodeToMat" ></engine>
+	<!-- 原料调拨查询目标仓库-->
+	<engine engine_code="queryTargetStore" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryTargetStore" ></engine>
+	<!-- 查询无条码物料位置详情-->
+	<engine engine_code="queryMaterialLocation" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryMaterialLocation" ></engine>
+	<!-- 原料调拨查询仓库-->
+	<engine engine_code="queryAllocationStore" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryAllocationStore" ></engine>
+	
+	<!-- 调拨入库-->
+	<!-- 查询未完成的调拨单-->
+	<engine engine_code="queryAllocationBill" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryAllocationBill" ></engine>
+	<!-- 调拨入库上架-->
+	<engine engine_code="AllocateInput" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="AllocateInput" ></engine>
+	<!-- 查询调拨单详情-->
+	<engine engine_code="queryAllocationBillDetail" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryAllocationBillDetail" ></engine>
+	
+	<!-- 成品调拨出库-->
+	<!-- 成品调拨出库下架-->
+	<engine engine_code="AllocateProOutput" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="AllocateProOutput" ></engine>
+	<!-- 扫描标签返回成品数据-->
+	<engine engine_code="AllocateBarcodeToPro" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="AllocateBarcodeToPro" ></engine>
+	<!-- 成品调拨查询仓库-->
+	<engine engine_code="queryAllocationProStore" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryAllocationProStore" ></engine>
+	<!-- 成品调拨查询目标仓库-->
+	<engine engine_code="queryTargetProStore" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryTargetProStore" ></engine>
+	
+	
+	<!-- 成品调拨入库-->
+	<!-- 成品调拨入库上架-->
+	<engine engine_code="AllocateProInput" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="AllocateProInput" ></engine>
+	<!-- 查询未完成成品调拨单-->
+	<engine engine_code="queryProAllocationBill" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryProAllocationBill" ></engine>
+	<!-- 查询成品调拨单详情-->
+	<engine engine_code="queryProAllocationBillDetail" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryProAllocationBillDetail" ></engine>
+	
+	
+	<!-- 原料调拨-->
+	<!-- 原料调拨单主表查询-->
+	<engine engine_code="matAllocationBillQuery" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="matAllocationBillQuery" ></engine>
+	<!-- 原料调拨明细表查询-->
+	<engine engine_code="matAllocationDetailQuery" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="matAllocationDetailQuery" ></engine>
+	<!-- 原料调拨条码表查询-->
+	<engine engine_code="matAllocationSNQuery" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="matAllocationSNQuery" ></engine>
+	
+	
+	<!-- 成品调拨-->
+	<!-- 成品调拨单主表查询-->
+	<engine engine_code="proAllocationBillQuery" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="proAllocationBillQuery" ></engine>
+	<!-- 成品调拨明细表查询-->
+	<engine engine_code="proAllocationDetailQuery" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="proAllocationDetailQuery" ></engine>
+	<!-- 成品调拨条码表查询-->
+	<engine engine_code="proAllocationSNQuery" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="proAllocationSNQuery" ></engine>
+	
+</engines>

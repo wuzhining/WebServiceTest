@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<engines>
+<!-- 出货记录表 -->
+<!-- 出货记录汇总 -->
+	<engine engine_code="queryProOutputSum" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryProOutputSum" ></engine>
+<!-- 出货记录详情 -->
+	<engine engine_code="queryProOutputDetail" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryProOutputDetail" ></engine>
+	
+	
+<!-- 收发存汇总表 -->
+<!-- 收发存物料汇总表-->
+	<engine engine_code="queryReceiveMat" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryReceiveMat" ></engine>
+<!-- 收发存物料入库汇总表-->
+	<engine engine_code="queryReceiveInStore" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryReceiveInStore" ></engine>
+<!-- 收发存物料出库汇总表-->
+	<engine engine_code="queryReceiveOutStore" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryReceiveOutStore" ></engine>
+	
+	
+<!-- 物料追溯 -->
+<!-- 物料追溯来料报表-->
+	<engine engine_code="queryMaterialArrival" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryMaterialArrival" ></engine>
+<!-- 物料追溯质检单追溯-->
+	<engine engine_code="queryMaterialIQC" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryMaterialIQC" ></engine>	
+<!-- 物料追溯入库单追溯-->
+	<engine engine_code="queryMaterialInput" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryMaterialInput" ></engine>	
+<!-- 物料追溯拆包追溯-->
+	<engine engine_code="queryMaterialPackage" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryMaterialPackage" ></engine>
+<!-- 物料追溯领料单追溯-->
+	<engine engine_code="queryMaterialPicking" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryMaterialPicking" ></engine>
+<!-- 物料追溯投料追溯-->
+	<engine engine_code="queryMaterialFeeding" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryMaterialFeeding" ></engine>
+<!-- 物料追溯退料单追溯-->
+	<engine engine_code="queryMaterialReturn" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryMaterialReturn" ></engine>
+<!-- 物料追溯借出单追溯-->
+	<engine engine_code="queryMaterialLoan" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryMaterialLoan" ></engine>
+	
+<!-- 查询已完结的下架单-->
+	<engine engine_code="queryFinMaterialDown" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryFinMaterialDown" ></engine>
+<!-- 查询已完结的下架单明细-->
+	<engine engine_code="queryFinMaterialDownDetail" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryFinMaterialDownDetail" ></engine>
+	<engine engine_code="queryProductAscend" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryProductAscend" ></engine>
+	<engine engine_code="queryAscendFeeding" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryAscendFeeding" ></engine>
+	<engine engine_code="queryAscendProdpicking" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryAscendProdpicking" ></engine>
+	<engine engine_code="queryAscendInstore" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryAscendInstore" ></engine>
+	<engine engine_code="queryAscendIQC" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryAscendIQC" ></engine>
+	<engine engine_code="queryAscendArrival" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryAscendArrival" ></engine>
+	<engine engine_code="queryAscendInOut" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryAscendInOut" ></engine>
+	
+	<engine engine_code="queryBillAscend" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryBillAscend" ></engine>
+	<engine engine_code="queryAscendMo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryAscendMo" ></engine>
+	<engine engine_code="queryAscendProd" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryAscendProd" ></engine>
+	<engine engine_code="queryAscendProdInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryAscendProdInfo" ></engine>
+	<engine engine_code="queryAscendFeed" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryAscendFeed" ></engine>
+	<engine engine_code="queryAscendReturn" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryAscendReturn" ></engine>
+	<engine engine_code="queryAscendReturnInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryAscendReturnInfo" ></engine>
+	<engine engine_code="queryAscendInput" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryAscendInput" ></engine>
+	<engine engine_code="queryAscendInputInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryAscendInputInfo" ></engine>
+	<engine engine_code="queryAscendOut" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryAscendOut" ></engine>
+	<engine engine_code="queryAscendOutInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryAscendOutInfo" ></engine>
+	<engine engine_code="queryAscendLost" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryAscendLost" ></engine>
+	<engine engine_code="queryAscendLostInfo" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryAscendLostInfo" ></engine>
+	
+	<!-- 仓库库存报表 -->
+    <!-- 查询标签具体信息 -->
+	<engine engine_code="queryWhBarcode" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryWhBarcode" ></engine>
+	
+	<!-- 备料看板 -->
+	<engine engine_code="queryBeiLiao" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryBeiLiao" ></engine>
+
+</engines>

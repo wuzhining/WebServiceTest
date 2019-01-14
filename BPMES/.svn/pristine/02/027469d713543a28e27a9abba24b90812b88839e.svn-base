@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<engines>
+	<!-- 1.1 采集接口列表管理 -->
+	<!-- 查询接口信息 -->
+	<engine engine_code="queryCollectionList" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryCollectionList" >
+	</engine>
+	
+	<!-- 修改接口信息 -->
+	<engine engine_code="updateCollectionList" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="updateCollectionList" >
+	</engine>
+	
+	<!-- 删除接口信息 -->
+	<engine engine_code="deleteCollectionList" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="deleteCollectionList" >
+	</engine>
+	
+	<!-- 新增接口信息 -->
+	<engine engine_code="insertCollectionList" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="insertCollectionList" >
+	</engine>
+	
+</engines>

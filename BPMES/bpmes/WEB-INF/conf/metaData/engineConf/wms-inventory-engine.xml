@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<engines>
+	<!-- A.2 仓库盘点模块 -->
+	<!-- 查询盘点任务ID -->
+	<engine engine_code="inventoryTaskIdQuery" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="inventoryTaskIdQuery" ></engine>
+	<!-- 查询盘点任务信息-->
+	<engine engine_code="inventoryTaskQuery" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="inventoryTaskQuery" ></engine>
+	<!-- 查询盘点任务标签信息-->
+	<engine engine_code="inventoryTaskSnQuery" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="inventoryTaskSnQuery" ></engine>
+	<!-- 查询盘点任务明细信息-->
+	<engine engine_code="inventoryDetailQuery" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="inventoryDetailQuery" ></engine>
+	<!-- 删除盘点任务-->
+	<engine engine_code="DeleteInvTask" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="DeleteInvTask" ></engine>
+	<!-- 新增盘点任务-->
+	<engine engine_code="InsertInvTask" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="InsertInvTask" ></engine>
+	<!-- 审核盘点任务-->
+	<engine engine_code="CheckInvTask" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="CheckInvTask" ></engine>
+	<!-- 查询盘点计划-->
+	<engine engine_code="queryInvPlan" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryInvPlan" ></engine>
+	<!-- 新增盘点计划-->
+	<engine engine_code="addInvPlan" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="addInvPlan" ></engine>
+	<!-- 查询盘点计划ID-->
+	<engine engine_code="queryInvPlanId" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryInvPlanId" ></engine>
+	<!-- 查询下拉盘点类型-->
+	<engine engine_code="queryComboxInvType" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryComboxInvType" ></engine>
+	<!-- 查询下拉盘点状态-->
+	<engine engine_code="queryComboxInvStatus" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryComboxInvStatus" ></engine>
+	<!-- 查询下拉盘点计划ID-->
+	<engine engine_code="queryComboxInvPlan" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryComboxInvPlan" ></engine>
+	<!-- 根据盘点计划单号查询所选盘点仓库信息-->
+	<engine engine_code="queryStoreInvPlan" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="queryStoreInvPlan" ></engine>
+	<!-- 删除盘点计划-->
+	<engine engine_code="DeleteInvPlan" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="DeleteInvPlan" ></engine>
+	<!-- pda查询盘点任务信息-->
+	<engine engine_code="inventoryTaskPda" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="inventoryTaskPda" ></engine>
+	<!-- pda根据货位查询盘点单下所有该货位的物料条码信息-->
+	<engine engine_code="inventoryTaskSnPda" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="inventoryTaskSnPda" ></engine>
+	<!-- pda根据货位查询盘点单下所有该货位的物料明细信息-->
+	<engine engine_code="inventoryTaskDetailPda" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="inventoryTaskDetailPda" ></engine>
+	<!-- pda扫描标签进行盘点-->
+	<engine engine_code="InvBarcodePda" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="InvBarcodePda" ></engine>
+	<!-- pda修改盘点单标签盘点数量-->
+	<engine engine_code="InvQtyPdaUpdate" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="InvQtyPdaUpdate" ></engine>
+	<!-- pda修改货位或者区域的盘点明细状态-->
+	<engine engine_code="InvStaPdaUpdate" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="InvStaPdaUpdate" ></engine>
+	<!-- 查询当前盘点时间之前仓库所有未处理完入库单-->
+	<engine engine_code="InvInStoreQuery" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="InvInStoreQuery" ></engine>
+	<!--pda盘点结束(修改盘点状态)-->
+	<engine engine_code="InvEndPdaUpdate" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="InvEndPdaUpdate" ></engine>
+	<!-- 查询当前盘点时间之前仓库所有未处理完出库单-->
+	<engine engine_code="InvOutStoreQuery" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="InvOutStoreQuery" ></engine>
+	<!-- 查询当前盘点时间之前仓库所有未处理完退货单-->
+	<engine engine_code="InvReturnQuery" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="InvReturnQuery" ></engine>
+	<!-- 查询当前盘点时间之前仓库所有未处理完退料单-->
+	<engine engine_code="InvReturnMatQuery" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="InvReturnMatQuery" ></engine>
+	<!-- 查询当前盘点时间之前仓库所有未处理完调拨单-->
+	<engine engine_code="InvAllocationQuery" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="InvAllocationQuery" ></engine>
+	<!-- 盘点任务审核-->
+	<engine engine_code="InvTaskCheck" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="InvTaskCheck" ></engine>
+	<!-- 盘点任务结束-->
+	<engine engine_code="InvTaskEnd" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="InvTaskEnd" ></engine>
+	<!-- 盘点盈亏结算-->
+	<engine engine_code="InvBreakeven" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="InvBreakeven" ></engine>
+	<!-- 盘点明细查询(盘点入库与盘点出库单)-->
+	<engine engine_code="InvInOutStore" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="InvInOutStore" ></engine>
+	<!-- 盘点明细查询(盘点入库与盘点出库单明细)-->
+	<engine engine_code="InvInOutStoreDetail" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="InvInOutStoreDetail" ></engine>
+	<!-- 盘点明细查询(盘点入库与盘点出库单条码明细)-->
+	<engine engine_code="InvInOutStoreSn" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="InvInOutStoreSn" ></engine>
+	<!-- 针对于系统内错乱货位扫描标签返回数据-->
+	<engine engine_code="InvDamageBarcode" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="InvDamageBarcode" ></engine>
+	<!-- 针对于系统内错乱货位的条码进行库内移位功能-->
+	<engine engine_code="InvDamage" engine_name="" engine_type="4" page_mode="3" engine_cate="1" attr1="InvDamage" ></engine>
+</engines>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ifss>
+    
+    <!-- 1.1 采集接口列表管理 -->
+    <!-- 查询接口信息 -->
+	<ifs ifs_code="SCD00001" ifs_name="查询接口信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="queryCollectionList" biz_method="" serial_no="1" biz_name="queryCollectionList" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 修改接口信息 -->
+	<ifs ifs_code="SCD00002" ifs_name="修改接口信息" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="updateCollectionList" biz_method="" serial_no="1" biz_name="updateCollectionList" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	 <!-- 删除接口信息 -->
+    <ifs ifs_code="SCD00003" ifs_name="删除接口字典" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="deleteCollectionList" biz_method="" serial_no="1" biz_name="deleteCollectionList" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+	<!-- 新增接口信息 -->
+    <ifs ifs_code="SCD00004" ifs_name="新增接口字典" ifs_type="1" ifs_cate="1" arrange_type="1" soap_enable="1" attr1="">
+		<Bizes>
+			<ifs_biz biz_code="insertCollectionList" biz_method="" serial_no="1" biz_name="insertCollectionList" biz_type="1" biz_cate="1" attr1="" />
+		</Bizes>
+	</ifs>
+	
+</ifss>
