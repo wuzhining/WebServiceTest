@@ -23,7 +23,7 @@ public class DflDipService implements IDflDipService {
 
 	@Override
 	public String StopService() {
-		return "Y";
+		return "N";
 	}
 
 	@Override
