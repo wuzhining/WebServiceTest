@@ -135,7 +135,7 @@
 		</div>
 		
 		<!-- 打印预览页面 -->
-		<div id="PrintPreview_openDiv" class="easyui-dialog " style="width: 640px;height: 355px;" closed="true" data-options="modal: true,
+		<div id="PrintPreview_openDiv" class="easyui-dialog " style="width: 640px;height: 385px;" closed="true" data-options="modal: true,
 				buttons: [{
 					text:'保存',
 					iconCls:'icon-ok',
@@ -150,7 +150,7 @@
 					}
 				}]">
 			<div region='north' id='tbsearch'
-					style="width: auto; height: 120px;">
+					style="width: auto; height: 140px;">
 					<table style="border-collapse:separate;border-spacing:10px;margin-top:10px">
 						<tr>
 							<td>生产线：</td>
@@ -196,6 +196,12 @@
 							<td><input id="txtLAST_BAR_CODE" name="postingdate" style="width: 160px;" class="easyui-textbox" readonly="readonly" disabled="disabled"/></td>
 							<td>本次打印张数：</td>
 							<td><input id="txtCurrentCount" name="postingdate" style="width: 160px;" class="easyui-numberbox" min = '1' precision = '0'/></td>
+						</tr>
+						<tr>
+							<td>标签模板：</td>
+							<td><input id="labelName" name="postingdate" style="width: 160px;" class="easyui-filebox" /></td>
+							<td>打印机：</td>
+							<td><input id="cbPrentName" name="postingdate" style="width: 160px;" class="easyui-combobox" /></td>
 						</tr>
 					</table>
 				</div>

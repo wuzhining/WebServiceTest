@@ -17,7 +17,7 @@ import org.mes.jax.test.config.ScadaTprodduraServiceService;
 public class TestScadaTprodduraService {
 
 	@Test
-	public void testScadaTemperService() throws Exception {
+	public void test() throws Exception {
 
 		Object jsonData = "{\"tduraUnit\":\"测试\",\"tduraId\":245,\"tduraCd\":\"INSERT\",\"tduraIp\":\"192.168.0.108\",\"tduraLong\":360,\"tduraSn\":\"AAAA\",\"tduraTime\":\"2019-01-07\",\"tduraEmp\":\"2019-01-07\"}";
 		String result = null;

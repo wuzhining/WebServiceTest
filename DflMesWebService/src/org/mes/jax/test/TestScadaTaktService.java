@@ -17,7 +17,7 @@ import org.mes.jax.test.config.ScadaTaktServiceService;
 public class TestScadaTaktService {
 
 	@Test
-	public void testScadaTemperService() throws Exception {
+	public void test() throws Exception {
 
 		Object jsonData = "{\"taktId\":245,\"taktCd\":\"INSERT\",\"taktIp\":\"192.168.0.108\",\"taktMany\":360,\"taktSn\":\"AAAA\",\"taktTime\":\"2019-01-07\",\"taktEmp\":\"2019-01-07\"}";
 		String result = null;

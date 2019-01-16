@@ -21,6 +21,7 @@
                 }
             };
 			iplantAjaxRequest(company)
+			
 			/*工厂下拉框查询*/
 			var tmp = {
 	                url: "/iPlant_ajax",
@@ -200,43 +201,53 @@
 		var now=year+p(month)+p(date);
 		/*获取当前日期END*/
 		
+		var path=$('#labelName').filebox('getValue');
+		console.info(path);
+		
+		var file = document.getElementById("labelName");
+		file.select();
+		var realPath = file.files.item(0).getAsDataURL();
+		console.info(realpath);
+		
+		
 		for (var i=0;i<workOrdeSNs.length;i++){
     		data1.push({"SN":workOrdeSNs[i].BAR_CODE,"LOTNO":workOrdeSNs[i].PRE_FIX,"DateTime":now});
-//    		barCodeStr = {printerName:'ZDesigner GK888t (EPL)',labName:"C:\\Program Files\\CPPInvoke\\conf\\mes04.lab","barCodeList":data1};
-    		barCodeStr = {labName:"mes04.lab","barCodeList":data1};
+//    		barCodeStr = {labName:"mes04.lab","barCodeList":data1};
 		}
-//		$.messager.progress({
-//			title:'提示信息' ,
-//			msg:'正在发送数据，请稍候...'
-//		});
-//		$.ajax({
-//	        url: '/iTaurus/PrinterService',
-//	        method: 'POST',
-////	        contentType: "application/x-www-form-urlencoded; charset=utf-8",
-//	        async: true,
-//	        data: {
-//	        	dataList:JSON.stringify(barCodeStr)
-//	        },
-//	        dataType: 'json',
-//	        success: function(data){
-//	        	$.messager.progress('close');
-////	        	var data=eval("("+response+")");
-//	        	if(data.MSG_CODE == '0000'){
-//	        		$.messager.alert('提示信息','数据已发送，请等待打印机工作','info');
-//	        	}else{
-//	        		$.messager.alert(data.RESPONSE_TEXT);
-//	        	}
-//	        },
-//	        error : function(error) {//失败
-//	        	$.messager.progress('close');
-//	        	$.messager.alert('提示信息','打印时发生错误','info');
-//	        }
-//	    });
+		barCodeStr = {printerName:'ZDesigner GK888t (EPL)',labName:"C:\\\\Program Files\\\\CPPInvoke\\\\conf\\\\mes04.lab","barCodeList":data1};
+		$.messager.progress({
+			title:'提示信息' ,
+			msg:'正在发送数据，请稍候...'
+		});
+		$.ajax({
+	        url: '/iTaurus/PrinterService',
+	        method: 'POST',
+//	        contentType: "application/x-www-form-urlencoded; charset=utf-8",
+	        async: true,
+	        data: {
+	        	step:'1',
+	        	dataList:JSON.stringify(barCodeStr)
+	        },
+	        dataType: 'json',
+	        success: function(data){
+	        	$.messager.progress('close');
+//	        	var data=eval("("+response+")");
+	        	if(data.MSG_CODE == '0000'){
+	        		$.messager.alert('提示信息','数据已发送，请等待打印机工作','info');
+	        	}else{
+	        		$.messager.alert(data.RESPONSE_TEXT);
+	        	}
+	        },
+	        error : function(error) {//失败
+	        	$.messager.progress('close');
+	        	$.messager.alert('提示信息','打印时发生错误','info');
+	        }
+	    });
 		
-		zbSocketPrinter(barCodeStr);
-		$('#PrintPreview_openDiv').dialog('close');
-		$.messager.alert("提示", '条码打印完成！');
-		initGridData();	
+//		zbSocketPrinter(barCodeStr);
+//		$('#PrintPreview_openDiv').dialog('close');
+//		$.messager.alert("提示", '条码打印完成！');
+//		initGridData();	
 	}
 	
 	/*是否打印弹出打印预览页面*/
@@ -317,7 +328,61 @@
            	}
         });      
 	}
-     
+	setUpPrintParams=function(){
+		//打印机列表
+		$.ajax({
+        url: '/iTaurus/PrinterService',
+        method: 'POST',
+        async: true,
+        data: {
+        	step:'2'
+        },
+        dataType: 'json',
+        success: function(data){
+        	$('#cbPrentName').combobox({
+        		valueField:'name',
+        		textField:'value',
+        		data: data
+        	});  
+        },
+        error : function(error) {
+        }
+    });
+		
+		$('#labelName').filebox({
+			buttonText:'...',
+			fileElementId:'labelFileName',
+			onChange:function(newfile,oldfile){
+				console.info(newfile);
+				console.info(oldfile);
+				var file =document.getElementById('labelName');
+				var realPath = getPath(file);
+			}
+		})
+	}
+	
+	function getPath(obj) 
+	{ 
+	  if(obj) 
+	    { 
+	    if (window.navigator.userAgent.indexOf("MSIE")>=1) 
+	      { 
+	          obj.select(); 
+	          document.getElementById("button").focus();
+	          return document.selection.createRange().text; 
+	    	
+	      } 
+	    else if(window.navigator.userAgent.indexOf("Firefox")>=1) 
+	      { 
+	      if(obj.files) 
+	        { 
+	        return obj.files.item(0).getAsDataURL(); 
+	        } 
+	      return obj.value; 
+	      } 
+	    return obj.value; 
+	    }  
+	}
      
      
 	factoryInfo.prototype = {
@@ -327,6 +392,8 @@
 				dataGrid = $('#theRepairOrderBarCodeQuery_tab'),dataCompany=[],dataFactory=[],showmessage=$('#showMessageInfo'),editIndex = undefined,oldRow=undefined, reg=new RegExp("null","g");
 				initGridData();
 				/*获取工厂类别下拉*/
+				
+				setUpPrintParams();
 				
 				$('#btnDelete').click(function(){
 					deleteDataGrid();

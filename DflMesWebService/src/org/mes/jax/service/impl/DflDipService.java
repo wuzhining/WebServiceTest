@@ -18,31 +18,31 @@ public class DflDipService implements IDflDipService {
 
 	@Override
 	public String StartService() {
-		return "Y";
+		return new ScadaDfldipDao().getStart();
 	}
 
 	@Override
 	public String StopService() {
-		return "N";
+		return new ScadaDfldipDao().getStop();
 	}
 
 	@Override
 	public String SetTimeService() {
-		return "";
+		return new ScadaDfldipDao().getSetTime();
 	}
 
 	@Override
 	public String SetTaktService() {
-		return "";
+		return new ScadaDfldipDao().getSetTakt();
 	}
 
 	@Override
 	public String SetID() {
-		return "";
+		return new ScadaDfldipDao().getSetId();
 	}
 
 	@Override
 	public String SetIP() {
-		return "";
+		return new ScadaDfldipDao().getSetIp();
 	}
 }

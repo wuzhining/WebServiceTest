@@ -17,7 +17,7 @@ import org.mes.jax.test.config.ScadaConvduraServiceService;
 public class TestScadaConvduraService {
 
 	@Test
-	public void testScadaTemperService() throws Exception {
+	public void test() throws Exception {
 
 		Object jsonData = "{\"convUnit\":\"测试\",\"convId\":245,\"convCd\":\"INSERT\",\"convIp\":\"192.168.0.108\",\"convLong\":360,\"convSn\":\"AAAA\",\"convTime\":\"2019-01-07\",\"convEmp\":\"2019-01-07\"}";
 		String result =null;

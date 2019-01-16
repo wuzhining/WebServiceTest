@@ -17,7 +17,7 @@ import org.mes.jax.test.config.ScadaPressServiceService;
 public class TestScadaPressService {
 
 	@Test
-	public void testScadaTemperService() throws Exception {
+	public void test() throws Exception {
 
 		Object jsonData = "{\"pressId\":245,\"pressCd\":\"INSERT\",\"pressIp\":\"192.168.0.108\",\"pressMany\":360,\"pressSn\":\"AAAA\",\"pressTime\":\"2019-01-07\",\"pressEmp\":\"2019-01-07\"}";
 		String result = null;

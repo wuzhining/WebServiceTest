@@ -9,17 +9,21 @@ import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.mes.jax.model.ScadaCtrlog;
 import org.mes.jax.model.ScadaDfldip;
 import org.mes.jax.service.impl.DflDipService;
 import org.mes.jax.utils.DBHelper;
 
-public class ScadaDfldipDao {
+public class ScadaDfldipDao implements IScadaDfldipDao {
 
-	//如果直接 className.class 日志输出到全局的 即rootLogger 指定的文件中
 	Logger logger = Logger.getLogger(DflDipService.class.getName());
-	//如果指定logger名字，则是把日志，输出到pay-log 指定的日志文件中去
-	//	Logger logger = Logger.getLogger(“pay-log”);
-	
+
+	/**
+	 * 添加数据
+	 * 
+	 * @param data
+	 * @return
+	 */
 	public String addScadaDfldip(Object data) {
 		List<String> dataList = new ArrayList<>();
 		dataList.add((String) data);
@@ -81,17 +85,122 @@ public class ScadaDfldipDao {
 					dbhelper.excuteUpdate(sql, list);
 				} catch (Exception e) {
 					e.printStackTrace();
-					logger.error("保存数据时发生错误！",e);
+					logger.error("保存数据时发生错误！", e);
 					return "保存数据时发生错误！";
 				}
 			}
 
 		} catch (JSONException e) {
 			e.printStackTrace();
-			logger.error("解析数据时发生错误！",e);
-			return  "解析数据时发生错误！";
+			logger.error("解析数据时发生错误！", e);
+			return "解析数据时发生错误！";
 		}
 		return "数据保存成功！";
 	}
-	
+
+	/**
+	 * 开机服务
+	 * 
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public String getStart() {
+		List<Object> list = new ArrayList<Object>();
+		List<Object> updateList;
+		DBHelper db = new DBHelper();
+
+		list.add("START");
+		String sql = "select ctr_id,ctr_cd,ctr_ip,ctr_cmd,ctr_time,prm_emp,send_flag from scada_ctrlog where send_flag is null and ctr_cmd=?";
+		List<ScadaCtrlog> ScadaCtrlogList;
+		try {
+
+			ScadaCtrlogList = (List<ScadaCtrlog>) db.executeQuery(sql, list, new ScadaCtrlog().getClass());
+
+			if (ScadaCtrlogList.size() >= 1) {
+				for (ScadaCtrlog scadaCtrlog : ScadaCtrlogList) {
+					updateList = new ArrayList<Object>();
+					updateList.add("Y");
+					updateList.add(scadaCtrlog.getCTR_CD());
+					updateList.add(scadaCtrlog.getCTR_CMD());
+					updateList.add(scadaCtrlog.getCTR_ID());
+					updateList.add(scadaCtrlog.getCTR_IP());
+					updateList.add(scadaCtrlog.getCTR_TIME());
+					updateList.add(scadaCtrlog.getPRM_EMP());
+
+					sql = "update scada_ctrlog set send_flag=? where ctr_cd=? and ctr_cmd=? and ctr_id=? and ctr_ip=? and ctr_time=? and prm_emp=?";
+
+					db.excuteUpdate(sql, updateList);
+				}
+				return "Y";
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "N";
+	}
+
+	/**
+	 * 停机
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public String getStop() {
+		List<Object> list = new ArrayList<Object>();
+		List<Object> updateList;
+		DBHelper db = new DBHelper();
+
+		list.add("STOP");
+		String sql = "select ctr_id,ctr_cd,ctr_ip,ctr_cmd,ctr_time,prm_emp,send_flag from scada_ctrlog where send_flag is null and ctr_cmd=?";
+		List<ScadaCtrlog> ScadaCtrlogList;
+		try {
+
+			ScadaCtrlogList = (List<ScadaCtrlog>) db.executeQuery(sql, list, new ScadaCtrlog().getClass());
+
+			if (ScadaCtrlogList.size() >= 1) {
+				for (ScadaCtrlog scadaCtrlog : ScadaCtrlogList) {
+					updateList = new ArrayList<Object>();
+					updateList.add("Y");
+					updateList.add(scadaCtrlog.getCTR_CD());
+					updateList.add(scadaCtrlog.getCTR_CMD());
+					updateList.add(scadaCtrlog.getCTR_ID());
+					updateList.add(scadaCtrlog.getCTR_IP());
+					updateList.add(scadaCtrlog.getCTR_TIME());
+					updateList.add(scadaCtrlog.getPRM_EMP());
+
+					sql = "update scada_ctrlog set send_flag=? where ctr_cd=? and ctr_cmd=? and ctr_id=? and ctr_ip=? and ctr_time=? and prm_emp=?";
+
+					db.excuteUpdate(sql, updateList);
+				}
+				return "Y";
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "N";
+	}
+
+	@Override
+	public String getSetTime() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getSetTakt() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getSetId() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getSetIp() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

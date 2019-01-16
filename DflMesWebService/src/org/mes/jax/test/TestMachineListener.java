@@ -17,7 +17,7 @@ import org.mes.jax.test.config.MachineListenerService;
 public class TestMachineListener {
 
 	@Test
-	public void testScadaTemperService() throws Exception {
+	public void test() throws Exception {
 
 		String result =null;
 		// 方法一

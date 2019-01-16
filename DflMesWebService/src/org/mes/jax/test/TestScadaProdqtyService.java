@@ -17,7 +17,7 @@ import org.mes.jax.test.config.ScadaProdqtyServiceService;
 public class TestScadaProdqtyService {
 
 	@Test
-	public void testScadaTemperService() throws Exception {
+	public void test() throws Exception {
 
 		Object jsonData = "{\"prodId\":245,\"prodCd\":\"INSERT\",\"prodIp\":\"192.168.0.108\",\"prodQty\":360,\"prodSn\":\"AAAA\",\"prodTime\":\"2019-01-07\",\"prodEmp\":\"2019-01-07\"}";
 		String result = null;

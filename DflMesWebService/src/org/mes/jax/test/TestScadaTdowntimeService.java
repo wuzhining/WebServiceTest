@@ -17,7 +17,7 @@ import org.mes.jax.test.config.ScadaTdowntimeServiceService;
 public class TestScadaTdowntimeService {
 
 	@Test
-	public void testScadaTemperService() throws Exception {
+	public void test() throws Exception {
 
 		Object jsonData = "{\"tdownUnit\":\"测试\",\"tdownId\":245,\"tdownCd\":\"INSERT\",\"tdownIp\":\"192.168.0.108\",\"tdownLong\":360,\"tdownSn\":\"AAAA\",\"tdownTime\":\"2019-01-07\",\"tdownEmp\":\"2019-01-07\"}";
 		String result = null;
