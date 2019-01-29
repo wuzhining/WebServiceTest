@@ -22,8 +22,10 @@
 	</context-param>
 	<listener>
 		<listener-class>
-			org.springframework.web.context.request.RequestContextListener</listener-class>
+			org.springframework.web.context.request.RequestContextListener
+		</listener-class>
 	</listener>
+
 
 	<filter>
 		<filter-name>encodingFilter</filter-name>
@@ -72,7 +74,18 @@
 	<!-- <load-on-startup>1</load-on-startup> -->
 	<!-- </servlet> -->
 
-
+	<!--  --><listener>
+		<listener-class>com.sun.xml.ws.transport.http.servlet.WSServletContextListener</listener-class>
+	</listener>
+	<servlet>
+		<servlet-name>DflDipWebService</servlet-name>
+		<servlet-class>com.sun.xml.ws.transport.http.servlet.WSServlet</servlet-class>
+		<load-on-startup>2</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DflDipWebService</servlet-name>
+		<url-pattern>/DflWebService</url-pattern>
+	</servlet-mapping>
 
 	<!-- <servlet-mapping> -->
 	<!-- <servlet-name>CXFServlet</servlet-name> -->
@@ -91,8 +104,7 @@
 	<!-- <servlet> <servlet-name>materiaExcelImport</servlet-name> <servlet-class>com.iplant.service.MateriaExcelParserServlet</servlet-class> 
 		</servlet> <servlet-mapping> <servlet-name>materiaExcelImport</servlet-name> 
 		<url-pattern>/materiaExcelImport</url-pattern> </servlet-mapping> -->
-		
-		
+
 	<servlet>
 		<servlet-name>PrinterService</servlet-name>
 		<servlet-class>com.mes.print.controller.PrinterController</servlet-class>
@@ -101,7 +113,7 @@
 		<servlet-name>PrinterService</servlet-name>
 		<url-pattern>/PrinterService</url-pattern>
 	</servlet-mapping>
-		
+
 	<servlet>
 		<servlet-name>test</servlet-name>
 		<servlet-class>com.wzn.test.PrintTestServlet</servlet-class>
@@ -110,7 +122,7 @@
 		<servlet-name>test</servlet-name>
 		<url-pattern>/test</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>materiaExcelImport</servlet-name>
 		<servlet-class>service.ImportDataServlet</servlet-class>
@@ -119,7 +131,7 @@
 		<servlet-name>materiaExcelImport</servlet-name>
 		<url-pattern>/materiaExcelImport</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>servletDownload</servlet-name>
 		<servlet-class>service.ServletDownload</servlet-class>

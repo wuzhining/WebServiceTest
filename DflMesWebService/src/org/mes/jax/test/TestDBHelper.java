@@ -29,7 +29,7 @@ public class TestDBHelper {
 					System.out.println(scadaCtrlog.getCTR_TIME());
 				}
 			}
-			Assert.assertNotNull("测试温度接口返回null,测试失败", data);
+			Assert.assertNotNull("测试接口返回null,测试失败", data);
 
 		} catch (Exception e) {
 			e.printStackTrace();

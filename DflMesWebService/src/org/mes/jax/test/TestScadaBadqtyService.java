@@ -29,13 +29,12 @@ public class TestScadaBadqtyService {
 		ScadaBadqtyService port = service.getPort(ScadaBadqtyService.class);
 
 		result = port.addScadaBadqty(jsonData);
-		Assert.assertNotNull("测试温度接口返回null,测试失败", result);
+		Assert.assertNotNull("测试接口返回null,测试失败", result);
 		
 	     // 方法二
-        //通过ScadaTemperServiceService的getScadaTemperServicePort()方法的奥addScadaTemper接口
 		ScadaBadqtyService  servicePort= new ScadaBadqtyServiceService().getScadaBadqtyServicePort();
         result = servicePort.addScadaBadqty(jsonData);
-        Assert.assertNotNull("测试温度接口返回null,测试失败", result);
+        Assert.assertNotNull("测试接口返回null,测试失败", result);
 //        System.out.println(result);
 	}
 }

@@ -29,13 +29,13 @@ public class TestScadaProdduraService {
 		ScadaProdduraService port = service.getPort(ScadaProdduraService.class);
 
 		result = port.addScadaProddura(jsonData);
-		Assert.assertNotNull("测试温度接口返回null,测试失败", result);
+		Assert.assertNotNull("测试接口返回null,测试失败", result);
 //		Assert.assertEquals("数据保存成功！", result, "测试成功！");
 
 		// 方法二
 		ScadaProdduraService servicePort = new ScadaProdduraServiceService().getScadaProdduraServicePort();
 		result = servicePort.addScadaProddura(jsonData);
-		Assert.assertNotNull("测试温度接口返回null,测试失败", result);
+		Assert.assertNotNull("测试接口返回null,测试失败", result);
 //        System.out.println(result);
 	}
 }

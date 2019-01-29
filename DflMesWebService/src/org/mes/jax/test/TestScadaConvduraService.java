@@ -20,7 +20,7 @@ public class TestScadaConvduraService {
 	public void test() throws Exception {
 
 		Object jsonData = "{\"convUnit\":\"测试\",\"convId\":245,\"convCd\":\"INSERT\",\"convIp\":\"192.168.0.108\",\"convLong\":360,\"convSn\":\"AAAA\",\"convTime\":\"2019-01-07\",\"convEmp\":\"2019-01-07\"}";
-		String result =null;
+		String result = null;
 		// 方法一
 		String address = "http://localhost:8091/DflMesWebService/ScadaConvduraService?wsdl";
 		URL url = new URL(address);
@@ -29,13 +29,13 @@ public class TestScadaConvduraService {
 		ScadaConvduraService port = service.getPort(ScadaConvduraService.class);
 
 		result = port.addScadaConvdura(jsonData);
-		Assert.assertNotNull("测试温度接口返回null,测试失败", result);
+		Assert.assertNotNull("测试接口返回null,测试失败", result);
 //		Assert.assertEquals("数据保存成功！", result, "测试成功！");
-		
-	     // 方法二
-		ScadaConvduraService servicePort= new ScadaConvduraServiceService().getScadaConvduraServicePort();
-        result = servicePort.addScadaConvdura(jsonData);
-        Assert.assertNotNull("测试温度接口返回null,测试失败", result);
+
+		// 方法二
+		ScadaConvduraService servicePort = new ScadaConvduraServiceService().getScadaConvduraServicePort();
+		result = servicePort.addScadaConvdura(jsonData);
+		Assert.assertNotNull("测试接口返回null,测试失败", result);
 //        System.out.println(result);
 	}
 }

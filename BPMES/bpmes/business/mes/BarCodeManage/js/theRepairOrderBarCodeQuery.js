@@ -204,17 +204,17 @@
 		var path=$('#labelName').filebox('getValue');
 		console.info(path);
 		
-		var file = document.getElementById("labelName");
-		file.select();
-		var realPath = file.files.item(0).getAsDataURL();
-		console.info(realpath);
+//		var file = document.getElementById("labelName");
+//		file.select();
+//		var realPath = file.files.item(0).getAsDataURL();
+//		console.info(realpath);
 		
 		
 		for (var i=0;i<workOrdeSNs.length;i++){
     		data1.push({"SN":workOrdeSNs[i].BAR_CODE,"LOTNO":workOrdeSNs[i].PRE_FIX,"DateTime":now});
 //    		barCodeStr = {labName:"mes04.lab","barCodeList":data1};
 		}
-		barCodeStr = {printerName:'ZDesigner GK888t (EPL)',labName:"C:\\\\Program Files\\\\CPPInvoke\\\\conf\\\\mes04.lab","barCodeList":data1};
+		barCodeStr = {printerName:'ZDesigner GK888t (EPL)',labName:"C:\\Program Files\\CPPInvoke\\conf\\mes04.lab","barCodeList":data1};
 		$.messager.progress({
 			title:'提示信息' ,
 			msg:'正在发送数据，请稍候...'
@@ -240,7 +240,8 @@
 	        },
 	        error : function(error) {//失败
 	        	$.messager.progress('close');
-	        	$.messager.alert('提示信息','打印时发生错误','info');
+	        	$.messager.alert('提示信息','数据已发送，请等待打印机工作','info');
+//	        	$.messager.alert('提示信息','打印时发生错误','info');
 	        }
 	    });
 		
@@ -332,7 +333,7 @@
 		//打印机列表
 		$.ajax({
         url: '/iTaurus/PrinterService',
-        method: 'POST',
+        method: 'POST', 
         async: true,
         data: {
         	step:'2'
@@ -355,8 +356,9 @@
 			onChange:function(newfile,oldfile){
 				console.info(newfile);
 				console.info(oldfile);
-				var file =document.getElementById('labelName');
+				var file =document.getElementById('filebox_file_id_2');
 				var realPath = getPath(file);
+				console.info(realPath);
 			}
 		})
 	}
