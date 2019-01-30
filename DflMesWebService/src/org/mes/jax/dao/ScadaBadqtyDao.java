@@ -23,8 +23,9 @@ public class ScadaBadqtyDao {
 				list.add(scadaBadqty.getBadQty());
 				list.add(scadaBadqty.getBadSn());
 				list.add(scadaBadqty.getBadTime());
+				
 			}
-		} catch (Exception e) {
+		} catch (Exception e) {  
 			e.printStackTrace();
 			return "转化数据时出现错误！";
 		}
