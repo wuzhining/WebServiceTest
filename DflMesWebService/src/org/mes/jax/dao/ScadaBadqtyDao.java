@@ -23,7 +23,7 @@ public class ScadaBadqtyDao {
 				list.add(scadaBadqty.getBadQty());
 				list.add(scadaBadqty.getBadSn());
 				list.add(scadaBadqty.getBadTime());
-				
+				 
 			}
 		} catch (Exception e) {  
 			e.printStackTrace();
