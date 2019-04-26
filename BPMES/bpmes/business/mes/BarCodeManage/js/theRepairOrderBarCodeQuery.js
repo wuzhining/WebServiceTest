@@ -214,18 +214,19 @@
     		data1.push({"SN":workOrdeSNs[i].BAR_CODE,"LOTNO":workOrdeSNs[i].PRE_FIX,"DateTime":now});
 //    		barCodeStr = {labName:"mes04.lab","barCodeList":data1};
 		}
-		barCodeStr = {printerName:'ZDesigner GK888t (EPL)',labName:"C:\\Program Files\\CPPInvoke\\conf\\mes04.lab","barCodeList":data1};
+		barCodeStr = {printerName:'ZDesigner GK888t (EPL)',labName:"C:\\B&P\\conf\\mes04.lab","barCodeList":data1};
 		$.messager.progress({
 			title:'提示信息' ,
 			msg:'正在发送数据，请稍候...'
 		});
+		
 		$.ajax({
 	        url: '/iTaurus/PrinterService',
 	        method: 'POST',
 //	        contentType: "application/x-www-form-urlencoded; charset=utf-8",
 	        async: true,
 	        data: {
-	        	step:'1',
+//	        	step:'1',
 	        	dataList:JSON.stringify(barCodeStr)
 	        },
 	        dataType: 'json',

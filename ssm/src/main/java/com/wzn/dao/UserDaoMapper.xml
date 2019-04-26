@@ -3,6 +3,7 @@
 
 <mapper namespace="com.wzn.dao.UserDao">
 
-<select resultType="com.wzn.domain.User" parameterType="String" id="findByUsername"> select * from user where username = #{username} </select>
+	<select resultType="com.wzn.domain.User" parameterType="String"
+		id="findByUsername"> select * from user where username = #{username} </select>
 
 </mapper>
